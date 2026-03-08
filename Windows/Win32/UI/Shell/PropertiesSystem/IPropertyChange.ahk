@@ -6,7 +6,7 @@
 
 /**
  * Exposes a method that encapsulates a change to a single property.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertychange
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertychange
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IPropertyChange extends IObjectWithPropertyKey{
      * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A pointer to a changed <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychange-applytopropvariant
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychange-applytopropvariant
      */
     ApplyToPropVariant(propvarIn) {
         ppropvarOut := PROPVARIANT()

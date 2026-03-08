@@ -5,7 +5,7 @@
 
 /**
  * Receives notifications about channel state changes or data received.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback
+ * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IWTSVirtualChannelCallback extends IUnknown{
      * @param {Integer} cbSize The size, in bytes, of the buffer to receive the data.
      * @param {Pointer<Integer>} pBuffer A pointer to a buffer to receive the data. This buffer is valid only until this call is complete.
      * @returns {HRESULT} Returns <b>S_OK</b> on success. Results in no action if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -47,7 +47,7 @@ class IWTSVirtualChannelCallback extends IUnknown{
     /**
      * Notifies the user that the channel has been closed.
      * @returns {HRESULT} Returns <b>S_OK</b> on success. Results in no action if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-onclose
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-onclose
      */
     OnClose() {
         result := ComCall(4, this, "HRESULT")

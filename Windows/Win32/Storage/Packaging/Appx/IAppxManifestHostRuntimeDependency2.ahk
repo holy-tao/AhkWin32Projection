@@ -30,10 +30,12 @@ class IAppxManifestHostRuntimeDependency2 extends IUnknown{
 
     /**
      * Gets the package family name for the specified process.
+     * @remarks
+     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefamilyname
      */
     GetPackageFamilyName() {
         result := ComCall(3, this, "ptr*", &packageFamilyName := 0, "HRESULT")

@@ -6,12 +6,10 @@
 /**
  * Provides the status of the system setting that allows users to change location settings.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  <b>ILocationPermissions</b> is available in Windows 8.</div>
  * <div> </div>
  * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-ilocationpermissions
+ * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-ilocationpermissions
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
@@ -38,8 +36,12 @@ class ILocationPermissions extends IUnknown{
 
     /**
      * Gets the status of the system setting that allows users to change location settings.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>GetGlobalLocationPermission</b> is available in Windows 8.</div>
+     * <div> </div>
+     * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
      * @returns {BOOL} <b>TRUE</b> if system settings allow users to enable or disable the location platform; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
      */
     GetGlobalLocationPermission() {
         result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
@@ -48,6 +50,10 @@ class ILocationPermissions extends IUnknown{
 
     /**
      * Gets the location capability of the Windows Store app of the given thread.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>CheckLocationCapability</b> is available in Windows 8.</div>
+     * <div> </div>
+     * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
      * @param {Integer} dwClientThreadId Thread Id of the app to check the location capability of
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -90,7 +96,7 @@ class ILocationPermissions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-ilocationpermissions-checklocationcapability
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-checklocationcapability
      */
     CheckLocationCapability(dwClientThreadId) {
         result := ComCall(4, this, "uint", dwClientThreadId, "HRESULT")

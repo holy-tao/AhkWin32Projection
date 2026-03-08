@@ -5,7 +5,7 @@
 
 /**
  * Represents a condition that is the negative of another condition.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationnotcondition
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationnotcondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IUIAutomationNotCondition extends IUIAutomationCondition{
 
     /**
      * Retrieves the condition of which this condition is the negative.
+     * @remarks
+     * The returned condition is the one that was used in creating this condition.
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationnotcondition-getchild
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationnotcondition-getchild
      */
     GetChild() {
         result := ComCall(3, this, "ptr*", &condition := 0, "HRESULT")

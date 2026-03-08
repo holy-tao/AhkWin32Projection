@@ -161,9 +161,10 @@ class IPinInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Defines each configuration setting and associates it with a name. The Connection element is optional.
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(pPin) {
         result := ComCall(15, this, "ptr", pPin, "HRESULT")
@@ -192,8 +193,11 @@ class IPinInfo extends IDispatch{
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
         result := ComCall(18, this, "HRESULT")
@@ -201,8 +205,28 @@ class IPinInfo extends IDispatch{
     }
 
     /**
+     * The Render method initializes the DVD filter graph.
+     * @remarks
+     * The `Render` method enables the **MSWebDVD** object to fully initialize the underlying DirectShow filter graph on startup. This eliminates the slight delay that otherwise occurs when the user issues the first command to play a disc or show a menu. There is no case in which `Render` needs to be called before calling any other method. For example, if the application calls [**PlayTitle**](playtitle-method.md) before the filter graph has been initialized, the **MSWebDVD** object calls `Render` automatically before attempting to play the disc.
+     * @returns {HRESULT} <span id="iRender"></span><span id="irender"></span><span id="IRENDER"></span>*iRender*
      * 
-     * @returns {HRESULT} 
+     * Specifies an integer value indicating whether the filter graph will be destroyed and rebuilt.
+     * 
+     * 
+     * 
+     * | Value | Description                                                                                         |
+     * |-------|-----------------------------------------------------------------------------------------------------|
+     * | 0     | The filter graph will not be destroyed and rebuilt if it already exists. This is the default value. |
+     * | 1     | The filter graph will be destroyed and rebuilt if it already exists.                                |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/render-method
      */
     Render() {
         result := ComCall(19, this, "HRESULT")

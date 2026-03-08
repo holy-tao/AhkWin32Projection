@@ -6,7 +6,7 @@
 
 /**
  * The IMDSPDirectTransfer interface enables Windows Media Device Manager to delegate content transfer to the service provider.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdspdirecttransfer
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdirecttransfer
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,6 +33,14 @@ class IMDSPDirectTransfer extends IUnknown{
 
     /**
      * The TransferToDevice method is called by Windows Media Device Manager to delegate content transfer content to the service provider. The source can be specified either as a file or as an operation interface.
+     * @remarks
+     * Windows Media Device Manager queries for <b>IMDSPDirectTransfer</b> interface during every transfer.
+     * 
+     * If the service provider supports the <b>IMDSPDirectTransfer</b> interface, Windows Media Device Manager simply delegates content transfer to the service provider. In this case, Windows Media Device Manager does not do any processing of the content before sending it to the service provider. The service provider gets full control of the source.
+     * 
+     * If the service provider does not support the <b>IMDSPDirectTransfer</b> interface, Windows Media Device Manager processes the source files and sends byte packets to the service provider. In addition, for protected content, Windows Media Device Manager calls the secure content provider to process the content before sending it to the service provider.
+     * 
+     * If <b>IMDSPDirectTransfer</b> is supported, Windows Media Device Manager delegates handling of the content to the service provider. This provides flexibility to the service provider for handling the content. In this case, the service provider is responsible for handling the protected content.
      * @param {PWSTR} pwszSourceFilePath Source file name. The value contained in this parameter should be ignored if WMDM_CONTENT_OPERATIONINTERFACE is specified.
      * @param {IWMDMOperation} pSourceOperation Operation interface pointer that serves as the source. The value contained in this parameter should be ignored unless WMDM_CONTENT_OPERATIONINTERFACE is specified.
      * @param {Integer} fuFlags 
@@ -40,7 +48,7 @@ class IMDSPDirectTransfer extends IUnknown{
      * @param {IWMDMMetaData} pSourceMetaData Metadata interface pointer. The metadata object contains the source properties. This parameter is optional.
      * @param {IWMDMProgress} pTransferProgress Progress callback interface. The service provider should update the information during the progress of the transfer. This parameter is optional.
      * @returns {IMDSPStorage} Newly created storage object. This parameter is optional. This can be <b>NULL</b> if the caller does not need to have the new object returned.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdirecttransfer-transfertodevice
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdirecttransfer-transfertodevice
      */
     TransferToDevice(pwszSourceFilePath, pSourceOperation, fuFlags, pwszDestinationName, pSourceMetaData, pTransferProgress) {
         pwszSourceFilePath := pwszSourceFilePath is String ? StrPtr(pwszSourceFilePath) : pwszSourceFilePath

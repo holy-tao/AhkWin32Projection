@@ -4,7 +4,7 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * Native interoperation interface that allows drawing on a surface object using a RECT to define the area to draw into. This interface is available in C++ only.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop
  * @namespace Windows.Win32.System.WinRT.Composition
  * @version v4.0.30319
@@ -31,12 +31,22 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     static VTableNames => ["BeginDraw", "EndDraw", "Resize", "Scroll", "ResumeDraw", "SuspendDraw"]
 
     /**
+     * Initiates drawing on the surface.
+     * @param {Pointer<RECT>} updateRect Type: <b>const RECT*</b>
      * 
-     * @param {Pointer<RECT>} updateRect 
-     * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} updateObject 
-     * @param {Pointer<POINT>} updateOffset 
-     * @returns {HRESULT} 
+     * The section of the surface to update. The update rectangle must be within the boundaries of the surface. Specifying nullptr indicates the entire surface should be updated.
+     * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
+     * 
+     * The identifier of the interface to retrieve.
+     * @param {Pointer<Pointer<Void>>} updateObject Type: <b>void**</b>
+     * 
+     * Receives an interface pointer of the type specified in the iid parameter. This parameter must not be NULL.
+     * @param {Pointer<POINT>} updateOffset Type: <b>POINT*</b>
+     * 
+     * The offset into the surface where the application should draw updated content. This offset will reference the upper left corner of the update rectangle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-begindraw
      */
     BeginDraw(updateRect, iid, updateObject, updateOffset) {
@@ -47,8 +57,10 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     }
 
     /**
+     * Marks the end of drawing on the surface object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-enddraw
      */
     EndDraw() {
@@ -57,9 +69,13 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     }
 
     /**
+     * Changes the size of the surface.
+     * @param {SIZE} sizePixels Type: <b>SIZE</b>
      * 
-     * @param {SIZE} sizePixels 
-     * @returns {HRESULT} 
+     * Width and height of the surface in pixels.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-resize
      */
     Resize(sizePixels) {
@@ -68,12 +84,22 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     }
 
     /**
+     * Scrolls a rectangular area of the logical surface.
+     * @param {Pointer<RECT>} scrollRect Type: <b>const RECT*</b>
      * 
-     * @param {Pointer<RECT>} scrollRect 
-     * @param {Pointer<RECT>} clipRect 
-     * @param {Integer} offsetX 
-     * @param {Integer} offsetY 
-     * @returns {HRESULT} 
+     * The rectangular area of the surface to be scrolled, relative to the upper-left corner of the surface. If this parameter is NULL, the entire surface is scrolled.
+     * @param {Pointer<RECT>} clipRect Type: <b>const RECT*</b>
+     * 
+     * The clipRect clips the destination (scrollRect after offset) of the scroll. The only bitmap content that will be scrolled are those that remain inside the clip rectangle after the scroll is completed.
+     * @param {Integer} offsetX Type: <b>int</b>
+     * 
+     * The amount of horizontal scrolling, in pixels. Use positive values to scroll right, and negative values to scroll left.
+     * @param {Integer} offsetY Type: <b>int</b>
+     * 
+     * The amount of vertical scrolling, in pixels. Use positive values to scroll down, and negative values to scroll up.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-scroll
      */
     Scroll(scrollRect, clipRect, offsetX, offsetY) {
@@ -82,8 +108,10 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     }
 
     /**
+     * Resumes drawing on the surface object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-resumedraw
      */
     ResumeDraw() {
@@ -92,8 +120,10 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
     }
 
     /**
+     * Suspends drawing on the surface object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-suspenddraw
      */
     SuspendDraw() {

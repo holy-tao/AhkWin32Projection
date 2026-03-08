@@ -367,11 +367,7 @@ class RightsManagement {
     static DRMSetGlobalOptions(eGlobalOptions, pvdata, dwlen) {
         pvdataMarshal := pvdata is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMSetGlobalOptions", "int", eGlobalOptions, pvdataMarshal, pvdata, "uint", dwlen, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetGlobalOptions", "int", eGlobalOptions, pvdataMarshal, pvdata, "uint", dwlen, "HRESULT")
         return result
     }
 
@@ -384,11 +380,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetclientversion
      */
     static DRMGetClientVersion(pDRMClientVersionInfo) {
-        result := DllCall("msdrm.dll\DRMGetClientVersion", "ptr", pDRMClientVersionInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetClientVersion", "ptr", pDRMClientVersionInfo, "HRESULT")
         return result
     }
 
@@ -433,11 +425,7 @@ class RightsManagement {
         phEnvMarshal := phEnv is VarRef ? "uint*" : "ptr"
         phDefaultLibraryMarshal := phDefaultLibrary is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMInitEnvironment", "int", eSecurityProviderType, "int", eSpecification, "ptr", wszSecurityProvider, "ptr", wszManifestCredentials, "ptr", wszMachineCredentials, phEnvMarshal, phEnv, phDefaultLibraryMarshal, phDefaultLibrary, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMInitEnvironment", "int", eSecurityProviderType, "int", eSpecification, "ptr", wszSecurityProvider, "ptr", wszManifestCredentials, "ptr", wszMachineCredentials, phEnvMarshal, phEnv, phDefaultLibraryMarshal, phDefaultLibrary, "HRESULT")
         return result
     }
 
@@ -464,11 +452,7 @@ class RightsManagement {
 
         phLibraryMarshal := phLibrary is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMLoadLibrary", "uint", hEnv, "int", eSpecification, "ptr", wszLibraryProvider, "ptr", wszCredentials, phLibraryMarshal, phLibrary, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMLoadLibrary", "uint", hEnv, "int", eSpecification, "ptr", wszLibraryProvider, "ptr", wszCredentials, phLibraryMarshal, phLibrary, "HRESULT")
         return result
     }
 
@@ -493,11 +477,7 @@ class RightsManagement {
 
         phEnablingPrincipalMarshal := phEnablingPrincipal is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateEnablingPrincipal", "uint", hEnv, "uint", hLibrary, "ptr", wszObject, "ptr", pidPrincipal, "ptr", wszCredentials, phEnablingPrincipalMarshal, phEnablingPrincipal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateEnablingPrincipal", "uint", hEnv, "uint", hLibrary, "ptr", wszObject, "ptr", pidPrincipal, "ptr", wszCredentials, phEnablingPrincipalMarshal, phEnablingPrincipal, "HRESULT")
         return result
     }
 
@@ -516,11 +496,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosehandle
      */
     static DRMCloseHandle(handle) {
-        result := DllCall("msdrm.dll\DRMCloseHandle", "uint", handle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCloseHandle", "uint", handle, "HRESULT")
         return result
     }
 
@@ -537,11 +513,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcloseenvironmenthandle
      */
     static DRMCloseEnvironmentHandle(hEnv) {
-        result := DllCall("msdrm.dll\DRMCloseEnvironmentHandle", "uint", hEnv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCloseEnvironmentHandle", "uint", hEnv, "HRESULT")
         return result
     }
 
@@ -559,11 +531,7 @@ class RightsManagement {
     static DRMDuplicateHandle(hToCopy, phCopy) {
         phCopyMarshal := phCopy is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDuplicateHandle", "uint", hToCopy, phCopyMarshal, phCopy, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDuplicateHandle", "uint", hToCopy, phCopyMarshal, phCopy, "HRESULT")
         return result
     }
 
@@ -581,11 +549,7 @@ class RightsManagement {
     static DRMDuplicateEnvironmentHandle(hToCopy, phCopy) {
         phCopyMarshal := phCopy is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDuplicateEnvironmentHandle", "uint", hToCopy, phCopyMarshal, phCopy, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDuplicateEnvironmentHandle", "uint", hToCopy, phCopyMarshal, phCopy, "HRESULT")
         return result
     }
 
@@ -603,11 +567,7 @@ class RightsManagement {
     static DRMRegisterRevocationList(hEnv, wszRevocationList) {
         wszRevocationList := wszRevocationList is String ? StrPtr(wszRevocationList) : wszRevocationList
 
-        result := DllCall("msdrm.dll\DRMRegisterRevocationList", "uint", hEnv, "ptr", wszRevocationList, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMRegisterRevocationList", "uint", hEnv, "ptr", wszRevocationList, "HRESULT")
         return result
     }
 
@@ -623,11 +583,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmchecksecurity
      */
     static DRMCheckSecurity(hEnv, cLevel) {
-        result := DllCall("msdrm.dll\DRMCheckSecurity", "uint", hEnv, "uint", cLevel, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCheckSecurity", "uint", hEnv, "uint", cLevel, "HRESULT")
         return result
     }
 
@@ -644,11 +600,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregistercontent
      */
     static DRMRegisterContent(fRegister) {
-        result := DllCall("msdrm.dll\DRMRegisterContent", "int", fRegister, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMRegisterContent", "int", fRegister, "HRESULT")
         return result
     }
 
@@ -678,11 +630,7 @@ class RightsManagement {
         pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : "ptr"
         pbOutDataMarshal := pbOutData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMEncrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMEncrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "HRESULT")
         return result
     }
 
@@ -709,11 +657,7 @@ class RightsManagement {
         pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : "ptr"
         pbOutDataMarshal := pbOutData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDecrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDecrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "HRESULT")
         return result
     }
 
@@ -763,11 +707,7 @@ class RightsManagement {
         phBoundLicenseMarshal := phBoundLicense is VarRef ? "uint*" : "ptr"
         phErrorLogMarshal := phErrorLog is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateBoundLicense", "uint", hEnv, "ptr", pParams, "ptr", wszLicenseChain, phBoundLicenseMarshal, phBoundLicense, phErrorLogMarshal, phErrorLog, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateBoundLicense", "uint", hEnv, "ptr", pParams, "ptr", wszLicenseChain, phBoundLicenseMarshal, phBoundLicense, phErrorLogMarshal, phErrorLog, "HRESULT")
         return result
     }
 
@@ -799,11 +739,7 @@ class RightsManagement {
 
         phDecryptorMarshal := phDecryptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, phDecryptorMarshal, phDecryptor, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, phDecryptorMarshal, phDecryptor, "HRESULT")
         return result
     }
 
@@ -835,11 +771,7 @@ class RightsManagement {
 
         phEncryptorMarshal := phEncryptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, phEncryptorMarshal, phEncryptor, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, phEncryptorMarshal, phEncryptor, "HRESULT")
         return result
     }
 
@@ -869,11 +801,7 @@ class RightsManagement {
 
         pcAttestedBlobMarshal := pcAttestedBlob is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMAttest", "uint", hEnablingPrincipal, "ptr", wszData, "int", eType, pcAttestedBlobMarshal, pcAttestedBlob, "ptr", wszAttestedBlob, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAttest", "uint", hEnablingPrincipal, "ptr", wszData, "int", eType, pcAttestedBlobMarshal, pcAttestedBlob, "ptr", wszAttestedBlob, "HRESULT")
         return result
     }
 
@@ -888,11 +816,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgettime
      */
     static DRMGetTime(hEnv, eTimerIdType, poTimeObject) {
-        result := DllCall("msdrm.dll\DRMGetTime", "uint", hEnv, "int", eTimerIdType, "ptr", poTimeObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetTime", "uint", hEnv, "int", eTimerIdType, "ptr", poTimeObject, "HRESULT")
         return result
     }
 
@@ -945,11 +869,7 @@ class RightsManagement {
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -987,11 +907,7 @@ class RightsManagement {
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -1012,11 +928,7 @@ class RightsManagement {
 
         ppfnProcAddressMarshal := ppfnProcAddress is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, ppfnProcAddressMarshal, ppfnProcAddress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, ppfnProcAddressMarshal, ppfnProcAddress, "HRESULT")
         return result
     }
 
@@ -1039,11 +951,7 @@ class RightsManagement {
 
         pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetBoundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetBoundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "HRESULT")
         return result
     }
 
@@ -1081,11 +989,7 @@ class RightsManagement {
 
         phSubObjectMarshal := phSubObject is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetBoundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iWhich, phSubObjectMarshal, phSubObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetBoundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iWhich, phSubObjectMarshal, phSubObject, "HRESULT")
         return result
     }
 
@@ -1108,11 +1012,7 @@ class RightsManagement {
 
         pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetBoundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttribute, pcAttributesMarshal, pcAttributes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetBoundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttribute, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 
@@ -1142,11 +1042,7 @@ class RightsManagement {
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetBoundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttribute, "uint", iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetBoundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttribute, "uint", iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -1178,11 +1074,7 @@ class RightsManagement {
 
         phClientMarshal := phClient is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
         return result
     }
 
@@ -1201,11 +1093,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmisactivated
      */
     static DRMIsActivated(hClient, uFlags, pActServInfo) {
-        result := DllCall("msdrm.dll\DRMIsActivated", "uint", hClient, "uint", uFlags, "ptr", pActServInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMIsActivated", "uint", hClient, "uint", uFlags, "ptr", pActServInfo, "HRESULT")
         return result
     }
 
@@ -1284,11 +1172,7 @@ class RightsManagement {
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMActivate", "uint", hClient, "uint", uFlags, "uint", uLangID, "ptr", pActServInfo, pvContextMarshal, pvContext, "ptr", hParentWnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMActivate", "uint", hClient, "uint", uFlags, "uint", uLangID, "ptr", pActServInfo, pvContextMarshal, pvContext, "ptr", hParentWnd, "HRESULT")
         return result
     }
 
@@ -1400,11 +1284,7 @@ class RightsManagement {
 
         puServiceURLLengthMarshal := puServiceURLLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetServiceLocation", "uint", hClient, "uint", uServiceType, "uint", uServiceLocation, "ptr", wszIssuanceLicense, puServiceURLLengthMarshal, puServiceURLLength, "ptr", wszServiceURL, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetServiceLocation", "uint", hClient, "uint", uServiceType, "uint", uServiceLocation, "ptr", wszIssuanceLicense, puServiceURLLengthMarshal, puServiceURLLength, "ptr", wszServiceURL, "HRESULT")
         return result
     }
 
@@ -1432,11 +1312,7 @@ class RightsManagement {
 
         phLicenseStorageMarshal := phLicenseStorage is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateLicenseStorageSession", "uint", hEnv, "uint", hDefaultLibrary, "uint", hClient, "uint", uFlags, "ptr", wszIssuanceLicense, phLicenseStorageMarshal, phLicenseStorage, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateLicenseStorageSession", "uint", hEnv, "uint", hDefaultLibrary, "uint", hClient, "uint", uFlags, "ptr", wszIssuanceLicense, phLicenseStorageMarshal, phLicenseStorage, "HRESULT")
         return result
     }
 
@@ -1455,11 +1331,7 @@ class RightsManagement {
     static DRMAddLicense(hLicenseStorage, uFlags, wszLicense) {
         wszLicense := wszLicense is String ? StrPtr(wszLicense) : wszLicense
 
-        result := DllCall("msdrm.dll\DRMAddLicense", "uint", hLicenseStorage, "uint", uFlags, "ptr", wszLicense, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAddLicense", "uint", hLicenseStorage, "uint", uFlags, "ptr", wszLicense, "HRESULT")
         return result
     }
 
@@ -1492,11 +1364,7 @@ class RightsManagement {
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMAcquireAdvisories", "uint", hLicenseStorage, "ptr", wszLicense, "ptr", wszURL, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAcquireAdvisories", "uint", hLicenseStorage, "ptr", wszLicense, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -1654,11 +1522,7 @@ class RightsManagement {
         pfSharedFlagMarshal := pfSharedFlag is VarRef ? "int*" : "ptr"
         puCertificateDataLenMarshal := puCertificateDataLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMEnumerateLicense", "uint", hSession, "uint", uFlags, "uint", uIndex, pfSharedFlagMarshal, pfSharedFlag, puCertificateDataLenMarshal, puCertificateDataLen, "ptr", wszCertificateData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMEnumerateLicense", "uint", hSession, "uint", uFlags, "uint", uIndex, pfSharedFlagMarshal, pfSharedFlag, puCertificateDataLenMarshal, puCertificateDataLen, "ptr", wszCertificateData, "HRESULT")
         return result
     }
 
@@ -1781,11 +1645,7 @@ class RightsManagement {
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMAcquireLicense", "uint", hSession, "uint", uFlags, "ptr", wszGroupIdentityCredential, "ptr", wszRequestedRights, "ptr", wszCustomData, "ptr", wszURL, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAcquireLicense", "uint", hSession, "uint", uFlags, "ptr", wszGroupIdentityCredential, "ptr", wszRequestedRights, "ptr", wszCustomData, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -1811,11 +1671,7 @@ class RightsManagement {
     static DRMDeleteLicense(hSession, wszLicenseId) {
         wszLicenseId := wszLicenseId is String ? StrPtr(wszLicenseId) : wszLicenseId
 
-        result := DllCall("msdrm.dll\DRMDeleteLicense", "uint", hSession, "ptr", wszLicenseId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDeleteLicense", "uint", hSession, "ptr", wszLicenseId, "HRESULT")
         return result
     }
 
@@ -1830,11 +1686,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosesession
      */
     static DRMCloseSession(hSession) {
-        result := DllCall("msdrm.dll\DRMCloseSession", "uint", hSession, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCloseSession", "uint", hSession, "HRESULT")
         return result
     }
 
@@ -1852,11 +1704,7 @@ class RightsManagement {
     static DRMDuplicateSession(hSessionIn, phSessionOut) {
         phSessionOutMarshal := phSessionOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDuplicateSession", "uint", hSessionIn, phSessionOutMarshal, phSessionOut, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDuplicateSession", "uint", hSessionIn, phSessionOutMarshal, phSessionOut, "HRESULT")
         return result
     }
 
@@ -1881,11 +1729,7 @@ class RightsManagement {
         puTypeLenMarshal := puTypeLen is VarRef ? "uint*" : "ptr"
         puPathLenMarshal := puPathLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetSecurityProvider", "uint", uFlags, puTypeLenMarshal, puTypeLen, "ptr", wszType, puPathLenMarshal, puPathLen, "ptr", wszPath, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetSecurityProvider", "uint", uFlags, puTypeLenMarshal, puTypeLen, "ptr", wszType, puPathLenMarshal, puPathLen, "ptr", wszPath, "HRESULT")
         return result
     }
 
@@ -1912,11 +1756,7 @@ class RightsManagement {
         pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : "ptr"
         puEncodedStringLenMarshal := puEncodedStringLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, "uint", uDataLen, pbDecodedDataMarshal, pbDecodedData, puEncodedStringLenMarshal, puEncodedStringLen, "ptr", wszEncodedString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, "uint", uDataLen, pbDecodedDataMarshal, pbDecodedData, puEncodedStringLenMarshal, puEncodedStringLen, "ptr", wszEncodedString, "HRESULT")
         return result
     }
 
@@ -1942,11 +1782,7 @@ class RightsManagement {
         puDecodedDataLenMarshal := puDecodedDataLen is VarRef ? "uint*" : "ptr"
         pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDecode", "ptr", wszAlgID, "ptr", wszEncodedString, puDecodedDataLenMarshal, puDecodedDataLen, pbDecodedDataMarshal, pbDecodedData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDecode", "ptr", wszAlgID, "ptr", wszEncodedString, puDecodedDataLenMarshal, puDecodedDataLen, pbDecodedDataMarshal, pbDecodedData, "HRESULT")
         return result
     }
 
@@ -1975,11 +1811,7 @@ class RightsManagement {
         rgwszCertificatesMarshal := rgwszCertificates is VarRef ? "ptr*" : "ptr"
         pcChainMarshal := pcChain is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMConstructCertificateChain", "uint", cCertificates, rgwszCertificatesMarshal, rgwszCertificates, pcChainMarshal, pcChain, "ptr", wszChain, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMConstructCertificateChain", "uint", cCertificates, rgwszCertificatesMarshal, rgwszCertificates, pcChainMarshal, pcChain, "ptr", wszChain, "HRESULT")
         return result
     }
 
@@ -2007,11 +1839,7 @@ class RightsManagement {
 
         phQueryRootMarshal := phQueryRoot is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMParseUnboundLicense", "ptr", wszCertificate, phQueryRootMarshal, phQueryRoot, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMParseUnboundLicense", "ptr", wszCertificate, phQueryRootMarshal, phQueryRoot, "HRESULT")
         return result
     }
 
@@ -2026,11 +1854,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosequeryhandle
      */
     static DRMCloseQueryHandle(hQuery) {
-        result := DllCall("msdrm.dll\DRMCloseQueryHandle", "uint", hQuery, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCloseQueryHandle", "uint", hQuery, "HRESULT")
         return result
     }
 
@@ -2053,11 +1877,7 @@ class RightsManagement {
 
         pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUnboundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUnboundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "HRESULT")
         return result
     }
 
@@ -2095,11 +1915,7 @@ class RightsManagement {
 
         phSubQueryMarshal := phSubQuery is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUnboundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iIndex, phSubQueryMarshal, phSubQuery, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUnboundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iIndex, phSubQueryMarshal, phSubQuery, "HRESULT")
         return result
     }
 
@@ -2120,11 +1936,7 @@ class RightsManagement {
 
         pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttributeType, pcAttributesMarshal, pcAttributes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttributeType, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 
@@ -2156,11 +1968,7 @@ class RightsManagement {
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttributeType, "uint", iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttributeType, "uint", iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -2180,11 +1988,7 @@ class RightsManagement {
 
         pcCertCountMarshal := pcCertCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetCertificateChainCount", "ptr", wszChain, pcCertCountMarshal, pcCertCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetCertificateChainCount", "ptr", wszChain, pcCertCountMarshal, pcCertCount, "HRESULT")
         return result
     }
 
@@ -2209,11 +2013,7 @@ class RightsManagement {
 
         pcCertMarshal := pcCert is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, "uint", iWhich, pcCertMarshal, pcCert, "ptr", wszCert, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, "uint", iWhich, pcCertMarshal, pcCert, "ptr", wszCert, "HRESULT")
         return result
     }
 
@@ -2243,11 +2043,7 @@ class RightsManagement {
         pcPrincipalMarshal := pcPrincipal is VarRef ? "uint*" : "ptr"
         pcManifestMarshal := pcManifest is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMVerify", "ptr", wszData, pcAttestedDataMarshal, pcAttestedData, "ptr", wszAttestedData, peTypeMarshal, peType, pcPrincipalMarshal, pcPrincipal, "ptr", wszPrincipal, pcManifestMarshal, pcManifest, "ptr", wszManifest, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMVerify", "ptr", wszData, pcAttestedDataMarshal, pcAttestedData, "ptr", wszAttestedData, peTypeMarshal, peType, pcPrincipalMarshal, pcPrincipal, "ptr", wszPrincipal, pcManifestMarshal, pcManifest, "ptr", wszManifest, "HRESULT")
         return result
     }
 
@@ -2302,11 +2098,7 @@ class RightsManagement {
 
         phUserMarshal := phUser is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateUser", "ptr", wszUserName, "ptr", wszUserId, "ptr", wszUserIdType, phUserMarshal, phUser, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateUser", "ptr", wszUserName, "ptr", wszUserId, "ptr", wszUserIdType, phUserMarshal, phUser, "HRESULT")
         return result
     }
 
@@ -2343,11 +2135,7 @@ class RightsManagement {
         pwszExtendedInfoValueMarshal := pwszExtendedInfoValue is VarRef ? "ptr*" : "ptr"
         phRightMarshal := phRight is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateRight", "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "uint", cExtendedInfo, pwszExtendedInfoNameMarshal, pwszExtendedInfoName, pwszExtendedInfoValueMarshal, pwszExtendedInfoValue, phRightMarshal, phRight, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateRight", "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "uint", cExtendedInfo, pwszExtendedInfoNameMarshal, pwszExtendedInfoName, pwszExtendedInfoValueMarshal, pwszExtendedInfoValue, phRightMarshal, phRight, "HRESULT")
         return result
     }
 
@@ -2483,11 +2271,7 @@ class RightsManagement {
 
         phIssuanceLicenseMarshal := phIssuanceLicense is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", "ptr", pstTimeFrom, "ptr", pstTimeUntil, "ptr", wszReferralInfoName, "ptr", wszReferralInfoURL, "uint", hOwner, "ptr", wszIssuanceLicense, "uint", hBoundLicense, phIssuanceLicenseMarshal, phIssuanceLicense, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", "ptr", pstTimeFrom, "ptr", pstTimeUntil, "ptr", wszReferralInfoName, "ptr", wszReferralInfoURL, "uint", hOwner, "ptr", wszIssuanceLicense, "uint", hBoundLicense, phIssuanceLicenseMarshal, phIssuanceLicense, "HRESULT")
         return result
     }
 
@@ -2506,11 +2290,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmaddrightwithuser
      */
     static DRMAddRightWithUser(hIssuanceLicense, hRight, hUser) {
-        result := DllCall("msdrm.dll\DRMAddRightWithUser", "uint", hIssuanceLicense, "uint", hRight, "uint", hUser, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAddRightWithUser", "uint", hIssuanceLicense, "uint", hRight, "uint", hUser, "HRESULT")
         return result
     }
 
@@ -2525,11 +2305,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclearallrights
      */
     static DRMClearAllRights(hIssuanceLicense) {
-        result := DllCall("msdrm.dll\DRMClearAllRights", "uint", hIssuanceLicense, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMClearAllRights", "uint", hIssuanceLicense, "HRESULT")
         return result
     }
 
@@ -2578,11 +2354,7 @@ class RightsManagement {
         wszContentType := wszContentType is String ? StrPtr(wszContentType) : wszContentType
         wszContentName := wszContentName is String ? StrPtr(wszContentName) : wszContentName
 
-        result := DllCall("msdrm.dll\DRMSetMetaData", "uint", hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, "ptr", wszSKUId, "ptr", wszSKUIdType, "ptr", wszContentType, "ptr", wszContentName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetMetaData", "uint", hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, "ptr", wszSKUId, "ptr", wszSKUIdType, "ptr", wszContentType, "ptr", wszContentName, "HRESULT")
         return result
     }
 
@@ -2654,11 +2426,7 @@ class RightsManagement {
 
         pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "int", fDelete, "int", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, pbDigestMarshal, pbDigest, "uint", cbDigest, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "int", fDelete, "int", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, pbDigestMarshal, pbDigest, "uint", cbDigest, "HRESULT")
         return result
     }
 
@@ -2690,11 +2458,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
 
-        result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "HRESULT")
         return result
     }
 
@@ -2719,11 +2483,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszValue := wszValue is String ? StrPtr(wszValue) : wszValue
 
-        result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszName, "ptr", wszValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszName, "ptr", wszValue, "HRESULT")
         return result
     }
 
@@ -2748,11 +2508,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszDescription := wszDescription is String ? StrPtr(wszDescription) : wszDescription
 
-        result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "int", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "int", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "HRESULT")
         return result
     }
 
@@ -2766,11 +2522,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetintervaltime
      */
     static DRMSetIntervalTime(hIssuanceLicense, cDays) {
-        result := DllCall("msdrm.dll\DRMSetIntervalTime", "uint", hIssuanceLicense, "uint", cDays, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMSetIntervalTime", "uint", hIssuanceLicense, "uint", cDays, "HRESULT")
         return result
     }
 
@@ -2799,11 +2551,7 @@ class RightsManagement {
 
         puIssuanceLicenseTemplateLengthMarshal := puIssuanceLicenseTemplateLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", "uint", hIssuanceLicense, puIssuanceLicenseTemplateLengthMarshal, puIssuanceLicenseTemplateLength, "ptr", wszIssuanceLicenseTemplate, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", "uint", hIssuanceLicense, puIssuanceLicenseTemplateLengthMarshal, puIssuanceLicenseTemplateLength, "ptr", wszIssuanceLicenseTemplate, "HRESULT")
         return result
     }
 
@@ -3238,11 +2986,7 @@ class RightsManagement {
         pbSymKeyMarshal := pbSymKey is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, pbSymKeyMarshal, pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, pbSymKeyMarshal, pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -3273,11 +3017,7 @@ class RightsManagement {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", pfnCallback, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", pfnCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -3292,11 +3032,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosepubhandle
      */
     static DRMClosePubHandle(hPub) {
-        result := DllCall("msdrm.dll\DRMClosePubHandle", "uint", hPub, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMClosePubHandle", "uint", hPub, "HRESULT")
         return result
     }
 
@@ -3314,11 +3050,7 @@ class RightsManagement {
     static DRMDuplicatePubHandle(hPubIn, phPubOut) {
         phPubOutMarshal := phPubOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMDuplicatePubHandle", "uint", hPubIn, phPubOutMarshal, phPubOut, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMDuplicatePubHandle", "uint", hPubIn, phPubOutMarshal, phPubOut, "HRESULT")
         return result
     }
 
@@ -3361,11 +3093,7 @@ class RightsManagement {
         puUserIdLengthMarshal := puUserIdLength is VarRef ? "uint*" : "ptr"
         puUserIdTypeLengthMarshal := puUserIdTypeLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUserInfo", "uint", hUser, puUserNameLengthMarshal, puUserNameLength, "ptr", wszUserName, puUserIdLengthMarshal, puUserIdLength, "ptr", wszUserId, puUserIdTypeLengthMarshal, puUserIdTypeLength, "ptr", wszUserIdType, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUserInfo", "uint", hUser, puUserNameLengthMarshal, puUserNameLength, "ptr", wszUserName, puUserIdLengthMarshal, puUserIdLength, "ptr", wszUserId, puUserIdTypeLengthMarshal, puUserIdTypeLength, "ptr", wszUserIdType, "HRESULT")
         return result
     }
 
@@ -3390,11 +3118,7 @@ class RightsManagement {
 
         puRightNameLengthMarshal := puRightNameLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetRightInfo", "uint", hRight, puRightNameLengthMarshal, puRightNameLength, "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetRightInfo", "uint", hRight, puRightNameLengthMarshal, puRightNameLength, "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "HRESULT")
         return result
     }
 
@@ -3430,11 +3154,7 @@ class RightsManagement {
         puExtendedInfoNameLengthMarshal := puExtendedInfoNameLength is VarRef ? "uint*" : "ptr"
         puExtendedInfoValueLengthMarshal := puExtendedInfoValueLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", "uint", hRight, "uint", uIndex, puExtendedInfoNameLengthMarshal, puExtendedInfoNameLength, "ptr", wszExtendedInfoName, puExtendedInfoValueLengthMarshal, puExtendedInfoValueLength, "ptr", wszExtendedInfoValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", "uint", hRight, "uint", uIndex, puExtendedInfoNameLengthMarshal, puExtendedInfoNameLength, "ptr", wszExtendedInfoName, puExtendedInfoValueLengthMarshal, puExtendedInfoValueLength, "ptr", wszExtendedInfoValue, "HRESULT")
         return result
     }
 
@@ -3453,11 +3173,7 @@ class RightsManagement {
     static DRMGetUsers(hIssuanceLicense, uIndex, phUser) {
         phUserMarshal := phUser is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUsers", "uint", hIssuanceLicense, "uint", uIndex, phUserMarshal, phUser, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUsers", "uint", hIssuanceLicense, "uint", uIndex, phUserMarshal, phUser, "HRESULT")
         return result
     }
 
@@ -3479,11 +3195,7 @@ class RightsManagement {
     static DRMGetUserRights(hIssuanceLicense, hUser, uIndex, phRight) {
         phRightMarshal := phRight is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUserRights", "uint", hIssuanceLicense, "uint", hUser, "uint", uIndex, phRightMarshal, phRight, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUserRights", "uint", hIssuanceLicense, "uint", hUser, "uint", uIndex, phRightMarshal, phRight, "HRESULT")
         return result
     }
 
@@ -3546,11 +3258,7 @@ class RightsManagement {
         puContentTypeLengthMarshal := puContentTypeLength is VarRef ? "uint*" : "ptr"
         puContentNameLengthMarshal := puContentNameLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetMetaData", "uint", hIssuanceLicense, puContentIdLengthMarshal, puContentIdLength, "ptr", wszContentId, puContentIdTypeLengthMarshal, puContentIdTypeLength, "ptr", wszContentIdType, puSKUIdLengthMarshal, puSKUIdLength, "ptr", wszSKUId, puSKUIdTypeLengthMarshal, puSKUIdTypeLength, "ptr", wszSKUIdType, puContentTypeLengthMarshal, puContentTypeLength, "ptr", wszContentType, puContentNameLengthMarshal, puContentNameLength, "ptr", wszContentName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetMetaData", "uint", hIssuanceLicense, puContentIdLengthMarshal, puContentIdLength, "ptr", wszContentId, puContentIdTypeLengthMarshal, puContentIdTypeLength, "ptr", wszContentIdType, puSKUIdLengthMarshal, puSKUIdLength, "ptr", wszSKUId, puSKUIdTypeLengthMarshal, puSKUIdTypeLength, "ptr", wszSKUIdType, puContentTypeLengthMarshal, puContentTypeLength, "ptr", wszContentType, puContentNameLengthMarshal, puContentNameLength, "ptr", wszContentName, "HRESULT")
         return result
     }
 
@@ -3586,11 +3294,7 @@ class RightsManagement {
         puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
         puValueLengthMarshal := puValueLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", "uint", hIssuanceLicense, "uint", uIndex, puNameLengthMarshal, puNameLength, "ptr", wszName, puValueLengthMarshal, puValueLength, "ptr", wszValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", "uint", hIssuanceLicense, "uint", uIndex, puNameLengthMarshal, puNameLength, "ptr", wszName, puValueLengthMarshal, puValueLength, "ptr", wszValue, "HRESULT")
         return result
     }
 
@@ -3636,11 +3340,7 @@ class RightsManagement {
         phOwnerMarshal := phOwner is VarRef ? "uint*" : "ptr"
         pfOfficialMarshal := pfOfficial is VarRef ? "int*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", "uint", hIssuanceLicense, "ptr", pstTimeFrom, "ptr", pstTimeUntil, "uint", uFlags, puDistributionPointNameLengthMarshal, puDistributionPointNameLength, "ptr", wszDistributionPointName, puDistributionPointURLLengthMarshal, puDistributionPointURLLength, "ptr", wszDistributionPointURL, phOwnerMarshal, phOwner, pfOfficialMarshal, pfOfficial, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", "uint", hIssuanceLicense, "ptr", pstTimeFrom, "ptr", pstTimeUntil, "uint", uFlags, puDistributionPointNameLengthMarshal, puDistributionPointNameLength, "ptr", wszDistributionPointName, puDistributionPointURLLengthMarshal, puDistributionPointURLLength, "ptr", wszDistributionPointURL, phOwnerMarshal, phOwner, pfOfficialMarshal, pfOfficial, "HRESULT")
         return result
     }
 
@@ -3700,11 +3400,7 @@ class RightsManagement {
         puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
         puPublicKeyLengthMarshal := puPublicKeyLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetRevocationPoint", "uint", hIssuanceLicense, puIdLengthMarshal, puIdLength, "ptr", wszId, puIdTypeLengthMarshal, puIdTypeLength, "ptr", wszIdType, puURLLengthMarshal, puURLLength, "ptr", wszRL, "ptr", pstFrequency, puNameLengthMarshal, puNameLength, "ptr", wszName, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetRevocationPoint", "uint", hIssuanceLicense, puIdLengthMarshal, puIdLength, "ptr", wszId, puIdTypeLengthMarshal, puIdTypeLength, "ptr", wszIdType, puURLLengthMarshal, puURLLength, "ptr", wszRL, "ptr", pstFrequency, puNameLengthMarshal, puNameLength, "ptr", wszName, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, "HRESULT")
         return result
     }
 
@@ -3782,11 +3478,7 @@ class RightsManagement {
         pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
         pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetUsagePolicy", "uint", hIssuanceLicense, "uint", uIndex, peUsagePolicyTypeMarshal, peUsagePolicyType, pfExclusionMarshal, pfExclusion, puNameLengthMarshal, puNameLength, "ptr", wszName, puMinVersionLengthMarshal, puMinVersionLength, "ptr", wszMinVersion, puMaxVersionLengthMarshal, puMaxVersionLength, "ptr", wszMaxVersion, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, puDigestAlgorithmLengthMarshal, puDigestAlgorithmLength, "ptr", wszDigestAlgorithm, pcbDigestMarshal, pcbDigest, pbDigestMarshal, pbDigest, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetUsagePolicy", "uint", hIssuanceLicense, "uint", uIndex, peUsagePolicyTypeMarshal, peUsagePolicyType, pfExclusionMarshal, pfExclusion, puNameLengthMarshal, puNameLength, "ptr", wszName, puMinVersionLengthMarshal, puMinVersionLength, "ptr", wszMinVersion, puMaxVersionLengthMarshal, puMaxVersionLength, "ptr", wszMaxVersion, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, puDigestAlgorithmLengthMarshal, puDigestAlgorithmLength, "ptr", wszDigestAlgorithm, pcbDigestMarshal, pcbDigest, pbDigestMarshal, pbDigest, "HRESULT")
         return result
     }
 
@@ -3823,11 +3515,7 @@ class RightsManagement {
         puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
         puDescriptionLengthMarshal := puDescriptionLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetNameAndDescription", "uint", hIssuanceLicense, "uint", uIndex, pulcidMarshal, pulcid, puNameLengthMarshal, puNameLength, "ptr", wszName, puDescriptionLengthMarshal, puDescriptionLength, "ptr", wszDescription, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetNameAndDescription", "uint", hIssuanceLicense, "uint", uIndex, pulcidMarshal, pulcid, puNameLengthMarshal, puNameLength, "ptr", wszName, puDescriptionLengthMarshal, puDescriptionLength, "ptr", wszDescription, "HRESULT")
         return result
     }
 
@@ -3848,11 +3536,7 @@ class RightsManagement {
 
         puOwnerLicenseLengthMarshal := puOwnerLicenseLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetOwnerLicense", "uint", hIssuanceLicense, puOwnerLicenseLengthMarshal, puOwnerLicenseLength, "ptr", wszOwnerLicense, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetOwnerLicense", "uint", hIssuanceLicense, puOwnerLicenseLengthMarshal, puOwnerLicenseLength, "ptr", wszOwnerLicense, "HRESULT")
         return result
     }
 
@@ -3868,11 +3552,7 @@ class RightsManagement {
     static DRMGetIntervalTime(hIssuanceLicense, pcDays) {
         pcDaysMarshal := pcDays is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetIntervalTime", "uint", hIssuanceLicense, pcDaysMarshal, pcDays, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMGetIntervalTime", "uint", hIssuanceLicense, pcDaysMarshal, pcDays, "HRESULT")
         return result
     }
 
@@ -3888,11 +3568,7 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmrepair
      */
     static DRMRepair() {
-        result := DllCall("msdrm.dll\DRMRepair", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMRepair", "HRESULT")
         return result
     }
 
@@ -3911,11 +3587,7 @@ class RightsManagement {
     static DRMRegisterProtectedWindow(hEnv, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("msdrm.dll\DRMRegisterProtectedWindow", "uint", hEnv, "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMRegisterProtectedWindow", "uint", hEnv, "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -3934,11 +3606,7 @@ class RightsManagement {
 
         pfProtectedMarshal := pfProtected is VarRef ? "int*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMIsWindowProtected", "ptr", hwnd, pfProtectedMarshal, pfProtected, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMIsWindowProtected", "ptr", hwnd, pfProtectedMarshal, pfProtected, "HRESULT")
         return result
     }
 
@@ -3971,11 +3639,7 @@ class RightsManagement {
         pwszTemplateIdsMarshal := pwszTemplateIds is VarRef ? "ptr*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMAcquireIssuanceLicenseTemplate", "uint", hClient, "uint", uFlags, pvReservedMarshal, pvReserved, "uint", cTemplates, pwszTemplateIdsMarshal, pwszTemplateIds, "ptr", wszUrl, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdrm.dll\DRMAcquireIssuanceLicenseTemplate", "uint", hClient, "uint", uFlags, pvReservedMarshal, pvReserved, "uint", cTemplates, pwszTemplateIdsMarshal, pwszTemplateIds, "ptr", wszUrl, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

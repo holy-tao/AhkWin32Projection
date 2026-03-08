@@ -34,8 +34,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSymbols() {
-        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(3, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
@@ -78,14 +78,14 @@ class IDebugSymbolGroup extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolName(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolName(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 

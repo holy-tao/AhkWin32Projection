@@ -5,7 +5,7 @@
 
 /**
  * Created and used by the IRDPSRAPITransportStream interface for sending and receiving data.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -152,9 +152,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it. (Get)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
      */
     get_Context() {
         result := ComCall(11, this, "ptr*", &ppContext := 0, "HRESULT")
@@ -162,10 +162,10 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it. (Put)
      * @param {IUnknown} pContext 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
      */
     put_Context(pContext) {
         result := ComCall(12, this, "ptr", pContext, "HRESULT")

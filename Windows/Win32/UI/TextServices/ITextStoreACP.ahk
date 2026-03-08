@@ -10,7 +10,7 @@
 
 /**
  * The ITextStoreACP interface is implemented by the application and is used by the TSF manager to manipulate text streams or text stores in TSF.
- * @see https://docs.microsoft.com/windows/win32/api//textstor/nn-textstor-itextstoreacp
+ * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-itextstoreacp
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,6 +37,12 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::AdviseSink method installs a new advise sink from the ITextStoreACPSink interface or modifies an existing advise sink. The sink interface is specified by the punk parameter.
+     * @remarks
+     * Subsequent calls with the same interface, represented by the <i>punk</i> parameter, are handled as requests to update the <i>dwMask</i> parameter. Servers should not call the <b>AddRef</b> method on the sink in response to such a request.
+     * 
+     * Servers only maintain a single connection point. Attempts to advise a second sink object fail until the original sink object is removed. Applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-unadvisesink">ITextStoreACP::UnadviseSink</a> method to unregister the sink object when notifications are not required.
+     * 
+     * Use this method to get the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itextstoreacpservices">ITextStoreACPServices</a> interface.
      * @param {Pointer<Guid>} riid Specifies the sink interface.
      * @param {IUnknown} punk Pointer to the sink interface. Cannot be <b>NULL</b>.
      * @param {Integer} dwMask Specifies the events that notify the advise sink. For more information about possible parameter values, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-as--constants">TS_AS_* Constants</a>.
@@ -92,7 +98,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-advisesink
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-advisesink
      */
     AdviseSink(riid, punk, dwMask) {
         result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint", dwMask, "HRESULT")
@@ -101,6 +107,12 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::UnadviseSink method is called by an application to indicate that it no longer requires notifications from the TSF manager. The TSF manager will release the sink interface and stop notifications.
+     * @remarks
+     * Every call to the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-advisesink">ITextStoreAnchor::AdviseSink</a> method, which registers a new sink object, should be matched by a call to this method. Calls to the <b>ITextStoreAnchor::AdviseSink</b> method that only update the <i>dwMask</i> parameter of a sink which was previously registered, do not require a call to the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-unadvisesink">ITextStoreAnchor::UnadviseSink</a> method.
+     * 
+     * For example, to register a sink object, an application calls the <b>ITextStoreAnchor::AdviseSink</b> method the first time. After registering the sink object, the application can call the <b>ITextStoreAnchor::AdviseSink</b> method again with the same sink object to change the <i>dwMask</i> parameter. To unregister the sink object, an application calls the <b>ITextStoreAnchor::UnadviseSink</b> method.
+     * 
+     * The <i>punk</i> parameter must have the same COM identity as the pointer originally passed in the <b>ITextStoreAnchor::AdviseSink</b> method.
      * @param {IUnknown} punk Pointer to a sink object. Cannot be <b>NULL</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -132,7 +144,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-unadvisesink
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-unadvisesink
      */
     UnadviseSink(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")
@@ -141,6 +153,18 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::RequestLock method is called by the TSF manager to provide a document lock in order to modify the document. This method calls the ITextStoreACPSink::OnLockGranted method to create the document lock.
+     * @remarks
+     * This method uses the <b>ITextStoreACPSink::OnLockGranted</b> method to lock the document. Applications must never modify the document or send change notifications using the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacpsink-ontextchange">ITextStoreACPSink::OnTextChange</a> method from within the <b>ITextStoreACP::RequestLock</b> method. If the application has pending changes to report, the application can only respond to the asynchronous lock request.
+     * 
+     * Applications should not attempt to queue multiple <b>ITextStoreACP::RequestLock</b> method calls, because the application requires only a single callback. If the caller makes several read requests and one or more write requests, however, the callback should be for write access.
+     * 
+     * Successful requests for synchronous locks supersede requests for asynchronous locks. Unsuccessful requests for synchronous locks do not supersede requests for asynchronous locks. The implementation must still serve the outstanding asynchronous request, if one exists.
+     * 
+     * If the lock is granted before the <b>ITextStoreACP::RequestLock</b> method returns, the <i>phrSession</i> parameter will receive the HRESULT returned by the <b>ITextStoreACPSink::OnLockGranted</b> method. If the call is successful, but the lock will be granted later, the <i>phrSession</i> parameter receives the TS_S_ASYNC flag. The <i>phrSession</i> parameter should be ignored if <b>ITextStoreACP::RequestLock</b> returns anything other than S_OK.
+     * 
+     * A caller should never call this method reentrantly, except in the case that the caller holds a read-only lock. In this case the method can be called reentrantly to ask for an asynchronous write lock. The write lock will be granted later, after the read-only lock ends.
+     * 
+     * For more information about document locks, see <a href="https://docs.microsoft.com/windows/desktop/TSF/document-locks">Document Locks</a>.
      * @param {Integer} dwLockFlags Specifies the type of lock requested.
      * 
      * <table>
@@ -182,7 +206,7 @@ class ITextStoreACP extends IUnknown{
      * @returns {HRESULT} If the lock request is synchronous, receives an HRESULT value from the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchorsink-onlockgranted">ITextStoreAnchorSink::OnLockGranted</a> method that specifies the result of the lock request.
      * 
      * If the lock request is asynchronous and the result is <a href="https://docs.microsoft.com/windows/desktop/TSF/text-store-return-values">TS_S_ASYNC</a>, the document receives an asynchronous lock. If the lock request is asynchronous and the result is TS_E_SYNCHRONOUS, the document cannot be locked synchronously.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-requestlock
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-requestlock
      */
     RequestLock(dwLockFlags) {
         result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "HRESULT")
@@ -192,7 +216,7 @@ class ITextStoreACP extends IUnknown{
     /**
      * The ITextStoreACP::GetStatus method obtains the document status. The document status is returned through the TS_STATUS structure.
      * @returns {TS_STATUS} Receives the <b>TS_STATUS</b> structure that contains the document status. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getstatus
      */
     GetStatus() {
         pdcs := TS_STATUS()
@@ -202,6 +226,8 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::QueryInsert method determines whether the specified start and end character positions are valid.
+     * @remarks
+     * The values of <i>pacpResultStart</i> and <i>pacpResultEnd</i> depend upon how the application inserts text into the document. If <i>pacpResultStart</i> and <i>pacpResultEnd</i> are the same as <i>acpTextStart</i>, the cursor is at the beginning of the inserted text after insertion. If <i>pacpResultStart</i> and <i>pacpResultEnd</i> are the same as <i>acpTextEnd</i>, the cursor is at the end of the inserted text after insertion. If the difference between <i>pacpResultStart</i> and <i>pacpResultEnd</i> is equal to the length of the inserted text, the inserted text is highlighted after insertion.
      * @param {Integer} acpTestStart Starting application character position for inserted text.
      * @param {Integer} acpTestEnd Ending application character position for the inserted text. This value is equal to <i>acpTextStart</i> if the text is inserted at a point instead of replacing selected text.
      * @param {Integer} cch Length of replacement text.
@@ -248,7 +274,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-queryinsert
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-queryinsert
      */
     QueryInsert(acpTestStart, acpTestEnd, cch, pacpResultStart, pacpResultEnd) {
         pacpResultStartMarshal := pacpResultStart is VarRef ? "int*" : "ptr"
@@ -305,7 +331,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getselection
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getselection
      */
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -372,7 +398,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-setselection
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-setselection
      */
     SetSelection(ulCount, pSelection) {
         result := ComCall(9, this, "uint", ulCount, "ptr", pSelection, "HRESULT")
@@ -381,8 +407,18 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::GetText method returns information about text at a specified character position. This method returns the visible and hidden text and indicates if embedded data is attached to the text.
+     * @remarks
+     * Callers that use this method must have a read-only lock on the document by calling the <b>ITextStoreACP::RequestLock</b> method. Without a read-only lock, the method fails and returns <a href="https://docs.microsoft.com/windows/desktop/TSF/manager-return-values">TF_E_NOLOCK</a>.
+     * 
+     * Applications can also truncate the method return values for internal reasons. Callers should carefully examine the return characters and text run counts to get the required return values. If the return values are incomplete, repeatedly call the method until the return values are complete.
+     * 
+     * The caller can request plain text only by setting the <i>cRunInfoReq</i> parameter to 0 and the <i>prgRunInfo</i> parameter to <b>NULL</b>. The caller can request only text run data by setting the <i>cchPlainReq</i> parameter to 0 and the <i>pchPlain</i> parameter to <b>NULL</b>. However, the caller must still supply valid non-<b>null</b> values for <i>pcchPlainRet</i>, even if this parameter is not used.
+     * 
+     * If <i>acpEnd</i> is -1, then it should be handled as if set at the end of the stream. Otherwise, it will be greater than or equal to zero.
+     * 
+     * On exit, <i>pacpNext</i> should be set to the character position of the next character in the stream not referenced by the return values. A caller would use this to quickly scan text with multiple ITextStoreACP::GetText calls.
      * @param {Integer} acpStart Specifies the starting character position.
-     * @param {Integer} acpEnd Specifies the ending character position. If this parameter is 1, then return all text in the text store.
+     * @param {Integer} acpEnd Specifies the ending character position. If this parameter is -1, then return all text in the text store.
      * @param {PWSTR} pchPlain Specifies the buffer to receive the plain text data. If this parameter is <b>NULL</b>, then the <i>cchPlainReq</i> parameter must be 0.
      * @param {Integer} cchPlainReq Specifies the number of plain text characters passed to the method.
      * @param {Pointer<Integer>} pcchPlainRet Receives the number of characters copied into the plain text buffer. This parameter cannot be <b>NULL</b>. Use a parameter if values are not required.
@@ -431,7 +467,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-gettext
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-gettext
      */
     GetText(acpStart, acpEnd, pchPlain, cchPlainReq, pcchPlainRet, prgRunInfo, cRunInfoReq, pcRunInfoRet, pacpNext) {
         pchPlain := pchPlain is String ? StrPtr(pchPlain) : pchPlain
@@ -446,6 +482,14 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::SetText method sets the text selection to the supplied character positions.
+     * @remarks
+     * Applications should start a composition by first using <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-inserttextatselection">ITextStoreACP::InsertTextAtSelection</a>. <b>ITextStoreACP::SetText</b> should be used only within an existing composition. If there is no active composition at the time <b>SetText</b> is called, the TSF manager creates a composition that lasts just long enough to wrap the call to <b>SetText</b>.
+     * 
+     * The <i>acpStart</i> and <i>acpEnd</i> character positions cannot be outside the document range.
+     * 
+     * Applications should not call the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacpsink-ontextchange">ITextStoreACPSink::OnTextChange</a> method in response to this method.
+     * 
+     * This method should call the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-setselection">ITextStoreACP::SetSelection</a> method to select the text to be changed. After successfully executing the <b>ITextStoreACP::SetSelection</b> method, this method then calls the <b>ITextStoreACP::InsertTextAtSelection</b> method to perform the actual text change.
      * @param {Integer} dwFlags If set to the value of TS_ST_CORRECTION, the text is a transform (correction) of existing content, and any special text markup information (metadata) is retained, such as .wav file data or a language identifier. The client defines the type of markup information to be retained.
      * @param {Integer} acpStart Specifies the starting character position of the text to replace.
      * @param {Integer} acpEnd Specifies the ending character position of the text to replace. This parameter is ignored if the value is 1.
@@ -489,7 +533,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-settext
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-settext
      */
     SetText(dwFlags, acpStart, acpEnd, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -504,7 +548,7 @@ class ITextStoreACP extends IUnknown{
      * @param {Integer} acpStart Specifies the starting character position of the text to get in the document.
      * @param {Integer} acpEnd Specifies the ending character position of the text to get in the document. This parameter is ignored if the value is 1.
      * @returns {IDataObject} Receives the pointer to the <b>IDataObject</b> object that contains the formatted text.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getformattedtext
      */
     GetFormattedText(acpStart, acpEnd) {
         result := ComCall(12, this, "int", acpStart, "int", acpEnd, "ptr*", &ppDataObject := 0, "HRESULT")
@@ -512,12 +556,14 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Gets an embedded document.
+     * Gets an embedded document. (ITextStoreACP.GetEmbedded)
+     * @remarks
+     * The caller must use <b>QueryInterface</b> to probe for appropriate interfaces. Prospective interfaces include those associated with embedded documents or controls such as <b>IOleObject</b> , <b>IDataObject</b> , <b>IViewObject</b> , <b>IPersistStorage</b> , <b>IOleCache</b> , or <b>IDispatch</b> .
      * @param {Integer} acpPos Contains the character position, within the document, from where the object is obtained.
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid Specifies the interface type requested.
      * @returns {IUnknown} Pointer to an <b>IUnknown</b> pointer that receives the requested interface.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getembedded
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getembedded
      */
     GetEmbedded(acpPos, rguidService, riid) {
         result := ComCall(13, this, "int", acpPos, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
@@ -525,11 +571,13 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Gets a value indicating whether the specified object can be inserted into the document.
+     * Gets a value indicating whether the specified object can be inserted into the document. (ITextStoreACP.QueryInsertEmbedded)
+     * @remarks
+     * The clipboard formats supported by the document are dependent on the application.
      * @param {Pointer<Guid>} pguidService Pointer to the object type. Can be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/the-formatetc-structure">FORMATETC</a> structure that contains format data of the object. This parameter cannot be <b>NULL</b> if the <i>pguidService</i> parameter is <b>NULL</b>.
      * @returns {BOOL} Receives <b>TRUE</b> if the object type can be inserted into the document or <b>FALSE</b> if the object type cannot be inserted into the document.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-queryinsertembedded
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-queryinsertembedded
      */
     QueryInsertEmbedded(pguidService, pFormatEtc) {
         result := ComCall(14, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "HRESULT")
@@ -537,13 +585,13 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Inserts an embedded object at the specified character.
+     * Inserts an embedded object at the specified character. (ITextStoreACP.InsertEmbedded)
      * @param {Integer} dwFlags Must be TS_IE_CORRECTION.
      * @param {Integer} acpStart Contains the starting character position where the object is inserted.
      * @param {Integer} acpEnd Contains the ending character position where the object is inserted.
      * @param {IDataObject} pDataObject Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface that contains data about the object inserted.
      * @returns {TS_TEXTCHANGE} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_textchange">TS_TEXTCHANGE</a> structure that receives data about the modified text.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-insertembedded
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-insertembedded
      */
     InsertEmbedded(dwFlags, acpStart, acpEnd, pDataObject) {
         pChange := TS_TEXTCHANGE()
@@ -553,6 +601,10 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::InsertTextAtSelection method inserts text at the insertion point or selection. A caller must have a read/write lock on the document before inserting text.
+     * @remarks
+     * The values of the <i>pacpStart</i> and the <i>pacpEnd</i> parameters depend upon how the client application inserts text into a document. For example, if the application sets the cursor at the start of the inserted text after text insertion, then the value for the <i>pacpStart</i> and <i>pacpEnd</i> parameters is the same as the <b>acpStart</b> member of the <b>TS_TEXTCHANGE</b> structure.
+     * 
+     * Applications should not call the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacpsink-ontextchange">ITextStoreACPSink::OnTextChange</a> method in response to this method.
      * @param {Integer} dwFlags Specifies whether the <i>pacpStart</i> and <i>pacpEnd</i> parameters and the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_textchange">TS_TEXTCHANGE</a> structure contain the results of the text insertion.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-ias--constants">TF_IAS_NOQUERY</a> and TF_IAS_QUERYONLY flags cannot be combined.
@@ -676,7 +728,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-inserttextatselection
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-inserttextatselection
      */
     InsertTextAtSelection(dwFlags, pchText, cch, pacpStart, pacpEnd, pChange) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -690,6 +742,8 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::InsertEmbeddedAtSelection method inserts an IDataObject object at the insertion point or selection. The client that calls this method must have a read/write lock before inserting an IDataObject object into the document.
+     * @remarks
+     * The values of the <i>pacpStart</i> and <i>pacpEnd</i> parameters depend upon how the client application inserts an object into a document. For example, if the application sets the cursor at the start of the object after object insertion, then the value of the <i>pacpStart</i> and <i>pacpEnd</i> parameters is the same as the <b>acpStart</b> member of the <b>TS_TEXTCHANGE</b> structure.
      * @param {Integer} dwFlags Specifies whether the <i>pacpStart</i> and <i>pacpEnd</i> parameters and the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_textchange">TS_TEXTCHANGE</a> structure will contain the results of the object insertion.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-ias--constants">TF_IAS_NOQUERY</a> and TF_IAS_QUERYONLY flags cannot be combined.
@@ -814,7 +868,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-insertembeddedatselection
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(dwFlags, pDataObject, pacpStart, pacpEnd, pChange) {
         pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
@@ -825,7 +879,7 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Get the attributes that are supported in the document.
+     * Get the attributes that are supported in the document. (ITextStoreACP.RequestSupportedAttrs)
      * @param {Integer} dwFlags Specifies whether a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-retrieverequestedattrs">ITextStoreAnchor::RetrieveRequestedAttrs</a> method will contain the supported attributes. If the TS_ATTR_FIND_WANT_VALUE flag is specified, the default attribute values will be those in the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_attrval">TS_ATTRVAL</a> structure after the subsequent call to <b>ITextStoreAnchor::RetrieveRequestedAttrs</b>. If any other flag is specified for this parameter, the method only verifies that the attribute is supported and that the <b>varValue</b> member of the <b>TS_ATTRVAL</b> structure is set to VT_EMPTY.
      * @param {Integer} cFilterAttrs Specifies the number of supported attributes to obtain.
      * @param {Pointer<Guid>} paFilterAttrs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-attrid">TS_ATTRID</a> data type that specifies the attribute to verify. The method returns only the attributes specified by <b>TS_ATTRID</b>, even though other attributes can be supported.
@@ -870,7 +924,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-requestsupportedattrs
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-requestsupportedattrs
      */
     RequestSupportedAttrs(dwFlags, cFilterAttrs, paFilterAttrs) {
         result := ComCall(18, this, "uint", dwFlags, "uint", cFilterAttrs, "ptr", paFilterAttrs, "HRESULT")
@@ -878,13 +932,13 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Gets text attributes at the specified character position.
+     * Gets text attributes at the specified character position. (ITextStoreACP.RequestAttrsAtPosition)
      * @param {Integer} acpPos Specifies the application character position in the document.
      * @param {Integer} cFilterAttrs Specifies the number of attributes to obtain.
      * @param {Pointer<Guid>} paFilterAttrs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-attrid">TS_ATTRID</a> data type that specifies the attribute to verify.
      * @param {Integer} dwFlags Must be zero.
      * @returns {HRESULT} This method has no return values.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-requestattrsatposition
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-requestattrsatposition
      */
     RequestAttrsAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
         result := ComCall(19, this, "int", acpPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
@@ -892,7 +946,11 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Gets text attributes transitioning at the specified character position.
+     * Gets text attributes transitioning at the specified character position. (ITextStoreACP.RequestAttrsTransitioningAtPosition)
+     * @remarks
+     * In the sentence, "This is <i>italic text</i>.", the italic attribute starts before the word <i>italic</i> and ends after the word <i>text</i>.
+     * 
+     * If the flag TS_ATTR_FIND_WANT_END is set in <i>dwFlags</i>, the method would return the italic attribute for the text "<i>italic</i> &lt;anchor&gt;normal", because there is an end transition at the anchor location.
      * @param {Integer} acpPos Specifies the application character position in the document.
      * @param {Integer} cFilterAttrs Specifies the number of attributes to obtain.
      * @param {Pointer<Guid>} paFilterAttrs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-attrid">TS_ATTRID</a> data type that specifies the attribute to verify.
@@ -943,7 +1001,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-requestattrstransitioningatposition
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-requestattrstransitioningatposition
      */
     RequestAttrsTransitioningAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
         result := ComCall(20, this, "int", acpPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
@@ -952,6 +1010,9 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::FindNextAttrTransition method determines the character position where a transition occurs in an attribute value. The specified attribute to check is application-dependent.
+     * @remarks
+     * <div class="alert"><b>Note</b>  If an application does not implement <b>ITextStoreACP::FindNextAttrTransition</b>, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreadonlyproperty-enumranges">ITfReadOnlyProperty::EnumRanges</a> fails with E_FAIL.</div>
+     * <div> </div>
      * @param {Integer} acpStart Specifies the character position to start the search for an attribute transition.
      * @param {Integer} acpHalt Specifies the character position to end the search for an attribute transition.
      * @param {Integer} cFilterAttrs Specifies the number of attributes to check.
@@ -1017,7 +1078,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-findnextattrtransition
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-findnextattrtransition
      */
     FindNextAttrTransition(acpStart, acpHalt, cFilterAttrs, paFilterAttrs, dwFlags, pacpNext, pfFound, plFoundOffset) {
         pacpNextMarshal := pacpNext is VarRef ? "int*" : "ptr"
@@ -1029,7 +1090,7 @@ class ITextStoreACP extends IUnknown{
     }
 
     /**
-     * Gets the attributes returned by a call to an attribute request method.
+     * Gets the attributes returned by a call to an attribute request method. (ITextStoreACP.RetrieveRequestedAttrs)
      * @param {Integer} ulCount Specifies the number of supported attributes to obtain.
      * @param {Pointer<TS_ATTRVAL>} paAttrVals Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_attrval">TS_ATTRVAL</a> structure that receives the supported attributes. The members of this structure depend upon the <i>dwFlags</i> parameter of the calling method.
      * @param {Pointer<Integer>} pcFetched Receives the number of supported attributes.
@@ -1052,7 +1113,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-retrieverequestedattrs
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-retrieverequestedattrs
      */
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -1064,7 +1125,7 @@ class ITextStoreACP extends IUnknown{
     /**
      * The ITextStoreACP::GetEndACP method returns the number of characters in a document.
      * @returns {Integer} Receives the character position of the last character in the document plus one.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getendacp
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getendacp
      */
     GetEndACP() {
         result := ComCall(23, this, "int*", &pacp := 0, "HRESULT")
@@ -1074,7 +1135,7 @@ class ITextStoreACP extends IUnknown{
     /**
      * The ITextStoreACP::GetActiveView method returns a TsViewCookie data type that specifies the current active view.
      * @returns {Integer} Receives the <b>TsViewCookie</b> data type that specifies the current active view.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getactiveview
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getactiveview
      */
     GetActiveView() {
         result := ComCall(24, this, "uint*", &pvcView := 0, "HRESULT")
@@ -1083,6 +1144,27 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::GetACPFromPoint method converts a point in screen coordinates to an application character position.
+     * @remarks
+     * <img alt="Point 1 is in character bounding box and point 2 is outside the character bounding box." border="border" src="./images/ACPFig01.gif"/>
+     * The point 1 screen coordinates cause the <i>pacp</i> parameter to be 0 by default or if the <i>dwFlags</i> parameter is set to <a href="https://docs.microsoft.com/windows/desktop/TSF/gxfpf--constants">GXFPF_NEAREST</a> because the point 1 screen coordinates are inside the character bounding box of character position 0. If the <i>dwFlags</i> parameter is set to GXFPF_ROUND_NEAREST for point 1, the <i>pacp</i> parameter is 1 because the point 1 screen coordinates are closest to range position 1. Range position 1 is the starting range position of character position 1.
+     * 
+     * For the point 2 screen coordinates, the method returns <b>TF_E_INVALIDPOINT</b> by default or if the <i>dwFlags</i> parameter is set to <b>GXFPF_NEAREST</b> because the point 2 screen coordinates are outside a character bounding box. If the <i>dwFlags</i> parameter is set to <b>GXFPF_ROUND_NEAREST</b>, then the point 2 screen coordinates causes the <i>pacp</i> parameter to be 1, because the closest character position to the point 2 screen coordinates is character position 1.
+     * 
+     * <b>Point 1
+     *       </b>
+     * 
+     * <ul>
+     * <li>Default-- <i>pacp = 0</i> --The screen coordinates point is inside the character bounding box of Character Position 0.</li>
+     * <li><b>GXFPF_ROUND_NEAREST</b> -- <i>pacp = 1</i> --The screen coordinates of the point is closest to Range Position 1 which is the starting range position of Character Position 1.</li>
+     * <li><b>GXFPF_NEAREST</b> -- <i>pacp = 0</i> --The default behavior occurs because the point is within the character bounding box of Character Position 0.</li>
+     * </ul>
+     * <b>Point 2</b>
+     * 
+     * <ul>
+     * <li>Default-- <i>hr = TF_E_INVALIDPOINT</i> --The screen coordinates of the point is outside a character bounding box.</li>
+     * <li>GXFPF_ROUND_NEAREST-- <i>hr = TF_E_INVALIDPOINT</i> --The default behavior occurs because the screen coordinates of the point are outside a character bounding box.</li>
+     * <li>GXFPF_NEAREST-- <i>pacp = 1</i> --The closest character position to the screen coordinates of the point is Character Position 1.</li>
+     * </ul>
      * @param {Integer} vcView Specifies the context view.
      * @param {Pointer<POINT>} ptScreen Pointer to the <b>POINT</b> structure with the screen coordinates of the point.
      * @param {Integer} dwFlags Specifies the character position to return based upon the screen coordinates of the point relative to a character bounding box. By default, the character position returned is the character bounding box containing the screen coordinates of the point. If the point is outside a character bounding box, the method returns <b>NULL</b> or <a href="https://docs.microsoft.com/windows/desktop/TSF/manager-return-values">TF_E_INVALIDPOINT</a>. Other bit flags for this parameter are as follows.
@@ -1116,7 +1198,7 @@ class ITextStoreACP extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} Receives the character position that corresponds to the screen coordinates of the point.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getacpfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getacpfrompoint
      */
     GetACPFromPoint(vcView, ptScreen, dwFlags) {
         result := ComCall(25, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
@@ -1125,6 +1207,8 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::GetTextExt method returns the bounding box, in screen coordinates, of the text at a specified character position. The caller must have a read-only lock on the document before calling this method.
+     * @remarks
+     * If the document window is minimized, or if the specified text is not currently visible, the method returns S_OK with the <i>prc</i> parameter set to {0,0,0,0}.
      * @param {Integer} vcView Specifies the context view.
      * @param {Integer} acpStart Specifies the starting character position of the text to get in the document.
      * @param {Integer} acpEnd Specifies the ending character position of the text to get in the document.
@@ -1193,7 +1277,7 @@ class ITextStoreACP extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-gettextext
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-gettextext
      */
     GetTextExt(vcView, acpStart, acpEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
@@ -1204,9 +1288,11 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::GetScreenExt method returns the bounding box screen coordinates of the display surface where the text stream is rendered.
+     * @remarks
+     * If the text is not currently displayed, for example, if the document window is minimized, the <i>prc</i> parameter is set to { 0, 0, 0, 0 }.
      * @param {Integer} vcView Specifies the context view.
      * @returns {RECT} Receives the bounding box screen coordinates of the display surface of the document.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getscreenext
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getscreenext
      */
     GetScreenExt(vcView) {
         prc := RECT()
@@ -1216,9 +1302,11 @@ class ITextStoreACP extends IUnknown{
 
     /**
      * The ITextStoreACP::GetWnd method returns the handle to a window that corresponds to the current document.
+     * @remarks
+     * A document cannot have a corresponding window handle if the document is in memory but not displayed on the screen, or if the document is a windowless control and the control does not recognize the window handle of the owner of the windowless controls. Callers cannot assume that the <i>phwnd</i> parameter will receive a non-<b>NULL</b> value even if the method is successful. Callers can also receive a <b>NULL</b> value for the <i>phwnd</i> parameter.
      * @param {Integer} vcView Specifies the <a href="https://docs.microsoft.com/windows/desktop/TSF/tsviewcookie">TsViewCookie</a> data type that corresponds to the current document.
      * @returns {HWND} Receives a pointer to the handle of the window that corresponds to the current document. This parameter can be <b>NULL</b> if the document does not have the corresponding handle to the window.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreacp-getwnd
+     * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getwnd
      */
     GetWnd(vcView) {
         phwnd := HWND()

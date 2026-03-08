@@ -9,7 +9,7 @@
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -42,6 +42,12 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Gets the specified collection of function instances, based on category and subcategory.
+     * @remarks
+     * Some function discovery providers return their query results with the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface.  <b>GetInstanceCollection</b> does not find function instances that are returned in this way and will fail with E_PENDING.  It is recommended that clients use the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancequery">CreateInstanceQuery</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery">IFunctionDiscovery</a> interface to find function instances for such providers.
+     * 
+     * If the method succeeds but no function instances were found that matched the query parameters, then <b>S_OK</b> is returned and <i>ppFunctionInstanceCollection</i> points to an empty collection (the collection's <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount">GetCount</a> method returns 0).
+     * 
+     * Subcategory queries are only supported for layered categories and some provider categories. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/registry-provider">Registry Provider</a>, the PnP-X association provider, and the publication provider support subcategory queries. Custom providers can be explicitly designed to support subcategory queries. For other providers, function instance collections can be filtered using query constraints. For a list of query constraints, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/constraint-definitions">Constraint Definitions</a>.
      * @param {PWSTR} pszCategory The identifier of the category to be enumerated. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/category-definitions">Category Definitions</a>.
      * @param {PWSTR} pszSubCategory The identifier of the subcategory to be enumerated. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>. This parameter can be <b>NULL</b>.
      * @param {BOOL} fIncludeAllSubCategories If <b>TRUE</b>, this method recursively enumerates all the subcategories of the category specified in <i>pszCategory</i>, returning a collection containing function instances from all the subcategories of <i>pszCategory</i>. 
@@ -50,7 +56,7 @@ class IFunctionDiscovery extends IUnknown{
      * 
      * If <b>FALSE</b>, this method restricts itself to returning function instances in the category specified by <i>pszCategory</i> and the subcategory specified by <i>pszSubCategory</i>.
      * @returns {IFunctionInstanceCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection">IFunctionInstanceCollection</a> interface pointer that receives the function instance collection containing the requested function instances. The collection is empty if no qualifying function instances are found.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstancecollection
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstancecollection
      */
     GetInstanceCollection(pszCategory, pszSubCategory, fIncludeAllSubCategories) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
@@ -62,9 +68,11 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Gets the specified function instance, based on identifier.
+     * @remarks
+     * Some function discovery providers return their query results with the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface.  <b>GetInstance</b> does not find function instances that are returned in this way and will fail with E_PENDING.  It is recommended that clients use the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancequery">CreateInstanceQuery</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery">IFunctionDiscovery</a> interface to find function instances for such providers.
      * @param {PWSTR} pszFunctionInstanceIdentity The identifier of the function instance (see <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid">GetID</a>).
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer used to return the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstance
      */
     GetInstance(pszFunctionInstanceIdentity) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
@@ -75,6 +83,10 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Creates a query for a collection of specific function instances.
+     * @remarks
+     * If <i>pIFunctionDiscoveryNotification</i> is specified, it enables the Function Discovery change notification process. This parameter can be <b>NULL</b>. However, it is required for network providers since they do not return synchronous results. Function Discovery network providers only return instances through the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface.
+     * 
+     * This method only initializes the query call. The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-execute">Execute</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollectionquery">IFunctionInstanceCollectionQuery</a> interface returned in <i>ppIFunctionInstanceCollectionQuery</i> must be called to perform the query and return any data.
      * @param {PWSTR} pszCategory The category for the query. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/category-definitions">Category Definitions</a>.
      * @param {PWSTR} pszSubCategory The subcategory for the query. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>. This parameter can be <b>NULL</b>.
      * 
@@ -87,7 +99,7 @@ class IFunctionDiscovery extends IUnknown{
      * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface implemented by the calling application. This parameter can be <b>NULL</b>. This pointer is valid until the returned query object is released.
      * @param {Pointer<Integer>} pfdqcQueryContext A pointer to the context in which the query was created. The type <b>FDQUERYCONTEXT</b> is defined as a DWORDLONG.
      * @returns {IFunctionInstanceCollectionQuery} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollectionquery">IFunctionInstanceCollectionQuery</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancecollectionquery
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancecollectionquery
      */
     CreateInstanceCollectionQuery(pszCategory, pszSubCategory, fIncludeAllSubCategories, pIFunctionDiscoveryNotification, pfdqcQueryContext) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
@@ -101,11 +113,15 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Creates a query for a specific function instance.
+     * @remarks
+     * Function Discovery Network providers only return instances through the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface.
+     * 
+     * This method only initializes the query call. The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute">Execute</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancequery">IFunctionInstanceQuery</a> interface returned in <i>ppIFunctionInstanceQuery</i> must be called to perform the query and return any data.
      * @param {PWSTR} pszFunctionInstanceIdentity The identifier of the function instance.
      * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> interface implemented by the calling application. If specified, it enables the Function Discovery change notification process. This parameter can be <b>NULL</b>; however it is required for network providers.
      * @param {Pointer<Integer>} pfdqcQueryContext A pointer to the context in which the query was created. The type <b>FDQUERYCONTEXT</b> is defined as a DWORDLONG.
      * @returns {IFunctionInstanceQuery} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancequery">IFunctionInstanceQuery</a> interface pointer used to return the generated query.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancequery
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancequery
      */
     CreateInstanceQuery(pszFunctionInstanceIdentity, pIFunctionDiscoveryNotification, pfdqcQueryContext) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
@@ -118,6 +134,18 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Creates or modifies a function instance.
+     * @remarks
+     * This method temporarily creates a new function instance for the specified category and subcategory.  The provider that implements the category is responsible for persisting the metadata associated with the newly created function instance using the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createinstance">IFunctionDiscoveryProviderFactory::CreateInstance</a> method.
+     * 
+     * The function instance is not written to the registry if its associated property store does not have any values. Use the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-openpropertystore">IFunctionInstance::OpenPropertyStore</a> method to check the property store values.
+     * 
+     * If a function instance already exists for the specified category and subcategory, the existing registry entry is overwritten. The <b>AddInstance</b> method returns S_OK. The Function Discovery change notification process invokes the calling application's <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onupdate">IFunctionDiscoveryNotification::OnUpdate</a> method with <i>enumQueryUpdateAction</i> set to <b>QUA_CHANGE</b>.  
+     * 
+     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onupdate">IFunctionDiscoveryNotification::OnUpdate</a> method is not supported by any current provider.</div>
+     * <div> </div>
+     * Whether the new function instance is capable of being visible system-wide or only to the user depends on the provider. The registry provider initially sets its default function instance visibility to system wide.
+     * 
+     * Access permission to change HKEY_LOCAL_MACHINE\SYSTEM registry keys is required in order to add or remove function instances using the registry provider (Administrator or Power User access).
      * @param {Integer} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the created function instance is visible system wide or only to the current user. 
      * 
      * <div class="alert"><b>Note</b>  The function instance is stored in HKEY_LOCAL_MACHINE regardless  of the <i>enumSystemVisibility</i> value. The user must have Administrator access to add a function instance.</div>
@@ -126,7 +154,7 @@ class IFunctionDiscovery extends IUnknown{
      * @param {PWSTR} pszSubCategory The subcategory of the created function instance. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>. The maximum length of this string is MAX_PATH.
      * @param {PWSTR} pszCategoryIdentity The provider instance identifier string. This string is returned from <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid">GetProviderInstanceID</a>.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a>  interface pointer that receives the function instance.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-addinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-addinstance
      */
     AddInstance(enumSystemVisibility, pszCategory, pszSubCategory, pszCategoryIdentity) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
@@ -139,6 +167,11 @@ class IFunctionDiscovery extends IUnknown{
 
     /**
      * Removes the specified function instance, based on category and subcategory.
+     * @remarks
+     * Access permission to change HKEY_LOCAL_MACHINE\SYSTEM registry keys is required in order to add or remove function instances using the registry provider (Administrator or Power User access levels). The user must have Administrator access to remove a function instance system-wide.
+     * 
+     * <div class="alert"><b>Note</b>  This method is not supported by all providers.</div>
+     * <div> </div>
      * @param {Integer} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the function instance is removed system-wide or only for the current user.
      * @param {PWSTR} pszCategory The category of the function instance. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/category-definitions">Category Definitions</a>.
      * @param {PWSTR} pszSubCategory The subcategory of the function instance to be removed.  See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>. This parameter can be <b>NULL</b>.
@@ -207,7 +240,7 @@ class IFunctionDiscovery extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-removeinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-removeinstance
      */
     RemoveInstance(enumSystemVisibility, pszCategory, pszSubCategory, pszCategoryIdentity) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory

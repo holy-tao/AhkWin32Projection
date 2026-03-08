@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The file system is an exFAT file system.
+  * 
+  * If this value is set, this structure is followed by an 
+  *          <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-exfat_statistics">EXFAT_STATISTICS</a> structure.
+  * 
+  * <b>Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Vista with SP1.
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

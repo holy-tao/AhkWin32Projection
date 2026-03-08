@@ -6,13 +6,10 @@
 /**
  * Defines callbacks that notify an application with an outstanding IXMLHTTPRequest2 request of events that affect HTTP request and response processing. Note  This interface is supported on Windows Phone 8.1.  .
  * @remarks
- * 
  * Methods on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> interface are asynchronous, so applications must pass an <b>IXMLHTTPRequest2Callback</b> object as a parameter in calls to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-open">Open</a> method on the <b>IXMLHTTPRequest2</b> interface to receive callback notifications. 
  * 
  * The <b>IXMLHTTPRequest2Callback</b> interface is extended by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest3callback">IXMLHTTPRequest3Callback</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msxml6/nn-msxml6-ixmlhttprequest2callback
+ * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest2callback
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
@@ -39,13 +36,20 @@ class IXMLHTTPRequest2Callback extends IUnknown{
 
     /**
      * Occurs when a client sends an HTTP request that the server redirects to a new URL.
+     * @remarks
+     * If the request redirection is not permitted, you can call the Abort method on the pXHR object.
+     * 
+     * XMLHTTPRequest2 imposes a maximum of 100 re-directions on any request. Any re-directions above that limit generate an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onerror">OnError</a> event.
+     * Applications have no access to the headers for re-directions.
+     * 
+     * Once the final redirection has completed and the final URL has been reached, the application receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable">OnHeadersAvailable</a> callback.
      * @param {IXMLHTTPRequest2} pXHR The HTTP request object being redirected.
      * @param {PWSTR} pwszRedirectUrl The new URL for the HTTP request.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
      * 
      * <div class="alert"><b>Note</b>  This callback function must not throw exceptions.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2callback-onredirect
+     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onredirect
      */
     OnRedirect(pXHR, pwszRedirectUrl) {
         pwszRedirectUrl := pwszRedirectUrl is String ? StrPtr(pwszRedirectUrl) : pwszRedirectUrl
@@ -56,6 +60,8 @@ class IXMLHTTPRequest2Callback extends IUnknown{
 
     /**
      * Occurs after an HTTP request has been sent to the server and the server has responded with response headers.
+     * @remarks
+     * To view an individual response header, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-getresponseheader">GetResponseHeader</a> method on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> interface. To view all response headers, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-getallresponseheaders">GetAllResponseHeaders</a> method. To cancel the request, call the Abort method On the pXHR object.
      * @param {IXMLHTTPRequest2} pXHR The initial HTTP request object that returns the headers.
      * @param {Integer} dwStatus The status code for the request.
      * 
@@ -66,7 +72,7 @@ class IXMLHTTPRequest2Callback extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  This callback function must not throw exceptions.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable
+     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable
      */
     OnHeadersAvailable(pXHR, dwStatus, pwszStatus) {
         pwszStatus := pwszStatus is String ? StrPtr(pwszStatus) : pwszStatus
@@ -77,13 +83,19 @@ class IXMLHTTPRequest2Callback extends IUnknown{
 
     /**
      * Occurs when a client receives part of the HTTP response data from the server.
+     * @remarks
+     * When this callback function returns  the application can begin processing data from the HTTP response, even if it has not yet received the entire response. However, receiving is suspended for the request until this callback function returns. Additionally, this callback can be  invoked multiple times during a single request.
+     * 
+     * This callback function must not block and should not be made to perform resource intensive operations such as UI updates.
+     * 
+     * Custom streams receive a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">ISequentialStream::Write</a> before <b>OnDataAvailable</b> is fired. The client can process data directly from the Write call instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> on the custom stream, and it can rely on the Write call to indicate that new data is available.
      * @param {IXMLHTTPRequest2} pXHR The initial HTTP request.
      * @param {ISequentialStream} pResponseStream The response stream being received. The client can call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> to begin processing the data, or it can wait until it has received the complete response. This response stream is wrapped in a stream synchronization object that prevents concurrent read and write operations, so the application does not need to implement custom synchronization.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
      * 
      * <div class="alert"><b>Note</b>  This callback function must not throw exceptions.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2callback-ondataavailable
+     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2callback-ondataavailable
      */
     OnDataAvailable(pXHR, pResponseStream) {
         result := ComCall(5, this, "ptr", pXHR, "ptr", pResponseStream, "HRESULT")
@@ -92,13 +104,19 @@ class IXMLHTTPRequest2Callback extends IUnknown{
 
     /**
      * Occurs when a client has received a complete response from the server.
+     * @remarks
+     * When this event fires the application can begin processing data from the HTTP response. Processing may begin before this event fires if an earlier <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-ondataavailable">OnDataAvailable</a> event has occurred.
+     * 
+     * Unless <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onerror">OnError</a> is called, the call to <b>OnResponseReceived</b> is the final callback. The client should perform any required cleanup including releasing references to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> object.
+     * 
+     * Custom streams receive a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">ISequentialStream::Write</a> specifying 0 bytes written before <b>OnResponseReceived</b> is fired. The client can process data directly from the Write call instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> on the custom stream, and it can rely on the zero-byte Write call to indicate that the response has been received.
      * @param {IXMLHTTPRequest2} pXHR The initial HTTP request object
      * @param {ISequentialStream} pResponseStream The response stream being received. The client can call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> to begin processing the data, or it can store a reference to <i>pResponseStream</i> for later processing. This response stream is wrapped in a stream synchronization object that prevents concurrent read and write operations, so the application does not need to implement custom synchronization.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
      * 
      * <div class="alert"><b>Note</b>  This callback function must not throw exceptions.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2callback-onresponsereceived
+     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onresponsereceived
      */
     OnResponseReceived(pXHR, pResponseStream) {
         result := ComCall(6, this, "ptr", pXHR, "ptr", pResponseStream, "HRESULT")
@@ -107,13 +125,15 @@ class IXMLHTTPRequest2Callback extends IUnknown{
 
     /**
      * Occurs when an error is encountered or the request has been aborted.
+     * @remarks
+     * Unless the request completes successfully, indicated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onresponsereceived">OnResponseReceived</a>, the call to <b>OnError</b> is the final callback. The client should perform any required cleanup including releasing references to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> object.
      * @param {IXMLHTTPRequest2} pXHR The initial HTTP request.
      * @param {HRESULT} hrError A code representing the error that occurred on the HTTP request.
      * @returns {HRESULT} Returns<b> S_OK</b> on success.
      * 
      * <div class="alert"><b>Note</b>  This callback function must not throw exceptions.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2callback-onerror
+     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onerror
      */
     OnError(pXHR, hrError) {
         result := ComCall(7, this, "ptr", pXHR, "int", hrError, "HRESULT")

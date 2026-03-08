@@ -6,12 +6,10 @@
 /**
  * Provides properties of signed messages.
  * @remarks
- * 
  * An application can acquire this interface by calling the <a href="https://docs.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveredservice">IWSDiscoveredService</a>.
  * 
  * <b>IWSDSignatureProperty</b> is useful to an application that wants to perform its own signature validation.  By passing a <b>NULL</b> to the <i>pConfigParam</i> of <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-wsdcreatediscoveryprovider2">WSDCreateDiscoveryProvider2</a>, the internal signature validation is disabled and the provider can perform its own validation by examining these properties.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdsignatureproperty
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdsignatureproperty
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -39,7 +37,7 @@ class IWSDSignatureProperty extends IUnknown{
     /**
      * Specifies if a message is signed.
      * @returns {BOOL} A pointer to a boolean that specifies if a message signature is signed.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesigned
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesigned
      */
     IsMessageSigned() {
         result := ComCall(3, this, "int*", &pbSigned := 0, "HRESULT")
@@ -48,8 +46,10 @@ class IWSDSignatureProperty extends IUnknown{
 
     /**
      * Specifies if a message signature is trusted.
+     * @remarks
+     * A message is trusted if the signing certificate is among one of the certificates or in the certificate store passed down by the calling application in the <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-wsdcreatediscoveryprovider2">WSDCreateDiscoveryProvider2</a> call.
      * @returns {BOOL} A pointer to a boolean that specifies if a message signature is trusted.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesignaturetrusted
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesignaturetrusted
      */
     IsMessageSignatureTrusted() {
         result := ComCall(4, this, "int*", &pbSignatureTrusted := 0, "HRESULT")
@@ -71,6 +71,8 @@ class IWSDSignatureProperty extends IUnknown{
 
     /**
      * Gets the signature of a message.
+     * @remarks
+     * If <b>NULL</b> is passed to <i>pbSignature</i>, then <b>GetSignature</b> will return the size of the buffer to allocate in the <i>pdwSignatureSize</i> parameter.
      * @param {Pointer} pbSignature A pointer to a buffer that will be filled with the signature  of the message.
      * @param {Pointer<Integer>} pdwSignatureSize On input, the size of <i>pbSignature</i> in bytes. On output, <i>pdwSignatureSize</i> contains the actual size of the buffer that was written.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
@@ -114,7 +116,7 @@ class IWSDSignatureProperty extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
      */
     GetSignature(pbSignature, pdwSignatureSize) {
         pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : "ptr"
@@ -125,6 +127,10 @@ class IWSDSignatureProperty extends IUnknown{
 
     /**
      * Gets the hash of a message signature.
+     * @remarks
+     * This is the hash of the &lt;SignedInfo&gt; node.  The &lt;SignedInfo&gt; xml node contains the SHA1 hashes of the various parts of the signature that is to be included in the signature. The final XML message signature is computed by signing the hash of the &lt;SignedInfo&gt; node with the private key of the signing certificate.
+     * 
+     * If <b>NULL</b> is passed to <i>pbSignedInfoHash</i>, then <b>GetSignedInfoHash</b> will return the size of the buffer to allocate in the <i>pdwHashSize</i> parameter.
      * @param {Pointer} pbSignedInfoHash A pointer to a buffer that will be filled with the hash of the message signature.
      * @param {Pointer<Integer>} pdwHashSize On input, the size of <i>pbSignedInfoHash</i> in bytes. On output, <i>pdwHashSize</i> contains the actual size of the buffer that was written.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
@@ -168,7 +174,7 @@ class IWSDSignatureProperty extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
      */
     GetSignedInfoHash(pbSignedInfoHash, pdwHashSize) {
         pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : "ptr"

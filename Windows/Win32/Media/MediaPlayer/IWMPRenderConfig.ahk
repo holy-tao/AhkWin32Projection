@@ -5,7 +5,7 @@
 
 /**
  * The IWMPRenderConfig interface provides methods to specify or retrieve a value indicating whether Media Foundation&#8211;based playback is restricted to the current process.Note  Using this interface with protected content is not supported. .
- * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nn-wmprealestate-iwmprenderconfig
+ * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nn-wmprealestate-iwmprenderconfig
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -39,6 +39,16 @@ class IWMPRenderConfig extends IUnknown{
 
     /**
      * The put_inProcOnly method specifies a value indicating whether playback is restricted to the current process.
+     * @remarks
+     * Using this method with protected content is not supported.
+     * 
+     * This method can be helpful when debugging. If your program works with the Media Foundation topology directly (for example, specifying an EVR presenter by using the <a href="https://docs.microsoft.com/windows/desktop/api/wmprealestate/nn-wmprealestate-iwmpvideorenderconfig">IWMPVideoRenderConfig</a> interface), it might be easier to debug your code when the presenter is in the same process.
+     * 
+     * This method might also be useful if your Media Foundation components are designed to run in the main program's process.
+     * 
+     * Note that DirectShow graphs in Windows Media Player always run in the main process.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {BOOL} fInProc <b>BOOL</b>, <b>TRUE</b> specifying that playback is restricted to the current process.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -59,7 +69,7 @@ class IWMPRenderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmprenderconfig-put_inproconly
+     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-put_inproconly
      */
     put_inProcOnly(fInProc) {
         result := ComCall(3, this, "int", fInProc, "HRESULT")
@@ -68,6 +78,10 @@ class IWMPRenderConfig extends IUnknown{
 
     /**
      * The get_inProcOnly method retrieves a value indicating whether playback is restricted to the current process.
+     * @remarks
+     * Using this method with protected content is not supported.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BOOL>} pfInProc Pointer to a <b>BOOL</b> that receives the result. <b>TRUE</b> specifies that playback is restricted to the current process.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -88,7 +102,7 @@ class IWMPRenderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
+     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
      */
     get_inProcOnly(pfInProc) {
         pfInProcMarshal := pfInProc is VarRef ? "int*" : "ptr"

@@ -36,10 +36,21 @@ class ISpObjectTokenCategory extends ISpDataKey{
     static VTableNames => ["SetId", "GetId", "GetDataKey", "EnumTokens", "SetDefaultTokenId", "GetDefaultTokenId"]
 
     /**
-     * 
+     * Sets the specified identifier string in the volume's metadata.
      * @param {PWSTR} pszCategoryId 
      * @param {BOOL} fCreateIfNotExist 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/setidentificationfield-win32-encryptablevolume
      */
     SetId(pszCategoryId, fCreateIfNotExist) {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
@@ -49,8 +60,9 @@ class ISpObjectTokenCategory extends ISpDataKey{
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(16, this, "ptr*", &ppszCoMemCategoryId := 0, "HRESULT")

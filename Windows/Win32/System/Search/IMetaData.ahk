@@ -5,7 +5,7 @@
 
 /**
  * Provides a method for retrieving a key/value pair of strings from an IEntity, IRelationship or ISchemaProvider object.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-imetadata
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-imetadata
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -40,8 +40,8 @@ class IMetaData extends IUnknown{
      * Receives the value of the metadata pair as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-imetadata-getdata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-imetadata-getdata
      */
     GetData(ppszKey, ppszValue) {
         ppszKeyMarshal := ppszKey is VarRef ? "ptr*" : "ptr"

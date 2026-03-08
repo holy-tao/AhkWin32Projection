@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvb_st
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_st
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -74,7 +74,7 @@ class IDVB_ST extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_st-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-initialize
      */
     Initialize(pSectionList) {
         result := ComCall(3, this, "ptr", pSectionList, "HRESULT")
@@ -84,7 +84,7 @@ class IDVB_ST extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Pointer to a variable that receives the length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_st-getdatalength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdatalength
      */
     GetDataLength() {
         result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -93,8 +93,10 @@ class IDVB_ST extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * The data in an ST has no meaning.
      * @returns {Pointer<Integer>} Address of a variable that receives a pointer to a buffer, which contains all of the data_byte fields in the ST. To get the size of the buffer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdatalength">IDVB_ST::GetDataLength</a> method. The caller must release the buffer by calling the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_st-getdata
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdata
      */
     GetData() {
         result := ComCall(5, this, "ptr*", &ppData := 0, "HRESULT")

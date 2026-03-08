@@ -63,11 +63,7 @@ class Recovery {
     static RegisterApplicationRecoveryCallback(pRecoveyCallback, pvParameter, dwPingInterval, dwFlags) {
         pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, pvParameterMarshal, pvParameter, "uint", dwPingInterval, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, pvParameterMarshal, pvParameter, "uint", dwPingInterval, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -98,11 +94,7 @@ class Recovery {
      * @since windows6.0.6000
      */
     static UnregisterApplicationRecoveryCallback() {
-        result := DllCall("KERNEL32.dll\UnregisterApplicationRecoveryCallback", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\UnregisterApplicationRecoveryCallback", "HRESULT")
         return result
     }
 
@@ -159,11 +151,7 @@ class Recovery {
     static RegisterApplicationRestart(pwzCommandline, dwFlags) {
         pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
-        result := DllCall("KERNEL32.dll\RegisterApplicationRestart", "ptr", pwzCommandline, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\RegisterApplicationRestart", "ptr", pwzCommandline, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -194,11 +182,7 @@ class Recovery {
      * @since windows6.0.6000
      */
     static UnregisterApplicationRestart() {
-        result := DllCall("KERNEL32.dll\UnregisterApplicationRestart", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\UnregisterApplicationRestart", "HRESULT")
         return result
     }
 
@@ -277,11 +261,7 @@ class Recovery {
 
         pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -298,11 +278,7 @@ class Recovery {
      * @since windows6.0.6000
      */
     static ApplicationRecoveryInProgress() {
-        result := DllCall("KERNEL32.dll\ApplicationRecoveryInProgress", "int*", &pbCancelled := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KERNEL32.dll\ApplicationRecoveryInProgress", "int*", &pbCancelled := 0, "HRESULT")
         return pbCancelled
     }
 

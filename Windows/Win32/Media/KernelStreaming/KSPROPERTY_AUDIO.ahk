@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The KSPROPERTY_AUDIOEFFECTSDISCOVERY enumeration defines a constant that is used by the list of audio processing objects (APOs).
+ * @see https://learn.microsoft.com/windows/win32/api/msapofxproxy/ne-msapofxproxy-ksproperty_audioeffectsdiscovery
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

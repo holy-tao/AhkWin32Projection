@@ -9,8 +9,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * Agents are the heart of a call center.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-itagent
+ * The ITAgent interface (tapi3cc.h) handles Agent objects, which receive and process incoming calls and make outgoing calls to customers or prospects.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -122,10 +122,14 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The EnumerateAgentSessions method enumerates the current agent sessions. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_AgentSessions method.
+     * The ITAgent::EnumerateAgentSessions method (tapi3cc.h) enumerates the current agent sessions.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagentsession">IEnumAgentSession</a> interface returned by <b>ITAgent::EnumerateAgentSessions</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumAgentSession</b> interface to free resources associated with it.
      * @returns {IEnumAgentSession} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagentsession">IEnumAgentSession</a> agent session enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-enumerateagentsessions
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-enumerateagentsessions
      */
     EnumerateAgentSessions() {
         result := ComCall(7, this, "ptr*", &ppEnumAgentSession := 0, "HRESULT")
@@ -133,14 +137,21 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The CreateSession method creates a new agent session for the input ACD group and address.
+     * The ITAgent::CreateSession method (tapi3cc.h) creates a new agent session for the input ACD group and address.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface returned by <b>ITAgent::CreateSession</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgentSession</b> interface to free resources associated with it.
+     * 
+     * Some telephone environments require a personal identification number to open a session. See 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nf-tapi3-itagent-createsessionwithpin">CreateSessionWithPIN</a>.
      * @param {ITACDGroup} pACDGroup Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface.
      * @param {ITAddress} pAddress Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> object available for receiving ACD calls.
      * @returns {ITAgentSession} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface for object created.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-createsession
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-createsession
      */
     CreateSession(pACDGroup, pAddress) {
         result := ComCall(8, this, "ptr", pACDGroup, "ptr", pAddress, "ptr*", &ppAgentSession := 0, "HRESULT")
@@ -148,14 +159,22 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The CreateSessionWithPIN method creates a new agent session for the input ACD group and address, with Personal Identification Number (PIN).
+     * The ITAgent::CreateSessionWithPIN method (tapi3cc.h) creates a new agent session for the input ACD group and address, with Personal Identification Number (PIN).
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for <i>pPIN</i> and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface returned by <b>ITAgent::CreateSessionWithPIN</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgentSession</b> interface to free resources associated with it.
      * @param {ITACDGroup} pACDGroup Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface.
      * @param {ITAddress} pAddress Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface for object available for receiving ACD calls.
      * @param {BSTR} pPIN Pointer to a <b>BSTR</b> representation of agent's PIN.
      * @returns {ITAgentSession} Pointer to session created.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-createsessionwithpin
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-createsessionwithpin
      */
     CreateSessionWithPIN(pACDGroup, pAddress, pPIN) {
         pPIN := pPIN is String ? BSTR.Alloc(pPIN).Value : pPIN
@@ -165,9 +184,14 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_ID method gets an agent's ID.
+     * The ITAgent::get_ID method (tapi3cc.h) gets an agent's ID.
+     * @remarks
+     * This method is provided for interfacing with legacy switch solutions.
+     * 
+     * The application must free the memory allocated for the <i>ppID</i> parameter through 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when the variable is no longer needed.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing agent ID.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_id
      */
     get_ID() {
         ppID := BSTR()
@@ -176,9 +200,12 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_User method gets the agent user name, which is the same as the operating system user login or e-mail name.
+     * The ITAgent::get_User method (tapi3cc.h) gets the agent user name, which is the same as the operating system user login or e-mail name.
+     * @remarks
+     * The application must free the memory allocated for the <i>ppUser</i> parameter through 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when the variable is no longer needed.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing user name.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_user
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_user
      */
     get_User() {
         ppUser := BSTR()
@@ -187,7 +214,10 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The put_State method sets the state of an agent session.
+     * The ITAgent::put_State method (tapi3cc.h) sets the state of an agent session.
+     * @remarks
+     * The <b>ITAgent::put_State</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetagentstateex">lineSetAgentStateEx</a> function.
      * @param {Integer} AgentState <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_state">AGENT_STATE</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -241,7 +271,7 @@ class ITAgent extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-put_state
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-put_state
      */
     put_State(AgentState) {
         result := ComCall(12, this, "int", AgentState, "HRESULT")
@@ -249,10 +279,10 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_State method gets the state of an agent session.
+     * The ITAgent::get_State method (tapi3cc.h) gets the state of an agent session.
      * @returns {Integer} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_state">AGENT_STATE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_state
      */
     get_State() {
         result := ComCall(13, this, "int*", &pAgentState := 0, "HRESULT")
@@ -260,7 +290,12 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The put_MeasurementPeriod method sets the period (in seconds) for which the switch and/or implementation stores and calculates information. This also resets any cumulative counts to zero.
+     * The ITAgent::put_MeasurementPeriod method (tapi3cc.h) sets the period (in seconds) for which the switch and/or implementation stores and calculates information.
+     * @remarks
+     * The <b>ITAgent::put_MeasurementPeriod</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetagentmeasurementperiod">lineSetAgentMeasurementPeriod</a> function.
+     * 
+     * This method will accept negative values for the measurement period, but this will normally result in unreliable statistics.
      * @param {Integer} lPeriod Measurement period (in seconds).
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -310,12 +345,12 @@ class ITAgent extends IDispatch{
      * </td>
      * <td width="60%">
      * See 
-     * <a href="/windows/desktop/api/tapi/nf-tapi-linesetagentmeasurementperiod">lineSetAgentMeasurementPeriod</a> for error codes returned from this TAPI 2.1 function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetagentmeasurementperiod">lineSetAgentMeasurementPeriod</a> for error codes returned from this TAPI 2.1 function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-put_measurementperiod
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-put_measurementperiod
      */
     put_MeasurementPeriod(lPeriod) {
         result := ComCall(14, this, "int", lPeriod, "HRESULT")
@@ -323,9 +358,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_MeasurementPeriod method gets the measurement period (in seconds) for which the switch and/or implementation stores and calculates information.
+     * The ITAgent::get_MeasurementPeriod method (tapi3cc.h) gets the measurement period for which the switch and/or implementation stores and calculates information.
      * @returns {Integer} Measurement period.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_measurementperiod
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_measurementperiod
      */
     get_MeasurementPeriod() {
         result := ComCall(15, this, "int*", &plPeriod := 0, "HRESULT")
@@ -333,9 +368,11 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_OverallCallRate method gets an agent's call rate across all sessions. 10 *Calls per agent hour (where agent hour represents the time that an agent was active in one or more agent sessions).
+     * The ITAgent::get_OverallCallRate method (tapi3cc.h) gets an agent's call rate across all sessions.
+     * @remarks
+     * The <b>CURRENCY</b> type is used here instead of <b>FLOAT</b> for Visual Basic and Java compatibility.
      * @returns {CY} Call rate.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_overallcallrate
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_overallcallrate
      */
     get_OverallCallRate() {
         pcyCallrate := CY()
@@ -344,9 +381,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_NumberOfACDCalls method gets the number of ACD calls handled by this agent across all sessions.
+     * The ITAgent::get_NumberOfACDCalls method (tapi3cc.h) gets the number of ACD calls handled by this agent across all sessions.
      * @returns {Integer} Total number of calls.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_numberofacdcalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofacdcalls
      */
     get_NumberOfACDCalls() {
         result := ComCall(17, this, "int*", &plCalls := 0, "HRESULT")
@@ -354,9 +391,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_NumberOfIncomingCalls method gets the number of incoming non-ACD calls handled by this agent.
+     * The ITAgent::get_NumberOfIncomingCalls method (tapi3cc.h) gets the number of incoming non-ACD calls handled by this agent.
      * @returns {Integer} Total number of incoming calls.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_numberofincomingcalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofincomingcalls
      */
     get_NumberOfIncomingCalls() {
         result := ComCall(18, this, "int*", &plCalls := 0, "HRESULT")
@@ -364,9 +401,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_NumberOfOutgoingCalls method gets the number of outgoing non-ACD calls handled during by this agent.
+     * The ITAgent::get_NumberOfOutgoingCalls method (tapi3cc.h) gets the number of outgoing non-ACD calls handled during by this agent.
      * @returns {Integer} Total number of outgoing calls.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_numberofoutgoingcalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofoutgoingcalls
      */
     get_NumberOfOutgoingCalls() {
         result := ComCall(19, this, "int*", &plCalls := 0, "HRESULT")
@@ -374,9 +411,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_TotalACDTalkTime gets the number of seconds spent talking in ACD calls by this agent (across all sessions).
+     * The ITAgent::get_TotalACDTalkTime method (tapi3cc.h) gets the number of seconds spent talking in ACD calls by this agent, across all sessions.
      * @returns {Integer} Total talk time.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_totalacdtalktime
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdtalktime
      */
     get_TotalACDTalkTime() {
         result := ComCall(20, this, "int*", &plTalkTime := 0, "HRESULT")
@@ -384,9 +421,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_TotalACDCallTime gets the number of seconds spent on ACD calls by this agent (across all sessions). This value includes the time spent on the phone plus wrap-up time.
+     * The ITAgent::get_TotalACDCallTime method (tapi3cc.h) gets the number of seconds spent on ACD calls by this agent, across all sessions.
      * @returns {Integer} Total call time.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_totalacdcalltime
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdcalltime
      */
     get_TotalACDCallTime() {
         result := ComCall(21, this, "int*", &plCallTime := 0, "HRESULT")
@@ -394,9 +431,9 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_TotalWrapUpTime method gets the number of seconds spent on ACD call wrap-up (after-call work) by this agent (across all sessions).
+     * The ITAgent::get_TotalWrapUpTime method (tapi3cc.h) gets the number of seconds spent on ACD call wrap-up by this agent, across all sessions.
      * @returns {Integer} Total wrap-up time.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_totalwrapuptime
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalwrapuptime
      */
     get_TotalWrapUpTime() {
         result := ComCall(22, this, "int*", &plWrapUpTime := 0, "HRESULT")
@@ -404,11 +441,15 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * The get_AgentSessions method creates a collection of current agent sessions. This method is provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateAgentSessions method.
+     * The ITAgent::get_AgentSessions method (tapi3cc.h) creates a collection of current agent sessions.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface returned by <b>ITAgent::get_AgentSessions</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgentSession</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface pointers (agent session objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagent-get_agentsessions
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_agentsessions
      */
     get_AgentSessions() {
         pVariant := VARIANT()

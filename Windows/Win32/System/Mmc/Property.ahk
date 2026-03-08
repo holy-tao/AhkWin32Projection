@@ -6,7 +6,7 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * 
+ * Windows Portable Devices supports the following property attributes.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/attributes
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

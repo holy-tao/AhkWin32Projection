@@ -4,7 +4,7 @@
 #Include .\IShellDispatch5.ahk
 
 /**
- * 
+ * Extends the IShellDispatch5 object.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch6
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -31,8 +31,8 @@ class IShellDispatch6 extends IShellDispatch5{
     static VTableNames => ["SearchCommand"]
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Displays the Apps Search pane, which normally appears when you begin to type a search term from the Start screen.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch6-searchcommand
      */
     SearchCommand() {

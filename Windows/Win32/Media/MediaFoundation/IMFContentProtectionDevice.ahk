@@ -5,7 +5,7 @@
 
 /**
  * Allows a decryptor to communicate with the security processor that implements the hardware decryption for a protection system.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfcontentprotectiondevice
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentprotectiondevice
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,8 +37,8 @@ class IMFContentProtectionDevice extends IUnknown{
      * @param {Pointer} InputBuffer A pointer to the data that you want to provide as input.
      * @param {Pointer<Integer>} OutputBufferByteCount Pointer to a value that specifies the length in bytes of the data that the function wrote to the buffer that <i>OutputBuffer</i> specifies, including the private data.
      * @param {Pointer} OutputBuffer Pointer to the buffer where you want the function to write its output.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
      */
     InvokeFunction(FunctionId, InputBufferByteCount, InputBuffer, OutputBufferByteCount, OutputBuffer) {
         OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : "ptr"
@@ -53,8 +53,8 @@ class IMFContentProtectionDevice extends IUnknown{
      *       the input buffer that you supply to content protection system.
      * @param {Pointer<Integer>} PrivateOutputByteCount The required number of bytes that need to be prepended to   
      *            the output buffer that you supply to content protection system.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
      */
     GetPrivateDataByteCount(PrivateInputByteCount, PrivateOutputByteCount) {
         PrivateInputByteCountMarshal := PrivateInputByteCount is VarRef ? "uint*" : "ptr"

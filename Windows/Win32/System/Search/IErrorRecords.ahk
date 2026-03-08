@@ -69,10 +69,14 @@ class IErrorRecords extends IUnknown{
 
     /**
      * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
+     * @remarks
+     * This function returns a pointer to the most recently set <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a> pointer in the current logical thread. It transfers ownership of the error object to the caller, and clears the error state for the thread.
+     * 
+     * Making a COM call that goes through a proxy-stub will clear any existing error object for the calling thread. A called object should not make any such calls after calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> and before returning. The caller should not make any such calls after the call returns and before calling <b>GetErrorInfo</b>. As a rule of thumb, an interface method should return as soon as possible after calling <b>SetErrorInfo</b>, and the caller should call <b>GetErrorInfo</b> as soon as possible after the call returns.
      * @param {Integer} ulRecordNum 
      * @param {Integer} lcid 
      * @returns {IErrorInfo} 
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(ulRecordNum, lcid) {
         result := ComCall(6, this, "uint", ulRecordNum, "uint", lcid, "ptr*", &ppErrorInfo := 0, "HRESULT")

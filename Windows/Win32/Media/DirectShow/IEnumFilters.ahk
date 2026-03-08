@@ -6,7 +6,7 @@
 
 /**
  * The IEnumFilters interface enumerates the filters in a filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ienumfilters
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ienumfilters
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IEnumFilters extends IUnknown{
 
     /**
      * The Next method retrieves the specified number of filters in the enumeration sequence.
+     * @remarks
+     * If the method succeeds, the <b>IBaseFilter</b> pointers all have outstanding reference counts. Be sure to release them when you are done.
+     * 
+     * If the filter graph changes (for example, the application removes a filter), the enumerator is no longer be consistent with the graph, and the method returns VFW_E_ENUM_OUT_OF_SYNC. Discard any data obtained from previous calls to the enumerator, because it might be invalid. Update the enumerator by calling the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ienumfilters-reset">IEnumFilters::Reset</a> method. You can then call the <c>Next</c> method safely.
      * @param {Integer} cFilters Number of filters to retrieve.
      * @param {Pointer<IBaseFilter>} ppFilter Array of size <i>cFilters</i> that is filled with <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface pointers. The caller must release the interfaces.
      * @param {Pointer<Integer>} pcFetched Receives the number of filters retrieved. Can be <b>NULL</b> if <i>cFilters</i> is 1.
@@ -64,7 +68,7 @@ class IEnumFilters extends IUnknown{
      * <td>The graph has changed and is now inconsistent with the enumerator.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-next
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-next
      */
     Next(cFilters, ppFilter, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -75,6 +79,8 @@ class IEnumFilters extends IUnknown{
 
     /**
      * The Skip method skips over a specified number of filters.
+     * @remarks
+     * If the filter graph changes (for example, the application removes a filter), the enumerator is no longer be consistent with the graph, and the method returns VFW_E_ENUM_OUT_OF_SYNC. Discard any data obtained from previous calls to the enumerator, because it might be invalid. Update the enumerator by calling the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ienumfilters-reset">IEnumFilters::Reset</a> method. You can then call the <c>Skip</c> method safely.
      * @param {Integer} cFilters Number of filters to skip.
      * @returns {HRESULT} <table>
      * <tr>
@@ -96,7 +102,7 @@ class IEnumFilters extends IUnknown{
      * <td>The graph has changed and is now inconsistent with the enumerator.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-skip
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-skip
      */
     Skip(cFilters) {
         result := ComCall(4, this, "uint", cFilters, "HRESULT")
@@ -104,9 +110,9 @@ class IEnumFilters extends IUnknown{
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning.
+     * The Reset method resets the enumeration sequence to the beginning. (IEnumFilters.Reset)
      * @returns {HRESULT} Returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-reset
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -116,7 +122,7 @@ class IEnumFilters extends IUnknown{
     /**
      * The Clone method makes a copy of the enumerator object. The returned object starts with the same enumeration state as the original.
      * @returns {IEnumFilters} Receives a pointer to the <b>IEnumFilters</b> interface of the new enumerator. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-clone
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

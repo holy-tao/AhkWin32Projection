@@ -5,7 +5,7 @@
 
 /**
  * Enables applications and other objects to receive notifications of changes in the progress of a downloading operation.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iprogressnotify
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iprogressnotify
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IProgressNotify extends IUnknown{
 
     /**
      * Notifies registered objects and applications of the progress of a downloading operation.
+     * @remarks
+     * Sinks may be inherited by any substorage or substream of a given storage. If no sink is registered, the thread will block until the requested data becomes available, or the download is canceled by the downloader.
+     * 
+     * Where multiple objects or applications have registered progress notification sinks on a single stream, only one of them can control the behavior of a download. Ownership of the download goes to the first sink to register with the storage or stream, or any advise skinks that may have been inherited from the parent storage (if the storage was created with ASYNC_MODE_COMPATIBILITY.) 
+     * 
+     * Any one of the sinks can relinquish control to the next connection point by returning STG_S_MONITORING to the connection point making the current caller. After a connection point obtains control (through receiving STG_S_BLOCK or STG_S_RETRYNOW), all subsequent connection points calling <b>OnProgress</b> will set <i>fOwner</i> to <b>FALSE</b>.
      * @param {Integer} dwProgressCurrent The amount of data available.
      * @param {Integer} dwProgressMaximum The total amount of data to be downloaded.
      * @param {BOOL} fAccurate Indicates the accuracy of the values in <i>dwProgressCurrent</i> and <i>dwProgressMaximum</i>. They are either reliable (<b>TRUE</b>) or unreliable (<b>FALSE</b>). The <b>FALSE</b> value indicates that control structures for determining the actual position of, or amount of, data yet to be downloaded are not available.
@@ -72,7 +78,7 @@ class IProgressNotify extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The callback recipient reliquishes control of the downloading process to one of the other objects or applications that have registered progress notification sinks on the same stream. This is useful if the notification sink is interested only in gathering statistics.
+     * The callback recipient relinquishes control of the downloading process to one of the other objects or applications that have registered progress notification sinks on the same stream. This is useful if the notification sink is interested only in gathering statistics.
      * 
      * </td>
      * </tr>
@@ -89,7 +95,7 @@ class IProgressNotify extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprogressnotify-onprogress
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iprogressnotify-onprogress
      */
     OnProgress(dwProgressCurrent, dwProgressMaximum, fAccurate, fOwner) {
         result := ComCall(3, this, "uint", dwProgressCurrent, "uint", dwProgressMaximum, "int", fAccurate, "int", fOwner, "HRESULT")

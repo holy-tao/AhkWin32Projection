@@ -8,13 +8,10 @@
 /**
  * Represents configuration UI information used to build and register a synchronization provider.
  * @remarks
- * 
  * The writer of a synchronization provider should implement an <b>ISyncProviderConfigUI</b> (a builder) for a synchronization provider if it requires additional information and properties to be set before it can be created. For example, a synchronization provider may require a user to enter credentials before their data can be synchronized.
  * 
- * If the registered synchronization provider is a <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> provider, then the <b>Init</b>method will be called by the Sync Framework synchronization session. For more information about the different types of synchronization providers you can write for Windows, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-isyncproviderconfigui
+ * If the registered synchronization provider is a <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> provider, then the <b>Init</b> method will be called by the Sync Framework synchronization session. For more information about the different types of synchronization providers you can write for Windows, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-isyncproviderconfigui
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -41,6 +38,8 @@ class ISyncProviderConfigUI extends IUnknown{
 
     /**
      * Initializes the configuration UI for a synchronization provider.
+     * @remarks
+     * This method will be called by the registration code before the object is returned whenever an instance of the configuration UI is requested from one of the registration interfaces.
      * @param {Pointer<Guid>} pguidInstanceId The instance ID of the configuration UI.
      * @param {Pointer<Guid>} pguidContentType A GUID that represents the content type that is associated with the synchronization provider that this configuration UI will create.
      * @param {IPropertyStore} pConfigurationProperties The properties that should be specified when the configuration UI is registering the synchronization provider. These properties are also used to  properly initialize
@@ -64,7 +63,7 @@ class ISyncProviderConfigUI extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfigui-init
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-init
      */
     Init(pguidInstanceId, pguidContentType, pConfigurationProperties) {
         result := ComCall(3, this, "ptr", pguidInstanceId, "ptr", pguidContentType, "ptr", pConfigurationProperties, "HRESULT")
@@ -74,7 +73,7 @@ class ISyncProviderConfigUI extends IUnknown{
     /**
      * Obtains configuration UI properties for reading and writing.
      * @returns {IPropertyStore} Returns the <b>IPropertyStore</b> object that contains the configuration UI properties for reading and writing. Both the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderinfo">ISyncProviderInfo</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderconfiguiinfo">ISyncProviderConfigUIInfo</a> interfaces inherit from <b>IPropertyStore</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfigui-getregisteredproperties
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-getregisteredproperties
      */
     GetRegisteredProperties() {
         result := ComCall(4, this, "ptr*", &ppConfigUIProperties := 0, "HRESULT")
@@ -87,7 +86,7 @@ class ISyncProviderConfigUI extends IUnknown{
      *     	The HWND should be <b>NULL</b> only if the <b>dwCapabilities</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration">SyncProviderConfigUIConfiguration</a> structure is set to not support a UI.
      * @param {IUnknown} pUnkContext Pointer to an interface containing additional information needed to generate the synchronization provider. The pointer will be <b>NULL</b> if no additional information is needed.
      * @returns {ISyncProviderInfo} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderinfo">ISyncProviderInfo</a> object that contains information about the newly created and registered synchronization provider.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfigui-createandregisternewsyncprovider
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-createandregisternewsyncprovider
      */
     CreateAndRegisterNewSyncProvider(hwndParent, pUnkContext) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -132,7 +131,7 @@ class ISyncProviderConfigUI extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfigui-modifysyncprovider
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-modifysyncprovider
      */
     ModifySyncProvider(hwndParent, pUnkContext, pProviderInfo) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

@@ -6,11 +6,8 @@
 /**
  * The ITfEditTransactionSink interface is implemented by a text service and used by the TSF manager to support edit transactions.
  * @remarks
- * 
  * An edit transaction involves multiple document locks, and usually includes multiple <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftexteditsink-onendedit">ITfTextEditSink::OnEndEdit</a> method callbacks.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfedittransactionsink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfedittransactionsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,9 +34,11 @@ class ITfEditTransactionSink extends IUnknown{
 
     /**
      * ITfEditTransactionSink::OnStartEditTransaction method
+     * @remarks
+     * The TSF manager calls this method at the start of an edit transaction. A text service might delay reevaluation of the changing context of the transaction due to the multiple <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftexteditsink-onendedit">ITfTextEditSink::OnEndEdit</a> notifications until after receiving the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfedittransactionsink-onendedittransaction">ITfEditTransactionSink::OnEndEditTransaction</a> callback.
      * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface involved in the transaction.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfedittransactionsink-onstartedittransaction
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfedittransactionsink-onstartedittransaction
      */
     OnStartEditTransaction(pic) {
         result := ComCall(3, this, "ptr", pic, "HRESULT")
@@ -48,9 +47,11 @@ class ITfEditTransactionSink extends IUnknown{
 
     /**
      * ITfEditTransactionSink::OnEndEditTransaction method
+     * @remarks
+     * The TSF manager calls this method at the end of an edit transaction. A text service can delay reevaluation of the changing context of the transaction due to the multiple <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftexteditsink-onendedit">ITfTextEditSink::OnEndEdit</a> method notifications until after receiving this callback.
      * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface involved in the transaction.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfedittransactionsink-onendedittransaction
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfedittransactionsink-onendedittransaction
      */
     OnEndEditTransaction(pic) {
         result := ComCall(4, this, "ptr", pic, "HRESULT")

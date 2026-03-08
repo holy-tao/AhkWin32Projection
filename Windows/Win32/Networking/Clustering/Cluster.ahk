@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Adds the specified group to a groupset in the cluster.
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusteraddgrouptogroupset
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

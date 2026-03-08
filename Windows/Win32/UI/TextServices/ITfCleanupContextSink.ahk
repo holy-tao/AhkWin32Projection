@@ -6,7 +6,6 @@
 /**
  * The ITfCleanupContextSink interface is implemented by a text service to receive notifications when a context cleanup operation occurs. This notification sink is installed by calling ITfSourceSingle::AdviseSingleSink with IID_ITfCleanupContextSink.
  * @remarks
- * 
  * A context cleanup occurs when:
  * 
  * <ul>
@@ -15,9 +14,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-deactivate">ITfThreadMgr::Deactivate
  *             </a> is called while a context is still on the context stack.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcleanupcontextsink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcleanupcontextsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -44,10 +41,17 @@ class ITfCleanupContextSink extends IUnknown{
 
     /**
      * ITfCleanupContextSink::OnCleanupContext method
+     * @remarks
+     * A context cleanup occurs when:
+     * 
+     * - The text service is deactivated while a context is still on the context stack. This can occur when the active text service is changed or when the active language changes while the text service is active.
+     * - [ITfThreadMgr::Deactivate](nf-msctf-itfthreadmgr-deactivate.md) is called while a context is still on the context stack.
+     * 
+     * [ITfCleanupContextDurationSink::OnStartCleanupContext](nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext.md) is called just before the TSF manager begins making [ITfCleanupContextSink::OnCleanupContext](nf-msctf-itfcleanupcontextsink-oncleanupcontext.md) notifications. When all of the OnCleanupContext notifications complete, the TSF manager calls **OnEndCleanupContext**.
      * @param {Integer} ecWrite Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfeditcookie">TfEditCookie</a> value that identifies the edit context cleaned up. The edit context is guaranteed to have a read/write lock.
      * @param {ITfContext} pic Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface that represents the context cleaned up.
      * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextsink-oncleanupcontext
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcleanupcontextsink-oncleanupcontext
      */
     OnCleanupContext(ecWrite, pic) {
         result := ComCall(3, this, "uint", ecWrite, "ptr", pic, "HRESULT")

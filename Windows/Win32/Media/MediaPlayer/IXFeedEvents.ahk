@@ -29,9 +29,9 @@ class IXFeedEvents extends IUnknown{
     static VTableNames => ["Error", "FeedDeleted", "FeedRenamed", "FeedUrlChanged", "FeedMoved", "FeedDownloading", "FeedDownloadCompleted", "FeedItemCountChanged"]
 
     /**
-     * Indicates a significant problem.
+     * The Error event occurs when the Windows Media Player control has an error condition.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//timeprov/nc-timeprov-logtimeproveventfunc
+     * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-error
      */
     Error() {
         result := ComCall(3, this, "HRESULT")

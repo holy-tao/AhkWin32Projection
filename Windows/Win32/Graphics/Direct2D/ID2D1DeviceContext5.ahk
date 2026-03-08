@@ -7,7 +7,7 @@
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext4 interface, plus it enables the creation of color contexts and Svg documents.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1devicecontext5
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext5
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
      * @returns {ID2D1SvgDocument} Type: <b>ID2D1SvgDocument**</b>
      * 
      * When this method returns, contains a pointer to the created SVG document.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
      */
     CreateSvgDocument(inputXmlStream, viewportSize) {
         result := ComCall(115, this, "ptr", inputXmlStream, "ptr", viewportSize, "ptr*", &svgDocument := 0, "HRESULT")
@@ -56,7 +56,7 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
      * 
      * The SVG document to draw.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-drawsvgdocument
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-drawsvgdocument
      */
     DrawSvgDocument(svgDocument) {
         ComCall(116, this, "ptr", svgDocument)
@@ -70,7 +70,7 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
      * @returns {ID2D1ColorContext1} Type: <b>ID2D1ColorContext1**</b>
      * 
      * The created color context.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromdxgicolorspace
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromdxgicolorspace
      */
     CreateColorContextFromDxgiColorSpace(colorSpace) {
         result := ComCall(117, this, "int", colorSpace, "ptr*", &colorContext := 0, "HRESULT")
@@ -78,9 +78,13 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
     }
 
     /**
+     * Creates a color context from a simple color profile. It is only valid to use this with the Color Management Effect in 'Best' mode. (overload 2/2)
+     * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_simple_color_profile">D2D1_SIMPLE_COLOR_PROFILE</a></b>
      * 
-     * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
-     * @returns {ID2D1ColorContext1} 
+     * The simple color profile to create the color context from.
+     * @returns {ID2D1ColorContext1} Type: <b>ID2D1ColorContext1**</b>
+     * 
+     * The created color context.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromsimplecolorprofile(constd2d1_simple_color_profile__id2d1colorcontext1)
      */
     CreateColorContextFromSimpleColorProfile(simpleProfile) {

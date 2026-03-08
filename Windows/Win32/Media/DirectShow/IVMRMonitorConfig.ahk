@@ -6,7 +6,7 @@
 
 /**
  * The IVMRMonitorConfig interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrmonitorconfig
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmonitorconfig
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,6 +33,12 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * On a multi-monitor system, the SetMonitor method specifies the monitor that this instance of the VMR should use for video playback.
+     * @remarks
+     * Use this method on a multi-monitor system to specify to the VMR which DirectDraw driver should be used when connecting to an upstream decoder filter.
+     * 
+     * The <b>pGUID</b> member of the VMRGUID structure must be either <b>NULL</b>, indicating the default DirectDraw device, or equal to the address of the <b>GUID</b> member of the <b>VMRGUID</b> structure. Otherwise, the method returns E_INVALIDARG.
+     * 
+     * If the specified GUID does not correspond to any monitor, the method return E_INVALIDARG.
      * @param {Pointer<VMRGUID>} pGUID Pointer to a [VMRGUID](/windows/desktop/api/strmif/ns-strmif-vmrguid) structure that identifies the monitor.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -86,7 +92,7 @@ class IVMRMonitorConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmonitorconfig-setmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-setmonitor
      */
     SetMonitor(pGUID) {
         result := ComCall(3, this, "ptr", pGUID, "HRESULT")
@@ -96,7 +102,7 @@ class IVMRMonitorConfig extends IUnknown{
     /**
      * The GetMonitor method retrieves the monitor that this instance of the VMR is using for video playback.
      * @returns {VMRGUID} Pointer to a [VMRGUID](/windows/desktop/api/strmif/ns-strmif-vmrguid) structure allocated by the caller. The method fills this structure with a GUID that identifies the monitor.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmonitorconfig-getmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-getmonitor
      */
     GetMonitor() {
         pGUID := VMRGUID()
@@ -106,6 +112,12 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * The SetDefaultMonitor method specifies the default monitor that all future instances of the VMR should use for video playback.
+     * @remarks
+     * Use this method on a multi-monitor system to specify to the VMR the default DirectDraw device to use when connecting to an upstream filter. The default DirectDraw device can be overridden for a particular connection by the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrmonitorconfig-setmonitor">SetMonitor</a> method.
+     * 
+     * The <b>pGUID</b> member of the VMRGUID structure must be either <b>NULL</b>, indicating the default DirectDraw device, or equal to the address of the <b>GUID</b> member of the <b>VMRGUID</b> structure. Otherwise, the method returns E_INVALIDARG.
+     * 
+     * If the specified GUID does not correspond to any monitor, the method return E_INVALIDARG.
      * @param {Pointer<VMRGUID>} pGUID Pointer to a [VMRGUID](/windows/desktop/api/strmif/ns-strmif-vmrguid) structure that identifies the monitor.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -170,7 +182,7 @@ class IVMRMonitorConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmonitorconfig-setdefaultmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-setdefaultmonitor
      */
     SetDefaultMonitor(pGUID) {
         result := ComCall(5, this, "ptr", pGUID, "HRESULT")
@@ -179,8 +191,10 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * The GetDefaultMonitor method retrieves the default monitor that all future instances of the VMR will use for video playback.
+     * @remarks
+     * Use this method on a multi-monitor system to determine which is the default DirectDraw device the VMR will use when connecting to an upstream filter.
      * @returns {VMRGUID} Pointer to a [VMRGUID](/windows/desktop/api/strmif/ns-strmif-vmrguid) structure that identifies the default monitor on the system.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmonitorconfig-getdefaultmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-getdefaultmonitor
      */
     GetDefaultMonitor() {
         pGUID := VMRGUID()
@@ -190,6 +204,8 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * The GetAvailableMonitors method retrieves information about the monitors currently available on the system.
+     * @remarks
+     * Use this method to get a list of DirectDraw device GUIDs and their associated monitor information that the VMR can use when connecting to an upstream decoder filter. To return the required array size in the <i>pdwNumDevices</i> parameter, specify <b>NULL</b> for <i>pInfo</i>.
      * @param {Pointer<VMRMONITORINFO>} pInfo Pointer to an array of [VMRMONITORINFO](/windows/desktop/api/strmif/ns-strmif-vmrmonitorinfo) structures that contain information about each monitor on the system.
      * @param {Integer} dwMaxInfoArraySize Specifies the maximum number of members in the array.
      * @param {Pointer<Integer>} pdwNumDevices Pointer to a variable that receives the number of devices retrieved.
@@ -234,7 +250,7 @@ class IVMRMonitorConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmonitorconfig-getavailablemonitors
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-getavailablemonitors
      */
     GetAvailableMonitors(pInfo, dwMaxInfoArraySize, pdwNumDevices) {
         pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : "ptr"

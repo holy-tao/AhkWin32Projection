@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that supply version information for accessible elements.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-iversioninfo
+ * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iversioninfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IVersionInfo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a>*</b>
      * 
      * The number of subcomponents that this component will expose version information about.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iversioninfo-getsubcomponentcount
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getsubcomponentcount
      */
     GetSubcomponentCount(ulSub) {
         result := ComCall(3, this, "uint", ulSub, "uint*", &ulCount := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IVersionInfo extends IUnknown{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * An implementation identifier for the component. The implementation identifier is unique for this component and is used only for comparing components.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iversioninfo-getimplementationid
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getimplementationid
      */
     GetImplementationID(ulSub) {
         implid := Guid()
@@ -73,10 +73,10 @@ class IVersionInfo extends IUnknown{
      * @param {Pointer<Integer>} pdwMinor Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * The minor build version of the component specified in <i>ulSub</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If successful, returns S_OK. If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iversioninfo-getbuildversion
+     * If successful, returns S_OK. If not successful, returns a standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getbuildversion
      */
     GetBuildVersion(ulSub, pdwMajor, pdwMinor) {
         pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
@@ -95,7 +95,7 @@ class IVersionInfo extends IUnknown{
      * 
      * String of the form of "Company, suite, component, version." This is for human consumption and is not expected to be 
      * 			 parsed.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iversioninfo-getcomponentdescription
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getcomponentdescription
      */
     GetComponentDescription(ulSub) {
         pImplStr := BSTR()
@@ -111,7 +111,7 @@ class IVersionInfo extends IUnknown{
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Additional useful strings for the component, such as the internal object state.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iversioninfo-getinstancedescription
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getinstancedescription
      */
     GetInstanceDescription(ulSub) {
         pImplStr := BSTR()

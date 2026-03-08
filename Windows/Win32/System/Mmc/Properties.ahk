@@ -7,7 +7,7 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * 
+ * Like any OLE object, a control provides much of its functionality through a set of incoming interfaces with properties and methods.
  * @see https://learn.microsoft.com/windows/win32/com/properties-and-methods
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
@@ -63,9 +63,15 @@ class Properties extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} Name 
      * @returns {Property} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -84,9 +90,22 @@ class Properties extends IDispatch{
     }
 
     /**
-     * 
+     * Removes a TPM command from the local list of commands blocked from running on the computer.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {BSTR} Name 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * Common return codes are listed below.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                 | Description                           |
+     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
     Remove(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name

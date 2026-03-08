@@ -6,7 +6,7 @@
 
 /**
  * Exposes a method that obtains a thumbnail representation of an HTML wallpaper.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-ithumbnailcapture
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-ithumbnailcapture
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,16 +33,16 @@ class IThumbnailCapture extends IUnknown{
 
     /**
      * Retrieves a thumbnail representation of an IHTMLDocument2 document.
-     * @param {Pointer<SIZE>} pMaxSize Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
+     * @param {Pointer<SIZE>} pMaxSize Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that specifies the maximum size of the bitmap, in pixels.
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the maximum size of the bitmap, in pixels.
      * @param {IUnknown} pHTMLDoc2 Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * A pointer to an <a href="https://docs.microsoft.com/dotnet/api/mshtml.ihtmldocument2?view=powershellsdk-1.1.0">IHTMLDocument2</a> interface's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * A pointer to an <a href="https://docs.microsoft.com/dotnet/api/mshtml.ihtmldocument2?view=powershellsdk-1.1.0&preserve-view=true">IHTMLDocument2</a> interface's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @returns {HBITMAP} Type: <b>HBITMAP*</b>
      * 
      * A handle to a bitmap that represents the document object.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ithumbnailcapture-capturethumbnail
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ithumbnailcapture-capturethumbnail
      */
     CaptureThumbnail(pMaxSize, pHTMLDoc2) {
         phbmThumbnail := HBITMAP()

@@ -6,7 +6,6 @@
 /**
  * The IUICollectionChangedEvent interface is implemented by the application and defines the method required to handle changes to a collection at run time.
  * @remarks
- * 
  * The Windows Ribbon framework incorporates the standard Component Object Model (COM)  client-server mechanism of <a href="https://docs.microsoft.com/windows/win32/com/events-in-com-and-connectable-objects">connectable objects</a> to listen for and handle collection changed events at run time.
  * 
  * The Ribbon acts as the COM server connectable object that defines both incoming and outgoing notification interfaces for the client, which is the Ribbon host application. The incoming interfaces are implemented by the Ribbon. The  outgoing interfaces are implemented by the application in a dedicated object that is created by the application and  referred to as the client connection sink. This sink is used to establish a connection to the connectable object.
@@ -16,9 +15,7 @@
  * <div class="alert"><b>Note</b>  The client must query the connectable object for <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iconnectionpointcontainer">IConnectionPointContainer</a> to determine whether the object is connectable before the client attempts to create a sink object.</div>
  * <div> </div>
  * In the case of the Ribbon,  <b>IUICollectionChangedEvent</b> is the outgoing interface defined by the framework and implemented by the application. The Ribbon triggers the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged">IUICollectionChangedEvent::OnChanged</a> event in the client by sending an outgoing notification when a collection changes, for example, adding a Command to the Quick Access Toolbar (QAT).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuicollectionchangedevent
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicollectionchangedevent
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -45,6 +42,10 @@ class IUICollectionChangedEvent extends IUnknown{
 
     /**
      * Called when an IUICollection changes.
+     * @remarks
+     * The <b>IUICollectionChangedEvent::OnChanged</b> interface is implemented by the Ribbon host application 
+     * 				(the client connection sink) as a listener for collection changed 
+     * 				events that are fired by the Ribbon (the connectable object).
      * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">UI_COLLECTIONCHANGE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">action</a> performed on the 
@@ -63,8 +64,8 @@ class IUICollectionChangedEvent extends IUnknown{
      * Pointer to the new item on insert, add, or replace; otherwise <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged
      */
     OnChanged(action, oldIndex, oldItem, newIndex, newItem) {
         result := ComCall(3, this, "int", action, "uint", oldIndex, "ptr", oldItem, "uint", newIndex, "ptr", newItem, "HRESULT")

@@ -6,11 +6,8 @@
 /**
  * The IBDA_Topology interface is implemented on BDA device filters.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_Topology)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_topology
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_topology
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,11 +34,13 @@ class IBDA_Topology extends IUnknown{
 
     /**
      * The GetNodeTypes method retrieves a list of all the node types in the template topology for this filter and network type.
+     * @remarks
+     * The <b>IBDA_Topology</b> interface is implemented by a BDA Device Filter. It is used by a Network Provider to query a BDA Device Filter's possible topologies (template topology) and to configure the device with an appropriate topology for the current tuning request. It is also used to get an <b>IUnknown</b> to a control node which may be used to set specific tuning information.
      * @param {Pointer<Integer>} pulcNodeTypes Pointer that receives the number of node types in the list.
      * @param {Integer} ulcNodeTypesMax The maximum number of node types that can be held by the <i>rgulNodeTypes</i> buffer.
      * @param {Pointer<Integer>} rgulNodeTypes Pointer to a buffer that receives the list of node types.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-getnodetypes
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodetypes
      */
     GetNodeTypes(pulcNodeTypes, ulcNodeTypesMax, rgulNodeTypes) {
         pulcNodeTypesMarshal := pulcNodeTypes is VarRef ? "uint*" : "ptr"
@@ -57,7 +56,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulcNodeDescriptorsMax Specifies the maximum number of node descriptors that the <i>rgNodeDescriptors</i> array can hold.
      * @param {Pointer<BDANODE_DESCRIPTOR>} rgNodeDescriptors Pointer to a buffer that receives an array of node descriptors. Each node descriptor is a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bdanode-descriptor">BDANODE_DESCRIPTOR</a>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-getnodedescriptors
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodedescriptors
      */
     GetNodeDescriptors(ulcNodeDescriptors, ulcNodeDescriptorsMax, rgNodeDescriptors) {
         ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : "ptr"
@@ -73,7 +72,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulcInterfacesMax Specifies the maximum number of interfaces that <i>rgguidInterfaces</i> can hold.
      * @param {Pointer<Guid>} rgguidInterfaces Pointer to a buffer that holds the list of interface GUIDs.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-getnodeinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodeinterfaces
      */
     GetNodeInterfaces(ulNodeType, pulcInterfaces, ulcInterfacesMax, rgguidInterfaces) {
         pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : "ptr"
@@ -88,7 +87,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulcPinTypesMax The maximum number of pin types that can be held by the <i>rgulPinTypes</i> buffer.
      * @param {Pointer<Integer>} rgulPinTypes Pointer to a buffer to receive the list of pin types.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-getpintypes
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getpintypes
      */
     GetPinTypes(pulcPinTypes, ulcPinTypesMax, rgulPinTypes) {
         pulcPinTypesMarshal := pulcPinTypes is VarRef ? "uint*" : "ptr"
@@ -104,7 +103,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulcConnectionsMax The maximum number of connections that can be held by the <i>rgConnections</i> buffer.
      * @param {Pointer<BDA_TEMPLATE_CONNECTION>} rgConnections Pointer to a buffer that receives the list of connections.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-gettemplateconnections
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-gettemplateconnections
      */
     GetTemplateConnections(pulcConnections, ulcConnectionsMax, rgConnections) {
         pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : "ptr"
@@ -118,7 +117,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulPinType Specifies the type of pin to create. To obtain the available values, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_topology-getpintypes">IBDA_Topology::GetPinTypes</a>.
      * @param {Pointer<Integer>} pulPinId Pointer that receives the identifier for the new pin.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-createpin
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-createpin
      */
     CreatePin(ulPinType, pulPinId) {
         pulPinIdMarshal := pulPinId is VarRef ? "uint*" : "ptr"
@@ -131,7 +130,7 @@ class IBDA_Topology extends IUnknown{
      * The DeletePin method deletes a pin from the filter's topology.
      * @param {Integer} ulPinId Specifies the identifier of the pin to be deleted.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-deletepin
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-deletepin
      */
     DeletePin(ulPinId) {
         result := ComCall(9, this, "uint", ulPinId, "HRESULT")
@@ -143,7 +142,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulPinId The identifier of the pin on which to set the media type.
      * @param {Pointer<AM_MEDIA_TYPE>} pMediaType Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that contains the media type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-setmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmediatype
      */
     SetMediaType(ulPinId, pMediaType) {
         result := ComCall(10, this, "uint", ulPinId, "ptr", pMediaType, "HRESULT")
@@ -152,10 +151,12 @@ class IBDA_Topology extends IUnknown{
 
     /**
      * The SetMedium method configures the medium on which a particular pin sends data.
+     * @remarks
+     * A medium is a structure that identifies a hardware data path between two devices on the host system. They can be devices on the same card, such as a crossbar and a tuner on a TV card; devices on separate cards; or external devices. Kernel-mode filters based on the Windows Driver Model can use mediums instead of media types to determine pin connections.
      * @param {Integer} ulPinId Specifies the identifier of the pin on which to set the medium.
      * @param {Pointer<REGPINMEDIUM>} pMedium Pointer to the medium on which the pin will send data.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-setmedium
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmedium
      */
     SetMedium(ulPinId, pMedium) {
         result := ComCall(11, this, "uint", ulPinId, "ptr", pMedium, "HRESULT")
@@ -167,7 +168,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulInputPinId Specifies the identifier of the input pin for which a topology should be created.
      * @param {Integer} ulOutputPinId Specifies the identifier of the output pin for which a topology should be created.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-createtopology
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-createtopology
      */
     CreateTopology(ulInputPinId, ulOutputPinId) {
         result := ComCall(12, this, "uint", ulInputPinId, "uint", ulOutputPinId, "HRESULT")
@@ -181,7 +182,7 @@ class IBDA_Topology extends IUnknown{
      * @param {Integer} ulNodeType The type of node to be opened.
      * @param {Pointer<IUnknown>} ppControlNode Pointer to a pointer to the control node's <b>IUnknown</b> interface
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_topology-getcontrolnode
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getcontrolnode
      */
     GetControlNode(ulInputPinId, ulOutputPinId, ulNodeType, ppControlNode) {
         result := ComCall(13, this, "uint", ulInputPinId, "uint", ulOutputPinId, "uint", ulNodeType, "ptr*", ppControlNode, "HRESULT")

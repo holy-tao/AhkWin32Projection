@@ -5,7 +5,7 @@
 
 /**
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using the Credential Security Support Provider (CredSSP).
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanex3
+ * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanex3
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class IWSManEx3 extends IWSManEx2{
     /**
      * Returns the value of the authentication flag WSManFlagUseCredSsp for use in the flags parameter of IWSMan::CreateSession.
      * @returns {Integer} Specifies the authentication flag to use.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
+     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
      */
     SessionFlagUseCredSsp() {
         result := ComCall(33, this, "int*", &flags := 0, "HRESULT")

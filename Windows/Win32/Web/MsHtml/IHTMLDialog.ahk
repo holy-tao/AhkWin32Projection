@@ -211,8 +211,26 @@ class IHTMLDialog extends IDispatch{
     }
 
     /**
+     * The close command closes the device or file and any associated resources. MCI unloads a device when all instances of the device or all files are closed. All MCI devices recognize this command.
+     * @remarks
+     * To close all devices opened by your application, specify the "all" device identifier for the *lpszDeviceID* parameter.
      * 
-     * @returns {HRESULT} 
+     * Closing the **cdaudio** device stops audio playback.
+     * 
+     * **Windows 2000/XP:** If the **cdaudio** device is playing, closing the **cdaudio** device does not cause the audio to stop playing. Send the [stop](stop.md) command first.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/close
      */
     close() {
         result := ComCall(19, this, "HRESULT")
@@ -224,8 +242,8 @@ class IHTMLDialog extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        String := BSTR()
-        result := ComCall(20, this, "ptr", String, "HRESULT")
-        return String
+        String_R := BSTR()
+        result := ComCall(20, this, "ptr", String_R, "HRESULT")
+        return String_R
     }
 }

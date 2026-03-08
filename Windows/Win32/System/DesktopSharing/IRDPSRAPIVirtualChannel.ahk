@@ -6,7 +6,7 @@
 
 /**
  * Manages the virtual channel.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-senddata
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-senddata
      */
     SendData(bstrData, lAttendeeId, ChannelSendFlags) {
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
@@ -77,6 +77,8 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
 
     /**
      * Enables the channel for an attendee.
+     * @remarks
+     * This method must be called for each attendee that will receive data over the channel.
      * @param {Integer} lAttendeeId Type: <b>long</b>
      * 
      * The identifier of the attendee.
@@ -84,7 +86,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-setaccess
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-setaccess
      */
     SetAccess(lAttendeeId, AccessType) {
         result := ComCall(8, this, "int", lAttendeeId, "int", AccessType, "HRESULT")
@@ -94,7 +96,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
     /**
      * The channel name.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -105,7 +107,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
     /**
      * The channel flags. This property is reserved for future use.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_flags
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_flags
      */
     get_Flags() {
         result := ComCall(10, this, "int*", &plFlags := 0, "HRESULT")
@@ -115,7 +117,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
     /**
      * The channel priority.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_priority
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_priority
      */
     get_Priority() {
         result := ComCall(11, this, "int*", &pPriority := 0, "HRESULT")

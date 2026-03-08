@@ -5,13 +5,11 @@
 #Include .\IOleUILinkContainerW.ahk
 
 /**
- * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide.
+ * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The oledlg.h header defines IOleUILinkInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oledlg/nn-oledlg-ioleuilinkinfow
+ * @see https://learn.microsoft.com/windows/win32/api/oledlg/nn-oledlg-ioleuilinkinfow
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset Unicode
@@ -33,9 +31,12 @@ class IOleUILinkInfoW extends IOleUILinkContainerW{
     static VTableNames => ["GetLastUpdate"]
 
     /**
-     * 
-     * @param {Integer} dwLink 
-     * @returns {FILETIME} 
+     * Determines the last time the object was updated. (Unicode)
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * If the time that the object was last updated is known, copy it to <i>lpLastUpdate</i>. If it is not known, then leave <i>lpLastUpdate</i> unchanged and Unknown will be displayed in the link page.
+     * @param {Integer} dwLink Container-defined unique identifier for a single link. Containers can use the pointer to the link's container site for this value.
+     * @returns {FILETIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that indicates the time that the object was last updated.
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkinfow-getlastupdate
      */
     GetLastUpdate(dwLink) {

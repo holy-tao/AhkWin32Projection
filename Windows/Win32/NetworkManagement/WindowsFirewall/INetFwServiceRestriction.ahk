@@ -8,11 +8,8 @@
 /**
  * Access to the Windows Service Hardening networking rules.
  * @remarks
- * 
  * When adding rules, note that there may be a small time lag before the newly-added rule is applied.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwservicerestriction
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwservicerestriction
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -46,6 +43,8 @@ class INetFwServiceRestriction extends IDispatch{
 
     /**
      * The RestrictService method turns service restriction on or off for a given service.
+     * @remarks
+     * When adding rules, note that there may be a small time lag before the newly-added rule is applied.
      * @param {BSTR} serviceName Name of the service for which service restriction is being turned on or off.
      * @param {BSTR} appName Name of the application for which service restriction is being turned on or off.
      * @param {VARIANT_BOOL} restrictService Indicates whether service restriction is being turned on or off.  If this value is true (<b>VARIANT_TRUE</b>), the service will be restricted when sending or receiving network traffic.  The Windows Service Hardening rules collection can contain rules which can allow this service specific inbound or outbound network access per specific requirements.  If false (<b>VARIANT_FALSE</b>), the service is not restricted by Windows Service Hardening.
@@ -118,7 +117,7 @@ class INetFwServiceRestriction extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservicerestriction-restrictservice
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservicerestriction-restrictservice
      */
     RestrictService(serviceName, appName, restrictService, serviceSidRestricted) {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
@@ -133,7 +132,7 @@ class INetFwServiceRestriction extends IDispatch{
      * @param {BSTR} serviceName Name of the service being queried concerning service restriction state.
      * @param {BSTR} appName Name of the application being queried concerning service restriction state.
      * @returns {VARIANT_BOOL} Indicates whether service restriction rules are in place to restrict the specified service.  If true (<b>VARIANT_TRUE</b>), service is restricted.  Otherwise, service is not restricted to the resources specified by firewall rules.
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservicerestriction-servicerestricted
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservicerestriction-servicerestricted
      */
     ServiceRestricted(serviceName, appName) {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
@@ -146,7 +145,7 @@ class INetFwServiceRestriction extends IDispatch{
     /**
      * Retrieves the collection of Windows Service Hardening networking rules.
      * @returns {INetFwRules} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservicerestriction-get_rules
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservicerestriction-get_rules
      */
     get_Rules() {
         result := ComCall(9, this, "ptr*", &rules := 0, "HRESULT")

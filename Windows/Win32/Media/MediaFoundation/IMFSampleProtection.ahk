@@ -5,7 +5,7 @@
 
 /**
  * Provides encryption for media data inside the protected media path (PMP).
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsampleprotection
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsampleprotection
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFSampleProtection extends IUnknown{
     /**
      * Retrieves the version of sample protection that the component implements on input.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getinputprotectionversion
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getinputprotectionversion
      */
     GetInputProtectionVersion() {
         result := ComCall(3, this, "uint*", &pdwVersion := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IMFSampleProtection extends IUnknown{
     /**
      * Retrieves the version of sample protection that the component implements on output.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getoutputprotectionversion
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getoutputprotectionversion
      */
     GetOutputProtectionVersion() {
         result := ComCall(4, this, "uint*", &pdwVersion := 0, "HRESULT")
@@ -52,6 +52,8 @@ class IMFSampleProtection extends IUnknown{
 
     /**
      * Retrieves the sample protection certificate.
+     * @remarks
+     * For certain version numbers of sample protection, the downstream component must provide a certificate. Components that do not support these version numbers can return E_NOTIMPL.
      * @param {Integer} dwVersion Specifies the version number of the sample protection scheme for which to receive a certificate. The version number is specified as a <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration value.
      * @param {Pointer<Pointer<Integer>>} ppCert Receives a pointer to a buffer containing the certificate. The caller must free the memory for the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<Integer>} pcbCert Receives the size of the <i>ppCert</i> buffer, in bytes.
@@ -85,7 +87,7 @@ class IMFSampleProtection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
      */
     GetProtectionCertificate(dwVersion, ppCert, pcbCert) {
         ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
@@ -97,6 +99,8 @@ class IMFSampleProtection extends IUnknown{
 
     /**
      * Retrieves initialization information for sample protection from the upstream component.
+     * @remarks
+     * This method must be implemented by the upstream component. The method fails if the component does not support the requested sample protection version. Downstream components do not implement this method and should return E_NOTIMPL.
      * @param {Integer} dwVersion Specifies the version number of the sample protection scheme. The version number is specified as a <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration value.
      * @param {Integer} dwOutputId Identifier of the output stream. The identifier corresponds to the output stream identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface.
      * @param {Pointer<Integer>} pbCert Pointer to a certificate provided by the downstream component.
@@ -133,7 +137,7 @@ class IMFSampleProtection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-initoutputprotection
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initoutputprotection
      */
     InitOutputProtection(dwVersion, dwOutputId, pbCert, cbCert, ppbSeed, pcbSeed) {
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
@@ -169,7 +173,7 @@ class IMFSampleProtection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-initinputprotection
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initinputprotection
      */
     InitInputProtection(dwVersion, dwInputId, pbSeed, cbSeed) {
         pbSeedMarshal := pbSeed is VarRef ? "char*" : "ptr"

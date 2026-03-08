@@ -7,7 +7,7 @@
 
 /**
  * Manages the window list.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiwindowlist
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiwindowlist
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IRDPSRAPIWindowList extends IDispatch{
     /**
      * An enumerator interface for the window collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -59,7 +59,7 @@ class IRDPSRAPIWindowList extends IDispatch{
      * An item in the window collection.
      * @param {Integer} item 
      * @returns {IRDPSRAPIWindow} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "int", item, "ptr*", &pWindow := 0, "HRESULT")

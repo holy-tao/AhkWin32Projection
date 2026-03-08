@@ -67,8 +67,9 @@ class IDisplayServices extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the time required to invert the caret's pixels. The user can set this value.
      * @returns {IHTMLCaret} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcaretblinktime
      */
     GetCaret() {
         result := ComCall(6, this, "ptr*", &ppCaret := 0, "HRESULT")

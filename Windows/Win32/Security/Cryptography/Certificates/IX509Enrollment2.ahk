@@ -8,7 +8,7 @@
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509enrollment2
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollment2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -56,12 +56,33 @@ class IX509Enrollment2 extends IX509Enrollment{
 
     /**
      * Initializes the enrollment object by using a template.
+     * @remarks
+     * The <b>InitializeFromTemplate</b> method:
+     * 
+     * <ul>
+     * <li>Examines the template to determine the type of request needed.</li>
+     * <li>Creates the appropriate type of request object (PKCS #10, PKCS #7, or CMC).</li>
+     * <li>Sets the following properties on the request if values currently exist:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CspInformations</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_parentwindow">ParentWindow</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_silent">Silent</a>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>Initializes the request object by using the template.</li>
+     * <li>Retrieves the signature count, issuance policies, and application policies from the template.</li>
+     * </ul>
      * @param {Integer} context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -92,7 +113,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate
      */
     InitializeFromTemplate(context, pPolicyServer, pTemplate) {
         result := ComCall(30, this, "int", context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
@@ -100,7 +121,36 @@ class IX509Enrollment2 extends IX509Enrollment{
     }
 
     /**
-     * Installs a certificate chain on the end-entity computer.
+     * Installs a certificate chain on the end-entity computer. (IX509Enrollment2.InstallResponse2)
+     * @remarks
+     * The <b>InstallResponse2</b> method:
+     * 
+     * <ol>
+     * <li>Retrieves the dummy certificate from the external store.</li>
+     * <li>Retrieves the certificate contained in the response and installs it on the computer.</li>
+     * <li>Copies properties from the dummy certificate in the external store onto the newly installed certificate in the personal store.</li>
+     * </ol>
+     * 
+     * 
+     * Before calling the <b>InstallResponse2</b> method, you must initialize the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> object by calling one of the following methods.<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-initialize">Initialize</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-initializefromrequest">InitializeFromRequest</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate">InitializeFromTemplate</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-initializefromtemplatename">InitializeFromTemplateName</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * If you call this method from the web, you can specify only <b>AllowNone</b> or <b>AllowUntrustedRoot</b> in the <i>Restrictions</i> parameter. If you specify <b>AllowNoOutstandingRequest</b> or <b>AllowUntrustedCertificate</b>, the method returns an <b>E_ACCESSDENIED</b> error.
+     * 
+     * The last four parameters (<i>strEnrollmentPolicyServerUrl</i>, <i>strEnrollmentPolicyServerID</i>, <i>EnrollmentPolicyServerFlags</i>, and <i>authFlags</i>) are not included in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-installresponse">InstallResponse</a> method. They enable you to add a property value to the installed certificate in much the same way as the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver">ICertPropertyEnrollmentPolicyServer</a> interface does.
      * @param {Integer} Restrictions 
      * @param {BSTR} strResponse A <b>BSTR</b> variable that contains the DER-encoded response.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the string that contains the DER-encoded response.
@@ -160,7 +210,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * </table>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -201,7 +251,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollment2-installresponse2
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-installresponse2
      */
     InstallResponse2(Restrictions, strResponse, Encoding, strPassword, strEnrollmentPolicyServerUrl, strEnrollmentPolicyServerID, EnrollmentPolicyServerFlags, authFlags) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
@@ -214,9 +264,9 @@ class IX509Enrollment2 extends IX509Enrollment{
     }
 
     /**
-     * Retrieves the certificate enrollment policy (CEP) server that contains the template used during initialization.
+     * Retrieves the certificate enrollment policy (CEP) server that contains the template used during initialization. (IX509Enrollment2.get_PolicyServer)
      * @returns {IX509EnrollmentPolicyServer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollment2-get_policyserver
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_policyserver
      */
     get_PolicyServer() {
         result := ComCall(32, this, "ptr*", &ppPolicyServer := 0, "HRESULT")
@@ -224,9 +274,9 @@ class IX509Enrollment2 extends IX509Enrollment{
     }
 
     /**
-     * Retrieves the certificate request template used during initialization.
+     * Retrieves the certificate request template used during initialization. (IX509Enrollment2.get_Template)
      * @returns {IX509CertificateTemplate} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollment2-get_template
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_template
      */
     get_Template() {
         result := ComCall(33, this, "ptr*", &ppTemplate := 0, "HRESULT")
@@ -236,12 +286,9 @@ class IX509Enrollment2 extends IX509Enrollment{
     /**
      * Retrieves a string that contains a unique identifier for the certificate request sent to the certification enrollment server (CES).
      * @remarks
-     * 
      * The value of the <b>RequestIdString</b> property is set during the enrollment process. It can be used during subsequent communication between the client and the CES. For example, if a CES marks a request as pending when initially submitted, the client can use the request ID string when it again contacts the CES and attempts to retrieve the certificate response.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollment2-get_requestidstring
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_requestidstring
      */
     get_RequestIdString() {
         pValue := BSTR()

@@ -4,6 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * These three methods allow additional interfaces to be added to the DirectInputEffectDriver object without affecting the functionality of the original interface.
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputeffectdriver
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
@@ -30,6 +32,19 @@ class IDirectInputEffect extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {HINSTANCE} param0 
      * @param {Integer} param1 
      * @param {Pointer<Guid>} param2 
@@ -44,7 +59,7 @@ class IDirectInputEffect extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -86,10 +101,17 @@ class IDirectInputEffect extends IUnknown{
     }
 
     /**
+     * Specifies the date and time when the trigger is activated.
+     * @remarks
+     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
+     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
+     * 
+     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start(param0, param1) {
         result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
@@ -97,8 +119,13 @@ class IDirectInputEffect extends IUnknown{
     }
 
     /**
+     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
+     * @remarks
+     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
+     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(8, this, "HRESULT")
@@ -118,8 +145,12 @@ class IDirectInputEffect extends IUnknown{
     }
 
     /**
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
      */
     Download() {
         result := ComCall(10, this, "HRESULT")
@@ -127,8 +158,24 @@ class IDirectInputEffect extends IUnknown{
     }
 
     /**
+     * Unloads an input locale identifier (formerly called a keyboard layout).
+     * @remarks
+     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input. 
      * 
-     * @returns {HRESULT} 
+     * <b>UnloadKeyboardLayout</b> cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. The function can fail for the following reasons: 
+     * 
+     * <ul>
+     * <li>An invalid input locale identifier was passed.</li>
+     * <li>The input locale identifier was preloaded.</li>
+     * <li>The input locale identifier is in use.</li>
+     * </ul>
+     * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unloadkeyboardlayout
      */
     Unload() {
         result := ComCall(11, this, "HRESULT")
@@ -137,11 +184,49 @@ class IDirectInputEffect extends IUnknown{
 
     /**
      * Enables an application to access the system-defined device capabilities that are not available through GDI.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
+     * <div> </div>
+     * The effect of passing 0 for <i>cbInput</i> will depend on the value of <i>nEscape</i> and on the driver that is handling the escape.
+     * 
+     * Of the original printer escapes, only the following can be used.
+     * 
+     * <table>
+     * <tr>
+     * <th>Escape</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * QUERYESCSUPPORT
+     * 
+     * </td>
+     * <td>
+     * Determines whether a particular escape is implemented by the device driver.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * PASSTHROUGH
+     * 
+     * </td>
+     * <td>
+     * Allows the application to send data directly to a printer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For information about printer escapes, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a>.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> function to prepare the printer driver to receive data.
      * @param {Pointer<DIEFFESCAPE>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
+     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(param0) {
         result := ComCall(12, this, "ptr", param0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Contains information about the change in the progress of an asynchronous installation or uninstallation at the time the callback was made.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinstallationprogresschangedcallbackargs
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationprogresschangedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IInstallationProgressChangedCallbackArgs extends IDispatch{
     /**
      * Gets an interface that contains the progress of the asynchronous installation or uninstallation at the time the callback was made.
      * @returns {IInstallationProgress} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogresschangedcallbackargs-get_progress
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogresschangedcallbackargs-get_progress
      */
     get_Progress() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")

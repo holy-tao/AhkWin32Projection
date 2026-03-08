@@ -6,14 +6,11 @@
 /**
  * Represents the drawing state of a render target:\_the antialiasing mode, transform, tags, and text-rendering options.
  * @remarks
- * 
  * <h3><a id="Creating_ID2D1DrawingStateBlock_Objects"></a><a id="creating_id2d1drawingstateblock_objects"></a><a id="CREATING_ID2D1DRAWINGSTATEBLOCK_OBJECTS"></a>Creating ID2D1DrawingStateBlock Objects</h3>
  * To create an <b>ID2D1DrawingStateBlock</b>, use the <a href="https://docs.microsoft.com/windows/win32/Direct2D/id2d1factory-createdrawingstateblock">ID2D1Factory::CreateDrawingStateBlock</a> method.
  * 
  * A drawing state block is a device-independent resource; you can create it once and retain it for the life of your application. For more information about resources, see the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1drawingstateblock
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1drawingstateblock
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -44,14 +41,14 @@ class ID2D1DrawingStateBlock extends ID2D1Resource{
      * 
      * When this method returns, contains the antialiasing mode, transform, and tags portion of the drawing state. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-getdescription
      */
     GetDescription(stateDescription) {
         ComCall(4, this, "ptr", stateDescription)
     }
 
     /**
-     * 
+     * Specifies the antialiasing mode, transform, and tags portion of the drawing state.
      * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION>} stateDescription 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1drawingstateblock-setdescription
@@ -66,7 +63,7 @@ class ID2D1DrawingStateBlock extends ID2D1Resource{
      * 
      * The text-rendering configuration of the drawing state, or NULL to use default settings.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-settextrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-settextrenderingparams
      */
     SetTextRenderingParams(textRenderingParams) {
         ComCall(6, this, "ptr", textRenderingParams)
@@ -78,7 +75,7 @@ class ID2D1DrawingStateBlock extends ID2D1Resource{
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a> object that describes the text-rendering configuration of the drawing state.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-gettextrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-gettextrenderingparams
      */
     GetTextRenderingParams(textRenderingParams) {
         ComCall(7, this, "ptr*", textRenderingParams)

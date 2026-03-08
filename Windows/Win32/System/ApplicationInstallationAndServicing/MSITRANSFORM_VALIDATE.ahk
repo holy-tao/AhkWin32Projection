@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Default language must match base database.
+ * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

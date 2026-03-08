@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-isuspensiondependencymanager
+ * . (ISuspensionDependencyManager)
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-isuspensiondependencymanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,8 +43,8 @@ class ISuspensionDependencyManager extends IUnknown{
      * The process to be registered as a child.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-registeraschild
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-registeraschild
      */
     RegisterAsChild(processHandle) {
         processHandle := processHandle is Win32Handle ? NumGet(processHandle, "ptr") : processHandle
@@ -60,8 +60,8 @@ class ISuspensionDependencyManager extends IUnknown{
      * The child process to group with the parent process.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-groupchildwithparent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-groupchildwithparent
      */
     GroupChildWithParent(childProcessHandle) {
         childProcessHandle := childProcessHandle is Win32Handle ? NumGet(childProcessHandle, "ptr") : childProcessHandle
@@ -77,8 +77,8 @@ class ISuspensionDependencyManager extends IUnknown{
      * The child process to ungroup from the parent.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-ungroupchildfromparent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-ungroupchildfromparent
      */
     UngroupChildFromParent(childProcessHandle) {
         childProcessHandle := childProcessHandle is Win32Handle ? NumGet(childProcessHandle, "ptr") : childProcessHandle

@@ -1621,11 +1621,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICConvertBitmapSource(dstFormat, pISrc) {
-        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", &ppIDst := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", &ppIDst := 0, "HRESULT")
         return IWICBitmapSource(ppIDst)
     }
 
@@ -1660,11 +1656,7 @@ class Imaging {
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -1700,11 +1692,7 @@ class Imaging {
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -1735,11 +1723,7 @@ class Imaging {
     static WICMapGuidToShortName(guid, cchName, wzName) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -1772,11 +1756,7 @@ class Imaging {
     static WICMapShortNameToGuid(wzName, pguid) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "HRESULT")
         return result
     }
 
@@ -1819,11 +1799,7 @@ class Imaging {
         pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -1848,11 +1824,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
-        result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr", pIStream, "ptr", pguidMetadataFormat, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr", pIStream, "ptr", pguidMetadataFormat, "HRESULT")
         return result
     }
 
@@ -1877,11 +1849,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
-        result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", "ptr", guidContainerFormat, "ptr", pIWriter, "uint", dwPersistOptions, "ptr", pIStream, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", "ptr", guidContainerFormat, "ptr", pIWriter, "uint", dwPersistOptions, "ptr", pIStream, "HRESULT")
         return result
     }
 
@@ -1900,11 +1868,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter) {
-        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", &pcbSize := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", &pcbSize := 0, "HRESULT")
         return pcbSize
     }
 

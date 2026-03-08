@@ -73,9 +73,9 @@ class IHTMLPerformanceNavigation extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        string := BSTR()
-        result := ComCall(9, this, "ptr", string, "HRESULT")
-        return string
+        string_R := BSTR()
+        result := ComCall(9, this, "ptr", string_R, "HRESULT")
+        return string_R
     }
 
     /**

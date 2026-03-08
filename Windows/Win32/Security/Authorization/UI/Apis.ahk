@@ -176,7 +176,7 @@ class UI {
 
         result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HPROPSHEETPAGE({Value: result}, True)
@@ -211,8 +211,8 @@ class UI {
         A_LastError := 0
 
         result := DllCall("ACLUI.dll\EditSecurity", "ptr", hwndOwner, "ptr", psi, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -234,11 +234,7 @@ class UI {
     static EditSecurityAdvanced(hwndOwner, psi, uSIPage) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := DllCall("ACLUI.dll\EditSecurityAdvanced", "ptr", hwndOwner, "ptr", psi, "int", uSIPage, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACLUI.dll\EditSecurityAdvanced", "ptr", hwndOwner, "ptr", psi, "int", uSIPage, "HRESULT")
         return result
     }
 

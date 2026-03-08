@@ -6,10 +6,8 @@
 /**
  * The IFECommon interface provides IME-related services that are common for different languages.
  * @remarks
- * 
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifecommoninstance">CreateIFECommonInstance</a> function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifecommon
+ * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifecommon
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -43,7 +41,7 @@ class IFECommon extends IUnknown{
      * <li><b>S_FALSE</b> if this Microsoft IME is not the default IME.</li>
      * <li>Otherwise <b>E_FAIL</b>.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifecommon-isdefaultime
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifecommon-isdefaultime
      */
     IsDefaultIME(szName, cszName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -59,7 +57,7 @@ class IFECommon extends IUnknown{
      * <li><b>IFEC_S_ALREADY_DEFAULT</b> if this Microsoft IME is already the default IME.</li>
      * <li>Otherwise <b>E_FAIL</b>.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifecommon-setdefaultime
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifecommon-setdefaultime
      */
     SetDefaultIME() {
         result := ComCall(4, this, "HRESULT")
@@ -71,7 +69,7 @@ class IFECommon extends IUnknown{
      * @param {Pointer<IMEDLG>} pimedlg Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imedlg">IMEDLG</a> structure.
      * @returns {HRESULT} <b>S_OK</b> if successful, 
      * otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifecommon-invokewordregdialog
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifecommon-invokewordregdialog
      */
     InvokeWordRegDialog(pimedlg) {
         result := ComCall(5, this, "ptr", pimedlg, "HRESULT")
@@ -83,7 +81,7 @@ class IFECommon extends IUnknown{
      * @param {Pointer<IMEDLG>} pimedlg Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imedlg">IMEDLG</a> structure.
      * @returns {HRESULT} <b>S_OK</b> if successful, 
      * otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifecommon-invokedicttooldialog
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifecommon-invokedicttooldialog
      */
     InvokeDictToolDialog(pimedlg) {
         result := ComCall(6, this, "ptr", pimedlg, "HRESULT")

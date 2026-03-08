@@ -30,8 +30,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetTouchInputInfo", "ptr", hTouchInput, "uint", cInputs, "ptr", pInputs, "int", cbSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -57,8 +57,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseTouchInputHandle", "ptr", hTouchInput, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -88,8 +88,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterTouchWindow", "ptr", hwnd, "uint", ulFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -115,8 +115,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterTouchWindow", "ptr", hwnd, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -196,8 +196,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetGestureInfo", "ptr", hGestureInfo, "ptr", pGestureInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -225,8 +225,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetGestureExtraArgs", "ptr", hGestureInfo, "uint", cbExtraArgs, "ptr", pExtraArgs, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -259,8 +259,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseGestureInfoHandle", "ptr", hGestureInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -463,8 +463,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetGestureConfig", "ptr", hwnd, "uint", dwReserved, "uint", cIDs, "ptr", pGestureConfig, "uint", cbSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -517,8 +517,8 @@ class Touch {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetGestureConfig", "ptr", hwnd, "uint", dwReserved, "uint", dwFlags, pcIDsMarshal, pcIDs, "ptr", pGestureConfig, "uint", cbSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

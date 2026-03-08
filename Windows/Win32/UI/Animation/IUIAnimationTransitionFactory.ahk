@@ -7,11 +7,8 @@
 /**
  * Defines a method for creating transitions from custom interpolators.
  * @remarks
- * 
- * When an application requires animation effects that are not available in the transition library, developers can implement custom transitions that it can use. A custom transition is created by first implementing the interpolator function for the transition, and then by using a factory object to generate transitions from the interpolator. An interpolator must implement the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationinterpolator">IUIAnimationInterpolator</a>interface; an implementation of the transition factory object is provided by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317024(v=vs.85)">UIAnimationTransitionFactory</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationtransitionfactory
+ * When an application requires animation effects that are not available in the transition library, developers can implement custom transitions that it can use. A custom transition is created by first implementing the interpolator function for the transition, and then by using a factory object to generate transitions from the interpolator. An interpolator must implement the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationinterpolator">IUIAnimationInterpolator</a> interface; an implementation of the transition factory object is provided by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317024(v=vs.85)">UIAnimationTransitionFactory</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtransitionfactory
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -48,7 +45,7 @@ class IUIAnimationTransitionFactory extends IUnknown{
      *                
      * The specified object must implement the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationinterpolator">IUIAnimationInterpolator</a> interface.
      * @returns {IUIAnimationTransition} The new transition.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransitionfactory-createtransition
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionfactory-createtransition
      */
     CreateTransition(interpolator) {
         result := ComCall(3, this, "ptr", interpolator, "ptr*", &transition := 0, "HRESULT")

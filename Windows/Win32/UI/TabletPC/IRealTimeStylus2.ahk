@@ -6,11 +6,8 @@
 /**
  * Extends the IRealTimeStylus interface.
  * @remarks
- * 
- * This interface only exists in the Windows Vista <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus</a>. Flick notification is recevied via a <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istylusplugin-systemevent">IStylusPlugin::SystemEvent Method</a> plugin notification with event id equal to <b>ISG_Flick</b>. To obtain flick data look at the <b>SYSTEM_EVENT_DATA</b> struct: <i>xPos</i>/<i>yPos</i> contains the flick start location in Tablet coordinates, <i>wKey</i> contains the direction (a value where 90 is down, 180 is left, 270 is up), and <i>dwButtonState</i> contains the same data obtained from the <i>wParam</i> for the <a href="https://docs.microsoft.com/windows/desktop/tablet/wm-tablet-flick-message">WM_TABLET_FLICK Message</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rtscom/nn-rtscom-irealtimestylus2
+ * This interface only exists in the Windows Vista <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus</a>. Flick notification is received via a <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istylusplugin-systemevent">IStylusPlugin::SystemEvent Method</a> plugin notification with event id equal to <b>ISG_Flick</b>. To obtain flick data look at the <b>SYSTEM_EVENT_DATA</b> struct: <i>xPos</i>/<i>yPos</i> contains the flick start location in Tablet coordinates, <i>wKey</i> contains the direction (a value where 90 is down, 180 is left, 270 is up), and <i>dwButtonState</i> contains the same data obtained from the <i>wParam</i> for the <a href="https://docs.microsoft.com/windows/desktop/tablet/wm-tablet-flick-message">WM_TABLET_FLICK Message</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-irealtimestylus2
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class IRealTimeStylus2 extends IUnknown{
     /**
      * Returns a value indicating whether flick gestures are enabled for the RTS.
      * @returns {BOOL} <b>TRUE</b> if flick gestures have been enabled; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled
+     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled
      */
     get_FlicksEnabled() {
         result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
@@ -56,8 +53,8 @@ class IRealTimeStylus2 extends IUnknown{
     /**
      * Indicates if flick gesture recognition is enabled.
      * @param {BOOL} fEnable <b>TRUE</b> to enable flicks gesture recognition; <b>FALSE</b> to disable flicks.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus2-put_flicksenabled
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-put_flicksenabled
      */
     put_FlicksEnabled(fEnable) {
         result := ComCall(4, this, "int", fEnable, "HRESULT")

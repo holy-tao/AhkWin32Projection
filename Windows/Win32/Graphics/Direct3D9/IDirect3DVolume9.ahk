@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications use the methods of the IDirect3DVolume9 interface to manipulate volume resources.
+ * The IDirect3DVolume9 (d3d9.h) interface is used by applications to manipulate volume resources.
  * @remarks
- * 
  * The <b>IDirect3DVolume9</b> interface is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-getvolumelevel">IDirect3DVolumeTexture9::GetVolumeLevel</a> method.
  * 
  * This interface, like all COM interfaces, inherits from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
@@ -23,9 +22,7 @@
  * typedef struct IDirect3DVolume9 *LPDIRECT3DVOLUME9, *PDIRECT3DVOLUME9;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dvolume9
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvolume9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -51,11 +48,15 @@ class IDirect3DVolume9 extends IUnknown{
     static VTableNames => ["GetDevice", "SetPrivateData", "GetPrivateData", "FreePrivateData", "GetContainer", "GetDesc", "LockBox", "UnlockBox"]
 
     /**
-     * Retrieves the device associated with a volume.
+     * The IDirect3DVolume9::GetDevice (d3d9.h) method retrieves the device associated with a volume.
+     * @remarks
+     * This method allows navigation to the owning device object. 
+     * 
+     * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DDevice9</b> interface results in a memory leak.
      * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface to fill with the device pointer, if the query succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getdevice
      */
     GetDevice() {
         result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -63,7 +64,11 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Associates data with the volume that is intended for use by the application, not by Direct3D.
+     * The IDirect3DVolume9::SetPrivateData (d3d9.h) method associates data with the volume that is intended for use by the application, not by Direct3D.
+     * @remarks
+     * Direct3D does not manage the memory at pData. If this buffer was dynamically allocated, it is the calling application's responsibility to free the memory.
+     * 
+     * Data is passed by value, and multiple sets of data can be associated with a single volume.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Reference to the globally unique identifier that identifies the private data to set.
@@ -105,10 +110,10 @@ class IDirect3DVolume9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, E_OUTOFMEMORY.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-setprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-setprivatedata
      */
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
@@ -118,7 +123,7 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Copies the private data associated with the volume to a provided buffer.
+     * The IDirect3DVolume9::GetPrivateData (d3d9.h) method copies the private data associated with the volume to a provided buffer.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Reference to (C++) or address of (C) the globally unique identifier that identifies the private data to retrieve.
@@ -129,10 +134,10 @@ class IDirect3DVolume9 extends IUnknown{
      * 
      * Pointer to the size of the buffer at 
      *     pData, in bytes. If this value is less than the actual size of the private data, such as 0, the method sets this parameter to the required buffer size, and the method returns D3DERR_MOREDATA.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, D3DERR_MOREDATA, D3DERR_NOTFOUND.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-getprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getprivatedata
      */
     GetPrivateData(refguid, pData, pSizeOfData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
@@ -143,14 +148,16 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Frees the specified private data associated with this volume.
+     * The IDirect3DVolume9::FreePrivateData (d3d9.h) method frees the specified private data associated with this volume.
+     * @remarks
+     * Direct3D calls this method automatically when a volume is released.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Reference to the globally unique identifier that identifies the private data to free.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, D3DERR_NOTFOUND.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-freeprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-freeprivatedata
      */
     FreePrivateData(refguid) {
         result := ComCall(6, this, "ptr", refguid, "HRESULT")
@@ -158,17 +165,34 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Provides access to the parent volume texture object, if this surface is a child level of a volume texture.
+     * The IDirect3DVolume9::GetContainer (d3d9.h) method provides access to the parent volume texture object, if this surface is a child level of a volume texture.
+     * @remarks
+     * If the call succeeds, the reference count of the container is increased by one.
+     * 
+     * Here's an example getting the parent volume texture of a volume texture.
+     * 
+     * 
+     * ```
+     * 
+     * // Assumes pSurface is a valid IDirect3DVolume9 pointer
+     * void *pContainer = NULL;
+     * IDirect3DVolumeTexture9 *pVolumeTexture = NULL;
+     * HRESULT hr = pVolume->GetContainer(IID_IDirect3DVolumeTexture9, &pContainer);
+     * if (SUCCEEDED(hr) && pContainer)
+     * {
+     *     pVolumeTexture = (IDirect3DVolumeTexture9 *)pContainer;
+     * 
+     * ```
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the volume being requested.
      * @param {Pointer<Pointer<Void>>} ppContainer Type: <b>void**</b>
      * 
      * Address of a pointer to fill with the container pointer, if the query succeeds.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-getcontainer
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getcontainer
      */
     GetContainer(riid, ppContainer) {
         ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
@@ -178,14 +202,14 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Retrieves a description of the volume.
+     * The IDirect3DVolume9::GetDesc (d3d9.h) method retrieves a description of the volume.
      * @param {Pointer<D3DVOLUME_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvolume-desc">D3DVOLUME_DESC</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvolume-desc">D3DVOLUME_DESC</a> structure, describing the volume.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getdesc
      */
     GetDesc(pDesc) {
         result := ComCall(8, this, "ptr", pDesc, "HRESULT")
@@ -193,7 +217,9 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Locks a box on a volume resource.
+     * The IDirect3DVolume9::LockBox (d3d9.h) method locks a box on a volume resource.
+     * @remarks
+     * For performance reasons, dirty regions are only recorded for level zero of a texture. Dirty regions are automatically recorded when <b>IDirect3DVolume9::LockBox</b> is called without D3DLOCK_NO_DIRTY_UPDATE or D3DLOCK_READONLY. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-updatetexture">IDirect3DDevice9::UpdateTexture</a> for more information.
      * @param {Pointer<D3DLOCKED_BOX>} pLockedVolume Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-box">D3DLOCKED_BOX</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-box">D3DLOCKED_BOX</a> structure, describing the locked region.
@@ -213,10 +239,10 @@ class IDirect3DVolume9 extends IUnknown{
      * <li>D3DLOCK_READONLY</li>
      * </ul>
      * For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-lockbox
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-lockbox
      */
     LockBox(pLockedVolume, pBox, Flags) {
         result := ComCall(9, this, "ptr", pLockedVolume, "ptr", pBox, "uint", Flags, "HRESULT")
@@ -224,11 +250,11 @@ class IDirect3DVolume9 extends IUnknown{
     }
 
     /**
-     * Unlocks a box on a volume resource.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * The IDirect3DVolume9::UnlockBox (d3d9.h) method unlocks a box on a volume resource.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolume9-unlockbox
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-unlockbox
      */
     UnlockBox() {
         result := ComCall(10, this, "HRESULT")

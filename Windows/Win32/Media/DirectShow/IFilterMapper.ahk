@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Note  This interface has been deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifiltermapper
+ * Note  This interface has been deprecated. (IFilterMapper)
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltermapper
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,11 +33,13 @@ class IFilterMapper extends IUnknown{
 
     /**
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Adds a filter to the registry; the filter can then be enumerated.
+     * @remarks
+     * The merit (as defined by the <i>dwMerit</i> parameter) controls the order in which the filter graph manager tries filters when performing an operation as a result of a call to <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-connect">IGraphBuilder::Connect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-render">IGraphBuilder::Render</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-renderfile">IGraphBuilder::RenderFile</a>. The filter graph manager finds all filters registered with the correct media type and then tries the one with the highest merit, using other criteria in the registration to choose between filters with equal merit.
      * @param {Guid} clsid Globally unique identifier (<b>GUID</b>) of the filter.
      * @param {PWSTR} Name Descriptive name for the filter.
      * @param {Integer} dwMerit Position in the order of enumeration. Filters with higher merit are enumerated first.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-registerfilter
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-registerfilter
      */
     RegisterFilter(clsid, Name, dwMerit) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -48,10 +50,14 @@ class IFilterMapper extends IUnknown{
 
     /**
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Registers an identifiable instance of a filter.
+     * @remarks
+     * This method handles cases such as when two similar sound cards that are driven by the same driver are available, and it is necessary to choose which card will emit the sound. This is not needed if there is only one instance of the filter (such as when there is only one sound card in the computer), or if all instances of the filter are equivalent.
+     * 
+     * The filter itself must have already been registered.
      * @param {Guid} clsid GUID of the filter.
      * @param {PWSTR} Name Descriptive name of the instance.
      * @returns {Guid} Pointer to the returned media resource ID. This parameter is a locally unique identifier for this instance of this filter.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-registerfilterinstance
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-registerfilterinstance
      */
     RegisterFilterInstance(clsid, Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -72,7 +78,7 @@ class IFilterMapper extends IUnknown{
      * @param {Guid} ConnectsToFilter Reserved. Must be <b>NULL</b>. (This is intended for filters such as system-wide mixers that have connections outside the filter graph. It is not yet implemented.)
      * @param {PWSTR} ConnectsToPin Reserved. Must be <b>NULL</b>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-registerpin
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-registerpin
      */
     RegisterPin(Filter, Name, bRendered, bOutput, bZero, bMany, ConnectsToFilter, ConnectsToPin) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -84,12 +90,14 @@ class IFilterMapper extends IUnknown{
 
     /**
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Registers this pin type.
+     * @remarks
+     * The <i>clsMajorType</i> and <i>clsSubType</i> parameters specify the media type of the pin and correspond to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure's <b>majortype</b> and <b>subtype</b> members, respectively.
      * @param {Guid} clsFilter Class identifier (CLSID) of the filter to which the pin belongs.
      * @param {PWSTR} strName Name by which it is known.
      * @param {Guid} clsMajorType Major type of the media sample supported by this pin class.
      * @param {Guid} clsSubType Subtype of the media sample supported by this pin class.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-registerpintype
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-registerpintype
      */
     RegisterPinType(clsFilter, strName, clsMajorType, clsSubType) {
         strName := strName is String ? StrPtr(strName) : strName
@@ -102,7 +110,7 @@ class IFilterMapper extends IUnknown{
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Removes the registration of this filter from the registry.
      * @param {Guid} Filter GUID of the filter.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-unregisterfilter
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-unregisterfilter
      */
     UnregisterFilter(Filter) {
         result := ComCall(7, this, "ptr", Filter, "HRESULT")
@@ -113,7 +121,7 @@ class IFilterMapper extends IUnknown{
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Removes the registration of this filter instance from the registry.
      * @param {Guid} MRId Media resource identifier of this instance.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-unregisterfilterinstance
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-unregisterfilterinstance
      */
     UnregisterFilterInstance(MRId) {
         result := ComCall(8, this, "ptr", MRId, "HRESULT")
@@ -125,7 +133,7 @@ class IFilterMapper extends IUnknown{
      * @param {Guid} Filter GUID of the filter that this pin is part of.
      * @param {PWSTR} Name Name of the pin.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-unregisterpin
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-unregisterpin
      */
     UnregisterPin(Filter, Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -136,6 +144,8 @@ class IFilterMapper extends IUnknown{
 
     /**
      * Note  The IFilterMapper interface is deprecated. Use IFilterMapper2 instead. Provides an enumerator that enumerates registered filters that meet specified requirements.
+     * @remarks
+     * Set the <i>ppEnum</i> parameter to be an enumerator for filters matching the requirements. For a description of merit values for the <i>dwMerit</i> parameter, see the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltermapper-registerfilter">IFilterMapper::RegisterFilter</a> method.
      * @param {Integer} dwMerit Minimum merit value of filters to enumerate.
      * @param {BOOL} bInputNeeded Value indicating whether there must be at least one input pin; <b>TRUE</b> indicates at least one input pin is required.
      * @param {Guid} clsInMaj Input major type required. Set to GUID_NULL if you do not care.
@@ -145,7 +155,7 @@ class IFilterMapper extends IUnknown{
      * @param {Guid} clsOutMaj Output major type required. Set to GUID_NULL if you do not care.
      * @param {Guid} clsOutSub Output subtype required. Set to GUID_NULL if you do not care.
      * @returns {IEnumRegFilters} Address of a pointer to the enumerator returned.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper-enummatchingfilters
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-enummatchingfilters
      */
     EnumMatchingFilters(dwMerit, bInputNeeded, clsInMaj, clsInSub, bRender, bOututNeeded, clsOutMaj, clsOutSub) {
         result := ComCall(10, this, "ptr*", &ppEnum := 0, "uint", dwMerit, "int", bInputNeeded, "ptr", clsInMaj, "ptr", clsInSub, "int", bRender, "int", bOututNeeded, "ptr", clsOutMaj, "ptr", clsOutSub, "HRESULT")

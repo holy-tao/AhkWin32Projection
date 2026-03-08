@@ -7,7 +7,6 @@
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.
  * @remarks
- * 
  * <b>IWbemUnsecuredApartment</b> is similar to 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iunsecuredapartment">IUnsecuredApartment</a>, which also creates a sink in a 
  *      separate process. For more information, see 
@@ -15,9 +14,7 @@
  * 
  * 
  * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>WBEM</b>&#92;<b>CIMOM</b>&#92;<b>UnsecAppAccessControlDefault</b>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemunsecuredapartment
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemunsecuredapartment
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -44,6 +41,10 @@ class IWbemUnsecuredApartment extends IUnsecuredApartment{
 
     /**
      * The CreateSinkStub method is similar to the IUnsecuredApartment::CreateObjectStub and creates an object forwarder sink and performs access checks for receiving asynchronous calls from Windows Management.
+     * @remarks
+     * This method is provided to improve the security of asynchronous calls 
+     *     from client applications. For more information, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/setting-security-on-an-asynchronous-call">Setting Security on an Asynchronous Call</a>.
      * @param {IWbemObjectSink} pSink Pointer to the client's in-process implementation of 
      *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a>.
      * @param {Integer} dwFlags 
@@ -54,7 +55,7 @@ class IWbemUnsecuredApartment extends IUnsecuredApartment{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for 
      *       <b>IID_WbemObjectSink</b> before using this object in asynchronous 
      *       <b>IWbemServices</b> calls.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemunsecuredapartment-createsinkstub
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemunsecuredapartment-createsinkstub
      */
     CreateSinkStub(pSink, dwFlags, wszReserved) {
         wszReserved := wszReserved is String ? StrPtr(wszReserved) : wszReserved

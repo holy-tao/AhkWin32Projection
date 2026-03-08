@@ -7,7 +7,6 @@
 /**
  * The IUICommandHandler interface is implemented by the application and defines the methods for gathering Command information and handling Command events from the Windows Ribbon framework.
  * @remarks
- * 
  * For each Command in a View, the Ribbon framework requires a corresponding Command handler in 
  * 				the host application. A new handler or an existing handler must be bound to the Command through 
  * 				the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand">IUIApplication::OnCreateUICommand</a> notification method.
@@ -17,9 +16,7 @@
  * 			
  * 
  * The Command handler serves two purposes: respond to property update requests and respond to execute events on any Command to which it is bound.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuicommandhandler
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicommandhandler
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -46,6 +43,8 @@ class IUICommandHandler extends IUnknown{
 
     /**
      * Responds to execute events on Commands bound to the Command handler.
+     * @remarks
+     * Each Command in a View must be bound to a new or existing Command handler in the host application.
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the Markup resource file.
@@ -64,8 +63,8 @@ class IUICommandHandler extends IUnknown{
      * 					Command state properties and property values, such as screen coordinates and list item indices. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicommandhandler-execute
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-execute
      */
     Execute(commandId, verb, key, currentValue, commandExecutionProperties) {
         result := ComCall(3, this, "uint", commandId, "int", verb, "ptr", key, "ptr", currentValue, "ptr", commandExecutionProperties, "HRESULT")
@@ -74,6 +73,10 @@ class IUICommandHandler extends IUnknown{
 
     /**
      * Responds to property update requests from the Windows Ribbon framework.
+     * @remarks
+     * This method should be allowed to return before any subsequent calls to the Ribbon framework are made.
+     * 
+     * The values of Command properties, such as <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-enabled">UI_PKEY_Enabled</a> or <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-label">UI_PKEY_Label</a>, are set through calls to <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-setuicommandproperty">SetUICommandProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand">InvalidateUICommand</a>.
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the Markup resource file.
@@ -87,7 +90,7 @@ class IUICommandHandler extends IUnknown{
      * 
      * When this method returns, contains a pointer to the new value for 
      * 					<i>key</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
      */
     UpdateProperty(commandId, key, currentValue) {
         newValue := PROPVARIANT()

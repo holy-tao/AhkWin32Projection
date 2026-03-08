@@ -8,7 +8,7 @@
 
 /**
  * Manages the list of virtual channels.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannelmanager
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannelmanager
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
     /**
      * An enumerator interface for the virtual channel collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * An item in the virtual channel collection.
      * @param {VARIANT} item 
      * @returns {IRDPSRAPIVirtualChannel} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "ptr", item, "ptr*", &pChannel := 0, "HRESULT")
@@ -63,6 +63,10 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
 
     /**
      * Creates a virtual channel.
+     * @remarks
+     * When a virtual channel is created, an RDP virtual channel is bound at the RDP stack layer for each opened channel. For a channel to actually be opened between the client and the server, both the client and the server have to bind the channel. The <i>Priority</i> parameter is used to assign a priority to the packets send on the channel.
+     * 
+     * The binding between server and client channels is established based on the channel name.
      * @param {BSTR} bstrChannelName Type: <b>BSTR</b>
      * 
      * The name of the channel. The maximum length is 8 characters, including the null-terminating character. Legacy channel names are limited to 32 characters.
@@ -73,7 +77,7 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * @returns {IRDPSRAPIVirtualChannel} Type: <b>IRDPSRAPIVirtualChannel**</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel">IRDPSRAPIVirtualChannel</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
      */
     CreateVirtualChannel(bstrChannelName, Priority, ChannelFlags) {
         bstrChannelName := bstrChannelName is String ? BSTR.Alloc(bstrChannelName).Value : bstrChannelName

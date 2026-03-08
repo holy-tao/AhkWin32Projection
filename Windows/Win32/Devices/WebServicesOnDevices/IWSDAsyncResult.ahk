@@ -8,7 +8,6 @@
 /**
  * Represents an asynchronous operation.
  * @remarks
- * 
  * The <b>IWSDAsyncResult</b> interface can be used to set a wait handle to receive event or message notification or poll for operation completion. It can also retrieve the state of an asynchronous operation and retrieve the results and response body of the event.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface can be used to provide an asynchronous calling pattern in support of WSDAPI messaging and eventing, allowing an application to receive callback notification based on the status of an operation.
@@ -16,8 +15,7 @@
  * 
  * 
  * A failed asynchronous operation is treated as a completed asynchronous operation. Error or fault information can be retrieved from the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface using the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete">IWSDAsyncCallback::AsyncOperationComplete</a> method.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nn-wsdclient-iwsdasyncresult
+ * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdasyncresult
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -44,6 +42,10 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * Specifies a callback interface to call when the asynchronous operation has completed.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete">IWSDAsyncCallback::AsyncOperationComplete</a> method is passed the result object associated with the completing message and the state. 
+     * 
+     * <i>pCallback</i> is released when the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object is destroyed.
      * @param {IWSDAsyncCallback} pCallback Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> object that contains the callback implemented by the user.
      * @param {IUnknown} pAsyncState User-defined state information to pass to the callback.
      * @returns {HRESULT} This method can return one of these values.
@@ -81,7 +83,7 @@ class IWSDAsyncResult extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-setcallback
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-setcallback
      */
     SetCallback(pCallback, pAsyncState) {
         result := ComCall(3, this, "ptr", pCallback, "ptr", pAsyncState, "HRESULT")
@@ -90,6 +92,8 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * Specifies a wait handle to set when the operation completes.
+     * @remarks
+     * Do not close <i>hWaitHandle</i> until after the asynchronous operation has completed.
      * @param {HANDLE} hWaitHandle The wait handle to set.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -132,7 +136,7 @@ class IWSDAsyncResult extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-setwaithandle
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-setwaithandle
      */
     SetWaitHandle(hWaitHandle) {
         hWaitHandle := hWaitHandle is Win32Handle ? NumGet(hWaitHandle, "ptr") : hWaitHandle
@@ -143,6 +147,8 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * Indicates whether the operation has completed.
+     * @remarks
+     * A failed asynchronous operation is treated as a completed asynchronous operation. Error or fault information can be retrieved from the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface using the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete">IWSDAsyncCallback::AsyncOperationComplete</a> method.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * 
@@ -178,7 +184,7 @@ class IWSDAsyncResult extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-hascompleted
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-hascompleted
      */
     HasCompleted() {
         result := ComCall(5, this, "HRESULT")
@@ -188,7 +194,7 @@ class IWSDAsyncResult extends IUnknown{
     /**
      * Gets the state of the asynchronous operation.
      * @returns {IUnknown} User-defined state information.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getasyncstate
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getasyncstate
      */
     GetAsyncState() {
         result := ComCall(6, this, "ptr*", &ppAsyncState := 0, "HRESULT")
@@ -197,6 +203,8 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * Aborts the asynchronous operation.
+     * @remarks
+     * <b>Abort</b> waits for all pending callbacks set with <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasyncresult-setcallback">SetCallback</a> to complete before returning to the caller.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * 
@@ -221,7 +229,7 @@ class IWSDAsyncResult extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-abort
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-abort
      */
     Abort() {
         result := ComCall(7, this, "HRESULT")
@@ -230,8 +238,10 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * Retrieves a WSD_EVENT structure that contains the result of the event.
+     * @remarks
+     * This method should only be called by <a href="https://docs.microsoft.com/windows/desktop/WsdApi/web-services-for-devices-code-generator">generated code</a> and only after the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object has signaled that the operation has completed.
      * @returns {WSD_EVENT} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_event">WSD_EVENT</a> structure that provides data about the event.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getevent
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getevent
      */
     GetEvent() {
         pEvent := WSD_EVENT()
@@ -242,7 +252,7 @@ class IWSDAsyncResult extends IUnknown{
     /**
      * Retrieves the endpoint proxy for the asynchronous operation.
      * @returns {IWSDEndpointProxy} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdendpointproxy">IWSDEndpointProxy</a> interface that implements an endpoint proxy.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getendpointproxy
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getendpointproxy
      */
     GetEndpointProxy() {
         result := ComCall(9, this, "ptr*", &ppEndpoint := 0, "HRESULT")

@@ -132,8 +132,20 @@ class IXMLDOMElement extends IXMLDOMNode{
     }
 
     /**
+     * Normalizes the specified floating-point vector according to x / length(x).
+     * @remarks
+     * The **normalize** HLSL intrinsic function uses the following formula: *x* / [**length**](dx-graphics-hlsl-length.md)(*x*).
+     * @returns {HRESULT} | Item                                                   | Description                                            |
+     * |--------------------------------------------------------|--------------------------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified floating-point vector.<br/> |
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * The normalized *x* parameter. If the length of the *x* parameter is 0, the result is indefinite.
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-normalize
      */
     normalize() {
         result := ComCall(51, this, "HRESULT")

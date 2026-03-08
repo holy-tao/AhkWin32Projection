@@ -6,7 +6,7 @@
 
 /**
  * Used to set and obtain data on event class objects. This interface extends the IEventClass interface.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventclass2
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventclass2
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -64,9 +64,9 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * The CLSID for the event publisher.
+     * The CLSID for the event publisher. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-get_publisherid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_publisherid
      */
     get_PublisherID() {
         pbstrPublisherID := BSTR()
@@ -75,10 +75,10 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * The CLSID for the event publisher.
+     * The CLSID for the event publisher. (Put)
      * @param {BSTR} bstrPublisherID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-put_publisherid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-put_publisherid
      */
     put_PublisherID(bstrPublisherID) {
         bstrPublisherID := bstrPublisherID is String ? BSTR.Alloc(bstrPublisherID).Value : bstrPublisherID
@@ -88,9 +88,9 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * The CLSID of the object implementing IMultiInterfacePublisherFilter.
+     * The CLSID of the object implementing IMultiInterfacePublisherFilter. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-get_multiinterfacepublisherfilterclsid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_multiinterfacepublisherfilterclsid
      */
     get_MultiInterfacePublisherFilterCLSID() {
         pbstrPubFilCLSID := BSTR()
@@ -99,10 +99,10 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * The CLSID of the object implementing IMultiInterfacePublisherFilter.
+     * The CLSID of the object implementing IMultiInterfacePublisherFilter. (Put)
      * @param {BSTR} bstrPubFilCLSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-put_multiinterfacepublisherfilterclsid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-put_multiinterfacepublisherfilterclsid
      */
     put_MultiInterfacePublisherFilterCLSID(bstrPubFilCLSID) {
         bstrPubFilCLSID := bstrPubFilCLSID is String ? BSTR.Alloc(bstrPubFilCLSID).Value : bstrPubFilCLSID
@@ -112,9 +112,9 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * Indicates whether the event class can be activated in-process.
+     * Indicates whether the event class can be activated in-process. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-get_allowinprocactivation
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_allowinprocactivation
      */
     get_AllowInprocActivation() {
         result := ComCall(25, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
@@ -122,10 +122,10 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * Indicates whether the event class can be activated in-process.
+     * Indicates whether the event class can be activated in-process. (Put)
      * @param {BOOL} fAllowInprocActivation 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-put_allowinprocactivation
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-put_allowinprocactivation
      */
     put_AllowInprocActivation(fAllowInprocActivation) {
         result := ComCall(26, this, "int", fAllowInprocActivation, "HRESULT")
@@ -133,9 +133,9 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * Indicates whether events of this class can be fired in parallel.
+     * Indicates whether events of this class can be fired in parallel. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-get_fireinparallel
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_fireinparallel
      */
     get_FireInParallel() {
         result := ComCall(27, this, "int*", &pfFireInParallel := 0, "HRESULT")
@@ -143,10 +143,10 @@ class IEventClass2 extends IEventClass{
     }
 
     /**
-     * Indicates whether events of this class can be fired in parallel.
+     * Indicates whether events of this class can be fired in parallel. (Put)
      * @param {BOOL} fFireInParallel 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass2-put_fireinparallel
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-put_fireinparallel
      */
     put_FireInParallel(fFireInParallel) {
         result := ComCall(28, this, "int", fFireInParallel, "HRESULT")

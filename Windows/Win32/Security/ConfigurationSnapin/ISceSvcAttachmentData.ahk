@@ -5,7 +5,7 @@
 
 /**
  * The ISceSvcAttachmentData interface retrieves configuration and analysis data about a specified security service from the Security Configuration snap-ins.
- * @see https://docs.microsoft.com/windows/win32/api//scesvc/nn-scesvc-iscesvcattachmentdata
+ * @see https://learn.microsoft.com/windows/win32/api/scesvc/nn-scesvc-iscesvcattachmentdata
  * @namespace Windows.Win32.Security.ConfigurationSnapin
  * @version v4.0.30319
  */
@@ -49,7 +49,7 @@ class ISceSvcAttachmentData extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The return value is an <b>HRESULT</b>. A value of S_OK indicates the method was successful.
-     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-getdata
+     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-getdata
      */
     GetData(scesvcHandle, sceType, ppvData, psceEnumHandle) {
         scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
@@ -70,7 +70,7 @@ class ISceSvcAttachmentData extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> that represents the communication context between the Security Configuration snap-in and the snap-in extension. This handle is passed in as a parameter to the other <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nn-scesvc-iscesvcattachmentdata">ISceSvcAttachmentData</a> methods. When the attachment snap-in extension no longer needs this handle, free it by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-closehandle">ISceSvcAttachmentData::CloseHandle</a>.
      * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
-     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-initialize
      */
     Initialize(lpServiceName, lpTemplateName, lpSceSvcPersistInfo, pscesvcHandle) {
         lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : "ptr"
@@ -83,9 +83,12 @@ class ISceSvcAttachmentData extends IUnknown{
 
     /**
      * The FreeBuffer method frees memory allocated by the Security Configuration snap-in.
+     * @remarks
+     * You should call this method to free the data buffer returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-getdata">ISceSvcAttachmentData::GetData</a>.
      * @param {Pointer<Void>} pvData Void pointer to the buffer to be freed.
      * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
-     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
      */
     FreeBuffer(pvData) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
@@ -96,10 +99,13 @@ class ISceSvcAttachmentData extends IUnknown{
 
     /**
      * The CloseHandle method closes a handle opened during a previous call to ISceSvcAttachmentData::Initialize.
+     * @remarks
+     * You should call this method when your attachment snap-in extension no longer requires the handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-initialize">ISceSvcAttachmentData::Initialize</a>.
      * @param {Pointer<Void>} scesvcHandle The 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> to close.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates the method was successful.
-     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-closehandle
+     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-closehandle
      */
     CloseHandle(scesvcHandle) {
         scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"

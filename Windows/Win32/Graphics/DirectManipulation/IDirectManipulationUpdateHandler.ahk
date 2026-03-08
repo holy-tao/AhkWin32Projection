@@ -5,7 +5,7 @@
 
 /**
  * Defines methods for handling manipulation update events.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationupdatehandler
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatehandler
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -32,8 +32,8 @@ class IDirectManipulationUpdateHandler extends IUnknown{
 
     /**
      * Notifies the compositor when to update inertia animation.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationupdatehandler-update
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatehandler-update
      */
     Update() {
         result := ComCall(3, this, "HRESULT")

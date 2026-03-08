@@ -8,7 +8,6 @@
 /**
  * Represents a collection of IInkCursor objects.
  * @remarks
- * 
  * A cursor becomes part of the cursors collection of an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control when it comes within range of the object. Each time a new cursor comes within range, it is added to the object's cursors collection. The cursors collection exists only during the lifetime of that object.
  * 
  * For example, if a pen is used to draw ink on an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, it becomes part of the <b>InkCollector</b> object's <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors">Cursors</a> property. If a mouse is then used for input on the same <b>InkCollector</b> object, it is also added to the collection.
@@ -18,9 +17,7 @@
  * For more information about collections in COM, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcursors
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcursors
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -60,9 +57,9 @@ class IInkCursors extends IDispatch{
     }
 
     /**
-     * Gets the number of objects or collections contained in a collection.
+     * Gets the number of objects or collections contained in a collection. (IInkCursors.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursors-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -80,9 +77,11 @@ class IInkCursors extends IDispatch{
 
     /**
      * Returns the IInkCursor object at the specified index within the IInkCursors collection.
+     * @remarks
+     * An error occurs if the index doesn't match any existing member of the collection.
      * @param {Integer} Index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object to get.
-     * @returns {IInkCursor} Whenthis method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursors">IInkCursors</a> collection.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursors-item
+     * @returns {IInkCursor} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursors">IInkCursors</a> collection.
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-item
      */
     Item(Index) {
         result := ComCall(9, this, "int", Index, "ptr*", &Cursor := 0, "HRESULT")

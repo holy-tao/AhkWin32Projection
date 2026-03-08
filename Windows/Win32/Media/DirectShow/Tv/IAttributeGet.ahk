@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeGet interface gets key/value pairs from an object, where the key is a GUID and the value is any binary data.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeGet)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nn-dsattrib-iattributeget
+ * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nn-dsattrib-iattributeget
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,7 +35,7 @@ class IAttributeGet extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the number of attributes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getcount
      */
     GetCount() {
         result := ComCall(3, this, "int*", &plCount := 0, "HRESULT")
@@ -51,7 +48,7 @@ class IAttributeGet extends IUnknown{
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that receives the attribute value. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwAttributeLength If <i>pbAttribute</i> is <b>NULL</b>, this parameter receives the size of the attribute data, in bytes. If <i>pbAttribute</i> is non-<b>NULL</b>, this parameter specifies the size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {Guid} Receives the <b>GUID</b> for this attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getattribindexed
+     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattribindexed
      */
     GetAttribIndexed(lIndex, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
@@ -108,7 +105,7 @@ class IAttributeGet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getattrib
+     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattrib
      */
     GetAttrib(guidAttribute, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"

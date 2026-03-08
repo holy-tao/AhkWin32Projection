@@ -6,16 +6,13 @@
 /**
  * Handles phrases that word breakers parse from query text during query time.
  * @remarks
- * 
  * Indexing Service creates and initializes instances of the PhraseSink object. The PhraseSink receives the <i>fQuery</i> parameter during initialization and uses this parameter to determine the word-breaking context in which the object is being used.
  * 
  * 
  * 
  * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementations receive a pointer to the PhraseSink object in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">BreakText</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-iphrasesink
+ * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-iphrasesink
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
@@ -42,6 +39,8 @@ class IPhraseSink extends IUnknown{
 
     /**
      * Puts a small query-time phrase in the IPhraseSink object for WordBreaker.
+     * @remarks
+     * <b>PutSmallPhrase</b> is called by the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">IWordBreaker::BreakText</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementation. Phrases that the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iphrasesink">IPhraseSink</a> object handles are used by Windows Search to expand the original query text.
      * @param {PWSTR} pwcNoun A pointer to a buffer that contains a word being modified.
      * @param {Integer} cwcNoun The number of characters in <i>pwcNoun</i>. There is no limit on the size of a query-time phrase.
      * @param {PWSTR} pwcModifier A pointer to the word modifying <i>pwcNoun</i>.
@@ -49,7 +48,7 @@ class IPhraseSink extends IUnknown{
      * @param {Integer} ulAttachmentType A wordbreaker-specific value which a 
      *  wordbreaker can use to store additional information about the method of composition.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iphrasesink-putsmallphrase
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iphrasesink-putsmallphrase
      */
     PutSmallPhrase(pwcNoun, cwcNoun, pwcModifier, cwcModifier, ulAttachmentType) {
         pwcNoun := pwcNoun is String ? StrPtr(pwcNoun) : pwcNoun
@@ -61,6 +60,8 @@ class IPhraseSink extends IUnknown{
 
     /**
      * Puts a query-time phrase in the IPhraseSink object.
+     * @remarks
+     * <b>PutPhrase</b> is called by the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">IWordBreaker::BreakText</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementation. Phrases that the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iphrasesink">IPhraseSink</a> object handles are used by Windows Search to expand the original query text.
      * @param {PWSTR} pwcPhrase A pointer to a buffer that contains a phrase.
      * @param {Integer} cwcPhrase The number of characters in <i>pwcPhrase</i>. There is no limit on the size of a query-time phrase.
      * @returns {HRESULT} This method can return one of these values.
@@ -89,12 +90,12 @@ class IPhraseSink extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/indexsrv/nf-indexsrv-iphrasesink-putphrase">PutPhrase</a> was called at index time instead of query time.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iphrasesink-putphrase">PutPhrase</a> was called at index time instead of query time.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iphrasesink-putphrase
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iphrasesink-putphrase
      */
     PutPhrase(pwcPhrase, cwcPhrase) {
         pwcPhrase := pwcPhrase is String ? StrPtr(pwcPhrase) : pwcPhrase

@@ -6,7 +6,7 @@
 
 /**
  * The INetSharingPrivateConnectionCollection interface makes it possible for scripting languages such as VBScript and JScript to enumerate private connections.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingprivateconnectioncollection
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingprivateconnectioncollection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class INetSharingPrivateConnectionCollection extends IDispatch{
     /**
      * The get__NewEnum method retrieves an enumerator for the private connections collection.
      * @returns {IUnknown} Pointer to an interface pointer that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingprivateconnectioncollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingprivateconnectioncollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -58,7 +58,7 @@ class INetSharingPrivateConnectionCollection extends IDispatch{
     /**
      * The get__Count method retrieves the number of items in the private connections collection.
      * @returns {Integer} Pointer to a <b>long</b> variable that receives the number of items in the private connections collection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingprivateconnectioncollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingprivateconnectioncollection-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")

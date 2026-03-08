@@ -6,11 +6,8 @@
 /**
  * The IChannelTuneRequest interface is implemented on tuning request objects that support channel numbers, including analog TV and ATSC.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IChannelTuneRequest)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ichanneltunerequest
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ichanneltunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -52,7 +49,7 @@ class IChannelTuneRequest extends ITuneRequest{
     /**
      * The get_Channel method gets the channel to be tuned.
      * @returns {Integer} Pointer to a variable of type <b>long</b> that receives the current channel.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichanneltunerequest-get_channel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-get_channel
      */
     get_Channel() {
         result := ComCall(12, this, "int*", &Channel := 0, "HRESULT")
@@ -61,9 +58,11 @@ class IChannelTuneRequest extends ITuneRequest{
 
     /**
      * The put_Channel method sets the channel to be tuned.
+     * @remarks
+     * If the value specified for <i>Channel</i> is less than the minimum channel set for the tuning space, it will "wrap around" to the maximum channel value. Likewise, if the value specified for <i>Channel</i> is greater than the maximum channel set for the tuning space, it will "wrap around" to the minimum channel value.
      * @param {Integer} Channel Variable of type <b>long</b> that specifies the channel.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM IErrorInfo interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichanneltunerequest-put_channel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-put_channel
      */
     put_Channel(Channel) {
         result := ComCall(13, this, "int", Channel, "HRESULT")

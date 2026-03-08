@@ -8,7 +8,7 @@
 
 /**
  * Represents a particular spell checker for a particular language.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ispellchecker
+ * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellchecker
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -62,9 +62,9 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Gets the BCP47 language tag this instance of the spell checker supports.
+     * Gets the BCP47 language tag this instance of the spell checker supports. (ISpellChecker.get_LanguageTag)
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-get_languagetag
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_languagetag
      */
     get_LanguageTag() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
@@ -72,10 +72,12 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Checks the spelling of the supplied text and returns a collection of spelling errors.
+     * Checks the spelling of the supplied text and returns a collection of spelling errors. (ISpellChecker.Check)
+     * @remarks
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> contains the results of spell checking. A correct <i>text</i> returns an empty (not a null) enumeration.
      * @param {PWSTR} text The text to check.
      * @returns {IEnumSpellingError} The result of checking this text, returned as an <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-check
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-check
      */
     Check(text) {
         text := text is String ? StrPtr(text) : text
@@ -85,10 +87,10 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Retrieves spelling suggestions for the supplied text.
+     * Retrieves spelling suggestions for the supplied text. (ISpellChecker.Suggest)
      * @param {PWSTR} word The word or phrase to get suggestions for.
      * @returns {IEnumString} The list of suggestions, returned as an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-suggest
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-suggest
      */
     Suggest(word) {
         word := word is String ? StrPtr(word) : word
@@ -141,7 +143,7 @@ class ISpellChecker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-add
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-add
      */
     Add(word) {
         word := word is String ? StrPtr(word) : word
@@ -194,7 +196,7 @@ class ISpellChecker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-ignore
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-ignore
      */
     Ignore(word) {
         word := word is String ? StrPtr(word) : word
@@ -248,7 +250,7 @@ class ISpellChecker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-autocorrect
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-autocorrect
      */
     AutoCorrect(from, to) {
         from := from is String ? StrPtr(from) : from
@@ -259,10 +261,10 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Retrieves the value associated with the given option.
+     * Retrieves the value associated with the given option. (ISpellChecker.GetOptionValue)
      * @param {PWSTR} optionId The option identifier.
      * @returns {Integer} The value associated with <i>optionId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-getoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-getoptionvalue
      */
     GetOptionValue(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
@@ -274,7 +276,7 @@ class ISpellChecker extends IUnknown{
     /**
      * Gets all of the declared option identifiers.
      * @returns {IEnumString} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-get_optionids
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_optionids
      */
     get_OptionIds() {
         result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
@@ -284,7 +286,7 @@ class ISpellChecker extends IUnknown{
     /**
      * Gets the identifier for this spell checker.
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_id
      */
     get_Id() {
         result := ComCall(11, this, "ptr*", &value := 0, "HRESULT")
@@ -292,9 +294,9 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Gets text, suitable to display to the user, that describes this spell checker.
+     * Gets text, suitable to display to the user, that describes this spell checker. (ISpellChecker.get_LocalizedName)
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-get_localizedname
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_localizedname
      */
     get_LocalizedName() {
         result := ComCall(12, this, "ptr*", &value := 0, "HRESULT")
@@ -303,9 +305,11 @@ class ISpellChecker extends IUnknown{
 
     /**
      * Adds an event handler (ISpellCheckerChangedEventHandler) for the SpellCheckerChanged event.
+     * @remarks
+     * The SpellCheckerChanged event fires whenever the state of the spell checker changes in a way such that any text that has been checked should be rechecked. This should happen when the contents of a word list changes, when an option changes, or when the default spell checker changes.
      * @param {ISpellCheckerChangedEventHandler} handler The handler to invoke when the spell checker changes.
      * @returns {Integer} An event cookie that uniquely identifies the added handler. This cookie must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellchecker-remove_spellcheckerchanged">remove_SpellCheckerChanged</a> to stop this handler from being invoked by spell checker changes.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-add_spellcheckerchanged
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-add_spellcheckerchanged
      */
     add_SpellCheckerChanged(handler) {
         result := ComCall(13, this, "ptr", handler, "uint*", &eventCookie := 0, "HRESULT")
@@ -315,8 +319,8 @@ class ISpellChecker extends IUnknown{
     /**
      * Removes an event handler (ISpellCheckerChangedEventHandler) that has been added for the SpellCheckerChanged event.
      * @param {Integer} eventCookie The event cookie that uniquely identifies the added handler. This is the <i>eventCookie</i> that was obtained from the call to <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellchecker-add_spellcheckerchanged">add_SpellCheckerChanged</a>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-remove_spellcheckerchanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-remove_spellcheckerchanged
      */
     remove_SpellCheckerChanged(eventCookie) {
         result := ComCall(14, this, "uint", eventCookie, "HRESULT")
@@ -324,10 +328,10 @@ class ISpellChecker extends IUnknown{
     }
 
     /**
-     * Retrieves the information (id, description, heading and labels) of a specific option.
+     * Retrieves the information (id, description, heading and labels) of a specific option. (ISpellChecker.GetOptionDescription)
      * @param {PWSTR} optionId Identifier of the option to be retrieved.
      * @returns {IOptionDescription} <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ioptiondescription">IOptionDescription</a> interface that contains the information about <i>optionId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-getoptiondescription
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-getoptiondescription
      */
     GetOptionDescription(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
@@ -338,9 +342,14 @@ class ISpellChecker extends IUnknown{
 
     /**
      * Checks the spelling of the supplied text in a more thorough manner than ISpellChecker::Check, and returns a collection of spelling errors.
+     * @remarks
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> contains the results of spell checking. A correct <i>text</i> returns an empty (not a null) enumeration.
+     * 
+     * If the provider supports two "modes" of spell checking (a faster one and a slower but more thorough one), it implements <a href="https://docs.microsoft.com/windows/desktop/api/spellcheckprovider/nn-spellcheckprovider-icomprehensivespellcheckprovider">IComprehensiveSpellCheckProvider</a> to support the more thorough checking mode. 
+     * When a client calls <b>ISpellChecker::ComprehensiveCheck</b>, the spell checking functionality will <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> the provider for <b>IComprehensiveSpellCheckProvider</b>, and call <a href="https://docs.microsoft.com/windows/desktop/Intl/icomprehensivespellcheckprovider-comprehensivecheck">IComprehensiveSpellCheckProvider.ComprehensiveCheck</a> if the interface is supported. If the interface isn't supported, it will silently fall back to <a href="https://docs.microsoft.com/windows/desktop/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-check">ISpellCheckProvider::Check</a>.
      * @param {PWSTR} text The text to check.
      * @returns {IEnumSpellingError} The result of checking this text, returned as an <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker-comprehensivecheck
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-comprehensivecheck
      */
     ComprehensiveCheck(text) {
         text := text is String ? StrPtr(text) : text

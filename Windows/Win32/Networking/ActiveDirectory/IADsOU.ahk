@@ -7,7 +7,7 @@
 
 /**
  * Used to manage organizationalUnit objects.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsou
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsou
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -6,11 +6,9 @@
 /**
  * The IWbemEventProviderSecurity interface is optionally implemented by event providers who want to restrict consumer access to their event. For more information about when to use this interface, see Securing WMI Events.
  * @remarks
- * 
  * This method is automatically called by Windows Management whenever a new consumer attempts to subscribe to an event where the event provider has implemented 
  * <b>IWbemEventProviderSecurity</b>. If the consumer has access permission for the event the consumer is subscribed to the event; otherwise, the subscription is denied.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemeventprovidersecurity
+ * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventprovidersecurity
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -42,7 +40,7 @@ class IWbemEventProviderSecurity extends IUnknown{
      * @param {Integer} lSidLength Integer that contains the security identifier (SID) length, or 0 (zero) if the subscription builder token is available.
      * @param {Pointer<Integer>} pSid Pointer to the constant byte integer type that contains the SID, or <b>NULL</b> if the subscription builder's token is available.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained in an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventprovidersecurity-accesscheck
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventprovidersecurity-accesscheck
      */
     AccessCheck(wszQueryLanguage, wszQuery, lSidLength, pSid) {
         wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"

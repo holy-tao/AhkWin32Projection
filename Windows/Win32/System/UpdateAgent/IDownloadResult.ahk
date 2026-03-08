@@ -6,7 +6,7 @@
 
 /**
  * Represents the result of a download operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadresult
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadresult
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IDownloadResult extends IDispatch{
     /**
      * Gets the exception code number if an exception code number is raised during the download.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadresult-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_hresult
      */
     get_HResult() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -58,7 +58,7 @@ class IDownloadResult extends IDispatch{
     /**
      * Gets an OperationResultCodeenumeration that specifies the result of the download.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadresult-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -69,7 +69,7 @@ class IDownloadResult extends IDispatch{
      * Returns an IUpdateDownloadResult interface that contains the download information for a specified update.
      * @param {Integer} updateIndex The index of the update.
      * @returns {IUpdateDownloadResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloadresult">IUpdateDownloadResult</a> interface that contains the results for the specified update.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadresult-getupdateresult
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-getupdateresult
      */
     GetUpdateResult(updateIndex) {
         result := ComCall(9, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")

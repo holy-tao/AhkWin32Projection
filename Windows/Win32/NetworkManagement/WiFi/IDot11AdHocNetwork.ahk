@@ -7,7 +7,7 @@
 
 /**
  * Represents an available ad hoc network destination within connection range.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocnetwork
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocnetwork
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -98,7 +98,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getstatus
      */
     GetStatus(eStatus) {
         eStatusMarshal := eStatus is VarRef ? "int*" : "ptr"
@@ -112,7 +112,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * @returns {PWSTR} The SSID of the network.
      * 
      * You must free this string using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getssid
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getssid
      */
     GetSSID() {
         result := ComCall(4, this, "ptr*", &ppszwSSID := 0, "HRESULT")
@@ -185,7 +185,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-hasprofile
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-hasprofile
      */
     HasProfile(pf11d) {
         pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
@@ -199,7 +199,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * @returns {PWSTR} The name of the profile associated with the network. If the network has no profile, this parameter is <b>NULL</b>.
      * 
      * You must free this string using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getprofilename
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getprofilename
      */
     GetProfileName() {
         result := ComCall(6, this, "ptr*", &ppszwProfileName := 0, "HRESULT")
@@ -249,7 +249,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-deleteprofile
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-deleteprofile
      */
     DeleteProfile() {
         result := ComCall(7, this, "HRESULT")
@@ -258,6 +258,8 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * Gets the signal quality values associated with the network's radio.
+     * @remarks
+     * Signal strength, in this context, is measured on a linear scale. When <i>puStrengthMax</i> is set to the default value of 100, <i>puStrengthValue</i> represents the  percentage of the maximum signal strength currently used for transmission.
      * @param {Pointer<Integer>} puStrengthValue The current signal strength. This parameter takes a ULONG value between 0 and <i>puStrengthMax</i>.
      * @param {Pointer<Integer>} puStrengthMax The maximum signal strength value. This parameter takes a ULONG value between 0 and 100. By default, <i>puStrengthMax</i> is set to 100.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
@@ -323,7 +325,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getsignalquality
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsignalquality
      */
     GetSignalQuality(puStrengthValue, puStrengthMax) {
         puStrengthValueMarshal := puStrengthValue is VarRef ? "uint*" : "ptr"
@@ -336,7 +338,7 @@ class IDot11AdHocNetwork extends IUnknown{
     /**
      * Gets the security settings for the network.
      * @returns {IDot11AdHocSecuritySettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocsecuritysettings">IDot11AdHocSecuritySettings</a> interface that contains the security settings for the network.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getsecuritysetting
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsecuritysetting
      */
     GetSecuritySetting() {
         result := ComCall(9, this, "ptr*", &pAdHocSecuritySetting := 0, "HRESULT")
@@ -409,7 +411,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getcontextguid
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getcontextguid
      */
     GetContextGuid(pContextGuid) {
         result := ComCall(10, this, "ptr", pContextGuid, "HRESULT")
@@ -418,6 +420,8 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * Gets the unique signature associated with the ad hoc network.
+     * @remarks
+     * Do not cache the returned signature locally. Whenever a network object changes, its signature changes.  Actions that are not associated with notifications, such as  saving the network's profile, can cause the signature to change.
      * @param {Pointer<Guid>} pSignature A signature that uniquely identifies an ad hoc network. This signature is generated  from certain network attributes.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -482,7 +486,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getsignature
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsignature
      */
     GetSignature(pSignature) {
         result := ComCall(11, this, "ptr", pSignature, "HRESULT")
@@ -492,7 +496,7 @@ class IDot11AdHocNetwork extends IUnknown{
     /**
      * Gets the interface associated with a network.
      * @returns {IDot11AdHocInterface} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocinterface">IDot11AdHocInterface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-getinterface
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getinterface
      */
     GetInterface() {
         result := ComCall(12, this, "ptr*", &pAdHocInterface := 0, "HRESULT")
@@ -501,6 +505,8 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * Connects to a previously created wireless ad hoc network.
+     * @remarks
+     * This method is asynchronous. <b>Connect</b> returns S_OK immediately if the parameters passed to the method are valid. However, a return code of S_OK does not indicate that the connection was successful. You must register for notifications on the <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetworknotificationsink">IDot11AdHocNetworkNotificationSink</a> interface to be notified of connection success or failure. The <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocnetworknotificationsink-onstatuschange">IDot11AdHocNetworkNotificationSink::OnStatusChange</a> method returns the connection status. For more information about registering for notifications, see <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocmanager">IDot11AdHocManager</a>.
      * @param {PWSTR} Passphrase The password string used to authenticate the user or machine on the network.
      * 
      * The length of the password string depends on the security settings passed in the <i>pSecurity</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocmanager-createnetwork">CreateNetwork</a> call. The following table shows the password length associated with various security settings.
@@ -609,7 +615,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-connect
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-connect
      */
     Connect(Passphrase, GeographicalId, fSaveProfile, fMakeSavedProfileUserSpecific) {
         Passphrase := Passphrase is String ? StrPtr(Passphrase) : Passphrase
@@ -650,7 +656,7 @@ class IDot11AdHocNetwork extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetwork-disconnect
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-disconnect
      */
     Disconnect() {
         result := ComCall(14, this, "HRESULT")

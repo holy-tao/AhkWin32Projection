@@ -276,9 +276,17 @@ class IHTMLLocation extends IDispatch{
     }
 
     /**
+     * Reloads an IME configuration from the HKCU registry, in Japanese IME only.
+     * @remarks
+     * If no registry value is present in HKCU, the **reload\_config** function writes initial data to the registry.
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {VARIANT_BOOL} flag 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/reload-config
      */
     reload(flag) {
         result := ComCall(23, this, "short", flag, "HRESULT")
@@ -314,8 +322,8 @@ class IHTMLLocation extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        string := BSTR()
-        result := ComCall(26, this, "ptr", string, "HRESULT")
-        return string
+        string_R := BSTR()
+        result := ComCall(26, this, "ptr", string_R, "HRESULT")
+        return string_R
     }
 }

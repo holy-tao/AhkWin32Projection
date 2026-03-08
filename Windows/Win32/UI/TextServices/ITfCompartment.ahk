@@ -6,7 +6,7 @@
 
 /**
  * The ITfCompartment interface is implemented by the TSF manager and is used by clients (applications and text services) to obtain and set data in a TSF compartment.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcompartment
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartment
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -82,12 +82,12 @@ class ITfCompartment extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The compartment was cleared by a call to <a href="/windows/desktop/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment">ITfCompartmentMgr::ClearCompartment</a>, this method was called during a <a href="/windows/desktop/api/msctf/nf-msctf-itfcompartmenteventsink-onchange">ITfCompartmentEventSink::OnChange</a> notification or only the owner can clear this compartment.
+     * The compartment was cleared by a call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment">ITfCompartmentMgr::ClearCompartment</a>, this method was called during a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcompartmenteventsink-onchange">ITfCompartmentEventSink::OnChange</a> notification or only the owner can clear this compartment.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartment-setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartment-setvalue
      */
     SetValue(tid, pvarValue) {
         result := ComCall(3, this, "uint", tid, "ptr", pvarValue, "HRESULT")
@@ -96,8 +96,10 @@ class ITfCompartment extends IUnknown{
 
     /**
      * ITfCompartment::GetValue method
+     * @remarks
+     * The caller must recognize the supplied data format in order to use the data. The compartment installer must publish the data format to enable other clients to use it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> structure that receives the data. This receives VT_EMPTY if the compartment has no value. The caller must free this data when it is no longer required by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartment-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartment-getvalue
      */
     GetValue() {
         pvarValue := VARIANT()

@@ -7,14 +7,11 @@
 /**
  * Provides an asynchronous callback mechanism used by a credential to notify it of state or text change events in the Logon UI or Credential UI.
  * @remarks
- * 
  * These methods should only be called by a credential passing <b>this</b> as the first parameter. Behavior is undefined if you attempt to call these methods using a credential other than the one activated by the call on <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-advise">Advise</a>. If a credential provider has information on another thread and wants to communicate through that thread's Logon UI or Credential UI, the requests will need to go through the credential that received the <b>Advise</b> call.
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Third parties do not implement <b>ICredentialProviderCredentialEvents</b>. An implementation is included with Windows.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -52,8 +49,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The value from the <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a> enumeration that specifies the new field state.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstate
      */
     SetFieldState(pcpc, dwFieldID, cpfs) {
         result := ComCall(3, this, "ptr", pcpc, "uint", dwFieldID, "int", cpfs, "HRESULT")
@@ -73,8 +70,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The new interactive state of the field.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldinteractivestate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldinteractivestate
      */
     SetFieldInteractiveState(pcpc, dwFieldID, cpfis) {
         result := ComCall(4, this, "ptr", pcpc, "uint", dwFieldID, "int", cpfis, "HRESULT")
@@ -94,8 +91,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * A pointer to the new string for the field.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstring
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstring
      */
     SetFieldString(pcpc, dwFieldID, psz) {
         psz := psz is String ? StrPtr(psz) : psz
@@ -120,8 +117,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The new string for the checkbox label.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldcheckbox
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldcheckbox
      */
     SetFieldCheckbox(pcpc, dwFieldID, bChecked, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -143,8 +140,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The new tile image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldbitmap
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldbitmap
      */
     SetFieldBitmap(pcpc, dwFieldID, hbmp) {
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
@@ -166,8 +163,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The index of the item to select in the combo box.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldcomboboxselecteditem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldcomboboxselecteditem
      */
     SetFieldComboBoxSelectedItem(pcpc, dwFieldID, dwSelectedItem) {
         result := ComCall(8, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwSelectedItem, "HRESULT")
@@ -187,8 +184,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The index of the item that is deleted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-deletefieldcomboboxitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-deletefieldcomboboxitem
      */
     DeleteFieldComboBoxItem(pcpc, dwFieldID, dwItem) {
         result := ComCall(9, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwItem, "HRESULT")
@@ -208,8 +205,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The string that will be appended to the combo box as a new option.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-appendfieldcomboboxitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-appendfieldcomboboxitem
      */
     AppendFieldComboBoxItem(pcpc, dwFieldID, pszItem) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
@@ -231,8 +228,8 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * The unique field ID of the field that the submit button should be adjacent to when this method completes.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldsubmitbutton
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldsubmitbutton
      */
     SetFieldSubmitButton(pcpc, dwFieldID, dwAdjacentTo) {
         result := ComCall(11, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwAdjacentTo, "HRESULT")
@@ -241,10 +238,17 @@ class ICredentialProviderCredentialEvents extends IUnknown{
 
     /**
      * Called when the window is created. Enables credentials to retrieve the HWND of the parent window after Advise is called.
+     * @remarks
+     * The HWND that is returned in <i>phwndOwner</i> can be used as a parent to dialog boxes, such as message boxes. Any credential provider displaying a dialog must parent it to the HWND supplied by <b>OnCreatingWindow</b>. Credential providers that do not parent dialogs boxes properly will cause Credential UI and Logon UI to fail if a timeout occurs.
+     *             
+     * 
+     * Credential UI and Logon UI can cancel the dialog box if they receive no input for two minutes. In the event of a timeout only if the pointer to the parent window is correctly assigned.
+     * 
+     * The Logon UI and Credential UI will automatically cancel dialogs that receive no input for two minutes. This is only possible if the pointer to the parent window is correctly assigned. Dialogs presented as calls to <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-connect">IConnectableCredentialProviderCredential::Connect</a> on the Pre-Logon-Access Provider (PLAP) screen will never be cancelled due to inactivity.
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to the handle of the parent window.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-oncreatingwindow
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-oncreatingwindow
      */
     OnCreatingWindow() {
         phwndOwner := HWND()

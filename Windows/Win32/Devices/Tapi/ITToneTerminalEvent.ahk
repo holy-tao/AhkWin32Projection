@@ -7,7 +7,7 @@
 
 /**
  * The ITToneTerminalEvent interface contains methods that retrieve the description of tone terminal events that have occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ittoneterminalevent
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittoneterminalevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -55,9 +55,13 @@ class ITToneTerminalEvent extends IDispatch{
 
     /**
      * The get_Terminal method returns an ITTerminal pointer for the tone terminal on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITToneTerminalEvent::get_Terminal</b>. The application must call <b>Release</b> on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface to free resources associated with it.
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_terminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -66,9 +70,13 @@ class ITToneTerminalEvent extends IDispatch{
 
     /**
      * The get_Call method retrieves an interface pointer for the call object on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface returned by <b>ITToneTerminalEvent::get_Call</b>. The application must call <b>Release</b> on the 
+     * <b>ITCallInfo</b> interface to free resources associated with it.
      * @returns {ITCallInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_call
      */
     get_Call() {
         result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -78,7 +86,7 @@ class ITToneTerminalEvent extends IDispatch{
     /**
      * The get_Error method returns an HRESULT cast of the error code involved in the event.
      * @returns {HRESULT} <b>HRESULT</b> cast of the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_error
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_error
      */
     get_Error() {
         result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")

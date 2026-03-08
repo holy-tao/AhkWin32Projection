@@ -7,7 +7,7 @@
 
 /**
  * Provides access to the event data store.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventsystem
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventsystem
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -40,7 +40,25 @@ class IEventSystem extends IDispatch{
     }
 
     /**
-     * Retrieves a collection of subscription or event objects from the event data store.
+     * Retrieves a collection of subscription or event objects from the event data store. (IEventSystem.Query)
+     * @remarks
+     * The caller is responsible for freeing memory allocated through the <i>ppInterface</i> parameter. 
+     * 
+     * 
+     * 
+     * The query criteria specified by the <i>queryCriteria</i> parameter can be "ALL", to specify a request for all subscription objects, or a Boolean expression denoting one or more conditions a subscription object must meet to be included in the query result. Valid expressions are of the following form:
+     * 
+     * [NOT] <i>propertyname</i><i>relationalOperator</i><i>value</i>. Valid relational operators are as follows: 
+     * 
+     * ==, =, !=, &lt;&gt;, ~=. Valid values are "<i>string</i>", '<i>string</i>', {<i>GUID</i>}, <b>TRUE</b>, <b>FALSE</b>, <b>NULL</b>.
+     * 
+     * Individual Boolean expressions can be joined with AND or OR. Expressions can be nested in parentheses to enforce a specific order of evaluation.
+     * 
+     * Following are some examples of valid query criteria:
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF}"
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF} AND MethodName = 'StockPriceChange'"
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria The query criteria. For details on forming a valid expression for this parameter, see the Remarks section below.
      * @param {Pointer<Integer>} errorIndex The location, expressed as an offset, of an error in the <i>queryCriteria</i> parameter.
@@ -57,7 +75,7 @@ class IEventSystem extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventsubscription">IEventSubscription</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-query
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-query
      */
     Query(progID, queryCriteria, errorIndex) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
@@ -103,7 +121,7 @@ class IEventSystem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-store
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-store
      */
     Store(ProgID, pInterface) {
         ProgID := ProgID is String ? BSTR.Alloc(ProgID).Value : ProgID
@@ -113,11 +131,25 @@ class IEventSystem extends IDispatch{
     }
 
     /**
-     * Removes one or more subscription or event objects from the event data store.
+     * Removes one or more subscription or event objects from the event data store. (IEventSystem.Remove)
+     * @remarks
+     * The query criteria specified by the <i>queryCriteria</i> parameter can be "ALL", to specify a request for all subscription objects, or a Boolean expression denoting one or more conditions a subscription object must meet to be included in the query result. Valid expressions are of the following form:
+     * 
+     * [NOT] <i>propertyname</i><i>relationalOperator</i><i>value</i>. Valid relational operators are as follows: 
+     * 
+     * ==, =, !=, &lt;&gt;, ~=. Valid values are "<i>string</i>", '<i>string</i>', {<i>GUID</i>}, <b>TRUE</b>, <b>FALSE</b>, <b>NULL</b>.
+     * 
+     * Individual Boolean expressions can be joined with AND or OR. Expressions can be nested in parentheses to enforce a specific order of evaluation.
+     * 
+     * Following are some examples of valid query criteria:
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF}"
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF} AND MethodName = 'StockPriceChange'"
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria The query criteria. For details on forming a valid expression for this parameter, see the Remarks section below.
      * @returns {Integer} The location, expressed as an offset, of an error in the <i>queryCriteria</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-remove
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-remove
      */
     Remove(progID, queryCriteria) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
@@ -130,12 +162,9 @@ class IEventSystem extends IDispatch{
     /**
      * Retrieves the CLSID of an event class object that notifies the caller of changes to the event store.
      * @remarks
-     * 
      * Subscriptions can use the <b>EventObjectChangeEventClassID</b> property to obtain a pointer to an event class object that notifies them when subscribers or events are modified or when they are added to or deleted from the event store. Subscribers to these events must implement the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventobjectchange">IEventObjectChange</a> interface.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-get_eventobjectchangeeventclassid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-get_eventobjectchangeeventclassid
      */
     get_EventObjectChangeEventClassID() {
         pbstrEventClassID := BSTR()
@@ -144,7 +173,25 @@ class IEventSystem extends IDispatch{
     }
 
     /**
-     * Retrieves a collection of subscription or event objects from the event data store.
+     * Retrieves a collection of subscription or event objects from the event data store. (IEventSystem.QueryS)
+     * @remarks
+     * The caller is responsible for freeing memory allocated through the <i>ppInterface</i> parameter. 
+     * 
+     * 
+     * 
+     * The query criteria specified by the <i>queryCriteria</i> parameter can be "ALL", to specify a request for all subscription objects, or a Boolean expression denoting one or more conditions a subscription object must meet to be included in the query result. Valid expressions are of the following form:
+     * 
+     * [NOT] <i>propertyname</i><i>relationalOperator</i><i>value</i>. Valid relational operators are as follows: 
+     * 
+     * ==, =, !=, &lt;&gt;, ~=. Valid values are "<i>string</i>", '<i>string</i>', {<i>GUID</i>}, <b>TRUE</b>, <b>FALSE</b>, <b>NULL</b>.
+     * 
+     * Individual Boolean expressions can be joined with AND or OR. Expressions can be nested in parentheses to enforce a specific order of evaluation.
+     * 
+     * Following are some examples of valid query criteria:
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF}"
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF} AND MethodName = 'StockPriceChange'"
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria The query criteria. For details on forming a valid expression for this parameter, see the Remarks section below.
      * @returns {IUnknown} Address of a pointer to the object obtained as a result of the query. This parameter cannot be <b>NULL</b>. Depending on the object specified by the <i>progID</i> parameter, this is a pointer to one of the following interfaces:
@@ -160,7 +207,7 @@ class IEventSystem extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventsubscription">IEventSubscription</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-querys
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-querys
      */
     QueryS(progID, queryCriteria) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
@@ -171,7 +218,21 @@ class IEventSystem extends IDispatch{
     }
 
     /**
-     * Removes one or more subscription or event objects from the event data store.
+     * Removes one or more subscription or event objects from the event data store. (IEventSystem.RemoveS)
+     * @remarks
+     * The query criteria specified by the <i>queryCriteria</i> parameter can be "ALL", to specify a request for all subscription objects, or a Boolean expression denoting one or more conditions a subscription object must meet to be included in the query result. Valid expressions are of the following form:
+     * 
+     * [NOT] <i>propertyname</i><i>relationalOperator</i><i>value</i>. Valid relational operators are as follows: 
+     * 
+     * ==, =, !=, &lt;&gt;, ~=. Valid values are "<i>string</i>", '<i>string</i>', {<i>GUID</i>}, <b>TRUE</b>, <b>FALSE</b>, <b>NULL</b>.
+     * 
+     * Individual Boolean expressions can be joined with AND or OR. Expressions can be nested in parentheses to enforce a specific order of evaluation.
+     * 
+     * Following are some examples of valid query criteria:
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF}"
+     * 
+     * "EventClassID == {F89859D1-6565-11D1-88C8-0080C7D771BF} AND MethodName = 'StockPriceChange'"
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria The query criteria. For details on forming a valid expression for this parameter, see the Remarks section below.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
@@ -227,7 +288,7 @@ class IEventSystem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsystem-removes
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-removes
      */
     RemoveS(progID, queryCriteria) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID

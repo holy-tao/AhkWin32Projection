@@ -5,7 +5,7 @@
 
 /**
  * Defines a method for handling storyboard loop iteration events.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationloopiterationchangehandler2
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationloopiterationchangehandler2
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -36,8 +36,8 @@ class IUIAnimationLoopIterationChangeHandler2 extends IUnknown{
      * @param {Pointer} id The loop ID.
      * @param {Integer} newIterationCount The iteration count for the latest <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-update">IUIAnimationManager2::Update</a>.
      * @param {Integer} oldIterationCount The iteration count for the previous <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-update">IUIAnimationManager2::Update</a>.
-     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationloopiterationchangehandler2-onloopiterationchanged
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationloopiterationchangehandler2-onloopiterationchanged
      */
     OnLoopIterationChanged(storyboard, id, newIterationCount, oldIterationCount) {
         result := ComCall(3, this, "ptr", storyboard, "ptr", id, "uint", newIterationCount, "uint", oldIterationCount, "HRESULT")

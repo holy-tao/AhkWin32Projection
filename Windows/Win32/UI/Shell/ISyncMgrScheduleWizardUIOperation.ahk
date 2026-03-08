@@ -6,10 +6,8 @@
 /**
  * Exposes a method that allows a handler to display the sync schedule wizard for the handler.
  * @remarks
- * 
  * The wizard can be invoked by CoCreating CLSID_SyncMgrScheduleWizard, which is typically done when Sync Center calls <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getobject">ISyncMgrHandler::GetObject</a>, specifying SYNCMGR_OBJECTID_ShowSchedule for the object ID.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrschedulewizarduioperation
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrschedulewizarduioperation
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,8 +39,8 @@ class ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperation{
      * A pointer to a handler ID as a Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrschedulewizarduioperation-initwizard
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrschedulewizarduioperation-initwizard
      */
     InitWizard(pszHandlerID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

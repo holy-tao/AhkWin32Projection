@@ -6,10 +6,8 @@
 /**
  * Offers access to global spanning events and their data from the Stream Buffer Source filters. A global spanning event contains state information that applies to all the streams in a pipeline.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2GlobalEvent)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2globalevent
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2globalevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -85,7 +83,7 @@ class ISBE2GlobalEvent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2globalevent-getevent
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent-getevent
      */
     GetEvent(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb) {
         pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"

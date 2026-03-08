@@ -5,7 +5,7 @@
 
 /**
  * Is implemented by the client program to receive callback notifications from IWSDiscoveryPublisher.
- * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nn-wsddisco-iwsdiscoverypublishernotify
+ * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoverypublishernotify
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -32,10 +32,14 @@ class IWSDiscoveryPublisherNotify extends IUnknown{
 
     /**
      * Is called when a Probe is received by the discovery publisher.
+     * @remarks
+     * <b>ProbeHandler</b> is called whenever a <a href="https://docs.microsoft.com/windows/desktop/WsdApi/probe-message">Probe</a> is received by the discovery publisher. It is the responsibility of the callback interface to then call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobe">MatchProbe</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobeex">MatchProbeEx</a> with host information to determine whether or not the received Probe matches the host.
+     * 
+     * The body of the Probe message passed to <i>pSoap</i> can be cast to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_probe">WSD_PROBE</a> structure.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that contains the Probe message received by the discovery publisher.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> interface that contains transport information associated with the received message.
      * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler
      */
     ProbeHandler(pSoap, pMessageParameters) {
         result := ComCall(3, this, "ptr", pSoap, "ptr", pMessageParameters, "HRESULT")
@@ -44,10 +48,12 @@ class IWSDiscoveryPublisherNotify extends IUnknown{
 
     /**
      * Is called when a Resolve is received by the discovery publisher.
+     * @remarks
+     * <b>ResolveHandler</b> is called whenever a Resolve is received by the discovery publisher. It is the responsibility of the callback interface to then call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolve">MatchResolve</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolveex">MatchResolveEx</a> with host information to determine whether or not the received Resolve matches the host.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that contains the Resolve message received by the discovery publisher.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> interface that contains transport information associated with the received message.
      * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler
      */
     ResolveHandler(pSoap, pMessageParameters) {
         result := ComCall(4, this, "ptr", pSoap, "ptr", pMessageParameters, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Allocates video samples for a video media sink.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideosampleallocator
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IMFVideoSampleAllocator extends IUnknown{
 
     /**
      * Specifies the Direct3D device manager for the video media sink to use.
+     * @remarks
+     * The media sink uses the Direct3D device manager to obtain a pointer to the Direct3D device, which it uses to allocate Direct3D surfaces. The device manager enables multiple objects in the pipeline (such as a video renderer and a video decoder) to share the same Direct3D device.
      * @param {IUnknown} pManager Pointer to the <b>IUnknown</b> interface of the Direct3D device manager. The media sink queries this pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirect3ddevicemanager9">IDirect3DDeviceManager9</a> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -53,7 +55,7 @@ class IMFVideoSampleAllocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocator-setdirectxmanager
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocator-setdirectxmanager
      */
     SetDirectXManager(pManager) {
         result := ComCall(3, this, "ptr", pManager, "HRESULT")
@@ -81,7 +83,7 @@ class IMFVideoSampleAllocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocator-uninitializesampleallocator
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocator-uninitializesampleallocator
      */
     UninitializeSampleAllocator() {
         result := ComCall(4, this, "HRESULT")
@@ -124,7 +126,7 @@ class IMFVideoSampleAllocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocator-initializesampleallocator
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocator-initializesampleallocator
      */
     InitializeSampleAllocator(cRequestedFrames, pMediaType) {
         result := ComCall(5, this, "uint", cRequestedFrames, "ptr", pMediaType, "HRESULT")
@@ -134,7 +136,7 @@ class IMFVideoSampleAllocator extends IUnknown{
     /**
      * Gets a video sample from the allocator.
      * @returns {IMFSample} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocator-allocatesample
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocator-allocatesample
      */
     AllocateSample() {
         result := ComCall(6, this, "ptr*", &ppSample := 0, "HRESULT")

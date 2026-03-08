@@ -53,10 +53,11 @@ class IElementBehaviorLayout extends IUnknown{
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @param {Integer} lFlags 
      * @param {Pointer<POINT>} pptTopLeft 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getpositioninformationoperation
      */
     GetPosition(lFlags, pptTopLeft) {
         result := ComCall(5, this, "int", lFlags, "ptr", pptTopLeft, "HRESULT")

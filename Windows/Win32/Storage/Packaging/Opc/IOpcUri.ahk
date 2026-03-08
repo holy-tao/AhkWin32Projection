@@ -7,12 +7,9 @@
 /**
  * Represents the URI of the package root or of a part that is relative to the package root.
  * @remarks
- * 
  * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
  * The behavior and performance of this interface is the same on all supported Windows versions. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcuri
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcuri
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -39,8 +36,37 @@ class IOpcUri extends IUri{
 
     /**
      * Gets the part name of the Relationships part that stores relationships that have the source URI represented by the current OPC URI object.
+     * @remarks
+     * The following table shows Relationships part URIs for some OPC URIs.<table>
+     * <tr>
+     * <th>OPC URI</th>
+     * <th>Relationships Part Name</th>
+     * <th> Return Value</th>
+     * </tr>
+     * <tr>
+     * <td>/mydoc/images/picture.jpg</td>
+     * <td>/mydoc/images/_rels/picture.jpg.rels</td>
+     * <td><b>S_OK</b></td>
+     * </tr>
+     * <tr>
+     * <td>/</td>
+     * <td>/_rels/.rels</td>
+     * <td><b>S_OK</b></td>
+     * </tr>
+     * <tr>
+     * <td>/mydoc/images/_rels/picture.jpg.rels</td>
+     * <td>Undefined</td>
+     * <td><b>OPC_E_NONCONFORMING_URI</b></td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name of the Relationships part. The source URI of the relationships stored in this Relationships part is represented by the  current OPC URI object.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-getrelationshipsparturi
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelationshipsparturi
      */
     GetRelationshipsPartUri() {
         result := ComCall(28, this, "ptr*", &relationshipPartUri := 0, "HRESULT")
@@ -49,9 +75,41 @@ class IOpcUri extends IUri{
 
     /**
      * Forms a relative URI for a specified part, relative to the URI represented by the current OPC URI object.
+     * @remarks
+     * Example input and output:
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Input <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> represents</th>
+     * <th>Current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> represents</th>
+     * <th>Returned relative <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> represents</th>
+     * </tr>
+     * <tr>
+     * <td>/mydoc/markup/page.xml</td>
+     * <td>	/mydoc/markup/picture.jpg	</td>
+     * <td>picture.jpg</td>
+     * </tr>
+     * <tr>
+     * <td>/mydoc/markup/page.xml</td>
+     * <td>/mydoc/picture.jpg</td>
+     * <td>../picture.jpg</td>
+     * </tr>
+     * <tr>
+     * <td>/mydoc/markup/page.xml</td>
+     * <td>/mydoc/images/pictures.jpg</td>
+     * <td>../images/pictures.jpg</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IOpcPartUri} targetPartUri A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name from which the relative URI is formed.
      * @returns {IUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the URI of the part, relative to the current OPC URI object.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-getrelativeuri
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelativeuri
      */
     GetRelativeUri(targetPartUri) {
         result := ComCall(29, this, "ptr", targetPartUri, "ptr*", &relativeUri := 0, "HRESULT")
@@ -60,6 +118,42 @@ class IOpcUri extends IUri{
 
     /**
      * Forms the part name of the part that is referenced by the specified relative URI.
+     * @remarks
+     * Example input and output:
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Input relative <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a></th>
+     * <th>Current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a>
+     * </th>
+     * <th>Formed <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>picture.jpg</td>
+     * <td>/mydoc/markup/page.xml</td>
+     * <td>/mydoc/markup/picture.jpg</td>
+     * </tr>
+     * <tr>
+     * <td>../picture.jpg</td>
+     * <td>/mydoc/markup/page.xml</td>
+     * <td>/mydoc/picture.jpg</td>
+     * </tr>
+     * <tr>
+     * <td>../../images/picture.jpg</td>
+     * <td>/mydoc/page.xml</td>
+     * <td>/images/picture.jpg</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * For information about how to use this method to help resolve a part name, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/resolving-a-part-name-from-a-relationship-s-target-uri">Resolving a Part Name from a Target URI</a>.
+     * 
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IUri} relativeUri A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the relative URI of the part.
      * 
      * To form the part URI object that represents the part name, this input URI is resolved against the URI represented as the current OPC URI object. Therefore, the input URI must be relative to the URI represented by the current OPC URI object.
@@ -69,7 +163,7 @@ class IOpcUri extends IUri{
      *             
      * 
      * The part URI object is formed by resolving the relative URI in <i>relativeUri</i> against the URI represented by the current OPC URI object.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-combineparturi
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-combineparturi
      */
     CombinePartUri(relativeUri) {
         result := ComCall(30, this, "ptr", relativeUri, "ptr*", &combinedUri := 0, "HRESULT")

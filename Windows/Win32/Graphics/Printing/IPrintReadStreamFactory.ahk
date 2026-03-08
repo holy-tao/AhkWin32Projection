@@ -30,8 +30,9 @@ class IPrintReadStreamFactory extends IUnknown{
     static VTableNames => ["GetStream"]
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetStreamPropertiesAsync completes, and provides a method that returns the results of the operation.
      * @returns {IPrintReadStream} 
+     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getstreampropertiesoperation
      */
     GetStream() {
         result := ComCall(3, this, "ptr*", &ppStream := 0, "HRESULT")

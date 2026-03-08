@@ -134,8 +134,15 @@ class IMSMQQueue3 extends IDispatch{
     }
 
     /**
+     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
+     * @remarks
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
+     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
+     * 
+     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
@@ -180,8 +187,24 @@ class IMSMQQueue3 extends IDispatch{
     }
 
     /**
+     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
+     * @remarks
+     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * @returns {HRESULT} 
+     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
+     * 
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
+     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
      */
     Reset() {
         result := ComCall(16, this, "HRESULT")
@@ -240,12 +263,17 @@ class IMSMQQueue3 extends IDispatch{
     }
 
     /**
+     * Reads data from the specified console input buffer without removing it from the buffer.
+     * @remarks
+     * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
+     * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
      * @returns {IMSMQMessage3} 
+     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     Peek(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
         result := ComCall(21, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
@@ -443,8 +471,16 @@ class IMSMQQueue3 extends IDispatch{
     }
 
     /**
+     * Discards all characters from the output or input buffer of a specified communications resource. It can also terminate pending read or write operations on the resource.
+     * @remarks
+     * If a thread uses 
+     * <b>PurgeComm</b> to flush an output buffer, the deleted characters are not transmitted. To empty the output buffer while ensuring that the contents are transmitted, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function (a synchronous operation). Note, however, that <b>FlushFileBuffers</b> is subject to flow control but not to write time-outs, and it will not return until all pending write operations have been transmitted.
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * @returns {HRESULT} 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-purgecomm
      */
     Purge() {
         result := ComCall(37, this, "HRESULT")

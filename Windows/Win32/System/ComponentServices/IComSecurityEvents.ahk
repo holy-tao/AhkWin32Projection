@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if the authentication of a method call succeeded or failed.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomsecurityevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomsecurityevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class IComSecurityEvents extends IUnknown{
      * @param {Pointer<Integer>} pSidCurrentUser The security identifier for the current caller.
      * @param {BOOL} bCurrentUserInpersonatingInProc Indicates whether the current user is impersonating.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
      */
     OnAuthenticate(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
@@ -66,7 +66,7 @@ class IComSecurityEvents extends IUnknown{
      * @param {Pointer<Integer>} pSidCurrentUser The security identifier for the current caller.
      * @param {BOOL} bCurrentUserInpersonatingInProc Indicates whether the current user is impersonating.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
      */
     OnAuthenticateFail(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"

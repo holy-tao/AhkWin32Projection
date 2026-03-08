@@ -5,7 +5,7 @@
 
 /**
  * The IWMMutualExclusion2 interface provides advanced configuration features for mutual exclusion objects.This interface supports both multiple languages and advanced mutual exclusion.An IWMMutualExclusion2 interface is created for each mutual exclusion object created. To retrieve a pointer to an IWMMutualExclusion2 interface, call the QueryInterface method of the IWMMutualExclusion interface returned by IWMProfile::CreateNewMutualExclusion.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmmutualexclusion2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmmutualexclusion2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The GetName method retrieves the name of the current mutual exclusion object. A mutual exclusion object has a name only if a name has been assigned using the IWMMutualExclusion2::SetName method.
+     * @remarks
+     * You can pass <i>pwszName</i> as <b>NULL</b> to retrieve the correct size of the name in <i>pcchName</i> and then make another call to this method with a properly sized string. If you do, the value you pass as <i>pcchName</i> is irrelevant. It will be replaced with the correct length of the name.
+     * 
+     * If you pass an address as <i>pwszName</i>, and the length you specified in <i>pcchName</i> is shorter than the number of characters required to store the name, <b>GetName</b> ignores <i>pwszName</i> and returns the correct number of characters in <i>pcchName</i>. In this case the method still returns S_OK.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name of the mutual exclusion object. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchName On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -64,7 +68,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getname
      */
     GetName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -108,7 +112,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-setname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-setname
      */
     SetName(pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -119,8 +123,10 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The GetRecordCount method retrieves the number of records present in the mutual exclusion object.
+     * @remarks
+     * Record numbers are assigned sequentially.
      * @returns {Integer} Pointer to a <b>WORD</b> containing the number of records that exist in the mutual exclusion object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordcount
      */
     GetRecordCount() {
         result := ComCall(10, this, "ushort*", &pwRecordCount := 0, "HRESULT")
@@ -129,6 +135,8 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The AddRecord method adds a record to the mutual exclusion object.
+     * @remarks
+     * Record numbers, which are used by other methods, are assigned to records sequentially.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -170,7 +178,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-addrecord
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-addrecord
      */
     AddRecord() {
         result := ComCall(11, this, "HRESULT")
@@ -179,6 +187,8 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The RemoveRecord method removes a record from the mutual exclusion object.
+     * @remarks
+     * After you remove a record, it cannot be restored.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the number of the record to remove.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -221,7 +231,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removerecord
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removerecord
      */
     RemoveRecord(wRecordNumber) {
         result := ComCall(12, this, "ushort", wRecordNumber, "HRESULT")
@@ -230,6 +240,10 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The GetRecordName method retrieves the name of the specified record. A record has a name only if a name has been assigned using the IWMMutualExclusion2::SetRecordName method.
+     * @remarks
+     * You should make two calls to <b>GetRecordName</b> for each record name you want to retrieve. On the first call, pass <b>NULL</b> as <i>pwszRecordName</i>. On return, the value pointed to by <i>pcchRecordName</i> will be set to the number of wide characters, including the terminating <b>null</b> character, required to hold the record name. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszRecordName</i> on the second call.
+     * 
+     * Records are assigned numbers sequentially in the order they are created.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the number of the record for which you want to get the name.
      * @param {PWSTR} pwszRecordName Pointer to a wide-character <b>null</b>-terminated string containing the record name. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchRecordName On input, a pointer to a variable containing the length of the <i>pwszRecordName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character. However, if you pass <b>NULL</b> as <i>pwszRecordName</i>, this will be set to the required length on output.
@@ -278,7 +292,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordname
      */
     GetRecordName(wRecordNumber, pwszRecordName, pcchRecordName) {
         pwszRecordName := pwszRecordName is String ? StrPtr(pwszRecordName) : pwszRecordName
@@ -291,6 +305,8 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The SetRecordName method assigns a name to a record. You should assign a name to every record so that you can easily identify the records in the future.
+     * @remarks
+     * If you pass an empty string as <i>pwszRecordName</i>, the method returns S_OK, but nothing is done.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the record number to which you want to assign a name.
      * @param {PWSTR} pwszRecordName Pointer to a wide-character null-terminated string containing the name you want to assign to the record. Record names are limited to 256 wide characters.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -323,7 +339,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-setrecordname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-setrecordname
      */
     SetRecordName(wRecordNumber, pwszRecordName) {
         pwszRecordName := pwszRecordName is String ? StrPtr(pwszRecordName) : pwszRecordName
@@ -334,10 +350,14 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The GetStreamsForRecord method retrieves the list of streams that are present in a record.
+     * @remarks
+     * You should make two calls to <b>GetStreamsForRecord</b>. On the first call, pass <b>NULL</b> as <i>pwStreamNumArray</i>. On return, the value of <i>pcStreams</i> is set to the number of streams. Then you can allocate the amount of memory needed to hold the array and pass a pointer to it as <i>pwStreamNumArray</i> on the second call.
+     * 
+     * If you pass an array that is not large enough to contain all of the streams, an error code of ASF_E_BUFFERTOOSMALL is returned. When returning this error code, the method still sets the value at <i>pcStreams</i> to the correct number of streams.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the record number for which to retrieve the streams.
      * @param {Pointer<Integer>} pcStreams Pointer to a <b>WORD</b> containing the number of streams in the record.
      * @returns {Integer} Pointer to an array that will receive the stream numbers. If it is <b>NULL</b>, <b>GetStreamsForRecord</b> will return the number of streams to <i>pcStreams</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getstreamsforrecord
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getstreamsforrecord
      */
     GetStreamsForRecord(wRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
@@ -348,6 +368,8 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The AddStreamForRecord method adds a stream to a record created with IWMMutualExclusion2::AddRecord.
+     * @remarks
+     * Record numbers are assigned sequentially.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the number of the record to which to add the stream.
      * @param {Integer} wStreamNumber <b>WORD</b> containing the stream number you want to add.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -402,7 +424,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-addstreamforrecord
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-addstreamforrecord
      */
     AddStreamForRecord(wRecordNumber, wStreamNumber) {
         result := ComCall(16, this, "ushort", wRecordNumber, "ushort", wStreamNumber, "HRESULT")
@@ -411,6 +433,8 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * The RemoveStreamForRecord method removes a stream from a record's list.
+     * @remarks
+     * Do not pass <b>NULL</b> for either argument. It will result in exception errors.
      * @param {Integer} wRecordNumber <b>WORD</b> containing the record number from which you want to remove a stream.
      * @param {Integer} wStreamNumber <b>WORD</b> containing the stream number you want to remove from the record.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -465,7 +489,7 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removestreamforrecord
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removestreamforrecord
      */
     RemoveStreamForRecord(wRecordNumber, wStreamNumber) {
         result := ComCall(17, this, "ushort", wRecordNumber, "ushort", wStreamNumber, "HRESULT")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Uses system and per-user proxy settings (including the Internet Explorer proxy configuration) to determine which proxy/proxies to use. Automatically attempts to handle failover between multiple proxies, different proxy configurations per interface, and authentication. Supported in Windows 8.1 and newer.
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpopen
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

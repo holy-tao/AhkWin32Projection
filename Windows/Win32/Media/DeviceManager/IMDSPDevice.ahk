@@ -7,7 +7,7 @@
 
 /**
  * The IMDSPDevice interface provides an instance-based association with a media device.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdspdevice
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -34,6 +34,12 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetName method retrieves the name of the device.
+     * @remarks
+     * The <b>LPWSTR</b> string type is a 16-bit Unicode character string and does not accept byte-sized characters. To convert a string of byte-sized characters (<b>LPCSTR</b>) to an <b>LPWSTR</b> string, use the <b>MultiByteToWideChar</b> function as described in Microsoft Windows documentation.
+     * 
+     * Device names must not contain trailing spaces.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {PWSTR} pwszName Pointer to an array of 16-bit Unicode characters that receives the device name string.
      * @param {Integer} nMaxChars Maximum number of characters to copy to the string.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -43,8 +49,8 @@ class IMDSPDevice extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getname
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getname
      */
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -54,7 +60,11 @@ class IMDSPDevice extends IUnknown{
     }
 
     /**
-     * The GetManufacturer method retrieves the name of the manufacturer of the device.
+     * The GetManufacturer method retrieves the name of the manufacturer of the device. (IMDSPDevice.GetManufacturer)
+     * @remarks
+     * The <b>LPWSTR</b> string type is a 16-bit Unicode character string and does not accept byte-sized characters. To convert a string of byte-sized characters (<b>LPCSTR</b>) to an <b>LPWSTR</b> string, use the <b>MultiByteToWideChar</b> function, as described in the Microsoft® Windows® Platform Software Development Kit documentation.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {PWSTR} pwszName Pointer to a caller-allocated wide character array that receives the manufacturer name string.
      * @param {Integer} nMaxChars Maximum number of characters to copy to the string, including the termination character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -64,8 +74,8 @@ class IMDSPDevice extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getmanufacturer
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getmanufacturer
      */
     GetManufacturer(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -76,8 +86,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetVersion method retrieves the version number of the device.
+     * @remarks
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {Integer} Pointer to a <b>DWORD</b> to receive the version number of the device.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getversion
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getversion
      */
     GetVersion() {
         result := ComCall(5, this, "uint*", &pdwVersion := 0, "HRESULT")
@@ -86,6 +98,8 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetType method retrieves device type information.
+     * @remarks
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the type attributes of the device. The following table shows the types received.
      * 
      * <table>
@@ -140,7 +154,7 @@ class IMDSPDevice extends IUnknown{
      * <td>The media device prefers metadata views while its storages are enumerated.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-gettype
      */
     GetType() {
         result := ComCall(6, this, "uint*", &pdwType := 0, "HRESULT")
@@ -149,9 +163,13 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetSerialNumber method retrieves the serial number that uniquely identifies the device.
+     * @remarks
+     * Not all media devices support serial numbers. To determine whether the device supports serial numbers, always check the return code when calling this method. If a media device does support serial numbers, the serial number of the media device is guaranteed to be unique.
+     * 
+     * This method is optional. When transferring protected content, Windows Media Device Manager uses <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspstorageglobals-getserialnumber">IMDSPStorageGlobals::GetSerialNumber</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<Integer>} abMac Array of eight bytes containing the message authentication code for the parameter data of this method. (WMDM_MAC_LENGTH is defined as 8.)
      * @returns {WMDMID} Pointer to a <b>WMDMID</b> structure that receives the serial number for the device. This parameter is included in the output message authentication code.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getserialnumber
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getserialnumber
      */
     GetSerialNumber(abMac) {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
@@ -163,6 +181,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetPowerSource method reports whether the device is capable of running on batteries, external power, or both, and on which type of power source it is currently running.
+     * @remarks
+     * Only physical devices report power source capabilities and current power source. Software implementations of devices report no power capabilities or current power source.
+     * 
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<Integer>} pdwPowerSource Pointer to a <b>DWORD</b> that receives a value indicating the current power source for the device. The value is one of the following flags.
      * 
      * <table>
@@ -201,8 +223,8 @@ class IMDSPDevice extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getpowersource
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getpowersource
      */
     GetPowerSource(pdwPowerSource, pdwPercentRemaining) {
         pdwPowerSourceMarshal := pdwPowerSource is VarRef ? "uint*" : "ptr"
@@ -214,6 +236,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetStatus method retrieves all the device status information that the device can provide.
+     * @remarks
+     * One or more status values can be returned from this call. All the status values of all the interfaces of the media device are reported through this call. For example, if a storage operation, such as writing a file to a media device is ongoing, a call to this method reports the busy status of that operation. For any ongoing operation, the status value WMDM_STATUS_BUSY is always present.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the current device status. These status values are defined in the following table.
      * 
      * <table>
@@ -272,7 +298,7 @@ class IMDSPDevice extends IUnknown{
      * <td>The <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-read">IWMDMStorageControl::Read</a> method is currently running.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getstatus
      */
     GetStatus() {
         result := ComCall(9, this, "uint*", &pdwStatus := 0, "HRESULT")
@@ -281,8 +307,12 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetDeviceIcon method returns a HICON that represents the icon that the device service provider indicates must be used to represent this device.
+     * @remarks
+     * In addition to the values above, the <b>HRESULT</b> error code could be a Win32 error.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {Integer} Handle to an <b>Icon</b> object that receives the icon for the device. Before using it, the caller must cast the value to a <b>HICON</b>*. When an application is finished with the icon, it should call <b>DestroyIcon</b> to free the resource. <b>DestroyIcon</b> is a standard Win32 function.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getdeviceicon
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getdeviceicon
      */
     GetDeviceIcon() {
         result := ComCall(10, this, "uint*", &hIcon := 0, "HRESULT")
@@ -291,8 +321,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The EnumStorage method retrieves a pointer to an IMDSPEnumStorage interface of an enumerator object that represents the top-level storage(s) on the device. Top-level storage for a device is the root directory of the storage medium.
+     * @remarks
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {IMDSPEnumStorage} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-imdspenumstorage">IMDSPEnumStorage</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-enumstorage
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-enumstorage
      */
     EnumStorage() {
         result := ComCall(11, this, "ptr*", &ppEnumStorage := 0, "HRESULT")
@@ -301,6 +333,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The GetFormatSupport method retrieves all the formats supported by the device. The format information includes codecs, file formats, and digital rights management schemes.
+     * @remarks
+     * Memory for the <i>pFormatEx</i> and <i>pppwszMimeType</i> parameters is allocated by this method and must be freed by the caller using <b>CoTaskMemFree</b>, a standard Win32 function.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<Pointer<WAVEFORMATEX>>} pFormatEx Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structures containing information about codecs and bit rates supported by the device.
      * @param {Pointer<Integer>} pnFormatCount Pointer to the number of elements in the <i>pFormatEx</i> array.
      * @param {Pointer<Pointer<PWSTR>>} pppwszMimeType Pointer to an array that describes file formats and digital rights management schemes supported by the device.
@@ -312,8 +348,8 @@ class IMDSPDevice extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-getformatsupport
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport
      */
     GetFormatSupport(pFormatEx, pnFormatCount, pppwszMimeType, pnMimeTypeCount) {
         pFormatExMarshal := pFormatEx is VarRef ? "ptr*" : "ptr"
@@ -327,6 +363,10 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * The SendOpaqueCommand method sends a command through Windows Media Device Manager. Without acting on it, Windows Media Device Manager passes the command through to a device.
+     * @remarks
+     * This method is used with device commands that do not affect Windows Media Device Manager, and are passed through unchanged. A more efficient way to call commands on a device is to call <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevice3-deviceiocontrol">IMDSPDevice3::DeviceIoControl</a>.
+     * 
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<OPAQUECOMMAND>} pCommand Pointer to an <a href="https://docs.microsoft.com/windows/desktop/WMDM/opaquecommand">OPAQUECOMMAND</a> structure containing the information required to execute the command.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
@@ -335,8 +375,8 @@ class IMDSPDevice extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice-sendopaquecommand
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-sendopaquecommand
      */
     SendOpaqueCommand(pCommand) {
         result := ComCall(13, this, "ptr", pCommand, "HRESULT")

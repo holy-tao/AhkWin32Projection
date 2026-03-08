@@ -5,7 +5,7 @@
 
 /**
  * Represents a directory item in the Offline Files cache.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesdirectoryitem
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesdirectoryitem
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

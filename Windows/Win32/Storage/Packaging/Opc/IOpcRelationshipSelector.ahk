@@ -6,7 +6,6 @@
 /**
  * Represents how to select, from a Relationships part, the relationships to be referenced for signing.
  * @remarks
- * 
  * To create an 
  * 				 <b>IOpcRelationshipSelector</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorset-create">IOpcRelationshipSelectorSet::Create</a> method.
  * 
@@ -60,13 +59,7 @@
  * <td><b>OPC_RELATIONSHIP_SELECT_BY_ID</b></td>
  * </tr>
  * </table>
- *  
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipselector
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipselector
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -93,8 +86,33 @@ class IOpcRelationshipSelector extends IUnknown{
 
     /**
      * Gets a value that describes how relationships are selected to be referenced for signing.
+     * @remarks
+     * The following table shows how <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_relationship_selector">OPC_RELATIONSHIP_SELECTOR</a> values map to the relationship type and relationship identifier properties.<table>
+     * <tr>
+     * <th>
+     * <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_relationship_selector">OPC_RELATIONSHIP_SELECTOR</a>  Value</th>
+     * <th>Relationship Property</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>OPC_RELATIONSHIP_SELECT_BY_TYPE</b></td>
+     * <td>Relationship type</td>
+     * <td>
+     * Selects relationships that have a relationship type that matches <i>selectionCriterion</i> string.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>OPC_RELATIONSHIP_SELECT_BY_ID</b></td>
+     * <td>Relationship identifier</td>
+     * <td>
+     * Selects relationships that have a relationship identifier that matches <i>selectionCriterion</i> string.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {Integer} A value that describes which <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface property will be compared to the string returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion">GetSelectionCriterion</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselector-getselectortype
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype
      */
     GetSelectorType() {
         result := ComCall(3, this, "int*", &selector := 0, "HRESULT")
@@ -103,8 +121,12 @@ class IOpcRelationshipSelector extends IUnknown{
 
     /**
      * Gets a string that is used to select relationships to be referenced for signing.
+     * @remarks
+     * This method allocates memory used by the string returned in <i>selectionCriterion</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * Use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface methods to select relationships for signing. A relationship is selected if its type or identifier matches the string that is retrieved by calling the <b>GetSelectionCriterion</b> method. This string is either a relationship type or a relationship identifier.  Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype">GetSelectorType</a> method to get an <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_relationship_selector">OPC_RELATIONSHIP_SELECTOR</a> value to determine whether the string is a relationship type or an identifier. To access these relationship properties, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationship-getrelationshiptype">IOpcRelationship::GetRelationshipType</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationship-getid">IOpcRelationship::GetId</a> methods.
      * @returns {PWSTR} A string used to select relationships  to be referenced for signing.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion
      */
     GetSelectionCriterion() {
         result := ComCall(4, this, "ptr*", &selectionCriterion := 0, "HRESULT")

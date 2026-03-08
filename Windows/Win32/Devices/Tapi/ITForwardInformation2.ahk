@@ -6,7 +6,7 @@
 
 /**
  * The ITForwardInformation2 interface exposes methods that provide additional methods for the control of forwarding information. See ITForwardInformation for the basic forwarding control methods.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itforwardinformation2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itforwardinformation2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -90,7 +90,7 @@ class ITForwardInformation2 extends ITForwardInformation{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-setforwardtype2
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-setforwardtype2
      */
     SetForwardType2(ForwardType, pDestAddress, DestAddressType, pCallerAddress, CallerAddressType) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
@@ -159,7 +159,7 @@ class ITForwardInformation2 extends ITForwardInformation{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-getforwardtype2
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-getforwardtype2
      */
     GetForwardType2(ForwardType, ppDestinationAddress, pDestAddressType, ppCallerAddress, pCallerAddressType) {
         pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
@@ -173,7 +173,7 @@ class ITForwardInformation2 extends ITForwardInformation{
      * The get_ForwardTypeDestinationAddressType method gets the destination address type for a given forwarding type.
      * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be retrieved.
      * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the destination.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
      */
     get_ForwardTypeDestinationAddressType(ForwardType) {
         result := ComCall(16, this, "int", ForwardType, "int*", &pDestAddressType := 0, "HRESULT")
@@ -184,7 +184,7 @@ class ITForwardInformation2 extends ITForwardInformation{
      * The get_ForwardTypeCallerAddressType method gets the caller address type for a given forwarding type.
      * @param {Integer} Forwardtype <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be retrieved.
      * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the caller.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
      */
     get_ForwardTypeCallerAddressType(Forwardtype) {
         result := ComCall(17, this, "int", Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")

@@ -41,10 +41,13 @@ class IActiveIMMIME extends IUnknown{
     static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "GenerateMessage", "LockIMC", "UnlockIMC", "GetIMCLockCount", "CreateIMCC", "DestroyIMCC", "LockIMCC", "UnlockIMCC", "ReSizeIMCC", "GetIMCCSize", "GetIMCCLockCount", "GetHotKey", "SetHotKey", "CreateSoftKeyboard", "DestroySoftKeyboard", "ShowSoftKeyboard", "GetCodePageA", "GetLangId", "KeybdEvent", "LockModal", "UnlockModal", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext", "RequestMessageA", "RequestMessageW", "SendIMCA", "SendIMCW", "IsSleeping"]
 
     /**
-     * 
+     * Inserts a name into the name cache to find a specified FIO_CONTEXT structure.
+     * @remarks
+     * If the name is already present in the cache, this call fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_DUP_NAME.
      * @param {HWND} hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
+     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-associatecontextwithname
      */
     AssociateContext(hWnd, hIME) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -90,7 +93,7 @@ class IActiveIMMIME extends IUnknown{
     /**
      * Creates a recognizer context.
      * @returns {HIMC} 
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
      */
     CreateContext() {
         phIMC := HIMC()
@@ -153,7 +156,7 @@ class IActiveIMMIME extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-destroycontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroycontext
      */
     DestroyContext(hIME) {
         hIME := hIME is Win32Handle ? NumGet(hIME, "ptr") : hIME
@@ -400,9 +403,10 @@ class IActiveIMMIME extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the context preference flags.
      * @param {HWND} hWnd 
      * @returns {HIMC} 
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext(hWnd) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -457,11 +461,23 @@ class IActiveIMMIME extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates the status of the encryption or decryption on the volume.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {HIMC} hIMC 
      * @param {Pointer<Integer>} pfdwConversion 
      * @param {Pointer<Integer>} pfdwSentence 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                           |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/> |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | The volume is locked.<br/>      |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getconversionstatus-win32-encryptablevolume
      */
     GetConversionStatus(hIMC, pfdwConversion, pfdwSentence) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
@@ -591,10 +607,15 @@ class IActiveIMMIME extends IUnknown{
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {HKL} hKL 
      * @param {Integer} fdwIndex 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(hKL, fdwIndex) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL

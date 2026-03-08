@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query, reenumeration, and refresh operations on a hardware provider.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdshwprovider
+ * The IVdsHwProvider (vdshwprv.h) interface provides methods for performing query, reenumeration, and refresh operations on a hardware provider.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdshwprovider
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,10 +32,16 @@ class IVdsHwProvider extends IUnknown{
     static VTableNames => ["QuerySubSystems", "Reenumerate", "Refresh"]
 
     /**
-     * Returns an enumeration of the subsystems managed by the provider.
+     * The IVdsHwProvider::QuerySubSystems (vdshwprv.h) method returns an enumeration of the subsystems managed by the provider.
+     * @remarks
+     * The returned object enumerates all subsystems currently connected to the network. Use the 
+     *    <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method to 
+     *     discover new subsystems. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to refresh the 
+     *     internally-cached provider data for existing subsystems.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface 
      *       pointer that can be used to enumerate the subsystems  as <a href="https://docs.microsoft.com/windows/desktop/VDS/subsystem-object">subsystem objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the subsystem objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshwprovider-querysubsystems
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwprovider-querysubsystems
      */
     QuerySubSystems() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -43,8 +49,12 @@ class IVdsHwProvider extends IUnknown{
     }
 
     /**
-     * Discovers newly connected and disconnected subsystems.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * The IVdsHwProvider::Reenumerate (vdshwprv.h) method discovers newly connected and disconnected subsystems.
+     * @remarks
+     * The network query associated with this method can take a long time to complete. If you merely want to refresh 
+     *     the internally-cached provider data, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method instead.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -61,9 +71,9 @@ class IVdsHwProvider extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      * 
      * </td>
@@ -106,7 +116,7 @@ class IVdsHwProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshwprovider-reenumerate
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate
      */
     Reenumerate() {
         result := ComCall(4, this, "HRESULT")
@@ -114,8 +124,14 @@ class IVdsHwProvider extends IUnknown{
     }
 
     /**
-     * Refreshes VDS's internally cached data about existing subsystems that are managed by VDS providers.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * The IVdsHwProvider::Refresh (vdshwprv.h) method refreshes VDS's internally cached data about existing subsystems that are managed by VDS providers.
+     * @remarks
+     * VDS maintains a cache of information about the properties of all VDS objects, such as subsystems and controllers. Whenever a change occurs that triggers a notification, this cache is updated. In cases where the cache is not being updated properly, applications can call this method to refresh the cache. Note that calling this method to refresh the cache can in turn trigger additional notifications.
+     * 
+     * This method does not query the network to find newly connected subsystems. To discover newly connected and 
+     *     disconnected subsystems, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -132,9 +148,9 @@ class IVdsHwProvider extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      * 
      * </td>
@@ -177,7 +193,7 @@ class IVdsHwProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshwprovider-refresh
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh
      */
     Refresh() {
         result := ComCall(5, this, "HRESULT")

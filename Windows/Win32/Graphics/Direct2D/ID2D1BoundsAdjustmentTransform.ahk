@@ -6,7 +6,6 @@
 /**
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.
  * @remarks
- * 
  * The support transform can be used for two different reasons.
  * 
  * <ul>
@@ -21,8 +20,7 @@
  * 
  * </li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1boundsadjustmenttransform
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1boundsadjustmenttransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -53,7 +51,7 @@ class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode{
      * 
      * The output bounds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-setoutputbounds
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-setoutputbounds
      */
     SetOutputBounds(outputBounds) {
         ComCall(4, this, "ptr", outputBounds)
@@ -65,7 +63,7 @@ class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode{
      * 
      * The output bounds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-getoutputbounds
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-getoutputbounds
      */
     GetOutputBounds(outputBounds) {
         ComCall(5, this, "ptr", outputBounds)

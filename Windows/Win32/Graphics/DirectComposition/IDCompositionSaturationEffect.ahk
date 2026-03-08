@@ -5,7 +5,7 @@
 
 /**
  * This effect is used to alter the saturation of an image. The saturation effect is a specialization of the color matrix effect.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionsaturationeffect
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsaturationeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -31,9 +31,11 @@ class IDCompositionSaturationEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetSaturation", "SetSaturation1"]
 
     /**
-     * 
+     * Sets the saturation of the image. (overload 2/2)
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsaturationeffect-setsaturation(float)
      */
     SetSaturation(animation) {
@@ -42,9 +44,15 @@ class IDCompositionSaturationEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the saturation of the image. (overload 2/2)
+     * @param {Float} ratio Type: <b>float</b>
      * 
-     * @param {Float} ratio 
-     * @returns {HRESULT} 
+     * The saturation of the image. You can set the saturation to a value between 0 and 1. If you set it to 1 the output image is fully saturated. If you set it to 0 the output image is monochrome. The saturation value is unitless. The effect calculates a color matrix based on the saturation value (s in the equation here) using the following equation:
+     *             
+     * <img alt="Matrix equation" src="./images/saturation_formula.png"/>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsaturationeffect-setsaturation(float)
      */
     SetSaturation1(ratio) {

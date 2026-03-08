@@ -6,7 +6,7 @@
 
 /**
  * The IDirectoryObject interface is a non-Automation COM interface that provides clients with direct access to directory service objects.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-idirectoryobject
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -33,8 +33,13 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * The IDirectoryObject::GetObjectInformation method retrieves a pointer to an ADS_OBJECT_INFO structure that contains data regarding the identity and location of a directory service object.
+     * @remarks
+     * The caller should call 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> helper function to release the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_object_info">ADS_OBJECT_INFO</a> structure created by the  <b>GetObjectInformation</b> function.
+     * 
+     * Automation clients must call  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-getinfo">IADs::GetInfo</a>.
      * @returns {Pointer<ADS_OBJECT_INFO>} Provides the address of a pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_object_info">ADS_OBJECT_INFO</a> structure that contains data regarding the requested directory service object. If <i>ppObjInfo</i> is <b>NULL</b> on return, <b>GetObjectInformation</b> cannot obtain the requested data.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectoryobject-getobjectinformation
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectinformation
      */
     GetObjectInformation() {
         result := ComCall(3, this, "ptr*", &ppObjInfo := 0, "HRESULT")
@@ -43,6 +48,12 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * Retrieves one or more specified attributes of the directory service object.
+     * @remarks
+     * ADSI allocates the memory for the array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a> structures returned in the <i>ppAttributeEntries</i> parameter. The caller must call  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> to free the array.
+     * 
+     * The order of attributes returned in <i>ppAttributeEntries</i> is not necessarily the same as requested in <i>pAttributeNames</i>.
+     * 
+     * The <b>IDirectoryObject::GetObjectAttributes</b> method attempts to read the schema definition of the requested attributes so it can return the attribute values in the appropriate format in the <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures contained in the <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a> structures. However, <b>GetObjectAttributes</b> can succeed even when the schema definition is not available, in which case the <b>dwADsType</b> member of the <b>ADS_ATTR_INFO</b> structure returns ADSTYPE_PROV_SPECIFIC and the value is returned in an <a href="https://docs.microsoft.com/windows/win32/api/iads/ns-iads-ads_prov_specific">ADS_PROV_SPECIFIC</a> structure. When you process the results of a <b>GetObjectAttributes</b> call, verify <b>dwADsType</b> to ensure that the data was returned in the expected format.
      * @param {Pointer<PWSTR>} pAttributeNames Specifies an array of names of the requested attributes. 
      * 
      * 
@@ -54,8 +65,8 @@ class IDirectoryObject extends IUnknown{
      * @param {Pointer<Integer>} pdwNumAttributesReturned Pointer to a <b>DWORD</b> variable that receives the number of attributes retrieved in the <i>ppAttributeEntries</i> array.
      * @returns {HRESULT} This method returns the standard values, as well as the following:
      * 
-     * For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectoryobject-getobjectattributes
+     * For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectattributes
      */
     GetObjectAttributes(pAttributeNames, dwNumberAttributes, ppAttributeEntries, pdwNumAttributesReturned) {
         pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
@@ -68,10 +79,16 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * The IDirectoryObject::SetObjectAttributes method modifies data in one or more specified object attributes defined in the ADS_ATTR_INFO structure.
+     * @remarks
+     * In Active Directory (LDAP provider), the <b>IDirectoryObject::SetObjectAttributes</b> method is a transacted call. The attributes are either all committed or discarded. Other directory providers may not transact the call.
+     * 
+     * Active Directory does not allow duplicate values on a multi-valued attribute. However, if you call <b>SetObjectAttributes</b> to append a duplicate value to a multi-valued attribute of an Active Directory object, the <b>SetObjectAttributes</b> call succeeds but the duplicate value is ignored.
+     * 
+     * Similarly, if you use <b>SetObjectAttributes</b> to delete one or more values from a multi-valued property of an Active Directory object, the operation succeeds even if any or all of the specified values are not set for the property
      * @param {Pointer<ADS_ATTR_INFO>} pAttributeEntries Provides an array of attributes to be modified. Each attribute contains the name of the attribute, the operation to perform, and the attribute value, if applicable. For more information, see the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a> structure.
      * @param {Integer} dwNumAttributes Provides the number of attributes to be modified. This value should correspond to the size of the <i>pAttributeEntries</i> array.
      * @returns {Integer} Provides a pointer to a <b>DWORD</b> variable that contains the number of attributes modified by the <b>SetObjectAttributes</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectoryobject-setobjectattributes
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-setobjectattributes
      */
     SetObjectAttributes(pAttributeEntries, dwNumAttributes) {
         result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
@@ -80,11 +97,13 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * Creates a child of the current directory service object.
+     * @remarks
+     * Specify all attributes to be initialized on creation in the <i>pAttributeEntries</i> array. You may also specify optional attributes. When creating a directory object with this method, attributes with any of the string data types cannot be empty or zero-length.
      * @param {PWSTR} pszRDNName Provides the relative distinguished name (relative path) of the object to be created.
      * @param {Pointer<ADS_ATTR_INFO>} pAttributeEntries An array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a> structures that contain attribute definitions to be set when the object is created.
      * @param {Integer} dwNumAttributes Provides a number of attributes set when the object is created.
      * @returns {IDispatch} Provides a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface on the created object.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectoryobject-createdsobject
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-createdsobject
      */
     CreateDSObject(pszRDNName, pAttributeEntries, dwNumAttributes) {
         pszRDNName := pszRDNName is String ? StrPtr(pszRDNName) : pszRDNName
@@ -95,9 +114,11 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * Deletes a leaf object in a directory tree.
+     * @remarks
+     * To delete a container object and its children, use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsdeleteops-deleteobject">IADsDeleteOps::DeleteObject</a> method.
      * @param {PWSTR} pszRDNName The relative distinguished name (relative path) of the object to be deleted.
-     * @returns {HRESULT} This method returns the standard return values, including S_OK for a successful operation. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectoryobject-deletedsobject
+     * @returns {HRESULT} This method returns the standard return values, including S_OK for a successful operation. For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-deletedsobject
      */
     DeleteDSObject(pszRDNName) {
         pszRDNName := pszRDNName is String ? StrPtr(pszRDNName) : pszRDNName

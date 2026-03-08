@@ -1748,11 +1748,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static CreateRecognizer(pCLSID, phrec) {
-        result := DllCall("inkobjcore.dll\CreateRecognizer", "ptr", pCLSID, "ptr", phrec, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\CreateRecognizer", "ptr", pCLSID, "ptr", phrec, "HRESULT")
         return result
     }
 
@@ -1817,11 +1813,7 @@ class TabletPC {
     static DestroyRecognizer(hrec) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\DestroyRecognizer", "ptr", hrec, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\DestroyRecognizer", "ptr", hrec, "HRESULT")
         return result
     }
 
@@ -1893,11 +1885,7 @@ class TabletPC {
     static GetRecoAttributes(hrec, pRecoAttrs) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\GetRecoAttributes", "ptr", hrec, "ptr", pRecoAttrs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetRecoAttributes", "ptr", hrec, "ptr", pRecoAttrs, "HRESULT")
         return result
     }
 
@@ -1974,11 +1962,7 @@ class TabletPC {
     static CreateContext(hrec, phrc) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\CreateContext", "ptr", hrec, "ptr", phrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\CreateContext", "ptr", hrec, "ptr", phrc, "HRESULT")
         return result
     }
 
@@ -2043,11 +2027,7 @@ class TabletPC {
     static DestroyContext(hrc) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\DestroyContext", "ptr", hrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\DestroyContext", "ptr", hrc, "HRESULT")
         return result
     }
 
@@ -2127,11 +2107,7 @@ class TabletPC {
 
         pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, pPropertyCountMarshal, pPropertyCount, "ptr", pPropertyGuid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, pPropertyCountMarshal, pPropertyCount, "ptr", pPropertyGuid, "HRESULT")
         return result
     }
 
@@ -2214,11 +2190,7 @@ class TabletPC {
     static GetPreferredPacketDescription(hrec, pPacketDescription) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\GetPreferredPacketDescription", "ptr", hrec, "ptr", pPacketDescription, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetPreferredPacketDescription", "ptr", hrec, "ptr", pPacketDescription, "HRESULT")
         return result
     }
 
@@ -2317,11 +2289,7 @@ class TabletPC {
 
         pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, pcRangesMarshal, pcRanges, "ptr", pcr, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, pcRangesMarshal, pcRanges, "ptr", pcr, "HRESULT")
         return result
     }
 
@@ -2431,11 +2399,7 @@ class TabletPC {
 
         pPacketMarshal := pPacket is VarRef ? "char*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, pPacketMarshal, pPacket, "ptr", pXForm, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, pPacketMarshal, pPacket, "ptr", pXForm, "HRESULT")
         return result
     }
 
@@ -2540,11 +2504,7 @@ class TabletPC {
 
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcBestResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcBestResult, "HRESULT")
         return result
     }
 
@@ -2576,11 +2536,7 @@ class TabletPC {
     static DestroyAlternate(hrcalt) {
         hrcalt := hrcalt is Win32Handle ? NumGet(hrcalt, "ptr") : hrcalt
 
-        result := DllCall("inkobjcore.dll\DestroyAlternate", "ptr", hrcalt, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\DestroyAlternate", "ptr", hrcalt, "HRESULT")
         return result
     }
 
@@ -2671,11 +2627,7 @@ class TabletPC {
     static SetGuide(hrc, pGuide, iIndex) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\SetGuide", "ptr", hrc, "ptr", pGuide, "uint", iIndex, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetGuide", "ptr", hrc, "ptr", pGuide, "uint", iIndex, "HRESULT")
         return result
     }
 
@@ -2755,11 +2707,7 @@ class TabletPC {
 
         piIndexMarshal := piIndex is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetGuide", "ptr", hrc, "ptr", pGuide, piIndexMarshal, piIndex, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetGuide", "ptr", hrc, "ptr", pGuide, piIndexMarshal, piIndex, "HRESULT")
         return result
     }
 
@@ -2831,11 +2779,7 @@ class TabletPC {
     static AdviseInkChange(hrc, bNewStroke) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\AdviseInkChange", "ptr", hrc, "int", bNewStroke, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\AdviseInkChange", "ptr", hrc, "int", bNewStroke, "HRESULT")
         return result
     }
 
@@ -2962,11 +2906,7 @@ class TabletPC {
     static SetCACMode(hrc, iMode) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\SetCACMode", "ptr", hrc, "int", iMode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetCACMode", "ptr", hrc, "int", iMode, "HRESULT")
         return result
     }
 
@@ -3038,11 +2978,7 @@ class TabletPC {
     static EndInkInput(hrc) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\EndInkInput", "ptr", hrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\EndInkInput", "ptr", hrc, "HRESULT")
         return result
     }
 
@@ -3121,11 +3057,7 @@ class TabletPC {
     static CloneContext(hrc, pCloneHrc) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\CloneContext", "ptr", hrc, "ptr", pCloneHrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\CloneContext", "ptr", hrc, "ptr", pCloneHrc, "HRESULT")
         return result
     }
 
@@ -3179,11 +3111,7 @@ class TabletPC {
     static ResetContext(hrc) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\ResetContext", "ptr", hrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\ResetContext", "ptr", hrc, "HRESULT")
         return result
     }
 
@@ -3276,11 +3204,7 @@ class TabletPC {
 
         pbPartialProcessingMarshal := pbPartialProcessing is VarRef ? "int*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, pbPartialProcessingMarshal, pbPartialProcessing, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, pbPartialProcessingMarshal, pbPartialProcessing, "HRESULT")
         return result
     }
 
@@ -3396,11 +3320,7 @@ class TabletPC {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
         pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
 
-        result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "HRESULT")
         return result
     }
 
@@ -3576,11 +3496,7 @@ class TabletPC {
     static SetFlags(hrc, dwFlags) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\SetFlags", "ptr", hrc, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetFlags", "ptr", hrc, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -3681,11 +3597,7 @@ class TabletPC {
 
         ppLatticeMarshal := ppLattice is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, ppLatticeMarshal, ppLattice, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, ppLatticeMarshal, ppLattice, "HRESULT")
         return result
     }
 
@@ -3784,11 +3696,7 @@ class TabletPC {
         pwcBefore := pwcBefore is String ? StrPtr(pwcBefore) : pwcBefore
         pwcAfter := pwcAfter is String ? StrPtr(pwcAfter) : pwcAfter
 
-        result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "HRESULT")
         return result
     }
 
@@ -3885,11 +3793,7 @@ class TabletPC {
 
         pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", "ptr", hrc, pcRangesMarshal, pcRanges, "ptr", pcr, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", "ptr", hrc, pcRangesMarshal, pcRanges, "ptr", pcr, "HRESULT")
         return result
     }
 
@@ -3975,11 +3879,7 @@ class TabletPC {
     static SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", "ptr", hrc, "uint", cRanges, "ptr", pcr, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", "ptr", hrc, "uint", cRanges, "ptr", pcr, "HRESULT")
         return result
     }
 
@@ -4063,11 +3963,7 @@ class TabletPC {
 
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetContextPropertyList", "ptr", hrc, pcPropertiesMarshal, pcProperties, "ptr", pPropertyGUIDS, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetContextPropertyList", "ptr", hrc, pcPropertiesMarshal, pcProperties, "ptr", pPropertyGUIDS, "HRESULT")
         return result
     }
 
@@ -4177,11 +4073,7 @@ class TabletPC {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
         pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetContextPropertyValue", "ptr", hrc, "ptr", pGuid, pcbSizeMarshal, pcbSize, pPropertyMarshal, pProperty, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetContextPropertyValue", "ptr", hrc, "ptr", pGuid, pcbSizeMarshal, pcbSize, pPropertyMarshal, pProperty, "HRESULT")
         return result
     }
 
@@ -4275,11 +4167,7 @@ class TabletPC {
 
         pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\SetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint", cbSize, pPropertyMarshal, pProperty, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint", cbSize, pPropertyMarshal, pProperty, "HRESULT")
         return result
     }
 
@@ -4379,11 +4267,7 @@ class TabletPC {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
         pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
 
-        result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "HRESULT")
         return result
     }
 
@@ -4478,11 +4362,7 @@ class TabletPC {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
         hwl := hwl is Win32Handle ? NumGet(hwl, "ptr") : hwl
 
-        result := DllCall("inkobjcore.dll\SetWordList", "ptr", hrc, "ptr", hwl, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\SetWordList", "ptr", hrc, "ptr", hwl, "HRESULT")
         return result
     }
 
@@ -4499,11 +4379,7 @@ class TabletPC {
 
         pdwContextPreferenceFlagsMarshal := pdwContextPreferenceFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", "ptr", hrc, pdwContextPreferenceFlagsMarshal, pdwContextPreferenceFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", "ptr", hrc, pdwContextPreferenceFlagsMarshal, pdwContextPreferenceFlags, "HRESULT")
         return result
     }
 
@@ -4522,11 +4398,7 @@ class TabletPC {
 
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcRightSeparator, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcRightSeparator, "HRESULT")
         return result
     }
 
@@ -4545,11 +4417,7 @@ class TabletPC {
 
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcLeftSeparator, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcLeftSeparator, "HRESULT")
         return result
     }
 
@@ -4614,11 +4482,7 @@ class TabletPC {
     static DestroyWordList(hwl) {
         hwl := hwl is Win32Handle ? NumGet(hwl, "ptr") : hwl
 
-        result := DllCall("inkobjcore.dll\DestroyWordList", "ptr", hwl, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\DestroyWordList", "ptr", hwl, "HRESULT")
         return result
     }
 
@@ -4685,11 +4549,7 @@ class TabletPC {
         hwl := hwl is Win32Handle ? NumGet(hwl, "ptr") : hwl
         pwcWords := pwcWords is String ? StrPtr(pwcWords) : pwcWords
 
-        result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "HRESULT")
         return result
     }
 
@@ -4779,11 +4639,7 @@ class TabletPC {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
         pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
 
-        result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "HRESULT")
         return result
     }
 
@@ -4850,11 +4706,7 @@ class TabletPC {
         recognizerClsidsMarshal := recognizerClsids is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetAllRecognizers", recognizerClsidsMarshal, recognizerClsids, countMarshal, count, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\GetAllRecognizers", recognizerClsidsMarshal, recognizerClsids, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -4918,11 +4770,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static LoadCachedAttributes(clsid, pRecoAttributes) {
-        result := DllCall("inkobjcore.dll\LoadCachedAttributes", "ptr", clsid, "ptr", pRecoAttributes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("inkobjcore.dll\LoadCachedAttributes", "ptr", clsid, "ptr", pRecoAttributes, "HRESULT")
         return result
     }
 

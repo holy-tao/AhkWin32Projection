@@ -122,7 +122,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\HeapCreate", "uint", flOptions, "ptr", dwInitialSize, "ptr", dwMaximumSize, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -152,8 +152,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapDestroy", "ptr", hHeap, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -348,8 +348,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapFree", "ptr", hHeap, "uint", dwFlags, lpMemMarshal, lpMem, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -452,7 +452,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GetProcessHeap", "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, False)
@@ -521,7 +521,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\HeapCompact", "ptr", hHeap, "uint", dwFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -564,8 +564,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapSetInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -696,7 +696,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GetProcessHeaps", "uint", NumberOfHeaps, "ptr", ProcessHeaps, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -733,8 +733,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapLock", "ptr", hHeap, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -771,8 +771,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapUnlock", "ptr", hHeap, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -842,8 +842,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapWalk", "ptr", hHeap, "ptr", lpEntry, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -915,8 +915,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapQueryInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -965,7 +965,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\VirtualAlloc", lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1002,8 +1002,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualProtect", lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, lpflOldProtectMarshal, lpflOldProtect, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1050,8 +1050,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualFree", lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", dwFreeType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1094,7 +1094,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\VirtualQuery", lpAddressMarshal, lpAddress, "ptr", lpBuffer, "ptr", dwLength, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1197,7 +1197,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\VirtualAllocEx", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1237,8 +1237,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualProtectEx", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, lpflOldProtectMarshal, lpflOldProtect, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1283,7 +1283,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\VirtualQueryEx", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpBuffer, "ptr", dwLength, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1503,7 +1503,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateFileMappingW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -1612,7 +1612,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -1775,7 +1775,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\MapViewOfFile", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -1944,7 +1944,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\MapViewOfFileEx", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, lpBaseAddressMarshal, lpBaseAddress, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -2009,8 +2009,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualFreeEx", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", dwFreeType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2103,8 +2103,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FlushViewOfFile", lpBaseAddressMarshal, lpBaseAddress, "ptr", dwNumberOfBytesToFlush, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2193,8 +2193,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnmapViewOfFile", "ptr", lpBaseAddress, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2402,8 +2402,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetProcessWorkingSetSizeEx", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2441,8 +2441,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualLock", lpAddressMarshal, lpAddress, "ptr", dwSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2471,8 +2471,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualUnlock", lpAddressMarshal, lpAddress, "ptr", dwSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2638,7 +2638,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateMemoryResourceNotification", "int", NotificationType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2672,8 +2672,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryMemoryResourceNotification", "ptr", ResourceNotificationHandle, ResourceStateMarshal, ResourceState, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2733,8 +2733,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemFileCacheSize", lpMinimumFileCacheSizeMarshal, lpMinimumFileCacheSize, lpMaximumFileCacheSizeMarshal, lpMaximumFileCacheSize, lpFlagsMarshal, lpFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2831,8 +2831,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemFileCacheSize", "ptr", MinimumFileCacheSize, "ptr", MaximumFileCacheSize, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3070,7 +3070,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -3132,8 +3132,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PrefetchVirtualMemory", "ptr", hProcess, "ptr", NumberOfEntries, "ptr", VirtualAddresses, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3276,7 +3276,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", "ptr", hFile, "ptr", SecurityAttributes, "uint", PageProtection, "uint", MaximumSize, "ptr", Name, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -3323,7 +3323,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\MapViewOfFileFromApp", "ptr", hFileMappingObject, "uint", DesiredAccess, "uint", FileOffset, "ptr", NumberOfBytesToMap, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -3351,8 +3351,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnmapViewOfFileEx", "ptr", BaseAddress, "uint", UnmapFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3414,8 +3414,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AllocateUserPhysicalPages", "ptr", hProcess, NumberOfPagesMarshal, NumberOfPages, PageArrayMarshal, PageArray, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3454,8 +3454,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeUserPhysicalPages", "ptr", hProcess, NumberOfPagesMarshal, NumberOfPages, PageArrayMarshal, PageArray, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3535,8 +3535,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapUserPhysicalPages", VirtualAddressMarshal, VirtualAddress, "ptr", NumberOfPages, PageArrayMarshal, PageArray, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3603,8 +3603,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AllocateUserPhysicalPagesNuma", "ptr", hProcess, NumberOfPagesMarshal, NumberOfPages, PageArrayMarshal, PageArray, "uint", nndPreferred, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3719,7 +3719,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\VirtualAllocExNuma", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "uint", nndPreferred, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3763,8 +3763,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetMemoryErrorHandlingCapabilities", CapabilitiesMarshal, Capabilities, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3812,8 +3812,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnregisterBadMemoryNotification", RegistrationHandleMarshal, RegistrationHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3916,8 +3916,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-3.dll\SetProcessValidCallTargets", "ptr", hProcess, VirtualAddressMarshal, VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4029,7 +4029,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", Protection, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4113,8 +4113,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", AddressMarshal, Address, "ptr", Size, "uint", NewProtection, OldProtectionMarshal, OldProtection, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4165,7 +4165,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "int", InheritHandle, "ptr", Name, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -4197,8 +4197,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-4.dll\QueryVirtualMemoryInformation", "ptr", Process, VirtualAddressMarshal, VirtualAddress, "int", MemoryInformationClass, "ptr", MemoryInformation, "ptr", MemoryInformationSize, ReturnSizeMarshal, ReturnSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4245,7 +4245,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-5.dll\MapViewOfFileNuma2", "ptr", FileMappingHandle, "ptr", ProcessHandle, "uint", Offset, BaseAddressMarshal, BaseAddress, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "uint", PreferredNode, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -4273,8 +4273,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-5.dll\UnmapViewOfFile2", "ptr", Process, "ptr", BaseAddress, "uint", UnmapFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4402,7 +4402,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4449,7 +4449,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", "ptr", FileMapping, "ptr", Process, BaseAddressMarshal, BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -4557,7 +4557,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4617,7 +4617,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", "ptr", FileMapping, "ptr", Process, BaseAddressMarshal, BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -4855,7 +4855,7 @@ class Memory {
 
         result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -5025,7 +5025,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalAlloc", "uint", uFlags, "ptr", dwBytes, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLOBAL({Value: result}, True)
@@ -5106,7 +5106,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalReAlloc", "ptr", hMem, "ptr", dwBytes, "uint", uFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLOBAL({Value: result}, True)
@@ -5138,7 +5138,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalSize", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5178,8 +5178,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalUnlock", "ptr", hMem, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5217,7 +5217,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalLock", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5248,7 +5248,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalFlags", "ptr", hMem, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5277,7 +5277,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\GlobalHandle", pMemMarshal, pMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLOBAL({Value: result}, True)
@@ -5316,7 +5316,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalAlloc", "uint", uFlags, "ptr", uBytes, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HLOCAL({Value: result}, True)
@@ -5395,7 +5395,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalReAlloc", "ptr", hMem, "ptr", uBytes, "uint", uFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HLOCAL({Value: result}, True)
@@ -5434,7 +5434,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalLock", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5463,7 +5463,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalHandle", pMemMarshal, pMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HLOCAL({Value: result}, True)
@@ -5501,8 +5501,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalUnlock", "ptr", hMem, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5532,7 +5532,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalSize", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5563,7 +5563,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\LocalFlags", "ptr", hMem, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5783,7 +5783,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateFileMappingA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -6022,7 +6022,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -6131,7 +6131,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -6323,7 +6323,7 @@ class Memory {
 
         result := DllCall("KERNEL32.dll\MapViewOfFileExNuma", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, lpBaseAddressMarshal, lpBaseAddress, "uint", nndPreferred, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
@@ -6408,8 +6408,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsBadCodePtr", "ptr", lpfn, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6550,8 +6550,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", VirtualAddressesMarshal, VirtualAddresses, "ptr", NumberOfPages, PageArrayMarshal, PageArray, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6590,8 +6590,8 @@ class Memory {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

@@ -29,12 +29,13 @@ class IOpenServiceActivityOutputContext extends IUnknown{
     static VTableNames => ["Navigate", "CanNavigate"]
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {PWSTR} pwzUri 
      * @param {PWSTR} pwzMethod 
      * @param {PWSTR} pwzHeaders 
      * @param {IStream} pPostData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(pwzUri, pwzMethod, pwzHeaders, pPostData) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri

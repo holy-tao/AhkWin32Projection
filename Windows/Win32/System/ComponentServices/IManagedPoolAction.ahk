@@ -5,7 +5,7 @@
 
 /**
  * Enables an object to be notified before it is released from a COM+ object pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imanagedpoolaction
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedpoolaction
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IManagedPoolAction extends IUnknown{
     /**
      * Called when a COM+ object pool drops the last reference to the object that implements it.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedpoolaction-lastrelease
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imanagedpoolaction-lastrelease
      */
     LastRelease() {
         result := ComCall(3, this, "HRESULT")

@@ -8,13 +8,10 @@
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.
  * @remarks
- * 
  * Certain events on PnP devices will not be received until after the first time static terminals are enumerated using 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itaddressevent
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddressevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -62,9 +59,13 @@ class ITAddressEvent extends IDispatch{
 
     /**
      * The get_Address method gets a pointer to the ITAddress object involved in an event.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface returned by <b>ITAddressEvent::get_Address</b>. The application must call <b>Release</b> on the 
+     * <b>ITAddress</b> interface to free resources associated with it.
      * @returns {ITAddress} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_address
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_address
      */
     get_Address() {
         result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
@@ -73,9 +74,13 @@ class ITAddressEvent extends IDispatch{
 
     /**
      * The get_Event method gets the ADDRESS_EVENT descriptor of an event.
+     * @remarks
+     * Certain events on PnP devices, such as AE_NEWTERMINAL and AE_REMOVETERMINAL, will not be received until after the first time static terminals are enumerated using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-address_event">ADDRESS_EVENT</a> descriptor of an event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
@@ -84,9 +89,13 @@ class ITAddressEvent extends IDispatch{
 
     /**
      * The get_Terminal method gets a pointer to the ITTerminal interface associated with the event.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITAddressEvent::get_Terminal</b>. The application must call <b>Release</b> on the 
+     * <b>ITTerminal</b> interface to free resources associated with it.
      * @returns {ITTerminal} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface, or <b>NULL</b> if the event does not refer to a terminal.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_terminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(9, this, "ptr*", &ppTerminal := 0, "HRESULT")

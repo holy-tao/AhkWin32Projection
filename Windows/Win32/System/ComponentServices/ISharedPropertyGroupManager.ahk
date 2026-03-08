@@ -8,7 +8,7 @@
 
 /**
  * Used to create shared property groups and to obtain access to existing shared property groups.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-isharedpropertygroupmanager
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isharedpropertygroupmanager
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -48,6 +48,61 @@ class ISharedPropertyGroupManager extends IDispatch{
 
     /**
      * Creates a new shared property group.
+     * @remarks
+     * The following constants are used to specify the effective isolation mode for a shared property group.
+     * 
+     * <table>
+     * <tr>
+     * <th>Constant</th>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>LockSetGet
+     * </td>
+     * <td>0</td>
+     * <td>The default value. It assures that every get or set operation on a shared property is atomic by locking the property during the call. This ensures that two clients cannot read or write to the same property at the same time, but it does not prevent other clients from concurrently accessing other properties in the same group.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>LockMethod
+     * </td>
+     * <td>1</td>
+     * <td>This value locks all the properties in the shared property group for exclusive use by the caller as long as the caller's current method is executing. This is the appropriate mode to use when there are interdependencies among properties, or in cases where a client may have to update a property immediately after reading it before it can be accessed again.
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  When you set the isolation mode to LockMethod, the Shared Property Manager requires access to the calling object's object context. You cannot use this isolation mode to create a shared property group from within an object's constructor or from a non-COM+ object because the object context is not available during object construction and a base client does not have an object context.</div>
+     * <div> </div>
+     * The following constants are used to specify the effective release mode for a shared property group.
+     * 
+     * <table>
+     * <tr>
+     * <th>Constant</th>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>Standard
+     * </td>
+     * <td>0</td>
+     * <td>The default value. When all clients have released their references on the property group, the property group is automatically destroyed.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>Process
+     * </td>
+     * <td>1</td>
+     * <td>The property group is not destroyed until the process in which it was created has terminated. Objects that hold references on a property group must still call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on their references.
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  An object should never attempt to pass a shared property group reference to another object. If the reference is passed outside of the object that acquired it, it is no longer a valid reference.</div>
+     * <div> </div>
      * @param {BSTR} Name The name of the shared property group to be created.
      * @param {Pointer<Integer>} dwIsoMode The isolation mode for the properties in the new shared property group. See the table of constants in Remarks below. If the value of the <i>fExists</i> parameter is set to VARIANT_TRUE on return from this method, the input value is ignored and the value returned in this parameter is the isolation mode that was assigned when the property group was created.
      * @param {Pointer<Integer>} dwRelMode The release mode for the properties in the new shared property group. See the table of constants in Remarks below. If the value of the <i>fExists</i> parameter is set to VARIANT_TRUE on return from this method, the input value is ignored and the value returned in this parameter is the release mode that was assigned when the property group was created.
@@ -95,7 +150,7 @@ class ISharedPropertyGroupManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroupmanager-createpropertygroup
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroupmanager-createpropertygroup
      */
     CreatePropertyGroup(Name, dwIsoMode, dwRelMode, fExists, ppGroup) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -112,7 +167,7 @@ class ISharedPropertyGroupManager extends IDispatch{
      * Retrieves a reference to an existing shared property group.
      * @param {BSTR} Name The name of the shared property group to be retrieved.
      * @returns {ISharedPropertyGroup} A reference to the shared property group specified in the <i>Name</i> parameter, or <b>NULL</b> if the property group does not exist.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroupmanager-get_group
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroupmanager-get_group
      */
     get_Group(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -124,7 +179,7 @@ class ISharedPropertyGroupManager extends IDispatch{
     /**
      * Retrieves an enumerator for the named security call context properties.
      * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroupmanager-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroupmanager-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")

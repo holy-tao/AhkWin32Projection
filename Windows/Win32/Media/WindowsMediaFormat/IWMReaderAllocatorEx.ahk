@@ -6,7 +6,7 @@
 
 /**
  * The IWMReaderAllocatorEx interface provides expanded alternatives to the AllocateForOutput and AllocateForStream methods of the IWMReaderCallbackAdvanced interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderallocatorex
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderallocatorex
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IWMReaderAllocatorEx extends IUnknown{
 
     /**
      * The AllocateForStreamEx method allocates a user-created buffer for samples delivered to the IWMReaderCallbackAdvanced::OnStreamSample method.
+     * @remarks
+     * This method differs from <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforstream">IWMReaderCallbackAdvanced::AllocateForStream</a> in that sample time and duration values can be passed.
+     * 
+     * When you allocate a sample in your implementation of this method, you should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength">INSSBuffer::SetLength</a> to set the length of the buffer to the length passed by the reader in the <i>cbBuffer</i> parameter. If you do not set the current length on the buffer, the reader may encounter an error.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @param {Integer} cbBuffer Size of <i>ppBuffer</i>, in bytes.
      * @param {Integer} dwFlags <b>DWORD</b> containing the relevant flags.
@@ -57,7 +61,7 @@ class IWMReaderAllocatorEx extends IUnknown{
      * @param {Integer} cnsSampleDuration Specifies the sample duration, in 100-nanosecond units.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
      * @returns {INSSBuffer} Pointer to a pointer to an <b>INSSBuffer</b> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
      */
     AllocateForStreamEx(wStreamNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -68,6 +72,10 @@ class IWMReaderAllocatorEx extends IUnknown{
 
     /**
      * The AllocateForOutputEx method allocates a user-created buffer for samples delivered to the IWMReaderCallback::OnSample method.
+     * @remarks
+     * This method differs from <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforoutput">IWMReaderCallbackAdvanced::AllocateForOutput</a> in that sample time and duration values can be passed.
+     * 
+     * When you allocate a sample in your implementation of this method, you should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength">INSSBuffer::SetLength</a> to set the length of the buffer to the length passed by the reader in the <i>cbBuffer</i> parameter. If you do not set the current length on the buffer, the reader may encounter an error.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {Integer} cbBuffer Size of <i>ppBuffer</i>, in bytes.
      * @param {Integer} dwFlags <b>DWORD</b> containing the relevant flags.
@@ -92,7 +100,7 @@ class IWMReaderAllocatorEx extends IUnknown{
      * @param {Integer} cnsSampleDuration Specifies the sample duration, in 100-nanosecond units.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
      * @returns {INSSBuffer} Pointer to a pointer to an <b>INSSBuffer</b> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
      */
     AllocateForOutputEx(dwOutputNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

@@ -7,6 +7,8 @@
 #Include .\ISchemaItem.ahk
 
 /**
+ * Provides a method for localizing keywords in a specified string.
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ischemalocalizersupport
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

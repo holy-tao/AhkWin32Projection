@@ -159,11 +159,7 @@ class Dwm {
     static DwmEnableBlurBehindWindow(hWnd, pBlurBehind) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", hWnd, "ptr", pBlurBehind, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", hWnd, "ptr", pBlurBehind, "HRESULT")
         return result
     }
 
@@ -181,11 +177,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmEnableComposition(uCompositionAction) {
-        result := DllCall("dwmapi.dll\DwmEnableComposition", "uint", uCompositionAction, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmEnableComposition", "uint", uCompositionAction, "HRESULT")
         return result
     }
 
@@ -199,11 +191,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmEnableMMCSS(fEnableMMCSS) {
-        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "int", fEnableMMCSS, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "int", fEnableMMCSS, "HRESULT")
         return result
     }
 
@@ -222,11 +210,7 @@ class Dwm {
     static DwmExtendFrameIntoClientArea(hWnd, pMarInset) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", hWnd, "ptr", pMarInset, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", hWnd, "ptr", pMarInset, "HRESULT")
         return result
     }
 
@@ -244,11 +228,7 @@ class Dwm {
         pcrColorizationMarshal := pcrColorization is VarRef ? "uint*" : "ptr"
         pfOpaqueBlendMarshal := pfOpaqueBlend is VarRef ? "int*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, pfOpaqueBlendMarshal, pfOpaqueBlend, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, pfOpaqueBlendMarshal, pfOpaqueBlend, "HRESULT")
         return result
     }
 
@@ -267,11 +247,7 @@ class Dwm {
     static DwmGetCompositionTimingInfo(hwnd, pTimingInfo) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", hwnd, "ptr", pTimingInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", hwnd, "ptr", pTimingInfo, "HRESULT")
         return result
     }
 
@@ -290,11 +266,7 @@ class Dwm {
     static DwmGetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
         return result
     }
 
@@ -311,11 +283,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmIsCompositionEnabled() {
-        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "int*", &pfEnabled := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "int*", &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -331,11 +299,7 @@ class Dwm {
     static DwmModifyPreviousDxFrameDuration(hwnd, cRefreshes, fRelative) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "HRESULT")
         return result
     }
 
@@ -348,11 +312,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmQueryThumbnailSourceSize(hThumbnail, pSize) {
-        result := DllCall("dwmapi.dll\DwmQueryThumbnailSourceSize", "ptr", hThumbnail, "ptr", pSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmQueryThumbnailSourceSize", "ptr", hThumbnail, "ptr", pSize, "HRESULT")
         return result
     }
 
@@ -374,11 +334,7 @@ class Dwm {
         hwndDestination := hwndDestination is Win32Handle ? NumGet(hwndDestination, "ptr") : hwndDestination
         hwndSource := hwndSource is Win32Handle ? NumGet(hwndSource, "ptr") : hwndSource
 
-        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", &phThumbnailId := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", &phThumbnailId := 0, "HRESULT")
         return phThumbnailId
     }
 
@@ -395,11 +351,7 @@ class Dwm {
     static DwmSetDxFrameDuration(hwnd, cRefreshes) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "HRESULT")
         return result
     }
 
@@ -414,11 +366,7 @@ class Dwm {
     static DwmSetPresentParameters(hwnd, pPresentParams) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", hwnd, "ptr", pPresentParams, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", hwnd, "ptr", pPresentParams, "HRESULT")
         return result
     }
 
@@ -441,11 +389,7 @@ class Dwm {
     static DwmSetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
         return result
     }
 
@@ -459,11 +403,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmUnregisterThumbnail(hThumbnailId) {
-        result := DllCall("dwmapi.dll\DwmUnregisterThumbnail", "ptr", hThumbnailId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmUnregisterThumbnail", "ptr", hThumbnailId, "HRESULT")
         return result
     }
 
@@ -478,11 +418,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmUpdateThumbnailProperties(hThumbnailId, ptnProperties) {
-        result := DllCall("dwmapi.dll\DwmUpdateThumbnailProperties", "ptr", hThumbnailId, "ptr", ptnProperties, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmUpdateThumbnailProperties", "ptr", hThumbnailId, "ptr", ptnProperties, "HRESULT")
         return result
     }
 
@@ -505,11 +441,7 @@ class Dwm {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
 
-        result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", hwnd, "ptr", hbmp, "uint", dwSITFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", hwnd, "ptr", hbmp, "uint", dwSITFlags, "HRESULT")
         return result
     }
 
@@ -533,11 +465,7 @@ class Dwm {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
 
-        result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "HRESULT")
         return result
     }
 
@@ -553,11 +481,7 @@ class Dwm {
     static DwmInvalidateIconicBitmaps(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -571,11 +495,7 @@ class Dwm {
     static DwmAttachMilContent(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -589,11 +509,7 @@ class Dwm {
     static DwmDetachMilContent(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -606,11 +522,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmFlush() {
-        result := DllCall("dwmapi.dll\DwmFlush", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmFlush", "HRESULT")
         return result
     }
 
@@ -623,11 +535,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetGraphicsStreamTransformHint(uIndex, pTransform) {
-        result := DllCall("dwmapi.dll\DwmGetGraphicsStreamTransformHint", "uint", uIndex, "ptr", pTransform, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetGraphicsStreamTransformHint", "uint", uIndex, "ptr", pTransform, "HRESULT")
         return result
     }
 
@@ -640,11 +548,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetGraphicsStreamClient(uIndex, pClientUuid) {
-        result := DllCall("dwmapi.dll\DwmGetGraphicsStreamClient", "uint", uIndex, "ptr", pClientUuid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetGraphicsStreamClient", "uint", uIndex, "ptr", pClientUuid, "HRESULT")
         return result
     }
 
@@ -662,11 +566,7 @@ class Dwm {
         pfIsConnectedMarshal := pfIsConnected is VarRef ? "int*" : "ptr"
         pDwGenerationMarshal := pDwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", pfIsRemotingMarshal, pfIsRemoting, pfIsConnectedMarshal, pfIsConnected, pDwGenerationMarshal, pDwGeneration, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", pfIsRemotingMarshal, pfIsRemoting, pfIsConnectedMarshal, pfIsConnected, pDwGenerationMarshal, pDwGeneration, "HRESULT")
         return result
     }
 
@@ -681,11 +581,7 @@ class Dwm {
     static DwmTransitionOwnedWindow(hwnd, target) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", hwnd, "int", target, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", hwnd, "int", target, "HRESULT")
         return result
     }
 
@@ -702,11 +598,7 @@ class Dwm {
     static DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
         pdwPointerIDMarshal := pdwPointerID is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmRenderGesture", "int", gt, "uint", cContacts, pdwPointerIDMarshal, pdwPointerID, "ptr", pPoints, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmRenderGesture", "int", gt, "uint", cContacts, pdwPointerIDMarshal, pdwPointerID, "ptr", pPoints, "HRESULT")
         return result
     }
 
@@ -720,11 +612,7 @@ class Dwm {
      * @since windows8.0
      */
     static DwmTetherContact(dwPointerID, fEnable, ptTether) {
-        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "int", fEnable, "ptr", ptTether, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "int", fEnable, "ptr", ptTether, "HRESULT")
         return result
     }
 
@@ -739,11 +627,7 @@ class Dwm {
      * @since windows8.0
      */
     static DwmShowContact(dwPointerID, eShowContact) {
-        result := DllCall("dwmapi.dll\DwmShowContact", "uint", dwPointerID, "uint", eShowContact, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmShowContact", "uint", dwPointerID, "uint", eShowContact, "HRESULT")
         return result
     }
 
@@ -757,11 +641,7 @@ class Dwm {
     static DwmGetUnmetTabRequirements(appWindow) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", &value := 0, "HRESULT")
         return value
     }
 

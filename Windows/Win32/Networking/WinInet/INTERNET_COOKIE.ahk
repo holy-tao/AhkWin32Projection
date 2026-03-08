@@ -2,6 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Enables the retrieval of cookies that are marked as "HTTPOnly".  
+  * 
+  * 
+  * 
+  * Do  not use this flag if you expose a scriptable interface, because this has security implications. It is imperative that you use this flag only if you can guarantee that you will never expose the cookie to third-party code by way of an extensibility mechanism you provide.
+  * 
+  * 
+  * <b>Version:  </b>Requires Internet Explorer 8.0 or later.
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexa
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

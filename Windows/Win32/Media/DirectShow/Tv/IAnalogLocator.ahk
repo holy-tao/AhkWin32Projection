@@ -6,11 +6,8 @@
 /**
  * The IAnalogLocator interface provides tuning information for an analog television network.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogLocator)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ianaloglocator
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianaloglocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -51,8 +48,8 @@ class IAnalogLocator extends ILocator{
 
     /**
      * The get_VideoStandard method retrieves the format of the analog television signal.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> variable that receives the format of the analog television signal.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianaloglocator-get_videostandard
+     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> variable that receives the format of the analog television signal.
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianaloglocator-get_videostandard
      */
     get_VideoStandard() {
         result := ComCall(22, this, "int*", &AVS := 0, "HRESULT")
@@ -61,9 +58,9 @@ class IAnalogLocator extends ILocator{
 
     /**
      * The put_VideoStandard method specifies the format of the analog television signal.
-     * @param {Integer} AVS Specifies the format of the analog television signal. This parameter is of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a>.
+     * @param {Integer} AVS Specifies the format of the analog television signal. This parameter is of type <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved by using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianaloglocator-put_videostandard
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianaloglocator-put_videostandard
      */
     put_VideoStandard(AVS) {
         result := ComCall(23, this, "int", AVS, "HRESULT")

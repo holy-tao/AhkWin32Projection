@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Flags that can be used for the Attributes member of the WINBIO\_STORAGE\_SCHEMA structure.
+ * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-database-type-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

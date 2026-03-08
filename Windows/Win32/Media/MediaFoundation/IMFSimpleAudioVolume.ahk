@@ -6,7 +6,6 @@
 /**
  * Controls the master volume level of the audio session associated with the streaming audio renderer (SAR) and the audio capture source.
  * @remarks
- * 
  * To control the volume levels of individual channels, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfaudiostreamvolume">IMFAudioStreamVolume</a> interface. The <b>IMFAudioStreamVolume</b>   interface is supported by the SAR only.
  * 
  * Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation). For each channel, the attenuation level is the product of:
@@ -21,7 +20,7 @@
  * 
  * </li>
  * </ul>
- * For example, if the master volume is 0.8 and the channel volume is 0.5, the attenuaton for that channel is 0.8 × 0.5 = 0.4. Volume levels can exceed 1.0 (positive gain), but the audio engine clips any audio samples that exceed zero decibels. To change the volume level of individual channels, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfaudiostreamvolume">IMFAudioStreamVolume</a> interface.
+ * For example, if the master volume is 0.8 and the channel volume is 0.5, the attenuation for that channel is 0.8 × 0.5 = 0.4. Volume levels can exceed 1.0 (positive gain), but the audio engine clips any audio samples that exceed zero decibels. To change the volume level of individual channels, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfaudiostreamvolume">IMFAudioStreamVolume</a> interface.
  * 
  * Use the following formula to convert the volume level to the decibel (dB) scale:
  * 
@@ -29,9 +28,7 @@
  *         
  * 
  * For example, a volume level of 0.50 represents 6.02 dB of attenuation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsimpleaudiovolume
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsimpleaudiovolume
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -58,6 +55,8 @@ class IMFSimpleAudioVolume extends IUnknown{
 
     /**
      * Sets the master volume level.
+     * @remarks
+     * Events outside of the application can change the master volume level. For example, the user can change the volume from the system volume-control program (SndVol). If an external event changes the master volume, the audio renderer sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/meaudiosessionvolumechanged">MEAudioSessionVolumeChanged</a> event, which the Media Session forwards to the application.
      * @param {Float} fLevel Volume level. Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation).
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -100,7 +99,7 @@ class IMFSimpleAudioVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume
      */
     SetMasterVolume(fLevel) {
         result := ComCall(3, this, "float", fLevel, "HRESULT")
@@ -109,8 +108,10 @@ class IMFSimpleAudioVolume extends IUnknown{
 
     /**
      * Retrieves the master volume level.
+     * @remarks
+     * If an external event changes the master volume, the audio renderer sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/meaudiosessionvolumechanged">MEAudioSessionVolumeChanged</a> event, which the Media Session forwards to the application.
      * @returns {Float} Receives the volume level. Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation).
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
      */
     GetMasterVolume() {
         result := ComCall(4, this, "float*", &pfLevel := 0, "HRESULT")
@@ -118,7 +119,9 @@ class IMFSimpleAudioVolume extends IUnknown{
     }
 
     /**
-     * Mutes or unmutes the audio.
+     * Mutes or unmutes the audio. (IMFSimpleAudioVolume.SetMute)
+     * @remarks
+     * This method does not change the volume level returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume">IMFSimpleAudioVolume::GetMasterVolume</a> function.
      * @param {BOOL} bMute Specify <b>TRUE</b> to mute the audio, or <b>FALSE</b> to unmute the audio.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -161,7 +164,7 @@ class IMFSimpleAudioVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-setmute
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmute
      */
     SetMute(bMute) {
         result := ComCall(5, this, "int", bMute, "HRESULT")
@@ -169,9 +172,11 @@ class IMFSimpleAudioVolume extends IUnknown{
     }
 
     /**
-     * Queries whether the audio is muted.
+     * Queries whether the audio is muted. (IMFSimpleAudioVolume.GetMute)
+     * @remarks
+     * Calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume">IMFSimpleAudioVolume::SetMasterVolume</a> to set the volume does not change whether the audio is muted.
      * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, the audio is muted; otherwise, the audio is not muted.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-getmute
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmute
      */
     GetMute() {
         result := ComCall(6, this, "int*", &pbMute := 0, "HRESULT")

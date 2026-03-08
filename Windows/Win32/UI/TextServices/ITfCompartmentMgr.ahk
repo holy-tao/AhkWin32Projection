@@ -8,7 +8,6 @@
 /**
  * The ITfCompartmentMgr interface is implemented by the TSF manager and used by clients (applications and text services) to obtain and manipulate TSF compartments.
  * @remarks
- * 
  * The set of compartments that this interface is responsible for depends upon how the interface was obtained. An instance of this interface can be obtained in one of the following ways. For more information, see <a href="https://docs.microsoft.com/windows/desktop/TSF/compartments">Compartments</a>.
  * 
  * <ul>
@@ -19,9 +18,7 @@
  * <li><b>ITfDocumentMgr::QueryInterface</b> with IID_ITfCompartmentMgr - Obtains the compartment manager for this specific document manager.</li>
  * <li><b>ITfContext::QueryInterface</b> with IID_ITfCompartmentMgr - Obtains the compartment manager for this specific context.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcompartmentmgr
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartmentmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -50,7 +47,7 @@ class ITfCompartmentMgr extends IUnknown{
      * ITfCompartmentMgr::GetCompartment method
      * @param {Pointer<Guid>} rguid Contains a GUID that identifies the compartment.
      * @returns {ITfCompartment} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompartment">ITfCompartment</a> interface pointer that receives the compartment object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-getcompartment
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-getcompartment
      */
     GetCompartment(rguid) {
         result := ComCall(3, this, "ptr", rguid, "ptr*", &ppcomp := 0, "HRESULT")
@@ -113,7 +110,7 @@ class ITfCompartmentMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-clearcompartment
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment
      */
     ClearCompartment(tid, rguid) {
         result := ComCall(4, this, "uint", tid, "ptr", rguid, "HRESULT")
@@ -123,7 +120,7 @@ class ITfCompartmentMgr extends IUnknown{
     /**
      * The ITfCompartmentMgr::EnumCompartments method obtains an enumerator that contains the GUID of the compartments within the compartment manager.
      * @returns {IEnumGUID} Pointer to an <b>IEnumGUID</b> interface pointer that receives the enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-enumcompartments
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-enumcompartments
      */
     EnumCompartments() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")

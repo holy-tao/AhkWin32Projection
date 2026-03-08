@@ -3,6 +3,8 @@
 #Include .\KSIDENTIFIER.ahk
 
 /**
+ * The KSP_PINMODE structure specifies the pin property and the supported audio processing modes for a pin factory.
+ * @see https://learn.microsoft.com/windows/win32/api/msapofxproxy/ns-msapofxproxy-ksp_pinmode
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

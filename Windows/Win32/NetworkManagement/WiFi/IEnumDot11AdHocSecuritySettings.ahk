@@ -6,7 +6,7 @@
 
 /**
  * Represents the collection of security settings associated with each visible wireless ad hoc network.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-ienumdot11adhocsecuritysettings
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-ienumdot11adhocsecuritysettings
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved.
+     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved. (IEnumDot11AdHocSecuritySettings.Next)
      * @param {Integer} cElt The number of elements requested.
      * @param {Pointer<IDot11AdHocSecuritySettings>} rgElt A pointer to a variable that, on successful return, points an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocsecuritysettings">IDot11AdHocSecuritySettings</a>  interfaces. The array is of size <i>cElt</i>.
      * @param {Pointer<Integer>} pcEltFetched A pointer to a variable that specifies the number of elements returned in <i>rgElt</i>.
@@ -110,7 +110,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-next
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-next
      */
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
@@ -120,7 +120,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
     }
 
     /**
-     * Skips over the next specified number of elements in the enumeration sequence.
+     * Skips over the next specified number of elements in the enumeration sequence. (IEnumDot11AdHocSecuritySettings.Skip)
      * @param {Integer} cElt The number of elements to skip.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -152,7 +152,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-skip
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-skip
      */
     Skip(cElt) {
         result := ComCall(4, this, "uint", cElt, "HRESULT")
@@ -160,7 +160,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
     }
 
     /**
-     * Resets to the beginning of the enumeration sequence.
+     * Resets to the beginning of the enumeration sequence. (IEnumDot11AdHocSecuritySettings.Reset)
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -191,7 +191,7 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-reset
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -199,9 +199,9 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
     }
 
     /**
-     * Creates a new enumeration interface.
-     * @returns {IEnumDot11AdHocSecuritySettings} A pointer that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocsecuritysettings">IEnumDot11AdHocSecuritySettings</a>interface.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-clone
+     * Creates a new enumeration interface. (IEnumDot11AdHocSecuritySettings.Clone)
+     * @returns {IEnumDot11AdHocSecuritySettings} A pointer that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocsecuritysettings">IEnumDot11AdHocSecuritySettings</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

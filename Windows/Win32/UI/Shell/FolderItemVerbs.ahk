@@ -6,7 +6,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Represents the collection of verbs for an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -87,7 +87,7 @@ class FolderItemVerbs extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the FolderItemVerb object for a specified item in the collection.
      * @param {VARIANT} index 
      * @returns {FolderItemVerb} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs-item
@@ -98,7 +98,7 @@ class FolderItemVerbs extends IDispatch{
     }
 
     /**
-     * 
+     * Creates and returns a new FolderItemVerbs object that is a copy of this FolderItemVerbs object.
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs--newenum
      */

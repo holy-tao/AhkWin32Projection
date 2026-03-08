@@ -6,11 +6,8 @@
 /**
  * Provides a callback mechanism for receiving key status change updates from an IMFContentDecryptionModuleSession.
  * @remarks
- * 
  * **IMFContentDecryptionModuleSessionCallbacks** is based on the Encrypted Media Extension specification's  [keystatuseschange event](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-evt-keystatuseschange).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks
+ * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,12 +33,14 @@ class IMFContentDecryptionModuleSessionCallbacks extends IUnknown{
     static VTableNames => ["KeyMessage", "KeyStatusChanged"]
 
     /**
-     * 
-     * @param {Integer} messageType 
-     * @param {Pointer<Integer>} message 
-     * @param {Integer} messageSize 
-     * @param {PWSTR} destinationURL 
-     * @returns {HRESULT} 
+     * Called when the Content Decryption Module (CDM) has generated a message for the session.
+     * @remarks
+     * **KeyMessage** is based on the Encrypted Media Extension specification's [MediaKeyMessageEvent](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeymessageevent).
+     * @param {Integer} messageType A value from the [MF_MEDIAKEYSESSION_MESSAGETYPE](../mfidl/ne-mfidl-mf_mediakeysession_messagetype.md) enumeration specifying the type of the message.
+     * @param {Pointer<Integer>} message A pointer to a **BYTE** array containing the message contents. Messages are Key System-specific.
+     * @param {Integer} messageSize The size of the array in the *message* parameter.
+     * @param {PWSTR} destinationURL A optional parameter containing the destination URL.
+     * @returns {HRESULT} Returns an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks-keymessage
      */
     KeyMessage(messageType, message, messageSize, destinationURL) {
@@ -54,8 +53,12 @@ class IMFContentDecryptionModuleSessionCallbacks extends IUnknown{
     }
 
     /**
+     * The IMFContentDecryptionModuleSessionCallbacks::KeyStatusChanged function is called when there has been a change in the keys in the Content Decryption Module (CDM) session or their status.
+     * @remarks
+     * Get the current status of the CDM session keys by calling [IMFContentDecryptionModuleSession::GetKeyStatuses](nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses.md). 
      * 
-     * @returns {HRESULT} 
+     * **KeyStatusChanged** is based on the Encrypted Media Extension specification's [keystatuseschange](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-evt-keystatuseschange).
+     * @returns {HRESULT} Returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks-keystatuschanged
      */
     KeyStatusChanged() {

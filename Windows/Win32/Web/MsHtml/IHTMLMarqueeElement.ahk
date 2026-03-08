@@ -427,8 +427,9 @@ class IHTMLMarqueeElement extends IDispatch{
     }
 
     /**
-     * 
+     * Specifies the length of time, in seconds, to wait before an EAPOL-Start is sent.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/NativeWiFi/onexschema-startperiod-onex-element
      */
     start() {
         result := ComCall(35, this, "HRESULT")
@@ -436,8 +437,37 @@ class IHTMLMarqueeElement extends IDispatch{
     }
 
     /**
+     * The stop command stops playback or recording. CD audio, digital-video, MIDI sequencer, videodisc, VCR, and waveform-audio devices recognize this command.
+     * @remarks
+     * For CD audio devices, the stop command stops playback and resets the current track position to zero.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszStopFlags"></span><span id="lpszstopflags"></span><span id="LPSZSTOPFLAGS"></span>*lpszStopFlags*
+     * 
+     * For digital-video devices, it can be the following flag.
+     * 
+     * 
+     * 
+     * | Value | Meaning                                                                                                                                                                                      |
+     * |-------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | hold  | Prevents the release of resources required to redraw a still image on the screen. The frame buffer remains available for use in updating the display when, for example, the window is moved. |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/stop
      */
     stop() {
         result := ComCall(36, this, "HRESULT")

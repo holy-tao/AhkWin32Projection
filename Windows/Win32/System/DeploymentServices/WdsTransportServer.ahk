@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Allocates a buffer in memory.
+ * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverallocatebuffer
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

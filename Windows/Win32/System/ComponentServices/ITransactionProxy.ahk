@@ -7,7 +7,7 @@
 
 /**
  * Provides a way for a COM+ transaction context to work with a non-DTC transaction.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-itransactionproxy
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionproxy
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,6 +34,15 @@ class ITransactionProxy extends IUnknown{
 
     /**
      * Commits the transaction.
+     * @remarks
+     * Calling <b>ITransactionProxy::Commit</b> attempts to commit a transaction. However, the transaction aborts under the following conditions:
+     * 
+     * <ul>
+     * <li>If a participating object returns from a method after calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectcontext-setabort">SetAbort</a>.</li>
+     * <li>If an object calls <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectcontext-disablecommit">DisableCommit</a> and returns without calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectcontext-enablecommit">EnableCommit</a> or <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectcontext-setcomplete">SetComplete</a>.</li>
+     * <li>If an error causes the Microsoft Distributed Transaction Coordinator (DTC) to abort.</li>
+     * </ul>
+     * When the method returns, whether the transaction commits or aborts, the transaction ends.
      * @param {Guid} guid A GUID that identifies the transaction to commit.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
@@ -66,7 +75,7 @@ class ITransactionProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-commit
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-commit
      */
     Commit(guid) {
         result := ComCall(3, this, "ptr", guid, "HRESULT")
@@ -75,8 +84,10 @@ class ITransactionProxy extends IUnknown{
 
     /**
      * Aborts the transaction.
+     * @remarks
+     * Calling <b>ITransactionProxy::Abort</b> ends the transaction on return of the method and automatically deactivates all participating objects. Each resource manager enlisted in the transaction rolls back the operations performed on behalf of those objects.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-abort
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-abort
      */
     Abort() {
         result := ComCall(4, this, "HRESULT")
@@ -85,8 +96,10 @@ class ITransactionProxy extends IUnknown{
 
     /**
      * Promotes a non-DTC transaction to a DTC transaction.
+     * @remarks
+     * Reasons for promoting a non-DTC transaction to a DTC transaction include exporting the transaction and working with a Queued Moniker Recorder.
      * @returns {ITransaction} An implementation of <b>ITransaction</b> that represents the DTC transaction.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-promote
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-promote
      */
     Promote() {
         result := ComCall(5, this, "ptr*", &pTransaction := 0, "HRESULT")
@@ -97,7 +110,7 @@ class ITransactionProxy extends IUnknown{
      * Provides a ballot so that a COM+ transaction context can vote on the transaction.
      * @param {ITransactionVoterNotifyAsync2} pTxAsync An implementation of <b>ITransactionVoterNotifyAsync2</b> that notifies the voter of a vote request.
      * @returns {ITransactionVoterBallotAsync2} An implementation of <b>ITransactionVoterBallotAsync2</b> that allows the voter to approve or veto the non-DTC transaction.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-createvoter
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-createvoter
      */
     CreateVoter(pTxAsync) {
         result := ComCall(6, this, "ptr", pTxAsync, "ptr*", &ppBallot := 0, "HRESULT")
@@ -108,7 +121,7 @@ class ITransactionProxy extends IUnknown{
      * Retrieves the isolation level of the non-DTC transaction.
      * @param {Pointer<Integer>} __MIDL__ITransactionProxy0000 A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ms679234(v=vs.85)">ISOLATIONLEVEL</a> value that specifies the isolation level of the non-DTC transaction.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-getisolationlevel
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-getisolationlevel
      */
     GetIsolationLevel(__MIDL__ITransactionProxy0000) {
         __MIDL__ITransactionProxy0000Marshal := __MIDL__ITransactionProxy0000 is VarRef ? "int*" : "ptr"
@@ -121,7 +134,7 @@ class ITransactionProxy extends IUnknown{
      * Retrieves the identifier of the non-DTC transaction.
      * @param {Pointer<Guid>} pbstrIdentifier The GUID that identifies the non-DTC transaction.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-getidentifier
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-getidentifier
      */
     GetIdentifier(pbstrIdentifier) {
         result := ComCall(8, this, "ptr", pbstrIdentifier, "HRESULT")
@@ -132,7 +145,7 @@ class ITransactionProxy extends IUnknown{
      * Indicates whether the non-DTC transaction context can be reused for multiple transactions.
      * @param {Pointer<BOOL>} pfIsReusable <b>TRUE</b> if the non-DTC transaction context can be reused for multiple transactions; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproxy-isreusable
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-isreusable
      */
     IsReusable(pfIsReusable) {
         pfIsReusableMarshal := pfIsReusable is VarRef ? "int*" : "ptr"

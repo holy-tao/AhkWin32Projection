@@ -7,7 +7,6 @@
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.
  * @remarks
- * 
  * The following example shows the XML that you can use to initialize this object if you call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">CreateDataCollectorFromXml</a> to create it. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">IDataCollector::Xml</a> property also returns this XML.
  * 
  * 
@@ -27,9 +26,7 @@
  * Note that the example does not show the property elements inherited from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> that you also need to specify.
  * 
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-iperformancecounterdatacollector
+ * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iperformancecounterdatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -95,14 +92,11 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the data source name if the log file is an SQL log file.
+     * Retrieves or sets the data source name if the log file is an SQL log file. (Get)
      * @remarks
-     * 
      * Specify the data source name only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-iperformancecounterdatacollector-get_logfileformat">IPerformanceCounterDataCollector::LogFileFormat</a> property is <b>plaSql</b>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-get_datasourcename
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_datasourcename
      */
     get_DataSourceName() {
         dsn := BSTR()
@@ -111,15 +105,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the data source name if the log file is an SQL log file.
+     * Retrieves or sets the data source name if the log file is an SQL log file. (Put)
      * @remarks
-     * 
      * Specify the data source name only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-iperformancecounterdatacollector-get_logfileformat">IPerformanceCounterDataCollector::LogFileFormat</a> property is <b>plaSql</b>.
-     * 
-     * 
      * @param {BSTR} dsn 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-put_datasourcename
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_datasourcename
      */
     put_DataSourceName(dsn) {
         dsn := dsn is String ? BSTR.Alloc(dsn).Value : dsn
@@ -129,9 +120,9 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the performance counters to query.
+     * Retrieves or sets the performance counters to query. (Get)
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-get_performancecounters
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_performancecounters
      */
     get_PerformanceCounters() {
         result := ComCall(34, this, "ptr*", &counters := 0, "HRESULT")
@@ -139,10 +130,10 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the performance counters to query.
+     * Retrieves or sets the performance counters to query. (Put)
      * @param {Pointer<SAFEARRAY>} counters 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-put_performancecounters
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_performancecounters
      */
     put_PerformanceCounters(counters) {
         result := ComCall(35, this, "ptr", counters, "HRESULT")
@@ -150,9 +141,9 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the format of the log file.
+     * Retrieves or sets the format of the log file. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-get_logfileformat
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_logfileformat
      */
     get_LogFileFormat() {
         result := ComCall(36, this, "int*", &format := 0, "HRESULT")
@@ -160,10 +151,10 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the format of the log file.
+     * Retrieves or sets the format of the log file. (Put)
      * @param {Integer} format 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-put_logfileformat
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_logfileformat
      */
     put_LogFileFormat(format) {
         result := ComCall(37, this, "int", format, "HRESULT")
@@ -171,9 +162,9 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the interval to wait between sampling counter data.
+     * Retrieves or sets the interval to wait between sampling counter data. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-get_sampleinterval
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_sampleinterval
      */
     get_SampleInterval() {
         result := ComCall(38, this, "uint*", &interval := 0, "HRESULT")
@@ -181,10 +172,10 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the interval to wait between sampling counter data.
+     * Retrieves or sets the interval to wait between sampling counter data. (Put)
      * @param {Integer} interval 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-put_sampleinterval
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_sampleinterval
      */
     put_SampleInterval(interval) {
         result := ComCall(39, this, "uint", interval, "HRESULT")
@@ -192,14 +183,11 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the maximum number of samples to log.
+     * Retrieves or sets the maximum number of samples to log. (Get)
      * @remarks
-     * 
      * When the maximum number of samples is reached, PLA switches to a new log file and continues logging if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property is VARIANT_TRUE; otherwise, PLA stops logging.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-get_segmentmaxrecords
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_segmentmaxrecords
      */
     get_SegmentMaxRecords() {
         result := ComCall(40, this, "uint*", &records := 0, "HRESULT")
@@ -207,15 +195,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the maximum number of samples to log.
+     * Retrieves or sets the maximum number of samples to log. (Put)
      * @remarks
-     * 
      * When the maximum number of samples is reached, PLA switches to a new log file and continues logging if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property is VARIANT_TRUE; otherwise, PLA stops logging.
-     * 
-     * 
      * @param {Integer} records 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iperformancecounterdatacollector-put_segmentmaxrecords
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_segmentmaxrecords
      */
     put_SegmentMaxRecords(records) {
         result := ComCall(41, this, "uint", records, "HRESULT")

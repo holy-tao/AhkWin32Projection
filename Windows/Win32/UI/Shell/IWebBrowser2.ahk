@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
- * @see https://docs.microsoft.com/windows/win32/api//exdisp/nn-exdisp-iwebbrowser2
+ * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -228,18 +228,15 @@ class IWebBrowser2 extends IWebBrowserApp{
     }
 
     /**
-     * Sets or gets whether the object is in theater mode.
+     * Sets or gets whether the object is in theater mode. (Get)
      * @remarks
-     * 
      * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
      * 
      * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-get_theatermode
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowser2-get_theatermode
      */
     get_TheaterMode() {
         result := ComCall(65, this, "short*", &pbRegister := 0, "HRESULT")
@@ -247,19 +244,16 @@ class IWebBrowser2 extends IWebBrowserApp{
     }
 
     /**
-     * Sets or gets whether the object is in theater mode.
+     * Sets or gets whether the object is in theater mode. (Put)
      * @remarks
-     * 
      * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
      * 
      * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-put_theatermode
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowser2-put_theatermode
      */
     put_TheaterMode(bRegister) {
         result := ComCall(66, this, "short", bRegister, "HRESULT")

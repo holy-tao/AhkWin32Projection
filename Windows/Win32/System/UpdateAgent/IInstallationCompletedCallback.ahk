@@ -5,7 +5,7 @@
 
 /**
  * Handles the notification that indicates that an asynchronous installation or uninstallation is complete.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinstallationcompletedcallback
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationcompletedcallback
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IInstallationCompletedCallback extends IUnknown{
      * @param {IInstallationJob} installationJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iinstallationjob">IInstallationJob</a> interface that contains the installation information.
      * @param {IInstallationCompletedCallbackArgs} callbackArgs This parameter is reserved for future use and can be ignored.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationcompletedcallback-invoke
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationcompletedcallback-invoke
      */
     Invoke(installationJob, callbackArgs) {
         result := ComCall(3, this, "ptr", installationJob, "ptr", callbackArgs, "HRESULT")

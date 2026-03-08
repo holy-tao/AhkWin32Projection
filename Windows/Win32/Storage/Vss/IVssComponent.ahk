@@ -7,7 +7,7 @@
 
 /**
  * The IVssComponent interface is a C++ (not COM) interface containing methods for examining and modifying information about components contained in a requester's Backup Components Document.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsscomponent
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponent
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -34,6 +34,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetLogicalPath method returns the logical path of this component.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrPath</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * Logical paths are not required of components. A component without a logical path will return S_FALSE.
      * @param {Pointer<BSTR>} pbstrPath Pointer to a string containing the logical path of the component.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -94,12 +98,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getlogicalpath
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getlogicalpath
      */
     GetLogicalPath(pbstrPath) {
         result := ComCall(3, this, "ptr", pbstrPath, "HRESULT")
@@ -158,12 +162,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getcomponenttype
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getcomponenttype
      */
     GetComponentType(pct) {
         pctMarshal := pct is VarRef ? "int*" : "ptr"
@@ -174,6 +178,8 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetComponentName method returns the logical name of this component.
+     * @remarks
+     * The caller should free the memory held by the <i>pwszName</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the logical name of the component.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -234,12 +240,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getcomponentname
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getcomponentname
      */
     GetComponentName(pbstrName) {
         result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
@@ -248,6 +254,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetBackupSucceeded method returns the status of a complete attempt at backing up all the files of a selected component or component set as a VSS_FILE_RESTORE_STATUS enumeration.
+     * @remarks
+     * This method should not be called prior to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-backupcomplete">BackupComplete</a> event, and is designed for use in an implementation of the event handler 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onbackupcomplete">CVssWriter::OnBackupComplete</a>.
      * @param {Pointer<Boolean>} pbSucceeded The address of a caller-allocated variable that receives <b>true</b> if the backup was successful, or <b>false</b> otherwise.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -275,7 +285,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The backup success state is undefined because the method was called prior to a 
-     * <a href="/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-backupcomplete">BackupComplete</a> event.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-backupcomplete">BackupComplete</a> event.
      * 
      * </td>
      * </tr>
@@ -309,12 +319,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getbackupsucceeded
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupsucceeded
      */
     GetBackupSucceeded(pbSucceeded) {
         pbSucceededMarshal := pbSucceeded is VarRef ? "int*" : "ptr"
@@ -325,6 +335,17 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetAlternateLocationMappingCount method returns the number of alternate location mappings used by a requester in restoring data. Either a writer or a requester can call this method.
+     * @remarks
+     * The count of alternate location mappings returned by 
+     * <b>GetAlternateLocationMappingCount</b> may be due to not only files in the current component but to files in any of its nonselectable subcomponents.
+     * 
+     * An alternate location mapping is used only during a restore operation and should not be confused with an alternate path, which is used only during a backup operation.
+     * 
+     * The count returned by 
+     * <b>GetAlternateLocationMappingCount</b> refers to the number of alternate location mappings used in the course of restoring files.
+     * 
+     * The count is updated by calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addalternativelocationmapping">IVssBackupComponents::AddAlternativeLocationMapping</a>.
      * @param {Pointer<Integer>} pcMappings The address of a caller-allocated variable that receives the number of alternate location mappings.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -367,7 +388,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getalternatelocationmappingcount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmappingcount
      */
     GetAlternateLocationMappingCount(pcMappings) {
         pcMappingsMarshal := pcMappings is VarRef ? "uint*" : "ptr"
@@ -378,12 +399,52 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetAlternateLocationMapping is used to return a file set's alternate location for file restoration. This method can be called by either a writer or a requester.
+     * @remarks
+     * Alternate location mappings returned by 
+     * <b>GetAlternateLocationMapping</b> can come not only from files in the current component, but also from files in any of its nonselectable subcomponents.
+     * 
+     * The value returned by <b>IVssComponent::GetAlternateLocationMapping</b> should also not be confused with that returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getalternatelocationmapping">IVssExamineWriterMetadata::GetAlternateLocationMapping</a>:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getalternatelocationmapping">IVssExamineWriterMetadata::GetAlternateLocationMapping</a> is the alternate location mapping to which a file may be restored if necessary.</li>
+     * <li><b>IVssComponent::GetAlternateLocationMapping</b> is the alternate location to which a file was in fact restored.</li>
+     * </ul>
+     * A file should always be restored to its alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method (set at backup time) is VSS_RME_RESTORE_TO_ALTERNATE_LOCATION.</li>
+     * <li>Its restore target was set (at restore time) to VSS_RT_ALTERNATE.</li>
+     * </ul>
+     * In either case, having no alternate location mapping defined constitutes a writer error.
+     * 
+     * A file can be restored to an alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method is VSS_RME_RESTORE_IF_NOT_THERE and a version of the file is already present on disk.</li>
+     * <li>The restore method is VSS_RME_RESTORE_IF_CAN_REPLACE and a version of the file is present on disk and cannot be replaced.</li>
+     * </ul>
+     * An alternate location mapping is used only during a restore operation and should not be confused with an alternate path, which is used only during a backup operation.
+     * 
+     * The mapping returned by 
+     * <b>GetAlternateLocationMapping</b> refers to the alternate location mappings used in the course of restoring files.
+     * 
+     * Alternate location mappings are added to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addalternativelocationmapping">IVssBackupComponents::AddAlternativeLocationMapping</a>.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> to release the system resources held by the <i>ppMapping</i> parameter when it is done with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsswmfiledesc">IVssWMFiledesc</a> object that it points to.
+     * 
+     * For more information on backup and restore file locations under VSS, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore Locations</a>.
      * @param {Integer} iMapping Index of a particular mapping. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of alternate location mappings associated with the current component. The value of <i>n</i> is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmappingcount">IVssComponent::GetAlternateLocationMappingCount</a>.
      * @returns {IVssWMFiledesc} Doubly indirect pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsswmfiledesc">IVssWMFiledesc</a> object containing the mapping information.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getalternatelocationmapping
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmapping
      */
     GetAlternateLocationMapping(iMapping) {
         result := ComCall(8, this, "uint", iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
@@ -392,6 +453,12 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetBackupMetadata method sets backup metadata with the component.
+     * @remarks
+     * <b>SetBackupMetadata</b> sets
+     *     private, writer-specific metadata describing a backup operation.
+     *    
+     * 
+     * The format need not conform to any VSS metadata specification.
      * @param {PWSTR} wszData A <b>NULL</b>-terminated wide character string that contains the backup metadata.
      * @returns {HRESULT} The following are the valid return codes for this method.
      *      
@@ -461,7 +528,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setbackupmetadata
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setbackupmetadata
      */
     SetBackupMetadata(wszData) {
         wszData := wszData is String ? StrPtr(wszData) : wszData
@@ -472,6 +539,14 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetBackupMetadata method retrieves private, writer-specific backup metadata that might have been set during a PrepareForBackup event by CVssWriter::OnPrepareBackup using IVssComponent::SetBackupMetadata.
+     * @remarks
+     * This method can be called at any time depending on the logic of a given writer.
+     * 
+     * If no backup metadata has been set, 
+     *     <b>GetBackupMetadata</b> returns S_FALSE.
+     *    
+     * 
+     * If the call to <b>GetBackupMetadata</b> is successful, the caller is responsible for freeing the string that  is returned in the <i>pbstrMetadata</i> parameter by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @param {Pointer<BSTR>} pbstrData The address of a caller-allocated variable that receives a string containing the backup metadata that was added during an 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpreparebackup">OnPrepareBackup</a> event.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -534,13 +609,13 @@ class IVssComponent extends IUnknown{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more
      *         information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      *        
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getbackupmetadata
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupmetadata
      */
     GetBackupMetadata(pbstrData) {
         result := ComCall(10, this, "ptr", pbstrData, "HRESULT")
@@ -549,6 +624,43 @@ class IVssComponent extends IUnknown{
 
     /**
      * The AddPartialFile method indicates that only portions of a given file are to be backed up and which portions those are.
+     * @remarks
+     * Only a writer can call this method, and the writer cannot call this method during a restore operation.
+     * 
+     * The syntax of the range listing (<i>wszRanges</i>) is that of a comma-separated list of the form 
+     *    <b>offset1:length1, offset2:length2</b>, where each offset and length is a 64-bit integer
+     *    specifying a byte offset and length in bytes, respectively. The offset and length can be expressed either as
+     *    hexadecimal or decimal values.
+     * 
+     * If 
+     *    <i>wszRange</i> refers to a file containing all the offsets and lengths (a ranges file), 
+     *    <i>wszRange</i> will contain only the full path to the file.
+     * 
+     * A ranges file must be a binary file with the following format:
+     * 
+     * <ol>
+     * <li>A 64-bit integer indicating the number of distinct file ranges that need to be backed up</li>
+     * <li>Each range expressed as a pair of 64-bit integers: the offset into the file being backed up in bytes, and
+     *      the length of data starting from that offset to be backed up</li>
+     * </ol>
+     * In either case, a range indicates a subsection of a given file that is to be backed up, independent of the rest
+     *    of the file.
+     * 
+     * Requesters can retrieve the partial file information using 
+     *    <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getpartialfile">IVssComponent::GetPartialFile</a> and use the
+     *    offset and length information returned by 
+     *    <b>GetPartialFile</b> to restore backed-up sections to
+     *    the appropriate location within the copy of the file on disk at restore time.
+     * 
+     * <b>AddPartialFile</b> can be applied to a file already
+     *    managed by the component (or one of its subcomponents if the component defines a component set), or it can add a new
+     *    file to the component and indicate that it will participate in partial file operations.
+     * 
+     * When indicating that the file to participate is a new file, that file must exist on a shadow-copied volume and
+     *    its path (<i>wszPath</i>) should match or be beneath a path already in the component (or one of its
+     *    subcomponents if the component defines a component set). However, the file's file specification (<i>wszFileSpec</i>) should not match one in the components.
+     * 
+     * Any newly added files will not support alternate location mappings.
      * @param {PWSTR} wszPath <b>Null</b>-terminated wide character string containing the path of the file involved in partial file operations. 
      *      
      * 
@@ -627,7 +739,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-addpartialfile
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-addpartialfile
      */
     AddPartialFile(wszPath, wszFilename, wszRanges, wszMetadata) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
@@ -683,7 +795,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getpartialfilecount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfilecount
      */
     GetPartialFileCount(pcPartialFiles) {
         pcPartialFilesMarshal := pcPartialFiles is VarRef ? "uint*" : "ptr"
@@ -694,6 +806,30 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetPartialFile method returns information on a partial file associated with this component.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrPath</i>, <i>pbstrFilename</i>, <i>pbstrRange</i>, and <i>pbstrMetadata</i> parameters by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * A range indicates a subsection of a given file that is to be backed up, independent of the rest of the file.
+     * 
+     * The syntax of the range listing (<i>pbstrRanges</i>) is that of a comma-separated list of the form <b>offset1:length1, offset2:length2</b>, where each offset and length is a 64-bit integer specifying a byte offset and length in bytes, respectively. The offset and length can be expressed either as hexadecimal or decimal values.
+     * 
+     * If <i>pbstrRanges</i> refers to a file containing all the offsets and lengths (a ranges file), <i>pbstrRanges</i> should contain the full path to the file.
+     * 
+     * If <i>wszRange</i> refers to a file containing all the offsets and lengths (a ranges file), <i>wszRange</i> should contain the full path to the file.
+     * 
+     * A ranges file must be a binary file with the following format:
+     * 
+     * <ol>
+     * <li>A 64-bit integer indicating the number of distinct file ranges that need to be backed up.</li>
+     * <li>Each range expressed as a pair of 64-bit integers: the offset into the file being backed up, in bytes, and the length of data starting from that offset to be backed up.</li>
+     * </ol>
+     * A ranges file should have been backed up along with the partial file and typically is restored to the same location that it was backed up from.
+     * 
+     * However, the location to which a ranges file is restored might be altered by the requester, which uses 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setrangesfilepath">IVssBackupComponents::SetRangesFilePath</a> to indicate this and to update the Backup Components Document so that <i>pbstrRanges</i> indicates the correct ranges file.
+     * 
+     * A requester would use the ranges information returned by 
+     * <b>GetPartialFile</b> to restore the backed-up sections to the appropriate location within the copy of the file on disk at restore time.
      * @param {Integer} iPartialFile Index number of the partial file. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of partial files associated with a given component. The value of <i>n</i> is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getpartialfilecount">IVssComponent::GetPartialFileCount</a>.
@@ -770,7 +906,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -786,7 +922,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getpartialfile
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfile
      */
     GetPartialFile(iPartialFile, pbstrPath, pbstrFilename, pbstrRange, pbstrMetadata) {
         result := ComCall(13, this, "uint", iPartialFile, "ptr", pbstrPath, "ptr", pbstrFilename, "ptr", pbstrRange, "ptr", pbstrMetadata, "HRESULT")
@@ -795,6 +931,11 @@ class IVssComponent extends IUnknown{
 
     /**
      * The IsSelectedForRestore method determines whether the current component has been selected to be restored.
+     * @remarks
+     * <b>IsSelectedForRestore</b> is relevant only under component mode.
+     * 
+     * If the component defines a component set, 
+     * <b>IsSelectedForRestore</b> refers both to the component and all of its subcomponents.
      * @param {Pointer<Boolean>} pbSelectedForRestore The address of a caller-allocated variable that receives <b>true</b> if the component has been selected to be restored, or <b>false</b> otherwise.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -848,7 +989,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-isselectedforrestore
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-isselectedforrestore
      */
     IsSelectedForRestore(pbSelectedForRestore) {
         pbSelectedForRestoreMarshal := pbSelectedForRestore is VarRef ? "int*" : "ptr"
@@ -859,6 +1000,23 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetAdditionalRestores method is used by a writer during incremental or differential restore operations to determine whether a given component will require additional restore operations to completely retrieve it.
+     * @remarks
+     * The value returned by 
+     * <b>GetAdditionalRestores</b> will be false, unless during a restore operation a requester calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setadditionalrestores">IVssBackupComponents::SetAdditionalRestores</a>.
+     * 
+     * <b>GetAdditionalRestores</b> should be used to check if it is necessary to use more than one backup set to completely restore a component. A component might first be retrieved by restoring data from a full backup, and then updating that data from one or more subsequent incremental or differential backups.
+     * 
+     * The 
+     * <b>GetAdditionalRestores</b> method is typically used by writers that support an explicit recovery mechanism as part of their 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event handler (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostrestore">CVssWriter::OnPostRestore</a>)—for instance, the Exchange Server, and database applications such as SQL Server. For these applications, it is often not possible to perform additional differential, incremental, or log restores after such a recovery is performed.
+     * 
+     * Therefore, if 
+     * <b>GetAdditionalRestores</b> returns <b>true</b> for a component, such a writer should not execute its explicit recovery mechanism and should expect that additional differential, incremental, or log restores will be done.
+     * 
+     * When 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setadditionalrestores">SetAdditionalRestores</a> returns <b>false</b>, then after the restore has finished, when handling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event, the writer can complete its recovery operation and be brought back online.
      * @param {Pointer<Boolean>} pbAdditionalRestores The address of a caller-allocated variable that receives <b>true</b> if additional restores will occur for the current component, or <b>false</b> otherwise.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -919,12 +1077,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getadditionalrestores
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getadditionalrestores
      */
     GetAdditionalRestores(pbAdditionalRestores) {
         pbAdditionalRestoresMarshal := pbAdditionalRestores is VarRef ? "int*" : "ptr"
@@ -977,7 +1135,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getnewtargetcount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtargetcount
      */
     GetNewTargetCount(pcNewTarget) {
         pcNewTargetMarshal := pcNewTarget is VarRef ? "uint*" : "ptr"
@@ -988,12 +1146,15 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetNewTarget method returns the new file restoration locations for the selected component or component set.
+     * @remarks
+     * New targets returned by 
+     * <b>GetNewTarget</b> may be those not only of files in the current component but to files in any of its nonselectable subcomponents.
      * @param {Integer} iNewTarget Index number of the new target. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of new targets associated with a given component. The value of <i>n</i> is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getnewtargetcount">IVssComponent::GetNewTargetCount</a>.
      * @returns {IVssWMFiledesc} Doubly indirect pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsswmfiledesc">IVssWMFiledesc</a> object containing the new target restore location information.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getnewtarget
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtarget
      */
     GetNewTarget(iNewTarget) {
         result := ComCall(17, this, "uint", iNewTarget, "ptr*", &ppFiledesc := 0, "HRESULT")
@@ -1002,6 +1163,28 @@ class IVssComponent extends IUnknown{
 
     /**
      * The AddDirectedTarget method allows a writer to indicate at restore time that when a file is to be restored, it (the source file) should be remapped.
+     * @remarks
+     * Only a writer can call 
+     * <b>AddDirectedTarget</b>, and only during restore operations.
+     * 
+     * A requester will use the directed target information stored in the Backup Components Document only if the restore target is VSS_RT_DIRECTED.
+     * 
+     * The 
+     * <b>AddDirectedTarget</b> method can be applied to any file managed in the current component or, if the component defines a component set, in any of its nonselectable subcomponents.
+     * 
+     * Source and destination file specifications may point to the same file. This would allow remapping of a file into itself at restore time.
+     * 
+     * The syntax of the range listing (<i>wszSourceRanges</i> and <i>wszDestinationRanges</i>) is that of a comma-separated list of the form <b>offset1:length1, offset2:length2</b>, where each offset and length is a 64-bit integer specifying a byte offset and length in bytes, respectively. The offset and length can be expressed either as hexadecimal or decimal values.
+     * 
+     * The number of entries and their sizes must match in the source and destination range arguments.
+     * 
+     * <b>AddDirectedTarget</b> can use as its source file any file already managed by the component or one of its subcomponents if the component defines a component set.
+     * 
+     * Partial files may be added as directed targets, if the partial file ranges to be backed up match the directed target source ranges (see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-addpartialfile">IVssComponent::AddPartialFile</a>). This will allow you to remap partial files at restore time.
+     * 
+     * In this case, the requester retrieves the directed target information by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtarget">IVssComponent::GetDirectedTarget</a> method and uses that to implement the remapping of the backed-up data during restore.
      * @param {PWSTR} wszSourcePath Null-terminated wide character string containing the path to the directory at restore time containing the file to be restored (the source file). This path should match or be beneath the path of a file set already in the component (or one of its subcomponents if the component defines a component set).
      * @param {PWSTR} wszSourceFilename Null-terminated wide character string containing the name of the file (at backup time) that will be remapped at restore time (the source file). The name of the file (<i>wszSourceFilename</i>) cannot contain wildcard characters (* or ?) and must be consistent with the file specification of a file set containing the source path (<i>wszSourcePath</i>).
      * @param {PWSTR} wszSourceRangeList A null-terminated wide character string containing a comma-separated list of file offsets and lengths indicating the source file support range (the sections of the file to actually be restored). 
@@ -1065,12 +1248,12 @@ class IVssComponent extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was not called by a writer or, if called by a writer, it either was not called during a restore operation or was called while handling a <a href="/windows/desktop/VSS/vssgloss-b">BackupComplete</a> or <a href="/windows/desktop/VSS/vssgloss-b">BackupShutdown</a> event.
+     * This method was not called by a writer or, if called by a writer, it either was not called during a restore operation or was called while handling a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-b">BackupComplete</a> or <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-b">BackupShutdown</a> event.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-adddirectedtarget
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-adddirectedtarget
      */
     AddDirectedTarget(wszSourcePath, wszSourceFilename, wszSourceRangeList, wszDestinationPath, wszDestinationFilename, wszDestinationRangeList) {
         wszSourcePath := wszSourcePath is String ? StrPtr(wszSourcePath) : wszSourcePath
@@ -1128,7 +1311,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getdirectedtargetcount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtargetcount
      */
     GetDirectedTargetCount(pcDirectedTarget) {
         pcDirectedTargetMarshal := pcDirectedTarget is VarRef ? "uint*" : "ptr"
@@ -1139,6 +1322,22 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetDirectedTarget method returns information stored by a writer, at backup time, to the Backup Components Document to indicate that when a file is to be restored, it (the source file) should be remapped.
+     * @remarks
+     * If the call to <b>GetDirectedTarget</b> is successful, the caller is responsible for freeing each returned string by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * A requester will use the directed target information stored in the Backup Components Document only if the restore target is VSS_RT_DIRECTED.
+     * 
+     * The syntax of the range listing (<i>wszSourceRanges</i> and <i>wszDestinationRanges</i>) is that of a comma-separated list of the form <b>offset1:length1, offset2:length2</b>, where each offset and length is a 64-bit integer specifying a byte offset and length in bytes, respectively. The offset and length can be expressed either as hexadecimal or decimal values.
+     * 
+     * Files whose directed targets are returned by 
+     * <b>GetDirectedTarget</b> may be members of the files of the current component or any subcomponent it defines.
+     * 
+     * The caller should free the memory held by the <i>pbstrSourcePath</i>, <i>pbstrSourceFileName</i>, <i>pbstrSourceRangeList</i>, <i>pbstrDestinationPath</i>, <i>pbstrDestinationFilename</i>, and <i>pbstrDestinationRangeList</i> parameters by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * Partial files may be added as directed targets, if the partial file ranges to be backed up match the directed target source ranges (see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-addpartialfile">IVssComponent::AddPartialFile</a>). This will allow you to remap partial files.
+     * 
+     * The requester will need to check if the directed target source file was backed up as a partial file to correctly implement the restore. If this is the case, the requester uses the directed target information in conjunction with the partial file information (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getpartialfile">IVssComponent::GetPartialFile</a>) to implement the remapping of the backed-up data during restore.
      * @param {Integer} iDirectedTarget Index number of the directed target. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of directed targets associated with a given component (and its subcomponents if it defines a component set). The value of <i>n</i> is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtargetcount">IVssComponent::GetDirectedTargetCount</a>.
@@ -1206,7 +1405,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -1222,7 +1421,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getdirectedtarget
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtarget
      */
     GetDirectedTarget(iDirectedTarget, pbstrSourcePath, pbstrSourceFileName, pbstrSourceRangeList, pbstrDestinationPath, pbstrDestinationFilename, pbstrDestinationRangeList) {
         result := ComCall(20, this, "uint", iDirectedTarget, "ptr", pbstrSourcePath, "ptr", pbstrSourceFileName, "ptr", pbstrSourceRangeList, "ptr", pbstrDestinationPath, "ptr", pbstrDestinationFilename, "ptr", pbstrDestinationRangeList, "HRESULT")
@@ -1231,6 +1430,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetRestoreMetadata method sets writer-specific metadata for the current component.
+     * @remarks
+     * <b>IVssComponent::SetRestoreMetadata</b> sets private, writer-specific metadata, which can be used by a writer during a restore operation.
+     * 
+     * The format need not conform to any VSS metadata specification.
      * @param {PWSTR} wszRestoreMetadata A caller-allocated <b>NULL</b>-terminated wide character string containing the restore metadata for the component.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1291,12 +1494,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The method was called outside of the context of a writer handling a 
-     * <a href="/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> event.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> event.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setrestoremetadata
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setrestoremetadata
      */
     SetRestoreMetadata(wszRestoreMetadata) {
         wszRestoreMetadata := wszRestoreMetadata is String ? StrPtr(wszRestoreMetadata) : wszRestoreMetadata
@@ -1307,6 +1510,19 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetRestoreMetadata method retrieves private, writer-specific restore metadata that might have been set during a PreRestore event by CVssWriter::OnPreRestore using IVssComponent::SetRestoreMetadata.
+     * @remarks
+     * This method can be called at any time depending on the logic of a given writer.
+     * 
+     * The caller should free the memory held by the <i>pbstrRestoreMetadata</i> parameter by calling 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     *    
+     * 
+     * If no backup metadata has been set, 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getbackupmetadata">GetBackupMetadata</a> returns S_FALSE.
+     *    
+     * 
+     * A writer setting the restore method to VSS_RME_RESTORE_TO_ALTERNATE_LOCATION without defining an alternate
+     *     location mapping constitutes a writer error.
      * @param {Pointer<BSTR>} pbstrRestoreMetadata A string containing the restore metadata.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1368,13 +1584,13 @@ class IVssComponent extends IUnknown{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more
      *         information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      *        
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getrestoremetadata
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoremetadata
      */
     GetRestoreMetadata(pbstrRestoreMetadata) {
         result := ComCall(22, this, "ptr", pbstrRestoreMetadata, "HRESULT")
@@ -1383,6 +1599,9 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetRestoreTarget method sets the restore target (in terms of the VSS_RESTORE_TARGET enumeration) for the current component.
+     * @remarks
+     * The restore target set by 
+     * <b>SetRestoreTarget</b> applies to all files in the component and any nonselectable subcomponents.
      * @param {Integer} target A value from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restore_target">VSS_RESTORE_TARGET</a> containing the restore target information.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -1437,7 +1656,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setrestoretarget
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setrestoretarget
      */
     SetRestoreTarget(target) {
         result := ComCall(23, this, "int", target, "HRESULT")
@@ -1496,7 +1715,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -1512,7 +1731,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getrestoretarget
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoretarget
      */
     GetRestoreTarget(pTarget) {
         pTargetMarshal := pTarget is VarRef ? "int*" : "ptr"
@@ -1523,6 +1742,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetPreRestoreFailureMsg method is used to create a message describing a failure in processing a PreRestore event.
+     * @remarks
+     * The failure message set by 
+     *     <b>SetPreRestoreFailureMsg</b> applies to 
+     *     all files in the component and any nonselectable subcomponents.
      * @param {PWSTR} wszPreRestoreFailureMsg A caller-allocated <b>NULL</b>-terminated wide character string containing the failure message describing an error that occurred 
      *       while processing a <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> 
      *       event.
@@ -1578,7 +1801,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setprerestorefailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setprerestorefailuremsg
      */
     SetPreRestoreFailureMsg(wszPreRestoreFailureMsg) {
         wszPreRestoreFailureMsg := wszPreRestoreFailureMsg is String ? StrPtr(wszPreRestoreFailureMsg) : wszPreRestoreFailureMsg
@@ -1589,6 +1812,13 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetPreRestoreFailureMsg method retrieves the error message generated by a writer while handling the PreRestore event, if IVssComponent::SetPreRestoreFailureMsg set one.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrPreRestoreFailureMsg</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * If 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setprerestorefailuremsg">SetPreRestoreFailureMsg</a> was not used to set a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> failure message, 
+     * <b>GetPreRestoreFailureMsg</b> returns S_FALSE.
      * @param {Pointer<BSTR>} pbstrPreRestoreFailureMsg String containing the failure message that describes an error that occurred while processing the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> event.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -1617,7 +1847,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * No 
-     * <a href="/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> failure message was available to retrieve.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> failure message was available to retrieve.
      * 
      * </td>
      * </tr>
@@ -1651,12 +1881,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getprerestorefailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getprerestorefailuremsg
      */
     GetPreRestoreFailureMsg(pbstrPreRestoreFailureMsg) {
         result := ComCall(26, this, "ptr", pbstrPreRestoreFailureMsg, "HRESULT")
@@ -1665,6 +1895,9 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetPostRestoreFailureMsg method is used to create a message describing a failure in processing a PostRestore event.
+     * @remarks
+     * The failure message set by 
+     * <b>SetPostRestoreFailureMsg</b> applies to all files in the component and any nonselectable subcomponents.
      * @param {PWSTR} wszPostRestoreFailureMsg A caller-allocated <b>NULL</b>-terminated wide character string containing the failure message that describes an error that occurred while processing a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -1719,7 +1952,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setpostrestorefailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setpostrestorefailuremsg
      */
     SetPostRestoreFailureMsg(wszPostRestoreFailureMsg) {
         wszPostRestoreFailureMsg := wszPostRestoreFailureMsg is String ? StrPtr(wszPostRestoreFailureMsg) : wszPostRestoreFailureMsg
@@ -1730,6 +1963,13 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetPostRestoreFailureMsg method returns the failure message generated by a writer while handling the PostRestore event, if IVssComponent::SetPostRestoreFailureMsg set one.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrPostRestoreFailureMsg</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * If 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setpostrestorefailuremsg">SetPostRestoreFailureMsg</a> was not used to set a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> failure message, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getprerestorefailuremsg">GetPreRestoreFailureMsg</a> returns S_FALSE.
      * @param {Pointer<BSTR>} pbstrPostRestoreFailureMsg Pointer to a string containing the failure message that describes an error that occurred while processing the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -1791,12 +2031,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getpostrestorefailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpostrestorefailuremsg
      */
     GetPostRestoreFailureMsg(pbstrPostRestoreFailureMsg) {
         result := ComCall(28, this, "ptr", pbstrPostRestoreFailureMsg, "HRESULT")
@@ -1805,6 +2045,22 @@ class IVssComponent extends IUnknown{
 
     /**
      * The SetBackupStamp method sets a string containing information indicating when a backup took place.
+     * @remarks
+     * For more information about backup stamps, see <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-role-in-backing-up-complex-stores">Writer Role in Backing Up Complex Stores</a>.
+     * 
+     * The backup stamp set by 
+     * <b>SetBackupStamp</b> applies to all files in the component and any nonselectable subcomponents it has.
+     * 
+     * Writers typically call 
+     * <b>SetBackupStamp</b> while handling a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> event in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>.
+     * 
+     * Requesters merely store the backup stamp in the Backup Components Document. They do not make direct use of the backup stamp or have to know how to interpret it.
+     * 
+     * The only use of the backup stamp that a requester makes, during a restore operation, is to make the stored time-stamp string available to a writer by using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setpreviousbackupstamp">IVssBackupComponents::SetPreviousBackupStamp</a> method.
+     * 
+     * For this reason, there are no format restrictions on the content of the backup stamp. It may contain time and date information, logical sequence numbers, or any other information that will allow a writer of the same class to determine when the last backup has taken place.
      * @param {PWSTR} wszBackupStamp Null-terminated wide character string information indicating when a backup took place.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1858,7 +2114,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-setbackupstamp
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-setbackupstamp
      */
     SetBackupStamp(wszBackupStamp) {
         wszBackupStamp := wszBackupStamp is String ? StrPtr(wszBackupStamp) : wszBackupStamp
@@ -1869,6 +2125,20 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetBackupStamp method returns the backup stamp string stored by a writer for a given component.
+     * @remarks
+     * If no backup time stamp has been set, 
+     * <b>GetBackupStamp</b> returns S_FALSE.
+     * 
+     * If the call to <b>GetBackupStamp</b> is successful, the caller is responsible for freeing the string that  is returned in the <i>pbstrBackupStamp</i> parameter by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * The string returned refers to all files in the component and any nonselectable subcomponents it has.
+     * 
+     * The backup stamp retrieved by 
+     * <b>GetBackupStamp</b> is generally set by a writer by a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setbackupstamp">IVssComponent::SetBackupStamp</a> from within the <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> event handler, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>.
+     * 
+     * Requesters merely store the backup stamps in the Backup Components Document; they do not make direct use of the backup stamp, know how to generate it, or understand its format.
      * @param {Pointer<BSTR>} pbstrBackupStamp The address of a caller-allocated variable that receives a string containing the backup stamp indicating the time at which the component was backed up.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1929,12 +2199,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getbackupstamp
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupstamp
      */
     GetBackupStamp(pbstrBackupStamp) {
         result := ComCall(30, this, "ptr", pbstrBackupStamp, "HRESULT")
@@ -1943,6 +2213,22 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetPreviousBackupStamp method returns a previous backup stamp loaded by a requester in the Backup Components Document. The value is used by a writer when deciding if files should participate in differential or incremental backup operation.
+     * @remarks
+     * For more information about backup stamps, see <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-role-in-backing-up-complex-stores">Writer Role in Backing Up Complex Stores</a> and <a href="https://docs.microsoft.com/windows/desktop/VSS/requestor-role-in-backing-up-complex-stores">Requester Role in Backing Up Complex Stores</a>.
+     * 
+     * The caller should free the memory held by the <i>pbstrBackupStamp</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * If there is no previous backup time stamp, 
+     * <b>GetPreviousBackupStamp</b> returns S_FALSE.
+     * 
+     * The string returned refers to all files in the component and any nonselectable subcomponents it has.
+     * 
+     * The backup stamp retrieved by 
+     * <b>GetPreviousBackupStamp</b> is set by a requester using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setpreviousbackupstamp">IVssBackupComponents::SetPreviousBackupStamp</a>.
+     * 
+     * Typically, the string used to set the value found by 
+     * <b>GetPreviousBackupStamp</b> was retrieved from a stored Backup Components Document or was stored by the requester as part of its own internal records.
      * @param {Pointer<BSTR>} pbstrBackupStamp Pointer to a string containing the time stamp of a previous backup so that a differential or incremental backup can be correctly implemented.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -2003,12 +2289,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getpreviousbackupstamp
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpreviousbackupstamp
      */
     GetPreviousBackupStamp(pbstrBackupStamp) {
         result := ComCall(31, this, "ptr", pbstrBackupStamp, "HRESULT")
@@ -2017,6 +2303,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetBackupOptions method returns the backup options specified to the writer that manages the currently selected component or component set by a requester using IVssBackupComponents::SetBackupOptions.
+     * @remarks
+     * If no backup options have been set, S_FALSE is returned.
+     * 
+     * If the call to <b>GetBackupOptions</b> is successful, the caller is responsible for freeing the string that  is returned in the <i>pbstrBackupOptions</i> parameter by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @param {Pointer<BSTR>} pbstrBackupOptions The address of a caller-allocated variable that receives a string containing the backup options for the current writer.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -2077,12 +2367,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getbackupoptions
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupoptions
      */
     GetBackupOptions(pbstrBackupOptions) {
         result := ComCall(32, this, "ptr", pbstrBackupOptions, "HRESULT")
@@ -2091,6 +2381,10 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetRestoreOptions method gets the restore options specified to the current writer by a requester using IVssBackupComponents::SetRestoreOptions.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrRestoreOptions</i> parameter by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * If no restore options have been set, S_FALSE is returned.
      * @param {Pointer<BSTR>} pbstrRestoreOptions String containing the restore options of the writer.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -2151,12 +2445,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getrestoreoptions
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoreoptions
      */
     GetRestoreOptions(pbstrRestoreOptions) {
         result := ComCall(33, this, "ptr", pbstrRestoreOptions, "HRESULT")
@@ -2207,7 +2501,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount
      */
     GetRestoreSubcomponentCount(pcRestoreSubcomponent) {
         pcRestoreSubcomponentMarshal := pcRestoreSubcomponent is VarRef ? "uint*" : "ptr"
@@ -2218,6 +2512,8 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetRestoreSubcomponent method returns the specified subcomponent associated with a given component.
+     * @remarks
+     * The caller should free the memory held by the <i>pbstrLogicalPath</i> and <i>pbstrComponentName</i> parameters by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @param {Integer} iComponent Index of the subcomponent. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of subcomponents associated with a given component. The value of <i>n</i> is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount">IVssComponent::GetRestoreSubcomponentCount</a>.
@@ -2272,7 +2568,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -2288,7 +2584,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponent
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponent
      */
     GetRestoreSubcomponent(iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
         pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
@@ -2299,6 +2595,12 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetFileRestoreStatus method returns the status of a completed attempt to restore all the files of a selected component or component set as a VSS_FILE_RESTORE_STATUS enumeration.
+     * @remarks
+     * This method should be called only following a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event.
+     * 
+     * The status returned is undefined if this method is applied to a component that has not been selected for restore by being added to the Backup Components via 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addcomponent">IVssBackupComponents::AddComponent</a>.
      * @param {Pointer<Integer>} pStatus The address of a caller-allocated variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_file_restore_status">VSS_FILE_RESTORE_STATUS</a> enumeration value that specifies whether all files were successfully restored.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -2360,12 +2662,12 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus
      */
     GetFileRestoreStatus(pStatus) {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
@@ -2376,6 +2678,70 @@ class IVssComponent extends IUnknown{
 
     /**
      * Used by a writer to indicate that a file set (a specified file or files) should be evaluated against a last modification time stamp for inclusion in a time stamped incremental or differential backup using entire files.
+     * @remarks
+     * A writer calls this method to specify that certain files in a component should be backed up only if they have been modified since a certain time. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-role-in-backing-up-complex-stores">Backup By Last Modify Time</a>.
+     * 
+     * This method can be called only by writers supporting the last modified schema 
+     *     (<b>VSS_BS_LAST_MODIFY</b>), and only during backup operations. Writers using this method do 
+     *     not have to support the time-stamp schema (<b>VSS_BS_TIMESTAMPED</b>).
+     * 
+     * Files added by 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     should not also be added by 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-addpartialfile">IVssComponent::AddPartialFile</a>.
+     * 
+     * If the backup type (<a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a>) is incremental 
+     *     (<b>VSS_BT_INCREMENTAL</b>), writers using 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     must support the incremental schema (<b>VSS_BS_INCREMENTAL</b>). If the backup type is 
+     *     differential, the writer must support the <b>VSS_BS_DIFFERENTIAL</b> schema.
+     * 
+     * The 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     method should be called prior to the actual start of a backup operation, typically while handling the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> event (see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>).
+     * 
+     * If the time-stamp value set by 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     is nonzero, a requester must respect this value regardless of its own records and file system information when 
+     *     determining if the differenced file should be included in a differential or incremental backup.
+     * 
+     * If the time stamp set by 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     (<i>ftLastModifyTime</i>) is zero, the requester can use file system information and its own 
+     *     records to determine whether the differenced files should be included in a differential or incremental backup.
+     * 
+     * Requesters retrieve the number of differenced files managed by a component by calling 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile">IVssComponent::GetDifferencedFile</a>.
+     * 
+     * Differenced file sets can be either of the following:
+     * 
+     * <ul>
+     * <li>A member of the current component or (if the component defines a component set) its subcomponents</li>
+     * <li>New files not previously included in the component or subcomponents. The 
+     *       <b>AddDifferencedFilesByLastModifyTime</b> 
+     *       method allows writers to indicate that files created since the original backup should be included in the 
+     *       component to support incremental or differential backups.</li>
+     * </ul>
+     * When referring to files that are already part of the component, the combination of path, file specification, 
+     *     and recursion flag (<i>wszPath</i>, <i>wszFileSpec</i>, and 
+     *     <i>bRecursive</i>, respectively) provided to 
+     *     <b>AddDifferencedFilesByLastModifyTime</b> 
+     *     to be mapped must match that of one of the file sets added to a component by 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addfilestofilegroup">IVssCreateWriterMetadata::AddFilesToFileGroup</a>, 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabasefiles">IVssCreateWriterMetadata::AddDatabaseFiles</a>, or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles">IVssCreateWriterMetadata::AddDatabaseLogFiles</a>.
+     * 
+     * When adding new files to the component, 
+     *     <b>AddDifferencedFilesByLastModifyTime</b>, 
+     *     the writer should not add files managed by another component or writer.
+     * 
+     * There is no method in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> interface that allows for changing or adding 
+     *     an alternate location mappings for new files added by 
+     *     <b>AddDifferencedFilesByLastModifyTime</b>. 
+     *     If an alternate location mapping corresponds to the new file, then that alternate location will be used.
      * @param {PWSTR} wszPath Null-terminated wide character string containing the name of the directory or directory hierarchy 
      *       containing the files to be mapped.
      *       
@@ -2450,8 +2816,8 @@ class IVssComponent extends IUnknown{
      * <td width="60%">
      * This method was not called by a writer or, if called by a writer, it either was not called during a 
      *         backup operation or was called while handling a 
-     *         <a href="/windows/desktop/VSS/vssgloss-b">BackupComplete</a> or 
-     *         <a href="/windows/desktop/VSS/vssgloss-b">BackupShutdown</a> event.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-b">BackupComplete</a> or 
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-b">BackupShutdown</a> event.
      * 
      * </td>
      * </tr>
@@ -2464,7 +2830,7 @@ class IVssComponent extends IUnknown{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more 
      *         information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -2476,14 +2842,14 @@ class IVssComponent extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime
      */
     AddDifferencedFilesByLastModifyTime(wszPath, wszFilespec, bRecursive, ftLastModifyTime) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
@@ -2494,13 +2860,13 @@ class IVssComponent extends IUnknown{
     }
 
     /**
-     * Not supported.
+     * Not supported. (IVssComponent.AddDifferencedFilesByLastModifyLSN)
      * @param {PWSTR} wszPath This parameter is reserved for system use.
      * @param {PWSTR} wszFilespec This parameter is reserved for system use.
      * @param {BOOL} bRecursive This parameter is reserved for system use.
      * @param {BSTR} bstrLsnString This parameter is reserved for system use.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifylsn
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifylsn
      */
     AddDifferencedFilesByLastModifyLSN(wszPath, wszFilespec, bRecursive, bstrLsnString) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
@@ -2555,7 +2921,7 @@ class IVssComponent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getdifferencedfilescount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfilescount
      */
     GetDifferencedFilesCount(pcDifferencedFiles) {
         pcDifferencedFilesMarshal := pcDifferencedFiles is VarRef ? "uint*" : "ptr"
@@ -2565,7 +2931,74 @@ class IVssComponent extends IUnknown{
     }
 
     /**
-     * The GetDifferencedFile method returns information about a file set (a specified file or files) to participate in an incremental or differential backup or restore as a differenced file�that is, backup and restores associated with it are to be implemented as if entire files are copied to and from backup media (as opposed to using partial files).
+     * The GetDifferencedFile method returns information about a file set (a specified file or files) to participate in an incremental or differential backup or restore as a differenced file that is, backup and restores associated with it are to be implemented as if entire files are copied to and from backup media (as opposed to using partial files).
+     * @remarks
+     * <b>GetDifferencedFile</b> can be called by 
+     *     a requester or a writer during backup or restore operations.
+     * 
+     * If the call to <b>GetDifferencedFile</b> is successful, the caller is responsible for freeing the string that  is returned in the <i>pbstrPath</i> and  <i>pbstrFilespec</i> parameters by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * As writers can indicate differenced files with calls to 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime">IVssComponent::AddDifferencedFilesByLastModifyTime</a> 
+     *     at any time prior to the actual backing up of files, typically while handling a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> event 
+     *     (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>), during backups 
+     *     <b>GetDifferencedFile</b> is not usefully 
+     *     called prior to the return of 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-dosnapshotset">IVssBackupComponents::DoSnapshotSet</a> 
+     *     has successfully returned.
+     * 
+     * The time stamp returned by 
+     *     <b>GetDifferencedFile</b> applies to all files 
+     *     that match the returned path (<i>pbstrPath</i>) and file specification 
+     *     (<i>pbstrFilespec</i>).
+     * 
+     * If the time-stamp value returned by 
+     *     <b>GetDifferencedFile</b> 
+     *     (<i>pftLastModifyTime</i>) is nonzero, a requester must respect this value regardless of its 
+     *     own records and file system information and use it to determine whether the differenced file should be included in a 
+     *     differential or incremental backup.
+     * 
+     * If the time stamp returned by 
+     *     <b>GetDifferencedFile</b> is zero, the 
+     *     requester can use file system information and its own records to determine whether the differenced files should be 
+     *     included in a differential or incremental backup.
+     * 
+     * Differenced files can be either of the following:
+     * 
+     * <ul>
+     * <li>Members of the current component or, if the component defines a component set, members of its subcomponents 
+     *       that were added to the component using 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addfilestofilegroup">IVssCreateWriterMetadata::AddFilesToFileGroup</a>, 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabasefiles">IVssCreateWriterMetadata::AddDatabaseFiles</a>, or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles">IVssCreateWriterMetadata::AddDatabaseLogFiles</a>
+     * </li>
+     * <li>New files added to the component by 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime">IVssComponent::AddDifferencedFilesByLastModifyTime</a>
+     * </li>
+     * </ul>
+     * When referring to a file set that is already part of the component, the combination of path, file 
+     *     specification, and recursion flag (<i>wszPath</i>, <i>wszFileSpec</i>, and 
+     *     <i>bRecursive</i>, respectively) used when calling 
+     *     <b>GetDifferencedFile</b> should match that of 
+     *     a file set already in the component, or one of its subcomponents (if the component defines a component set).
+     * 
+     * When <b>GetDifferencedFile</b> returns a 
+     *     differenced new file, that file's path (<i>pbstrPath</i>) should match or be beneath a path 
+     *     already in the component, or one of its subcomponents (if the component defines a component set).
+     * 
+     * In addition, the files returned by 
+     *     <b>GetDifferencedFile</b> should not already 
+     *     be managed by component or writer.
+     * 
+     * If any of these criteria are violated, they constitute an error on the part of the writer and should be 
+     *     reported.
+     * 
+     * There is no method in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> interface that allows for changing or adding 
+     *     an alternate location mapping for new files returned by 
+     *     <b>GetDifferencedFilesByLastModifyTime</b>. If an alternate location mapping corresponds 
+     *     to the new file, then that alternate location will be used.
      * @param {Integer} iDifferencedFile Index number of the differenced file to be examined. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of differenced files 
      *       associated with a given component (and its subcomponents if it defines a component set). The value of 
@@ -2645,12 +3078,12 @@ class IVssComponent extends IUnknown{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more 
      *         information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponent-getdifferencedfile
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile
      */
     GetDifferencedFile(iDifferencedFile, pbstrPath, pbstrFilespec, pbRecursive, pbstrLsnString, pftLastModifyTime) {
         pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods for posting a cancel window message to the process thread from the Progress Dialog.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iiocancelinformation
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iiocancelinformation
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IIOCancelInformation extends IUnknown{
 
     /**
      * Sets information that is posted when a user selects Cancel from the progress UI.
+     * @remarks
+     * When the user selects <b>Cancel</b> from the progress UI, the <i>dwThreadID</i> will cancel any pending or future input/output (I/O) requests.  Also the <i>uMsgCancel</i> message, received from the progress dialog, will be posted to the thread to tell it to exit a wait state, if asynchronous I/O is pending.
      * @param {Integer} dwThreadID Type: <b>DWORD</b>
      * 
      * The ID of the process thread to be canceled.
@@ -40,8 +42,8 @@ class IIOCancelInformation extends IUnknown{
      * The cancel message to be posted to the thread.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iiocancelinformation-setcancelinformation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-setcancelinformation
      */
     SetCancelInformation(dwThreadID, uMsgCancel) {
         result := ComCall(3, this, "uint", dwThreadID, "uint", uMsgCancel, "HRESULT")
@@ -58,8 +60,8 @@ class IIOCancelInformation extends IUnknown{
      * When this method returns, contains a pointer to <i>uMsgCancel</i> that the process thread should post if the operation is canceled.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
      */
     GetCancelInformation(pdwThreadID, puMsgCancel) {
         pdwThreadIDMarshal := pdwThreadID is VarRef ? "uint*" : "ptr"

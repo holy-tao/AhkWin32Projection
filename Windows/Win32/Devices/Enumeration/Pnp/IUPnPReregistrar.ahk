@@ -6,7 +6,7 @@
 
 /**
  * The IUPnPReregistrar interface allows the application to re-register a UPnP-based device with the device host.
- * @see https://docs.microsoft.com/windows/win32/api//upnphost/nn-upnphost-iupnpreregistrar
+ * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpreregistrar
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -33,6 +33,20 @@ class IUPnPReregistrar extends IUnknown{
 
     /**
      * The ReregisterDevice method re-registers a device with the device host. The device information is stored by the device host. Then, the device host returns a device identifier and publishes and announces the device on the network.
+     * @remarks
+     * Use the identifier returned in <i>pbstrDeviceIdentifier</i> when invoking 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-unregisterdevice">IUPnPRegistrar::UnregisterDevice</a>.
+     * 
+     * 
+     * Common errors that can occur when invoking this function include:
+     * 
+     * <ul>
+     * <li>The necessary COM object was not found.</li>
+     * <li>There is no access to the COM object for <a href="https://docs.microsoft.com/windows/desktop/Services/localservice-account">LocalService</a>.</li>
+     * <li>Subordinate COM interfaces.</li>
+     * <li>The XML description limits (see 
+     * <a href="https://docs.microsoft.com/windows/desktop/UPnP/creating-a-device-description">Creating a Device Description</a>).</li>
+     * </ul>
      * @param {BSTR} bstrDeviceIdentifier Specifies the device identifier of the device. Use the identifier returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerdevice">IUPnPRegistrar::RegisterDevice</a>.
      * @param {BSTR} bstrXMLDesc Specifies the XML device description template of the device to register.
@@ -57,7 +71,7 @@ class IUPnPReregistrar extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The device has not been registered. Use <a href="/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">RegisterRunningDevice</a> to register an unregistered device.
+     * The device has not been registered. Use <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">RegisterRunningDevice</a> to register an unregistered device.
      * 
      * </td>
      * </tr>
@@ -68,7 +82,7 @@ class IUPnPReregistrar extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The device is currently running. Use <a href="/windows/desktop/api/upnphost/nf-upnphost-iupnpreregistrar-reregisterrunningdevice">ReregisterRunningDevice</a> to reregister a device while it is running.
+     * The device is currently running. Use <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpreregistrar-reregisterrunningdevice">ReregisterRunningDevice</a> to reregister a device while it is running.
      * 
      * </td>
      * </tr>
@@ -139,7 +153,7 @@ class IUPnPReregistrar extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpreregistrar-reregisterdevice
+     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpreregistrar-reregisterdevice
      */
     ReregisterDevice(bstrDeviceIdentifier, bstrXMLDesc, bstrProgIDDeviceControlClass, bstrInitString, bstrContainerId, bstrResourcePath, nLifeTime) {
         bstrDeviceIdentifier := bstrDeviceIdentifier is String ? BSTR.Alloc(bstrDeviceIdentifier).Value : bstrDeviceIdentifier
@@ -155,6 +169,24 @@ class IUPnPReregistrar extends IUnknown{
 
     /**
      * The ReregisterRunningDevice method re-registers a running device with the device host.
+     * @remarks
+     * The client that invokes this method must be able to impersonate <a href="https://docs.microsoft.com/windows/desktop/Services/localservice-account">LocalService</a> to be able to complete the processing of this method.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpdevicecontrol-initialize">IUPnPDeviceControl::Initialize</a> method is invoked when the first control or event request is received.
+     * 
+     * The registration of this device does not persist across system boots.
+     * 
+     * 
+     * Common errors that can occur when invoking this function include:
+     * 
+     * <ul>
+     * <li>The necessary COM object was not found.</li>
+     * <li>There is no access to the COM object for <a href="https://docs.microsoft.com/windows/desktop/Services/localservice-account">LocalService</a>.</li>
+     * <li>Subordinate COM interfaces.</li>
+     * <li>The XML description limits (see 
+     * <a href="https://docs.microsoft.com/windows/desktop/UPnP/creating-a-device-description">Creating a Device Description</a>).</li>
+     * </ul>
      * @param {BSTR} bstrDeviceIdentifier Specifies the device identifier of the device. This must be the same identifier returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">IUPnPRegistrar::RegisterRunningDevice</a> in the <i>pbstrDeviceIdentifier</i> parameter.
      * @param {BSTR} bstrXMLDesc Specifies the XML device description template of the device to register.
@@ -177,7 +209,7 @@ class IUPnPReregistrar extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The device has not been registered. Use <a href="/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">RegisterRunningDevice</a> to register an unregistered device.
+     * The device has not been registered. Use <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">RegisterRunningDevice</a> to register an unregistered device.
      * 
      * </td>
      * </tr>
@@ -248,7 +280,7 @@ class IUPnPReregistrar extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpreregistrar-reregisterrunningdevice
+     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpreregistrar-reregisterrunningdevice
      */
     ReregisterRunningDevice(bstrDeviceIdentifier, bstrXMLDesc, punkDeviceControl, bstrInitString, bstrResourcePath, nLifeTime) {
         bstrDeviceIdentifier := bstrDeviceIdentifier is String ? BSTR.Alloc(bstrDeviceIdentifier).Value : bstrDeviceIdentifier

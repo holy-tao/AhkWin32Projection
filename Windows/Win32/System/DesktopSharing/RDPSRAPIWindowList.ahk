@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * An enumerator interface for the window collection.
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

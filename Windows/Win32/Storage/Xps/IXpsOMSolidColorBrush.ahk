@@ -8,7 +8,6 @@
 /**
  * A single-color brush.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -52,9 +51,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -85,7 +82,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * @returns {IXpsOMColorProfileResource} The color profile of the brush. 
      * 
      * If no color profile has been specified for the brush, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-getcolor
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-getcolor
      */
     GetColor(color) {
         result := ComCall(7, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
@@ -100,7 +97,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * @param {IXpsOMColorProfileResource} colorProfile The color profile to be used with <i>color</i>.
      * 
      * A color profile is required when the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed  in the <i>color</i> parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>. If the value of the <b>colorType</b> field is not <b>XPS_COLOR_TYPE_CONTEXT</b>, this parameter must be set to <b>NULL</b>.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -136,7 +133,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>colorProfile</i> is <b>NULL</b> when a color profile is expected. A color profile is required when the color type is <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
+     * <i>colorProfile</i> is <b>NULL</b> when a color profile is expected. A color profile is required when the color type is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
      * 
      * </td>
      * </tr>
@@ -147,7 +144,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>colorProfile</i> has a color profile when none is expected. A color profile is only allowed when the color type is <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
+     * <i>colorProfile</i> has a color profile when none is expected. A color profile is only allowed when the color type is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
      * 
      * </td>
      * </tr>
@@ -163,7 +160,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-setcolor
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-setcolor
      */
     SetColor(color, colorProfile) {
         result := ComCall(8, this, "ptr", color, "ptr", colorProfile, "HRESULT")
@@ -171,9 +168,11 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMSolidColorBrush.Clone)
+     * @remarks
+     * This method does not update any of the resource pointers in the copy.
      * @returns {IXpsOMSolidColorBrush} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-clone
      */
     Clone() {
         result := ComCall(9, this, "ptr*", &solidColorBrush := 0, "HRESULT")

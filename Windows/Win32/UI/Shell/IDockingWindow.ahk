@@ -6,7 +6,6 @@
 /**
  * Exposes methods that notify the docking window object of changes, including showing, hiding, and impending removal. This interface is implemented by window objects that can be docked within the border space of a Windows Explorer window.
  * @remarks
- * 
  * <b>IDockingWindow</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>. See the following topics for details on these methods also available to <b>IDockingWindow</b> through that inheritance.
  * 
  * 
@@ -33,8 +32,7 @@
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * You do not usually use the <b>IDockingWindow</b> interface directly. The Shell browser uses this interface to support docked windows inside the browser frame.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idockingwindow
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idockingwindow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -66,8 +64,8 @@ class IDockingWindow extends IOleWindow{
      * <b>TRUE</b> if the docking window object should show its window. <b>FALSE</b> if the docking window object should hide its window and return its border space by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw">SetBorderSpaceDW</a> with zero values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-showdw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-showdw
      */
     ShowDW(fShow) {
         result := ComCall(5, this, "int", fShow, "HRESULT")
@@ -81,8 +79,8 @@ class IDockingWindow extends IOleWindow{
      * Reserved. This parameter should always be zero.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-closedw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-closedw
      */
     CloseDW(dwReserved) {
         result := ComCall(6, this, "uint", dwReserved, "HRESULT")
@@ -91,6 +89,21 @@ class IDockingWindow extends IOleWindow{
 
     /**
      * Notifies the docking window object that the frame's border space has changed. In response to this method, the IDockingWindow implementation must call SetBorderSpaceDW, even if no border space is required or a change is not necessary.
+     * @remarks
+     * The <i>prcBorder</i> parameter contains the frame's entire available border space. The docking window object should negotiate its border space and then use this information to position itself.
+     * 
+     * For example, if the docking window object requires 25 pixels at the top of the border space, it should negotiate for this through the following steps:
+     * 
+     *                 
+     * 
+     * <ol>
+     * <li>Allocate a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc136564(v=vs.85)">BORDERWIDTHS</a> structure and set its <b>top</b> member to 25.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw">RequestBorderSpaceDW</a> to request the space.</li>
+     * <li>If the request is approved by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw">RequestBorderSpaceDW</a>, call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw">SetBorderSpaceDW</a> to allocate the space.</li>
+     * </ol>
+     *  
+     *                 
+     *                 The docking window object can then position its window at prcBorder-&gt;left and prcBorder-&gt;top. The width of the docking window object's window is determined by subtracting prcBorder-&gt;left from prcBorder-&gt;right. Its height is contained in the <b>top</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc136564(v=vs.85)">BORDERWIDTHS</a> structure.
      * @param {Pointer<RECT>} prcBorder Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the frame's available border space.
@@ -102,8 +115,8 @@ class IDockingWindow extends IOleWindow{
      * Reserved. This parameter should always be zero.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw
      */
     ResizeBorderDW(prcBorder, punkToolbarSite, fReserved) {
         result := ComCall(7, this, "ptr", prcBorder, "ptr", punkToolbarSite, "int", fReserved, "HRESULT")

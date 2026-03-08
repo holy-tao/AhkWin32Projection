@@ -8,6 +8,8 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
+ * Supports collection of XML elements for indexed access.
+ * @see https://learn.microsoft.com/windows/win32/api/msxml/nn-msxml-ixmlelementcollection
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

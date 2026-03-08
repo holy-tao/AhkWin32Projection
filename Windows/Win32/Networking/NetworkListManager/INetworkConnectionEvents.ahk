@@ -5,7 +5,7 @@
 
 /**
  * The INetworkConnectionEvents interface is a message sink interface that a client implements to get network connection-related events. Applications that are interested in lower-level events (such as authentication changes) must implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nn-netlistmgr-inetworkconnectionevents
+ * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnectionevents
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class INetworkConnectionEvents extends IUnknown{
      * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
      * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that specifies the new connectivity for this network connection.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionconnectivitychanged
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionconnectivitychanged
      */
     NetworkConnectionConnectivityChanged(connectionId, newConnectivity) {
         result := ComCall(3, this, "ptr", connectionId, "int", newConnectivity, "HRESULT")
@@ -47,7 +47,7 @@ class INetworkConnectionEvents extends IUnknown{
      * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
      * @param {Integer} flags The <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_property_change">NLM_CONNECTION_PROPERTY_CHANGE</a> flags for this connection.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionpropertychanged
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionpropertychanged
      */
     NetworkConnectionPropertyChanged(connectionId, flags) {
         result := ComCall(4, this, "ptr", connectionId, "int", flags, "HRESULT")

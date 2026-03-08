@@ -55,9 +55,56 @@ class IHTMLUserDataOM extends IDispatch{
     }
 
     /**
-     * 
+     * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
+     * @remarks
+     * The *filename* variable is required if the device was opened using the "new" device identifier.
      * @param {BSTR} strName 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilename"></span><span id="lpszfilename"></span><span id="LPSZFILENAME"></span>*lpszFilename*
+     * 
+     * Flag specifying the name of the file being saved and, optionally, additional flags modifying the save operation. The following table lists device types that recognize the **save** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning              | Meaning               |
+     * |--------------|----------------------|-----------------------|
+     * | digitalvideo | abort at *rectangle* | *filename*keepreserve |
+     * | overlay      | at *rectangle*       | *filename*            |
+     * | sequencer    | *filename*           |                       |
+     * | waveaudio    | *filename*           |                       |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszFilename** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value          | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+     * |----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | abort          | Stops a **save** operation in progress. If used, this must be the only item present.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * | at *rectangle* | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.For digital-video devices, the [capture](capture.md) command is used to capture the contents of the frame buffer.<br/>                                                                                                                                               |
+     * | *filename*     | Specifies the filename to assign to the data file. If a path is not specified, the file will be placed on the disk and in the directory previously specified on the explicit or implicit [reserve](reserve.md) command. If **reserve** has not been issued, the default drive and directory are those associated with the application's task. If a path is specified, the device might require it to be on the disk drive specified by the explicit or implicit **reserve**. This flag is required. |
+     * | keepreserve    | Specifies that unused disk space left over from the original **reserve** command is not deallocated.                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/save
      */
     save(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -67,9 +114,28 @@ class IHTMLUserDataOM extends IDispatch{
     }
 
     /**
-     * 
+     * The load command loads a file in a device-specific format. Digital-video and video-overlay devices recognize this command.
+     * @remarks
+     * The "vidboard" device sends a notification message when the loading is completed.
      * @param {BSTR} strName 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilePos"></span><span id="lpszfilepos"></span><span id="LPSZFILEPOS"></span>*lpszFilePos*
+     * 
+     * Path and filename to load. For video-overlay devices, this can also include a target rectangle for the data. To specify a target rectangle, specify "at" followed by **X1 Y1 X2 Y2**, where **X1 Y1** specify the upper left corner of the rectangle, and **X2 Y2** specify the width and height. The rectangle is relative to the video buffer origin.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/load
      */
     load(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName

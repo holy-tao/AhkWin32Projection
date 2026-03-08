@@ -5,7 +5,7 @@
 
 /**
  * The IWMDRMReader3 interface enables content transcription by providing a method to get protection systems approved by a license.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmdrmreader3
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMDRMReader3 extends IWMDRMReader2{
 
     /**
      * The GetInclusionList method retrieves a list of identifiers specifying approved protection systems.
+     * @remarks
+     * The license issuer can specify other protection systems to which the encrypted content may be converted. The list of GUIDs retrieved by this method identifies the allowed protection systems. When you enter into a license agreement with Microsoft to get the stub library, you will receive a list of currently supported protection systems and the GUIDs used to identify them.
      * @param {Pointer<Pointer<Guid>>} ppGuids Address of a variable that receives a pointer to an array of identifiers. The array is allocated by using <b>CoTaskMemAlloc</b>. When finished with the list, release the memory by calling <b>CoTaskMemFree</b>.
      * @param {Pointer<Integer>} pcGuids Number of elements in the array received by the <i>ppGuids</i> parameter.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -53,7 +55,7 @@ class IWMDRMReader3 extends IWMDRMReader2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
      */
     GetInclusionList(ppGuids, pcGuids) {
         ppGuidsMarshal := ppGuids is VarRef ? "ptr*" : "ptr"

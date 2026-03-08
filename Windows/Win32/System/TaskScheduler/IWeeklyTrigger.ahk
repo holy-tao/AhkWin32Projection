@@ -7,13 +7,10 @@
 /**
  * Represents a trigger that starts a task based on a weekly schedule.
  * @remarks
- * 
  * The time of day that the task is started is set by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary">StartBoundary</a> property.
  * 
  * When reading or writing your own XML for a task, a weekly trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebyweek-calendartriggertype-element">ScheduleByWeek</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iweeklytrigger
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iweeklytrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -60,9 +57,8 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the days of the week in which the task runs.
+     * Gets or sets the days of the week in which the task runs. (Get)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -110,11 +106,9 @@ class IWeeklyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the days of the week are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofweek-weeklyscheduletype-element">DaysOfWeek</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-get_daysofweek
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
         pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
@@ -124,9 +118,8 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the days of the week in which the task runs.
+     * Gets or sets the days of the week in which the task runs. (Put)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -174,11 +167,9 @@ class IWeeklyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the days of the week are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofweek-weeklyscheduletype-element">DaysOfWeek</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} days 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-put_daysofweek
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-put_daysofweek
      */
     put_DaysOfWeek(days) {
         result := ComCall(21, this, "short", days, "HRESULT")
@@ -186,17 +177,14 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the interval between the weeks in the schedule.
+     * Gets or sets the interval between the weeks in the schedule. (Get)
      * @remarks
-     * 
      * An interval of 1 produces a weekly schedule. An interval of 2 produces an every-other week schedule.
      * 
      * When reading or writing your own XML for a task, the interval for a weekly schedule is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-weeksinterval-weeklyscheduletype-element">WeeksInterval</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pWeeks 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-get_weeksinterval
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_weeksinterval
      */
     get_WeeksInterval(pWeeks) {
         pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
@@ -206,17 +194,14 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the interval between the weeks in the schedule.
+     * Gets or sets the interval between the weeks in the schedule. (Put)
      * @remarks
-     * 
      * An interval of 1 produces a weekly schedule. An interval of 2 produces an every-other week schedule.
      * 
      * When reading or writing your own XML for a task, the interval for a weekly schedule is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-weeksinterval-weeklyscheduletype-element">WeeksInterval</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} weeks 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-put_weeksinterval
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-put_weeksinterval
      */
     put_WeeksInterval(weeks) {
         result := ComCall(23, this, "short", weeks, "HRESULT")
@@ -224,10 +209,10 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IWeeklyTrigger.get_RandomDelay)
      * @param {Pointer<BSTR>} pRandomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-get_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_randomdelay
      */
     get_RandomDelay(pRandomDelay) {
         result := ComCall(24, this, "ptr", pRandomDelay, "HRESULT")
@@ -235,10 +220,10 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IWeeklyTrigger.put_RandomDelay)
      * @param {BSTR} randomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iweeklytrigger-put_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-put_randomdelay
      */
     put_RandomDelay(randomDelay) {
         randomDelay := randomDelay is String ? BSTR.Alloc(randomDelay).Value : randomDelay

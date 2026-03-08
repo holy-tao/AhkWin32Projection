@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that define an input connect.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectinputconnector
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector{
      * A pointer to the connector to connect the input to.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinputconnector-connectto
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinputconnector-connectto
      */
     ConnectTo(pConnector) {
         result := ComCall(9, this, "ptr", pConnector, "HRESULT")
@@ -51,7 +51,7 @@ class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector{
      * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
      * 
      * A pointer that receives a pointer to the associated output connector.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinputconnector-getconnection
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinputconnector-getconnection
      */
     GetConnection() {
         result := ComCall(10, this, "ptr*", &ppConnector := 0, "HRESULT")

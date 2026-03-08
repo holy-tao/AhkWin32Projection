@@ -7,11 +7,8 @@
 /**
  * A collection of IOpcPartUri interface pointers.
  * @remarks
- * 
  * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomparturicollection
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomparturicollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -38,8 +35,10 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Gets the number of IOpcPartUri interface pointers in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @returns {Integer} The number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointers in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -48,9 +47,11 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Gets an IOpcPartUri interface pointer from a specified location in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer to be obtained.
      * @returns {IOpcPartUri} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer at the location specified by <i>index</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-getat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &partUri := 0, "HRESULT")
@@ -59,10 +60,14 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Inserts an IOpcPartUri interface pointer at a specified location in the collection.
+     * @remarks
+     * At the location specified by <i>index</i>, this method inserts the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer that is passed in <i>partUri</i>.  Prior to the insertion, the pointer in this and all subsequent locations  is moved up by one index.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the collection where the interface pointer that is passed in <i>partUri</i> is to be inserted.
      * @param {IOpcPartUri} partUri The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer that is to be inserted at the location specified by <i>index</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-insertat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-insertat
      */
     InsertAt(index, partUri) {
         result := ComCall(5, this, "uint", index, "ptr", partUri, "HRESULT")
@@ -71,9 +76,13 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Removes and releases an IOpcPartUri interface pointer from a specified location in the collection.
+     * @remarks
+     * This method releases the interface  referenced by the pointer at  the location specified by <i>index</i>. After releasing the interface, this method compacts the collection by   reducing by 1 the index of each pointer subsequent to <i>index</i>.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer is to be removed and released.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-removeat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(6, this, "uint", index, "HRESULT")
@@ -82,10 +91,14 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Replaces an IOpcPartUri interface pointer at a specified location in the collection.
+     * @remarks
+     * At the location specified by <i>index</i>, this method releases the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface referenced by the existing pointer, then writes the pointer that is passed in <i>partUri</i>.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the collection where an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer is to be replaced.
      * @param {IOpcPartUri} partUri The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-setat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-setat
      */
     SetAt(index, partUri) {
         result := ComCall(7, this, "uint", index, "ptr", partUri, "HRESULT")
@@ -94,9 +107,11 @@ class IXpsOMPartUriCollection extends IUnknown{
 
     /**
      * Appends an IOpcPartUri interface to the end of the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {IOpcPartUri} partUri A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that is to be appended to the collection.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-append
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-append
      */
     Append(partUri) {
         result := ComCall(8, this, "ptr", partUri, "HRESULT")

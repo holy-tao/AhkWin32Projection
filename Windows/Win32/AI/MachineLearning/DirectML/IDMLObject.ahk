@@ -5,7 +5,7 @@
 
 /**
  * An interface from which IDMLDevice and IDMLDeviceChild inherit directly (and all other interfaces, indirectly).
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmlobject
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlobject
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDMLObject extends IUnknown{
 
     /**
      * Gets application-defined data from a DirectML device object.
+     * @remarks
+     * If the data returned is a pointer to an [IUnknown](/windows/win32/api/unknwn/nn-unknwn-iunknown) (or derived interface) that was previously set by [SetPrivateDataInterface](/windows/win32/api/directml/nf-directml-idmlobject-setprivatedatainterface), then that interface will have its reference count incremented before the private data is returned.
      * @param {Pointer<Guid>} guid Type: **[REFGUID](/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50)**
      * 
      * The <b>GUID</b> that is associated with the data.
@@ -44,7 +46,7 @@ class IDMLObject extends IUnknown{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlobject-getprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-getprivatedata
      */
     GetPrivateData(guid, dataSize, data) {
         dataSizeMarshal := dataSize is VarRef ? "uint*" : "ptr"
@@ -67,7 +69,7 @@ class IDMLObject extends IUnknown{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlobject-setprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-setprivatedata
      */
     SetPrivateData(guid, dataSize, data) {
         result := ComCall(4, this, "ptr", guid, "uint", dataSize, "ptr", data, "HRESULT")
@@ -85,7 +87,7 @@ class IDMLObject extends IUnknown{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlobject-setprivatedatainterface
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, data) {
         result := ComCall(5, this, "ptr", guid, "ptr", data, "HRESULT")
@@ -100,7 +102,7 @@ class IDMLObject extends IUnknown{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlobject-setname
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-setname
      */
     SetName(name) {
         name := name is String ? StrPtr(name) : name

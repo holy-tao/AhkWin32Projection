@@ -7,7 +7,7 @@
 
 /**
  * The IADsLocality interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadslocality
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadslocality
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

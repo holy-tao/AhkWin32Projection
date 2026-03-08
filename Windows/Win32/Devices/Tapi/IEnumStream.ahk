@@ -7,7 +7,7 @@
 
 /**
  * The IEnumStream interface provides COM-standard enumeration methods for the ITStream interface. The ITStreamControl::EnumerateStreams and ITParticipant::EnumerateStreams methods return a pointer to IEnumStream.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ienumstream
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumstream
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IEnumStream extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The Next method gets the next specified number of elements in the enumeration sequence. (IEnumStream.Next)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface returned by <b>IEnumStream::Next</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITStream</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {ITStream} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> pointers returned.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumstream-next
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumstream-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +52,7 @@ class IEnumStream extends IUnknown{
     }
 
     /**
-     * The Reset method resets to the beginning of the enumeration sequence.
+     * The Reset method resets to the beginning of the enumeration sequence. (IEnumStream.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -79,7 +83,7 @@ class IEnumStream extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumstream-reset
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumstream-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -87,7 +91,7 @@ class IEnumStream extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. (IEnumStream.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -130,7 +134,7 @@ class IEnumStream extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumstream-skip
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumstream-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -138,10 +142,14 @@ class IEnumStream extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. (IEnumStream.Clone)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumstream">IEnumStream</a> interface returned by <b>IEnumStream::Clone</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumStream</b> interface to free resources associated with it.
      * @returns {IEnumStream} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumstream">IEnumStream</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumstream-clone
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumstream-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -7,11 +7,8 @@
 /**
  * Monitors the panel associated with a display, so that the app receives notifications when the relative location of the panel changes.
  * @remarks
- * 
  * Get an instance of this interface by calling [MFCreateRelativePanelWatcher](nf-mfidl-mfcreaterelativepanelwatcher.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfrelativepanelwatcher
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrelativepanelwatcher
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,10 +34,14 @@ class IMFRelativePanelWatcher extends IMFShutdown{
     static VTableNames => ["BeginGetReport", "EndGetReport", "GetReport"]
 
     /**
+     * Begins an asynchronous request to get an IMFRelativePanelReport interface that represents the relative panel location.
+     * @param {IMFAsyncCallback} pCallback Pointer to the [IMFAsyncCallback](/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback) interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} pState Pointer to the IUnknown interface of a state object, defined by the caller. This parameter can be NULL. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} The function returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} pState 
-     * @returns {HRESULT} 
+     * | Return code | Description |
+     * |--------------|------------------------|
+     * |S_OK | The function succeeded.|
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-begingetreport
      */
     BeginGetReport(pCallback, pState) {
@@ -49,9 +50,9 @@ class IMFRelativePanelWatcher extends IMFShutdown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {IMFRelativePanelReport} 
+     * Ends an asynchronous request to get an IMFRelativePanelReport interface that represents the relative panel location.
+     * @param {IMFAsyncResult} pResult Pointer to the [IMFAsyncResult](/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult) interface. Pass in the same pointer that your callback object received in the Invoke method.
+     * @returns {IMFRelativePanelReport} A pointer to he [IMFRelativePanelReport](nn-mfidl-imfrelativepanelreport.md) interface that represents the relative panel location.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-endgetreport
      */
     EndGetReport(pResult) {
@@ -60,8 +61,8 @@ class IMFRelativePanelWatcher extends IMFShutdown{
     }
 
     /**
-     * 
-     * @returns {IMFRelativePanelReport} 
+     * Gets an IMFRelativePanelReport interface that represents the relative panel location.
+     * @returns {IMFRelativePanelReport} A pointer to he [IMFRelativePanelReport](nn-mfidl-imfrelativepanelreport.md) interface that represents the relative panel location.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-getreport
      */
     GetReport() {

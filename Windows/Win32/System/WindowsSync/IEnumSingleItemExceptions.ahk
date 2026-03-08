@@ -7,7 +7,7 @@
 
 /**
  * Enumerates single-item exceptions that are stored in a knowledge object.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumsingleitemexceptions
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumsingleitemexceptions
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IEnumSingleItemExceptions extends IUnknown{
      * @param {Integer} cExceptions The number of single-item exceptions to retrieve in the range from zero to 1000.
      * @param {Pointer<Integer>} pcFetched Returns the number of single-item exceptions returned. This value can be <b>NULL</b> only if <i>cExceptions</i> is 1.
      * @returns {ISingleItemException} Returns the next <i>pcFetched</i> single-item exceptions.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-next
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-next
      */
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -87,7 +87,7 @@ class IEnumSingleItemExceptions extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-skip
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-skip
      */
     Skip(cExceptions) {
         result := ComCall(4, this, "uint", cExceptions, "HRESULT")
@@ -115,7 +115,7 @@ class IEnumSingleItemExceptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-reset
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -123,9 +123,9 @@ class IEnumSingleItemExceptions extends IUnknown{
     }
 
     /**
-     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one. (IEnumSingleItemExceptions.Clone)
      * @returns {IEnumSingleItemExceptions} Returns the newly cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-clone
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

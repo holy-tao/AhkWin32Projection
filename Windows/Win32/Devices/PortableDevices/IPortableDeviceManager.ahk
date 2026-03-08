@@ -5,7 +5,7 @@
 
 /**
  * Enumerates devices that are connected to the computer and provides a simple way to request installation information, including manufacturer, friendly name, and description.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicemanager
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicemanager
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -38,6 +38,10 @@ class IPortableDeviceManager extends IUnknown{
 
     /**
      * Retrieves a list of portable devices connected to the computer.
+     * @remarks
+     * The list of devices is generated when the device manager is instantiated; it does not refresh as devices connect and disconnect. To refresh the list of connected devices, call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist">RefreshDeviceList</a>.
+     * 
+     * The API allocates the memory for each string pointed to by the <i>pPnPDeviceIDs</i> array. Once your application no longer needs these strings, it must iterate through this array and free the associated memory by calling the <b>CoTaskMemFree</b> function.
      * @param {Pointer<PWSTR>} pPnPDeviceIDs A caller-allocated array of string pointers that holds the Plug and Play names of all of the connected devices. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcPnPDeviceIDs</i> set to zero, and then allocate a buffer according to the value retrieved by <i>pcPnPDeviceIDs</i>. These names can be used by <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-open">IPortableDevice::Open</a> to create a connection to a device.
      * @param {Pointer<Integer>} pcPnPDeviceIDs On input, the number of values that <i>pPnPDeviceIDs</i> can hold. On output, a pointer to the number of devices actually written to <i>pPnPDeviceIDs</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -81,7 +85,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
      */
     GetDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
         pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
@@ -93,6 +97,10 @@ class IPortableDeviceManager extends IUnknown{
 
     /**
      * The RefreshDeviceList method refreshes the list of devices that are connected to the computer.
+     * @remarks
+     * When the <b>IPortableDeviceManager</b> interface is instantiated the first time, it generates a list of the devices that are connected. However, devices can connect and disconnect from the computer, making the original list obsolete. This method enables an application to refresh the list of connected devices.
+     * 
+     * This method is less resource-intensive than instantiating a new device manager to generate a new device list. However, it does require some resources; therefore, we recommend that you do not call this method arbitrarily. The best solution is to have the application register to get device arrival and removal notifications, and when a notification is received, have the application call this function.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -112,7 +120,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist
      */
     RefreshDeviceList() {
         result := ComCall(4, this, "HRESULT")
@@ -121,9 +129,11 @@ class IPortableDeviceManager extends IUnknown{
 
     /**
      * Retrieves the user-friendly name for the device.
+     * @remarks
+     * A device is not required to support this method. If this method fails to retrieve a name, try requesting the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/object-properties">WPD_OBJECT_NAME</a> property of the device object (the object with the ID WPD_DEVICE_OBJECT_ID).
      * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of all devices that are connected to the computer by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
      * @param {PWSTR} pDeviceFriendlyName A caller-allocated buffer that is used to hold the user-friendly name for the device. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcchDeviceFriendlyName</i> set to <b>0</b>; the method will succeed and set <i>pcchDeviceFriendlyName</i> to the required buffer size to hold the device-friendly name, including the termination character.
-     * @param {Pointer<Integer>} pcchDeviceFriendlyName On input, the maximum number of characters that <i>pDeviceFriendlyName</i> can hold, not including the termination character. On output, the number of characters that is returned by <i>pDeviceFriendlyName</i>, not including the termination character.
+     * @param {Pointer<Integer>} pcchDeviceFriendlyName On input, the maximum number of characters that <i>pDeviceFriendlyName</i> can hold, including the termination character. On output, the number of characters that is returned by <i>pDeviceFriendlyName</i>, also including the termination character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -176,7 +186,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicefriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicefriendlyname
      */
     GetDeviceFriendlyName(pszPnPDeviceID, pDeviceFriendlyName, pcchDeviceFriendlyName) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -245,7 +255,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicedescription
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicedescription
      */
     GetDeviceDescription(pszPnPDeviceID, pDeviceDescription, pcchDeviceDescription) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -314,7 +324,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicemanufacturer
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicemanufacturer
      */
     GetDeviceManufacturer(pszPnPDeviceID, pDeviceManufacturer, pcchDeviceManufacturer) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -328,6 +338,10 @@ class IPortableDeviceManager extends IUnknown{
 
     /**
      * Retrieves a property value stored by the device on the computer. (These are not standard properties that are defined by Windows Portable Devices.).
+     * @remarks
+     * These property values are stored on device installation, or stored by a device during operation so that they can be persisted across connection sessions. An application must know the exact name of the property, which is specified by the device itself; therefore, this method is intended to be used by device developers who are creating their own applications.
+     * 
+     * To get Windows Portable Devices properties from the device object, call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceproperties-getvalues">IPortableDeviceProperties::GetValues</a>, and specify the device object with <b>WPD_DEVICE_OBJECT_ID</b>.
      * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of all devices that are connected to the computer by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
      * @param {PWSTR} pszDevicePropertyName Pointer to a null-terminated string that contains the name of the property to request. These are custom property names defined by a device manufacturer.
      * @param {Pointer<Integer>} pData A caller-allocated buffer to hold the retrieved data. To get the size required, call this method with this parameter set to <b>NULL</b> and <i>pcbData</i> set to zero, and the required size will be retrieved in <i>pcbData</i>. This call will also return an error that can be ignored. See Return Values.
@@ -374,7 +388,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdeviceproperty
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdeviceproperty
      */
     GetDeviceProperty(pszPnPDeviceID, pszDevicePropertyName, pData, pcbData, pdwType) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -390,6 +404,14 @@ class IPortableDeviceManager extends IUnknown{
 
     /**
      * The GetPrivateDevices method retrieves a list of private portable devices connected to the computer. These private devices are only accessible through an application that is designed for these particular devices.
+     * @remarks
+     * In order to write an application that communicates with a private device, you must have knowledge of the custom functionality exposed by a particular device driver. The description of this functionality must be obtained from the device manufacturer.
+     * 
+     * The list of devices is generated when the device manager is instantiated; it does not refresh as devices connect and disconnect. To refresh the list of connected devices, call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist">RefreshDeviceList</a>.
+     * 
+     * The API allocates the memory for each string pointed to by the <i>pPnPDeviceIDs</i> array. Once your application no longer needs these strings, it must iterate through this array and free the associated memory by calling the <b>CoTaskMemFree</b> function.
+     * 
+     * A private device may not respond correctly to the standard Windows Portable Devices function calls that perform object enumeration, resource transfer, retrieval of device capabilities, and so on.
      * @param {Pointer<PWSTR>} pPnPDeviceIDs A caller-allocated array of string pointers that holds the Plug and Play names of all of the connected devices. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcPnPDeviceIDs</i> set to zero, and then allocate a buffer according to the value retrieved by <i>pcPnPDeviceIDs</i>. These names can be used by <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-open">IPortableDevice::Open</a> to create a connection to a device.
      * @param {Pointer<Integer>} pcPnPDeviceIDs On input, the number of values that <i>pPnPDeviceIDs</i> can hold. On output, a pointer to the number of devices actually written to <i>pPnPDeviceIDs</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -433,7 +455,7 @@ class IPortableDeviceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
      */
     GetPrivateDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
         pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * The IUICollection interface is implemented by the Ribbon framework.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuicollection
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicollection
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IUICollection extends IUnknown{
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * When this method returns, contains the item count.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -50,7 +50,7 @@ class IUICollection extends IUnknown{
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * When this method returns, contains the address of a pointer variable that receives the item.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-getitem
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-getitem
      */
     GetItem(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &item := 0, "HRESULT")
@@ -64,8 +64,8 @@ class IUICollection extends IUnknown{
      * Pointer to the item that is added to the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-add
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-add
      */
     Add(item) {
         result := ComCall(5, this, "ptr", item, "HRESULT")
@@ -82,8 +82,8 @@ class IUICollection extends IUnknown{
      * Pointer to the item that is added to the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-insert
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-insert
      */
     Insert(index, item) {
         result := ComCall(6, this, "uint", index, "ptr", item, "HRESULT")
@@ -97,8 +97,8 @@ class IUICollection extends IUnknown{
      * The zero-based index of the item to remove from the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-removeat
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(7, this, "uint", index, "HRESULT")
@@ -115,8 +115,8 @@ class IUICollection extends IUnknown{
      * Pointer to the replacement item that is added to the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-replace
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-replace
      */
     Replace(indexReplaced, itemReplaceWith) {
         result := ComCall(8, this, "uint", indexReplaced, "ptr", itemReplaceWith, "HRESULT")
@@ -127,8 +127,8 @@ class IUICollection extends IUnknown{
      * Deletes all items from the IUICollection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollection-clear
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-clear
      */
     Clear() {
         result := ComCall(9, this, "HRESULT")

@@ -23,9 +23,34 @@ class IDebugFAEntryTags extends Win32ComInterface{
     static VTableNames => ["GetType", "SetType", "GetProperties", "SetProperties", "GetTagByName", "IsValidTagToSet"]
 
     /**
-     * 
+     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Tag 
-     * @returns {Integer} 
+     * @returns {Integer} If the function succeeds, the return value is zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service type is unknown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType(Tag) {
         result := ComCall(0, this, "int", Tag, "int")

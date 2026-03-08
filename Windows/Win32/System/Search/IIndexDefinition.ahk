@@ -29,7 +29,7 @@ class IIndexDefinition extends IUnknown{
     static VTableNames => ["CreateIndex", "DropIndex"]
 
     /**
-     * 
+     * Learn more about: CreateIndexGrbit enumeration
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
      * @param {Pointer} cIndexColumnDescs 
@@ -37,6 +37,7 @@ class IIndexDefinition extends IUnknown{
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {Pointer<DBID>} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/createindexgrbit-enumeration
      */
     CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets) {
         result := ComCall(3, this, "ptr", pTableID, "ptr", pIndexID, "ptr", cIndexColumnDescs, "ptr", rgIndexColumnDescs, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")

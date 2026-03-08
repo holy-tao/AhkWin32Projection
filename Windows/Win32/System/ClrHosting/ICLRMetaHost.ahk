@@ -103,7 +103,6 @@ class ICLRMetaHost extends IUnknown{
     /**
      * Ends the calling process and all its threads.
      * @remarks
-     * 
      * Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a> function to retrieve the process's exit value. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodethread">GetExitCodeThread</a> function to retrieve a thread's exit value.
@@ -131,12 +130,9 @@ class ICLRMetaHost extends IUnknown{
      * Exiting a process does not cause child processes to be terminated.
      * 
      * Exiting a process does not necessarily remove the process object from the operating system. A process object is deleted when the last handle to the process is closed.
-     * 
-     * 
-     * 
      * @param {Integer} iExitCode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-exitprocess
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
      */
     ExitProcess(iExitCode) {
         result := ComCall(9, this, "int", iExitCode, "HRESULT")

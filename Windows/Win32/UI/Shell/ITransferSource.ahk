@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods to manipulate IShellItem, including copy, move, recycle, and others. This interface is offered to provide more control over file operations by providing an ITransferSource::Advise method.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-itransfersource
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransfersource
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,14 +32,16 @@ class ITransferSource extends IUnknown{
     static VTableNames => ["Advise", "Unadvise", "SetProperties", "OpenItem", "MoveItem", "RecycleItem", "RemoveItem", "RenameItem", "LinkItem", "ApplyPropertiesToItem", "GetDefaultDestinationName", "EnterFolder", "LeaveFolder"]
 
     /**
-     * Sets up an advisory connection for notifications on the status of file operations.
+     * Sets up an advisory connection for notifications on the status of file operations. (ITransferSource.Advise)
+     * @remarks
+     * Call <b>ITransferSource::Advise</b> before calling any other methods in this interface to enable an advisory session. If not set, the handler should consider it an indication that no feedback is available and to do the "default" operation without consulting the calling application.
      * @param {ITransferAdviseSink} psink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink">ITransferAdviseSink</a>*</b>
      * 
      * A pointer to notification interface <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink">ITransferAdviseSink</a> to update the calling application using methods on this interface.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a returned token that uniquely identifies this connection. The calling application uses this token later to delete the connection by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransfersource-unadvise">ITransferSource::Unadvise</a> method. If the connection was not successfully established, this value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-advise
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-advise
      */
     Advise(psink) {
         result := ComCall(3, this, "ptr", psink, "uint*", &pdwCookie := 0, "HRESULT")
@@ -47,7 +49,9 @@ class ITransferSource extends IUnknown{
     }
 
     /**
-     * Terminates an advisory connection.
+     * Terminates an advisory connection. (ITransferSource.Unadvise)
+     * @remarks
+     * Terminates an advisory connection previously established through  method <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransfersource-advise">ITransferSource::Advise</a>. The <i>dwCookie</i> parameter identifies the connection to terminate.
      * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
      * The connection token previously returned from method <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransfersource-advise">ITransferSource::Advise</a>.
@@ -83,7 +87,7 @@ class ITransferSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")
@@ -98,7 +102,7 @@ class ITransferSource extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Any return value other than S_OK indicates a failure.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-setproperties
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-setproperties
      */
     SetProperties(pproparray) {
         result := ComCall(5, this, "ptr", pproparray, "HRESULT")
@@ -119,7 +123,7 @@ class ITransferSource extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of a pointer to the interface specified by <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-openitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-openitem
      */
     OpenItem(psi, flags, riid) {
         result := ComCall(6, this, "ptr", psi, "uint", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -143,7 +147,7 @@ class ITransferSource extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns successfully, contains an address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> in its new location.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-moveitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-moveitem
      */
     MoveItem(psi, psiParentDst, pszNameDst, flags) {
         pszNameDst := pszNameDst is String ? StrPtr(pszNameDst) : pszNameDst
@@ -166,7 +170,7 @@ class ITransferSource extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When the method returns, contains the address of a pointer to the recycled <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-recycleitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-recycleitem
      */
     RecycleItem(psiSource, psiParentDest, flags) {
         result := ComCall(8, this, "ptr", psiSource, "ptr", psiParentDest, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
@@ -290,7 +294,7 @@ class ITransferSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-removeitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-removeitem
      */
     RemoveItem(psiSource, flags) {
         result := ComCall(9, this, "ptr", psiSource, "uint", flags, "HRESULT")
@@ -311,7 +315,7 @@ class ITransferSource extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-renameitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-renameitem
      */
     RenameItem(psiSource, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
@@ -321,7 +325,7 @@ class ITransferSource extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ITransferSource.LinkItem)
      * @param {IShellItem} psiSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the source item.
@@ -337,7 +341,7 @@ class ITransferSource extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When the method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> of the link.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-linkitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-linkitem
      */
     LinkItem(psiSource, psiParentDest, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
@@ -354,7 +358,7 @@ class ITransferSource extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the changed <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-applypropertiestoitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-applypropertiestoitem
      */
     ApplyPropertiesToItem(psiSource) {
         result := ComCall(12, this, "ptr", psiSource, "ptr*", &ppsiNew := 0, "HRESULT")
@@ -363,6 +367,8 @@ class ITransferSource extends IUnknown{
 
     /**
      * Gets the default name for a Shell item.
+     * @remarks
+     * Gets the default name for a Shell item, if different than the item's parsing name.
      * @param {IShellItem} psiSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
@@ -372,7 +378,7 @@ class ITransferSource extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * When the method returns, contains a pointer to a null-terminated, Unicode string containing the default name.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-getdefaultdestinationname
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-getdefaultdestinationname
      */
     GetDefaultDestinationName(psiSource, psiParentDest) {
         result := ComCall(13, this, "ptr", psiSource, "ptr", psiParentDest, "ptr*", &ppszDestinationName := 0, "HRESULT")
@@ -381,13 +387,15 @@ class ITransferSource extends IUnknown{
 
     /**
      * Notifies that a folder is the destination of a file operation.
+     * @remarks
+     * This method is called when beginning to process a folder or subfolder in a recursive operation. For instance, when a source folder is copied to a destination folder, method <b>ITransferSource::EnterFolder</b> should be called with <i>psiChildFolderDest</i> set to the destination folder.
      * @param {IShellItem} psiChildFolderDest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> destination folder.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-enterfolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-enterfolder
      */
     EnterFolder(psiChildFolderDest) {
         result := ComCall(14, this, "ptr", psiChildFolderDest, "HRESULT")
@@ -396,13 +404,15 @@ class ITransferSource extends IUnknown{
 
     /**
      * Sends notification that a folder is no longer the destination of a file operation.
+     * @remarks
+     * This method is called at the end of recursive file operations on a destination folder.
      * @param {IShellItem} psiChildFolderDest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> destination folder.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransfersource-leavefolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-leavefolder
      */
     LeaveFolder(psiChildFolderDest) {
         result := ComCall(15, this, "ptr", psiChildFolderDest, "HRESULT")

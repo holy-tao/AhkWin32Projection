@@ -7,7 +7,7 @@
 
 /**
  * Use the IWbemLocator interface to obtain the initial namespace pointer to the IWbemServices interface for WMI on a specific host computer.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemlocator
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemlocator
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -40,6 +40,10 @@ class IWbemLocator extends IUnknown{
 
     /**
      * The IWbemLocator::ConnectServer method creates a connection through DCOM to a WMI namespace on the computer specified in the strNetworkResource parameter.
+     * @remarks
+     * Do not specify <i>strUser</i>, <i>strPassword</i>, or <i>strAuthority</i>  when making a connection to a local namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/connecting-to-wmi-on-a-remote-computer">Connecting to WMI on a Remote Computer</a>.
+     * 
+     * For more information on how to use <b>ConnectServer</b>, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/creating-a-connection-to-a-wmi-namespace">Creating a Connection to a WMI Namespace</a>. Note that the connection to <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemlocator">IWbemLocator</a> is one of the connections that you must shut down at the end of your application, as described in <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/cleaning-up-and-shutting-down-a-wmi-application">Cleaning up and Shutting Down a WMI Application</a>.
      * @param {BSTR} strNetworkResource Pointer to a valid <b>BSTR</b> that contains the object path of the correct WMI namespace. For local access to the default namespace, use a simple object path: "root\default" or "\\.\root\default". For access to the default namespace on a remote computer using COM or Microsoft-compatible networking, include the computer name: "\\myserver\root\default".  For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/describing-a-wmi-namespace-object-path">Describing a WMI Namespace Object Path</a>. The computer name also can  be a DNS name or IP  address. Starting with Windows Vista, <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemlocator-connectserver">SWbemLocator.ConnectServer</a> can connect with computers running IPv6 using an IPv6 address. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/ipv6-and-ipv4-support-in-wmi">IPv6 and IPv4 Support in WMI</a>.
      * @param {BSTR} strUser Pointer to a valid <b>BSTR</b>, which contains the user name you need for a connection. A <b>NULL</b> value indicates the current security context. If the user name is from a domain different from the current domain, the string may contain the domain name and user name  separated by a backslash.
@@ -86,7 +90,7 @@ class IWbemLocator extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
      * @returns {IWbemServices} Receives a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> object bound to the specified namespace. This pointer has a positive reference count. The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IWbemServices::Release</a> on the pointer when it is no longer required. This pointer is set to point to <b>NULL</b> when there is an error.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemlocator-connectserver
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemlocator-connectserver
      */
     ConnectServer(strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx) {
         strNetworkResource := strNetworkResource is String ? BSTR.Alloc(strNetworkResource).Value : strNetworkResource

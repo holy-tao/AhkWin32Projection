@@ -5,7 +5,7 @@
 
 /**
  * The ISensOnNow interface handles AC and battery power events fired by the System Event Notification Service (SENS).
- * @see https://docs.microsoft.com/windows/win32/api//sensevts/nn-sensevts-isensonnow
+ * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isensonnow
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ISensOnNow extends IDispatch{
 
     /**
      * SENS calls the OnACPower method to notify your application that the computer is using AC power.
+     * @remarks
+     * SENS calls this method to notify your application that AC power has been activated.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -51,7 +53,7 @@ class ISensOnNow extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensonnow-onacpower
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensonnow-onacpower
      */
     OnACPower() {
         result := ComCall(7, this, "HRESULT")
@@ -60,6 +62,8 @@ class ISensOnNow extends IDispatch{
 
     /**
      * SENS calls the OnBatteryPower method to notify an application that a computer is using battery power.
+     * @remarks
+     * SENS calls this method to notify an application that a computer is using battery power. The remaining percentage of battery power is specified.
      * @param {Integer} dwBatteryLifePercent The percent of battery power that remains.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -80,7 +84,7 @@ class ISensOnNow extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensonnow-onbatterypower
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensonnow-onbatterypower
      */
     OnBatteryPower(dwBatteryLifePercent) {
         result := ComCall(8, this, "uint", dwBatteryLifePercent, "HRESULT")
@@ -89,6 +93,8 @@ class ISensOnNow extends IDispatch{
 
     /**
      * The BatteryLow method notifies an application that battery power is low. SENS calls the BatteryLow method to notify an application that a computer is using battery power.
+     * @remarks
+     * SENS calls this method to notify an application that a computer is using battery power. The remaining percentage of battery power is specified.
      * @param {Integer} dwBatteryLifePercent The percent of battery power that remains.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -109,7 +115,7 @@ class ISensOnNow extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensonnow-batterylow
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensonnow-batterylow
      */
     BatteryLow(dwBatteryLifePercent) {
         result := ComCall(9, this, "uint", dwBatteryLifePercent, "HRESULT")

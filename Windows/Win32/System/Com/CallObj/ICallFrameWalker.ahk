@@ -5,7 +5,7 @@
 
 /**
  * Walks a stack frame looking for interesting values.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/nn-callobj-icallframewalker
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallframewalker
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class ICallFrameWalker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframewalker-onwalkinterface
+     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframewalker-onwalkinterface
      */
     OnWalkInterface(iid, ppvInterface, fIn, fOut) {
         ppvInterfaceMarshal := ppvInterface is VarRef ? "ptr*" : "ptr"

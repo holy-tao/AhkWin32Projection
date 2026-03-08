@@ -23506,11 +23506,7 @@ class HumanInterfaceDevice {
 
         ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, ppvOutMarshal, ppvOut, "ptr", punkOuter, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, ppvOutMarshal, ppvOut, "ptr", punkOuter, "HRESULT")
         return result
     }
 

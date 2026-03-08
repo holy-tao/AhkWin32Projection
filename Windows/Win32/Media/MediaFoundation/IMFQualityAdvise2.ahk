@@ -6,7 +6,6 @@
 /**
  * Enables a pipeline object to adjust its own audio or video quality, in response to quality messages.
  * @remarks
- * 
  * This interface enables a pipeline object to respond to quality messages from the media sink. Currently, it is supported only for video decoders.
  * 
  * If a video decoder exposes <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a> but not <b>IMFQualityAdvise2</b>, the quality manager controls quality adjustments for the decoder. In this case, the quality manager responds to <a href="https://docs.microsoft.com/windows/desktop/medfound/mequalitynotify">MEQualityNotify</a> events from the Enhanced Video Renderer (EVR) by calling <b>IMFQualityAdvise</b> methods on the decoder.
@@ -16,9 +15,7 @@
  * The preceding remarks apply to the default implementation of the quality manager; custom quality managers can implement other behaviors.
  * 
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfqualityadvise2
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualityadvise2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -45,9 +42,11 @@ class IMFQualityAdvise2 extends IMFQualityAdvise{
 
     /**
      * Forwards an MEQualityNotify event from the media sink.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {IMFMediaEvent} pEvent A pointer to the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface.
      * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_advise_flags">MF_QUALITY_ADVISE_FLAGS</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise2-notifyqualityevent
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise2-notifyqualityevent
      */
     NotifyQualityEvent(pEvent) {
         result := ComCall(8, this, "ptr", pEvent, "uint*", &pdwFlags := 0, "HRESULT")

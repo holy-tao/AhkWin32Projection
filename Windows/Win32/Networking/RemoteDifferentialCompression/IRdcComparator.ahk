@@ -5,7 +5,7 @@
 
 /**
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdccomparator
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdccomparator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -38,6 +38,11 @@ class IRdcComparator extends IUnknown{
 
     /**
      * Compares two signature streams (seed and source) and produces a needs list, which describes the chunks of file data needed to create the target file.
+     * @remarks
+     * On successful return, iterate through each <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneed">RdcNeed</a> structure 
+     *    returned in the array pointed to by the <b>m_Data</b> member of the 
+     *    <i>outputBuffer</i> parameter, and copy the specified chunk of the source or seed data to the 
+     *    target data.
      * @param {BOOL} endOfInput Set to <b>TRUE</b> if the <i>inputBuffer</i> parameter contains all 
      *       remaining input.
      * @param {Pointer<BOOL>} endOfOutput Address of a <b>BOOL</b> that on successful completion is set to 
@@ -58,8 +63,8 @@ class IRdcComparator extends IUnknown{
      *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
      *       return value of the <b>Process</b> method contains the 
      *       specific error code.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdccomparator-process
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdccomparator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"

@@ -7,7 +7,7 @@
 
 /**
  * The IEnumDirectory interface provides COM-standard enumeration methods for the ITDirectory interface. The ITRendezvous::EnumerateDefaultDirectories method returns a pointer to IEnumDirectory.
- * @see https://docs.microsoft.com/windows/win32/api//rend/nn-rend-ienumdirectory
+ * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-ienumdirectory
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IEnumDirectory extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The Next method gets the next specified number of elements in the enumeration sequence. (IEnumDirectory.Next)
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectory">ITDirectory</a> interface returned by <b>IEnumDirectory::Next</b>. The application must call <b>Release</b> on the 
+     * <b>ITDirectory</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pcFetched Pointer to the number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {ITDirectory} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectory">ITDirectory</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdirectory-next
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-next
      */
     Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +52,7 @@ class IEnumDirectory extends IUnknown{
     }
 
     /**
-     * The Reset method resets to the beginning of the enumeration sequence.
+     * The Reset method resets to the beginning of the enumeration sequence. (IEnumDirectory.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -68,7 +72,7 @@ class IEnumDirectory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdirectory-reset
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -76,7 +80,7 @@ class IEnumDirectory extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. (IEnumDirectory.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -108,7 +112,7 @@ class IEnumDirectory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdirectory-skip
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -116,10 +120,14 @@ class IEnumDirectory extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. (IEnumDirectory.Clone)
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectory">IEnumDirectory</a> interface returned by <b>IEnumDirectory::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumDirectory</b> interface to free resources associated with it.
      * @returns {IEnumDirectory} Pointer to the new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectory">IEnumDirectory</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdirectory-clone
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

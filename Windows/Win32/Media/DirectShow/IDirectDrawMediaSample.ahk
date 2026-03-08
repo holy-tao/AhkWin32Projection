@@ -5,7 +5,7 @@
 
 /**
  * The IDirectDrawMediaSample interface provides access to DirectDraw surfaces allocated by the Overlay Mixer filter.The allocator for the Overlay Mixer filter creates samples that expose this interface.
- * @see https://docs.microsoft.com/windows/win32/api//amstream/nn-amstream-idirectdrawmediasample
+ * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-idirectdrawmediasample
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IDirectDrawMediaSample extends IUnknown{
 
     /**
      * The GetSurfaceAndReleaseLock method retrieves and unlocks the surface that the sample represents.
+     * @remarks
+     * The caller should release the returned surface pointer, except when calling the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter's implementation of this interface.
      * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface Address of a pointer to the sample's <b>IDirectDrawSurface</b> interface.
      * @param {Pointer<RECT>} pRect Pointer to a variable that receives the address of the rectangle defining the part of the surface that the sample represents.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock
      */
     GetSurfaceAndReleaseLock(ppDirectDrawSurface, pRect) {
         result := ComCall(3, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
@@ -44,8 +46,10 @@ class IDirectDrawMediaSample extends IUnknown{
 
     /**
      * The LockMediaSamplePointer method locks the surface that the sample represents.
+     * @remarks
+     * Call this method only after calling <a href="https://docs.microsoft.com/windows/desktop/api/amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock">IDirectDrawMediaSample::GetSurfaceAndReleaseLock</a>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasample-lockmediasamplepointer
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasample-lockmediasamplepointer
      */
     LockMediaSamplePointer() {
         result := ComCall(4, this, "HRESULT")

@@ -5559,7 +5559,7 @@ class Etw {
 
         result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", Buffer_RMarshal, Buffer_R, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5597,7 +5597,7 @@ class Etw {
 
         result := DllCall("ADVAPI32.dll\GetTraceEnableLevel", "uint", TraceHandle, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5635,7 +5635,7 @@ class Etw {
 
         result := DllCall("ADVAPI32.dll\GetTraceEnableFlags", "uint", TraceHandle, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5708,7 +5708,7 @@ class Etw {
 
         result := DllCall("ADVAPI32.dll\OpenTraceW", "ptr", Logfile, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
@@ -6128,7 +6128,7 @@ class Etw {
 
         result := DllCall("ADVAPI32.dll\OpenTraceA", "ptr", Logfile, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)

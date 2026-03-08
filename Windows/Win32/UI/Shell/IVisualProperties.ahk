@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that set and get visual properties.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ivisualproperties
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ivisualproperties
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,8 +42,8 @@ class IVisualProperties extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpwatermarkflags">VPWATERMARKFLAGS</a> flags that customize the watermark.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-setwatermark
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setwatermark
      */
     SetWatermark(hbmp, vpwf) {
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
@@ -62,8 +62,8 @@ class IVisualProperties extends IUnknown{
      * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-setcolor
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setcolor
      */
     SetColor(vpcf, cr) {
         result := ComCall(4, this, "int", vpcf, "uint", cr, "HRESULT")
@@ -78,7 +78,7 @@ class IVisualProperties extends IUnknown{
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to a value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-getcolor
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getcolor
      */
     GetColor(vpcf) {
         result := ComCall(5, this, "int", vpcf, "uint*", &pcr := 0, "HRESULT")
@@ -92,8 +92,8 @@ class IVisualProperties extends IUnknown{
      * The item height, in pixels.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-setitemheight
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setitemheight
      */
     SetItemHeight(cyItemInPixels) {
         result := ComCall(6, this, "int", cyItemInPixels, "HRESULT")
@@ -105,7 +105,7 @@ class IVisualProperties extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the item height, in pixels.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-getitemheight
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getitemheight
      */
     GetItemHeight() {
         result := ComCall(7, this, "int*", &cyItemInPixels := 0, "HRESULT")
@@ -122,8 +122,8 @@ class IVisualProperties extends IUnknown{
      * <b>TRUE</b> if the item should be redrawn after the new attributes are set; otherwise <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-setfont
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setfont
      */
     SetFont(plf, bRedraw) {
         result := ComCall(8, this, "ptr", plf, "int", bRedraw, "HRESULT")
@@ -135,7 +135,7 @@ class IVisualProperties extends IUnknown{
      * @returns {LOGFONTW} Type: <b>LOGFONTW*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dimm/ns-dimm-logfonta">LOGFONT</a> structure that, when this method returns successfully, receives the current attributes of the font.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-getfont
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getfont
      */
     GetFont() {
         plf := LOGFONTW()
@@ -153,8 +153,8 @@ class IVisualProperties extends IUnknown{
      * A pointer to a Unicode string that contains a semicolon-separated list of CLSID names for use in place of the actual list passed by the window's class. If this parameter is <b>NULL</b>, the ID list from the calling class is used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ivisualproperties-settheme
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-settheme
      */
     SetTheme(pszSubAppName, pszSubIdList) {
         pszSubAppName := pszSubAppName is String ? StrPtr(pszSubAppName) : pszSubAppName

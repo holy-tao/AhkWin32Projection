@@ -6,11 +6,8 @@
 /**
  * Tracks the reference counts on a video media sample.
  * @remarks
- * 
  * Use this interface to determine whether it is safe to delete or re-use the buffer contained in a sample. One object assigns itself as the owner of the video sample by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftrackedsample-setallocator">SetAllocator</a>. When all objects release their reference counts on the sample, the owner's callback method is invoked.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftrackedsample
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftrackedsample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,12 @@ class IMFTrackedSample extends IUnknown{
 
     /**
      * Sets the owner for the sample.
+     * @remarks
+     * When this method is called, the sample holds an additional reference count on itself. When every other object releases its reference counts on the sample, the sample invokes the <i>pSampleAllocator</i> callback method. To get a pointer to the sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasyncresult-getobject">IMFAsyncResult::GetObject</a> on the asynchronous result object given to the callback's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * 
+     * After the callback is invoked, the sample clears the callback. To reinstate the callback, you must call <b>SetAllocator</b> again.
+     * 
+     * It is safe to pass in the sample's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface pointer as the state object (<i>pUnkState</i>) for the callback. If <i>pUnkState</i> points to the sample, the <b>SetAllocator</b> method accounts for the additional reference count on <i>pUnkState</i>.
      * @param {IMFAsyncCallback} pSampleAllocator Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} pUnkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -69,7 +72,7 @@ class IMFTrackedSample extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrackedsample-setallocator
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrackedsample-setallocator
      */
     SetAllocator(pSampleAllocator, pUnkState) {
         result := ComCall(3, this, "ptr", pSampleAllocator, "ptr", pUnkState, "HRESULT")

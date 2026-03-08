@@ -30,6 +30,13 @@ class IHostThreadpoolManager extends IUnknown{
 
     /**
      * Queues a work item to a worker thread in the thread pool.
+     * @remarks
+     * If a function in a DLL is queued to a worker thread, be sure that the function has completed execution before the DLL is unloaded.
+     * 
+     * By default, the thread pool has a maximum of 512 threads per process. To raise the queue limit, use the <b>WT_SET_MAX_THREADPOOL_THREAD</b> macro defined in WinNT.h.
+     * 
+     * 
+     * ``` syntax
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function A pointer to the application-defined callback function of type <b>LPTHREAD_START_ROUTINE</b> to be executed by the thread in the thread pool. This value represents the starting address of the thread. This callback function must not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminatethread">TerminateThread</a> function. 
      * 
@@ -42,8 +49,8 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      */
     QueueUserWorkItem(Function, Context, Flags) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"

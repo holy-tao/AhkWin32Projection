@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The IEnumTfLangBarItems interface is implemented by the TSF manager to provide an enumeration of langauge bar item objects.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-ienumtflangbaritems
+ * The IEnumTfLangBarItems interface is implemented by the TSF manager to provide an enumeration of language bar item objects.
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-ienumtflangbaritems
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IEnumTfLangBarItems extends IUnknown{
     /**
      * IEnumTfLangBarItems::Clone method
      * @returns {IEnumTfLangBarItems} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-ienumtflangbaritems">IEnumTfLangBarItems</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-clone
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -47,7 +47,7 @@ class IEnumTfLangBarItems extends IUnknown{
      * @param {Integer} ulCount Specifies the number of elements to obtain.
      * @param {Pointer<Integer>} pcFetched [in, out] Pointer to a ULONG value that receives the number of elements obtained. This value can be less than the number of items requested. This parameter can be <b>NULL</b>.
      * @returns {ITfLangBarItem} Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritem">ITfLangBarItem</a> interface pointers that receives the requested objects. This array must be at least <i>ulCount</i> elements in size.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-next
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-next
      */
     Next(ulCount, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -77,7 +77,7 @@ class IEnumTfLangBarItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-reset
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -117,7 +117,7 @@ class IEnumTfLangBarItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-skip
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

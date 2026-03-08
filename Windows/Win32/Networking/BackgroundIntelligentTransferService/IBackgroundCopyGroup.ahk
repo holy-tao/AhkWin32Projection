@@ -8,7 +8,7 @@
 
 /**
  * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
- * @see https://docs.microsoft.com/windows/win32/api//qmgr/nn-qmgr-ibackgroundcopygroup
+ * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * Use the GetProp method to retrieve a property value from the group.
      * @param {Integer} propID Identifies the property to retrieve. For a list of properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ne-qmgr-groupprop">GROUPPROP</a> enumeration.
      * @returns {VARIANT} Property value.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-getprop
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprop
      */
     GetProp(propID) {
         pvarVal := VARIANT()
@@ -104,7 +104,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-setprop
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-setprop
      */
     SetProp(propID, pvarVal) {
         result := ComCall(4, this, "int", propID, "ptr", pvarVal, "HRESULT")
@@ -152,7 +152,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} Progress of the download. The progress represents the number of bytes downloaded or the percent of the download that is complete, depending on <i>dwFlags</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-getprogress
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprogress
      */
     GetProgress(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
@@ -229,7 +229,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getstatus
      */
     GetStatus(pdwStatus, pdwJobIndex) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
@@ -243,7 +243,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * Use the GetJob method to retrieve a job from the group.
      * @param {Guid} jobID Identifies the job to retrieve.
      * @returns {IBackgroundCopyJob1} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nn-qmgr-ibackgroundcopyjob1">IBackgroundCopyJob1</a> interface pointer. Use the interface to add files and retrieve the state of the job.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-getjob
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getjob
      */
     GetJob(jobID) {
         result := ComCall(7, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
@@ -271,7 +271,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-suspendgroup
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-suspendgroup
      */
     SuspendGroup() {
         result := ComCall(8, this, "HRESULT")
@@ -299,7 +299,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-resumegroup
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-resumegroup
      */
     ResumeGroup() {
         result := ComCall(9, this, "HRESULT")
@@ -327,7 +327,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-cancelgroup
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-cancelgroup
      */
     CancelGroup() {
         result := ComCall(10, this, "HRESULT")
@@ -337,7 +337,7 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * Use the get_Size method to retrieve the size of all files in the group to download.
      * @returns {Integer} Total size, in bytes, of all files in the group to download, or 0 if QMGR cannot determine the size.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-get_size
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-get_size
      */
     get_Size() {
         result := ComCall(11, this, "uint*", &pdwSize := 0, "HRESULT")
@@ -347,7 +347,7 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * Use the get_GroupID method to retrieve the group's identifier.
      * @returns {Guid} GUID that uniquely identifies the group within the download queue.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-get_groupid
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-get_groupid
      */
     get_GroupID() {
         pguidGroupID := Guid()
@@ -359,7 +359,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * Use the CreateJob method to add a new job to the group. A group can contain only one job.
      * @param {Guid} guidJobID Uniquely identifies the job in the group and queue.
      * @returns {IBackgroundCopyJob1} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nn-qmgr-ibackgroundcopyjob1">IBackgroundCopyJob1</a> interface pointer. Use the interface to add files and check the state of the job.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-createjob
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-createjob
      */
     CreateJob(guidJobID) {
         result := ComCall(13, this, "ptr", guidJobID, "ptr*", &ppJob := 0, "HRESULT")
@@ -370,7 +370,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * Use the EnumJobs method to retrieve a list of jobs in the group. The list contains only one job.
      * @param {Integer} dwFlags Must be 0.
      * @returns {IEnumBackgroundCopyJobs1} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nn-qmgr-ienumbackgroundcopyjobs1">IEnumBackgroundCopyJobs1</a> interface pointer. Use the interface to iterate through the list of jobs.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-enumjobs
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-enumjobs
      */
     EnumJobs(dwFlags) {
         result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumJobs := 0, "HRESULT")
@@ -398,7 +398,7 @@ class IBackgroundCopyGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopygroup-switchtoforeground
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-switchtoforeground
      */
     SwitchToForeground() {
         result := ComCall(15, this, "HRESULT")
@@ -406,7 +406,7 @@ class IBackgroundCopyGroup extends IUnknown{
     }
 
     /**
-     * 
+     * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
      * @param {Pointer<Guid>} iid 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
@@ -417,7 +417,7 @@ class IBackgroundCopyGroup extends IUnknown{
     }
 
     /**
-     * 
+     * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
      * @param {Pointer<Guid>} iid 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 

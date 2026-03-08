@@ -5,7 +5,7 @@
 
 /**
  * Gets access to an OLE control on a Visual Basic container.
- * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nn-vbinterf-igetoleobject
+ * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-igetoleobject
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IGetOleObject extends IUnknown{
      * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
      *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
      *       following:
-     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-igetoleobject-getoleobject
+     * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetoleobject-getoleobject
      */
     GetOleObject(riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"

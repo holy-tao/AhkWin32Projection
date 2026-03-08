@@ -5,7 +5,7 @@
 
 /**
  * The ITMediaSupport interface provides methods that allow an application to discover the media support capabilities for an Address Object that exposes this interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itmediasupport
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmediasupport
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class ITMediaSupport extends IDispatch{
      * The get_MediaTypes method gets the media type or types supported on the current address.
      * @returns {Integer} Pointer to bitmask of ORed of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
      */
     get_MediaTypes() {
         result := ComCall(7, this, "int*", &plMediaTypes := 0, "HRESULT")
@@ -52,7 +52,7 @@ class ITMediaSupport extends IDispatch{
      * The QueryMediaType method indicates whether the service provider associated with the current address supports the media type or types indicated by lMediaType.
      * @param {Integer} lMediaType <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">Media type</a> or types being queried.
      * @returns {VARIANT_BOOL} Pointer to a VARIANT_BOOL indicating whether the media type is supported. If the returned value is VARIANT_TRUE, the media is supported; if it is VARIANT_FALSE, the media is not supported.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediasupport-querymediatype
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-querymediatype
      */
     QueryMediaType(lMediaType) {
         result := ComCall(8, this, "int", lMediaType, "short*", &pfSupport := 0, "HRESULT")

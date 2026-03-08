@@ -46,6 +46,19 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 
      * @param {IX509CertificateRequestPkcs10} pRequest 
@@ -61,7 +74,7 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(strServerUrl, strRequestHeaders, pRequest, strCACertificateThumbprint) {
         strServerUrl := strServerUrl is String ? BSTR.Alloc(strServerUrl).Value : strServerUrl
@@ -90,9 +103,10 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
     }
 
     /**
-     * 
+     * Specifies certification authority property values.
      * @param {Integer} ProcessFlags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentcaproperty
      */
     Enroll(ProcessFlags) {
         result := ComCall(9, this, "int", ProcessFlags, "int*", &pDisposition := 0, "HRESULT")

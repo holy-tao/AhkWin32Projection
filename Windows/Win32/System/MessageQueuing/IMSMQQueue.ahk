@@ -117,8 +117,15 @@ class IMSMQQueue extends IDispatch{
     }
 
     /**
+     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
+     * @remarks
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
+     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
+     * 
+     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
@@ -139,11 +146,16 @@ class IMSMQQueue extends IDispatch{
     }
 
     /**
+     * Reads data from the specified console input buffer without removing it from the buffer.
+     * @remarks
+     * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
+     * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @returns {IMSMQMessage} 
+     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     Peek(WantDestinationQueue, WantBody, ReceiveTimeout) {
         result := ComCall(14, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
@@ -163,8 +175,24 @@ class IMSMQQueue extends IDispatch{
     }
 
     /**
+     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
+     * @remarks
+     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * @returns {HRESULT} 
+     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
+     * 
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
+     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
      */
     Reset() {
         result := ComCall(16, this, "HRESULT")

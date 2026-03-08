@@ -7,8 +7,7 @@
  * Enables interoperability with a WinRT [Print3DManager](/uwp/api/windows.graphics.printing3d.print3dmanager) object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//print3dmanagerinterop/nn-print3dmanagerinterop-iprinting3dmanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nn-print3dmanagerinterop-iprinting3dmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
  * @version v4.0.30319
  */
@@ -34,10 +33,14 @@ class IPrinting3DManagerInterop extends IInspectable{
     static VTableNames => ["GetForWindow", "ShowPrintUIForWindowAsync"]
 
     /**
+     * Gets an [Print3DManager](/uwp/api/windows.graphics.printing3d.print3dmanager) object for the window of the active application.
+     * @param {HWND} appWindow Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(Print3DManager)`
+     * @returns {Pointer<Void>} Address of a pointer to a [Print3DManager](/uwp/api/windows.graphics.printing3d.print3dmanager) object.
      * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nf-print3dmanagerinterop-iprinting3dmanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
@@ -48,10 +51,14 @@ class IPrinting3DManagerInterop extends IInspectable{
     }
 
     /**
+     * Programmatically initiates the 3D printing user interface.
+     * @param {HWND} appWindow Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(IAsyncAction)`
+     * @returns {Pointer<Void>} Address of a pointer to a [IAsyncAction](/uwp/api/Windows.Foundation.IAsyncAction) object that returns void upon completion.
      * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nf-print3dmanagerinterop-iprinting3dmanagerinterop-showprintuiforwindowasync
      */
     ShowPrintUIForWindowAsync(appWindow, riid) {

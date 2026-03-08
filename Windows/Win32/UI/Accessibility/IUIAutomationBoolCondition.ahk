@@ -5,7 +5,7 @@
 
 /**
  * Represents a condition that can be either TRUE (selects all elements) or FALSE (selects no elements).
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationboolcondition
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationboolcondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IUIAutomationBoolCondition extends IUIAutomationCondition{
     /**
      * Retrieves the value of the condition:\_either TRUE or FALSE.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
      */
     get_BooleanValue() {
         result := ComCall(3, this, "int*", &boolVal := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that get and set information about sync manager conflict resolution.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,8 +43,8 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * When this method returns, contains a pointer to the number of the remaining conflicts to which an "apply to all" response would be applied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getiterationinfo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getiterationinfo
      */
     GetIterationInfo(pnCurrentConflict, pcConflicts, pcRemainingForApplyToAll) {
         pnCurrentConflictMarshal := pnCurrentConflict is VarRef ? "uint*" : "ptr"
@@ -60,7 +60,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a>*</b>
      * 
      * When this method returns, contains a pointer to the next step in conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenternextstep
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenternextstep
      */
     GetPresenterNextStep() {
         result := ComCall(4, this, "int*", &pnPresenterNextStep := 0, "HRESULT")
@@ -77,8 +77,8 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * When this method returns, contains a pointer to a flag. If <b>TRUE</b>, then the given choice is to be applied to all subsequent conflicts in the set, and <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice">ISyncMgrConflictResolveInfo::GetItemChoice</a> and <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoicecount">ISyncMgrConflictResolveInfo::GetItemChoiceCount</a> have information on how to apply this choice. Otherwise <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenterchoice
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenterchoice
      */
     GetPresenterChoice(pnPresenterChoice, pfApplyToAll) {
         pnPresenterChoiceMarshal := pnPresenterChoice is VarRef ? "int*" : "ptr"
@@ -93,7 +93,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * When this method returns, contains a pointer to the number of items that the user wants to keep.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoicecount
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoicecount
      */
     GetItemChoiceCount() {
         result := ComCall(6, this, "uint*", &pcChoices := 0, "HRESULT")
@@ -108,7 +108,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The index into the conflict's item array. This value is passed to the resolver for subsequent conflicts in the same conflict set if the user chooses to apply the same operation to all selected conflicts of the same type from the same handler.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice
      */
     GetItemChoice(iChoice) {
         result := ComCall(7, this, "uint", iChoice, "uint*", &piChoiceIndex := 0, "HRESULT")
@@ -122,8 +122,8 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * The next step in the conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenternextstep
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenternextstep
      */
     SetPresenterNextStep(nPresenterNextStep) {
         result := ComCall(8, this, "int", nPresenterNextStep, "HRESULT")
@@ -140,8 +140,8 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * If <b>TRUE</b>, then apply the given choice to all subsequent conflicts in the set. In this case, <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setitemchoices">ISyncMgrConflictResolveInfo::SetItemChoices</a> must also be called.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenterchoice
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setpresenterchoice
      */
     SetPresenterChoice(nPresenterChoice, fApplyToAll) {
         result := ComCall(9, this, "int", nPresenterChoice, "int", fApplyToAll, "HRESULT")
@@ -158,8 +158,8 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * The number of item choices in <i>prgiConflictItemIndexes</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setitemchoices
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setitemchoices
      */
     SetItemChoices(prgiConflictItemIndexes, cChoices) {
         prgiConflictItemIndexesMarshal := prgiConflictItemIndexes is VarRef ? "uint*" : "ptr"

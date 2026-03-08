@@ -5,8 +5,8 @@
 #Include ..\IUnknown.ahk
 
 /**
- * Iterates through an array of STATPROPSETSTG structures. The STATPROPSETSTG structures contain statistical data about the property sets managed by the current IPropertySetStorage instance.
- * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nn-propidlbase-ienumstatpropsetstg
+ * The IEnumSTATPROPSETSTG interface iterates through an array of STATPROPSETSTG structures containing statistical data about the property sets managed by the current IPropertySetStorage instance.
+ * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nn-propidlbase-ienumstatpropsetstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumSTATPROPSETSTG extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves a specified number of STATPROPSETSTG structures that follow subsequently in the enumeration sequence.
+     * The IEnumSTATPROPSETSTG::Next method retrieves a specified number of STATPROPSETSTG structures that follow subsequently in the enumeration sequence.
      * @param {Integer} celt The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures requested.
      * @param {Pointer<STATPROPSETSTG>} rgelt An array of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures returned.
      * @param {Pointer<Integer>} pceltFetched The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures  retrieved in the <i>rgelt</i> parameter.
@@ -50,7 +50,7 @@ class IEnumSTATPROPSETSTG extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The number of <a href="/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures returned equals the number specified in the <i>celt</i> parameter.
+     * The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures returned equals the number specified in the <i>celt</i> parameter.
      * 
      * </td>
      * </tr>
@@ -61,12 +61,12 @@ class IEnumSTATPROPSETSTG extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The number of <a href="/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures returned is less than the number specified in the <i>celt</i> parameter.
+     * The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures returned is less than the number specified in the <i>celt</i> parameter.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropsetstg-next
+     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropsetstg-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -76,10 +76,12 @@ class IEnumSTATPROPSETSTG extends IUnknown{
     }
 
     /**
-     * Skips a specified number of STATPROPSETSTG structures in the enumeration sequence.
+     * The IEnumSTATPROPSETSTG::Skip method skips a specified number of STATPROPSETSTG structures in the enumeration sequence.
+     * @remarks
+     * A positive value for the <i>celt</i> parameter skips forward in the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structure enumeration. A negative value for the <i>celt</i> parameter skips backward in the <b>STATPROPSETSTG</b> structure enumeration.
      * @param {Integer} celt The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures to skip.
      * @returns {HRESULT} This method supports the following return values:
-     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropsetstg-skip
+     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropsetstg-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -87,7 +89,7 @@ class IEnumSTATPROPSETSTG extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning of the STATPROPSETSTG structure array.
+     * The IEnumSTATPROPSETSTG::Reset method resets the enumeration sequence to the beginning of the STATPROPSETSTG structure array.
      * @returns {HRESULT} This method supports the S_OK return value.
      * 
      * <table>
@@ -107,7 +109,7 @@ class IEnumSTATPROPSETSTG extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropsetstg-reset
+     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropsetstg-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -115,11 +117,11 @@ class IEnumSTATPROPSETSTG extends IUnknown{
     }
 
     /**
-     * Creates an enumerator that contains the same enumeration state as the current STATPROPSETSTG structure enumerator.
+     * The IEnumSTATPROPSETSTG::Clone method creates an enumerator that contains the same enumeration state as the current STATPROPSETSTG structure enumerator.
      * @returns {IEnumSTATPROPSETSTG} A pointer to the variable that receives the  <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ienumstatpropsetstg">IEnumSTATPROPSETSTG</a> interface pointer. 
      * 
      * If the method does not succeed, the value of the <i>ppenum</i> parameter is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropsetstg-clone
+     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropsetstg-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

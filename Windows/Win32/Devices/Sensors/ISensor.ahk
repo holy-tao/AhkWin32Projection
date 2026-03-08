@@ -10,7 +10,7 @@
 
 /**
  * Represents a sensor.
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-isensor
+ * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensor
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
@@ -43,8 +43,12 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the unique identifier of the sensor.
+     * @remarks
+     * A <b>SENSOR_ID</b> is a <b>GUID</b> that uniquely identifies the sensor on the current computer. This ID corresponds to the constant named SENSOR_PROPERTY_PERSISTENT_UNIQUE_ID.
+     * 
+     * You can use an ID to retrieve a pointer to a particular sensor by calling <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorbyid">ISensorManager::GetSensorByID</a>.
      * @returns {Guid} Address of a <b>SENSOR_ID</b> that receives the ID.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getid
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getid
      */
     GetID() {
         pID := Guid()
@@ -54,8 +58,10 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the identifier of the sensor category.
+     * @remarks
+     * A <b>SENSOR_CATEGORY_ID</b> is a <b>GUID</b> that uniquely identifies the sensor category.
      * @returns {Guid} Address of a <b>SENSOR_CATEGORY_ID</b> that receives the sensor category ID.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getcategory
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getcategory
      */
     GetCategory() {
         pSensorCategory := Guid()
@@ -65,8 +71,11 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the sensor type ID.
+     * @remarks
+     * Sensor types are more specific groupings than sensor categories.
+     * Sensor type IDs are <b>GUID</b>s that are defined in Sensors.h.
      * @returns {Guid} Address of a <b>SENSOR_TYPE_ID</b> that receives the sensor type ID.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-gettype
      */
     GetType() {
         pSensorType := Guid()
@@ -77,7 +86,7 @@ class ISensor extends IUnknown{
     /**
      * Retrieves the sensor name that is intended to be seen by the user.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the friendly name.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getfriendlyname
      */
     GetFriendlyName() {
         pFriendlyName := BSTR()
@@ -87,9 +96,11 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves a property value.
+     * @remarks
+     * To retrieve multiple property values as a collection, call <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensor-getproperties">ISensor::GetProperties</a>.
      * @param {Pointer<PROPERTYKEY>} key <b>REFPROPERTYKEY</b> specifying the property value to be retrieved.
      * @returns {PROPVARIANT} <b>PROPVARIANT</b> pointer that receives the property value.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getproperty
      */
     GetProperty(key) {
         pProperty := PROPVARIANT()
@@ -99,9 +110,13 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves multiple sensor properties.
+     * @remarks
+     * This method enables you to retrieve the values of multiple properties, such as the sensor make, model, and serial number, by making a single call. To retrieve a single property, call <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensor-getproperty">ISensor::GetProperty</a>.
+     * 
+     * The <b>IPortableDeviceKeyCollection</b> and <b>IPortableDeviceValues</b> interfaces are defined by the Windows Portable Devices API.
      * @param {IPortableDeviceKeyCollection} pKeys Pointer to an <a href="https://docs.microsoft.com/previous-versions//ms739549(v=vs.85)">IPortableDeviceKeyCollection</a> interface containing the <b>PROPERTYKEY</b> collection for the property values being requested. Set to <b>NULL</b> to retrieve all supported properties.
      * @returns {IPortableDeviceValues} Address of an <a href="https://docs.microsoft.com/previous-versions//ms740012(v=vs.85)">IPortableDeviceValues</a> pointer that receives the pointer to the requested property values.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getproperties
      */
     GetProperties(pKeys) {
         result := ComCall(8, this, "ptr", pKeys, "ptr*", &ppProperties := 0, "HRESULT")
@@ -111,7 +126,7 @@ class ISensor extends IUnknown{
     /**
      * Retrieves a set of PROPERTYKEYs that represent the data fields the sensor can provide.
      * @returns {IPortableDeviceKeyCollection} Address of the <a href="https://docs.microsoft.com/previous-versions//ms739549(v=vs.85)">IPortableDeviceKeyCollection</a>  pointer that receives the list of supported data fields.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getsupporteddatafields
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getsupporteddatafields
      */
     GetSupportedDataFields() {
         result := ComCall(9, this, "ptr*", &ppDataFields := 0, "HRESULT")
@@ -120,9 +135,15 @@ class ISensor extends IUnknown{
 
     /**
      * Specifies sensor properties.
+     * @remarks
+     * This method enables you to specify the values of one or more  properties, such as the sensor make, model, and serial number, by making a single call. 
+     * 
+     * Not all properties can be set.
+     * 
+     * <b>IPortableDeviceValues</b> is defined by the Windows Portable Devices API.
      * @param {IPortableDeviceValues} pProperties Pointer to an <a href="https://docs.microsoft.com/previous-versions//ms740012(v=vs.85)">IPortableDeviceValues</a> interface containing the list of properties and values to set.
      * @returns {IPortableDeviceValues} Address of an <b>IPortableDeviceValues</b> interface that receives the list of properties that were successfully set. Each property has an associated <b>HRESULT</b> value, which indicates whether setting the property succeeded.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-setproperties
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-setproperties
      */
     SetProperties(pProperties) {
         result := ComCall(10, this, "ptr", pProperties, "ptr*", &ppResults := 0, "HRESULT")
@@ -133,7 +154,7 @@ class ISensor extends IUnknown{
      * Indicates whether the sensor supports the specified data field.
      * @param {Pointer<PROPERTYKEY>} key <b>REFPROPERTYKEY</b> value specifying the data field to search for.
      * @returns {VARIANT_BOOL} Address of a <b>VARIANT_BOOL</b> that receives a value indicating whether the sensor supports the data field.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-supportsdatafield
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsdatafield
      */
     SupportsDataField(key) {
         result := ComCall(11, this, "ptr", key, "short*", &pIsSupported := 0, "HRESULT")
@@ -143,7 +164,7 @@ class ISensor extends IUnknown{
     /**
      * Retrieves the current operational state of the sensor.
      * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> variable that receives the current state.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getstate
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getstate
      */
     GetState() {
         result := ComCall(12, this, "int*", &pState := 0, "HRESULT")
@@ -152,8 +173,12 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the most recent sensor data report.
+     * @remarks
+     * For location sensors, you can retrieve data only from sensors for which the user has granted permission.
+     * 
+     * This method may return data before the driver has set the state to SENSOR_STATE_READY.
      * @returns {ISensorDataReport} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensordatareport">ISensorDataReport</a> pointer that receives the pointer to the most recent sensor data report.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-getdata
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getdata
      */
     GetData() {
         result := ComCall(13, this, "ptr*", &ppDataReport := 0, "HRESULT")
@@ -164,7 +189,7 @@ class ISensor extends IUnknown{
      * Indicates whether the sensor supports the specified event.
      * @param {Pointer<Guid>} eventGuid <b>REFGUID</b> value specifying the event to search for.
      * @returns {VARIANT_BOOL} Address of a <b>VARIANT_BOOL</b> that receives a value indicating whether the sensor supports the event.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-supportsevent
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsevent
      */
     SupportsEvent(eventGuid) {
         result := ComCall(14, this, "ptr", eventGuid, "short*", &pIsSupported := 0, "HRESULT")
@@ -173,6 +198,8 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the current event interest settings.
+     * @remarks
+     * Each sensor event is represented by a <b>GUID</b>. This method returns the list of requested events as an array of <b>GUID</b>s.
      * @param {Pointer<Pointer<Guid>>} ppValues Address of a <b>GUID</b> pointer that points to an array of sensor event identifiers.
      * @param {Pointer<Integer>} pCount The count of <b>GUID</b>s in the array pointed to by <i>ppValues</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -205,7 +232,7 @@ class ISensor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-geteventinterest
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-geteventinterest
      */
     GetEventInterest(ppValues, pCount) {
         ppValuesMarshal := ppValues is VarRef ? "ptr*" : "ptr"
@@ -217,6 +244,8 @@ class ISensor extends IUnknown{
 
     /**
      * Specifies the list of sensor events to receive.
+     * @remarks
+     * Each sensor event is represented by a <b>GUID</b>. This method takes, as an array of <b>GUID</b>s, the list of events that you want to receive.
      * @param {Pointer<Guid>} pValues Pointer to an array of <b>GUID</b>s. Each <b>GUID</b> represents an event to receive. Set to <b>NULL</b> to receive all data-updated events and all custom events.
      * @param {Integer} count The count of <b>GUID</b>s in the array pointed to by <i>pValues</i>. Set to zero when <i>pValues</i> is <b>NULL</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -238,7 +267,7 @@ class ISensor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-seteventinterest
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventinterest
      */
     SetEventInterest(pValues, count) {
         result := ComCall(16, this, "ptr", pValues, "uint", count, "HRESULT")
@@ -247,6 +276,8 @@ class ISensor extends IUnknown{
 
     /**
      * Specifies the interface through which to receive sensor event notifications.
+     * @remarks
+     * Specify the events to receive by calling <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensor-seteventinterest">SetEventInterest</a>. You can retrieve the current event interest list by calling <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensor-geteventinterest">GetEventInterest</a>.
      * @param {ISensorEvents} pEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensorevents">ISensorEvents</a> callback interface that receives the event notifications. Set to <b>NULL</b> to cancel event notifications.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -267,7 +298,7 @@ class ISensor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensor-seteventsink
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventsink
      */
     SetEventSink(pEvents) {
         result := ComCall(17, this, "ptr", pEvents, "HRESULT")

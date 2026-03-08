@@ -6,7 +6,7 @@
 
 /**
  * Enumerates &lt;MainPackageDependency&gt; elements from an app manifest.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestmainpackagedependenciesenumerator
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestmainpackagedependenciesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAppxManifestMainPackageDependenciesEnumerator extends IUnknown{
     /**
      * Gets the &lt;MainPackageDependency&gt; element at the current position of the enumerator.
      * @returns {IAppxManifestMainPackageDependency} The current &lt;MainPackageDependency&gt; element.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &mainPackageDependency := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IAppxManifestMainPackageDependenciesEnumerator extends IUnknown{
     /**
      * Determines whether there is a &lt;MainPackageDependency&gt; element at the current position of the enumerator.
      * @returns {BOOL} <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -58,7 +58,7 @@ class IAppxManifestMainPackageDependenciesEnumerator extends IUnknown{
      * <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependenciesenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

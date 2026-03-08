@@ -7,7 +7,7 @@
 
 /**
  * Can be used to represent an attribute in a PKCS
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509attribute
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attribute
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -41,12 +41,16 @@ class IX509Attribute extends IDispatch{
 
     /**
      * Initializes the object from an object identifier (OID) and a value.
+     * @remarks
+     * You must initialize the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromname">InitializeFromName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromvalue">InitializeFromValue</a> methods before using it in this method.
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attribute-get_objectid">ObjectId</a> property to retrieve the OID. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attribute-get_rawdata">RawData</a> property to retrieve the attribute value.
      * @param {IObjectId} pObjectId Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that contains the attribute OID.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the attribute value contained in the <i>strEncodedData</i> parameter.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the attribute value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -61,12 +65,12 @@ class IX509Attribute extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The pointer to the <a href="/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface is <b>NULL</b>.
+     * The pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface is <b>NULL</b>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attribute-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attribute-initialize
      */
     Initialize(pObjectId, Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
@@ -76,14 +80,11 @@ class IX509Attribute extends IDispatch{
     }
 
     /**
-     * Retrieves the object identifier (OID) for the attribute.
+     * Retrieves the object identifier (OID) for the attribute. (IX509Attribute.get_ObjectId)
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attribute-initialize">Initialize</a> method to specify the property value.
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attribute-get_objectid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attribute-get_objectid
      */
     get_ObjectId() {
         result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -93,13 +94,10 @@ class IX509Attribute extends IDispatch{
     /**
      * Retrieves the attribute value.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attribute-initialize">Initialize</a> method to specify the property value.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attribute-get_rawdata
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attribute-get_rawdata
      */
     get_RawData(Encoding) {
         pValue := BSTR()

@@ -5,7 +5,7 @@
 
 /**
  * Provides functionality for the IPlayToSource to determine the capabilities of the content.
- * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nn-mfsharingengine-iplaytocontrolwithcapabilities
+ * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-iplaytocontrolwithcapabilities
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IPlayToControlWithCapabilities extends IPlayToControl{
     /**
      * Gets the capabilities information for the content.
      * @returns {Integer} The capabilities information for the content.
-     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-iplaytocontrolwithcapabilities-getcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytocontrolwithcapabilities-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(5, this, "int*", &pCapabilities := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Retrieves property information for file based queries.
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-icolumnmapper
+ * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-icolumnmapper
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IColumnMapper extends IUnknown{
      * @param {Pointer<Integer>} pPropType The return type of the property.
      * @param {Pointer<Integer>} puiWidth The return property width.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromname
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromname
      */
     GetPropInfoFromName(wcsPropName, ppPropId, pPropType, puiWidth) {
         wcsPropName := wcsPropName is String ? StrPtr(wcsPropName) : wcsPropName
@@ -57,7 +57,7 @@ class IColumnMapper extends IUnknown{
      * @param {Pointer<Integer>} pPropType The return type of the property.
      * @param {Pointer<Integer>} puiWidth The return property width.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
      */
     GetPropInfoFromId(pPropId, pwcsName, pPropType, puiWidth) {
         pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
@@ -76,7 +76,7 @@ class IColumnMapper extends IUnknown{
      * @param {Pointer<Integer>} pPropType The return type of the property.
      * @param {Pointer<Integer>} puiWidth The return property width.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
      */
     EnumPropInfo(iEntry, pwcsName, ppPropId, pPropType, puiWidth) {
         pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
@@ -91,7 +91,7 @@ class IColumnMapper extends IUnknown{
     /**
      * Determines if the map is up to date.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-ismapuptodate
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-ismapuptodate
      */
     IsMapUpToDate() {
         result := ComCall(6, this, "HRESULT")

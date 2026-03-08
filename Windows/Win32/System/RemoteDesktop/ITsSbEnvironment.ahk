@@ -7,7 +7,7 @@
 
 /**
  * Exposes methods and properties that contain information about the environment that hosts the target computer. This interface can be used to store information about a physical server that hosts virtual machines.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbenvironment
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbenvironment
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -57,12 +57,9 @@ class ITsSbEnvironment extends IUnknown{
     /**
      * Retrieves a value that indicates the name of the environment that hosts the target computer.
      * @remarks
-     * 
      * This method returns a string that is not directly used by Remote Desktop Connection Broker (RD Connection Broker). RD Connection Broker passes this string to resource plug-ins.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbenvironment-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_name
      */
     get_Name() {
         pVal := BSTR()
@@ -73,12 +70,9 @@ class ITsSbEnvironment extends IUnknown{
     /**
      * Retrieves a value that indicates the server weight of the environment that hosts the target computer.
      * @remarks
-     * 
      * Plug-ins can use the server weight to make load balancing decisions. This value is not used by Remote Desktop Connection Broker (RD Connection Broker).
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbenvironment-get_serverweight
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_serverweight
      */
     get_ServerWeight() {
         result := ComCall(4, this, "uint*", &pVal := 0, "HRESULT")
@@ -86,9 +80,9 @@ class ITsSbEnvironment extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the property set for the environment that hosts the target computer.
+     * Retrieves or specifies the property set for the environment that hosts the target computer. (Get)
      * @returns {ITsSbEnvironmentPropertySet} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbenvironment-get_environmentpropertyset
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_environmentpropertyset
      */
     get_EnvironmentPropertySet() {
         result := ComCall(5, this, "ptr*", &ppPropertySet := 0, "HRESULT")
@@ -96,10 +90,10 @@ class ITsSbEnvironment extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the property set for the environment that hosts the target computer.
+     * Retrieves or specifies the property set for the environment that hosts the target computer. (Put)
      * @param {ITsSbEnvironmentPropertySet} pVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbenvironment-put_environmentpropertyset
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-put_environmentpropertyset
      */
     put_EnvironmentPropertySet(pVal) {
         result := ComCall(6, this, "ptr", pVal, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Accesses games settings for the user.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcgamessettings
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcgamessettings
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IWPCGamesSettings extends IWPCSettings{
 
     /**
      * Determines whether the specified game is blocked from execution.
+     * @remarks
+     * If <i>guidAppID</i> is not found, the policy will default to unrated and set *<i>pdwReasons</i> to WPCFLAG_ISBLOCKED_NOT_BLOCKED.
      * @param {Guid} guidAppID The GUID associated with the game during install or game scan detection.
      * @returns {Integer} The reason code. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wpcevent/ne-wpcevent-wpcflag_isblocked">WPCFLAG_ISBLOCKED</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcgamessettings-isblocked
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcgamessettings-isblocked
      */
     IsBlocked(guidAppID) {
         result := ComCall(6, this, "ptr", guidAppID, "uint*", &pdwReasons := 0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Exposes configuration methods that are implemented by third parties.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcproviderconfig
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcproviderconfig
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class IWPCProviderConfig extends IUnknown{
 
     /**
      * Retrieves the information for each user by using the Parental Controls Control Panel.
+     * @remarks
+     * The user summary string is used to display information under each user in the Parental Controls Control Panel.
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user whose settings you want to obtain.
      * @returns {BSTR} A pointer to a string that contains the summary details for the user specified in the <i>bstrSID</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
      */
     GetUserSummary(bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
@@ -51,7 +53,7 @@ class IWPCProviderConfig extends IUnknown{
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user to configure.
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -70,7 +72,7 @@ class IWPCProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-configure
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-configure
      */
     Configure(hWnd, bstrSID) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -87,8 +89,8 @@ class IWPCProviderConfig extends IUnknown{
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
      */
     RequestOverride(hWnd, bstrPath, dwFlags) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd

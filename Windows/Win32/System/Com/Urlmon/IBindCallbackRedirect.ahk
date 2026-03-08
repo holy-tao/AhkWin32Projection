@@ -29,9 +29,10 @@ class IBindCallbackRedirect extends IUnknown{
     static VTableNames => ["Redirect"]
 
     /**
-     * 
+     * The installer sets the RedirectedDLLSupport property if the system platform performing the installation supports Isolated Components.
      * @param {PWSTR} lpcUrl 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/redirecteddllsupport
      */
     Redirect(lpcUrl) {
         lpcUrl := lpcUrl is String ? StrPtr(lpcUrl) : lpcUrl

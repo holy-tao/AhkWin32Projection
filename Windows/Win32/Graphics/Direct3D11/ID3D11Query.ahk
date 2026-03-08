@@ -4,9 +4,8 @@
 #Include .\ID3D11Asynchronous.ahk
 
 /**
- * A query interface queries information from the GPU.
+ * A query interface queries information from the GPU. (ID3D11Query)
  * @remarks
- * 
  * A query can be created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createquery">ID3D11Device::CreateQuery</a>.
  * 
  * Query data is typically gathered by issuing an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-begin">ID3D11DeviceContext::Begin</a> command, issuing some graphics commands, issuing an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-end">ID3D11DeviceContext::End</a> command, and then calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-getdata">ID3D11DeviceContext::GetData</a> to get data about what happened in between the Begin and End calls. The data returned by <b>GetData</b> will be different depending on the type of query.
@@ -38,9 +37,7 @@
  * 
  * 
  * When using a query that does not require a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-begin">Begin</a>, it still requires a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-end">End</a>. The call to <b>End</b> causes the data returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-getdata">GetData</a> to be accurate up until the last call to <b>End</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11query
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11query
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -66,12 +63,12 @@ class ID3D11Query extends ID3D11Asynchronous{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get a query description.
+     * Get a query description. (ID3D11Query.GetDesc)
      * @param {Pointer<D3D11_QUERY_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_query_desc">D3D11_QUERY_DESC</a>*</b>
      * 
      * Pointer to a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_query_desc">D3D11_QUERY_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11query-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11query-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

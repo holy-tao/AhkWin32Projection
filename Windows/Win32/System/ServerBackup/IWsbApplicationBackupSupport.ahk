@@ -6,7 +6,7 @@
 
 /**
  * Defines a method for checking the consistency of the application's VSS writer's components.
- * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nn-wsbapp-iwsbapplicationbackupsupport
+ * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nn-wsbapp-iwsbapplicationbackupsupport
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */
@@ -33,6 +33,12 @@ class IWsbApplicationBackupSupport extends IUnknown{
 
     /**
      * Checks the consistency of the VSS writer's components in the shadow copy after shadow copies are created for the volumes to be backed up.
+     * @remarks
+     * The application should perform the consistency check as an asynchronous operation, because it might be a 
+     *   long-running operation. The application should check the consistency of the files for the VSS writer's components in 
+     *   the shadow copy. These files will be backed up as part of the backup operation. If the consistency check fails, the 
+     *   backup of the components will still succeed, but recovery of the components will not be allowed from the resulting 
+     *   backup set.
      * @param {PWSTR} wszWriterMetadata A string that contains the VSS writer's metadata.
      * @param {PWSTR} wszComponentName The name of the component or component set to be checked. This should match the name in the metadata that 
      *     the <i>wszWriterMetadata</i> parameter points to.
@@ -52,7 +58,7 @@ class IWsbApplicationBackupSupport extends IUnknown{
      *   if a consistency check is not required. When the consistency-check operation is complete, the 
      *   <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method must be called to free all 
      *       resources held by the <b>IWsbApplicationAsync</b> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationbackupsupport-checkconsistency
+     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationbackupsupport-checkconsistency
      */
     CheckConsistency(wszWriterMetadata, wszComponentName, wszComponentLogicalPath, cVolumes, rgwszSourceVolumePath, rgwszSnapshotVolumePath) {
         wszWriterMetadata := wszWriterMetadata is String ? StrPtr(wszWriterMetadata) : wszWriterMetadata

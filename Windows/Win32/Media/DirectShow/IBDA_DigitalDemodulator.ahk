@@ -6,11 +6,8 @@
 /**
  * The IBDA_DigitalDemodulator interface is exposed on BDA device filters, specifically demodulators, that are not capable of automatically detecting the characteristics of a signal.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DigitalDemodulator)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_digitaldemodulator
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_digitaldemodulator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -88,7 +85,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_ModulationType method specifies the modulation type for the signal.
      * @param {Pointer<Integer>} pModulationType Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> variable that specifies the modulation type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_modulationtype
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_modulationtype
      */
     put_ModulationType(pModulationType) {
         pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
@@ -101,7 +98,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_ModulationType method retrieves the modulation type for the signal.
      * @param {Pointer<Integer>} pModulationType Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> variable indicating the modulation type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_modulationtype
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_modulationtype
      */
     get_ModulationType(pModulationType) {
         pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
@@ -114,7 +111,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_InnerFECMethod method specifies the inner forward error correction method for the signal.
      * @param {Pointer<Integer>} pFECMethod Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> variable that specifies the inner forward error correction method.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecmethod
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecmethod
      */
     put_InnerFECMethod(pFECMethod) {
         pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
@@ -127,7 +124,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_InnerFECMethod method retrieves the inner forward error correction method.
      * @param {Pointer<Integer>} pFECMethod Pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> variable.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecmethod
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecmethod
      */
     get_InnerFECMethod(pFECMethod) {
         pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
@@ -140,7 +137,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_InnerFECRate method specifies the inner forward error correction rate.
      * @param {Pointer<Integer>} pFECRate Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> variable that specifies the inner FEC rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecrate
      */
     put_InnerFECRate(pFECRate) {
         pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
@@ -153,7 +150,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_InnerFECRate method retrieves the inner forward error correction rate being used on the signal.
      * @param {Pointer<Integer>} pFECRate Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> variable that indicates the rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecrate
      */
     get_InnerFECRate(pFECRate) {
         pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
@@ -166,7 +163,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_OuterFECMethod method specifies the outer forward error correction method for the signal.
      * @param {Pointer<Integer>} pFECMethod Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> variable.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecmethod
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecmethod
      */
     put_OuterFECMethod(pFECMethod) {
         pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
@@ -179,7 +176,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_OuterFECMethod method retrieves the outer forward error correction method for the signal .
      * @param {Pointer<Integer>} pFECMethod Pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> variable that indicates the FEC method.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecmethod
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecmethod
      */
     get_OuterFECMethod(pFECMethod) {
         pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
@@ -192,7 +189,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_OuterFECRate method specifies the outer forward error correction rate for the signal.
      * @param {Pointer<Integer>} pFECRate Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> variable that specifies the FEC rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecrate
      */
     put_OuterFECRate(pFECRate) {
         pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
@@ -205,7 +202,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_OuterFECRate method retrieves the outer forward error correction rate for the signal.
      * @param {Pointer<Integer>} pFECRate Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> variable that indicates the rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecrate
      */
     get_OuterFECRate(pFECRate) {
         pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
@@ -218,7 +215,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_SymbolRate method specifies the symbol rate for the signal.
      * @param {Pointer<Integer>} pSymbolRate Pointer to a ULONG that specifies the symbol rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_symbolrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_symbolrate
      */
     put_SymbolRate(pSymbolRate) {
         pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
@@ -231,7 +228,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The get_SymbolRate method retrieves the symbol rate for the signal.
      * @param {Pointer<Integer>} pSymbolRate Pointer that receives the symbol rate.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_symbolrate
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_symbolrate
      */
     get_SymbolRate(pSymbolRate) {
         pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
@@ -244,7 +241,7 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * The put_SpectralInversion method specifies the spectral inversion value for the signal.
      * @param {Pointer<Integer>} pSpectralInversion Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/spectralinversion">SpectralInversion</a> variable.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_spectralinversion
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_spectralinversion
      */
     put_SpectralInversion(pSpectralInversion) {
         pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"
@@ -255,9 +252,11 @@ class IBDA_DigitalDemodulator extends IUnknown{
 
     /**
      * The get_SpectralInversion method retrieves the spectral inversion value for the signal.
+     * @remarks
+     * For more information, see <b>KSPROPERTY_BDA_SPECTRAL_INVERSION</b> in the Windows DDK.
      * @param {Pointer<Integer>} pSpectralInversion Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/spectralinversion">SpectralInversion</a> variable.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_spectralinversion
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_spectralinversion
      */
     get_SpectralInversion(pSpectralInversion) {
         pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"

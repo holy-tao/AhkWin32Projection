@@ -6,16 +6,13 @@
 /**
  * Notifies the application when a byte stream requests a URL, and enables the application to block URL redirection.
  * @remarks
- * 
  * To set the callback interface:
  * 
  * <ol>
  * <li>Query the byte stream object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface.</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-setunknown">IMFAttributes::SetUnknown</a> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-resource-filter">MFNETSOURCE_RESOURCE_FILTER</a> attribute.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetresourcefilter
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetresourcefilter
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -44,7 +41,7 @@ class IMFNetResourceFilter extends IUnknown{
      * Called when the byte stream redirects to a URL.
      * @param {PWSTR} pszUrl The URL to which the connection has been redirected.
      * @returns {VARIANT_BOOL} To cancel the redirection, set this parameter to <b>VARIANT_TRUE</b>. To allow the redirection, set this parameter to <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetresourcefilter-onredirect
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetresourcefilter-onredirect
      */
     OnRedirect(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
@@ -56,8 +53,8 @@ class IMFNetResourceFilter extends IUnknown{
     /**
      * Called when the byte stream requests a URL.
      * @param {PWSTR} pszUrl The URL that the byte stream is requesting.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetresourcefilter-onsendingrequest
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetresourcefilter-onsendingrequest
      */
     OnSendingRequest(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl

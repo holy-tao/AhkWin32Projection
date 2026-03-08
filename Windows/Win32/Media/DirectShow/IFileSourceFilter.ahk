@@ -5,7 +5,7 @@
 
 /**
  * The IFileSourceFilter interface is exposed by source filters to set the file name and media type of the media file that they are to render.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifilesourcefilter
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilesourcefilter
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,10 +32,14 @@ class IFileSourceFilter extends IUnknown{
 
     /**
      * The Load method causes a source filter to load a media file.
+     * @remarks
+     * This method initializes the interface. It is not designed to load multiple files, and any calls to this method after the first call will fail.
+     * 
+     * For the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/file-source--async--filter">File Source (Async)</a> filter, <i>pszFileName</i> specifies the absolute path name of a local file. For the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/file-source--url--filter">File Source (URL)</a> filter, <i>pszFileName</i> specifies the URL of a file to download. For other filter implementations, <i>pszFileName</i> might require a file name or a URL, depending on the filter.
      * @param {PWSTR} pszFileName Pointer to the name of the file to open.
      * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to the media type of the file. This can be <b>NULL</b>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesourcefilter-load
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesourcefilter-load
      */
     Load(pszFileName, pmt) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
@@ -45,7 +49,11 @@ class IFileSourceFilter extends IUnknown{
     }
 
     /**
-     * The GetCurFile method retrieves the name and media type of the current file.
+     * The GetCurFile method retrieves the name and media type of the current file. (IFileSourceFilter.GetCurFile)
+     * @remarks
+     * If the filter has not opened a file, the method might succeed but return <b>NULL</b> in the <i>ppszFileName</i> parameter. Check the value when the method returns.
+     * 
+     * The method allocates the memory for the string returned in <i>ppszFileName</i>, and the memory for the format block in the media type (if any). The caller must free them by calling <b>CoTaskMemFree</b>. For the media type, you can use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/freemediatype">FreeMediaType</a> function in the base class library.
      * @param {Pointer<PWSTR>} ppszFileName Address of a pointer that receives the name of the file, as an <b>OLESTR</b> type.
      * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that receives the media type. This parameter can by <b>NULL</b>, in which case the method does not return the media type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
@@ -100,7 +108,7 @@ class IFileSourceFilter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesourcefilter-getcurfile
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesourcefilter-getcurfile
      */
     GetCurFile(ppszFileName, pmt) {
         ppszFileNameMarshal := ppszFileName is VarRef ? "ptr*" : "ptr"

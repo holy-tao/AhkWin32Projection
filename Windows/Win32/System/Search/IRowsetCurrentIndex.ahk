@@ -38,9 +38,10 @@ class IRowsetCurrentIndex extends IRowsetIndex{
     }
 
     /**
-     * 
+     * Learn more about: SetIndexRangeGrbit enumeration
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/setindexrangegrbit-enumeration
      */
     SetIndex(pIndexID) {
         result := ComCall(7, this, "ptr", pIndexID, "HRESULT")

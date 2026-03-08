@@ -5,7 +5,7 @@
 
 /**
  * Enables applications to receive notifications of state changes in a display and of changes in Start screen visibility.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iappvisibilityevents
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iappvisibilityevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IAppVisibilityEvents extends IUnknown{
      * @param {Integer} previousMode The previous mode of <i>hMonitor</i>, which may be <b>MAV_UNKNOWN</b>  if the client was unaware of the display previously.
      * @param {Integer} currentMode The current mode of <i>hMonitor</i>, which will not be <b>MAV_UNKNOWN</b>.
      * @returns {HRESULT} The return value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iappvisibilityevents-appvisibilityonmonitorchanged
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibilityevents-appvisibilityonmonitorchanged
      */
     AppVisibilityOnMonitorChanged(hMonitor, previousMode, currentMode) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
@@ -49,7 +49,7 @@ class IAppVisibilityEvents extends IUnknown{
      * Notifies a client that visibility of the Start screen has changed.
      * @param {BOOL} currentVisibleState <b>TRUE</b> if the Start screen is displayed; otherwise, <b>FALSE.</b>
      * @returns {HRESULT} The return value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iappvisibilityevents-launchervisibilitychange
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibilityevents-launchervisibilitychange
      */
     LauncherVisibilityChange(currentVisibleState) {
         result := ComCall(4, this, "int", currentVisibleState, "HRESULT")

@@ -6,7 +6,6 @@
 /**
  * The ITfSource interface is implemented by the TSF manager. It is used by applications and text services to install and uninstall advise sinks.
  * @remarks
- * 
  * The TSF manager has different implementations of <b>ITfSource</b>, depending upon how the <b>ITfSource</b> interface is obtained. The difference in the implementations is the types of advise sinks that can be installed with the interface. The different implementations can be obtained from the following objects.
  * 
  * <ul>
@@ -32,10 +31,7 @@
  * </li>
  * </ul>
  * For more information about advise sinks that can be installed by each implementation, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfsource
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfsource
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -65,7 +61,7 @@ class ITfSource extends IUnknown{
      * @param {Pointer<Guid>} riid Identifies the type of advise sink to install.
      * @param {IUnknown} punk The advise sink <b>IUnknown</b> pointer.
      * @returns {Integer} Address of a DWORD value that receives an identifying cookie. This value is used to uninstall the advise sink in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-unadvisesink">ITfSource::UnadviseSink</a>. Receives (DWORD)-1 if a failure occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsource-advisesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsource-advisesink
      */
     AdviseSink(riid, punk) {
         result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint*", &pdwCookie := 0, "HRESULT")
@@ -116,7 +112,7 @@ class ITfSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsource-unadvisesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsource-unadvisesink
      */
     UnadviseSink(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")

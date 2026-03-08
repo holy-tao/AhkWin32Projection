@@ -6,7 +6,7 @@
 
 /**
  * The INetConnection interface provides methods to manage network connections.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetconnection
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -131,7 +131,7 @@ class INetConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-connect
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-connect
      */
     Connect() {
         result := ComCall(3, this, "HRESULT")
@@ -238,7 +238,7 @@ class INetConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-disconnect
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-disconnect
      */
     Disconnect() {
         result := ComCall(4, this, "HRESULT")
@@ -345,7 +345,7 @@ class INetConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-delete
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-delete
      */
     Delete() {
         result := ComCall(5, this, "HRESULT")
@@ -357,7 +357,7 @@ class INetConnection extends IUnknown{
      * @param {PWSTR} pszwDuplicateName Pointer to a Unicode string that specifies the name for the new connection.
      * @returns {INetConnection} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetconnection">INetConnection</a> interface for the new connection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-duplicate
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-duplicate
      */
     Duplicate(pszwDuplicateName) {
         pszwDuplicateName := pszwDuplicateName is String ? StrPtr(pszwDuplicateName) : pszwDuplicateName
@@ -368,9 +368,12 @@ class INetConnection extends IUnknown{
 
     /**
      * The GetProperties method retrieves a structure that contains the properties for this network connection.
+     * @remarks
+     * The calling application should free the memory occupied by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ns-netcon-netcon_properties">NETCON_PROPERTIES</a> structure returned by <b>GetProperties</b>. Free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nf-netcon-ncfreenetconproperties">NcFreeNetconProperties</a> function. This function is defined in NetCon.h and is exported by NetShell.dll.
      * @returns {Pointer<NETCON_PROPERTIES>} Pointer to a pointer that, on successful return, points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ns-netcon-netcon_properties">NETCON_PROPERTIES</a> structure that contains the properties for this network connection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-getproperties
      */
     GetProperties() {
         result := ComCall(7, this, "ptr*", &ppProps := 0, "HRESULT")
@@ -380,7 +383,7 @@ class INetConnection extends IUnknown{
     /**
      * The GetUiObjectClassId method retrieves the class identifier of the user interface object for this connection.
      * @returns {Guid} Pointer to a <b>CLSID</b> variable that, on successful return, points to the class identifier of the user interface object for this connection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-getuiobjectclassid
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-getuiobjectclassid
      */
     GetUiObjectClassId() {
         pclsid := Guid()
@@ -489,7 +492,7 @@ class INetConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnection-rename
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-rename
      */
     Rename(pszwNewName) {
         pszwNewName := pszwNewName is String ? StrPtr(pszwNewName) : pszwNewName

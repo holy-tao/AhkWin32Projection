@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that define an interior output connector.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectinterioroutputconnector
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinterioroutputconnector
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IMILBitmapEffectInteriorOutputConnector extends IUnknown{
     /**
      * Gets the IMILBitmapEffectOutputConnector associated with the interior output connector.
      * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinterioroutputconnector-getoutputconnector
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinterioroutputconnector-getoutputconnector
      */
     GetOutputConnector() {
         result := ComCall(3, this, "ptr*", &pOutputConnector := 0, "HRESULT")

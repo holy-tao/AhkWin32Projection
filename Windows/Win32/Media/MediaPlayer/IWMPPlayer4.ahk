@@ -7,7 +7,7 @@
 
 /**
  * The IWMPPlayer4 interface provides methods for modifying the basic behavior of the Windows Media Player control user interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplayer4
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer4
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -221,6 +221,8 @@ class IWMPPlayer4 extends IWMPCore3{
 
     /**
      * The get_isRemote method retrieves a value indicating whether the Windows Media Player control is running in remote mode.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT_BOOL</b> set to <b>FALSE</b>.
      * @param {Pointer<VARIANT_BOOL>} pvarfIsRemote Pointer to a <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control is running in remote mode. If the value is <b>TRUE</b>, then the control is running in remote mode. A value of <b>FALSE</b> means the control is running in local mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -241,7 +243,7 @@ class IWMPPlayer4 extends IWMPCore3{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-get_isremote
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_isremote
      */
     get_isRemote(pvarfIsRemote) {
         pvarfIsRemoteMarshal := pvarfIsRemote is VarRef ? "short*" : "ptr"
@@ -252,8 +254,12 @@ class IWMPPlayer4 extends IWMPCore3{
 
     /**
      * The get_playerApplication method retrieves a pointer to an IWMPPlayerApplication interface when a remoted Windows Media Player control is running.
+     * @remarks
+     * This method is used only when remoting the Windows Media Player control. If the retrieved value is null, the Player control is not embedded in remote mode.
+     * 
+     * This method is only accessible in C++ code or in script code in skins through the playerApplication global variable.
      * @returns {IWMPPlayerApplication} Pointer to a pointer to an <b>IWMPPlayerApplication</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-get_playerapplication
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_playerapplication
      */
     get_playerApplication() {
         result := ComCall(44, this, "ptr*", &ppIWMPPlayerApplication := 0, "HRESULT")
@@ -262,6 +268,12 @@ class IWMPPlayer4 extends IWMPCore3{
 
     /**
      * The openPlayer method opens Windows Media Player using the specified URL.
+     * @remarks
+     * This method launches Windows Media Player with the specified URL set as the current media item. If the Player was previously closed in skin mode it will open using the skin last chosen by the user. Otherwise, the Player opens in full mode.
+     * 
+     * If this method is called from a Windows Media Player ActiveX control embedded in remote mode, its behavior is identical to the <b>IWMPPlayerAppication::switchToPlayerApplication</b> method.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always returns E_NOTIMPL.
      * @param {BSTR} bstrURL <b>BSTR</b> containing the URL of the media item to play.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -282,7 +294,7 @@ class IWMPPlayer4 extends IWMPCore3{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-openplayer
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-openplayer
      */
     openPlayer(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL

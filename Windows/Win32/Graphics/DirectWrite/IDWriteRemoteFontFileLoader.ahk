@@ -7,7 +7,7 @@
 
 /**
  * Represents a font file loader that can access remote (i.e., downloadable) fonts.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteremotefontfileloader
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -34,6 +34,10 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Creates a remote font file stream object that encapsulates an open file resource and can be used to download remote file data.
+     * @remarks
+     * Unlike <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey">CreateStreamFromKey</a>, this method can be used to create a stream for a remote file. 
+     *         If the file is remote, the client must call <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a> with an empty array 
+     *         of file fragments before the stream can be used to get the file size or access data.
      * @param {Pointer} fontFileReferenceKey Type: <b>void</b>
      * 
      * Font file reference key that uniquely identifies the font file resource within the scope of the font loader being used.
@@ -43,7 +47,7 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * @returns {IDWriteRemoteFontFileStream} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfilestream">IDWriteRemoteFontFileStream</a>**</b>
      * 
      * Pointer to the newly created font file stream.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createremotestreamfromkey
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createremotestreamfromkey
      */
     CreateRemoteStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
@@ -61,7 +65,7 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>*</b>
      * 
      * Locality of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey
      */
     GetLocalityFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "int*", &locality := 0, "HRESULT")
@@ -70,6 +74,8 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Creates a font file reference from a URL if the loader supports this capability.
+     * @remarks
+     * If baseUrl is a non-empty string, then baseUrl concatenated with fontFileUrl should form a valid URL, DirectWrite will not supply any additional delimiter.
      * @param {IDWriteFactory} factory Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>*</b>
      * 
      * Factory used to create the font file reference.
@@ -83,7 +89,7 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
      * Receives a pointer to the newly created font file reference.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createfontfilereferencefromurl
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createfontfilereferencefromurl
      */
     CreateFontFileReferenceFromUrl(factory, baseUrl, fontFileUrl) {
         baseUrl := baseUrl is String ? StrPtr(baseUrl) : baseUrl

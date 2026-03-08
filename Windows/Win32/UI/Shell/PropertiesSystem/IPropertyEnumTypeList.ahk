@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that enumerate the possible values for a property.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertyenumtypelist
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtypelist
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IPropertyEnumTypeList extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * When this method returns, contains a pointer to the number of list elements.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtypelist-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pctypes := 0, "HRESULT")
@@ -53,7 +53,7 @@ class IPropertyEnumTypeList extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in riid. This is typically [IPropertyEnumType](nn-propsys-ipropertyenumtype.md).
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtypelist-getat
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getat
      */
     GetAt(itype, riid) {
         result := ComCall(4, this, "uint", itype, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -71,7 +71,7 @@ class IPropertyEnumTypeList extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtypelist-getconditionat
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getconditionat
      */
     GetConditionAt(nIndex, riid) {
         result := ComCall(5, this, "uint", nIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -86,7 +86,7 @@ class IPropertyEnumTypeList extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * When this method returns, contains a pointer to the index in the enumerated type list that matches the property value, if any.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtypelist-findmatchingindex
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-findmatchingindex
      */
     FindMatchingIndex(propvarCmp) {
         result := ComCall(6, this, "ptr", propvarCmp, "uint*", &pnIndex := 0, "HRESULT")

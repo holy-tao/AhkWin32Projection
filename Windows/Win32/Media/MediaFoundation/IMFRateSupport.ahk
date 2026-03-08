@@ -6,7 +6,6 @@
 /**
  * Queries the range of playback rates that are supported, including reverse playback.
  * @remarks
- * 
  * Applications can use this interface to discover the fastest and slowest playback rates that are possible, and to query whether a given playback rate is supported. Applications obtain this interface from the Media Session. Internally, the Media Session queries the objects in the pipeline. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/how-to-determine-supported-rates">How to Determine Supported Rates</a>.
  * 
  * To get the current playback rate and to change the playback rate, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfratecontrol">IMFRateControl</a> interface.
@@ -14,9 +13,7 @@
  * Playback rates are expressed as a ratio the normal playback rate. Reverse playback is expressed as a negative rate. Playback is either <i>thinned</i> or <i>non-thinned</i>. In thinned playback, some of the source data is skipped (typically delta frames). In non-thinned playback, all of the source data is rendered.
  * 
  * You might need to implement this interface if you are writing a pipeline object (media source, transform, or media sink). For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/implementing-rate-control">Implementing Rate Control</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfratesupport
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfratesupport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -43,10 +40,14 @@ class IMFRateSupport extends IUnknown{
 
     /**
      * Retrieves the slowest playback rate supported by the object.
+     * @remarks
+     * The value returned in <i>plfRate</i> represents a lower bound. Playback at this rate is not guaranteed. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfratesupport-isratesupported">IMFRateSupport::IsRateSupported</a> to check whether the boundary rate is supported. For example, a component that supports arbitrarily slow rates will return zero in <i>pflRate</i>, and applications should call <b>IsRateSupported</b> separately to determine whether the component supports rate 0.
+     * 
+     * If <i>eDirection</i> is MFRATE_REVERSE, the method retrieves the slowest reverse playback rate. This is a negative value, assuming the object supports reverse playback.
      * @param {Integer} eDirection Specifies whether to query to the slowest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
      * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the slowest thinned playback rate. Otherwise, the method retrieves the slowest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
      * @returns {Float} Receives the slowest playback rate that the object supports.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-getslowestrate
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getslowestrate
      */
     GetSlowestRate(eDirection, fThin) {
         result := ComCall(3, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
@@ -55,10 +56,16 @@ class IMFRateSupport extends IUnknown{
 
     /**
      * Gets the fastest playback rate supported by the object.
+     * @remarks
+     * For some formats (such as ASF), thinning means dropping all frames that are not I-frames. If a component produces stream data, such as a media source or a demultiplexer, it should pay attention to the <i>fThin</i> parameter and return MF_E_THINNING_UNSUPPORTED if it cannot thin the stream.
+     * 
+     * If the component processes or receives a stream (most transforms or media sinks), it may ignore this parameter if it does not care whether the stream is thinned. In the Media Session's implementation of rate support, if the transforms do not explicitly support reverse playback, the Media Session will attempt to playback in reverse with thinning but not without thinning. Therefore, most applications will set <i>fThin</i> to <b>TRUE</b> when using the Media Session for reverse playback.
+     * 
+     * If <i>eDirection</i> is MFRATE_REVERSE, the method retrieves the fastest reverse playback rate. This is a negative value, assuming the object supports reverse playback.
      * @param {Integer} eDirection Specifies whether to query to the fastest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
      * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the fastest thinned playback rate. Otherwise, the method retrieves the fastest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
      * @returns {Float} Receives the fastest playback rate that the object supports.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-getfastestrate
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getfastestrate
      */
     GetFastestRate(eDirection, fThin) {
         result := ComCall(4, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
@@ -122,7 +129,7 @@ class IMFRateSupport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-isratesupported
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-isratesupported
      */
     IsRateSupported(fThin, flRate, pflNearestSupportedRate) {
         pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : "ptr"

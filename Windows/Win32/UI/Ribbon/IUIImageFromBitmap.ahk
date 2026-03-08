@@ -6,7 +6,7 @@
 
 /**
  * IUIImageFromBitmap is a factory interface implemented by the Windows Ribbon framework that defines the method for creating an IUIImage object.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuiimagefrombitmap
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiimagefrombitmap
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -33,6 +33,25 @@ class IUIImageFromBitmap extends IUnknown{
 
     /**
      * Creates an IUIImage object from a bitmap image.
+     * @remarks
+     * This factory method is useful when an application dynamically generates an image 
+     * 				 resource and wants to pass the new HBITMAP to the Ribbon, 
+     * 				 for example, loading a Portable Network Graphics (PNG) through the Windows Imaging Component (WIC) or using 
+     * 				 <a href="https://docs.microsoft.com/previous-versions//ms532292(v=vs.85)">CreateDIBSection</a> to create an image for a new style 
+     * 				 in a styles gallery.
+     * 			
+     * 
+     * This method is also useful for applications that require a 
+     * 				pre-existing bitmap image that has not been rendered obsolete by the Ribbon, 
+     * 				for example, a legacy toolbar image strip.
+     * 			
+     * 
+     * Specify <b>UI_OWNERSHIP_COPY</b> as the value for <i>options</i> if the Ribbon is being implemented in an 
+     * 				existing application and minimal code changes are required. This method uses extra memory 
+     * 				for the additional image.
+     * 			
+     * 
+     * Specify <b>UI_OWNERSHIP_TRANSFER</b> as the value for <i>options</i> to minimize memory usage.
      * @param {HBITMAP} bitmap Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap that contains the image.
@@ -75,7 +94,7 @@ class IUIImageFromBitmap extends IUnknown{
      * @returns {IUIImage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a>**</b>
      * 
      * When this method returns, contains the address of a pointer variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
     CreateImage(bitmap, options) {
         bitmap := bitmap is Win32Handle ? NumGet(bitmap, "ptr") : bitmap

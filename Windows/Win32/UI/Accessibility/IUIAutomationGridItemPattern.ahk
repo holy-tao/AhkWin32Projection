@@ -6,7 +6,7 @@
 
 /**
  * Provides access to a child control in a grid-style container that supports the IUIAutomationGridPattern interface.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -104,7 +104,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the element that contains the grid item.
      * @returns {IUIAutomationElement} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcontaininggrid
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcontaininggrid
      */
     get_CurrentContainingGrid() {
         result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
@@ -114,7 +114,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the zero-based index of the row that contains the grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentrow
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentrow
      */
     get_CurrentRow() {
         result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
@@ -124,7 +124,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the zero-based index of the column that contains the item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcolumn
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcolumn
      */
     get_CurrentColumn() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -134,7 +134,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the number of rows spanned by the grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentrowspan
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentrowspan
      */
     get_CurrentRowSpan() {
         result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
@@ -144,7 +144,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the number of columns spanned by the grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcolumnspan
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcolumnspan
      */
     get_CurrentColumnSpan() {
         result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
@@ -154,7 +154,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the cached element that contains the grid item.
      * @returns {IUIAutomationElement} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcontaininggrid
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcontaininggrid
      */
     get_CachedContainingGrid() {
         result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
@@ -164,7 +164,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the cached zero-based index of the row that contains the item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedrow
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedrow
      */
     get_CachedRow() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
@@ -174,7 +174,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the cached zero-based index of the column that contains the grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcolumn
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcolumn
      */
     get_CachedColumn() {
         result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
@@ -184,7 +184,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the cached number of rows spanned by a grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedrowspan
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedrowspan
      */
     get_CachedRowSpan() {
         result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
@@ -194,7 +194,7 @@ class IUIAutomationGridItemPattern extends IUnknown{
     /**
      * Retrieves the cached number of columns spanned by the grid item.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcolumnspan
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_cachedcolumnspan
      */
     get_CachedColumnSpan() {
         result := ComCall(12, this, "int*", &retVal := 0, "HRESULT")

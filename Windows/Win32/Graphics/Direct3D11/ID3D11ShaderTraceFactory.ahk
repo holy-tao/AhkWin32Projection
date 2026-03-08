@@ -7,13 +7,10 @@
 /**
  * An ID3D11ShaderTraceFactory interface implements a method for generating shader trace information objects.
  * @remarks
- * 
  * These APIs require the Windows Software Development Kit (SDK) for Windows 8.
  * 
  * To retrieve an instance of <b>ID3D11ShaderTraceFactory</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> that you created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_DEBUGGABLE</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertracefactory
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertracefactory
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -40,10 +37,12 @@ class ID3D11ShaderTraceFactory extends IUnknown{
 
     /**
      * Creates a shader-trace interface for a shader-trace information object.
+     * @remarks
+     * This API requires the Windows Software Development Kit (SDK) for Windows 8.
      * @param {IUnknown} pShader A pointer to the interface of the shader to create the shader-trace interface for. For example, <i>pShader</i> can be an instance of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11vertexshader">ID3D11VertexShader</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11pixelshader">ID3D11PixelShader</a>, and so on.
      * @param {Pointer<D3D11_SHADER_TRACE_DESC>} pTraceDesc A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_shader_trace_desc">D3D11_SHADER_TRACE_DESC</a> structure that describes the shader-trace object to create. This parameter cannot be <b>NULL</b>.
      * @returns {ID3D11ShaderTrace} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertrace">ID3D11ShaderTrace</a> interface for the shader-trace object that <b>CreateShaderTrace</b> creates.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertracefactory-createshadertrace
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertracefactory-createshadertrace
      */
     CreateShaderTrace(pShader, pTraceDesc) {
         result := ComCall(3, this, "ptr", pShader, "ptr", pTraceDesc, "ptr*", &ppShaderTrace := 0, "HRESULT")

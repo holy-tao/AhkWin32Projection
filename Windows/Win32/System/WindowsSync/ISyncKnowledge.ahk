@@ -8,11 +8,8 @@
 /**
  * Represents knowledge that a replica has about its item store.
  * @remarks
- * 
  * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from knowledge inspection methods, such as <b>GetScopeVector</b>, <b>GetRangeExceptions</b>, <b>GetSingleItemExceptions</b>, <b>GetChangeUnitExceptions</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncknowledge
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncknowledge
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -39,6 +36,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets the ID of the replica that owns this knowledge.
+     * @remarks
+     * Knowledge is valid only to the replica that owns it. To use knowledge from a replica that differs from the owning replica, the knowledge must first be converted by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-mapremotetolocal">ISyncKnowledge::MapRemoteToLocal</a>.
      * @param {Pointer<Integer>} pbReplicaId Returns the ID of the replica that owns this knowledge.
      * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbReplicaId</i>. Returns the number of bytes required to retrieve the ID when <i>pbReplicaId</i> is too small, or returns the number of bytes written.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -79,7 +78,7 @@ class ISyncKnowledge extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getownerreplicaid
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getownerreplicaid
      */
     GetOwnerReplicaId(pbReplicaId, pcbIdSize) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
@@ -151,7 +150,7 @@ class ISyncKnowledge extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-serialize
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-serialize
      */
     Serialize(fSerializeReplicaKeyMap, pbKnowledge, pcbKnowledge) {
         pbKnowledgeMarshal := pbKnowledge is VarRef ? "char*" : "ptr"
@@ -163,6 +162,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Sets the tick count for the replica that owns this knowledge.
+     * @remarks
+     * The tick count must be current before the knowledge is sent to another replica. Typically, a provider calls this method immediately before it sends its knowledge; however, the method can be called at any time.
      * @param {Integer} ullTickCount The current tick count for the replica that owns this knowledge.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -202,7 +203,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-setlocaltickcount
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-setlocaltickcount
      */
     SetLocalTickCount(ullTickCount) {
         result := ComCall(5, this, "uint", ullTickCount, "HRESULT")
@@ -252,7 +253,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-containschange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-containschange
      */
     ContainsChange(pbVersionOwnerReplicaId, pgidItemId, pSyncVersion) {
         pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : "ptr"
@@ -306,7 +307,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-containschangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-containschangeunit
      */
     ContainsChangeUnit(pbVersionOwnerReplicaId, pbItemId, pbChangeUnitId, pSyncVersion) {
         pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : "ptr"
@@ -319,6 +320,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets the clock vector that defines the changes that are contained in the knowledge.
+     * @remarks
+     * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetScopeVector</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IClockVector</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that represents the clock vector that defines the changes that are contained in the knowledge.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -364,7 +367,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getscopevector
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getscopevector
      */
     GetScopeVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
@@ -376,7 +379,7 @@ class ISyncKnowledge extends IUnknown{
     /**
      * Gets the IReplicaKeyMap object that is associated with this knowledge.
      * @returns {IReplicaKeyMap} Returns the <b>IReplicaKeyMap</b> object that is associated with this knowledge.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getreplicakeymap
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getreplicakeymap
      */
     GetReplicaKeyMap() {
         result := ComCall(9, this, "ptr*", &ppReplicaKeyMap := 0, "HRESULT")
@@ -385,8 +388,10 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Creates a new instance of this object, and copies the data from this object to the new object.
+     * @remarks
+     * The cloned knowledge object can be used independently of the original.
      * @returns {ISyncKnowledge} Returns the newly created knowledge object.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-clone
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-clone
      */
     Clone() {
         result := ComCall(10, this, "ptr*", &ppClonedKnowledge := 0, "HRESULT")
@@ -447,7 +452,7 @@ class ISyncKnowledge extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-convertversion
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-convertversion
      */
     ConvertVersion(pKnowledgeIn, pbCurrentOwnerId, pVersionIn, pbNewOwnerId, pcbIdSize, pVersionOut) {
         pbCurrentOwnerIdMarshal := pbCurrentOwnerId is VarRef ? "char*" : "ptr"
@@ -462,7 +467,7 @@ class ISyncKnowledge extends IUnknown{
      * Converts a knowledge object from another replica into one that is compatible with the replica that owns this knowledge.
      * @param {ISyncKnowledge} pRemoteKnowledge A knowledge object that is owned by another replica.
      * @returns {ISyncKnowledge} Returns the knowledge object, converted for use by the replica that owns this knowledge.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-mapremotetolocal
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-mapremotetolocal
      */
     MapRemoteToLocal(pRemoteKnowledge) {
         result := ComCall(12, this, "ptr", pRemoteKnowledge, "ptr*", &ppMappedKnowledge := 0, "HRESULT")
@@ -518,7 +523,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-union
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-union
      */
     Union(pKnowledge) {
         result := ComCall(13, this, "ptr", pKnowledge, "HRESULT")
@@ -529,7 +534,7 @@ class ISyncKnowledge extends IUnknown{
      * Gets the knowledge for the specified item.
      * @param {Pointer<Integer>} pbItemId The ID of the item to look up.
      * @returns {ISyncKnowledge} Returns a knowledge object that contains only the item specified by <i>pbItemId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-projectontoitem
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontoitem
      */
     ProjectOntoItem(pbItemId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -543,7 +548,7 @@ class ISyncKnowledge extends IUnknown{
      * @param {Pointer<Integer>} pbItemId The ID of the item that contains the change unit to look up.
      * @param {Pointer<Integer>} pbChangeUnitId The ID of the change unit to look up.
      * @returns {ISyncKnowledge} Returns a knowledge object that contains only the change unit specified by <i>pbChangeUnitId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-projectontochangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontochangeunit
      */
     ProjectOntoChangeUnit(pbItemId, pbChangeUnitId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -557,7 +562,7 @@ class ISyncKnowledge extends IUnknown{
      * Gets the knowledge for the specified range of item IDs.
      * @param {Pointer<SYNC_RANGE>} psrngSyncRange The range of item IDs to look up.
      * @returns {ISyncKnowledge} Returns a knowledge object that contains only the range of item IDs specified by <i>psrngSyncRange</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-projectontorange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontorange
      */
     ProjectOntoRange(psrngSyncRange) {
         result := ComCall(16, this, "ptr", psrngSyncRange, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
@@ -602,7 +607,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-excludeitem
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-excludeitem
      */
     ExcludeItem(pbItemId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -650,7 +655,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-excludechangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-excludechangeunit
      */
     ExcludeChangeUnit(pbItemId, pbChangeUnitId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -701,7 +706,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-containsknowledge
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-containsknowledge
      */
     ContainsKnowledge(pKnowledge) {
         result := ComCall(19, this, "ptr", pKnowledge, "HRESULT")
@@ -739,7 +744,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-findmintickcountforreplica
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findmintickcountforreplica
      */
     FindMinTickCountForReplica(pbReplicaId, pullReplicaTickCount) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
@@ -751,6 +756,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets an object that can enumerate the IRangeException objects that are stored in the knowledge.
+     * @remarks
+     * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetRangeExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumRangeExceptions</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IRangeException</b> objects that is contained in the knowledge.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -796,7 +803,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getrangeexceptions
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getrangeexceptions
      */
     GetRangeExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
@@ -807,6 +814,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets an object that can enumerate the ISingleItemException objects that are stored in the knowledge.
+     * @remarks
+     * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetSingleItemExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumSingleItemExceptions</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>ISingleItemException</b> objects that is contained in the knowledge.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -852,7 +861,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getsingleitemexceptions
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getsingleitemexceptions
      */
     GetSingleItemExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
@@ -863,6 +872,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets an object that can enumerate the IChangeUnitException objects that are stored in the knowledge.
+     * @remarks
+     * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetChangeUnitExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumChangeUnitExceptions</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IChangeUnitException</b> objects that is contained in the knowledge.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -908,7 +919,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getchangeunitexceptions
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getchangeunitexceptions
      */
     GetChangeUnitExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
@@ -965,7 +976,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-findclockvectorforitem
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforitem
      */
     FindClockVectorForItem(pbItemId, riid, ppUnk) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -1024,7 +1035,7 @@ class ISyncKnowledge extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-findclockvectorforchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforchangeunit
      */
     FindClockVectorForChangeUnit(pbItemId, pbChangeUnitId, riid, ppUnk) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -1037,6 +1048,8 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * Gets the version of this knowledge structure.
+     * @remarks
+     * This value is the version of the knowledge structure itself. When the internal knowledge structure is changed, the version that this method returns will also be changed.
      * @param {Pointer<Integer>} pdwVersion Returns the version of this knowledge structure. is one of the values in the <a href="https://docs.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_serialization_version">SYNC_SERIALIZATION_VERSION</a> enumeration.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -1068,7 +1081,7 @@ class ISyncKnowledge extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge-getversion
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getversion
      */
     GetVersion(pdwVersion) {
         pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"

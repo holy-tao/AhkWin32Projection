@@ -6,7 +6,7 @@
 
 /**
  * The IWbemPath interface is the primary interface for the object path parser and makes parsing a path available to programs in a standard way. This interface is the main interface for setting and retrieving path information.
- * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nn-wmiutils-iwbempath
+ * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbempath
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWbemPath extends IUnknown{
      * @param {Integer} uMode Flag specifying the type of paths accepted.
      * @param {PWSTR} pszPath Path to be parsed.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-settext
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-settext
      */
     SetText(uMode, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -51,7 +51,7 @@ class IWbemPath extends IUnknown{
      * @param {Pointer<Integer>} puBuffLength Caller sets this to the size of <i>pszText</i>. If the method is successful, it sets <i>puBufferLength</i> to the number of wide characters used, including the terminating null character.
      * @param {PWSTR} pszText Textual representation of the path.
      * @returns {HRESULT} This method returns the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-gettext
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-gettext
      */
     GetText(lFlags, puBuffLength, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -66,7 +66,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::GetInfo method returns details about a path that has been placed into a parser object.
      * @param {Integer} uRequestedInfo Reserved for future use. Must be 0 (zero).
      * @returns {Integer} Upon success, this bitmap is set to 0 (zero) or more bits in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getinfo
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getinfo
      */
     GetInfo(uRequestedInfo) {
         result := ComCall(5, this, "uint", uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
@@ -77,7 +77,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::SetServer method sets the server portion of the path.
      * @param {PWSTR} Name New server name. <b>NULL</b> is an acceptable value.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-setserver
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-setserver
      */
     SetServer(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -88,10 +88,12 @@ class IWbemPath extends IUnknown{
 
     /**
      * The IWbemPath::GetServer method retrieves the server portion of the path.
+     * @remarks
+     * This method can be used to determine how big a buffer is needed for <i>pszName</i>. This is done by passing in a <b>NULL</b> pointer for the buffer, setting <i>puNameBufLength</i> to 0 (zero) and then making the call. Upon return, <i>puNameBufLength</i> indicates how large a buffer is needed for <i>pszName</i> and its terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} puNameBufLength Upon input, this is the size in characters of the buffer pointed to by <i>pszName</i>. Upon return, this is the number of characters in the server name, including the <b>NULL</b> terminator.
      * @param {PWSTR} pName Server name.
      * @returns {HRESULT} This method returns the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getserver
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getserver
      */
     GetServer(puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -105,7 +107,7 @@ class IWbemPath extends IUnknown{
     /**
      * The IWbemPath::GetNamespaceCount method returns the number of namespaces in the path.
      * @returns {Integer} Number of namespaces in the path.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getnamespacecount
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getnamespacecount
      */
     GetNamespaceCount() {
         result := ComCall(8, this, "uint*", &puCount := 0, "HRESULT")
@@ -117,7 +119,7 @@ class IWbemPath extends IUnknown{
      * @param {Integer} uIndex Index of where the namespace is to be put. The leftmost namespace in the path is index 0 (zero) with each namespace to the right having a progressively higher index value. The maximum permitted value is the current number of namespaces, because specifying that would add a namespace to the end as the namespaces have a zero-based index.
      * @param {PWSTR} pszName Namespace name.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-setnamespaceat
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-setnamespaceat
      */
     SetNamespaceAt(uIndex, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -128,11 +130,13 @@ class IWbemPath extends IUnknown{
 
     /**
      * Retrieves a namespace based upon its index.
+     * @remarks
+     * This method can be used to determine how big a buffer is needed for <i>pName</i>. This is done by passing in a <b>NULL</b> pointer for the buffer, setting <i>puNameBufLength</i> to 0 and then making the call. Upon return, <i>puNameBufLength</i> indicates how large of a buffer is needed for <i>pName</i> and its terminating <b>NULL</b> character.
      * @param {Integer} uIndex Index of the namespace to be read. The leftmost namespace in the path is index 0 with each namespace to the right having a progressively higher index value. The maximum permitted value is one less than the current number of namespaces.
      * @param {Pointer<Integer>} puNameBufLength Caller sets this to the number of characters the buffer can hold. Upon success, this is set to the number of characters copied into the buffer including the <b>NULL</b> terminator.
      * @param {PWSTR} pName Namespace name.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getnamespaceat
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getnamespaceat
      */
     GetNamespaceAt(uIndex, puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -147,7 +151,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::RemoveNamespaceAt method removes a namespace at a particular index. The leftmost namespace has an index value of 0 (zero), while namespaces to the right have progressively higher index values.
      * @param {Integer} uIndex Zero-based index value of the namespace to be removed.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> with one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-removenamespaceat
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removenamespaceat
      */
     RemoveNamespaceAt(uIndex) {
         result := ComCall(11, this, "uint", uIndex, "HRESULT")
@@ -157,7 +161,7 @@ class IWbemPath extends IUnknown{
     /**
      * The IWbemPath::RemoveAllNamespaces method removes the namespace portion of the path.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-removeallnamespaces
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removeallnamespaces
      */
     RemoveAllNamespaces() {
         result := ComCall(12, this, "HRESULT")
@@ -167,7 +171,7 @@ class IWbemPath extends IUnknown{
     /**
      * The IWbemPath::GetScopeCount method returns the number of scopes in the path.
      * @returns {Integer} Number of scopes in the path. When there is a scope it is basically the class or key portion of the path.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getscopecount
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscopecount
      */
     GetScopeCount() {
         result := ComCall(13, this, "uint*", &puCount := 0, "HRESULT")
@@ -179,7 +183,7 @@ class IWbemPath extends IUnknown{
      * @param {Integer} uIndex Index of the scope.
      * @param {PWSTR} pszClass Class name of the scope.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-setscope
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-setscope
      */
     SetScope(uIndex, pszClass) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
@@ -189,7 +193,7 @@ class IWbemPath extends IUnknown{
     }
 
     /**
-     * 
+     * The IWbemPath interface is the primary interface for the object path parser and makes parsing a path available to programs in a standard way. This interface is the main interface for setting and retrieving path information.
      * @param {Integer} uIndex 
      * @param {PWSTR} pszText 
      * @returns {HRESULT} 
@@ -204,12 +208,14 @@ class IWbemPath extends IUnknown{
 
     /**
      * Retrieves a scope based upon an index.
+     * @remarks
+     * This method can be used to determine how big a buffer is needed for <i>pszClass</i>. This is done by passing in a <b>NULL</b> pointer for the buffer, setting <i>puClassNameBufSize</i> to 0 and then making the call. Upon return, <i>puClassNameBufSize</i> indicates how large of a buffer is needed for <i>pszClass</i> and its terminating <b>NULL</b> character.
      * @param {Integer} uIndex Index of the scope.
      * @param {Pointer<Integer>} puClassNameBufSize Caller sets this to the number of characters that the buffer can hold. Upon success, this is set to the number of characters copied into the buffer including the <b>NULL</b> terminator.
      * @param {PWSTR} pszClass Buffer where the scope is to be copied.
      * @returns {IWbemPathKeyList} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wmiutils/nn-wmiutils-iwbempathkeylist">IWbemPathKeyList</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getscope
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscope
      */
     GetScope(uIndex, puClassNameBufSize, pszClass) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
@@ -222,11 +228,13 @@ class IWbemPath extends IUnknown{
 
     /**
      * Retrieves a scope in text format based on an index.
+     * @remarks
+     * This method can be used to determine how big a buffer is needed for <i>pszText</i>. This is done by passing in a <b>NULL</b> pointer for the buffer, setting <i>puTextBufSize</i> to zero (0), and then making the call. When returned, <i>puTextBufSize</i> indicates how large  a buffer is needed for <i>pszText</i> and its terminating <b>NULL</b> character.
      * @param {Integer} uIndex Index of the scope.
      * @param {Pointer<Integer>} puTextBufSize Caller sets this to the number of characters that the buffer can hold. After success this is set to the number of characters copied into the buffer including the <b>NULL</b> terminator.
      * @param {PWSTR} pszText Buffer where the scope is to be copied.
      * @returns {HRESULT} This method returns the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getscopeastext
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscopeastext
      */
     GetScopeAsText(uIndex, puTextBufSize, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -241,7 +249,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::RemoveScope method removes a scope based on the index.
      * @param {Integer} uIndex Index of the scope to be removed.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> with one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-removescope
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removescope
      */
     RemoveScope(uIndex) {
         result := ComCall(18, this, "uint", uIndex, "HRESULT")
@@ -251,7 +259,7 @@ class IWbemPath extends IUnknown{
     /**
      * The IWbemPath::RemoveAllScopes method removes all scopes from the path.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> with one of the values in the following.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-removeallscopes
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removeallscopes
      */
     RemoveAllScopes() {
         result := ComCall(19, this, "HRESULT")
@@ -262,7 +270,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::SetClassName method sets the class name portion of the path.
      * @param {PWSTR} Name Class name.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-setclassname
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-setclassname
      */
     SetClassName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -273,10 +281,12 @@ class IWbemPath extends IUnknown{
 
     /**
      * The IWbemPath::GetClassName method retrieves the class name portion from the path.
+     * @remarks
+     * This method can be used to determine how big a buffer is needed for <i>pszName</i>. This is done by passing in a <b>NULL</b> pointer for the buffer, setting <i>puBuffLength</i> to 0 and then making the call. Upon return, <i>puBuffLength</i> indicates how large of a buffer is needed for <i>pszName</i> and its terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} puBuffLength Caller sets this to the number of characters the buffer can hold. Upon success, this is set to the number of characters copied into the buffer, including the <b>NULL</b> terminator.
      * @param {PWSTR} pszName Buffer into which the class name is copied.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getclassname
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getclassname
      */
     GetClassName(puBuffLength, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -291,7 +301,7 @@ class IWbemPath extends IUnknown{
      * Retrieves an IWbemPathKeyList pointer so that the individual key may be accessed.
      * @returns {IWbemPathKeyList} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wmiutils/nn-wmiutils-iwbempathkeylist">IWbemPathKeyList</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-getkeylist
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getkeylist
      */
     GetKeyList() {
         result := ComCall(22, this, "ptr*", &pOut := 0, "HRESULT")
@@ -303,7 +313,7 @@ class IWbemPath extends IUnknown{
      * @param {Integer} lFlags Reserved. Must be 0 (zero).
      * @param {PWSTR} Name Initial class name.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-createclasspart
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-createclasspart
      */
     CreateClassPart(lFlags, Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -316,7 +326,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::DeleteClassPart method deletes the class portion of the path.
      * @param {Integer} lFlags Reserved. Must be 0 (zero).
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-deleteclasspart
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-deleteclasspart
      */
     DeleteClassPart(lFlags) {
         result := ComCall(24, this, "int", lFlags, "HRESULT")
@@ -328,7 +338,7 @@ class IWbemPath extends IUnknown{
      * @param {PWSTR} wszMachine Name of the computer.
      * @param {PWSTR} wszNamespace Namespace being tested.
      * @returns {BOOL} This method returns a BOOL indicating whether the path is relative to the specified computer and namespace.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-isrelative
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-isrelative
      */
     IsRelative(wszMachine, wszNamespace) {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
@@ -344,7 +354,7 @@ class IWbemPath extends IUnknown{
      * @param {PWSTR} wszNamespace Namespace being tested.
      * @param {Integer} lFlags Reserved. Must be 0 (zero).
      * @returns {BOOL} This method returns a <b>BOOL</b> indicating whether the path is relative to the specified computer and namespace.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-isrelativeorchild
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-isrelativeorchild
      */
     IsRelativeOrChild(wszMachine, wszNamespace, lFlags) {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
@@ -358,7 +368,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::IsLocal method tests if the computer name passed in matches the computer name in the path, or if the server name in the path is NULL or &quot;.&quot;.
      * @param {PWSTR} wszMachine Name of the computer to test.
      * @returns {BOOL} This method returns a <b>BOOL</b> indicating whether the path matches the passed in computer name, or if the server name in the path is <b>NULL</b> or ".".
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-islocal
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-islocal
      */
     IsLocal(wszMachine) {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
@@ -371,7 +381,7 @@ class IWbemPath extends IUnknown{
      * The IWbemPath::IsSameClassName method tests whether the class name passed in matches the one in the path. The method can return TRUE only if the path actually has a class name.
      * @param {PWSTR} wszClass Class name to test.
      * @returns {BOOL} This method returns a BOOL indicating whether the class name matches the one in the path.
-     * @see https://docs.microsoft.com/windows/win32/api//wmiutils/nf-wmiutils-iwbempath-issameclassname
+     * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-issameclassname
      */
     IsSameClassName(wszClass) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass

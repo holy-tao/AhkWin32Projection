@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query and configuration operations on a drive.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsdrive
+ * The IVdsDrive (vdshwprv.h) interface provides methods for performing query and configuration operations on a drive.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsdrive
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -33,13 +33,13 @@ class IVdsDrive extends IUnknown{
     static VTableNames => ["GetProperties", "GetSubSystem", "QueryExtents", "SetFlags", "ClearFlags", "SetStatus"]
 
     /**
-     * Returns the properties of a drive object.
+     * The IVdsDrive::GetProperties (vdshwprv.h) method returns the properties of a drive object.
      * @returns {VDS_DRIVE_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_prop">VDS_DRIVE_PROP</a> structure 
      *       allocated and passed in by the caller. VDS allocates memory for the 
      *       <b>pwszFriendlyName</b> and <b>pwszIdentification</b> member strings. 
      *       Callers must free the strings by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-getproperties
      */
     GetProperties() {
         pDriveProp := VDS_DRIVE_PROP()
@@ -48,9 +48,9 @@ class IVdsDrive extends IUnknown{
     }
 
     /**
-     * Returns the subsystem to which the drive belongs.
+     * The IVdsDrive::GetSubSystem (vdshwprv.h) method returns the subsystem to which the drive belongs.
      * @returns {IVdsSubSystem} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdssubsystem">IVdsSubSystem</a> interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-getsubsystem
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-getsubsystem
      */
     GetSubSystem() {
         result := ComCall(4, this, "ptr*", &ppSubSystem := 0, "HRESULT")
@@ -58,12 +58,22 @@ class IVdsDrive extends IUnknown{
     }
 
     /**
-     * Returns an array of the extents on a drive, including both allocated and unallocated extents.
+     * The VdsDrive::QueryExtents (vdshwprv.h) method returns an array of the extents on a drive, including both allocated and unallocated extents.
+     * @remarks
+     * A drive can contribute extents to any number of LUNs, and these LUNs can be unmasked to any number of different
+     *     computers on the network. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryextents">IVdsLunPlex::QueryExtents</a> method to see all 
+     *     the extents of a LUN plex.
+     * 
+     * The <b>LunId</b> member of each 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_extent">VDS_DRIVE_EXTENT</a> structure specifies the GUID for the LUN to which each allocated extent contributes. Consequently, you can use 
+     *      the result of this method to determine the number of LUNs to which the drive contributes by counting the number 
+     *      of distinct <b>LunId</b> values returned in <i>ppExtentArray</i>.
      * @param {Pointer<Pointer<VDS_DRIVE_EXTENT>>} ppExtentArray A pointer to the  array of <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_extent">VDS_DRIVE_EXTENT</a> structures passed in by the caller. Callers must free this array by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Integer>} plNumberOfExtents A pointer to the number of drive extents returned in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_extent">VDS_DRIVE_EXTENT</a> structure.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -93,8 +103,8 @@ class IVdsDrive extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information about 
      *         the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
-     *         followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
+     *         followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
      *         method to restore the cache.
      *        
      * 
@@ -151,7 +161,7 @@ class IVdsDrive extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-queryextents
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
         ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
@@ -162,9 +172,9 @@ class IVdsDrive extends IUnknown{
     }
 
     /**
-     * Sets flags of a drive object.
+     * The IVdsDrive::SetFlags (vdshwprv.h) method sets flags of a drive object.
      * @param {Integer} ulFlags Flags enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_flag">VDS_DRIVE_FLAG</a>. Callers can set the <b>VDS_DRF_HOTSPARE</b> flag.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -179,7 +189,7 @@ class IVdsDrive extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
      * 
      * </td>
      * </tr>
@@ -233,7 +243,7 @@ class IVdsDrive extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-setflags
      */
     SetFlags(ulFlags) {
         result := ComCall(6, this, "uint", ulFlags, "HRESULT")
@@ -241,9 +251,11 @@ class IVdsDrive extends IUnknown{
     }
 
     /**
-     * Clears the flags of a drive object.
+     * The IVdsDrive::ClearFlags (vdshwprv.h) method clears the flags of a drive object.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-setflags">IVdsDrive::SetFlags</a> to set drive flags and <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-getproperties">IVdsDrive::GetProperties</a> to get currently set flags.
      * @param {Integer} ulFlags The flags enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_flag">VDS_DRIVE_FLAG</a>. Callers can clear the <b>VDS_DRF_HOTSPARE</b> flag.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -258,7 +270,7 @@ class IVdsDrive extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
      * 
      * </td>
      * </tr>
@@ -311,7 +323,7 @@ class IVdsDrive extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-clearflags
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-clearflags
      */
     ClearFlags(ulFlags) {
         result := ComCall(7, this, "uint", ulFlags, "HRESULT")
@@ -319,11 +331,15 @@ class IVdsDrive extends IUnknown{
     }
 
     /**
-     * Sets the status of the drive to the specified value.
+     * The IVdsDrive::SetStatus (vdshwprv.h) method sets the status of the drive to the specified value.
+     * @remarks
+     * Implementers are responsible for performing any necessary operations to get the status to the specified state. 
+     *     For example, if the caller passes in <b>VDS_DRS_OFFLINE</b> as the drive status, you might 
+     *     need to first clear the cache.
      * @param {Integer} status Values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_status">VDS_DRIVE_STATUS</a>. Callers can 
      *       pass in a subset of the possible enumeration values. Passing in <b>VDS_DRS_UNKNOWN</b> 
      *       returns <b>E_INVALIDARG</b>.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -339,8 +355,8 @@ class IVdsDrive extends IUnknown{
      * </td>
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information about 
-     *         the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> 
-     *         method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
+     *         the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> 
+     *         method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
      *         method to restore the cache.
      *        
      * 
@@ -397,7 +413,7 @@ class IVdsDrive extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive-setstatus
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-setstatus
      */
     SetStatus(status) {
         result := ComCall(8, this, "int", status, "HRESULT")

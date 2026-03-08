@@ -6,7 +6,7 @@
 
 /**
  * The IWMCodecInfo2 interface manages the retrieval of information about codecs. To access it, call QueryInterface on a profile manager object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmcodecinfo2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IWMCodecInfo2 extends IWMCodecInfo{
 
     /**
      * The GetCodecName method retrieves the name of a specified codec.
+     * @remarks
+     * You should make two calls to <b>GetCodecName</b>. On the first call, pass <b>NULL</b> as <i>wszName</i>. On return, the value at <i>pcchName</i> will be set to the buffer size required to hold the codec name, including the terminating character. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>wszName</i> on the second call.
      * @param {Pointer<Guid>} guidType GUID identifying the major type of digital media. This must be one of the following constants.
      * 
      * <table>
@@ -84,7 +86,7 @@ class IWMCodecInfo2 extends IWMCodecInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo2-getcodecname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo2-getcodecname
      */
     GetCodecName(guidType, dwCodecIndex, wszName, pcchName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -97,6 +99,10 @@ class IWMCodecInfo2 extends IWMCodecInfo{
 
     /**
      * The GetCodecFormatDesc method retrieves a description of a specified codec format. This method also retrieves a stream configuration object containing the settings for the codec format.
+     * @remarks
+     * You should make two calls to <b>GetCodecFormatDesc</b>. On the first call, pass <b>NULL</b> as <i>wszDesc</i>. On return, the value pointed to by <i>pcchDesc</i> will be set to the number of wide characters required to hold the description, including the terminating <b>null</b> character. Then you can allocate a buffer of the appropriate size and pass a pointer to it as <i>wszDesc</i> on the second call.
+     * 
+     * Some formats of the Windows Media Audio 9 codec and Windows Media Audio 9 Professional codec have very similar descriptions. For example both "64 kbps, 44 kHz, stereo CBR" and "64 kbps, 44 kHz, stereo (A/V) CBR" are listed. In these cases, the format with "(A/V)" in its description is designed for use in files that also contain one or more video streams. The other format is for files that contain only audio.
      * @param {Pointer<Guid>} guidType GUID identifying the major type of digital media. This must be one of the following constants.
      * 
      * <table>
@@ -120,7 +126,7 @@ class IWMCodecInfo2 extends IWMCodecInfo{
      * @param {PWSTR} wszDesc Pointer to a wide-character <b>null</b>-terminated string containing the codec format description.
      * @param {Pointer<Integer>} pcchDesc On input, a pointer to the length of the <i>wszDesc</i> buffer. On output, a pointer to the length of the codec format description string, including the terminating <b>null</b> character.
      * @returns {IWMStreamConfig} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig">IWMStreamConfig</a> interface of a stream configuration object containing the settings of the specified format. When calling <b>GetCodecFormatDesc</b> to retrieve the size of the description string, pass <b>NULL</b> for this parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo2-getcodecformatdesc
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo2-getcodecformatdesc
      */
     GetCodecFormatDesc(guidType, dwCodecIndex, dwFormatIndex, wszDesc, pcchDesc) {
         wszDesc := wszDesc is String ? StrPtr(wszDesc) : wszDesc

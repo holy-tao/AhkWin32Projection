@@ -5,7 +5,7 @@
 
 /**
  * IFolderBandPriv is available for use in the operating systems specified in the Requirements section. It may be altered or unavailable in subsequent versions.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifolderbandpriv
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderbandpriv
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IFolderBandPriv extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setcascade
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setcascade
      */
     SetCascade(fCascade) {
         result := ComCall(3, this, "int", fCascade, "HRESULT")
@@ -53,7 +53,7 @@ class IFolderBandPriv extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setaccelerators
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setaccelerators
      */
     SetAccelerators(fAccelerators) {
         result := ComCall(4, this, "int", fAccelerators, "HRESULT")
@@ -68,7 +68,7 @@ class IFolderBandPriv extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setnoicons
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setnoicons
      */
     SetNoIcons(fNoIcons) {
         result := ComCall(5, this, "int", fNoIcons, "HRESULT")
@@ -83,7 +83,7 @@ class IFolderBandPriv extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setnotext
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setnotext
      */
     SetNoText(fNoText) {
         result := ComCall(6, this, "int", fNoText, "HRESULT")

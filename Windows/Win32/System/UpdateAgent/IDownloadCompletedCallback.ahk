@@ -5,7 +5,7 @@
 
 /**
  * Provides the callback that is used when an asynchronous download is completed.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadcompletedcallback
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadcompletedcallback
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IDownloadCompletedCallback extends IUnknown{
      * @param {IDownloadJob} downloadJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface that contains download information.
      * @param {IDownloadCompletedCallbackArgs} callbackArgs This parameter is reserved for future use and can be ignored.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadcompletedcallback-invoke
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadcompletedcallback-invoke
      */
     Invoke(downloadJob, callbackArgs) {
         result := ComCall(3, this, "ptr", downloadJob, "ptr", callbackArgs, "HRESULT")

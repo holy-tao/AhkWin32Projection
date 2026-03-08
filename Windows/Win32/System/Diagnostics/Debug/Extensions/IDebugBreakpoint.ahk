@@ -31,8 +31,9 @@ class IDebugBreakpoint extends IUnknown{
     static VTableNames => ["GetId", "GetType", "GetAdder", "GetFlags", "AddFlags", "RemoveFlags", "SetFlags", "GetOffset", "SetOffset", "GetDataParameters", "SetDataParameters", "GetPassCount", "SetPassCount", "GetCurrentPassCount", "GetMatchThreadId", "SetMatchThreadId", "GetCommand", "SetCommand", "GetOffsetExpression", "SetOffsetExpression", "GetParameters"]
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(3, this, "uint*", &Id := 0, "HRESULT")
@@ -40,10 +41,35 @@ class IDebugBreakpoint extends IUnknown{
     }
 
     /**
-     * 
+     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BreakType 
      * @param {Pointer<Integer>} ProcType 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service type is unknown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType(BreakType, ProcType) {
         BreakTypeMarshal := BreakType is VarRef ? "uint*" : "ptr"
@@ -93,6 +119,13 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
+     * @remarks
+     * Prior to Microsoft Windows XP Tablet PC Edition Development Kit 1.7, Tablet PC Input Panel performed smart spacing. Starting with Tablet PC SDK 1.7, Input Panel continues to produce results with preliminary spacing recommendations. Tablet PC Input Panel's spacing results may however be changed by the recognizer's recommendations (results). The recognizer is able to do this by using text contextual information (based on the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-settextcontext">SetTextContext</a> call made by Input Panel) and its internal language model rules.
+     * 
+     * Input Panel is able to determine whether the recognizer is capable of doing auto-spacing by calling this function with the RECOFLAG_AUTOSPACE flag set. If the recognizer does not support auto-spacing, E_INVALIDARG is returned.
+     * 
+     * <div class="alert"><b>Note</b>  Only line mode is supported in the <b>SetFlags</b> function. Boxed mode, free mode, and single-line mode are not supported.</div>
+     * <div> </div>
      * @param {Integer} Flags 
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -169,7 +202,7 @@ class IDebugBreakpoint extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setflags
      */
     SetFlags(Flags) {
         result := ComCall(9, this, "uint", Flags, "HRESULT")
@@ -268,15 +301,31 @@ class IDebugBreakpoint extends IUnknown{
     }
 
     /**
+     * Retrieves the command-line string for the current process. (ANSI)
+     * @remarks
+     * The lifetime of the returned value is managed by the system, applications should not free or modify this value.
      * 
-     * @param {PSTR} Buffer 
+     * Console processes can use the <i>argc</i> and <i>argv</i> arguments of the <b>main</b> or <b>wmain</b> functions by implementing those as the program entry point.
+     * GUI processes can use the <i>lpCmdLine</i> argument of the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> or wWinMain functions by implementing those as the program entry point.
+     * 
+     * To convert the command line to an <i>argv</i> style array of strings, pass the result from GetCommandLineA to
+     * <a href="https://docs.microsoft.com/windows/win32/api/shellapi/nf-shellapi-commandlinetoargvw">CommandLineToArgW</a>.
+     * 
+     * <div class="alert"><b>Note</b>  The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.</div>
+     * <div> </div>
+     * 
+     * > [!NOTE]
+     * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      */
-    GetCommand(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCommand(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(19, this, "ptr", Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -294,14 +343,14 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOffsetExpression(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetOffsetExpression(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(21, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
         return ExpressionSize
     }
 

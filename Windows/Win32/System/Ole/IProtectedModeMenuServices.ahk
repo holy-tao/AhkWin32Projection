@@ -31,8 +31,10 @@ class IProtectedModeMenuServices extends IUnknown{
 
     /**
      * Creates a menu. The menu is initially empty, but it can be filled with menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions.
+     * @remarks
+     * Resources associated with a menu that is assigned to a window are freed automatically. If the menu is not assigned to a window, an application must free system resources associated with the menu before closing. An application frees menu resources by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function.
      * @returns {HMENU} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createmenu
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createmenu
      */
     CreateMenu() {
         phMenu := HMENU()
@@ -41,10 +43,13 @@ class IProtectedModeMenuServices extends IUnknown{
     }
 
     /**
-     * 
+     * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (ANSI)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
      * @param {PWSTR} pszModuleName 
      * @param {PWSTR} pszMenuName 
      * @returns {HMENU} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadmenua
      */
     LoadMenu(pszModuleName, pszMenuName) {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName

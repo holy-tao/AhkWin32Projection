@@ -5,7 +5,7 @@
 
 /**
  * The ITfLangBarItemSink interface is implemented by the language bar and used by a language bar item provider to notify the language bar of changes to a language bar item.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbaritemsink
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ITfLangBarItemSink extends IUnknown{
 
     /**
      * ITfLangBarItemSink::OnUpdate method
+     * @remarks
+     * A language bar item should call this method when the internal state of the item changes. TSF will update the language bar user interface appropriately.
      * @param {Integer} dwFlags Contains a set of flags that indicate changes in the language bar item. This can be a combination of one or more of the <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-lbi--constants">TF_LBI_*</a> values.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -63,7 +65,7 @@ class ITfLangBarItemSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemsink-onupdate
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemsink-onupdate
      */
     OnUpdate(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")

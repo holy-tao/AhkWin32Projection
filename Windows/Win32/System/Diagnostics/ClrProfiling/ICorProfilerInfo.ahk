@@ -137,9 +137,10 @@ class ICorProfilerInfo extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves information about the specified thread. (GetThreadInformation)
      * @param {Pointer} threadId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadinformation
      */
     GetThreadInfo(threadId) {
         result := ComCall(12, this, "ptr", threadId, "uint*", &pdwWin32ThreadId := 0, "HRESULT")
@@ -241,14 +242,39 @@ class ICorProfilerInfo extends IUnknown{
     }
 
     /**
+     * Retrieves information about the specified module in the MODULEINFO structure.
+     * @remarks
+     * To get information for the calling process, pass the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a>.
      * 
+     * The <b>GetModuleInformation</b> function does not retrieve information for modules that were loaded with the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
+     * 
+     * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes 
+     *     version numbers for the PSAPI functions. The PSAPI version number affects the name used to call the function and 
+     *     the library that a program must load.
+     * 
+     * If <b>PSAPI_VERSION</b> is 2 or greater, this function is defined as 
+     *     <b>K32GetModuleInformation</b> in Psapi.h and exported in 
+     *     Kernel32.lib and Kernel32.dll. If <b>PSAPI_VERSION</b> is 1, this 
+     *     function is defined as K32GetModuleInformation in 
+     *     Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls 
+     *     <b>K32GetModuleInformation</b>. 
+     * 
+     * Programs that must run on earlier versions of Windows as 
+     *     well as Windows 7 and later versions should always call this function as 
+     *     K32GetModuleInformation. To ensure correct resolution of symbols, 
+     *     add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with 
+     *     <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load Psapi.dll.
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
      * @param {PWSTR} szName 
      * @param {Pointer<Pointer>} pAssemblyId 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
      */
     GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -405,9 +431,15 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * Retrieves the context of the specified thread.
+     * @remarks
+     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
+     * 
+     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
+     * 
+     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @param {Pointer} threadId 
      * @returns {Pointer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId) {
         result := ComCall(32, this, "ptr", threadId, "ptr*", &pContextId := 0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide information about a pixel format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicpixelformatinfo
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpixelformatinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * Pointer that receives the pixel format GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo-getformatguid
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getformatguid
      */
     GetFormatGUID() {
         pFormat := Guid()
@@ -46,10 +46,12 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
 
     /**
      * Gets the pixel format's IWICColorContext.
+     * @remarks
+     * The returned color context is the default color space for the pixel format. However, if an <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapsource">IWICBitmapSource</a> specifies its own color context, the source's context should be preferred over the pixel format's default.
      * @returns {IWICColorContext} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>**</b>
      * 
      * Pointer that receives the pixel format's color context.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo-getcolorcontext
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getcolorcontext
      */
     GetColorContext() {
         result := ComCall(12, this, "ptr*", &ppIColorContext := 0, "HRESULT")
@@ -61,7 +63,7 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * Pointer that receives the BPP of the pixel format.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo-getbitsperpixel
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getbitsperpixel
      */
     GetBitsPerPixel() {
         result := ComCall(13, this, "uint*", &puiBitsPerPixel := 0, "HRESULT")
@@ -73,7 +75,7 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * Pointer that receives the channel count.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo-getchannelcount
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelcount
      */
     GetChannelCount() {
         result := ComCall(14, this, "uint*", &puiChannelCount := 0, "HRESULT")
@@ -82,6 +84,8 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
 
     /**
      * Gets the pixel format's channel mask.
+     * @remarks
+     * If 0 and NULL are passed in for <i>cbMaskBuffer</i> and <i>pbMaskBuffer</i>, respectively, the required buffer size will be returned through <i>pcbActual</i>.
      * @param {Integer} uiChannelIndex Type: <b>UINT</b>
      * 
      * The index to the channel mask to retrieve.
@@ -94,7 +98,7 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual buffer size needed to obtain the channel mask.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo-getchannelmask
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelmask
      */
     GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer) {
         pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : "ptr"

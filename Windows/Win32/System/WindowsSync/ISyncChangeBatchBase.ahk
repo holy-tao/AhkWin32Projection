@@ -8,13 +8,10 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Represents metadata for a set of changes.
+ * Represents metadata for a set of changes. (ISyncChangeBatchBase)
  * @remarks
- * 
  * <b>ISyncChangeBatchBase</b> is the base interface for change batches. Typically, it is overridden by a derived interface, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatch">ISyncChangeBatch</a> for a knowledge synchronization, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfullenumerationchangebatch">ISyncFullEnumerationChangeBatch</a> for a full enumeration synchronization.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatchbase
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchbase
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -42,7 +39,7 @@ class ISyncChangeBatchBase extends IUnknown{
     /**
      * Gets an IEnumSyncChanges object that enumerates the item changes in this change batch.
      * @returns {IEnumSyncChanges} Returns an enumerator that contains the item changes in this change batch.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getchangeenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getchangeenumerator
      */
     GetChangeEnumerator() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -51,6 +48,8 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Gets a flag that indicates whether the changes in this change batch are the last batch of a synchronization session.
+     * @remarks
+     * When returning a change batch in response to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-iknowledgesyncprovider-getchangebatch">IKnowledgeSyncProvider::GetChangeBatch</a> method, the source provider must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncchangebatchbase-setlastbatch">SetLastBatch</a> if the change batch is the last batch of changes.
      * @param {Pointer<BOOL>} pfLastBatch Returns a flag that indicates whether this batch is the last batch.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -84,7 +83,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getislastbatch
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getislastbatch
      */
     GetIsLastBatch(pfLastBatch) {
         pfLastBatchMarshal := pfLastBatch is VarRef ? "int*" : "ptr"
@@ -95,6 +94,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Gets the work estimate for the batch.
+     * @remarks
+     * The work estimate is determined by the provider and is typically understood as the total work for all changes in a single batch and as a portion of the total work estimated for the session.
+     * 
+     * This value is reported in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">OnProgress</a> event.
      * @param {Pointer<Integer>} pdwWorkForBatch Returns the work estimate for the batch. The default value is 0.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -126,7 +129,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getworkestimateforbatch
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getworkestimateforbatch
      */
     GetWorkEstimateForBatch(pdwWorkForBatch) {
         pdwWorkForBatchMarshal := pdwWorkForBatch is VarRef ? "uint*" : "ptr"
@@ -137,6 +140,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Gets the estimate of the remaining work for the session.
+     * @remarks
+     * The work estimate is determined by the provider and is typically understood as the remaining work estimated for a session.
+     * 
+     * This value is reported in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">OnProgress</a> event.
      * @param {Pointer<Integer>} pdwRemainingWorkForSession The estimated remaining work for the session. The default value is 0.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -168,7 +175,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getremainingworkestimateforsession
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getremainingworkestimateforsession
      */
     GetRemainingWorkEstimateForSession(pdwRemainingWorkForSession) {
         pdwRemainingWorkForSessionMarshal := pdwRemainingWorkForSession is VarRef ? "uint*" : "ptr"
@@ -179,6 +186,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Opens an ordered group in the change batch. This group is ordered by item ID.
+     * @remarks
+     * Item changes that are added to the change batch after this method is called are added to the open group. Item changes that are added to an ordered group must be added in increasing order by item ID.
+     * 
+     * Item changes cannot be added to the change batch until a group is opened.
      * @param {Pointer<Integer>} pbLowerBound The closed lower bound of item IDs for this ordered group. To specify a lower bound of zero, use <b>NULL</b>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -232,7 +243,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-beginorderedgroup
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-beginorderedgroup
      */
     BeginOrderedGroup(pbLowerBound) {
         pbLowerBoundMarshal := pbLowerBound is VarRef ? "char*" : "ptr"
@@ -298,7 +309,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-endorderedgroup
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-endorderedgroup
      */
     EndOrderedGroup(pbUpperBound, pMadeWithKnowledge) {
         pbUpperBoundMarshal := pbUpperBound is VarRef ? "char*" : "ptr"
@@ -316,7 +327,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * @param {Integer} dwFlags Flags that specify the state of the item change. For the flag values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncchange-getflags">ISyncChange::GetFlags</a>.
      * @param {Integer} dwWorkForChange The work estimate for the change. This value is used during change application to report completed work to the application.
      * @returns {ISyncChangeBuilder} Returns an object that can be used to add change unit information to the change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-additemmetadatatogroup
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-additemmetadatatogroup
      */
     AddItemMetadataToGroup(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
@@ -328,8 +339,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Gets the knowledge that the destination replica learns when the destination provider applies all the changes in this change batch.
+     * @remarks
+     * <b>GetLearnedKnowledge</b> can be used by a provider that uses a custom change applier.
      * @returns {ISyncKnowledge} Returns the knowledge that a replica will learn when a provider applies all the changes in this change batch to the replica. This knowledge is valid only when the current knowledge of the replica contains the prerequisite knowledge of the change batch. The prerequisite knowledge can be obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncchangebatchbase-getprerequisiteknowledge">ISyncChangeBatchBase::GetPrerequisiteKnowledge</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getlearnedknowledge
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getlearnedknowledge
      */
     GetLearnedKnowledge() {
         result := ComCall(10, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
@@ -339,7 +352,7 @@ class ISyncChangeBatchBase extends IUnknown{
     /**
      * Gets the minimum knowledge that a destination provider is required to have to process this change batch.
      * @returns {ISyncKnowledge} Returns the minimum knowledge that a destination provider is required to have to process this change batch.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getprerequisiteknowledge
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getprerequisiteknowledge
      */
     GetPrerequisiteKnowledge() {
         result := ComCall(11, this, "ptr*", &ppPrerequisteKnowledge := 0, "HRESULT")
@@ -349,7 +362,7 @@ class ISyncChangeBatchBase extends IUnknown{
     /**
      * Gets the forgotten knowledge of the source replica.
      * @returns {IForgottenKnowledge} Returns the forgotten knowledge of the source replica.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-getsourceforgottenknowledge
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getsourceforgottenknowledge
      */
     GetSourceForgottenKnowledge() {
         result := ComCall(12, this, "ptr*", &ppSourceForgottenKnowledge := 0, "HRESULT")
@@ -358,6 +371,8 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Sets a flag that indicates there are no more changes to be enumerated in the synchronization session.
+     * @remarks
+     * When returning a change batch in response to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-iknowledgesyncprovider-getchangebatch">IKnowledgeSyncProvider::GetChangeBatch</a> method, the source provider must call <b>SetLastBatch</b> if the change batch is the last batch of changes.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -377,7 +392,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-setlastbatch
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-setlastbatch
      */
     SetLastBatch() {
         result := ComCall(13, this, "HRESULT")
@@ -386,6 +401,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Sets the work estimate for the batch.
+     * @remarks
+     * The work estimate is determined by the provider and typically is understood as the total work for all changes in a single batch and as a portion of the total work estimated for the session.
+     * 
+     * This value is reported in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">OnProgress</a> event.
      * @param {Integer} dwWorkForBatch The work estimate for the batch.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -406,7 +425,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-setworkestimateforbatch
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-setworkestimateforbatch
      */
     SetWorkEstimateForBatch(dwWorkForBatch) {
         result := ComCall(14, this, "uint", dwWorkForBatch, "HRESULT")
@@ -415,6 +434,10 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * Sets the estimate of the remaining work for the session.
+     * @remarks
+     * The work estimate is determined by the provider.
+     * 
+     * This value is reported in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">OnProgress</a> event. If this value is set to zero, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">OnProgress</a> event will fire for each change that is applied during the session. It will pass zero for the completed work and total work.
      * @param {Integer} dwRemainingWorkForSession The estimate of the remaining work for the session.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -435,7 +458,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-setremainingworkestimateforsession
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-setremainingworkestimateforsession
      */
     SetRemainingWorkEstimateForSession(dwRemainingWorkForSession) {
         result := ComCall(15, this, "uint", dwRemainingWorkForSession, "HRESULT")
@@ -506,7 +529,7 @@ class ISyncChangeBatchBase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase-serialize
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-serialize
      */
     Serialize(pbChangeBatch, pcbChangeBatch) {
         pbChangeBatchMarshal := pbChangeBatch is VarRef ? "char*" : "ptr"

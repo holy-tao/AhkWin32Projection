@@ -6,7 +6,7 @@
 
 /**
  * The IADsCaseIgnoreList interface provides methods for an ADSI client to access the Case Ignore List attribute. You can call the property methods of this interface to obtain and modify the attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscaseignorelist
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadscaseignorelist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

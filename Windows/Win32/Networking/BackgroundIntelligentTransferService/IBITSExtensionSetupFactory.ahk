@@ -8,14 +8,10 @@
 /**
  * Use the IBITSExtensionSetupFactory interface to get a pointer to the IBITSExtensionSetup interface.
  * @remarks
- * 
  * This interface is registered on the server when you install the BITS server extension.
  * 
  * On Windows Server 2003, use the <b>Windows Components Wizard</b> to install the BITS server extension. From  <b>Control Panel</b>, select <b>Add or Remove Programs</b>. Then, select <b>Add/Remove Windows Components</b> to display the <b>Windows Components Wizard</b>. The BITS server extension is a sub-component of Internet Information Services (IIS) which is a sub-component of Web Application Server.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nn-bitscfg-ibitsextensionsetupfactory
+ * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nn-bitscfg-ibitsextensionsetupfactory
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -51,7 +47,7 @@ class IBITSExtensionSetupFactory extends IDispatch{
      * @param {BSTR} Path Null-terminated string containing the path to the directory service. For example, "IIS://&lt;machine name&gt;/w3svc/1/<i>virtual directory</i>".
      * @returns {IBITSExtensionSetup} Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bitscfg/nn-bitscfg-ibitsextensionsetup">IBITSExtensionSetup</a> interface to enable and disable BITS upload for the given virtual directory.
-     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetupfactory-getobject
+     * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetupfactory-getobject
      */
     GetObject(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path

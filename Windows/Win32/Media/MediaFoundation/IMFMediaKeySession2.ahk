@@ -51,9 +51,10 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
     }
 
     /**
-     * 
+     * Reads texel data without any filtering or sampling.
      * @param {BSTR} bstrSessionId 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(bstrSessionId) {
         bstrSessionId := bstrSessionId is String ? BSTR.Alloc(bstrSessionId).Value : bstrSessionId
@@ -86,8 +87,21 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
     }
 
     /**
+     * Removes a TPM command from the local list of commands blocked from running on the computer.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * @returns {HRESULT} Type: **uint32**
      * 
-     * @returns {HRESULT} 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * Common return codes are listed below.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                 | Description                           |
+     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
     Remove() {
         result := ComCall(12, this, "HRESULT")
@@ -95,8 +109,12 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
     }
 
     /**
+     * Stops the collector. If the collector is running as a service, stopping the service is the better approach.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-shutdown
      */
     Shutdown() {
         result := ComCall(13, this, "HRESULT")

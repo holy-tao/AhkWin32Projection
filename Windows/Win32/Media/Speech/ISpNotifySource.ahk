@@ -104,10 +104,11 @@ class ISpNotifySource extends IUnknown{
      * @returns {HANDLE} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
      * If the operation fails, the function returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getnotifyeventhandle
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnotifyeventhandle
      */
     GetNotifyEventHandle() {
         result := ComCall(9, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 }

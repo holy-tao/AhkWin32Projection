@@ -6,12 +6,9 @@
 /**
  * The base class for all FSRM action interfaces.
  * @remarks
- * 
  * The FSRM server starts the action in response to quota or file screen event (for example, a directory size 
  *     exceeds a directory quota threshold or detection of a restricted file).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmaction
+ * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmaction
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -61,7 +58,7 @@ class IFsrmAction extends IDispatch{
     /**
      * Retrieves the identifier of the action.
      * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_id
      */
     get_Id() {
         id := Guid()
@@ -72,7 +69,7 @@ class IFsrmAction extends IDispatch{
     /**
      * Retrieves the action's type.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_actiontype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype
      */
     get_ActionType() {
         result := ComCall(8, this, "int*", &actionType := 0, "HRESULT")
@@ -80,9 +77,8 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
-     * Retrieves or sets the interval that must expire before the action is run again.
+     * Retrieves or sets the interval that must expire before the action is run again. (Get)
      * @remarks
-     * 
      * This property specifies the interval that should occur before the action is run again. For example, if the 
      *     interval has expired since the action last ran, the server will run the action again in response to an event; 
      *     otherwise, the server cannot run the action again.
@@ -128,10 +124,8 @@ class IFsrmAction extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
      */
     get_RunLimitInterval() {
         result := ComCall(9, this, "int*", &minutes := 0, "HRESULT")
@@ -139,9 +133,8 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
-     * Retrieves or sets the interval that must expire before the action is run again.
+     * Retrieves or sets the interval that must expire before the action is run again. (Put)
      * @remarks
-     * 
      * This property specifies the interval that should occur before the action is run again. For example, if the 
      *     interval has expired since the action last ran, the server will run the action again in response to an event; 
      *     otherwise, the server cannot run the action again.
@@ -187,11 +180,9 @@ class IFsrmAction extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-put_runlimitinterval
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-put_runlimitinterval
      */
     put_RunLimitInterval(minutes) {
         result := ComCall(10, this, "int", minutes, "HRESULT")
@@ -200,8 +191,18 @@ class IFsrmAction extends IDispatch{
 
     /**
      * Removes the action from the quota or file screen's list of actions.
+     * @remarks
+     * Calling the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-deletethreshold">IFsrmQuotaBase::DeleteThreshold</a> method also 
+     *     deletes the actions associated with the threshold.
+     * 
+     * Note that the actions are not  deleted from the object until you call the object's 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">Commit</a> method. For example, the actions are not deleted 
+     *     from the quota until the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuota::Commit</a> 
+     *     method is called, nor from the file screens until you call the 
+     *     <b>IFsrmFileScreen::Commit</b> method.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-delete
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-delete
      */
     Delete() {
         result := ComCall(11, this, "HRESULT")

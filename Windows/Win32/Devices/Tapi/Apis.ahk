@@ -14007,11 +14007,7 @@ class Tapi {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", &lppTNEF := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", &lppTNEF := 0, "HRESULT")
         return ITnef(lppTNEF)
     }
 
@@ -14062,11 +14058,7 @@ class Tapi {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "HRESULT")
         return ITnef(lppTNEF)
     }
 
@@ -14094,11 +14086,7 @@ class Tapi {
         lpulCodepageMarshal := lpulCodepage is VarRef ? "uint*" : "ptr"
         lpulSubCodepageMarshal := lpulSubCodepage is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, lpulCodepageMarshal, lpulCodepage, lpulSubCodepageMarshal, lpulSubCodepage, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, lpulCodepageMarshal, lpulCodepage, lpulSubCodepageMarshal, lpulSubCodepage, "HRESULT")
         return result
     }
 

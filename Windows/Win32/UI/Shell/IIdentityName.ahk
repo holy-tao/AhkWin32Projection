@@ -6,7 +6,6 @@
 /**
  * Exposes methods to compare two items to see if they are the same.
  * @remarks
- * 
  * This interface provides only the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irelateditem">IRelatedItem</a> interface, from which it inherits.
  * 
  * Shell data sources that present items in virtual locations, such as search results, typically implement this interface as a handler to discover the actual location of an item—to find a folder that contains a file. For example, this interface is used to implement the <b>Open File Location</b> command in Windows Explorer. When the user right-clicks on a file in a set of search results, for example, and then selects <b>Open File Location</b>, the command uses <b>IIdentityName</b> to get the true item and opens a browser on its parent (the file folder) instead of opening the parent of the item (which is where the user already is).
@@ -22,8 +21,7 @@
  * </ol>
  * <div class="alert"><b>Note</b>  To get an instance of this handler use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject">IShellFolder::BindToObject</a> with <c>IID_IIdentityItem</code> or use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler">IShellItem::BindToHandler</a> with <code>BHID_SFObject</c>.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iidentityname
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iidentityname
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -6,7 +6,6 @@
 /**
  * Provides functionality for desktop apps to opt in to the focus tracking mechanism used in Windows Store apps.
  * @remarks
- * 
  * <div class="alert"><b>Warning</b>  <p class="note"><b>IInputPanelConfiguration</b> will not work in Windows 10. 
  * 
  * </div>
@@ -14,9 +13,7 @@
  * Implement the <b>IInputPanelConfiguration</b> interface if your Desktop client processes need to leverage the invoking and dismissing semantics of the touch keyboard and handwriting input panel. 
  * 
  * The <b>IInputPanelConfiguration</b> interface enables your app to opt in to the focus tracking mechanism for Windows Store apps.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelconfiguration
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,8 +40,13 @@ class IInputPanelConfiguration extends IUnknown{
 
     /**
      * Enables a client process to opt-in to the focus tracking mechanism for Windows Store apps that controls the invoking and dismissing semantics of the touch keyboard.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelconfiguration-enablefocustracking
+     * @remarks
+     * <div class="alert"><b>Note</b>  <p class="note">This method will not work in Windows 10. A user can manually configure settings through the notification center or through the <b>Typing</b> settings to enable pulling up a touch keyboard automatically when focusing on an edit control.
+     * 
+     * </div>
+     * <div> </div>
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelconfiguration-enablefocustracking
      */
     EnableFocusTracking() {
         result := ComCall(3, this, "HRESULT")

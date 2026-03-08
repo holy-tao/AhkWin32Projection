@@ -7,13 +7,10 @@
 /**
  * Used to send an email message in response to a quota or file screen event.
  * @remarks
- * 
  * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto">MailTo</a> and 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_messagetext">MessageText</a> properties; the other 
  *     properties are optional.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactionemail
+ * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactionemail
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -95,9 +92,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to use as the sender of the email when the action generates an email message.
+     * Retrieves or sets the email address to use as the sender of the email when the action generates an email message. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom
      */
     get_MailFrom() {
         mailFrom := BSTR()
@@ -106,10 +103,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to use as the sender of the email when the action generates an email message.
+     * Retrieves or sets the email address to use as the sender of the email when the action generates an email message. (Put)
      * @param {BSTR} mailFrom 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailfrom
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailfrom
      */
     put_MailFrom(mailFrom) {
         mailFrom := mailFrom is String ? BSTR.Alloc(mailFrom).Value : mailFrom
@@ -119,19 +116,16 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to use as the reply-to address when the recipient of the email message replies.
+     * Retrieves or sets the email address to use as the reply-to address when the recipient of the email message replies. (Get)
      * @remarks
-     * 
      * If the user specified  in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto">MailTo</a> 
      *     property replies to the email message (for example, the user wants to request a quota increase), the reply is sent 
      *     to the user specified in the <b>MailReplyTo</b> 
      *     property. If <b>MailReplyTo</b> is not set, the 
      *     reply is sent to the user specified in the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom">MailFrom</a> property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailreplyto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailreplyto
      */
     get_MailReplyTo() {
         mailReplyTo := BSTR()
@@ -140,20 +134,17 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to use as the reply-to address when the recipient of the email message replies.
+     * Retrieves or sets the email address to use as the reply-to address when the recipient of the email message replies. (Put)
      * @remarks
-     * 
      * If the user specified  in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto">MailTo</a> 
      *     property replies to the email message (for example, the user wants to request a quota increase), the reply is sent 
      *     to the user specified in the <b>MailReplyTo</b> 
      *     property. If <b>MailReplyTo</b> is not set, the 
      *     reply is sent to the user specified in the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom">MailFrom</a> property.
-     * 
-     * 
      * @param {BSTR} mailReplyTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailreplyto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailreplyto
      */
     put_MailReplyTo(mailReplyTo) {
         mailReplyTo := mailReplyTo is String ? BSTR.Alloc(mailReplyTo).Value : mailReplyTo
@@ -163,9 +154,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to which email is sent when this action generates email.
+     * Retrieves or sets the email address to which email is sent when this action generates email. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto
      */
     get_MailTo() {
         mailTo := BSTR()
@@ -174,10 +165,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the email address to which email is sent when this action generates email.
+     * Retrieves or sets the email address to which email is sent when this action generates email. (Put)
      * @param {BSTR} mailTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailto
      */
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
@@ -187,9 +178,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the carbon copy (Cc) email address to which email is sent when this action generates email.
+     * Retrieves or sets the carbon copy (Cc) email address to which email is sent when this action generates email. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailcc
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailcc
      */
     get_MailCc() {
         mailCc := BSTR()
@@ -198,10 +189,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the carbon copy (Cc) email address to which email is sent when this action generates email.
+     * Retrieves or sets the carbon copy (Cc) email address to which email is sent when this action generates email. (Put)
      * @param {BSTR} mailCc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailcc
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailcc
      */
     put_MailCc(mailCc) {
         mailCc := mailCc is String ? BSTR.Alloc(mailCc).Value : mailCc
@@ -211,9 +202,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the blind carbon copy (Bcc) email address to which email is sent when this action generates email.
+     * Retrieves or sets the blind carbon copy (Bcc) email address to which email is sent when this action generates email. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailbcc
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailbcc
      */
     get_MailBcc() {
         mailBcc := BSTR()
@@ -222,10 +213,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the blind carbon copy (Bcc) email address to which email is sent when this action generates email.
+     * Retrieves or sets the blind carbon copy (Bcc) email address to which email is sent when this action generates email. (Put)
      * @param {BSTR} mailBcc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailbcc
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailbcc
      */
     put_MailBcc(mailBcc) {
         mailBcc := mailBcc is String ? BSTR.Alloc(mailBcc).Value : mailBcc
@@ -235,9 +226,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the subject of the email that is sent when this action generates email.
+     * Retrieves or sets the subject of the email that is sent when this action generates email. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_mailsubject
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailsubject
      */
     get_MailSubject() {
         mailSubject := BSTR()
@@ -246,10 +237,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the subject of the email that is sent when this action generates email.
+     * Retrieves or sets the subject of the email that is sent when this action generates email. (Put)
      * @param {BSTR} mailSubject 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_mailsubject
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_mailsubject
      */
     put_MailSubject(mailSubject) {
         mailSubject := mailSubject is String ? BSTR.Alloc(mailSubject).Value : mailSubject
@@ -259,9 +250,9 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the message text of the email that is sent when this action generates email.
+     * Retrieves or sets the message text of the email that is sent when this action generates email. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-get_messagetext
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_messagetext
      */
     get_MessageText() {
         messageText := BSTR()
@@ -270,10 +261,10 @@ class IFsrmActionEmail extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the message text of the email that is sent when this action generates email.
+     * Retrieves or sets the message text of the email that is sent when this action generates email. (Put)
      * @param {BSTR} messageText 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail-put_messagetext
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-put_messagetext
      */
     put_MessageText(messageText) {
         messageText := messageText is String ? BSTR.Alloc(messageText).Value : messageText

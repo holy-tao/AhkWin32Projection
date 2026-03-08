@@ -186,8 +186,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, pdwEncodingTypeMarshal, pdwEncodingType, "uint", dwIndex, pcbSignedDataMsgMarshal, pcbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -265,8 +265,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, pdwIndexMarshal, pdwIndex, "uint", cbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -357,8 +357,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, pcbIndirectDataMarshal, pcbIndirectData, "ptr", pIndirectData, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -412,8 +412,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptSIPVerifyIndirectData", "ptr", pSubjectInfo, "ptr", pIndirectData, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -433,8 +433,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptSIPRemoveSignedDataMsg", "ptr", pSubjectInfo, "uint", dwIndex, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -455,8 +455,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPLoad", "ptr", pgSubject, "uint", dwFlags, "ptr", pSipDispatch, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -480,8 +480,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuid", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -528,8 +528,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuidForCatalogFile", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -550,8 +550,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPAddProvider", "ptr", psNewProv, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -570,8 +570,8 @@ class Sip {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPRemoveProvider", "ptr", pgProv, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

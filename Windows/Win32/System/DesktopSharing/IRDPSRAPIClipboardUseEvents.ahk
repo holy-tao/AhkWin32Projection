@@ -5,7 +5,7 @@
 
 /**
  * Implement this interface on the sharer side to track or control use of the clipboard. If you do not enable clipboard sharing, this interface has no effect. You need to set a value for the SetClipboardRedirectCallback property described in Property.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiclipboarduseevents
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiclipboarduseevents
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IRDPSRAPIClipboardUseEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiclipboarduseevents-onpastefromclipboard
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiclipboarduseevents-onpastefromclipboard
      */
     OnPasteFromClipboard(clipboardFormat, pAttendee) {
         result := ComCall(3, this, "uint", clipboardFormat, "ptr", pAttendee, "short*", &pRetVal := 0, "HRESULT")

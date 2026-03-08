@@ -40,12 +40,13 @@ class ITransactionDispenser extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: BeginTransactionGrbit enumeration
      * @param {IUnknown} punkOuter 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOptions 
      * @returns {ITransaction} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/begintransactiongrbit-enumeration
      */
     BeginTransaction(punkOuter, isoLevel, isoFlags, pOptions) {
         result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "HRESULT")

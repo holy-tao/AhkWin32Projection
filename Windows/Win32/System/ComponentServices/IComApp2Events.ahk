@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if a COM+ server application is loaded, shut down, or paused.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomapp2events
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomapp2events
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IComApp2Events extends IUnknown{
      * @param {Guid} guidApp The GUID of the application.
      * @param {Guid} guidProcess The process ID.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomapp2events-onappactivation2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappactivation2
      */
     OnAppActivation2(pInfo, guidApp, guidProcess) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "ptr", guidProcess, "HRESULT")
@@ -48,7 +48,7 @@ class IComApp2Events extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The GUID of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomapp2events-onappshutdown2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappshutdown2
      */
     OnAppShutdown2(pInfo, guidApp) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -60,7 +60,7 @@ class IComApp2Events extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The GUID of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomapp2events-onappforceshutdown2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappforceshutdown2
      */
     OnAppForceShutdown2(pInfo, guidApp) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -73,7 +73,7 @@ class IComApp2Events extends IUnknown{
      * @param {Guid} guidApp The GUID of the application.
      * @param {BOOL} bPaused <b>TRUE</b> if the server application is paused. <b>FALSE</b> if the application has resumed to its original state.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomapp2events-onapppaused2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onapppaused2
      */
     OnAppPaused2(pInfo, guidApp, bPaused) {
         result := ComCall(6, this, "ptr", pInfo, "ptr", guidApp, "int", bPaused, "HRESULT")
@@ -160,7 +160,7 @@ class IComApp2Events extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomapp2events-onapprecycle2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onapprecycle2
      */
     OnAppRecycle2(pInfo, guidApp, guidProcess, lReason) {
         result := ComCall(7, this, "ptr", pInfo, "ptr", guidApp, "ptr", guidProcess, "int", lReason, "HRESULT")

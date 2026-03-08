@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The ITQueueEvent interface contains methods that retrieve the description of Automatic Call Distribution (ACD) queue events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-itqueueevent
+ * The ITQueueEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) queue events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itqueueevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -46,10 +46,14 @@ class ITQueueEvent extends IDispatch{
     }
 
     /**
-     * The get_Queue method gets a pointer to the queue on which the event occurred.
+     * The ITQueueEvent::get_Queue method (tapi3cc.h) gets a pointer to the queue on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3cc/nn-tapi3cc-itqueue">ITQueue</a> interface returned by <b>ITQueueEvent::get_Queue</b>. The application must call <b>Release</b> on the 
+     * <b>ITQueue</b> interface to free resources associated with it.
      * @returns {ITQueue} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3cc/nn-tapi3cc-itqueue">ITQueue</a> interface on which event occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itqueueevent-get_queue
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_queue
      */
     get_Queue() {
         result := ComCall(7, this, "ptr*", &ppQueue := 0, "HRESULT")
@@ -57,10 +61,10 @@ class ITQueueEvent extends IDispatch{
     }
 
     /**
-     * The get_Event method gets the descriptor of the event that occurred.
+     * The ITQueueEvent::get_Event method (tapi3cc.h) gets the descriptor of the event that occurred.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-acdqueue_event">ACDQUEUE_EVENT</a> descriptor of event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itqueueevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

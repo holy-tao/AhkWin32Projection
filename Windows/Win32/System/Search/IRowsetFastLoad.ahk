@@ -44,9 +44,17 @@ class IRowsetFastLoad extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {BOOL} fDone 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(fDone) {
         result := ComCall(4, this, "int", fDone, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Represents a collection of strings indexed by number.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritestringlist
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritestringlist
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IDWriteStringList extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of strings in the string list.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritestringlist-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint")
@@ -43,14 +43,14 @@ class IDWriteStringList extends IUnknown{
     }
 
     /**
-     * Gets the length in characters (not including the null terminator) of the locale name with the specified index.
+     * Gets the length in characters (not including the null terminator) of the locale name with the specified index. (IDWriteStringList.GetLocaleNameLength)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the locale name.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Receives the length in characters, not including the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritestringlist-getlocalenamelength
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getlocalenamelength
      */
     GetLocaleNameLength(listIndex) {
         result := ComCall(4, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
@@ -58,7 +58,7 @@ class IDWriteStringList extends IUnknown{
     }
 
     /**
-     * Copies the locale name with the specified index to the specified array.
+     * Copies the locale name with the specified index to the specified array. (IDWriteStringList.GetLocaleName)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the locale name.
@@ -68,10 +68,10 @@ class IDWriteStringList extends IUnknown{
      * @param {Integer} size Type: <b>UINT32</b>
      * 
      * Size of the array in characters. The size must include space for the terminating null character.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritestringlist-getlocalename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getlocalename
      */
     GetLocaleName(listIndex, localeName, size) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -81,14 +81,14 @@ class IDWriteStringList extends IUnknown{
     }
 
     /**
-     * Gets the length in characters (not including the null terminator) of the string with the specified index.
+     * Gets the length in characters (not including the null terminator) of the string with the specified index. (IDWriteStringList.GetStringLength)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the string.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Receives the length in characters of the string, not including the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritestringlist-getstringlength
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getstringlength
      */
     GetStringLength(listIndex) {
         result := ComCall(6, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
@@ -96,7 +96,7 @@ class IDWriteStringList extends IUnknown{
     }
 
     /**
-     * Copies the string with the specified index to the specified array.
+     * Copies the string with the specified index to the specified array. (IDWriteStringList.GetString)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the string.
@@ -106,10 +106,10 @@ class IDWriteStringList extends IUnknown{
      * @param {Integer} stringBufferSize Type: <b>UINT32</b>
      * 
      * Size of the array in characters. The size must include space for the terminating null character.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritestringlist-getstring
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getstring
      */
     GetString(listIndex, stringBuffer, stringBufferSize) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer

@@ -29,9 +29,14 @@ class ICLRGCManager extends IUnknown{
     static VTableNames => ["Collect", "GetStats", "SetGCStartupLimits"]
 
     /**
+     * Collection Class
+     * @remarks
+     * The **Collection** object has these types of members:
      * 
+     * -   [Properties](#properties)
      * @param {Integer} Generation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-collection
      */
     Collect(Generation) {
         result := ComCall(3, this, "int", Generation, "HRESULT")

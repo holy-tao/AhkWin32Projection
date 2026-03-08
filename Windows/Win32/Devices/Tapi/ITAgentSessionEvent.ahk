@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The ITAgentSessionEvent interface contains methods that retrieve the description of agent session events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-itagentsessionevent
+ * The ITAgentSessionEvent interface (tapi3cc.h) contains methods that retrieve the description of agent session events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentsessionevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -46,10 +46,14 @@ class ITAgentSessionEvent extends IDispatch{
     }
 
     /**
-     * The get_Session method gets a pointer to the ITAgentSession on which the event occurred.
+     * The ITAgentSessionEvent::get_Session method (tapi3cc.h) method gets a pointer to the ITAgentSession on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface returned by <b>ITAgentSessionEvent::get_Session</b>. The application must call <b>Release</b> on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface to free resources associated with it.
      * @returns {ITAgentSession} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentsessionevent-get_session
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_session
      */
     get_Session() {
         result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
@@ -57,10 +61,10 @@ class ITAgentSessionEvent extends IDispatch{
     }
 
     /**
-     * The get_Event method gets an AGENT_SESSION_EVENT descriptor of the event that occurred.
+     * The ITAgentSessionEvent::get_Event method (tapi3cc.h) gets an AGENT_SESSION_EVENT descriptor of the event that occurred.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_event">AGENT_SESSION_EVENT</a> descriptor of the event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

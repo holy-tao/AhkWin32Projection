@@ -41,9 +41,13 @@ class IFileClient extends IUnknown{
     }
 
     /**
-     * 
+     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {IFileIo} pFio 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
     Write(pFio) {
         result := ComCall(4, this, "ptr", pFio, "HRESULT")
@@ -51,9 +55,12 @@ class IFileClient extends IUnknown{
     }
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @param {IFileIo} pFio 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(pFio) {
         result := ComCall(5, this, "ptr", pFio, "HRESULT")

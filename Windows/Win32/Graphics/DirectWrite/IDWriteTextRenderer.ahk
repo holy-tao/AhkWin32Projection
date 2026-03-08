@@ -4,8 +4,8 @@
 #Include .\IDWritePixelSnapping.ahk
 
 /**
- * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextrenderer
+ * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextrenderer
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
     static VTableNames => ["DrawGlyphRun", "DrawUnderline", "DrawStrikethrough", "DrawInlineObject"]
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to render a run of glyphs.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to render a run of glyphs. (IDWriteTextRenderer.DrawGlyphRun)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a> function calls this callback function with all the information about glyphs to render. The application implements this callback by mostly delegating the call to the underlying platform's graphics API such as <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-portal">Direct2D</a> to draw glyphs on the drawing context. An application that uses GDI can implement this callback in terms of the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun">IDWriteBitmapRenderTarget::DrawGlyphRun</a> method.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -57,8 +59,8 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * Application-defined drawing effects for the glyphs to render. Usually this argument represents effects such as the foreground brush filling the interior of text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextrenderer-drawglyphrun
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawglyphrun
      */
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, measuringMode, glyphRun, glyphRunDescription, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -68,7 +70,19 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to draw an underline.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to draw an underline. (IDWriteTextRenderer.DrawUnderline)
+     * @remarks
+     * A single underline can be broken into multiple calls, depending on
+     *      how the formatting changes attributes. If font sizes/styles change
+     *      within an underline, the thickness and offset will be averaged
+     *      weighted according to characters.
+     *      To get an appropriate starting pixel position, add underline::offset
+     *      to the baseline. Otherwise there will be no spacing between the text.
+     *      The x coordinate will always be passed as the left side, regardless
+     *      of text directionality. This simplifies drawing and reduces the
+     *      problem of round-off that could potentially cause gaps or a double
+     *      stamped alpha blend. To avoid alpha overlap, round the end points
+     *      to the nearest device pixel.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -87,8 +101,8 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      *  Application-defined effect to apply to the underline. Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextrenderer-drawunderline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawunderline
      */
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, underline, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -98,7 +112,15 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to draw a strikethrough.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to draw a strikethrough. (IDWriteTextRenderer.DrawStrikethrough)
+     * @remarks
+     * A single strikethrough can be broken into multiple calls, depending on
+     *      how the formatting changes attributes. Strikethrough is not averaged
+     *      across font sizes/styles changes.
+     *      To get an appropriate starting pixel position, add strikethrough::offset
+     *      to the baseline.
+     *      Like underlines, the x coordinate will always be passed as the left side,
+     *      regardless of text directionality.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -117,8 +139,8 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * Application-defined effect to apply to the strikethrough.  Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextrenderer-drawstrikethrough
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawstrikethrough
      */
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, strikethrough, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -128,7 +150,7 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this application callback when it needs to draw an inline object.
+     * IDWriteTextLayout::Draw calls this application callback when it needs to draw an inline object. (IDWriteTextRenderer.DrawInlineObject)
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to IDWriteTextLayout::<a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-draw">Draw</a>.
@@ -152,8 +174,8 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * Application-defined drawing effects for the glyphs to render. Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextrenderer-drawinlineobject
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawinlineobject
      */
     DrawInlineObject(clientDrawingContext, originX, originY, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * The IWMBandwidthSharing interface contains methods to manage the properties of combined streams.The list of streams that share bandwidth is stored in the bandwidth sharing object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IWMBandwidthSharing extends IWMStreamList{
 
     /**
      * The GetType method retrieves the type of sharing for the bandwidth sharing object.
+     * @remarks
+     * The settings of a bandwidth sharing object are purely informational. They are not checked for accuracy.
      * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-gettype
      */
     GetType() {
         pguidType := Guid()
@@ -43,6 +45,8 @@ class IWMBandwidthSharing extends IWMStreamList{
 
     /**
      * The SetType method sets the type of sharing (exclusive or partial) for the bandwidth sharing object.
+     * @remarks
+     * The settings of a bandwidth sharing object are purely informational. They are not checked for accuracy.
      * @param {Pointer<Guid>} guidType Globally unique identifier specifying the type of combined stream to be used. The only valid GUIDs are those in the following table.
      * 
      * <table>
@@ -91,7 +95,7 @@ class IWMBandwidthSharing extends IWMStreamList{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-settype
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-settype
      */
     SetType(guidType) {
         result := ComCall(7, this, "ptr", guidType, "HRESULT")
@@ -100,6 +104,8 @@ class IWMBandwidthSharing extends IWMStreamList{
 
     /**
      * The GetBandwidth method retrieves the bandwidth and maximum buffer size of a combined stream.
+     * @remarks
+     * The settings of a bandwidth sharing object are purely informational. They are not checked for accuracy.
      * @param {Pointer<Integer>} pdwBitrate Pointer to a <b>DWORD</b> containing the bit rate in bits per second. The combined bandwidths of the streams cannot exceed this value.
      * @param {Pointer<Integer>} pmsBufferWindow Pointer to <b>DWORD</b> containing the buffer window in milliseconds. The combined buffer sizes of the streams cannot exceed this value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -132,7 +138,7 @@ class IWMBandwidthSharing extends IWMStreamList{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-getbandwidth
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-getbandwidth
      */
     GetBandwidth(pdwBitrate, pmsBufferWindow) {
         pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
@@ -144,10 +150,12 @@ class IWMBandwidthSharing extends IWMStreamList{
 
     /**
      * The SetBandwidth method sets the bandwidth and maximum buffer size for a combined stream.
+     * @remarks
+     * The settings of a bandwidth sharing object are purely informational. They are not checked for accuracy.
      * @param {Integer} dwBitrate <b>DWORD</b> containing the bit rate in bits per second. The combined bandwidths of the streams cannot exceed this value.
      * @param {Integer} msBufferWindow Specifies the buffer window in milliseconds. The combined buffer sizes of the streams cannot exceed this value.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-setbandwidth
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-setbandwidth
      */
     SetBandwidth(dwBitrate, msBufferWindow) {
         result := ComCall(9, this, "uint", dwBitrate, "uint", msBufferWindow, "HRESULT")

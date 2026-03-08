@@ -5,14 +5,11 @@
 #Include .\IAutomaticUpdates.ahk
 
 /**
- * Contains the functionality of Automatic Updates.
+ * Contains the functionality of Automatic Updates. (IAutomaticUpdates2)
  * @remarks
- * 
  * You can create a new instance of this interface by using the AutomaticUpdates coclass. Use the 
  *     Microsoft.Update.AutoUpdate program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iautomaticupdates2
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdates2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -47,7 +44,7 @@ class IAutomaticUpdates2 extends IAutomaticUpdates{
     /**
      * Returns a pointer to an IAutomaticUpdatesResults interface.
      * @returns {IAutomaticUpdatesResults} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iautomaticupdatesresults">IAutomaticUpdatesResults</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates2-get_results
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates2-get_results
      */
     get_Results() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")

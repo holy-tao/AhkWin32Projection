@@ -5,7 +5,7 @@
 
 /**
  * Passes configuration information to the media sinks that are used for streaming the content.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfstreamingsinkconfig
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamingsinkconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -62,8 +62,8 @@ class IMFStreamingSinkConfig extends IUnknown{
      * </table>
      * @param {Integer} qwSeekOffset A byte offset or a time offset, depending on the value passed in <i>fSeekOffsetIsByteOffset</i>.  Time offsets are specified in
      *     100-nanosecond units.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamingsinkconfig-startstreaming
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamingsinkconfig-startstreaming
      */
     StartStreaming(fSeekOffsetIsByteOffset, qwSeekOffset) {
         result := ComCall(3, this, "int", fSeekOffsetIsByteOffset, "uint", qwSeekOffset, "HRESULT")

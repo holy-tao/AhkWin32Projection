@@ -6,12 +6,10 @@
 /**
  * Exposes a single method that retrieves the status of a folder's System.IsPinnedToNameSpaceTree filtering support.
  * @remarks
- * 
  * The namespace tree control checks all the nodes it enumerates to see if they support filtering. This is done by retrieving the <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-ispinnedtonamespacetree">System.IsPinnedToNameSpaceTree</a> property for the shell folders that support this interface. Nodes that do not support this interface do not have filtering support and are shown by default.
  * 
  * Use this interface to retrieve the filtering support status of a shell folder.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inamespacetreecontrolfoldercapabilities
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrolfoldercapabilities
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,7 +42,7 @@ class INameSpaceTreeControlFolderCapabilities extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a>*</b>
      * 
      * Pointer to a value that, when this method returns successfully, receives the capabilities requested in <i>nfcMask</i>. Except in the case of NSTCFC_NONE, bit values in positions not specifically requested in <i>nfcMask</i> do not necessarily reflect the capabilities and should not be used.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities
      */
     GetFolderCapabilities(nfcMask) {
         result := ComCall(3, this, "int", nfcMask, "int*", &pnfcValue := 0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Exposes property methods that you can use to set or retrieve the value of a shared property.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-isharedproperty
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isharedproperty
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class ISharedProperty extends IDispatch{
     /**
      * Retrieves the value of a shared property.
      * @returns {VARIANT} The value of this shared property.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-get_value
      */
     get_Value() {
         pVal := VARIANT()
@@ -100,7 +100,7 @@ class ISharedProperty extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedproperty-put_value
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-put_value
      */
     put_Value(val) {
         result := ComCall(8, this, "ptr", val, "HRESULT")

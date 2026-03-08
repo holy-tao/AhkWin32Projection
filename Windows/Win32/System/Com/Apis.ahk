@@ -362,11 +362,7 @@ class Com {
      * @since windows5.0
      */
     static CoRegisterMallocSpy(pMallocSpy) {
-        result := DllCall("OLE32.dll\CoRegisterMallocSpy", "ptr", pMallocSpy, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterMallocSpy", "ptr", pMallocSpy, "HRESULT")
         return result
     }
 
@@ -423,11 +419,7 @@ class Com {
      * @since windows5.0
      */
     static CoRevokeMallocSpy() {
-        result := DllCall("OLE32.dll\CoRevokeMallocSpy", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRevokeMallocSpy", "HRESULT")
         return result
     }
 
@@ -458,11 +450,7 @@ class Com {
      * @since windows5.1.2600
      */
     static CoRegisterInitializeSpy(pSpy) {
-        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "uint*", &puliCookie := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "uint*", &puliCookie := 0, "HRESULT")
         return puliCookie
     }
 
@@ -480,11 +468,7 @@ class Com {
      * @since windows5.0
      */
     static CoRevokeInitializeSpy(uliCookie) {
-        result := DllCall("OLE32.dll\CoRevokeInitializeSpy", "uint", uliCookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRevokeInitializeSpy", "uint", uliCookie, "HRESULT")
         return result
     }
 
@@ -548,11 +532,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetSystemSecurityPermissions(comSDType, ppSD) {
-        result := DllCall("OLE32.dll\CoGetSystemSecurityPermissions", "int", comSDType, "ptr", ppSD, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetSystemSecurityPermissions", "int", comSDType, "ptr", ppSD, "HRESULT")
         return result
     }
 
@@ -677,11 +657,7 @@ class Com {
     static CoAllowSetForegroundWindow(pUnk) {
         static lpvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\CoAllowSetForegroundWindow", "ptr", pUnk, "ptr", lpvReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoAllowSetForegroundWindow", "ptr", pUnk, "ptr", lpvReserved, "HRESULT")
         return result
     }
 
@@ -696,11 +672,7 @@ class Com {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ole32.dll\DcomChannelSetHResult", pvReservedMarshal, pvReserved, pulReservedMarshal, pulReserved, "int", appsHR, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\DcomChannelSetHResult", pvReservedMarshal, pvReserved, pulReservedMarshal, pulReserved, "int", appsHR, "HRESULT")
         return result
     }
 
@@ -802,11 +774,7 @@ class Com {
     static CLSIDFromProgIDEx(lpszProgID, lpclsid) {
         lpszProgID := lpszProgID is String ? StrPtr(lpszProgID) : lpszProgID
 
-        result := DllCall("OLE32.dll\CLSIDFromProgIDEx", "ptr", lpszProgID, "ptr", lpclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CLSIDFromProgIDEx", "ptr", lpszProgID, "ptr", lpclsid, "HRESULT")
         return result
     }
 
@@ -897,11 +865,7 @@ class Com {
      * @since windows5.0
      */
     static CoFileTimeNow(lpFileTime) {
-        result := DllCall("OLE32.dll\CoFileTimeNow", "ptr", lpFileTime, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoFileTimeNow", "ptr", lpFileTime, "HRESULT")
         return result
     }
 
@@ -913,11 +877,7 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregisterchannelhook
      */
     static CoRegisterChannelHook(ExtensionUuid, pChannelHook) {
-        result := DllCall("ole32.dll\CoRegisterChannelHook", "ptr", ExtensionUuid, "ptr", pChannelHook, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\CoRegisterChannelHook", "ptr", ExtensionUuid, "ptr", pChannelHook, "HRESULT")
         return result
     }
 
@@ -1013,11 +973,7 @@ class Com {
      * @since windows5.0
      */
     static CoTreatAsClass(clsidOld, clsidNew) {
-        result := DllCall("OLE32.dll\CoTreatAsClass", "ptr", clsidOld, "ptr", clsidNew, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoTreatAsClass", "ptr", clsidOld, "ptr", clsidNew, "HRESULT")
         return result
     }
 
@@ -1030,11 +986,7 @@ class Com {
      * @since windows5.0
      */
     static CreateDataAdviseHolder() {
-        result := DllCall("OLE32.dll\CreateDataAdviseHolder", "ptr*", &ppDAHolder := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateDataAdviseHolder", "ptr*", &ppDAHolder := 0, "HRESULT")
         return IDataAdviseHolder(ppDAHolder)
     }
 
@@ -1050,11 +1002,7 @@ class Com {
      * @since windows5.0
      */
     static CreateDataCache(pUnkOuter, rclsid, iid) {
-        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1100,11 +1048,7 @@ class Com {
     static CoInstall(pbc, dwFlags, pClassSpec, pQuery, pszCodeBase) {
         pszCodeBase := pszCodeBase is String ? StrPtr(pszCodeBase) : pszCodeBase
 
-        result := DllCall("ole32.dll\CoInstall", "ptr", pbc, "uint", dwFlags, "ptr", pClassSpec, "ptr", pQuery, "ptr", pszCodeBase, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\CoInstall", "ptr", pbc, "uint", dwFlags, "ptr", pClassSpec, "ptr", pQuery, "ptr", pszCodeBase, "HRESULT")
         return result
     }
 
@@ -1133,11 +1077,7 @@ class Com {
      * @since windows5.0
      */
     static BindMoniker(pmk, grfOpt, iidResult) {
-        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, "ptr*", &ppvResult := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, "ptr*", &ppvResult := 0, "HRESULT")
         return ppvResult
     }
 
@@ -1155,11 +1095,7 @@ class Com {
     static CoGetObject(pszName, pBindOptions, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1243,11 +1179,7 @@ class Com {
 
         pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, pchEatenMarshal, pchEaten, "ptr*", ppmk, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, pchEatenMarshal, pchEaten, "ptr*", ppmk, "HRESULT")
         return result
     }
 
@@ -1267,11 +1199,7 @@ class Com {
      * @since windows5.0
      */
     static MonikerRelativePathTo(pmkSrc, pmkDest, dwReserved) {
-        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr*", &ppmkRelPath := 0, "int", dwReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr*", &ppmkRelPath := 0, "int", dwReserved, "HRESULT")
         return IMoniker(ppmkRelPath)
     }
 
@@ -1290,11 +1218,7 @@ class Com {
      * @since windows5.0
      */
     static MonikerCommonPrefixWith(pmkThis, pmkOther) {
-        result := DllCall("ole32.dll\MonikerCommonPrefixWith", "ptr", pmkThis, "ptr", pmkOther, "ptr*", &ppmkCommon := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\MonikerCommonPrefixWith", "ptr", pmkThis, "ptr", pmkOther, "ptr*", &ppmkCommon := 0, "HRESULT")
         return IMoniker(ppmkCommon)
     }
 
@@ -1350,11 +1274,7 @@ class Com {
      * @since windows5.0
      */
     static CreateBindCtx(reserved) {
-        result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr*", &ppbc := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr*", &ppbc := 0, "HRESULT")
         return IBindCtx(ppbc)
     }
 
@@ -1373,11 +1293,7 @@ class Com {
      * @since windows5.0
      */
     static CreateGenericComposite(pmkFirst, pmkRest) {
-        result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr*", &ppmkComposite := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr*", &ppmkComposite := 0, "HRESULT")
         return IMoniker(ppmkComposite)
     }
 
@@ -1470,11 +1386,7 @@ class Com {
     static GetClassFile(szFilename, pclsid) {
         szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
 
-        result := DllCall("OLE32.dll\GetClassFile", "ptr", szFilename, "ptr", pclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\GetClassFile", "ptr", szFilename, "ptr", pclsid, "HRESULT")
         return result
     }
 
@@ -1488,11 +1400,7 @@ class Com {
      * @since windows5.0
      */
     static CreateClassMoniker(rclsid) {
-        result := DllCall("OLE32.dll\CreateClassMoniker", "ptr", rclsid, "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateClassMoniker", "ptr", rclsid, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1514,11 +1422,7 @@ class Com {
     static CreateFileMoniker(lpszPathName) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1546,11 +1450,7 @@ class Com {
         lpszDelim := lpszDelim is String ? StrPtr(lpszDelim) : lpszDelim
         lpszItem := lpszItem is String ? StrPtr(lpszItem) : lpszItem
 
-        result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1576,11 +1476,7 @@ class Com {
      * @since windows5.0
      */
     static CreateAntiMoniker() {
-        result := DllCall("OLE32.dll\CreateAntiMoniker", "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateAntiMoniker", "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1598,11 +1494,7 @@ class Com {
      * @since windows5.0
      */
     static CreatePointerMoniker(punk) {
-        result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1634,11 +1526,7 @@ class Com {
      * @since windows5.0
      */
     static CreateObjrefMoniker(punk) {
-        result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr*", &ppmk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -1660,11 +1548,7 @@ class Com {
      * @since windows5.0
      */
     static GetRunningObjectTable(reserved) {
-        result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr*", &pprot := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr*", &pprot := 0, "HRESULT")
         return IRunningObjectTable(pprot)
     }
 
@@ -1679,11 +1563,7 @@ class Com {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr*", &ppIbsc := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr*", &ppIbsc := 0, "HRESULT")
         return IBindStatusCallback(ppIbsc)
     }
 
@@ -1697,11 +1577,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetMalloc(dwMemContext) {
-        result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr*", &ppMalloc := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr*", &ppMalloc := 0, "HRESULT")
         return IMalloc(ppMalloc)
     }
 
@@ -1833,11 +1709,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetCallerTID() {
-        result := DllCall("OLE32.dll\CoGetCallerTID", "uint*", &lpdwTID := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetCallerTID", "uint*", &lpdwTID := 0, "HRESULT")
         return lpdwTID
     }
 
@@ -1891,11 +1763,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetCurrentLogicalThreadId(pguid) {
-        result := DllCall("OLE32.dll\CoGetCurrentLogicalThreadId", "ptr", pguid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetCurrentLogicalThreadId", "ptr", pguid, "HRESULT")
         return result
     }
 
@@ -1906,11 +1774,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetContextToken() {
-        result := DllCall("OLE32.dll\CoGetContextToken", "ptr*", &pToken := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetContextToken", "ptr*", &pToken := 0, "HRESULT")
         return pToken
     }
 
@@ -1977,11 +1841,7 @@ class Com {
         pAptTypeMarshal := pAptType is VarRef ? "int*" : "ptr"
         pAptQualifierMarshal := pAptQualifier is VarRef ? "int*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetApartmentType", pAptTypeMarshal, pAptType, pAptQualifierMarshal, pAptQualifier, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetApartmentType", pAptTypeMarshal, pAptType, pAptQualifierMarshal, pAptQualifier, "HRESULT")
         return result
     }
 
@@ -2013,11 +1873,7 @@ class Com {
      */
     static CoIncrementMTAUsage() {
         pCookie := CO_MTA_USAGE_COOKIE()
-        result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "HRESULT")
         return pCookie
     }
 
@@ -2036,11 +1892,7 @@ class Com {
     static CoDecrementMTAUsage(Cookie) {
         Cookie := Cookie is Win32Handle ? NumGet(Cookie, "ptr") : Cookie
 
-        result := DllCall("OLE32.dll\CoDecrementMTAUsage", "ptr", Cookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoDecrementMTAUsage", "ptr", Cookie, "HRESULT")
         return result
     }
 
@@ -2058,11 +1910,7 @@ class Com {
      * @since windows8.0
      */
     static CoAllowUnmarshalerCLSID(clsid) {
-        result := DllCall("OLE32.dll\CoAllowUnmarshalerCLSID", "ptr", clsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoAllowUnmarshalerCLSID", "ptr", clsid, "HRESULT")
         return result
     }
 
@@ -2084,11 +1932,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetObjectContext(riid) {
-        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2141,11 +1985,7 @@ class Com {
     static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2191,11 +2031,7 @@ class Com {
      * @since windows5.0
      */
     static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags) {
-        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "uint*", &lpdwRegister := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "uint*", &lpdwRegister := 0, "HRESULT")
         return lpdwRegister
     }
 
@@ -2232,11 +2068,7 @@ class Com {
      * @since windows5.0
      */
     static CoRevokeClassObject(dwRegister) {
-        result := DllCall("OLE32.dll\CoRevokeClassObject", "uint", dwRegister, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRevokeClassObject", "uint", dwRegister, "HRESULT")
         return result
     }
 
@@ -2251,11 +2083,7 @@ class Com {
      * @since windows5.0
      */
     static CoResumeClassObjects() {
-        result := DllCall("OLE32.dll\CoResumeClassObjects", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoResumeClassObjects", "HRESULT")
         return result
     }
 
@@ -2268,11 +2096,7 @@ class Com {
      * @since windows5.0
      */
     static CoSuspendClassObjects() {
-        result := DllCall("OLE32.dll\CoSuspendClassObjects", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoSuspendClassObjects", "HRESULT")
         return result
     }
 
@@ -2367,11 +2191,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetPSClsid(riid, pClsid) {
-        result := DllCall("OLE32.dll\CoGetPSClsid", "ptr", riid, "ptr", pClsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetPSClsid", "ptr", riid, "ptr", pClsid, "HRESULT")
         return result
     }
 
@@ -2390,11 +2210,7 @@ class Com {
      * @since windows5.0
      */
     static CoRegisterPSClsid(riid, rclsid) {
-        result := DllCall("OLE32.dll\CoRegisterPSClsid", "ptr", riid, "ptr", rclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterPSClsid", "ptr", riid, "ptr", rclsid, "HRESULT")
         return result
     }
 
@@ -2412,11 +2228,7 @@ class Com {
      * @since windows5.0
      */
     static CoRegisterSurrogate(pSurrogate) {
-        result := DllCall("OLE32.dll\CoRegisterSurrogate", "ptr", pSurrogate, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterSurrogate", "ptr", pSurrogate, "HRESULT")
         return result
     }
 
@@ -2446,11 +2258,7 @@ class Com {
     static CoDisconnectObject(pUnk) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\CoDisconnectObject", "ptr", pUnk, "uint", dwReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoDisconnectObject", "ptr", pUnk, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -2516,11 +2324,7 @@ class Com {
      * @since windows5.0
      */
     static CoLockObjectExternal(pUnk, fLock, fLastUnlockReleases) {
-        result := DllCall("OLE32.dll\CoLockObjectExternal", "ptr", pUnk, "int", fLock, "int", fLastUnlockReleases, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoLockObjectExternal", "ptr", pUnk, "int", fLock, "int", fLastUnlockReleases, "HRESULT")
         return result
     }
 
@@ -2579,11 +2383,7 @@ class Com {
      * @since windows5.0
      */
     static CoCreateFreeThreadedMarshaler(punkOuter) {
-        result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr*", &ppunkMarshal := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr*", &ppunkMarshal := 0, "HRESULT")
         return IUnknown(ppunkMarshal)
     }
 
@@ -2722,11 +2522,7 @@ class Com {
      * @since windows6.0.6000
      */
     static CoDisconnectContext(dwTimeout) {
-        result := DllCall("OLE32.dll\CoDisconnectContext", "uint", dwTimeout, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoDisconnectContext", "uint", dwTimeout, "HRESULT")
         return result
     }
 
@@ -2839,11 +2635,7 @@ class Com {
 
         pAuthListMarshal := pAuthList is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoInitializeSecurity", "ptr", pSecDesc, "int", cAuthSvc, "ptr", asAuthSvc, "ptr", pReserved1, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthListMarshal, pAuthList, "uint", dwCapabilities, "ptr", pReserved3, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoInitializeSecurity", "ptr", pSecDesc, "int", cAuthSvc, "ptr", asAuthSvc, "ptr", pReserved1, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthListMarshal, pAuthList, "uint", dwCapabilities, "ptr", pReserved3, "HRESULT")
         return result
     }
 
@@ -2857,11 +2649,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetCallContext(riid) {
-        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, "ptr*", &ppInterface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, "ptr*", &ppInterface := 0, "HRESULT")
         return ppInterface
     }
 
@@ -2906,11 +2694,7 @@ class Com {
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
         pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
         return result
     }
 
@@ -2993,11 +2777,7 @@ class Com {
 
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
         return result
     }
 
@@ -3026,11 +2806,7 @@ class Com {
      * @since windows5.0
      */
     static CoCopyProxy(pProxy) {
-        result := DllCall("OLE32.dll\CoCopyProxy", "ptr", pProxy, "ptr*", &ppCopy := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCopyProxy", "ptr", pProxy, "ptr*", &ppCopy := 0, "HRESULT")
         return IUnknown(ppCopy)
     }
 
@@ -3071,11 +2847,7 @@ class Com {
         pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
         pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 
@@ -3098,11 +2870,7 @@ class Com {
      * @since windows5.0
      */
     static CoImpersonateClient() {
-        result := DllCall("OLE32.dll\CoImpersonateClient", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoImpersonateClient", "HRESULT")
         return result
     }
 
@@ -3125,11 +2893,7 @@ class Com {
      * @since windows5.0
      */
     static CoRevertToSelf() {
-        result := DllCall("OLE32.dll\CoRevertToSelf", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRevertToSelf", "HRESULT")
         return result
     }
 
@@ -3151,11 +2915,7 @@ class Com {
         pcAuthSvcMarshal := pcAuthSvc is VarRef ? "uint*" : "ptr"
         asAuthSvcMarshal := asAuthSvc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", pcAuthSvcMarshal, pcAuthSvc, asAuthSvcMarshal, asAuthSvc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", pcAuthSvcMarshal, pcAuthSvc, asAuthSvcMarshal, asAuthSvc, "HRESULT")
         return result
     }
 
@@ -3173,11 +2933,7 @@ class Com {
      * @since windows5.0
      */
     static CoSwitchCallContext(pNewObject) {
-        result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr*", &ppOldObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr*", &ppOldObject := 0, "HRESULT")
         return IUnknown(ppOldObject)
     }
 
@@ -3206,11 +2962,7 @@ class Com {
      * @since windows5.0
      */
     static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
-        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -3299,11 +3051,7 @@ class Com {
      * @since windows5.0
      */
     static CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pResults) {
-        result := DllCall("OLE32.dll\CoCreateInstanceEx", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, "ptr", pServerInfo, "uint", dwCount, "ptr", pResults, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCreateInstanceEx", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, "ptr", pServerInfo, "uint", dwCount, "ptr", pResults, "HRESULT")
         return result
     }
 
@@ -3393,11 +3141,7 @@ class Com {
     static CoCreateInstanceFromApp(Clsid, punkOuter, dwClsCtx, reserved, dwCount, pResults) {
         reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoCreateInstanceFromApp", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, reservedMarshal, reserved, "uint", dwCount, "ptr", pResults, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCreateInstanceFromApp", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, reservedMarshal, reserved, "uint", dwCount, "ptr", pResults, "HRESULT")
         return result
     }
 
@@ -3411,11 +3155,7 @@ class Com {
      * @since windows5.1.2600
      */
     static CoRegisterActivationFilter(pActivationFilter) {
-        result := DllCall("OLE32.dll\CoRegisterActivationFilter", "ptr", pActivationFilter, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterActivationFilter", "ptr", pActivationFilter, "HRESULT")
         return result
     }
 
@@ -3432,11 +3172,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetCancelObject(dwThreadId, iid) {
-        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, "ptr*", &ppUnk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, "ptr*", &ppUnk := 0, "HRESULT")
         return ppUnk
     }
 
@@ -3486,11 +3222,7 @@ class Com {
      * @since windows5.0
      */
     static CoSetCancelObject(pUnk) {
-        result := DllCall("OLE32.dll\CoSetCancelObject", "ptr", pUnk, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoSetCancelObject", "ptr", pUnk, "HRESULT")
         return result
     }
 
@@ -3571,11 +3303,7 @@ class Com {
      * @since windows5.0
      */
     static CoCancelCall(dwThreadId, ulTimeout) {
-        result := DllCall("OLE32.dll\CoCancelCall", "uint", dwThreadId, "uint", ulTimeout, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCancelCall", "uint", dwThreadId, "uint", ulTimeout, "HRESULT")
         return result
     }
 
@@ -3621,11 +3349,7 @@ class Com {
      * @since windows5.0
      */
     static CoTestCancel() {
-        result := DllCall("OLE32.dll\CoTestCancel", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoTestCancel", "HRESULT")
         return result
     }
 
@@ -3644,11 +3368,7 @@ class Com {
     static CoEnableCallCancellation() {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\CoEnableCallCancellation", "ptr", pReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoEnableCallCancellation", "ptr", pReserved, "HRESULT")
         return result
     }
 
@@ -3704,11 +3424,7 @@ class Com {
     static CoDisableCallCancellation() {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\CoDisableCallCancellation", "ptr", pReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoDisableCallCancellation", "ptr", pReserved, "HRESULT")
         return result
     }
 
@@ -3724,11 +3440,7 @@ class Com {
      * @since windows5.0
      */
     static StringFromCLSID(rclsid) {
-        result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr*", &lplpsz := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr*", &lplpsz := 0, "HRESULT")
         return lplpsz
     }
 
@@ -3776,11 +3488,7 @@ class Com {
     static CLSIDFromString(lpsz, pclsid) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("OLE32.dll\CLSIDFromString", "ptr", lpsz, "ptr", pclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CLSIDFromString", "ptr", lpsz, "ptr", pclsid, "HRESULT")
         return result
     }
 
@@ -3794,11 +3502,7 @@ class Com {
      * @since windows5.0
      */
     static StringFromIID(rclsid) {
-        result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr*", &lplpsz := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr*", &lplpsz := 0, "HRESULT")
         return lplpsz
     }
 
@@ -3819,11 +3523,7 @@ class Com {
     static IIDFromString(lpsz, lpiid) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("OLE32.dll\IIDFromString", "ptr", lpsz, "ptr", lpiid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\IIDFromString", "ptr", lpsz, "ptr", lpiid, "HRESULT")
         return result
     }
 
@@ -3847,11 +3547,7 @@ class Com {
      * @since windows5.0
      */
     static ProgIDFromCLSID(clsid) {
-        result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr*", &lplpszProgID := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr*", &lplpszProgID := 0, "HRESULT")
         return lplpszProgID
     }
 
@@ -3909,11 +3605,7 @@ class Com {
     static CLSIDFromProgID(lpszProgID, lpclsid) {
         lpszProgID := lpszProgID is String ? StrPtr(lpszProgID) : lpszProgID
 
-        result := DllCall("OLE32.dll\CLSIDFromProgID", "ptr", lpszProgID, "ptr", lpclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CLSIDFromProgID", "ptr", lpszProgID, "ptr", lpclsid, "HRESULT")
         return result
     }
 
@@ -3962,11 +3654,7 @@ class Com {
      * @since windows5.0
      */
     static CoCreateGuid(pguid) {
-        result := DllCall("OLE32.dll\CoCreateGuid", "ptr", pguid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoCreateGuid", "ptr", pguid, "HRESULT")
         return result
     }
 
@@ -4000,11 +3688,7 @@ class Com {
      * @since windows5.0
      */
     static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles) {
-        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "HRESULT")
         return lpdwindex
     }
 
@@ -4018,11 +3702,7 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultipleobjects
      */
     static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles) {
-        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "HRESULT")
         return lpdwindex
     }
 
@@ -4147,11 +3827,7 @@ class Com {
     static CoInvalidateRemoteMachineBindings(pszMachineName) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := DllCall("OLE32.dll\CoInvalidateRemoteMachineBindings", "ptr", pszMachineName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoInvalidateRemoteMachineBindings", "ptr", pszMachineName, "HRESULT")
         return result
     }
 
@@ -4229,11 +3905,7 @@ class Com {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
 
         cookie := CO_DEVICE_CATALOG_COOKIE()
-        result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "HRESULT")
         return cookie
     }
 
@@ -4248,11 +3920,7 @@ class Com {
     static CoRevokeDeviceCatalog(cookie) {
         cookie := cookie is Win32Handle ? NumGet(cookie, "ptr") : cookie
 
-        result := DllCall("OLE32.dll\CoRevokeDeviceCatalog", "ptr", cookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRevokeDeviceCatalog", "ptr", cookie, "HRESULT")
         return result
     }
 
@@ -4267,11 +3935,7 @@ class Com {
 
         pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
 
-        result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "HRESULT")
         return IUri(ppURI)
     }
 
@@ -4288,11 +3952,7 @@ class Com {
         pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
         pwzFragment := pwzFragment is String ? StrPtr(pwzFragment) : pwzFragment
 
-        result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "HRESULT")
         return IUri(ppURI)
     }
 
@@ -4309,11 +3969,7 @@ class Com {
 
         pszANSIInputUri := pszANSIInputUri is String ? StrPtr(pszANSIInputUri) : pszANSIInputUri
 
-        result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr*", &ppUri := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr*", &ppUri := 0, "HRESULT")
         return IUri(ppUri)
     }
 
@@ -4325,11 +3981,7 @@ class Com {
      * @returns {IUriBuilder} 
      */
     static CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
-        result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
         return IUriBuilder(ppIUriBuilder)
     }
 
@@ -4359,11 +4011,7 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo
      */
     static SetErrorInfo(dwReserved, perrinfo) {
-        result := DllCall("OLEAUT32.dll\SetErrorInfo", "uint", dwReserved, "ptr", perrinfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEAUT32.dll\SetErrorInfo", "uint", dwReserved, "ptr", perrinfo, "HRESULT")
         return result
     }
 
@@ -4378,11 +4026,7 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
      */
     static GetErrorInfo(dwReserved) {
-        result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", &pperrinfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", &pperrinfo := 0, "HRESULT")
         return IErrorInfo(pperrinfo)
     }
 

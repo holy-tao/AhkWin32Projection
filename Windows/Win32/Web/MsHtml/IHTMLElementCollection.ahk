@@ -56,9 +56,9 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        String := BSTR()
-        result := ComCall(7, this, "ptr", String, "HRESULT")
-        return String
+        String_R := BSTR()
+        result := ComCall(7, this, "ptr", String_R, "HRESULT")
+        return String_R
     }
 
     /**

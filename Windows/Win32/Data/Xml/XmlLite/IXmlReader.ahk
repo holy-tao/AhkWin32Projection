@@ -29,9 +29,29 @@ class IXmlReader extends IUnknown{
     static VTableNames => ["SetInput", "GetProperty", "SetProperty", "Read", "GetNodeType", "MoveToFirstAttribute", "MoveToNextAttribute", "MoveToAttributeByName", "MoveToElement", "GetQualifiedName", "GetNamespaceUri", "GetLocalName", "GetPrefix", "GetValue", "ReadValueChunk", "GetBaseUri", "IsDefault", "IsEmptyElement", "GetLineNumber", "GetLinePosition", "GetAttributeCount", "GetDepth", "IsEOF"]
 
     /**
+     * Sets an input scope for the specified window.
+     * @remarks
+     * Calling this method replaces whatever scope is associated with the window.
      * 
+     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
+     * 
+     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
+     * 
+     * If you call this method on a window (<i>hwnd</i> parameter) that has 
+     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
+     * scope change.
      * @param {IUnknown} pInput 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method was successful.</td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-setinputscope
      */
     SetInput(pInput) {
         result := ComCall(3, this, "ptr", pInput, "HRESULT")
@@ -39,9 +59,14 @@ class IXmlReader extends IUnknown{
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {Integer} nProperty 
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(nProperty) {
         result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
@@ -49,10 +74,13 @@ class IXmlReader extends IUnknown{
     }
 
     /**
-     * 
+     * Sets Interaction Context object properties.
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      */
     SetProperty(nProperty, pValue) {
         result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
@@ -60,8 +88,9 @@ class IXmlReader extends IUnknown{
     }
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read() {
         result := ComCall(6, this, "int*", &pNodeType := 0, "int")
@@ -175,10 +204,11 @@ class IXmlReader extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(ppwszValue, pcwchValue) {
         ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
@@ -219,8 +249,9 @@ class IXmlReader extends IUnknown{
     }
 
     /**
-     * 
+     * IsDefault
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/mbn/element-isdefault
      */
     IsDefault() {
         result := ComCall(19, this, "int")

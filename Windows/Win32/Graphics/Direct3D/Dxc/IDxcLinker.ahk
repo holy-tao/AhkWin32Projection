@@ -43,7 +43,11 @@ class IDxcLinker extends IUnknown{
     }
 
     /**
+     * Registers a window class that allows for the SysLink common control to be used in a window.
+     * @remarks
+     * This function does not have an associated header or library file so it must be called by ordinal value. Call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name Shell32.dll to obtain a module handle. Then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the ordinal number 258 to use this function.
      * 
+     * Use [**LinkWindow\_UnregisterClass**](linkwindow-unregisterclass.md) to unregister the class after use.
      * @param {PWSTR} pEntryName 
      * @param {PWSTR} pTargetProfile 
      * @param {Pointer<PWSTR>} pLibNames 
@@ -51,6 +55,7 @@ class IDxcLinker extends IUnknown{
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {IDxcOperationResult} 
+     * @see https://learn.microsoft.com/windows/win32/shell/linkwindow-registerclass
      */
     Link(pEntryName, pTargetProfile, pLibNames, libCount, pArguments, argCount) {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName

@@ -6,7 +6,7 @@
 
 /**
  * Associates a class of event objects with the event interface those objects implement.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventclass
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventclass
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -88,9 +88,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The CLSID for the event class object.
+     * The CLSID for the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_eventclassid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassid
      */
     get_EventClassID() {
         pbstrEventClassID := BSTR()
@@ -99,10 +99,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The CLSID for the event class object.
+     * The CLSID for the event class object. (Put)
      * @param {BSTR} bstrEventClassID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_eventclassid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_eventclassid
      */
     put_EventClassID(bstrEventClassID) {
         bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
@@ -112,9 +112,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The ProgID for the event class object.
+     * The ProgID for the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_eventclassname
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassname
      */
     get_EventClassName() {
         pbstrEventClassName := BSTR()
@@ -123,10 +123,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The ProgID for the event class object.
+     * The ProgID for the event class object. (Put)
      * @param {BSTR} bstrEventClassName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_eventclassname
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_eventclassname
      */
     put_EventClassName(bstrEventClassName) {
         bstrEventClassName := bstrEventClassName is String ? BSTR.Alloc(bstrEventClassName).Value : bstrEventClassName
@@ -136,9 +136,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The security ID of the event class object's creator. This property is supported only for backward compatibility.
+     * The security ID of the event class object's creator. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_ownersid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_ownersid
      */
     get_OwnerSID() {
         pbstrOwnerSID := BSTR()
@@ -147,10 +147,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The security ID of the event class object's creator. This property is supported only for backward compatibility.
+     * The security ID of the event class object's creator. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrOwnerSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_ownersid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_ownersid
      */
     put_OwnerSID(bstrOwnerSID) {
         bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
@@ -160,9 +160,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The ID of the event interface on the event class object. This property is supported only for backward compatibility.
+     * The ID of the event interface on the event class object. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
      */
     get_FiringInterfaceID() {
         pbstrFiringInterfaceID := BSTR()
@@ -171,10 +171,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The ID of the event interface on the event class object. This property is supported only for backward compatibility.
+     * The ID of the event interface on the event class object. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrFiringInterfaceID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_firinginterfaceid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_firinginterfaceid
      */
     put_FiringInterfaceID(bstrFiringInterfaceID) {
         bstrFiringInterfaceID := bstrFiringInterfaceID is String ? BSTR.Alloc(bstrFiringInterfaceID).Value : bstrFiringInterfaceID
@@ -184,9 +184,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * A displayable text description of the event class object.
+     * A displayable text description of the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -195,10 +195,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * A displayable text description of the event class object.
+     * A displayable text description of the event class object. (Put)
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_description
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -208,9 +208,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility.
+     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_customconfigclsid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_customconfigclsid
      */
     get_CustomConfigCLSID() {
         pbstrCustomConfigCLSID := BSTR()
@@ -219,10 +219,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility.
+     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrCustomConfigCLSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_customconfigclsid
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_customconfigclsid
      */
     put_CustomConfigCLSID(bstrCustomConfigCLSID) {
         bstrCustomConfigCLSID := bstrCustomConfigCLSID is String ? BSTR.Alloc(bstrCustomConfigCLSID).Value : bstrCustomConfigCLSID
@@ -232,9 +232,9 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The path of the type library that contains the description of the event interface.
+     * The path of the type library that contains the description of the event interface. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_typelib
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_typelib
      */
     get_TypeLib() {
         pbstrTypeLib := BSTR()
@@ -243,10 +243,10 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The path of the type library that contains the description of the event interface.
+     * The path of the type library that contains the description of the event interface. (Put)
      * @param {BSTR} bstrTypeLib 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_typelib
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-put_typelib
      */
     put_TypeLib(bstrTypeLib) {
         bstrTypeLib := bstrTypeLib is String ? BSTR.Alloc(bstrTypeLib).Value : bstrTypeLib

@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * This interface is used to query system support for presentation, and create a presentation manager.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationfactory
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
@@ -32,8 +34,10 @@ class IPresentationFactory extends IUnknown{
     static VTableNames => ["IsPresentationSupported", "IsPresentationSupportedWithIndependentFlip", "CreatePresentationManager"]
 
     /**
+     * Gets a value that indicates whether presentation of any sort (with or without independent flip) is supported on the backing D3D device.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
+     * `TRUE` if presentation is supported; otherwise, `FALSE`.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-ispresentationsupported
      */
     IsPresentationSupported() {
@@ -42,8 +46,10 @@ class IPresentationFactory extends IUnknown{
     }
 
     /**
+     * Gets a value that indicates whether independent-flip-enabled presentation is supported on the backing D3D device.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
+     * `TRUE` if independent-flip-enabled presentation is supported; otherwise, `FALSE`.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-ispresentationsupportedwithindependentflip
      */
     IsPresentationSupportedWithIndependentFlip() {
@@ -52,8 +58,10 @@ class IPresentationFactory extends IUnknown{
     }
 
     /**
+     * Creates a presentation manager.
+     * @returns {IPresentationManager} Type: **[IPresentationManager](nn-presentation-ipresentationmanager.md) \*\***
      * 
-     * @returns {IPresentationManager} 
+     * The address of a pointer to the created presentation manager.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-createpresentationmanager
      */
     CreatePresentationManager() {

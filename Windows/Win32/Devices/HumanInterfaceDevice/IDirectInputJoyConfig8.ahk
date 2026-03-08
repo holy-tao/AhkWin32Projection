@@ -5,7 +5,7 @@
 
 /**
  * IDirectInputJoyConfig8 interface contains methods that allow hardware developers who are writing property sheets to write and read information to and from the registry.
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/nn-dinputd-idirectinputjoyconfig8
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputjoyconfig8
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
@@ -73,7 +73,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-acquire
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire
      */
     Acquire() {
         result := ComCall(3, this, "HRESULT")
@@ -82,8 +82,10 @@ class IDirectInputJoyConfig8 extends IUnknown{
 
     /**
      * The IDirectInputJoyConfig8::Unacquire method unacquires &quot;joystick configuration mode&quot;.
+     * @remarks
+     * Before unacquiring configuration mode, the application performs an <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-sendnotify">IDirectInputJoyConfig8::SendNotify</a> to propagate the changes in the joystick configuration to all device drivers and applications. Applications that hold interfaces to a joystick that is materially affected by a change in configuration should receive the DIERR_DEVICECHANGE error code until the device is reinitialized. Examples of material changes to configuration include altering the number of axes or the number of buttons. In comparison, changes to device calibration are handled internally by DirectInput and are transparent to the application.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns a COM error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-unacquire
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-unacquire
      */
     Unacquire() {
         result := ComCall(4, this, "HRESULT")
@@ -113,7 +115,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-setcooperativelevel
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setcooperativelevel
      */
     SetCooperativeLevel(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -138,12 +140,12 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-sendnotify
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-sendnotify
      */
     SendNotify() {
         result := ComCall(6, this, "HRESULT")
@@ -152,6 +154,36 @@ class IDirectInputJoyConfig8 extends IUnknown{
 
     /**
      * The IDirectInputJoyConfig8::EnumTypes method enumerates the joystick types currently supported by DirectInput.
+     * @remarks
+     * This callback receives DirectInput joystick types as a result of a call to the IDirectInputJoyConfig8::EnumTypes method.
+     * 
+     * 
+     * ``` syntax
+     * 
+     * 
+     * //
+     * Parameters
+     * pwszTypeName 
+     * Points to the name of the joystick type. A buffer of MAX_JOYSTRING characters is sufficient to hold the type name. The type name should never be shown to the end user; instead, the "display name" should be shown. Use IDirectInputJoyConfig8::GetTypeInfo to obtain the display name of a joystick type. Type names that begin with a pound sign ("#") represent predefined types that cannot be modified or deleted. 
+     * 
+     * pvRef 
+     * Points to the application-defined value given in the IDirectInputJoyConfig8::EnumTypes method.
+     * 
+     * Return value
+     * Returns a BOOL value, DIENUM_CONTINUE, to continue the enumeration, or DIENUM_STOP to stop the enumeration. 
+     * 
+     * 
+     * 
+     * 
+     * BOOL DIEnumJoyTypeProc(
+     *    LPCWSTR pwszTypeName,
+     *    LPVOID  pvRef
+     * );
+     *  
+     * 
+     * 
+     * 
+     * ```
      * @param {Pointer<LPDIJOYTYPECALLBACK>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
@@ -173,7 +205,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-enumtypes
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-enumtypes
      */
     EnumTypes(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
@@ -217,7 +249,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-gettypeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-gettypeinfo
      */
     GetTypeInfo(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
@@ -246,7 +278,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
      * 
      * </td>
      * </tr>
@@ -273,7 +305,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-settypeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-settypeinfo
      */
     SetTypeInfo(param0, param1, param2, param3) {
         param0 := param0 is String ? StrPtr(param0) : param0
@@ -300,7 +332,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can alter joystick configuration settings. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can alter joystick configuration settings. 
      * 
      * </td>
      * </tr>
@@ -316,7 +348,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-deletetype
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-deletetype
      */
     DeleteType(param0) {
         param0 := param0 is String ? StrPtr(param0) : param0
@@ -371,7 +403,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-getconfig
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-getconfig
      */
     GetConfig(param0, param1, param2) {
         result := ComCall(11, this, "uint", param0, "ptr", param1, "uint", param2, "HRESULT")
@@ -397,7 +429,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
      * 
      * </td>
      * </tr>
@@ -413,7 +445,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-setconfig
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setconfig
      */
     SetConfig(param0, param1, param2) {
         result := ComCall(12, this, "uint", param0, "ptr", param1, "uint", param2, "HRESULT")
@@ -437,7 +469,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can alter joystick configuration settings. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can alter joystick configuration settings. 
      * 
      * </td>
      * </tr>
@@ -453,7 +485,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-deleteconfig
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-deleteconfig
      */
     DeleteConfig(param0) {
         result := ComCall(13, this, "uint", param0, "HRESULT")
@@ -483,7 +515,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-getuservalues
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-getuservalues
      */
     GetUserValues(param0, param1) {
         result := ComCall(14, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -508,7 +540,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can notify applications and drivers of changes to joystick configuration. 
      * 
      * </td>
      * </tr>
@@ -524,7 +556,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-setuservalues
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-setuservalues
      */
     SetUserValues(param0, param1) {
         result := ComCall(15, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -598,7 +630,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-addnewhardware
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-addnewhardware
      */
     AddNewHardware(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -609,6 +641,8 @@ class IDirectInputJoyConfig8 extends IUnknown{
 
     /**
      * The IDirectInputJoyConfig8::OpenTypeKey method opens the registry key associated with a joystick type.
+     * @remarks
+     * Control panel applications can use the registry key opened by this method to store per-type persistent information, such as global configuration parameters. Such private information should be kept in a subkey named <b>OEM</b>; do not store private information in the main type key. Control panel applications can also use this key to read configuration information, such as the strings to use for device calibration prompts. The application should use <b>RegCloseKey</b> to close the registry key.
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<HKEY>} param2 
@@ -626,7 +660,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can open a joystick type configuration key for writing. 
+     * Joystick configuration has not been acquired. You must call <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can open a joystick type configuration key for writing. 
      * 
      * </td>
      * </tr>
@@ -653,7 +687,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-opentypekey
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-opentypekey
      */
     OpenTypeKey(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
@@ -664,6 +698,8 @@ class IDirectInputJoyConfig8 extends IUnknown{
 
     /**
      * The IDirectInputJoyConfig8::OpenAppStatusKey method opens the root key of the application status registry keys, and obtains a handle to the key as a return parameter.
+     * @remarks
+     * The registry key handle returned in the <i>phKey</i> parameter can be used with the standard Win32 registry functions. The Dinputd.h header file defines the following string constants for use in accessing subkeys and named values contained by the application status root key.
      * @param {Pointer<HKEY>} param0 
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values. The following error codes are intended to be illustrative and not necessarily comprehensive.
      * 
@@ -695,7 +731,7 @@ class IDirectInputJoyConfig8 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig8-openappstatuskey
+     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-openappstatuskey
      */
     OpenAppStatusKey(param0) {
         result := ComCall(18, this, "ptr", param0, "HRESULT")

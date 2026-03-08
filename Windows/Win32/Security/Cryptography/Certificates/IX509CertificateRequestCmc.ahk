@@ -13,7 +13,7 @@
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509certificaterequestcmc
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcmc
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -135,11 +135,26 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
 
     /**
      * The InitializeFromInnerRequestTemplateName method initializes the certificate request from an inner request object and a template.
+     * @remarks
+     * By specifying a template, you can add information to the outer request object that may not be contained in the inner request. For example, if the inner request does not contain the necessary extensions, you can supply a template that does.
+     * 
+     * The <b>InitializeFromInnerRequestTemplateName</b> method:<ul>
+     * <li>Creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icryptattributes">ICryptAttributes</a> collection.</li>
+     * <li>Creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509namevaluepairs">IX509NameValuePairs</a> collection.</li>
+     * <li>Creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extensions">IX509Extensions</a> collection.</li>
+     * <li>Creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> collection for  critical extensions and adds the XCN_OID_KEY_USAGE and XCN_OID_BASIC_CONSTRAINTS2 object identifiers (OIDs).</li>
+     * <li>Creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> collection of OIDs to be suppressed from the request object.</li>
+     * <li>Creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificates">ISignerCertificates</a> collection.</li>
+     * <li>Retrieves private key flags from the template.</li>
+     * <li>Sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> property if required by the template flags or settings.</li>
+     * <li>Retrieves the encryption algorithm from the template if one is specified and sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionalgorithm">EncryptionAlgorithm</a> property.</li>
+     * <li>Sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionstrength">EncryptionStrength</a> property if possible.</li>
+     * </ul>
      * @param {IX509CertificateRequest} pInnerRequest Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequest">IX509CertificateRequest</a> interface that represents the inner request object. This can be a PKCS #10 or  a CMC request.
      * @param {BSTR} strTemplateName A <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -171,7 +186,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-initializefrominnerrequesttemplatename
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-initializefrominnerrequesttemplatename
      */
     InitializeFromInnerRequestTemplateName(pInnerRequest, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
@@ -181,9 +196,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Retrieves the object identifier (OID) of the template used to create the certificate request.
+     * Retrieves the object identifier (OID) of the template used to create the certificate request. (IX509CertificateRequestCmc.get_TemplateObjectId)
      * @remarks
-     * 
      * The object identifier can be an OID for the Active Directory Common Name (CN) of the template. You must initialize the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestcmc">IX509CertificateRequestCmc</a> object before calling this property. For more information, see any of the following methods:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a>
@@ -204,10 +218,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_templateobjectid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_templateobjectid
      */
     get_TemplateObjectId() {
         result := ComCall(41, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -217,7 +229,6 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves a Boolean value that specifies whether the primary signature on the certificate request is null-signed.
      * @remarks
-     * 
      * A null-signed certificate request is not really signed. That is, the request can be digested by using a digest algorithm such as SHA-1, but it is not encrypted with a public key algorithm such as RSA. This can be used when a private key is not available as is often the case when <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authorities</a> are being cross-certified.
      * 
      * You must initialize the CMC request object before calling this property. For more information, see the following topics:<ul>
@@ -240,10 +251,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_nullsigned
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_nullsigned
      */
     get_NullSigned() {
         result := ComCall(42, this, "short*", &pValue := 0, "HRESULT")
@@ -251,9 +260,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Retrieves an ICryptAttributes collection of optional certificate attributes.
+     * Retrieves an ICryptAttributes collection of optional certificate attributes. (IX509CertificateRequestCmc.get_CryptAttributes)
      * @remarks
-     * 
      * You must initialize the CMC request object before calling this property. For more information, see the following topics:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a>
@@ -274,10 +282,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {ICryptAttributes} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_cryptattributes
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_cryptattributes
      */
     get_CryptAttributes() {
         result := ComCall(43, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -287,7 +293,6 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves an IX509NameValuePairs collection associated with a certificate request.
      * @remarks
-     * 
      * For an example of a name-value pair in a CMC request object, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509namevaluepair">IX509NameValuePair</a>. You must initialize the CMC request object before calling this property. For more information, see the following topics:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a>
@@ -308,10 +313,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IX509NameValuePairs} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_namevaluepairs
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_namevaluepairs
      */
     get_NameValuePairs() {
         result := ComCall(44, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -319,9 +322,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Retrieves a collection of the extensions included in the certificate request.
+     * Retrieves a collection of the extensions included in the certificate request. (IX509CertificateRequestCmc.get_X509Extensions)
      * @remarks
-     * 
      * You must initialize the CMC request object before calling this property. For more information, see the following topics:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a>
@@ -342,10 +344,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IX509Extensions} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_x509extensions
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_x509extensions
      */
     get_X509Extensions() {
         result := ComCall(45, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -353,9 +353,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Retrieves an IObjectIds collection that identifies the version 3 certificate extensions marked as critical.
+     * Retrieves an IObjectIds collection that identifies the version 3 certificate extensions marked as critical. (IX509CertificateRequestCmc.get_CriticalExtensions)
      * @remarks
-     * 
      * The extension criticality indicates to an application that uses certificates whether it can ignore the extension. You must initialize the CMC request object before calling this property. For more information, see the following topics:
      * 
      * <ul>
@@ -378,10 +377,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IObjectIds} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_criticalextensions
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_criticalextensions
      */
     get_CriticalExtensions() {
         result := ComCall(46, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -391,7 +388,6 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves a collection of extension or attribute object identifiers (OIDs) to be suppressed from the certificate during the encoding process.
      * @remarks
-     * 
      * Attributes and extensions are added to a certificate request when it is encoded or initialized. You can suppress the addition of default extensions and attributes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_suppressdefaults">SuppressDefaults</a> property. For a CMC request, only the XCN_OID_REQUEST_CLIENT_INFO
      * (<a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attributeclientid">IX509AttributeClientId</a>) attribute is created by default. No extensions are added by default.
      * 
@@ -415,10 +411,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IObjectIds} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_suppressoids
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_suppressoids
      */
     get_SuppressOids() {
         result := ComCall(47, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -426,10 +420,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a transaction identifier that can be used to track a certificate request or response.
+     * Specifies or retrieves a transaction identifier that can be used to track a certificate request or response. (Get)
      * @remarks
-     * 
-     *  A round trip certificate request and response transaction can be tracked using an identifier.  The client generates a transaction ID and
+     * A round trip certificate request and response transaction can be tracked using an identifier.  The client generates a transaction ID and
      *    retains it until the certificate or registration authority responds with a message that
      *    completes the transaction.  The  response includes the identifier.
      * 
@@ -453,10 +446,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_transactionid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_transactionid
      */
     get_TransactionId() {
         result := ComCall(48, this, "int*", &pValue := 0, "HRESULT")
@@ -464,10 +455,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a transaction identifier that can be used to track a certificate request or response.
+     * Specifies or retrieves a transaction identifier that can be used to track a certificate request or response. (Put)
      * @remarks
-     * 
-     *  A round trip certificate request and response transaction can be tracked using an identifier.  The client generates a transaction ID and
+     * A round trip certificate request and response transaction can be tracked using an identifier.  The client generates a transaction ID and
      *    retains it until the certificate or registration authority responds with a message that
      *    completes the transaction.  The  response includes the identifier.
      * 
@@ -491,11 +481,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_transactionid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_transactionid
      */
     put_TransactionId(Value) {
         result := ComCall(49, this, "int", Value, "HRESULT")
@@ -503,9 +491,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a byte array that contains a nonce.
+     * Specifies or retrieves a byte array that contains a nonce. (Get)
      * @remarks
-     * 
      * A nonce is single use, random or pseudo-random byte array that can be included in a certificate request to help ensure that the request is not a repeat of a previous message.
      * 
      * You can set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before calling the property. For more information, see the following topics:<ul>
@@ -528,11 +515,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_sendernonce
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_sendernonce
      */
     get_SenderNonce(Encoding) {
         pValue := BSTR()
@@ -541,9 +526,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a byte array that contains a nonce.
+     * Specifies or retrieves a byte array that contains a nonce. (Put)
      * @remarks
-     * 
      * A nonce is single use, random or pseudo-random byte array that can be included in a certificate request to help ensure that the request is not a repeat of a previous message.
      * 
      * You can set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before calling the property. For more information, see the following topics:<ul>
@@ -566,12 +550,10 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_sendernonce
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_sendernonce
      */
     put_SenderNonce(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -583,7 +565,6 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves the IX509SignatureInformation object that contains information about the primary signature used to sign the certificate request.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509signatureinformation">IX509SignatureInformation</a> object contains information about the hash, public key and signature algorithms used for the primary signature that signs the certificate request. A CMC request can have a primary signature plus zero or more certificate-based signatures. Certificate-based signatures can be included in a request if, for example, one or more additional parties must vouch for the identity of the entity requesting the new certificate. You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signercertificates">SignerCertificates</a> property to retrieve a collection of these additional certificate-based signatures.
      * 
      * The primary signature is typically created by using the private key that matches the public key in the inner PKCS #10 request object. Because the private key is usually created to enroll a new request in a certificate hierarchy, the primary signature is not certificate-based, and you must call the <b>SignatureInformation</b> property to retrieve it.
@@ -618,10 +599,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IX509SignatureInformation} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_signatureinformation
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signatureinformation
      */
     get_SignatureInformation() {
         result := ComCall(52, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -629,9 +608,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether to archive a private key on the certification authority (CA).
+     * Specifies or retrieves a Boolean value that indicates whether to archive a private key on the certification authority (CA). (Get)
      * @remarks
-     * 
      * To request that a CA archive your private key, you must also set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate">KeyArchivalCertificate</a> property with the CA encryption (key exchange) certificate.
      * 
      * You can set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before setting the property value. For more information, see the following topics:<ul>
@@ -654,10 +632,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey
      */
     get_ArchivePrivateKey() {
         result := ComCall(53, this, "short*", &pValue := 0, "HRESULT")
@@ -665,9 +641,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether to archive a private key on the certification authority (CA).
+     * Specifies or retrieves a Boolean value that indicates whether to archive a private key on the certification authority (CA). (Put)
      * @remarks
-     * 
      * To request that a CA archive your private key, you must also set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate">KeyArchivalCertificate</a> property with the CA encryption (key exchange) certificate.
      * 
      * You can set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before setting the property value. For more information, see the following topics:<ul>
@@ -690,11 +665,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_archiveprivatekey
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_archiveprivatekey
      */
     put_ArchivePrivateKey(Value) {
         result := ComCall(54, this, "short", Value, "HRESULT")
@@ -702,9 +675,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a certification authority (CA) encryption certificate.
+     * Specifies or retrieves a certification authority (CA) encryption certificate. (Get)
      * @remarks
-     * 
      * If correctly configured, a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) can archive a client's private key. Typically, the client requests an exchange certificate from the CA, validates it, and uses it as input to the <b>KeyArchivalCertificate</b> property. The CA's public key is used to encrypt the private key that is being submitted for archiving. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> property to request key archival.
      * 
      * You must set this property, if at all,  before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before calling the property. For more information, see the following topics:<ul>
@@ -727,11 +699,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate
      */
     get_KeyArchivalCertificate(Encoding) {
         pValue := BSTR()
@@ -740,9 +710,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves a certification authority (CA) encryption certificate.
+     * Specifies or retrieves a certification authority (CA) encryption certificate. (Put)
      * @remarks
-     * 
      * If correctly configured, a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) can archive a client's private key. Typically, the client requests an exchange certificate from the CA, validates it, and uses it as input to the <b>KeyArchivalCertificate</b> property. The CA's public key is used to encrypt the private key that is being submitted for archiving. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> property to request key archival.
      * 
      * You must set this property, if at all,  before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method, but you must initialize the CMC request object before calling the property. For more information, see the following topics:<ul>
@@ -765,12 +734,10 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_keyarchivalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_keyarchivalcertificate
      */
     put_KeyArchivalCertificate(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -780,9 +747,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves an object identifier (OID) of the algorithm used to encrypt the private key to be archived.
+     * Specifies or retrieves an object identifier (OID) of the algorithm used to encrypt the private key to be archived. (Get)
      * @remarks
-     * 
      * When you request that a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) archive your private key, you must retrieve an exchange certificate from the CA and use the public key contained in that certificate to encrypt the private key that you are submitting for archival. The <b>EncryptionAlgorithm</b> property identifies the algorithm used to encrypt your key.
      * 
      * This property is related to the following properties:<ul>
@@ -821,10 +787,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionalgorithm
      */
     get_EncryptionAlgorithm() {
         result := ComCall(57, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -832,9 +796,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves an object identifier (OID) of the algorithm used to encrypt the private key to be archived.
+     * Specifies or retrieves an object identifier (OID) of the algorithm used to encrypt the private key to be archived. (Put)
      * @remarks
-     * 
      * When you request that a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) archive your private key, you must retrieve an exchange certificate from the CA and use the public key contained in that certificate to encrypt the private key that you are submitting for archival. The <b>EncryptionAlgorithm</b> property identifies the algorithm used to encrypt your key.
      * 
      * This property is related to the following properties:<ul>
@@ -873,11 +836,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {IObjectId} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionalgorithm
      */
     put_EncryptionAlgorithm(pValue) {
         result := ComCall(58, this, "ptr", pValue, "HRESULT")
@@ -885,9 +846,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves the relative encryption level applied to the private key to be archived.
+     * Specifies or retrieves the relative encryption level applied to the private key to be archived. (Get)
      * @remarks
-     * 
      * This property is related to the following properties:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a>
@@ -926,10 +886,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionstrength
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionstrength
      */
     get_EncryptionStrength() {
         result := ComCall(59, this, "int*", &pValue := 0, "HRESULT")
@@ -937,9 +895,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     }
 
     /**
-     * Specifies or retrieves the relative encryption level applied to the private key to be archived.
+     * Specifies or retrieves the relative encryption level applied to the private key to be archived. (Put)
      * @remarks
-     * 
      * This property is related to the following properties:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a>
@@ -978,11 +935,9 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionstrength
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionstrength
      */
     put_EncryptionStrength(Value) {
         result := ComCall(60, this, "int", Value, "HRESULT")
@@ -992,13 +947,10 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves a hash of the private key to be archived.
      * @remarks
-     * 
      * For more information about archiving private keys, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate">KeyArchivalCertificate</a> properties.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptedkeyhash
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptedkeyhash
      */
     get_EncryptedKeyHash(Encoding) {
         pValue := BSTR()
@@ -1009,7 +961,6 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * Retrieves a collection of certificates used to sign the request.
      * @remarks
-     * 
      * A CMC request can have a primary signature plus zero or more certificate-based signatures. Certificate-based signatures can be included in a request if, for example, one or more additional parties must vouch for the identity of the entity requesting the new certificate. Call the <b>SignerCertificates</b> property to retrieve a collection of these additional certificate-based signatures.
      * 
      * The primary signature is typically created by using the private key that matches the public key in the inner PKCS #10 request object. Because the private key is usually created to enroll a new request in a certificate hierarchy, the primary signature is not certificate-based, and you must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signatureinformation">SignatureInformation</a> property to retrieve it.
@@ -1034,10 +985,8 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {ISignerCertificates} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequestcmc-get_signercertificates
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signercertificates
      */
     get_SignerCertificates() {
         result := ComCall(62, this, "ptr*", &ppValue := 0, "HRESULT")

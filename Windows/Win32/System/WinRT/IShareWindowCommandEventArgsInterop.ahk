@@ -5,7 +5,22 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Gets the [ShareWindowCommandSource](/uwp/api/windows.ui.shell.sharewindowcommandsource) object corresponding to a window identifier (a window handle). (IShareWindowCommandEventArgsInterop)
+ * @remarks
+ * You can query interface a [ShareWindowCommandEventArgs](/uwp/api/windows.ui.shell.sharewindowcommandeventargs) object for **IShareWindowCommandEventArgsInterop**.
  * 
+ * ```cpp
+ * void MyAppShareController::OnCommandInvoked(
+ *     winrt::Windows::UI::Shell::ShareWindowCommandSource const& //sender,
+ *     winrt::Windows::UI::Shell::ShareWindowCommandEventArgs const& args)
+ * {
+ *     auto eventArgsInterop = eventArgs.as<IShareWindowCommandEventArgsInterop>();
+ *     HWND windowId = 0;
+ *     winrt::check_hresult(eventArgsInterop->get_WindowId(&windowId));
+ * 
+ *     ...
+ * }
+ * ```
  * @see https://learn.microsoft.com/windows/win32/api/sharewindowcommandsourceinterop/nn-sharewindowcommandsourceinterop-isharewindowcommandeventargsinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
@@ -32,8 +47,12 @@ class IShareWindowCommandEventArgsInterop extends IUnknown{
     static VTableNames => ["GetWindow"]
 
     /**
+     * Gets the window identifier (a window handle).
+     * @remarks
+     * For a code example, see [IShareWindowCommandEventArgsInterop](nn-sharewindowcommandsourceinterop-isharewindowcommandeventargsinterop.md).
+     * @returns {HWND} Type: **[HWND](/windows/win32/winprog/windows-data-types)\***
      * 
-     * @returns {HWND} 
+     * The address of a **HWND** in which to receive the window identifier (a window handle).
      * @see https://learn.microsoft.com/windows/win32/api/sharewindowcommandsourceinterop/nf-sharewindowcommandsourceinterop-isharewindowcommandeventargsinterop-getwindow
      */
     GetWindow() {

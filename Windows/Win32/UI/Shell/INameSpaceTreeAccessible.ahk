@@ -8,11 +8,8 @@
 /**
  * Exposes methods that perform accessibility actions on a Shell item from a namespace tree control.
  * @remarks
- * 
  * This interface is used only by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> (CLSID_NameSpaceTreeControl).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreeaccessible
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreeaccessible
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,13 +36,15 @@ class INameSpaceTreeAccessible extends IUnknown{
 
     /**
      * Gets the default accessibility action for a Shell item.
+     * @remarks
+     * This method is called when the default accessibility action for a Shell item is retrieved.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * When this method returns, contains a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that specifies the default, accessibility action.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetdefaultaccessibilityaction
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetdefaultaccessibilityaction
      */
     OnGetDefaultAccessibilityAction(psi) {
         pbstrDefaultAction := BSTR()
@@ -60,8 +59,8 @@ class INameSpaceTreeAccessible extends IUnknown{
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreeaccessible-ondodefaultaccessibilityaction
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ondodefaultaccessibilityaction
      */
     OnDoDefaultAccessibilityAction(psi) {
         result := ComCall(4, this, "ptr", psi, "HRESULT")
@@ -70,13 +69,15 @@ class INameSpaceTreeAccessible extends IUnknown{
 
     /**
      * Gets the accessibility role for a Shell item.
+     * @remarks
+     * This method is called when the accessibility role for a Shell item is retrieved.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * When this method returns, contains a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> that specifies the role.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetaccessibilityrole
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetaccessibilityrole
      */
     OnGetAccessibilityRole(psi) {
         pvarRole := VARIANT()

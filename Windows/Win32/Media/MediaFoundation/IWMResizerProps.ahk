@@ -5,7 +5,7 @@
 
 /**
  * Sets properties on the video resizer DSP.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmresizerprops
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmresizerprops
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMResizerProps extends IUnknown{
 
     /**
      * Specifies whether to use an algorithm that produces higher-quality video, or a faster algorithm.
+     * @remarks
+     * This method is equivalent to setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-quality">MFPKEY_RESIZE_QUALITY</a> property.
      * @param {Integer} lquality Boolean value. If <b>TRUE</b>, the video resizer uses an algorithm that produces higher-quality video. If <b>FALSE</b>, the video resizer uses a faster algorithm.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,7 +54,7 @@ class IWMResizerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setresizerquality
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setresizerquality
      */
     SetResizerQuality(lquality) {
         result := ComCall(3, this, "int", lquality, "HRESULT")
@@ -61,6 +63,8 @@ class IWMResizerProps extends IUnknown{
 
     /**
      * The SetInterlaceMode method specifies whether the input video stream is interlaced.
+     * @remarks
+     * This method is equivalent to setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-interlace">MFPKEY_RESIZE_INTERLACE</a> property.
      * @param {Integer} lmode Boolean value. If <b>TRUE</b>, the video is interlaced. If <b>FALSE</b>, the video is progressive.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -81,7 +85,7 @@ class IWMResizerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setinterlacemode
      */
     SetInterlaceMode(lmode) {
         result := ComCall(4, this, "int", lmode, "HRESULT")
@@ -89,7 +93,26 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
-     * Sets the source rectangle.
+     * Sets the source rectangle. (IWMResizerProps.SetClipRegion)
+     * @remarks
+     * By default, the video resizer copies the entire video frame. When you call this method, the video resizer crops the video to the source rectangle and copies that portion to the output buffer.
+     * 
+     * This method is equivalent to setting the following properties:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-left">MFPKEY_RESIZE_SRC_LEFT</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-top">MFPKEY_RESIZE_SRC_TOP</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-width">MFPKEY_RESIZE_SRC_WIDTH</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-height">MFPKEY_RESIZE_SRC_HEIGHT</a>
+     * </li>
+     * </ul>
      * @param {Integer} lClipOriXSrc Specifies the left edge of the source rectangle, in pixels.
      * @param {Integer} lClipOriYSrc Specifies the top edge of the source rectangle, in pixels.
      * @param {Integer} lClipWidthSrc Specifies the width of the source rectangle, in pixels.
@@ -113,7 +136,7 @@ class IWMResizerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setclipregion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setclipregion
      */
     SetClipRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc) {
         result := ComCall(5, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "HRESULT")
@@ -121,7 +144,38 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
-     * Sets the source and destination rectangles.
+     * Sets the source and destination rectangles. (IWMResizerProps.SetFullCropRegion)
+     * @remarks
+     * By default, the video resizer copies the entire video frame. When you call this method, the video resizer crops the video to the source rectangle and copies that portion to the destination rectangle.
+     * 
+     * This method is equivalent to setting the following properties:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-left">MFPKEY_RESIZE_SRC_LEFT</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-top">MFPKEY_RESIZE_SRC_TOP</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-width">MFPKEY_RESIZE_SRC_WIDTH</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-src-height">MFPKEY_RESIZE_SRC_HEIGHT</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-dst-left">MFPKEY_RESIZE_DST_LEFT</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-dst-top">MFPKEY_RESIZE_DST_TOP</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-dst-width">MFPKEY_RESIZE_DST_WIDTH</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-resize-dst-height">MFPKEY_RESIZE_DST_HEIGHT</a>
+     * </li>
+     * </ul>
      * @param {Integer} lClipOriXSrc Specifies the left edge of the source rectangle, in pixels.
      * @param {Integer} lClipOriYSrc Specifies the top edge of the source rectangle, in pixels.
      * @param {Integer} lClipWidthSrc Specifies the width of the source rectangle, in pixels.
@@ -149,7 +203,7 @@ class IWMResizerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setfullcropregion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setfullcropregion
      */
     SetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
         result := ComCall(6, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "int", lClipOriXDst, "int", lClipOriYDst, "int", lClipWidthDst, "int", lClipHeightDst, "HRESULT")
@@ -185,7 +239,7 @@ class IWMResizerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
      */
     GetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
         lClipOriXSrcMarshal := lClipOriXSrc is VarRef ? "int*" : "ptr"

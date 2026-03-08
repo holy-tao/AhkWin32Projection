@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Describes a presentation buffer that has been registered with a presentation manager.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationbuffer
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
@@ -32,8 +34,14 @@ class IPresentationBuffer extends IUnknown{
     static VTableNames => ["GetAvailableEvent", "IsAvailable"]
 
     /**
+     * Gets a handle to an event that signals when the buffer is available.
+     * @remarks
+     * The caller is responsible for closing the returned event.
      * 
-     * @returns {HANDLE} 
+     * An application can wait on and query this event, but it cannot modify its state. The presentation manager controls this event.
+     * @returns {HANDLE} Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A handle to the event.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-getavailableevent
      */
     GetAvailableEvent() {
@@ -43,8 +51,10 @@ class IPresentationBuffer extends IUnknown{
     }
 
     /**
+     * Gets a value that indicates whether or not this buffer is available for use by the producer.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
+     * `TRUE` if the buffer is available; otherwise, `FALSE`.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-isavailable
      */
     IsAvailable() {

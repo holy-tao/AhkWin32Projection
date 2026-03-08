@@ -7,8 +7,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents a font set.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontset
+ * Represents a font set. (IDWriteFontSet)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IDWriteFontSet extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of total fonts in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
      */
     GetFontCount() {
         result := ComCall(3, this, "uint")
@@ -53,7 +53,7 @@ class IDWriteFontSet extends IUnknown{
      * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
      * 
      * Receives a pointer the font face reference object, or nullptr on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
         result := ComCall(4, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
@@ -61,7 +61,7 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
-     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations. (IDWriteFontSet.FindFontFaceReference)
      * @param {IDWriteFontFaceReference} fontFaceReference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>*</b>
      * 
      * Font face object that specifies the physical font.
@@ -73,8 +73,8 @@ class IDWriteFontSet extends IUnknown{
      * Receives TRUE if the font exists or FALSE otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
      */
     FindFontFaceReference(fontFaceReference, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
@@ -85,7 +85,7 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
-     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations. (IDWriteFontSet.FindFontFace)
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
      * Font face object that specifies the physical font.
@@ -97,8 +97,8 @@ class IDWriteFontSet extends IUnknown{
      * Receives TRUE if the font exists or FALSE otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontface
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontface
      */
     FindFontFace(fontFace, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
@@ -109,9 +109,13 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Returns the property values of a specific font item index. (overload 1/3)
+     * @param {Integer} propertyID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dwrite_3/ne-dwrite_3-dwrite_font_property_id">DWRITE_FONT_PROPERTY_ID</a></b>
      * 
-     * @param {Integer} propertyID 
-     * @returns {IDWriteStringList} 
+     * Font property of interest.
+     * @returns {IDWriteStringList} Type: \[out\] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
+     * 
+     * Receives a pointer to the newly created localized strings object; or `nullptr` on failure or non-existent property.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
      */
     GetPropertyValues(propertyID) {
@@ -120,10 +124,16 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Returns the property values of a specific font item index. (overload 1/3)
+     * @param {Integer} propertyID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dwrite_3/ne-dwrite_3-dwrite_font_property_id">DWRITE_FONT_PROPERTY_ID</a></b>
      * 
-     * @param {Integer} propertyID 
-     * @param {PWSTR} preferredLocaleNames 
-     * @returns {IDWriteStringList} 
+     * Font property of interest.
+     * @param {PWSTR} preferredLocaleNames Type: **[WCHAR](/windows/win32/winprog/windows-data-types) const \***
+     * 
+     * The preferred locale names to query as a list of semicolon-delimited names in preferred order. When a particular string (such as font family) has more than one localized name, then the first match is returned. If the first match doesn't exist, then the second match is returned, and so on. For example, "ja-jp;en-us".
+     * @returns {IDWriteStringList} Type: \[out\] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
+     * 
+     * Receives a pointer to the newly created localized strings object; or `nullptr` on failure or non-existent property.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
      */
     GetPropertyValues1(propertyID, preferredLocaleNames) {
@@ -134,12 +144,16 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
-     * 
+     * Returns the property values of a specific font item index. (overload 1/3)
      * @param {Integer} listIndex 
      * @param {Integer} propertyId 
      * @param {Pointer<BOOL>} exists 
-     * @param {Pointer<IDWriteLocalizedStrings>} values 
-     * @returns {HRESULT} 
+     * @param {Pointer<IDWriteLocalizedStrings>} values Type: \[out\] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
+     * 
+     * Receives a pointer to the newly created localized strings object; or `nullptr` on failure or non-existent property.
+     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
+     * 
+     * If this method succeeds, then it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
      */
     GetPropertyValues2(listIndex, propertyId, exists, values) {
@@ -157,7 +171,7 @@ class IDWriteFontSet extends IUnknown{
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Receives how many times the property occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
     GetPropertyOccurrenceCount(property) {
         result := ComCall(10, this, "ptr", property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
@@ -165,12 +179,17 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
-     * 
+     * Returns a subset of fonts filtered by the given properties. (overload 2/2)
+     * @remarks
+     * If no fonts matched the filter, the subset will be empty (GetFontCount returns 0), but the function does not return an error. The subset will
+     * always be equal to or less than the original set. If you only want to filter out remote fonts, you may pass null in properties and zero in propertyCount.
      * @param {PWSTR} familyName 
      * @param {Integer} fontWeight 
      * @param {Integer} fontStretch 
      * @param {Integer} fontStyle 
-     * @returns {IDWriteFontSet} 
+     * @returns {IDWriteFontSet} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
+     * 
+     * The subset of fonts that match the properties, or nullptr on failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
     GetMatchingFonts(familyName, fontWeight, fontStretch, fontStyle) {
@@ -181,10 +200,19 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Returns a subset of fonts filtered by the given properties. (overload 2/2)
+     * @remarks
+     * If no fonts matched the filter, the subset will be empty (GetFontCount returns 0), but the function does not return an error. The subset will
+     * always be equal to or less than the original set. If you only want to filter out remote fonts, you may pass null in properties and zero in propertyCount.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties Type: [in] <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
      * 
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties 
-     * @param {Integer} propertyCount 
-     * @returns {IDWriteFontSet} 
+     * List of properties to filter using.
+     * @param {Integer} propertyCount Type: <b>UINT32</b>
+     * 
+     * The number of properties to filter.
+     * @returns {IDWriteFontSet} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
+     * 
+     * The subset of fonts that match the properties, or nullptr on failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
     GetMatchingFonts1(properties, propertyCount) {

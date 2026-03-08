@@ -5,7 +5,7 @@
 
 /**
  * The IWMPClosedCaption2 interface provides closed captioning methods that supplement the IWMPClosedCaption interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpclosedcaption2
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpclosedcaption2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -44,6 +44,10 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
 
     /**
      * The get_SAMILangCount method retrieves the number of languages supported by the current SAMI file.
+     * @remarks
+     * This method cannot be used until a digital media file is open.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>long</b> set to 0.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -64,7 +68,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpclosedcaption2-get_samilangcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samilangcount
      */
     get_SAMILangCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -75,6 +79,12 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
 
     /**
      * The getSAMILangName method retrieves the name of a language supported by the current SAMI file.
+     * @remarks
+     * The languages in a SAMI file are indexed in the order shown in the file, starting with zero.
+     * 
+     * This method cannot be used until a digital media file is open.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>BSTR</b> containing an empty string.
      * @param {Integer} nIndex <b>long</b> containing the index of the language name to retrieve.
      * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -96,7 +106,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpclosedcaption2-getsamilangname
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangname
      */
     getSAMILangName(nIndex, pbstrName) {
         result := ComCall(16, this, "int", nIndex, "ptr", pbstrName, "HRESULT")
@@ -105,6 +115,12 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
 
     /**
      * The getSAMILangID method retrieves the locale identifier (LCID) of a language supported by the current SAMI file.
+     * @remarks
+     * The languages in a SAMI file are indexed in the order shown in the file, starting with zero.
+     * 
+     * This method cannot be used until a digital media file is open.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>long</b> set to 0 and returns an E_INVALIDARG <b>HRESULT</b>.
      * @param {Integer} nIndex <b>long</b> containing the index.
      * @param {Pointer<Integer>} plLangID Pointer to a <b>long</b> containing the index of the LCID to retrieve.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -126,7 +142,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpclosedcaption2-getsamilangid
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangid
      */
     getSAMILangID(nIndex, plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
@@ -137,6 +153,10 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
 
     /**
      * The get_SAMIStyleCount method retrieves the number of styles supported by the current SAMI file.
+     * @remarks
+     * This method cannot be used until a digital media file is open.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>long</b> set to 0.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -157,7 +177,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpclosedcaption2-get_samistylecount
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samistylecount
      */
     get_SAMIStyleCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -168,6 +188,12 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
 
     /**
      * The getSAMIStyleName method retrieves the name of a style supported by the current SAMI file.
+     * @remarks
+     * The styles in a SAMI file are indexed in the order shown in the file, starting with zero.
+     * 
+     * This method cannot be used until a digital media file is open.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>BSTR</b> containing an empty string.
      * @param {Integer} nIndex <b>long</b> containing the index of the style name to retrieve.
      * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name of the style as specified in the SAMI file.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -189,7 +215,7 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpclosedcaption2-getsamistylename
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamistylename
      */
     getSAMIStyleName(nIndex, pbstrName) {
         result := ComCall(19, this, "int", nIndex, "ptr", pbstrName, "HRESULT")

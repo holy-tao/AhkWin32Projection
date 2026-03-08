@@ -5,7 +5,7 @@
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput4 interface exposes a method to check for overlay color space support.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nn-dxgi1_4-idxgioutput4
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgioutput4
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -44,7 +44,7 @@ class IDXGIOutput4 extends IDXGIOutput3{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to a variable that receives a combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/ne-dxgi1_4-dxgi_overlay_color_space_support_flag">DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies options for overlay color space support.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport
+     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport
      */
     CheckOverlayColorSpaceSupport(Format, ColorSpace, pConcernedDevice) {
         result := ComCall(25, this, "int", Format, "int", ColorSpace, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")

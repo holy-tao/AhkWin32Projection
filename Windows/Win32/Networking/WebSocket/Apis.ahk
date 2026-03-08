@@ -33,11 +33,7 @@ class WebSocket {
      */
     static WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
         phWebSocket := WEB_SOCKET_HANDLE()
-        result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "HRESULT")
         return phWebSocket
     }
 
@@ -88,11 +84,7 @@ class WebSocket {
         pAdditionalHeadersMarshal := pAdditionalHeaders is VarRef ? "ptr*" : "ptr"
         pulAdditionalHeaderCountMarshal := pulAdditionalHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, "uint", ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, "uint", ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "HRESULT")
         return result
     }
 
@@ -173,11 +165,7 @@ class WebSocket {
         pulSelectedExtensionCountMarshal := pulSelectedExtensionCount is VarRef ? "uint*" : "ptr"
         pulSelectedSubprotocolMarshal := pulSelectedSubprotocol is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketEndClientHandshake", "ptr", hWebSocket, "ptr", pResponseHeaders, "uint", ulReponseHeaderCount, pulSelectedExtensionsMarshal, pulSelectedExtensions, pulSelectedExtensionCountMarshal, pulSelectedExtensionCount, pulSelectedSubprotocolMarshal, pulSelectedSubprotocol, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketEndClientHandshake", "ptr", hWebSocket, "ptr", pResponseHeaders, "uint", ulReponseHeaderCount, pulSelectedExtensionsMarshal, pulSelectedExtensions, pulSelectedExtensionCountMarshal, pulSelectedExtensionCount, pulSelectedSubprotocolMarshal, pulSelectedSubprotocol, "HRESULT")
         return result
     }
 
@@ -197,11 +185,7 @@ class WebSocket {
      */
     static WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
         phWebSocket := WEB_SOCKET_HANDLE()
-        result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "HRESULT")
         return phWebSocket
     }
 
@@ -267,11 +251,7 @@ class WebSocket {
         pResponseHeadersMarshal := pResponseHeaders is VarRef ? "ptr*" : "ptr"
         pulResponseHeaderCountMarshal := pulResponseHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "HRESULT")
         return result
     }
 
@@ -293,11 +273,7 @@ class WebSocket {
     static WebSocketEndServerHandshake(hWebSocket) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
-        result := DllCall("websocket.dll\WebSocketEndServerHandshake", "ptr", hWebSocket, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketEndServerHandshake", "ptr", hWebSocket, "HRESULT")
         return result
     }
 
@@ -351,11 +327,7 @@ class WebSocket {
 
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, ContextMarshal, Context, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, ContextMarshal, Context, "HRESULT")
         return result
     }
 
@@ -404,11 +376,7 @@ class WebSocket {
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketReceive", "ptr", hWebSocket, "ptr", pBuffer, pvContextMarshal, pvContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketReceive", "ptr", hWebSocket, "ptr", pBuffer, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -501,11 +469,7 @@ class WebSocket {
         pvApplicationContextMarshal := pvApplicationContext is VarRef ? "ptr*" : "ptr"
         pvActionContextMarshal := pvActionContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, pulDataBufferCountMarshal, pulDataBufferCount, pActionMarshal, pAction, pBufferTypeMarshal, pBufferType, pvApplicationContextMarshal, pvApplicationContext, pvActionContextMarshal, pvActionContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, pulDataBufferCountMarshal, pulDataBufferCount, pActionMarshal, pAction, pBufferTypeMarshal, pBufferType, pvApplicationContextMarshal, pvApplicationContext, pvActionContextMarshal, pvActionContext, "HRESULT")
         return result
     }
 
@@ -601,11 +565,7 @@ class WebSocket {
         pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
         ulSizeMarshal := ulSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketGetGlobalProperty", "int", eType, pvValueMarshal, pvValue, ulSizeMarshal, ulSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("websocket.dll\WebSocketGetGlobalProperty", "int", eType, pvValueMarshal, pvValue, ulSizeMarshal, ulSize, "HRESULT")
         return result
     }
 

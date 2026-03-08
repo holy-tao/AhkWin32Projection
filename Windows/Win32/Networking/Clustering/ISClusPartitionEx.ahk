@@ -6,7 +6,7 @@
 
 /**
  * Provides extended information about a partition on a Physical Disk resource.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/nn-msclus-iscluspartitionex
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

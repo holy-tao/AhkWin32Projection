@@ -133,11 +133,17 @@ class IJsDebugDataTarget extends IUnknown{
 
     /**
      * Retrieves the context of the specified thread.
+     * @remarks
+     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
+     * 
+     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
+     * 
+     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @param {Integer} threadId 
      * @param {Integer} contextFlags 
      * @param {Integer} contextSize 
      * @returns {Void} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId, contextFlags, contextSize) {
         result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "HRESULT")

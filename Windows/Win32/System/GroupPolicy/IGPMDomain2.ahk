@@ -10,7 +10,7 @@
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query Starter GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmdomain2
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmdomain2
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IGPMDomain2 extends IGPMDomain{
      * Creates and retrieves a GPMStarterGPO object.
      * @returns {IGPMStarterGPO} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpo">GPMStarterGPO</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-createstartergpo
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-createstartergpo
      */
     CreateStarterGPO() {
         result := ComCall(17, this, "ptr*", &ppnewTemplate := 0, "HRESULT")
@@ -50,7 +50,7 @@ class IGPMDomain2 extends IGPMDomain{
      * Creates and retrieves a GPMGPO object from a GPMStarterGPO object.
      * @param {IGPMStarterGPO} pGPOTemplate A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpo">GPMStarterGPO</a> object from which the new Group Policy object (GPO) will be created.
      * @returns {IGPMGPO} Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">GPMGPO</a> object that represents the new GPO.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-creategpofromstartergpo
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-creategpofromstartergpo
      */
     CreateGPOFromStarterGPO(pGPOTemplate) {
         result := ComCall(18, this, "ptr", pGPOTemplate, "ptr*", &ppnewGPO := 0, "HRESULT")
@@ -62,7 +62,7 @@ class IGPMDomain2 extends IGPMDomain{
      * @param {BSTR} bstrGuid Required. GUID that represents the ID of the GPO to access. Use a null-terminated string.
      * @returns {IGPMStarterGPO} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpo">IGPMStarterGPO</a> interface for the specified Starter GPO ID.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-getstartergpo
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-getstartergpo
      */
     GetStarterGPO(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
@@ -76,7 +76,7 @@ class IGPMDomain2 extends IGPMDomain{
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to the criteria to apply to the search.
      * @returns {IGPMStarterGPOCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpocollection">IGPMStarterGPOCollection</a> interface that represents the GPOs found by the search.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-searchstartergpos
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-searchstartergpos
      */
     SearchStarterGPOs(pIGPMSearchCriteria) {
         result := ComCall(20, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMTemplateCollection := 0, "HRESULT")
@@ -95,7 +95,7 @@ class IGPMDomain2 extends IGPMDomain{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface that represents the result of the load operation. That interface contains pointers to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">IGPMStarterGPO</a> interface and to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-loadstartergpo
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-loadstartergpo
      */
     LoadStarterGPO(bstrLoadFile, bOverwrite, pvarGPMProgress, pvarGPMCancel) {
         bstrLoadFile := bstrLoadFile is String ? BSTR.Alloc(bstrLoadFile).Value : bstrLoadFile
@@ -106,6 +106,12 @@ class IGPMDomain2 extends IGPMDomain{
 
     /**
      * Restores the Starter Group Policy object (GPO) from a GPMStarterGPOBackup object.
+     * @remarks
+     * A restore operation returns the contents of a specific GPO to the status it had when the backup was performed.
+     * 
+     * You must check the code that is returned by the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmresult-overallstatus">IGPMResult::OverallStatus</a> method as well as the one returned by this method to determine whether or not the operation succeeded. 
+     * <b>OverallStatus</b> returns an overall status code for the operation. If no error occurred during the operation, it returns a success code. Otherwise, it returns a failure code.
      * @param {IGPMStarterGPOBackup} pIGPMTmplBackup Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpobackup">GPMStarterGPOBackup</a> object to restore.
      * @param {Pointer<VARIANT>} pvarGPMProgress Specifies a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the restore operation. The caller must create this interface and then pass the interface pointer in this parameter to receive asynchronous notifications. This parameter must be <b>NULL</b> if the client should not receive asynchronous notifications. The method runs asynchronously if  this parameter is not <b>NULL</b>, and the method runs synchronously if <b>NULL</b>.
@@ -115,7 +121,7 @@ class IGPMDomain2 extends IGPMDomain{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface that represents the result of the restore operation. That interface contains pointers to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstartergpo">IGPMstarterGPO</a> interface and to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain2-restorestartergpo
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-restorestartergpo
      */
     RestoreStarterGPO(pIGPMTmplBackup, pvarGPMProgress, pvarGPMCancel) {
         result := ComCall(22, this, "ptr", pIGPMTmplBackup, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")

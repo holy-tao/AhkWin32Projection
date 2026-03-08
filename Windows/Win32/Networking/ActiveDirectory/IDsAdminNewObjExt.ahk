@@ -5,7 +5,7 @@
 
 /**
  * The IDsAdminNewObjExt interface is implemented by an object creation wizard extension.
- * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nn-dsadmin-idsadminnewobjext
+ * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnewobjext
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -32,13 +32,15 @@ class IDsAdminNewObjExt extends IUnknown{
 
     /**
      * The IDsAdminNewObjExt::Initialize method initializes an object creation wizard extension.
+     * @remarks
+     * An object in Active Directory Domain Services can either be created from nothing or copied from an existing object. If the new object is created from an existing object, <i>pADsCopySource</i> will contain a pointer to the object from which the copy is made. If the new object is not being copied from another object, <i>pADsCopySource</i> will be <b>NULL</b>. The copy operation is only supported for user objects.
      * @param {IADsContainer} pADsContainerObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscontainer">IADsContainer</a> interface of an existing container where the object are created. This parameter must not be <b>NULL</b>. If this object is to be kept beyond the scope of this method, the reference count must be incremented by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> or <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a>.
      * @param {IADs} pADsCopySource Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs</a> interface of the object from which a copy is made. If the new object is not copied from another object, this parameter is <b>NULL</b>. For more information about copy operations, see the Remarks section. If this object is to be kept beyond the scope of this method, the reference count must be incremented by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> or <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a>.
      * @param {PWSTR} lpszClassName Pointer to a <b>WCHAR</b> string containing the LDAP name of the object class to be created. This parameter must not be <b>NULL</b>. Supported values are: "user", "computer", "printQueue", "group", and "contact".
      * @param {IDsAdminNewObj} pDsAdminNewObj Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nn-dsadmin-idsadminnewobj">IDsAdminNewObj</a> interface that contains additional data about the wizard. You can also obtain the <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nn-dsadmin-idsadminnewobjprimarysite">IDsAdminNewObjPrimarySite</a> interface of the primary extension by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with <b>IID_IDsAdminNewObjPrimarySite</b> on this interface. If this object is to be kept beyond the scope of this method, the reference count must be incremented by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> or <b>IUnknown::QueryInterface</b>.
      * @param {Pointer<DSA_NEWOBJ_DISPINFO>} pDispInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/ns-dsadmin-dsa_newobj_dispinfo">DSA_NEWOBJ_DISPINFO</a> structure that contains additional data about the object creation wizard.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or an OLE-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-initialize
      */
     Initialize(pADsContainerObj, pADsCopySource, lpszClassName, pDsAdminNewObj, pDispInfo) {
         lpszClassName := lpszClassName is String ? StrPtr(lpszClassName) : lpszClassName
@@ -49,6 +51,10 @@ class IDsAdminNewObjExt extends IUnknown{
 
     /**
      * The IDsAdminNewObjExt::AddPages method is called to enable the object creation wizard extension to add the desired pages to the wizard.
+     * @remarks
+     * For each page, the wizard extension adds to the wizard, the extension fills in a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure, calls the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function to create the page handle and then calls the <i>lpfnAddPage</i> function with the page handle and <i>lParam</i>.
+     * 
+     * This method is identical in format and operation to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a> method.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnAddPage Pointer to a function that the object creation wizard extension calls to add a page to the wizard. This function takes the following format.
      * 
      * 
@@ -63,7 +69,7 @@ class IDsAdminNewObjExt extends IUnknown{
      * @param {LPARAM} lParam Contains data that is private to the administrative snap-in. This value is passed as the second parameter to <i>lpfnAddPage</i>.
      * @returns {HRESULT} If the method is successful,
      *       <b>S_OK</b> is returned. If the method fails, an OLE-defined error code is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-addpages
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-addpages
      */
     AddPages(lpfnAddPage, lParam) {
         result := ComCall(4, this, "ptr", lpfnAddPage, "ptr", lParam, "HRESULT")
@@ -74,7 +80,7 @@ class IDsAdminNewObjExt extends IUnknown{
      * The IDsAdminNewObjExt::SetObject method provides the object creation extension with a pointer to the directory object created.
      * @param {IADs} pADsObj Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs</a> interface for the object. This parameter may be <b>NULL</b>. If this object is to be kept beyond the scope of this method, the reference count must be incremented by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> or <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a>.
      * @returns {HRESULT} The method should always return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-setobject
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-setobject
      */
     SetObject(pADsObj) {
         result := ComCall(5, this, "ptr", pADsObj, "HRESULT")
@@ -83,10 +89,14 @@ class IDsAdminNewObjExt extends IUnknown{
 
     /**
      * Enables the object creation wizard extension to write its data into an object in Active Directory Domain Services.
+     * @remarks
+     * A pointer to the temporary directory object is supplied to the extension when the <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nf-dsadmin-idsadminnewobjext-setobject">IDsAdminNewObjExt::SetObject</a> method is called.
+     * 
+     * A secondary object creation extension should not commit the data set during the <b>WriteData</b> method by calling <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-setinfo">IADs::SetInfo</a>. The primary object creation extension will commit all of the data for the object when all of the extensions have added their data.
      * @param {HWND} hWnd The window handle used as the parent window for possible error messages.
      * @param {Integer} uContext 
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or an OLE-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-writedata
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-writedata
      */
     WriteData(hWnd, uContext) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -103,7 +113,7 @@ class IDsAdminNewObjExt extends IUnknown{
      * @returns {HRESULT} A primary creation extension returns <b>S_OK</b> to indicate that the error was handled by the extension or an OLE-defined error code to cause the system to display an error message.
      * 
      * The return value is ignored for a secondary creation extension.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-onerror
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-onerror
      */
     OnError(hWnd, hr, uContext) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -114,9 +124,11 @@ class IDsAdminNewObjExt extends IUnknown{
 
     /**
      * The IDsAdminNewObjExt::GetSummaryInfo method obtains a string that contains a summary of the data gathered by the new object wizard extension page. This string is displayed in the wizard Finish page.
+     * @remarks
+     * Support of this method is optional. If the extension does not supply summary information, it should return <b>E_NOTIMPL</b> from this method.
      * @param {Pointer<BSTR>} pBstrText A pointer to a <b>BSTR</b> value that receives the summary text. To allocate this value, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @returns {HRESULT} If the method is successful, <b>S_OK</b> is returned. If the method fails, an OLE-defined error code is returned. If the extension does not provide a summary string, this method should return <b>E_NOTIMPL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjext-getsummaryinfo
+     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-getsummaryinfo
      */
     GetSummaryInfo(pBstrText) {
         result := ComCall(8, this, "ptr", pBstrText, "HRESULT")

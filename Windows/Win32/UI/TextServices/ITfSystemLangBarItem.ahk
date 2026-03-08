@@ -6,11 +6,8 @@
 /**
  * The ITfSystemLangBarItem interface is implemented by a system language bar menu and is used by a system language bar extension to modify the icon and/or tooltip string displayed for the menu.
  * @remarks
- * 
  * A system language bar menu is an object on the language bar that supports menu items added to it by third-partyextensions. The system item must support the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfsource">ITfSource</a> interface and support the IID_ITfSystemLangBarItemSink identifier in its <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a> implementation. The system item should also implement the <b>ITfSystemLangBarItem</b> interface. The system item uses the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itfsystemlangbaritemsink">ITfSystemLangBarItemSink</a> interface to enable the extension to add items.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itfsystemlangbaritem
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfsystemlangbaritem
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class ITfSystemLangBarItem extends IUnknown{
 
     /**
      * ITfSystemLangBarItem::SetIcon method
+     * @remarks
+     * In response to this method, the system language bar menu should call <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemsink-onupdate">ITfLangBarItemSink::OnUpdate</a> with TF_LBI_ICON to force the language bar to obtain the new icon.
      * @param {HICON} hIcon Contains the handle to the new icon.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -68,7 +67,7 @@ class ITfSystemLangBarItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
      */
     SetIcon(hIcon) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
@@ -79,6 +78,8 @@ class ITfSystemLangBarItem extends IUnknown{
 
     /**
      * ITfSystemLangBarItem::SetTooltipString method
+     * @remarks
+     * In response to this method, the system language bar menu should call <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemsink-onupdate">ITfLangBarItemSink::OnUpdate</a> with TF_LBI_TOOLTIP to force the language bar to obtain the new tooltip text.
      * @param {PWSTR} pchToolTip A string that appears as a tooltip.
      * @param {Integer} cch Size, in characters, of the string.
      * @returns {HRESULT} This method can return one of these values.
@@ -111,7 +112,7 @@ class ITfSystemLangBarItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritem-settooltipstring
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-settooltipstring
      */
     SetTooltipString(pchToolTip, cch) {
         pchToolTip := pchToolTip is String ? StrPtr(pchToolTip) : pchToolTip

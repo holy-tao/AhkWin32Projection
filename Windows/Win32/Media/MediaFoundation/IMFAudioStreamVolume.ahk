@@ -6,7 +6,6 @@
 /**
  * Controls the volume levels of individual audio channels.
  * @remarks
- * 
  * If your application does not require channel-level volume control, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsimpleaudiovolume">IMFSimpleAudioVolume</a> interface to control the master volume level of the audio session.
  * 
  * Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation). For each channel, the attenuation level is the product of:
@@ -24,9 +23,7 @@
  * Attenuation (dB) = 20 * log10(<i>Level</i>)
  * 
  * For example, a volume level of 0.50 represents 6.02 dB of attenuation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfaudiostreamvolume
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfaudiostreamvolume
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -54,7 +51,7 @@ class IMFAudioStreamVolume extends IUnknown{
     /**
      * Retrieves the number of channels in the audio stream.
      * @returns {Integer} Receives the number of channels in the audio stream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfaudiostreamvolume-getchannelcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelcount
      */
     GetChannelCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -84,7 +81,7 @@ class IMFAudioStreamVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfaudiostreamvolume-setchannelvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-setchannelvolume
      */
     SetChannelVolume(dwIndex, fLevel) {
         result := ComCall(4, this, "uint", dwIndex, "float", fLevel, "HRESULT")
@@ -95,7 +92,7 @@ class IMFAudioStreamVolume extends IUnknown{
      * Retrieves the volume level for a specified channel in the audio stream.
      * @param {Integer} dwIndex Zero-based index of the audio channel. To get the number of channels, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelcount">IMFAudioStreamVolume::GetChannelCount</a>.
      * @returns {Float} Receives the volume level for the channel.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfaudiostreamvolume-getchannelvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelvolume
      */
     GetChannelVolume(dwIndex) {
         result := ComCall(5, this, "uint", dwIndex, "float*", &pfLevel := 0, "HRESULT")
@@ -125,7 +122,7 @@ class IMFAudioStreamVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfaudiostreamvolume-setallvolumes
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-setallvolumes
      */
     SetAllVolumes(dwCount, pfVolumes) {
         pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
@@ -138,7 +135,7 @@ class IMFAudioStreamVolume extends IUnknown{
      * Retrieves the volume levels for all of the channels in the audio stream.
      * @param {Integer} dwCount Number of elements in the <i>pfVolumes</i> array. The value must equal the number of channels. To get the number of channels, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelcount">IMFAudioStreamVolume::GetChannelCount</a>.
      * @returns {Float} Address of an array of size <i>dwCount</i>, allocated by the caller. The method fills the array with the volume level for each channel in the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfaudiostreamvolume-getallvolumes
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getallvolumes
      */
     GetAllVolumes(dwCount) {
         result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")

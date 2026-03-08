@@ -6,7 +6,7 @@
 
 /**
  * Enumerates the event objects that are registered in the COM+ events store.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ienumeventobject
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ienumeventobject
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IEnumEventObject extends IUnknown{
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * Creates an enumerator that contains the same enumeration state as the current one.
+     * Creates an enumerator that contains the same enumeration state as the current one. (IEnumEventObject.Clone)
+     * @remarks
+     * When the pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ienumeventobject">IEnumEventObject</a> is returned, it is positioned at the first object in the collection not at the place of the enumeration object being cloned.
      * @returns {IEnumEventObject} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ienumeventobject">IEnumEventObject</a> interface on the enumeration object. This parameter cannot be <b>NULL</b>. If the method is unsuccessful, the value of this output variable is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ienumeventobject-clone
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppInterface := 0, "HRESULT")
@@ -42,7 +44,7 @@ class IEnumEventObject extends IUnknown{
     }
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumEventObject.Next)
      * @param {Integer} cReqElem The number of elements being requested. If there are fewer than the requested number of elements left in the sequence, this method obtains the remaining elements.
      * @param {Pointer<IUnknown>} ppInterface The address to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the first object obtained. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Integer>} cRetElem The number of elements actually obtained. This parameter cannot be <b>NULL</b>.
@@ -76,7 +78,7 @@ class IEnumEventObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ienumeventobject-next
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-next
      */
     Next(cReqElem, ppInterface, cRetElem) {
         cRetElemMarshal := cRetElem is VarRef ? "uint*" : "ptr"
@@ -86,7 +88,11 @@ class IEnumEventObject extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumEventObject.Reset)
+     * @remarks
+     * You can use the S_FALSE return value as an optimization to detect an empty enumeration.
+     * 
+     * A call to this method, resetting the sequence, does not guarantee that the same set of objects will be enumerated after the reset, because the collection may have changed.
      * @returns {HRESULT} This method can return the following values.
      * 
      * <table>
@@ -117,7 +123,7 @@ class IEnumEventObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ienumeventobject-reset
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-reset
      */
     Reset() {
         result := ComCall(5, this, "int")
@@ -125,7 +131,9 @@ class IEnumEventObject extends IUnknown{
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumEventObject.Skip)
+     * @remarks
+     * <b>Skip</b> may return S_FALSE if <i>cSkipElem</i> is greater than the remaining number of elements. In this case, <b>Skip</b> moves to the last element in the enumeration sequence.
      * @param {Integer} cSkipElem The number of elements to be skipped.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -157,7 +165,7 @@ class IEnumEventObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ienumeventobject-skip
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-skip
      */
     Skip(cSkipElem) {
         result := ComCall(6, this, "uint", cSkipElem, "HRESULT")

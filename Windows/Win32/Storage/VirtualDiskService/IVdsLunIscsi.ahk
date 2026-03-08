@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query and configuration operations on an iSCSI LUN.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsluniscsi
+ * The IVdsLunIscsi interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI LUN.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsluniscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,12 +32,21 @@ class IVdsLunIscsi extends IUnknown{
     static VTableNames => ["AssociateTargets", "QueryAssociatedTargets"]
 
     /**
-     * Associates LUNs with subsystem iSCSI targets.
+     * The IVdsLunIscsi::AssociateTargets (vdshwprv.h) method associates LUNs with subsystem iSCSI targets.
+     * @remarks
+     * Most subsystems implement only one associated target per LUN, but some allow for multiple associated 
+     *     targets.
+     * 
+     * Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-queryassociatedtargets">IVdsLunIscsi::QueryAssociatedTargets</a> 
+     *     method to query target associations. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-queryassociatedluns">IVdsIscsiTarget::QueryAssociatedLuns</a> 
+     *     method to query the LUNs associated with a target.
      * @param {Pointer<Guid>} pTargetIdArray A pointer to an array of target <b>VDS_OBJECT_ID</b> data types. The provider 
      *       associates these iSCSI targets with the LUN. This array includes targets already associated with the LUN that 
      *       are to remain so.
      * @param {Integer} lNumberOfTargets The number of targets specified in the <i>pTargetArray</i> parameter.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -54,9 +63,9 @@ class IVdsLunIscsi extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      * 
      * </td>
@@ -124,7 +133,7 @@ class IVdsLunIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsluniscsi-associatetargets
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-associatetargets
      */
     AssociateTargets(pTargetIdArray, lNumberOfTargets) {
         result := ComCall(3, this, "ptr", pTargetIdArray, "int", lNumberOfTargets, "HRESULT")
@@ -132,9 +141,17 @@ class IVdsLunIscsi extends IUnknown{
     }
 
     /**
-     * Returns an enumeration of currently associated iSCSI targets�the targets through which the LUN is accessible.
+     * The IVdsLunIscsi::QueryAssociatedTargets (vdshwprv.h) method returns an enumeration of currently associated iSCSI targets.
+     * @remarks
+     * Most subsystems implement only one associated target per LUN, but some allow for multiple associated 
+     *     targets.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-associatetargets">IVdsLunIscsi::AssociateTargets</a> 
+     *     method to associate the target. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-queryassociatedluns">IVdsIscsiTarget::QueryAssociatedLuns</a> 
+     *     method to query the LUNs associated with a target.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the iSCSI targets  as <a href="https://docs.microsoft.com/windows/desktop/VDS/target-object">target objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the target objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsluniscsi-queryassociatedtargets
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-queryassociatedtargets
      */
     QueryAssociatedTargets() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")

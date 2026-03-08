@@ -7,7 +7,6 @@
 /**
  * Represents a collection of IOfflineFilesItem interface pointers.
  * @remarks
- * 
  * To obtain an instance of this interface, first obtain an instance of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesitemcontainer">IOfflineFilesItemContainer</a> using <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on an instance of one of the following interfaces:
  * 
  * <ul>
@@ -30,9 +29,7 @@
  * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesitemcontainer">IOfflineFilesItemContainer</a> interface is only valid for directory, server, and share items. If <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> is called for the <b>IOfflineFilesItemContainer</b> interface on a file item (an instance of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesfileitem">IOfflineFilesFileItem</a> interface), it will fail with <b>E_NOINTERFACE</b>.</div>
  * <div> </div>
  * For a code example that shows how to use the <b>IEnumOfflineFilesItems</b> interface, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems">IOfflineFilesItemContainer::EnumItems</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-ienumofflinefilesitems
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-ienumofflinefilesitems
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -58,12 +55,12 @@ class IEnumOfflineFilesItems extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the next item in the enumeration and advances the enumerator.
+     * Retrieves the next item in the enumeration and advances the enumerator. (IEnumOfflineFilesItems.Next)
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<IOfflineFilesItem>} rgelt Array of elements returned.
      * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied.
      * @returns {HRESULT} Returns <b>S_OK</b> if the number of elements returned is <i>celt</i>; S_FALSE if a number less than <i>celt</i> is returned; or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilesitems-next
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilesitems-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -73,10 +70,10 @@ class IEnumOfflineFilesItems extends IUnknown{
     }
 
     /**
-     * Skips over the next specified number of elements in the enumeration.
+     * Skips over the next specified number of elements in the enumeration. (IEnumOfflineFilesItems.Skip)
      * @param {Integer} celt Number of elements to be skipped.
      * @returns {HRESULT} Returns <b>S_OK</b> if the number of elements skipped is <i>celt</i>; S_FALSE if a number less than <i>celt</i> is skipped; or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilesitems-skip
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilesitems-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -84,9 +81,9 @@ class IEnumOfflineFilesItems extends IUnknown{
     }
 
     /**
-     * Resets the enumeration to the beginning.
+     * Resets the enumeration to the beginning. (IEnumOfflineFilesItems.Reset)
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilesitems-reset
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilesitems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -94,9 +91,9 @@ class IEnumOfflineFilesItems extends IUnknown{
     }
 
     /**
-     * Creates a new instance of the enumerator with the same enumeration state as the current one.
+     * Creates a new instance of the enumerator with the same enumeration state as the current one. (IEnumOfflineFilesItems.Clone)
      * @returns {IEnumOfflineFilesItems} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-ienumofflinefilesitems">IEnumOfflineFilesItems</a> pointer variable that receives the interface pointer of the new enumeration object.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilesitems-clone
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilesitems-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

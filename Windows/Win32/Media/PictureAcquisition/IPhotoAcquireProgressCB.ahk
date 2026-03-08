@@ -6,7 +6,7 @@
 
 /**
  * The IPhotoAcquireProgressCB interface may be implemented if you wish to do extra processing at various stages in the acquisition process.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquireprogresscb
+ * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireprogresscb
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
     /**
      * The Cancelled method provides extended functionality when a cancellation occurs during an acquisition session. The application provides the implementation of the Cancelled method.
      * @returns {BOOL} Pointer to a flag that, when set to <b>TRUE</b>, indicates that the operation was canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-cancelled
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-cancelled
      */
     Cancelled() {
         result := ComCall(3, this, "int*", &pfCancelled := 0, "HRESULT")
@@ -74,7 +74,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-startenumeration
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startenumeration
      */
     StartEnumeration(pPhotoAcquireSource) {
         result := ComCall(4, this, "ptr", pPhotoAcquireSource, "HRESULT")
@@ -83,6 +83,8 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * The FoundItem method provides extended functionality each time an item is found during enumeration of items from the device.
+     * @remarks
+     * Return S_FALSE to exclude the item from the results of the enumeration. This would allow the caller to exclude videos or camera raw files, for instance.
      * @param {IPhotoAcquireItem} pPhotoAcquireItem Pointer to the found <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireitem">IPhotoAcquireItem</a> object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values. Any failing HRESULT other than E_NOTIMPL is fatal and will cause the transfer to abort.
      * 
@@ -114,7 +116,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-founditem
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-founditem
      */
     FoundItem(pPhotoAcquireItem) {
         result := ComCall(5, this, "ptr", pPhotoAcquireItem, "HRESULT")
@@ -154,7 +156,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-endenumeration
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-endenumeration
      */
     EndEnumeration(hr) {
         result := ComCall(6, this, "int", hr, "HRESULT")
@@ -163,6 +165,8 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * The StartTransfer method provides additional processing when transfer of items from the device begins. The application provides the implementation of the StartTransfer method.
+     * @remarks
+     * Returning an error HRESULT other than E_NOTIMPL will cause acquisition to be aborted.
      * @param {IPhotoAcquireSource} pPhotoAcquireSource Pointer to the IPhotoAcquireSource from which items are being retrieved.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values. Any Failing HRESULT other than E_NOTIMPL is fatal and will cause the transfer to abort.
      * 
@@ -194,7 +198,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-starttransfer
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-starttransfer
      */
     StartTransfer(pPhotoAcquireSource) {
         result := ComCall(7, this, "ptr", pPhotoAcquireSource, "HRESULT")
@@ -235,7 +239,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemtransfer
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemtransfer
      */
     StartItemTransfer(nItemIndex, pPhotoAcquireItem) {
         result := ComCall(8, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
@@ -275,7 +279,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-directorycreated
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-directorycreated
      */
     DirectoryCreated(pszDirectory) {
         pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
@@ -318,7 +322,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatetransferpercent
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatetransferpercent
      */
     UpdateTransferPercent(fOverall, nPercent) {
         result := ComCall(10, this, "int", fOverall, "uint", nPercent, "HRESULT")
@@ -360,7 +364,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemtransfer
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemtransfer
      */
     EndItemTransfer(nItemIndex, pPhotoAcquireItem, hr) {
         result := ComCall(11, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
@@ -400,7 +404,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-endtransfer
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-endtransfer
      */
     EndTransfer(hr) {
         result := ComCall(12, this, "int", hr, "HRESULT")
@@ -440,7 +444,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-startdelete
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startdelete
      */
     StartDelete(pPhotoAcquireSource) {
         result := ComCall(13, this, "ptr", pPhotoAcquireSource, "HRESULT")
@@ -481,7 +485,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemdelete
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemdelete
      */
     StartItemDelete(nItemIndex, pPhotoAcquireItem) {
         result := ComCall(14, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
@@ -521,7 +525,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatedeletepercent
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatedeletepercent
      */
     UpdateDeletePercent(nPercent) {
         result := ComCall(15, this, "uint", nPercent, "HRESULT")
@@ -563,7 +567,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemdelete
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemdelete
      */
     EndItemDelete(nItemIndex, pPhotoAcquireItem, hr) {
         result := ComCall(16, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
@@ -603,7 +607,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-enddelete
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enddelete
      */
     EndDelete(hr) {
         result := ComCall(17, this, "int", hr, "HRESULT")
@@ -643,7 +647,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-endsession
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-endsession
      */
     EndSession(hr) {
         result := ComCall(18, this, "int", hr, "HRESULT")
@@ -653,7 +657,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
     /**
      * The GetDeleteAfterAcquire method returns a value indicating whether photos should be deleted after acquisition.
      * @returns {BOOL} Pointer to a flag that, when set to <b>TRUE</b>, indicates that photos should be deleted after acquisition.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-getdeleteafteracquire
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getdeleteafteracquire
      */
     GetDeleteAfterAcquire() {
         result := ComCall(19, this, "int*", &pfDeleteAfterAcquire := 0, "HRESULT")
@@ -662,6 +666,8 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * The ErrorAdvise method provides custom error handling for errors that occur during acquisition. The application provides the implementation of the ErrorAdvise method.
+     * @remarks
+     * Normally, a message is displayed when an error occurs during image acquisition. If suppression of this message is desired, implement <c>ErrorAdvise</c>.
      * @param {HRESULT} hr Specifies the error that occurred.
      * @param {PWSTR} pszErrorMessage Pointer to a null-terminated string containing the error message.
      * @param {Integer} nMessageType Integer value containing the message type. May be one of the following.
@@ -729,7 +735,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * <td>Specifies a Cancel response. Valid if <i>nMessageType</i> is <b>PHOTOACQUIRE_ERROR_SKIPRETRYCANCEL</b> or <b>PHOTOACQUIRE_ERROR_RETRYCANCEL</b>.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise
      */
     ErrorAdvise(hr, pszErrorMessage, nMessageType) {
         pszErrorMessage := pszErrorMessage is String ? StrPtr(pszErrorMessage) : pszErrorMessage
@@ -740,13 +746,19 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * The GetUserInput method overrides the default functionality that displays a message prompting the user for string input during acquisition. The application provides the implementation of the GetUserInput method.
+     * @remarks
+     * If this method is implemented, the implementation should copy the value of the <i>pPropVarDefault</i> argument to the <i>pPropVarResult</i> parameter.
+     * 
+     * If this method returns an HRESULT other than E_NOTIMPL, the default dialog box that prompts the user will not be displayed.
+     * 
+     * If the progress dialog box is suppressed in <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-acquire">IPhotoAcquire::Acquire</a>, this method must be implemented in order to assign a default value to the <i>pPropVarResult</i> parameter. Normally a value is supplied to <i>pPropVarResult</i> in the course of prompting the user with the default dialog, but when the dialog is suppressed, the application must copy the value of the <i>pPropVarDefault</i> argument to the <i>pPropVarResult</i> parameter.
      * @param {Pointer<Guid>} riidType Specifies the interface ID of the prompt type. This may only be IID_IUserInputString.
      * @param {IUnknown} pUnknown Pointer to an object of the prompt class. Currently, this must be an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iuserinputstring">IUserInputString</a> object.
      * @param {Pointer<PROPVARIANT>} pPropVarDefault Pointer to a property variant object representing the default value of the input being requested.
      * @returns {PROPVARIANT} Pointer to a property variant object representing the descriptive input to be obtained. Must be freed by the caller using PropVariantClear.
      * 
      * If the application's implementation of <c>GetUserInput</c> returns a value other than E_NOTIMPL, the value of <i>pPropVarDefault</i> must be copied to the <i>pPropVarResult</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireprogresscb-getuserinput
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getuserinput
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
         pPropVarResult := PROPVARIANT()

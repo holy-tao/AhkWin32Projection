@@ -6,7 +6,7 @@
 
 /**
  * The IWMPLibrary2 interface represents a media library.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmplibrary2
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrary2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IWMPLibrary2 extends IWMPLibrary{
 
     /**
      * The getItemInfo method retrieves the value of the LibraryID attribute.
+     * @remarks
+     * The <b>LibraryID</b> attribute retrieved by this method is the same as the <b>LibraryID</b> attribute that <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nf-wmp-iwmpmedia-getiteminfo">IWMPMedia::getItemInfo</a> retrieves for each media item in the library.
      * @param {BSTR} bstrItemName <b>BSTR</b> containing the attribute name. Set the value of this parameter to "LibraryID".
      * @param {Pointer<BSTR>} pbstrVal Pointer to a <b>BSTR</b> that receives the value of the <b>LibraryID</b> attribute.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -54,7 +56,7 @@ class IWMPLibrary2 extends IWMPLibrary{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary2-getiteminfo
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary2-getiteminfo
      */
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName

@@ -8,7 +8,7 @@
 
 /**
  * Describes the structure of a particular UDT.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-irecordinfo
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-irecordinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -35,8 +35,12 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Initializes a new instance of a record.
+     * @remarks
+     * The caller must allocate the memory of the record by its appropriate size using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-getsize">GetSize</a> method.
+     * 
+     * <b>RecordInit</b> sets all contents of the record to 0 and the record should hold no resources.
      * @returns {Void} An instance of a record.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recordinit
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordinit
      */
     RecordInit() {
         result := ComCall(3, this, "ptr", &pvNew := 0, "HRESULT")
@@ -45,6 +49,8 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Releases object references and other values of a record without deallocating the record.
+     * @remarks
+     * <b>RecordClear</b> releases memory blocks held by VT_PTR or VT_SAFEARRAY instance fields. The caller needs to free the instance fields memory, <b>RecordClear</b> will do nothing if there are no resources held.
      * @param {Pointer<Void>} pvExisting The record to be cleared.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -78,7 +84,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recordclear
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordclear
      */
     RecordClear(pvExisting) {
         pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
@@ -89,9 +95,11 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Copies an existing record into the passed in buffer.
+     * @remarks
+     * <b>RecordCopy</b> will release the resources in the destination first. The caller is responsible for allocating sufficient memory in the destination by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-getsize">GetSize</a> or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recordcreate">RecordCreate</a>. If <b>RecordCopy</b> fails to copy any of the fields then all fields will be cleared, as though <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recordclear">RecordClear</a> had been called.
      * @param {Pointer<Void>} pvExisting The current record instance.
      * @returns {Void} The destination where the record will be copied.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recordcopy
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcopy
      */
     RecordCopy(pvExisting) {
         pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
@@ -103,7 +111,7 @@ class IRecordInfo extends IUnknown{
     /**
      * Gets the GUID of the record type.
      * @returns {Guid} The class GUID of the TypeInfo that describes the UDT.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getguid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getguid
      */
     GetGuid() {
         pguid := Guid()
@@ -113,8 +121,10 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Gets the name of the record type.
+     * @remarks
+     * The caller must free the BSTR by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @returns {BSTR} The name.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getname
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getname
      */
     GetName() {
         pbstrName := BSTR()
@@ -125,7 +135,7 @@ class IRecordInfo extends IUnknown{
     /**
      * Gets the number of bytes of memory necessary to hold the record instance.
      * @returns {Integer} The size of a record instance, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getsize
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getsize
      */
     GetSize() {
         result := ComCall(8, this, "uint*", &pcbSize := 0, "HRESULT")
@@ -134,8 +144,10 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Retrieves the type information that describes a UDT or safearray of UDTs.
+     * @remarks
+     * <b>AddRef</b> is called on the pointer <i>ppTypeInfo</i>.
      * @returns {ITypeInfo} The information type of the record.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-gettypeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-gettypeinfo
      */
     GetTypeInfo() {
         result := ComCall(9, this, "ptr*", &ppTypeInfo := 0, "HRESULT")
@@ -144,10 +156,16 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Returns a pointer to the VARIANT containing the value of a given field name.
+     * @remarks
+     * The VARIANT that you pass in contains a copy of the field's value upon return. If you modify the VARIANT then the underlying record field does not change.
+     * 
+     * The caller allocates memory of the VARIANT.
+     * 
+     * The method <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> is called for <i>pvarField</i> before copying.
      * @param {Pointer<Void>} pvData The instance of a record.
      * @param {PWSTR} szFieldName The field name.
      * @returns {VARIANT} The VARIANT that you want to hold the value of the field name, <i>szFieldName</i>. On return, places a copy of the field's value in the variant.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getfield
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfield
      */
     GetField(pvData, szFieldName) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
@@ -161,6 +179,10 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Returns a pointer to the value of a given field name without copying the value and allocating resources.
+     * @remarks
+     * Upon return, the VARIANT you pass contains a direct pointer to the record's field, <i>ppvDataCArray</i>. If you modify the VARIANT, then the underlying record field will change.
+     * 
+     * The caller allocates memory of the VARIANT, but does not own the memory so cannot free <i>pvarField</i>. This method calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> for <i>pvarField</i> before filling in the requested field.
      * @param {Pointer<Void>} pvData The instance of a record.
      * @param {PWSTR} szFieldName The name of the field.
      * @param {Pointer<VARIANT>} pvarField The VARIANT that will contain the UDT upon return.
@@ -197,7 +219,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getfieldnocopy
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfieldnocopy
      */
     GetFieldNoCopy(pvData, szFieldName, pvarField, ppvDataCArray) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
@@ -251,7 +273,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-putfield
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-putfield
      */
     PutField(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
@@ -300,7 +322,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-putfieldnocopy
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-putfieldnocopy
      */
     PutFieldNoCopy(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
@@ -313,13 +335,19 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Gets the names of the fields of the record.
+     * @remarks
+     * The caller should allocate memory for the array of BSTRs. If the array is larger than needed, set the unused portion to 0.
+     * 
+     * On return, the caller will need to free each contained BSTR using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * In case of out of memory, <i>pcNames</i> points to error code.
      * @param {Pointer<Integer>} pcNames The number of names to return.
      * @returns {BSTR} The name of the array of type BSTR.
      * 
      * If the <i>rgBstrNames</i> parameter is NULL, then <i>pcNames</i> is returned with the number of field names. 
      * 
      * It the <i>rgBstrNames</i> parameter is not NULL, then the string names contained in <i>rgBstrNames</i> are returned. If the number of names in <i>pcNames</i> and <i>rgBstrNames</i> are not equal then the lesser number of the two is the number of returned field names. The caller needs to free the BSTRs inside the array returned in <i>rgBstrNames</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-getfieldnames
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfieldnames
      */
     GetFieldNames(pcNames) {
         pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
@@ -362,7 +390,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-ismatchingtype
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-ismatchingtype
      */
     IsMatchingType(pRecordInfo) {
         result := ComCall(15, this, "ptr", pRecordInfo, "int")
@@ -371,8 +399,12 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Allocates memory for a new record, initializes the instance and returns a pointer to the record.
+     * @remarks
+     * The memory is set to zeros before it is returned. 
+     * 
+     * The records created must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recorddestroy">RecordDestroy</a>.
      * @returns {Pointer<Void>} This method returns a pointer to the created record.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recordcreate
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreate
      */
     RecordCreate() {
         result := ComCall(16, this, "ptr")
@@ -381,9 +413,11 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Creates a copy of an instance of a record to the specified location.
+     * @remarks
+     * The records created must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recorddestroy">RecordDestroy</a>.
      * @param {Pointer<Void>} pvSource An instance of the record to be copied.
      * @returns {Pointer<Void>} The new record with data copied from <i>pvSource</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recordcreatecopy
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreatecopy
      */
     RecordCreateCopy(pvSource) {
         pvSourceMarshal := pvSource is VarRef ? "ptr" : "ptr"
@@ -394,6 +428,11 @@ class IRecordInfo extends IUnknown{
 
     /**
      * Releases the resources and deallocates the memory of the record.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recordclear">RecordClear</a> is called to release the resources held by the instance of a record without deallocating memory.
+     * 
+     * <div class="alert"><b>Note</b>  This method can only be called on records allocated through <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recordcreate">RecordCreate</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-irecordinfo-recordcreatecopy">RecordCreateCopy</a>. If you allocate the record yourself, you cannot call this method.</div>
+     * <div> </div>
      * @param {Pointer<Void>} pvRecord An instance of the record to be destroyed.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -427,7 +466,7 @@ class IRecordInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-irecordinfo-recorddestroy
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recorddestroy
      */
     RecordDestroy(pvRecord) {
         pvRecordMarshal := pvRecord is VarRef ? "ptr" : "ptr"

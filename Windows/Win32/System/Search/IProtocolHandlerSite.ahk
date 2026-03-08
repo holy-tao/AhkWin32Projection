@@ -7,11 +7,8 @@
 /**
  * Provides methods for a protocol handler's IUrlAccessor object to query the Filter Daemon for the appropriate filter for the URL item.
  * @remarks
- * 
  * When a protocol handler encounters items with embedded documents, the protocol handler requests additional filters from the Filter Daemon by calling the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-iprotocolhandlersite-getfilter">IProtocolHandlerSite::GetFilter</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-iprotocolhandlersite
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iprotocolhandlersite
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -38,19 +35,23 @@ class IProtocolHandlerSite extends IUnknown{
 
     /**
      * Retrieves the appropriate IFilteraccording to the supplied parameters.
+     * @remarks
+     * This method queries the Filter Host to identify the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> object to use for the URL item.
+     * 
+     * The choice of filter is based on the file name extension, a CLSID that identifies the file's content type in the registry, or on the MIME content type. You need to provide only one of the three parameters to this method. If you provide multiple parameters, they are tested in the following order: <i>pcwszContentType</i>, <i>pclsidObj</i>, <i>pcwszExtension</i>. The first valid parameter is used to select the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>; the others are ignored.
      * @param {Pointer<Guid>} pclsidObj Type: <b>CLSID*</b>
      * 
-     * Pointer to the CLSID of the document type from the registry. This is used for items with embedded documents to indicate the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>to use for that embedded document.
+     * Pointer to the CLSID of the document type from the registry. This is used for items with embedded documents to indicate the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> to use for that embedded document.
      * @param {PWSTR} pcwszContentType Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string that contains the type of the document. This is used to retrieve <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a><b>s</b> that are mapped according to MIME type.
      * @param {PWSTR} pcwszExtension Type: <b>LPCWSTR</b>
      * 
-     * Pointer to a null-terminated Unicode string that contains the file name extension, without the preceding period. This is used to retrieve <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>objects that are mapped according to the file name extension.
+     * Pointer to a null-terminated Unicode string that contains the file name extension, without the preceding period. This is used to retrieve <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> objects that are mapped according to the file name extension.
      * @returns {IFilter} Type: <b>IFilter**</b>
      * 
-     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>that the protocol handler uses.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iprotocolhandlersite-getfilter
+     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> that the protocol handler uses.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iprotocolhandlersite-getfilter
      */
     GetFilter(pclsidObj, pcwszContentType, pcwszExtension) {
         pcwszContentType := pcwszContentType is String ? StrPtr(pcwszContentType) : pcwszContentType

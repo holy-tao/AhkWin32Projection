@@ -45,10 +45,26 @@ class IMSAdminBaseW extends IUnknown{
     }
 
     /**
-     * 
+     * Deletes a given key protector for the volume.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
+     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
+     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
+     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
+     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/deletekeyprotector-win32-encryptablevolume
      */
     DeleteKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
@@ -309,9 +325,10 @@ class IMSAdminBaseW extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves certain properties of an object handle.
      * @param {Integer} hMDHandle 
      * @returns {METADATA_HANDLE_INFO} 
+     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-gethandleinformation
      */
     GetHandleInfo(hMDHandle) {
         pmdhiInfo := METADATA_HANDLE_INFO()
@@ -390,11 +407,12 @@ class IMSAdminBaseW extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: Backup and Restore Parameters
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/backup-and-restore-parameters
      */
     Backup(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
@@ -404,11 +422,12 @@ class IMSAdminBaseW extends IUnknown{
     }
 
     /**
-     * 
+     * Initiates a system restore.
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/sr/restore-systemrestore
      */
     Restore(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation

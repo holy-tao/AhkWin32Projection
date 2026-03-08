@@ -7,11 +7,8 @@
 /**
  * Contains the properties that are available only from a Windows driver update.
  * @remarks
- * 
  * None of the IWindowsDriverUpdateEntry properties are expected to return any errors (other than E_POINTER if <b>NULL</b> is passed to the property).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdateentry
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdateentry
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -95,7 +92,7 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     /**
      * Retrieves the class of the Windows driver update.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverclass
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverclass
      */
     get_DriverClass() {
         retval := BSTR()
@@ -106,7 +103,7 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     /**
      * Gets the hardware or the compatible identifier that the Windows driver update must match to be installable.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverhardwareid
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverhardwareid
      */
     get_DriverHardwareID() {
         retval := BSTR()
@@ -115,9 +112,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the language-invariant name of the manufacturer of the Windows driver update.
+     * Gets the language-invariant name of the manufacturer of the Windows driver update. (IWindowsDriverUpdateEntry.get_DriverManufacturer)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermanufacturer
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermanufacturer
      */
     get_DriverManufacturer() {
         retval := BSTR()
@@ -126,9 +123,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the language-invariant model name of the device for which the Windows driver update is intended.
+     * Gets the language-invariant model name of the device for which the Windows driver update is intended. (IWindowsDriverUpdateEntry.get_DriverModel)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermodel
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermodel
      */
     get_DriverModel() {
         retval := BSTR()
@@ -137,9 +134,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the language-invariant name of the provider of the Windows driver update.
+     * Gets the language-invariant name of the provider of the Windows driver update. (IWindowsDriverUpdateEntry.get_DriverProvider)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverprovider
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverprovider
      */
     get_DriverProvider() {
         retval := BSTR()
@@ -148,9 +145,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the driver version date of the Windows driver update.
+     * Gets the driver version date of the Windows driver update. (IWindowsDriverUpdateEntry.get_DriverVerDate)
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driververdate
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driververdate
      */
     get_DriverVerDate() {
         result := ComCall(12, this, "double*", &retval := 0, "HRESULT")
@@ -158,9 +155,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the problem number of the matching device for the Windows driver update.
+     * Gets the problem number of the matching device for the Windows driver update. (IWindowsDriverUpdateEntry.get_DeviceProblemNumber)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_deviceproblemnumber
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_deviceproblemnumber
      */
     get_DeviceProblemNumber() {
         result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
@@ -168,9 +165,9 @@ class IWindowsDriverUpdateEntry extends IDispatch{
     }
 
     /**
-     * Gets the status of the matching device for the Windows driver update.
+     * Gets the status of the matching device for the Windows driver update. (IWindowsDriverUpdateEntry.get_DeviceStatus)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentry-get_devicestatus
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_devicestatus
      */
     get_DeviceStatus() {
         result := ComCall(14, this, "int*", &retval := 0, "HRESULT")

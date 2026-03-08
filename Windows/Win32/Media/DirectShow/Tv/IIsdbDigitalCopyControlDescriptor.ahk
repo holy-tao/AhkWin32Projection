@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-iisdbdigitalcopycontroldescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbdigitalcopycontroldescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
      * @returns {Integer} Receives the tag value. For a digital copy control descriptor, this value is 0xC1.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     /**
      * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor, in bytes.
      * @returns {Integer} Receives the descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -157,9 +157,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum trasmission rate for transport stream packets, in units of 250 kbps.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
+     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum transmission rate for transport stream packets, in units of 250 kbps.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
      */
     GetCopyControl(pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
         pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
@@ -174,7 +174,7 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     /**
      * Gets the number of records in an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -184,7 +184,7 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     /**
      * Gets copy control data from a specified component in an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
      * @param {Integer} bRecordIndex Specifies the record number for the component,
-     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords">IIsdbDigitalCompyControlDescriptor::GetCountOfRecords</a>method to get the number of records in the digital copy control descriptor.
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords">IIsdbDigitalCompyControlDescriptor::GetCountOfRecords</a> method to get the number of records in the digital copy control descriptor.
      * @param {Pointer<Integer>} pbComponentTag Receives  the tag identifying the component. This value is the same as the 	component tag in the stream
      * identifier descriptor and the component descriptor.
      * @param {Pointer<Integer>} pbDigitalRecordingControlData 
@@ -292,9 +292,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum trasmission rate for transport stream packets, in units of 250 kbps.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
+     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum transmission rate for transport stream packets, in units of 250 kbps.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
      */
     GetRecordCopyControl(bRecordIndex, pbComponentTag, pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
         pbComponentTagMarshal := pbComponentTag is VarRef ? "char*" : "ptr"

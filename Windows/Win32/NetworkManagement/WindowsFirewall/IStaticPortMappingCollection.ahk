@@ -8,7 +8,7 @@
 
 /**
  * The IStaticPortMappingCollection interface provides methods to manage the collection of static port mappings.
- * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-istaticportmappingcollection
+ * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-istaticportmappingcollection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IStaticPortMappingCollection extends IDispatch{
     /**
      * The get__NewEnum method retrieves an enumerator for the static port mappings collection.
      * @returns {IUnknown} Pointer to an interface pointer that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmappingcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -59,11 +59,13 @@ class IStaticPortMappingCollection extends IDispatch{
 
     /**
      * The get_Item method retrieves the specified port mapping from the collection.
+     * @remarks
+     * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
      * @param {Integer} lExternalPort Specifies the external port for this port mapping.
      * @param {BSTR} bstrProtocol Specifies the protocol. This parameter should be either UDP or TCP.
      * @returns {IStaticPortMapping} Pointer to an interface pointer that points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-istaticportmapping">IStaticPortMapping</a> interface for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmappingcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get_item
      */
     get_Item(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
@@ -75,7 +77,7 @@ class IStaticPortMappingCollection extends IDispatch{
     /**
      * The get_Count method retrieves the number of port mappings in the collection.
      * @returns {Integer} Pointer to a <b>long</b> variable that receives the number of port mappings in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmappingcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -84,6 +86,8 @@ class IStaticPortMappingCollection extends IDispatch{
 
     /**
      * The Remove method removes the specified port mapping from the collection.
+     * @remarks
+     * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
      * @param {Integer} lExternalPort Specifies the external port for this port mapping.
      * @param {BSTR} bstrProtocol Specifies the protocol. This parameter should be either UDP or TCP.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
@@ -184,7 +188,7 @@ class IStaticPortMappingCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmappingcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-remove
      */
     Remove(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
@@ -195,6 +199,8 @@ class IStaticPortMappingCollection extends IDispatch{
 
     /**
      * The Add method creates a new port mapping and adds it to the collection.
+     * @remarks
+     * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
      * @param {Integer} lExternalPort Specifies the external port for this port mapping.
      * @param {BSTR} bstrProtocol Specifies the protocol. This parameter should be either UDP or TCP.
      * @param {Integer} lInternalPort Specifies the internal port for this port mapping.
@@ -204,7 +210,7 @@ class IStaticPortMappingCollection extends IDispatch{
      * @param {BSTR} bstrDescription Specifies a description for this port mapping.
      * @returns {IStaticPortMapping} Pointer to an interface pointer that, on successful return, receives a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-istaticportmapping">IStaticPortMapping</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmappingcollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-add
      */
     Add(lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol

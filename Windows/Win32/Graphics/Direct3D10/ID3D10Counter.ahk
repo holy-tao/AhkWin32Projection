@@ -4,9 +4,8 @@
 #Include .\ID3D10Asynchronous.ahk
 
 /**
- * This interface encapsulates methods for measuring GPU performance.
+ * This interface encapsulates methods for measuring GPU performance. (ID3D10Counter)
  * @remarks
- * 
  * A counter can be created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createcounter">ID3D10Device::CreateCounter</a>.
  * 
  * This is a derived class of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10asynchronous">ID3D10Asynchronous Interface</a>.
@@ -16,9 +15,7 @@
  * Counters are best suited for profiling.
  * 
  * For a list of the types of performance counters, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter">D3D10_COUNTER</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10counter
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10counter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -44,12 +41,12 @@ class ID3D10Counter extends ID3D10Asynchronous{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get a counter description.
+     * Get a counter description. (ID3D10Counter.GetDesc)
      * @param {Pointer<D3D10_COUNTER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>*</b>
      * 
      * Pointer to a counter description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10counter-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10counter-getdesc
      */
     GetDesc(pDesc) {
         ComCall(11, this, "ptr", pDesc)

@@ -6,7 +6,6 @@
 /**
  * This notification interface is used to handle asynchronous provisioned context events.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectioncontextevents
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectioncontextevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,9 +43,13 @@ class IMbnConnectionContextEvents extends IUnknown{
 
     /**
      * Notification method called by the Mobile Broadband service to indicate that a provisioned context stored in the device is available or updated.
+     * @remarks
+     * An application can use the passed <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface to get the list of provisioned contexts for the device.  
+     * 
+     * <b>OnProvisionedContextListChange</b> is not called as the result of an update to an existing provisioned context from an application call of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectioncontext-setprovisionedcontext">SetProvisionedContext</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a>.
      * @param {IMbnConnectionContext} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface that represents the device for which the context is available or updated.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectioncontextevents-onprovisionedcontextlistchange
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onprovisionedcontextlistchange
      */
     OnProvisionedContextListChange(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")
@@ -56,11 +58,16 @@ class IMbnConnectionContextEvents extends IUnknown{
 
     /**
      * Notification method called by the Mobile Broadband service to indicate that the provisioned context in the device has been set.
+     * @remarks
+     * A calling application can pass an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface to <i>newInterface</i> to get the updated list of provisioned contexts in the device.
+     *  However, since this operation is asynchronous, the application must wait for the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onprovisionedcontextlistchange">OnProvisionedContextListChange</a> notification before using this interface to get the contexts.
+     * 
+     * If there are multiple applications registered to receive notifications then all of them will receive this notification even though only one of them could have initiated this operation.
      * @param {IMbnConnectionContext} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface that represents the device for which the context has been set.
      * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the operation that set the context.
      * @param {HRESULT} status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectioncontextevents-onsetprovisionedcontextcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onsetprovisionedcontextcomplete
      */
     OnSetProvisionedContextComplete(newInterface, requestID, status) {
         result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")

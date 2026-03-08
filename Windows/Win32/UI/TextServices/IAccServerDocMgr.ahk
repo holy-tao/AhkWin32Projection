@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that make documents accessible to client applications.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-iaccserverdocmgr
+ * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccserverdocmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,16 +38,18 @@ class IAccServerDocMgr extends IUnknown{
 
     /**
      * Server applications call the IAccServerDocMgr::NewDocument method when it is available. The adapter creates a wrapped document and registers it with the store, so clients can access information about the text in the document.
+     * @remarks
+     * The server application calls the <b>IAccServerDocMgr::NewDocument</b> method to notify the Microsoft Active Accessibility run time that a document is available. Calling <b>NewDocument</b> adds the document to the Microsoft Active Accessibility store so that clients can access the document.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document. This is usually IID_ITextStoreAnchor.
      * @param {IUnknown} punk Type: <b>IUnknown*</b>
      * 
      * [in, iid_is(riid)] An interface pointer to the document.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccserverdocmgr-newdocument
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccserverdocmgr-newdocument
      */
     NewDocument(riid, punk) {
         result := ComCall(3, this, "ptr", riid, "ptr", punk, "HRESULT")
@@ -59,10 +61,10 @@ class IAccServerDocMgr extends IUnknown{
      * @param {IUnknown} punk Type: <b>IUnknown*</b>
      * 
      * An interface pointer to the document being revoked.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccserverdocmgr-revokedocument
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccserverdocmgr-revokedocument
      */
     RevokeDocument(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")
@@ -71,13 +73,15 @@ class IAccServerDocMgr extends IUnknown{
 
     /**
      * Applications that use Text Services Framework call IAccServerDocMgr::OnDocumentFocus to notify the Microsoft Active Accessibility run time when a document gets or loses focus.
+     * @remarks
+     * This can be null indicating that no document has focus.
      * @param {IUnknown} punk Type: <b>IUnknown*</b>
      * 
      * An interface pointer to the document getting focus.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccserverdocmgr-ondocumentfocus
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccserverdocmgr-ondocumentfocus
      */
     OnDocumentFocus(punk) {
         result := ComCall(5, this, "ptr", punk, "HRESULT")

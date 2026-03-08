@@ -41,8 +41,8 @@ class Isolation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, ReturnLengthMarshal, ReturnLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -57,11 +57,7 @@ class Isolation {
     static IsProcessInWDAGContainer(Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, "int*", &isProcessInWDAGContainer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, "int*", &isProcessInWDAGContainer := 0, "HRESULT")
         return isProcessInWDAGContainer
     }
 
@@ -71,11 +67,7 @@ class Isolation {
      * @deprecated IsProcessInIsolatedContainer is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static IsProcessInIsolatedContainer() {
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", &isProcessInIsolatedContainer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", &isProcessInIsolatedContainer := 0, "HRESULT")
         return isProcessInIsolatedContainer
     }
 
@@ -89,11 +81,7 @@ class Isolation {
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment() {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", &isProcessInIsolatedWindowsEnvironment := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", &isProcessInIsolatedWindowsEnvironment := 0, "HRESULT")
         return isProcessInIsolatedWindowsEnvironment
     }
 
@@ -114,11 +102,7 @@ class Isolation {
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent() {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", &isCrossIsolatedEnvironmentClipboardContent := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", &isCrossIsolatedEnvironmentClipboardContent := 0, "HRESULT")
         return isCrossIsolatedEnvironmentClipboardContent
     }
 
@@ -142,11 +126,7 @@ class Isolation {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-        result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr*", &ppSidAppContainerSid := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr*", &ppSidAppContainerSid := 0, "HRESULT")
         return ppSidAppContainerSid
     }
 
@@ -206,11 +186,7 @@ class Isolation {
     static DeleteAppContainerProfile(pszAppContainerName) {
         pszAppContainerName := pszAppContainerName is String ? StrPtr(pszAppContainerName) : pszAppContainerName
 
-        result := DllCall("USERENV.dll\DeleteAppContainerProfile", "ptr", pszAppContainerName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\DeleteAppContainerProfile", "ptr", pszAppContainerName, "HRESULT")
         return result
     }
 
@@ -229,11 +205,7 @@ class Isolation {
      */
     static GetAppContainerRegistryLocation(desiredAccess) {
         phAppContainerKey := HKEY()
-        result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "HRESULT")
         return phAppContainerKey
     }
 
@@ -251,11 +223,7 @@ class Isolation {
     static GetAppContainerFolderPath(pszAppContainerSid) {
         pszAppContainerSid := pszAppContainerSid is String ? StrPtr(pszAppContainerSid) : pszAppContainerSid
 
-        result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr*", &ppszPath := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr*", &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -270,11 +238,7 @@ class Isolation {
     static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName) {
         pszRestrictedAppContainerName := pszRestrictedAppContainerName is String ? StrPtr(pszRestrictedAppContainerName) : pszRestrictedAppContainerName
 
-        result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr*", &ppsidRestrictedAppContainerSid := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr*", &ppsidRestrictedAppContainerSid := 0, "HRESULT")
         return ppsidRestrictedAppContainerSid
     }
 
@@ -288,11 +252,7 @@ class Isolation {
     static DeriveAppContainerSidFromAppContainerName(pszAppContainerName) {
         pszAppContainerName := pszAppContainerName is String ? StrPtr(pszAppContainerName) : pszAppContainerName
 
-        result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr*", &ppsidAppContainerSid := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr*", &ppsidAppContainerSid := 0, "HRESULT")
         return ppsidAppContainerSid
     }
 

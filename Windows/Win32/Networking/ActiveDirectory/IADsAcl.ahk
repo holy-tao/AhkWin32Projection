@@ -6,7 +6,7 @@
 
 /**
  * The IADsAcl interface provides methods for an ADSI client to access and manipulate the ACL or Inherited ACL attribute values. This interface manipulates the attributes.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsacl
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsacl
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -121,7 +121,7 @@ class IADsAcl extends IDispatch{
     /**
      * The IADsAcl::CopyAcl method makes a copy of the existing ACL.
      * @returns {IDispatch} Pointer to the newly created copy of the existing ACL.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsacl-copyacl
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsacl-copyacl
      */
     CopyAcl() {
         result := ComCall(13, this, "ptr*", &ppAcl := 0, "HRESULT")

@@ -30,8 +30,12 @@ class IMFTimedTextCueList extends IUnknown{
     static VTableNames => ["GetLength", "GetCueByIndex", "GetCueById", "GetCueByOriginalId", "AddTextCue", "AddDataCue", "RemoveCue"]
 
     /**
+     * Returns the length, in bytes, of a valid security identifier (SID).
+     * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
-     * @returns {Integer} 
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(3, this, "uint")

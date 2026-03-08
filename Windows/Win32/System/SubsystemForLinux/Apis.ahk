@@ -51,11 +51,7 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         tarGzFilename := tarGzFilename is String ? StrPtr(tarGzFilename) : tarGzFilename
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslRegisterDistribution", "ptr", distributionName, "ptr", tarGzFilename, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslRegisterDistribution", "ptr", distributionName, "ptr", tarGzFilename, "HRESULT")
         return result
     }
 
@@ -68,11 +64,7 @@ class SubsystemForLinux {
     static WslUnregisterDistribution(distributionName) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslUnregisterDistribution", "ptr", distributionName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslUnregisterDistribution", "ptr", distributionName, "HRESULT")
         return result
     }
 
@@ -87,11 +79,7 @@ class SubsystemForLinux {
     static WslConfigureDistribution(distributionName, defaultUID, wslDistributionFlags) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslConfigureDistribution", "ptr", distributionName, "uint", defaultUID, "int", wslDistributionFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslConfigureDistribution", "ptr", distributionName, "uint", defaultUID, "int", wslDistributionFlags, "HRESULT")
         return result
     }
 
@@ -117,11 +105,7 @@ class SubsystemForLinux {
         defaultEnvironmentVariablesMarshal := defaultEnvironmentVariables is VarRef ? "ptr*" : "ptr"
         defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, defaultEnvironmentVariablesMarshal, defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, defaultEnvironmentVariablesMarshal, defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "HRESULT")
         return result
     }
 
@@ -137,11 +121,7 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", &exitCode := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", &exitCode := 0, "HRESULT")
         return exitCode
     }
 
@@ -166,11 +146,7 @@ class SubsystemForLinux {
         stdErr := stdErr is Win32Handle ? NumGet(stdErr, "ptr") : stdErr
 
         process := HANDLE()
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "HRESULT")
         return process
     }
 

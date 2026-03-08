@@ -5,7 +5,7 @@
 
 /**
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
- * @see https://docs.microsoft.com/windows/win32/api//qmgr/nn-qmgr-ibackgroundcopycallback1
+ * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IBackgroundCopyCallback1 extends IUnknown{
      * @param {Integer} dwWin32Result Win32 error code. Valid only if the QM_STATUS_GROUP_ERROR <i>dwStatus</i> flag is set.
      * @param {Integer} dwTransportResult HTTP error code. Valid only if the QM_STATUS_GROUP_ERROR <i>dwStatus</i> flag is set.
      * @returns {HRESULT} This method should return <b>S_OK</b>; otherwise, the service continues to call this method until S_OK is returned. The interval at which the implementation is called is arbitrary.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus
+     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus
      */
     OnStatus(pGroup, pJob, dwFileIndex, dwStatus, dwNumOfRetries, dwWin32Result, dwTransportResult) {
         result := ComCall(3, this, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwStatus, "uint", dwNumOfRetries, "uint", dwWin32Result, "uint", dwTransportResult, "HRESULT")
@@ -48,7 +48,7 @@ class IBackgroundCopyCallback1 extends IUnknown{
     }
 
     /**
-     * 
+     * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
      * @param {Integer} ProgressType 
      * @param {IBackgroundCopyGroup} pGroup 
      * @param {IBackgroundCopyJob1} pJob 
@@ -63,7 +63,7 @@ class IBackgroundCopyCallback1 extends IUnknown{
     }
 
     /**
-     * 
+     * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
      * @param {Integer} ProgressType 
      * @param {IBackgroundCopyGroup} pGroup 
      * @param {IBackgroundCopyJob1} pJob 

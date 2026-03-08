@@ -8,7 +8,7 @@
 
 /**
  * Creates and manages 802.11 ad hoc networks.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocmanager
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanager
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -41,6 +41,10 @@ class IDot11AdHocManager extends IUnknown{
 
     /**
      * Creates a wireless ad hoc network.
+     * @remarks
+     * After a successful <b>CreateNetwork</b> call, the network object returned by <i>pIAdHoc</i> is provisioned but not constructed. A subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocmanager-commitcreatednetwork">CommitCreatedNetwork</a> initializes the network. Beacons are not sent until the network is committed. 
+     * 
+     * There are no clients or hosts connected to the network after a <b>CreateNetwork</b> call. Applications are notified of both successful and failed connection attempts using the <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocmanagernotificationsink">IDot11AdHocManagerNotificationSink</a> interface. For information about registering for notifications on that interface, see <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocmanager">IDot11AdHocManager</a>.
      * @param {PWSTR} Name The friendly name of the network. This string should be limited to 32 characters. The SSID should be used as the friendly name. This name is broadcasted in a beacon.
      * @param {PWSTR} Password The password used for machine or user authentication on the network. 
      * 
@@ -76,7 +80,7 @@ class IDot11AdHocManager extends IUnknown{
      * @param {IDot11AdHocSecuritySettings} pSecurity A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocsecuritysettings">IDot11AdHocSecuritySettings</a> interface that specifies the security settings used on the network.
      * @param {Pointer<Guid>} pContextGuid An optional parameter that specifies the GUID of the application that created the network. An application can use this identifier to limit the networks enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocnetworks">GetIEnumDot11AdHocNetworks</a> to networks created by the application. For this filtering to work correctly, all instances of the application on all machines must use the same GUID.
      * @returns {IDot11AdHocNetwork} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> interface that represents the created network.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanager-createnetwork
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-createnetwork
      */
     CreateNetwork(Name, Password, GeographicalId, pInterface, pSecurity, pContextGuid) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -171,7 +175,7 @@ class IDot11AdHocManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanager-commitcreatednetwork
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-commitcreatednetwork
      */
     CommitCreatedNetwork(pIAdHoc, fSaveProfile, fMakeSavedProfileUserSpecific) {
         result := ComCall(4, this, "ptr", pIAdHoc, "char", fSaveProfile, "char", fMakeSavedProfileUserSpecific, "HRESULT")
@@ -182,7 +186,7 @@ class IDot11AdHocManager extends IUnknown{
      * Returns a list of available ad hoc network destinations within connection range.
      * @param {Pointer<Guid>} pContextGuid An optional parameter that specifies the GUID of the application that created the network. An application can use this identifier to limit the networks enumerated to networks created by the application. For this filtering to work correctly, all instances of the application on all machines must use the same GUID.
      * @returns {IEnumDot11AdHocNetworks} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocnetworks">IEnumDot11AdHocNetworks</a> interface that contains the enumerated networks.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocnetworks
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocnetworks
      */
     GetIEnumDot11AdHocNetworks(pContextGuid) {
         result := ComCall(5, this, "ptr", pContextGuid, "ptr*", &ppEnum := 0, "HRESULT")
@@ -192,7 +196,7 @@ class IDot11AdHocManager extends IUnknown{
     /**
      * Returns the set of wireless network interface cards (NICs) available on the machine.
      * @returns {IEnumDot11AdHocInterfaces} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocinterfaces">IEnumDot11AdHocInterfaces</a> interface that contains the list of NICs.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocinterfaces
      */
     GetIEnumDot11AdHocInterfaces() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -203,7 +207,7 @@ class IDot11AdHocManager extends IUnknown{
      * Returns the network associated with a signature.
      * @param {Pointer<Guid>} NetworkSignature A signature that uniquely identifies an ad hoc network. This signature is generated  from certain network attributes.
      * @returns {IDot11AdHocNetwork} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> interface that represents the network associated with the signature.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanager-getnetwork
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getnetwork
      */
     GetNetwork(NetworkSignature) {
         result := ComCall(7, this, "ptr", NetworkSignature, "ptr*", &pNetwork := 0, "HRESULT")

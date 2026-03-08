@@ -58,8 +58,9 @@ class IDiagnosticsScriptEngine extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: DetachDatabaseGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
         result := ComCall(5, this, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Do not use. This interface ndicates which Windows Address Book (WAB) object is being displayed (for example, a property sheet or context menu).
- * @see https://docs.microsoft.com/windows/win32/api//wabapi/nn-wabapi-iwabextinit
+ * @see https://learn.microsoft.com/windows/win32/api/wabapi/nn-wabapi-iwabextinit
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -32,6 +32,19 @@ class IWABExtInit extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {Pointer<WABEXTDISPLAY>} lpWABExtDisplay 
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
@@ -44,7 +57,7 @@ class IWABExtInit extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(lpWABExtDisplay) {
         result := ComCall(3, this, "ptr", lpWABExtDisplay, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method to create a specified IPropertyStore object in circumstances where property access is potentially slow.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-idelayedpropertystorefactory
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-idelayedpropertystorefactory
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -44,7 +44,7 @@ class IDelayedPropertyStoreFactory extends IPropertyStoreFactory{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-idelayedpropertystorefactory-getdelayedpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-idelayedpropertystorefactory-getdelayedpropertystore
      */
     GetDelayedPropertyStore(flags, dwStoreId, riid) {
         result := ComCall(5, this, "int", flags, "uint", dwStoreId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

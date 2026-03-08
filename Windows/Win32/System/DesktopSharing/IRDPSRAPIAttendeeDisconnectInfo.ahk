@@ -6,7 +6,7 @@
 
 /**
  * Contains information about the reason an attendee disconnected.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiattendeedisconnectinfo
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendeedisconnectinfo
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -61,12 +61,9 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
     /**
      * The attendee that was disconnected.
      * @remarks
-     * 
      * Applications can query properties, but any attempt to modify properties fails with <b>E_UNEXPECTED</b>.
-     * 
-     * 
      * @returns {IRDPSRAPIAttendee} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_attendee
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_attendee
      */
     get_Attendee() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -76,7 +73,7 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
     /**
      * The reason the attendee was disconnected.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_reason
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_reason
      */
     get_Reason() {
         result := ComCall(8, this, "int*", &pReason := 0, "HRESULT")
@@ -86,7 +83,7 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
     /**
      * The status of the disconnect operation.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_code
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_code
      */
     get_Code() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")

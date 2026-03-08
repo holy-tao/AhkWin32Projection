@@ -8,12 +8,8 @@
 /**
  * Provides the methods that are used to add to, remove from, and get the triggers of a task.
  * @remarks
- * 
  * When reading or writing XML for a task, the triggers for the task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itriggercollection
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itriggercollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -55,7 +51,7 @@ class ITriggerCollection extends IDispatch{
      * Gets the number of triggers in the collection.
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-get_count
      */
     get_Count(pCount) {
         pCountMarshal := pCount is VarRef ? "int*" : "ptr"
@@ -67,13 +63,10 @@ class ITriggerCollection extends IDispatch{
     /**
      * Gets the specified trigger from the collection.
      * @remarks
-     * 
      * Collections are 1-based. That is, the index for the first item in the collection is 1.
-     * 
-     * 
      * @param {Integer} index 
      * @returns {ITrigger} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-get_item
      */
     get_Item(index) {
         result := ComCall(8, this, "int", index, "ptr*", &ppTrigger := 0, "HRESULT")
@@ -83,7 +76,7 @@ class ITriggerCollection extends IDispatch{
     /**
      * Gets the collection enumerator for the trigger collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -224,7 +217,7 @@ class ITriggerCollection extends IDispatch{
      * @returns {ITrigger} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itrigger">ITrigger</a> interface that represents the new trigger.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itrigger">ITrigger</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-create
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-create
      */
     Create(type) {
         result := ComCall(10, this, "int", type, "ptr*", &ppTrigger := 0, "HRESULT")
@@ -233,9 +226,13 @@ class ITriggerCollection extends IDispatch{
 
     /**
      * Removes the specified trigger from the collection of triggers used by the task.
+     * @remarks
+     * When removing items, note that the index for the first item in the collection is 1 and the index for the last item is the value of the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itriggercollection-get_count">Count</a> property.
+     * 
+     * This method will return <b>E_INVALIDARG</b> when the value passed to the <i>index</i> parameter is not valid.
      * @param {VARIANT} index The index of the trigger to be removed. Use a LONG value for the index number.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-remove
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-remove
      */
     Remove(index) {
         result := ComCall(11, this, "ptr", index, "HRESULT")
@@ -244,8 +241,8 @@ class ITriggerCollection extends IDispatch{
 
     /**
      * Clears all triggers from the collection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itriggercollection-clear
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")

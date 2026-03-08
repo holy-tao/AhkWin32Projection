@@ -8,10 +8,8 @@
 /**
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2Crossbar)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2crossbar
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2crossbar
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,9 +36,22 @@ class ISBE2Crossbar extends IUnknown{
 
     /**
      * Enables or disables the profile default mode and stream default mode for a crossbar in a Stream Buffer Source filter.
+     * @remarks
+     * In stream default mode, SBE first checks the Windows Media Center TV settings to determine if a preferred language is set. If a preferred language is set:
+     * 
+     * <ul>
+     * <li>If an audio stream in the preferred language exists, SBE outputs that audio stream.</li>
+     * <li>If an audio stream in the preferred language does not exist, SBE outputs the default audio stream, which is set when the stream is captured.</li>
+     * </ul>
+     * If no preferred language is set, Windows Media Center is either not present or not configured. In this case:
+     * 
+     * <ul>
+     * <li>If an audio stream in the language the operating system locale exists, SBE outputs that audio stream.</li>
+     * <li>Otherwise, SBE outputs the default audio stream.</li>
+     * </ul>
      * @param {Integer} DefaultFlags 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2crossbar-enabledefaultmode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-enabledefaultmode
      */
     EnableDefaultMode(DefaultFlags) {
         result := ComCall(3, this, "uint", DefaultFlags, "HRESULT")
@@ -52,7 +63,7 @@ class ISBE2Crossbar extends IUnknown{
      * @returns {ISBE2MediaTypeProfile} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-isbe2mediatypeprofile">ISBE2MediaTypeProfile</a> interface that implements the profile.
      *           
      *           The caller is responsible for releasing this interface. You can use this pointer to create a custom profile that you pass to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2crossbar-setoutputprofile">SetOutputProfile</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2crossbar-getinitialprofile
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-getinitialprofile
      */
     GetInitialProfile() {
         result := ComCall(4, this, "ptr*", &ppProfile := 0, "HRESULT")
@@ -116,7 +127,7 @@ class ISBE2Crossbar extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2crossbar-setoutputprofile
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-setoutputprofile
      */
     SetOutputProfile(pProfile, pcOutputPins, ppOutputPins) {
         pcOutputPinsMarshal := pcOutputPins is VarRef ? "uint*" : "ptr"
@@ -129,7 +140,7 @@ class ISBE2Crossbar extends IUnknown{
      * Gets an enumeration object for all streams that are discovered in a WTV file. The filter crossbar, which exposes the ISBE2Crossbar interface, manages the mappings between the streams in the WTV file and the filter output pins.
      * @returns {ISBE2EnumStream} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-isbe2enumstream">ISBE2EnumStream</a> interface that the crossbar implements.
      *           You can use the methods that are defined by the <b>ISBE2EnumStream</b>  interface to enumerate the streams that can be mapped to output pins in the current profile. The caller is responsible for releasing the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2crossbar-enumstreams
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-enumstreams
      */
     EnumStreams() {
         result := ComCall(6, this, "ptr*", &ppStreams := 0, "HRESULT")

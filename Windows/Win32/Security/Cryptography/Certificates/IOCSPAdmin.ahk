@@ -10,7 +10,6 @@
 /**
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.
  * @remarks
- * 
  * The following table disambiguates the various properties used in the Microsoft OCSP architecture.
  * 
  * <table>
@@ -59,9 +58,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocspadmin
+ * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -109,7 +106,6 @@ class IOCSPAdmin extends IDispatch{
     /**
      * Gets an instance of an OCSPPropertyCollection object. This object represents the attributes of an Online Certificate Status Protocol (OCSP) responder service.
      * @remarks
-     * 
      * The following table lists the possible <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspproperty-get_name">Name</a>-<a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspproperty-get_value">Value</a> pairs for OCSP service properties.
      * 
      * <table>
@@ -211,10 +207,8 @@ class IOCSPAdmin extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {IOCSPPropertyCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-get_ocspserviceproperties
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties
      */
     get_OCSPServiceProperties() {
         result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -224,7 +218,7 @@ class IOCSPAdmin extends IDispatch{
     /**
      * Gets an instance of an OCSPCAConfigurationCollection object. This object represents the set of certification authority (CA) certificates for which an Online Certificate Status Protocol (OCSP) responder service can handle status requests.
      * @returns {IOCSPCAConfigurationCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-get_ocspcaconfigurationcollection
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-get_ocspcaconfigurationcollection
      */
     get_OCSPCAConfigurationCollection() {
         result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
@@ -233,6 +227,88 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * Connects to an Online Certificate Status Protocol (OCSP) responder server and initializes an OCSPAdmin object with the configuration information from the server.
+     * @remarks
+     * The following table lists the effects of the <i>bForce</i> parameter value on the method call.
+     * 
+     * <table>
+     * <tr>
+     * <th>OCSP responder service on the target server</th>
+     * <th><i>bForce</i> is <b>VARIANT_TRUE</b></th>
+     * <th><i>bForce</i> is <b>VARIANT_FALSE</b></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Running
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Stopped
+     * 
+     * </td>
+     * <td>
+     * Attempt to retrieve configuration from the server registry. If this attempt fails, return an error.
+     * 
+     * </td>
+     * <td>
+     * Return an error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The following table lists the effects of the <i>bForce</i> parameter value on the method call.
+     * 
+     * <table>
+     * <tr>
+     * <th>OCSP responder service on the target server</th>
+     * <th><i>bForce</i> is <b>True</b></th>
+     * <th><i>bForce</i> is <b>False</b></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Running
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Stopped
+     * 
+     * </td>
+     * <td>
+     * Attempt to retrieve configuration from the server registry. If this attempt fails, return an error.
+     * 
+     * </td>
+     * <td>
+     * Return an error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method attempts to read the configuration from a running instance of an OCSP responder service, but that might not be possible if the service is not running or is in an inaccessible state. The caller can instruct the method to read the configuration from the server's registry if a running instance cannot be found.
+     * 
+     * The method fails if you try to call it more than once for a given <b>OCSPAdmin</b> object. Each instance of <b>OCSPAdmin</b> corresponds to one responder server. To connect to another server in an array of OCSP responder servers, create a new instance of an <b>OCSPAdmin</b> object.
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @param {VARIANT_BOOL} bForce <table>
      * <tr>
@@ -253,12 +329,12 @@ class IOCSPAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * If the method returns <b>HRESULT_FROM_WIN32(ERROR_INVALID_STATE)</b>, the configuration is already initialized.
      * 
      * If the method returns <b>E_INVALIDARG</b>, the <i>pVal</i> parameter was set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-getconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getconfiguration
      */
     GetConfiguration(bstrServerName, bForce) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -269,6 +345,83 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * Updates a responder service with configuration changes.
+     * @remarks
+     * The following table lists the effects of the <i>bForce</i> parameter value on the method call.
+     * 
+     * <table>
+     * <tr>
+     * <th>OCSP responder service on the target server</th>
+     * <th><i>bForce</i> is <b>VARIANT_TRUE</b></th>
+     * <th><i>bForce</i> is <b>VARIANT_FALSE</b></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Running
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Stopped
+     * 
+     * </td>
+     * <td>
+     * Attempt to retrieve configuration from the server registry. If this attempt fails, return an error.
+     * 
+     * </td>
+     * <td>
+     * Return an error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The following table lists the effects of the <i>bForce</i> parameter value on the method call.
+     * 
+     * <table>
+     * <tr>
+     * <th>OCSP responder service on the target server</th>
+     * <th><i>bForce</i> is <b>True</b></th>
+     * <th><i>bForce</i> is <b>False</b></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Running
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * <td>
+     * Retrieve configuration from the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Stopped
+     * 
+     * </td>
+     * <td>
+     * Attempt to retrieve configuration from the server registry. If this attempt fails, return an error.
+     * 
+     * </td>
+     * <td>
+     * Return an error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {BSTR} bstrServerName A string that contains the responder-service name.
      * @param {VARIANT_BOOL} bForce <table>
      * <tr>
@@ -287,8 +440,8 @@ class IOCSPAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-setconfiguration
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-setconfiguration
      */
     SetConfiguration(bstrServerName, bForce) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -299,9 +452,84 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * Gets the access mask of privilege roles for a user on a given Online Certificate Status Protocol (OCSP) responder server.
+     * @remarks
+     * The OCSP responder server defines the following masks for access privilege roles.
+     * 
+     * <table>
+     * <tr>
+     * <th>Constant</th>
+     * <th>C++ value</th>
+     * <th>VB Script value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * CA_ACCESS_ADMIN
+     * 
+     * </td>
+     * <td>
+     * 0x001
+     * 
+     * </td>
+     * <td>
+     * &amp;H1
+     * 
+     * </td>
+     * <td>
+     * CA administrator
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * CA_ACCESS_READ
+     * 
+     * </td>
+     * <td>
+     * 0x100
+     * 
+     * </td>
+     * <td>
+     * &amp;H100
+     * 
+     * </td>
+     * <td>
+     * Read-only access to a CA
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * CA_ACCESS_ENROLL
+     * 
+     * </td>
+     * <td>
+     * 0x200
+     * 
+     * </td>
+     * <td>
+     * &amp;H200
+     * 
+     * </td>
+     * <td>
+     * Enroll access to a CA
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Examples of privileges a user might have, depending on the  mask:
+     * 
+     * <ul>
+     * <li>Configure and upgrade an OCSP server.</li>
+     * <li>Assign existing signing certificate and key.</li>
+     * <li>Install and update Certificate Revocation Lists (CRLs).</li>
+     * <li>Configure a  response format.</li>
+     * </ul>
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @returns {Integer} A pointer to the 32-bit access mask.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-getmyroles
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getmyroles
      */
     GetMyRoles(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -314,7 +542,7 @@ class IOCSPAdmin extends IDispatch{
      * Tests a DCOM connection with an Online Certificate Status Protocol (OCSP) responder service.
      * @param {BSTR} bstrServerName A string that contains the OCSP responder server name.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-ping
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-ping
      */
     Ping(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -326,14 +554,11 @@ class IOCSPAdmin extends IDispatch{
     /**
      * Updates security descriptor information for an Online Certificate Status Protocol (OCSP) responder server.
      * @remarks
-     * 
      * This method calls the <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora">ConvertStringSecurityDescriptorToSecurityDescriptor</a> function to create a security descriptor from a string in <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
-     * 
-     * 
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @param {BSTR} bstrVal A string that contains the security descriptor information to assign to the responder server.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-setsecurity
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-setsecurity
      */
     SetSecurity(bstrServerName, bstrVal) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -345,9 +570,11 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * Gets security descriptor information for an Online Certificate Status Protocol (OCSP) responder server.
+     * @remarks
+     * This method calls the <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptora">ConvertSecurityDescriptorToStringSecurityDescriptor</a> function to create a string value in <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-getsecurity
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getsecurity
      */
     GetSecurity(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -359,10 +586,19 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * Gets the signing certificates that are available on a responder server for a given certification authority (CA) certificate.
+     * @remarks
+     * Each signing certificate has the following properties:
+     * 
+     * <ul>
+     * <li>Signed by the CA specified by the <i>pCACertVar</i> parameter</li>
+     * <li>Includes the Online Certificate Status Protocol (OCSP) signing (<b>XCN_OID_PKIX_KP_OCSP_SIGNING</b>) extension</li>
+     * <li>Has not expired</li>
+     * <li>Responder server can access the certificate private key</li>
+     * </ul>
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @param {Pointer<VARIANT>} pCACertVar The CA certificate for which to retrieve signing certificates.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-getsigningcertificates
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getsigningcertificates
      */
     GetSigningCertificates(bstrServerName, pCACertVar) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -377,7 +613,7 @@ class IOCSPAdmin extends IDispatch{
      * @param {BSTR} bstrServerName A string that contains the responder-server name.
      * @param {BSTR} bstrCAId A string that contains an <b>OCSPCAConfiguration</b> <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier">Identifier</a>.
      * @returns {VARIANT} The list of hash algorithms with which a responder server can sign responses.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspadmin-gethashalgorithms
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-gethashalgorithms
      */
     GetHashAlgorithms(bstrServerName, bstrCAId) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName

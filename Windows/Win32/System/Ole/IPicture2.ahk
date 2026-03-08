@@ -132,7 +132,9 @@ class IPicture2 extends IUnknown{
     }
 
     /**
-     * 
+     * The Render method initializes the DVD filter graph.
+     * @remarks
+     * The `Render` method enables the **MSWebDVD** object to fully initialize the underlying DirectShow filter graph on startup. This eliminates the slight delay that otherwise occurs when the user issues the first command to play a disc or show a menu. There is no case in which `Render` needs to be called before calling any other method. For example, if the application calls [**PlayTitle**](playtitle-method.md) before the filter graph has been initialized, the **MSWebDVD** object calls `Render` automatically before attempting to play the disc.
      * @param {HDC} hDC 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -143,7 +145,25 @@ class IPicture2 extends IUnknown{
      * @param {Integer} cxSrc 
      * @param {Integer} cySrc 
      * @param {Pointer<RECT>} pRcWBounds 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="iRender"></span><span id="irender"></span><span id="IRENDER"></span>*iRender*
+     * 
+     * Specifies an integer value indicating whether the filter graph will be destroyed and rebuilt.
+     * 
+     * 
+     * 
+     * | Value | Description                                                                                         |
+     * |-------|-----------------------------------------------------------------------------------------------------|
+     * | 0     | The filter graph will not be destroyed and rebuilt if it already exists. This is the default value. |
+     * | 1     | The filter graph will be destroyed and rebuilt if it already exists.                                |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/render-method
      */
     Render(hDC, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC

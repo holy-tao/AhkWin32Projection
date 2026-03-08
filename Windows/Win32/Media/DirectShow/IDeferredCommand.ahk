@@ -5,7 +5,7 @@
 
 /**
  * The IDeferredCommand interface cancels or modify graph-control commands that were queued using the IQueueCommand interface.When an application calls an IQueueCommand method on the Filter Graph Manager, it receives a pointer to the IDeferredCommand interface. The application can use the interface to cancel or postpone the command, or retrieve the return value from the command.
- * @see https://docs.microsoft.com/windows/win32/api//control/nn-control-ideferredcommand
+ * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ideferredcommand
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -62,7 +62,7 @@ class IDeferredCommand extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-cancel
+     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-cancel
      */
     Cancel() {
         result := ComCall(3, this, "HRESULT")
@@ -72,7 +72,7 @@ class IDeferredCommand extends IUnknown{
     /**
      * The Confidence method retrieves a confidence value that indicates how likely it is for the command to be invoked at the requested time.
      * @returns {Integer} Receives the confidence level, on a scale of 0 to 100.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-confidence
+     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-confidence
      */
     Confidence() {
         result := ComCall(4, this, "int*", &pConfidence := 0, "HRESULT")
@@ -112,7 +112,7 @@ class IDeferredCommand extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-postpone
+     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-postpone
      */
     Postpone(newtime) {
         result := ComCall(5, this, "double", newtime, "HRESULT")
@@ -122,7 +122,7 @@ class IDeferredCommand extends IUnknown{
     /**
      * The GetHResult method retrieves the return value from the invoked command.
      * @returns {HRESULT} Receives the <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-gethresult
+     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-gethresult
      */
     GetHResult() {
         result := ComCall(6, this, "int*", &phrResult := 0, "HRESULT")

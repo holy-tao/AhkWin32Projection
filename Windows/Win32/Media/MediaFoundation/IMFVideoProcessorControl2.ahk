@@ -4,13 +4,10 @@
 #Include .\IMFVideoProcessorControl.ahk
 
 /**
- * Configures the Video Processor MFT.
+ * Configures the Video Processor MFT. (IMFVideoProcessorControl2)
  * @remarks
- * 
  * This interface controls how the <a href="https://docs.microsoft.com/windows/desktop/medfound/video-processor-mft">Video Processor MFT</a> generates output frames.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideoprocessorcontrol2
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideoprocessorcontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -42,8 +39,8 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl{
      * Rotation value in degrees.  Typically, you can only use values from the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/ne-mfapi-mfvideorotationformat">MFVideoRotationFormat</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideoprocessorcontrol2-setrotationoverride
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-setrotationoverride
      */
     SetRotationOverride(uiRotation) {
         result := ComCall(9, this, "uint", uiRotation, "HRESULT")
@@ -57,8 +54,8 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl{
      * Specifies whether effects are to be enabled. <b>TRUE</b> specifies to enable effects. <b>FALSE</b> specifies to disable effects.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideoprocessorcontrol2-enablehardwareeffects
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-enablehardwareeffects
      */
     EnableHardwareEffects(fEnabled) {
         result := ComCall(10, this, "int", fEnabled, "HRESULT")
@@ -69,8 +66,8 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl{
      * Returns the list of supported effects in the currently configured video processor.
      * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_auto_stream_caps">D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the list of suppported effect capabilities.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideoprocessorcontrol2-getsupportedhardwareeffects
+     * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_auto_stream_caps">D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the list of supported effect capabilities.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-getsupportedhardwareeffects
      */
     GetSupportedHardwareEffects() {
         result := ComCall(11, this, "uint*", &puiSupport := 0, "HRESULT")

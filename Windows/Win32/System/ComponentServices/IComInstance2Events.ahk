@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if an object is created or released by a client.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icominstance2events
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icominstance2events
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IComInstance2Events extends IUnknown{
      * @param {Integer} ObjectID The initial JIT-activated object.
      * @param {Pointer<Guid>} guidPartition The partition identifier for which this instance is created.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
      */
     OnObjectCreate2(pInfo, guidActivity, clsid, tsid, CtxtID, ObjectID, guidPartition) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", ObjectID, "ptr", guidPartition, "HRESULT")
@@ -52,7 +52,7 @@ class IComInstance2Events extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The context identifier of the object.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstance2events-onobjectdestroy2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectdestroy2
      */
     OnObjectDestroy2(pInfo, CtxtID) {
         result := ComCall(4, this, "ptr", pInfo, "uint", CtxtID, "HRESULT")

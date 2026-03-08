@@ -8,16 +8,13 @@
 /**
  * The INetFwOpenPorts interface is a standard Automation collection interface.
  * @remarks
- * 
  * An instance
  * of this interface is retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_globallyopenports">GloballyOpenPorts</a> property of the
  * INetFwProfile interface.
  * 
  * All configuration changes take effect
  * immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwopenports
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwopenports
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -57,9 +54,9 @@ class INetFwOpenPorts extends IDispatch{
     }
 
     /**
-     * Retrieves a read-only element yielding the number of items in the collection.
+     * Retrieves a read-only element yielding the number of items in the collection. (INetFwOpenPorts.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenports-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &count := 0, "HRESULT")
@@ -68,6 +65,8 @@ class INetFwOpenPorts extends IDispatch{
 
     /**
      * Opens a new port and adds it to the collection.
+     * @remarks
+     * If the port is already open, the existing settings are overwritten.
      * @param {INetFwOpenPort} port Port to add to the collection.
      * @returns {HRESULT} <h3>C++</h3>
      * <table>
@@ -177,7 +176,7 @@ class INetFwOpenPorts extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenports-add
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-add
      */
     Add(port) {
         result := ComCall(8, this, "ptr", port, "HRESULT")
@@ -186,6 +185,9 @@ class INetFwOpenPorts extends IDispatch{
 
     /**
      * Closes a port and removes it from the collection.
+     * @remarks
+     * If the port is already
+     *    closed ,the <b>Remove</b> method has no effect.
      * @param {Integer} portNumber Port number to remove.
      * @param {Integer} ipProtocol Protocol of the port to remove.
      * @returns {HRESULT} <h3>C++</h3>
@@ -274,7 +276,7 @@ class INetFwOpenPorts extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenports-remove
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-remove
      */
     Remove(portNumber, ipProtocol) {
         result := ComCall(9, this, "int", portNumber, "int", ipProtocol, "HRESULT")
@@ -286,7 +288,7 @@ class INetFwOpenPorts extends IDispatch{
      * @param {Integer} portNumber Port number to find.
      * @param {Integer} ipProtocol Protocol of the port to find by type <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_ip_protocol">NET_FW_IP_PROTOCOL</a>.
      * @returns {INetFwOpenPort} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenport">INetFwOpenPort</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenports-item
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-item
      */
     Item(portNumber, ipProtocol) {
         result := ComCall(10, this, "int", portNumber, "int", ipProtocol, "ptr*", &openPort := 0, "HRESULT")
@@ -296,7 +298,7 @@ class INetFwOpenPorts extends IDispatch{
     /**
      * Returns an object supporting IEnumVARIANT that can be used to iterate through all the ports in the collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenports-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-get__newenum
      */
     get__NewEnum() {
         result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to monitor and debug a command list.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class ID3D12DebugCommandList extends IUnknown{
     static VTableNames => ["AssertResourceState", "SetFeatureMask", "GetFeatureMask"]
 
     /**
-     * Checks whether a resource, or subresource, is in a specified state, or not.
+     * Checks whether a resource, or subresource, is in a specified state, or not. (ID3D12DebugCommandList.AssertResourceState)
      * @param {ID3D12Resource} pResource Type: <b>ID3D12Resource*</b>
      * 
      * Specifies the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> to check.
@@ -44,7 +44,7 @@ class ID3D12DebugCommandList extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * This method returns true if the resource or subresource is in the specified state, false otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-assertresourcestate
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-assertresourcestate
      */
     AssertResourceState(pResource, Subresource, State) {
         result := ComCall(3, this, "ptr", pResource, "uint", Subresource, "uint", State, "int")
@@ -56,10 +56,10 @@ class ID3D12DebugCommandList extends IUnknown{
      * @param {Integer} Mask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a></b>
      * 
      * A combination of feature-mask flags that are combined by using a bitwise OR operation. If a flag is present, that feature will be set to on, otherwise the feature will be set to off.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-setfeaturemask
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-setfeaturemask
      */
     SetFeatureMask(Mask) {
         result := ComCall(4, this, "int", Mask, "HRESULT")
@@ -68,10 +68,10 @@ class ID3D12DebugCommandList extends IUnknown{
 
     /**
      * Returns the debug feature flags that have been set on a command list.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a></b>
      * 
      * A bit mask containing the set debug features.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-getfeaturemask
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-getfeaturemask
      */
     GetFeatureMask() {
         result := ComCall(5, this, "int")

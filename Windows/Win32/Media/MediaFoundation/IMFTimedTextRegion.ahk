@@ -6,7 +6,7 @@
 
 /**
  * Represents the display region of a timed-text object.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtextregion
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * A pointer to a variable that receives the null-terminated wide-character string that contains the name of the region.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getname
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -56,8 +56,8 @@ class IMFTimedTextRegion extends IUnknown{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getposition
      */
     GetPosition(pX, pY, unitType) {
         pXMarshal := pX is VarRef ? "double*" : "ptr"
@@ -81,8 +81,8 @@ class IMFTimedTextRegion extends IUnknown{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getextent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getextent
      */
     GetExtent(pWidth, pHeight, unitType) {
         pWidthMarshal := pWidth is VarRef ? "double*" : "ptr"
@@ -98,7 +98,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {MFARGB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the background color.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getbackgroundcolor
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getbackgroundcolor
      */
     GetBackgroundColor() {
         bgColor := MFARGB()
@@ -111,7 +111,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode">MF_TIMED_TEXT_WRITING_MODE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode">MF_TIMED_TEXT_WRITING_MODE</a>-typed value that specifies the writing mode of the region.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwritingmode
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwritingmode
      */
     GetWritingMode() {
         result := ComCall(7, this, "int*", &writingMode := 0, "HRESULT")
@@ -123,7 +123,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment">MF_TIMED_TEXT_DISPLAY_ALIGNMENT</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment">MF_TIMED_TEXT_DISPLAY_ALIGNMENT</a>-typed value that specifies the display alignment of the region.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getdisplayalignment
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getdisplayalignment
      */
     GetDisplayAlignment() {
         result := ComCall(8, this, "int*", &displayAlign := 0, "HRESULT")
@@ -140,8 +140,8 @@ class IMFTimedTextRegion extends IUnknown{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getlineheight
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getlineheight
      */
     GetLineHeight(pLineHeight, unitType) {
         pLineHeightMarshal := pLineHeight is VarRef ? "double*" : "ptr"
@@ -156,7 +156,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a variable that receives a value that specifies whether a clip of text overflowed the region. The variable specifies <b>TRUE</b> if the clip overflowed; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getclipoverflow
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getclipoverflow
      */
     GetClipOverflow() {
         result := ComCall(10, this, "int*", &clipOverflow := 0, "HRESULT")
@@ -182,8 +182,8 @@ class IMFTimedTextRegion extends IUnknown{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getpadding
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getpadding
      */
     GetPadding(before, start, after, end, unitType) {
         beforeMarshal := before is VarRef ? "double*" : "ptr"
@@ -201,7 +201,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a variable that receives a value that specifies whether the word wrap feature is enabled in the region. The variable specifies <b>TRUE</b> if word wrap is enabled; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwrap
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwrap
      */
     GetWrap() {
         result := ComCall(12, this, "int*", &wrap := 0, "HRESULT")
@@ -213,7 +213,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {Integer} Type: <b>INT32*</b>
      * 
      * A pointer to a variable that receives the Z-index (depth) of the region.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getzindex
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getzindex
      */
     GetZIndex() {
         result := ComCall(13, this, "int*", &zIndex := 0, "HRESULT")
@@ -225,7 +225,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode">MF_TIMED_TEXT_SCROLL_MODE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode">MF_TIMED_TEXT_SCROLL_MODE</a>-typed value that specifies the scroll mode of the region.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextregion-getscrollmode
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getscrollmode
      */
     GetScrollMode() {
         result := ComCall(14, this, "int*", &scrollMode := 0, "HRESULT")

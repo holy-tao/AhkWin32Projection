@@ -7,13 +7,11 @@
 /**
  * Retrieves the IStorageProviderPropertyHandler associated with a specific file or folder.
  * @remarks
- * 
  * <div class="alert"><b>Caution</b>  <p class="note">You should only implement this interface if you have a specific need to do so.  
  * 
  * </div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nn-storageprovider-istorageproviderhandler
+ * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nn-storageprovider-istorageproviderhandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,7 +40,7 @@ class IStorageProviderHandler extends IUnknown{
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided path.
      * @param {PWSTR} path The path for the relevant file.
      * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>path</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
+     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
      */
     GetPropertyHandlerFromPath(path) {
         path := path is String ? StrPtr(path) : path
@@ -53,9 +51,11 @@ class IStorageProviderHandler extends IUnknown{
 
     /**
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided URI.
+     * @remarks
+     * This method is used to convert a remote URI to a local file system path. That path is then used to provide the <i>propertyHandler</i> to the local file.
      * @param {PWSTR} uri The URI for the relevant file.
      * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>uri</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromuri
+     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromuri
      */
     GetPropertyHandlerFromUri(uri) {
         uri := uri is String ? StrPtr(uri) : uri
@@ -66,9 +66,11 @@ class IStorageProviderHandler extends IUnknown{
 
     /**
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided file identifier.
+     * @remarks
+     * This method is used to convert a  file identifier to a local file system path. That path is then used to provide the <i>propertyHandler</i> to the local file.
      * @param {PWSTR} fileId The identifier for the relevant file.
      * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>fileId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromfileid
+     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromfileid
      */
     GetPropertyHandlerFromFileId(fileId) {
         fileId := fileId is String ? StrPtr(fileId) : fileId

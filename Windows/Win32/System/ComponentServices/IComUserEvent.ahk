@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber of the specified user-defined metrics.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomuserevent
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomuserevent
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IComUserEvent extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<VARIANT>} pvarEvent The user-defined information.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomuserevent-onuserevent
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomuserevent-onuserevent
      */
     OnUserEvent(pInfo, pvarEvent) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", pvarEvent, "HRESULT")

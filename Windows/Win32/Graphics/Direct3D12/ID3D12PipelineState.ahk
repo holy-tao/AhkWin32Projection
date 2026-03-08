@@ -7,14 +7,10 @@
 /**
  * Represents the state of all currently set shaders as well as certain fixed function state objects.
  * @remarks
- * 
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">ID3D12Device::CreateGraphicsPipelineState</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate">ID3D12Device::CreateComputePipelineState</a> to create a pipeline state object (PSO). 
  * 
  * A pipeline state object corresponds to a significant portion of the state of the graphics processing unit (GPU).  This state includes all currently set shaders and certain fixed function state objects.  The only way to change states contained within the pipeline object is to change the currently bound pipeline object.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12pipelinestate
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinestate
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -41,10 +37,12 @@ class ID3D12PipelineState extends ID3D12Pageable{
 
     /**
      * Gets the cached blob representing the pipeline state.
+     * @remarks
+     * Refer to the remarks for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cached_pipeline_state">D3D12_CACHED_PIPELINE_STATE</a>.
      * @returns {ID3DBlob} Type: <b>ID3DBlob**</b>
      * 
      * After this method returns, points to the cached blob representing the pipeline state.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinestate-getcachedblob
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinestate-getcachedblob
      */
     GetCachedBlob() {
         result := ComCall(8, this, "ptr*", &ppBlob := 0, "HRESULT")

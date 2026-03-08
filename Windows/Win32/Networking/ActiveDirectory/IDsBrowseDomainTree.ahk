@@ -6,7 +6,6 @@
 /**
  * The IDsBrowseDomainTree interface is used by an application to display a domain browser dialog box and/or obtain a list of trust domains related to a given computer.
  * @remarks
- * 
  * An instance of this interface is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with the <b>CLSID_DsDomainTreeBrowser</b> class identifier as shown below.
  * 
  * 
@@ -28,9 +27,7 @@
  *     pDSB->Release();
  * }
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dsclient/nn-dsclient-idsbrowsedomaintree
+ * @see https://learn.microsoft.com/windows/win32/api/dsclient/nn-dsclient-idsbrowsedomaintree
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -60,7 +57,7 @@ class IDsBrowseDomainTree extends IUnknown{
      * @param {HWND} hwndParent Handle of the window that will be the owner of the domain browser dialog box.
      * @param {Integer} dwFlags 
      * @returns {PWSTR} Pointer to a Unicode string pointer that receives the path string of the domain selected in the domain browser. This memory must be freed when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. By default, this path takes the form "myDom.Fabrikam.com". If <i>dwFlags</i> contains the <b>DBDTF_RETURNFQDN</b> flag, the path takes the form "DC=myDom, DC=Fabrikam, DC=com".
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-idsbrowsedomaintree-browseto
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-browseto
      */
     BrowseTo(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -71,10 +68,12 @@ class IDsBrowseDomainTree extends IUnknown{
 
     /**
      * The IDsBrowseDomainTree::GetDomains method retrieves the trust domains of the current computer. The current computer is set using the IDsBrowseDomainTree::SetComputer method.
+     * @remarks
+     * For more information about how to access and use the data provided by this method, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
      * @param {Pointer<Pointer<DOMAIN_TREE>>} ppDomainTree Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-domain_tree">DOMAINTREE</a> structure pointer that receives the trust domain data. The caller must free this memory when no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-freedomains">IDsBrowseDomainTree::FreeDomains</a>.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-idsbrowsedomaintree-getdomains
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains
      */
     GetDomains(ppDomainTree, dwFlags) {
         ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
@@ -88,7 +87,7 @@ class IDsBrowseDomainTree extends IUnknown{
      * @param {Pointer<Pointer<DOMAIN_TREE>>} ppDomainTree Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-domain_tree">DOMAINTREE</a> data structure.
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-idsbrowsedomaintree-freedomains
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-freedomains
      */
     FreeDomains(ppDomainTree) {
         ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
@@ -99,8 +98,11 @@ class IDsBrowseDomainTree extends IUnknown{
 
     /**
      * The IDsBrowseDomainTree::FlushCachedDomains method frees the cached domain list.
+     * @remarks
+     * This method frees the internal cached domain data. This method must  be called before calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-setcomputer">IDsBrowseDomainTree::SetComputer</a> to retarget to a computer of a different domain.
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-idsbrowsedomaintree-flushcacheddomains
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-flushcacheddomains
      */
     FlushCachedDomains() {
         result := ComCall(6, this, "HRESULT")
@@ -109,11 +111,15 @@ class IDsBrowseDomainTree extends IUnknown{
 
     /**
      * Specifies the computer and credentials to be used by this instance of the IDsBrowseDomainTree interface.
+     * @remarks
+     * If this method is not called, the local host is assumed as the default computer.
+     * 
+     * When <b>SetComputer</b> is called on a particular <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nn-dsclient-idsbrowsedomaintree">IDsBrowseDomainTree</a> instance, <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-flushcacheddomains">IDsBrowseDomainTree::FlushCachedDomains</a> must be called before <b>SetComputer</b> is called again.
      * @param {PWSTR} pszComputerName Pointer to a null-terminated Unicode string that contains the name of the target computer.
      * @param {PWSTR} pszUserName Pointer to a null-terminated Unicode string that contains the user name used to access the  computer.
      * @param {PWSTR} pszPassword Pointer to a null-terminated Unicode string that contains the password used to access the  computer.
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-idsbrowsedomaintree-setcomputer
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-setcomputer
      */
     SetComputer(pszComputerName, pszUserName, pszPassword) {
         pszComputerName := pszComputerName is String ? StrPtr(pszComputerName) : pszComputerName

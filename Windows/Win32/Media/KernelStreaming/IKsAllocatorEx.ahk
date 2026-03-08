@@ -65,6 +65,7 @@ class IKsAllocatorEx extends IKsAllocator{
      */
     KsCreateAllocatorAndGetHandle(KsPin) {
         result := ComCall(10, this, "ptr", KsPin, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 }

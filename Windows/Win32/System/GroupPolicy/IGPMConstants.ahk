@@ -6,14 +6,11 @@
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.
  * @remarks
- * 
  * Properties that begin with <b>PermGPO</b> apply only to GPOs. Properties that begin with <b>PermWMIFilter</b> apply only to Windows Management Instrumentation (WMI) filters.
  * 
  * For more information about policy-related permissions, see 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpm-createpermission">IGPM::CreatePermission</a> (<b>GPM.CreatePermission</b>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmconstants
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmconstants
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -759,16 +756,13 @@ class IGPMConstants extends IDispatch{
     /**
      * Retrieves the value of the SecurityFlags property, which represents the portion of the security descriptor to retrieve or set for a GPO.
      * @remarks
-     * 
      * For more information about access control lists (ACLs) and the security model for controlling access to objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * 
-     * 
      * @param {VARIANT_BOOL} vbOwner 
      * @param {VARIANT_BOOL} vbGroup 
      * @param {VARIANT_BOOL} vbDACL 
      * @param {VARIANT_BOOL} vbSACL 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
      */
     get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL) {
         result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", &pVal := 0, "HRESULT")

@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
+ * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -167,13 +169,14 @@ class IWebBrowser extends IDispatch{
     }
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {BSTR} URL 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} TargetFrameName 
      * @param {Pointer<VARIANT>} PostData 
      * @param {Pointer<VARIANT>} Headers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(URL, Flags, TargetFrameName, PostData, Headers) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
@@ -183,8 +186,12 @@ class IWebBrowser extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      */
     Refresh() {
         result := ComCall(12, this, "HRESULT")
@@ -202,8 +209,13 @@ class IWebBrowser extends IDispatch{
     }
 
     /**
+     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
+     * @remarks
+     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
+     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(14, this, "HRESULT")

@@ -6,12 +6,9 @@
 /**
  * Implement the IWEExtendContextMenu interface to extend a Failover Cluster Administrator context menu for a cluster object.
  * @remarks
- * 
  * To add code that executes when your context menu items are selected, implement the 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweinvokecommand">IWEInvokeCommand</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweextendcontextmenu
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendcontextmenu
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -38,6 +35,21 @@ class IWEExtendContextMenu extends IUnknown{
 
     /**
      * Allows you to create context menu items for a cluster object and add the items to a Failover Cluster Administrator context menu.
+     * @remarks
+     * <p class="proch"><b>To implement AddContextMenuItems</b>
+     * 
+     * <ol>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> method pointed to by 
+     *       <i>piData</i> to retrieve a pointer to an interface that can provide information about the 
+     *       object associated with the menu item.</li>
+     * <li>Call the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem">IWCContextMenuCallback::AddExtensionMenuItem</a> 
+     *       method using the <i>piCallback</i> pointer to add the item to the menu.</li>
+     * </ol>
+     * To add context menu items and to implement code that executes when your context menu items are selected, 
+     *      implement the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweinvokecommand-invokecommand">IWEInvokeCommand::InvokeCommand</a> 
+     *      method.
      * @param {IUnknown} piData <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer for retrieving information relating to the new menu 
      *        item. By calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> method with the 
      *        <i>piData</i> pointer, the following interfaces are available:
@@ -120,7 +132,7 @@ class IWEExtendContextMenu extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems
      */
     AddContextMenuItems(piData, piCallback) {
         result := ComCall(3, this, "ptr", piData, "ptr", piCallback, "HRESULT")

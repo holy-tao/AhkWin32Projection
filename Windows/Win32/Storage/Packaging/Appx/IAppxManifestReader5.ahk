@@ -5,8 +5,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents an object model of the package manifest that provides methods to access manifest elements and attributes.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestreader5
+ * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader5)
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestreader5
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAppxManifestReader5 extends IUnknown{
     /**
      * Gets a main package dependencies enumerator.
      * @returns {IAppxManifestMainPackageDependenciesEnumerator} The main package dependencies enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader5-getmainpackagedependencies
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader5-getmainpackagedependencies
      */
     GetMainPackageDependencies() {
         result := ComCall(3, this, "ptr*", &mainPackageDependencies := 0, "HRESULT")

@@ -9,10 +9,8 @@
 /**
  * Represents an ordered list of updates.
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateCollection coclass. Use the Microsoft.Update.UpdateColl program identifier to create the object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatecollection
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatecollection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -65,10 +63,10 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets an IUpdate interface in a collection.
+     * Gets or sets an IUpdate interface in a collection. (Get)
      * @param {Integer} index 
      * @returns {IUpdate} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
@@ -76,11 +74,11 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets an IUpdate interface in a collection.
+     * Gets or sets an IUpdate interface in a collection. (Put)
      * @param {Integer} index 
      * @param {IUpdate} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-put_item
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-put_item
      */
     put_Item(index, value) {
         result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
@@ -88,9 +86,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Gets an IEnumVARIANT interface that can be used to enumerate the collection.
+     * Gets an IEnumVARIANT interface that can be used to enumerate the collection. (IUpdateCollection.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -98,9 +96,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Gets the number of elements in the collection.
+     * Gets the number of elements in the collection. (IUpdateCollection.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_count
      */
     get_Count() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
@@ -110,7 +108,7 @@ class IUpdateCollection extends IDispatch{
     /**
      * Gets a Boolean value that indicates whether the update collection is read-only.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_readonly
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_readonly
      */
     get_ReadOnly() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -118,10 +116,10 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Adds an item to the collection.
+     * Adds an item to the collection. (IUpdateCollection.Add)
      * @param {IUpdate} value An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface to be added to the collection.
      * @returns {Integer} The index of the added interface in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-add
      */
     Add(value) {
         result := ComCall(12, this, "ptr", value, "int*", &retval := 0, "HRESULT")
@@ -129,7 +127,7 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Removes all the elements from the collection.
+     * Removes all the elements from the collection. (IUpdateCollection.Clear)
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
      * This method can also return the following error codes.
@@ -151,7 +149,7 @@ class IUpdateCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-clear
      */
     Clear() {
         result := ComCall(13, this, "HRESULT")
@@ -161,7 +159,7 @@ class IUpdateCollection extends IDispatch{
     /**
      * Creates a shallow read/write copy of the collection.
      * @returns {IUpdateCollection} A shallow read/write copy of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-copy
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-copy
      */
     Copy() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
@@ -169,7 +167,7 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Inserts an item into the collection at the specified position.
+     * Inserts an item into the collection at the specified position. (IUpdateCollection.Insert)
      * @param {Integer} index The position at which a new interface will be inserted.
      * @param {IUpdate} value The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface that will be inserted.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
@@ -215,7 +213,7 @@ class IUpdateCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-insert
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-insert
      */
     Insert(index, value) {
         result := ComCall(15, this, "int", index, "ptr", value, "HRESULT")
@@ -223,7 +221,7 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * Removes the item at the specified index from the collection.
+     * Removes the item at the specified index from the collection. (IUpdateCollection.RemoveAt)
      * @param {Integer} index The index of the interface to be removed.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
@@ -257,7 +255,7 @@ class IUpdateCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-removeat
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(16, this, "int", index, "HRESULT")

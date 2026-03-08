@@ -5,7 +5,7 @@
 
 /**
  * Accesses web restrictions settings for the user.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcwebsettings
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcwebsettings
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IWPCWebSettings extends IWPCSettings{
     /**
      * Retrieves the web restrictions settings.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
      */
     GetSettings() {
         result := ComCall(6, this, "int*", &pdwSettings := 0, "HRESULT")
@@ -47,7 +47,7 @@ class IWPCWebSettings extends IWPCSettings{
      * @param {Integer} cURLs The number of entries in <i>ppcszSubURLs</i>.
      * @param {Pointer<PWSTR>} ppcszSubURLs Pointers to URLs that include pages with the primary URL.
      * @returns {BOOL} Pointer to flag notifying completion of override changed status. This parameter is 1 if the status is changed, and 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcwebsettings-requesturloverride
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-requesturloverride
      */
     RequestURLOverride(hWnd, pcszURL, cURLs, ppcszSubURLs) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd

@@ -8,11 +8,8 @@
 /**
  * The IWindowsMediaLibrarySharingDeviceProperty interface defines methods that provide access to the name and value of an individual property of a media device.
  * @remarks
- * 
  * To obtain an <b>IWindowsMediaLibrarySharingDeviceProperty</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty">GetProperty</a> method or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item">get_Item</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperties">IWindowsMediaLibrarySharingDeviceProperties</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty
+ * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty
  * @namespace Windows.Win32.Media.LibrarySharingServices
  * @version v4.0.30319
  */
@@ -54,7 +51,7 @@ class IWindowsMediaLibrarySharingDeviceProperty extends IDispatch{
     /**
      * The get_Name method retrieves the name of an individual property of a media device.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the property name.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_name
      */
     get_Name() {
         name := BSTR()
@@ -65,7 +62,7 @@ class IWindowsMediaLibrarySharingDeviceProperty extends IDispatch{
     /**
      * The get_Value method retrieves the value of an individual property of a media device.
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the property value.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_value
      */
     get_Value() {
         value := VARIANT()

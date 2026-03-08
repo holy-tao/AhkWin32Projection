@@ -379,11 +379,7 @@ class Direct2D {
      * @since windows6.1
      */
     static D2D1CreateFactory(factoryType, riid, pFactoryOptions) {
-        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr*", &ppIFactory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr*", &ppIFactory := 0, "HRESULT")
         return ppIFactory
     }
 
@@ -475,11 +471,7 @@ class Direct2D {
      * @since windows8.0
      */
     static D2D1CreateDevice(dxgiDevice, creationProperties) {
-        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr*", &d2dDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr*", &d2dDevice := 0, "HRESULT")
         return ID2D1Device(d2dDevice)
     }
 
@@ -500,11 +492,7 @@ class Direct2D {
      * @since windows8.0
      */
     static D2D1CreateDeviceContext(dxgiSurface, creationProperties) {
-        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr*", &d2dDeviceContext := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr*", &d2dDeviceContext := 0, "HRESULT")
         return ID2D1DeviceContext(d2dDeviceContext)
     }
 

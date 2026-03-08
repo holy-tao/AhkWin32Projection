@@ -6,7 +6,7 @@
 
 /**
  * The IAssemblyCacheItem interface can be used to install side-by-side assemblies into the side-by-side store using a stream-based installation.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/nn-winsxs-iassemblycacheitem
+ * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycacheitem
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -86,7 +86,7 @@ class IAssemblyCacheItem extends IUnknown{
      * @param {Integer} dwFormatFlags Reserved.
      * @param {Pointer<Integer>} puliMaxSize Reserved.
      * @returns {IStream} Pointer to the location that contains the pointer to the IStream interface that receives the information.
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycacheitem-createstream
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycacheitem-createstream
      */
     CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, puliMaxSize) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
@@ -193,7 +193,7 @@ class IAssemblyCacheItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycacheitem-commit
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycacheitem-commit
      */
     Commit(dwFlags, pulDisposition) {
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"

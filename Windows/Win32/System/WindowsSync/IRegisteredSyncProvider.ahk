@@ -6,11 +6,8 @@
 /**
  * Represents a registered synchronization provider. This interface is implemented by the writer of a synchronization provider.
  * @remarks
- * 
- * If the registered synchronization provider is a <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> provider, then the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init">Init</a>method will be called by the Sync Framework synchronization session. For more information about the different types of synchronization providers you can write for Windows, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-iregisteredsyncprovider
+ * If the registered synchronization provider is a <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> provider, then the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init">Init</a> method will be called by the Sync Framework synchronization session. For more information about the different types of synchronization providers you can write for Windows, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-iregisteredsyncprovider
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -59,7 +56,7 @@ class IRegisteredSyncProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-init
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init
      */
     Init(pguidInstanceId, pguidContentType, pContextPropertyStore) {
         result := ComCall(3, this, "ptr", pguidInstanceId, "ptr", pguidContentType, "ptr", pContextPropertyStore, "HRESULT")
@@ -69,7 +66,7 @@ class IRegisteredSyncProvider extends IUnknown{
     /**
      * Returns the synchronization provider's instance ID.
      * @returns {Guid} The instance ID of the synchronization provider.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-getinstanceid
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-getinstanceid
      */
     GetInstanceId() {
         pguidInstanceId := Guid()
@@ -79,6 +76,8 @@ class IRegisteredSyncProvider extends IUnknown{
 
     /**
      * Resets a synchronization provider so that it looks like a new replica in the next synchronization session.
+     * @remarks
+     * The writer of a synchronization provider may choose not to implement this method.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -98,7 +97,7 @@ class IRegisteredSyncProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-reset
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")

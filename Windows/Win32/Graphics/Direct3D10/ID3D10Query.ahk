@@ -4,9 +4,8 @@
 #Include .\ID3D10Asynchronous.ahk
 
 /**
- * A query interface queries information from the GPU.
+ * A query interface queries information from the GPU. (ID3D10Query)
  * @remarks
- * 
  * A query can be created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createquery">ID3D10Device::CreateQuery</a>.
  * 
  * This interface inherits the functionality of an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10asynchronous">ID3D10Asynchronous Interface</a>.
@@ -28,7 +27,7 @@
  * 
  * pQuery->Begin();
  * 
- * ... // Issue graphis commands, do whatever
+ * ... // Issue graphics commands, do whatever
  * 
  * pQuery->End();
  * 
@@ -42,9 +41,7 @@
  * 
  * 
  * When using a query that does not require a call to Begin, it still requires a call to End. The call to End causes the data returned by GetData to be accurate up until the last call to End.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10query
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10query
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -70,12 +67,12 @@ class ID3D10Query extends ID3D10Asynchronous{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get a query description.
+     * Get a query description. (ID3D10Query.GetDesc)
      * @param {Pointer<D3D10_QUERY_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>*</b>
      * 
      * Pointer to a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10query-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10query-getdesc
      */
     GetDesc(pDesc) {
         ComCall(11, this, "ptr", pDesc)

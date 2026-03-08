@@ -2771,11 +2771,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ObjectFromLresult(lResult, riid, wParam) {
-        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -2790,11 +2786,7 @@ class Accessibility {
      */
     static WindowFromAccessibleObject(param0) {
         phwnd := HWND()
-        result := DllCall("OLEACC.dll\WindowFromAccessibleObject", "ptr", param0, "ptr", phwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\WindowFromAccessibleObject", "ptr", param0, "ptr", phwnd, "HRESULT")
         return phwnd
     }
 
@@ -2857,11 +2849,7 @@ class Accessibility {
     static AccessibleObjectFromWindow(hwnd, dwId, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -2896,11 +2884,7 @@ class Accessibility {
     static AccessibleObjectFromEvent(hwnd, dwId, dwChildId, pvarChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", &ppacc := 0, "ptr", pvarChild, "HRESULT")
         return IAccessible(ppacc)
     }
 
@@ -2939,11 +2923,7 @@ class Accessibility {
      * @since windows5.0
      */
     static AccessibleObjectFromPoint(ptScreen, pvarChild) {
-        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", &ppacc := 0, "ptr", pvarChild, "HRESULT")
         return IAccessible(ppacc)
     }
 
@@ -2976,11 +2956,7 @@ class Accessibility {
      * @since windows5.0
      */
     static AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren) {
-        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, "int*", &pcObtained := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, "int*", &pcObtained := 0, "HRESULT")
         return pcObtained
     }
 
@@ -3013,7 +2989,7 @@ class Accessibility {
 
         result := DllCall("OLEACC.dll\GetRoleTextA", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3048,7 +3024,7 @@ class Accessibility {
 
         result := DllCall("OLEACC.dll\GetRoleTextW", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3088,7 +3064,7 @@ class Accessibility {
 
         result := DllCall("OLEACC.dll\GetStateTextA", "uint", lStateBit, "ptr", lpszState, "uint", cchState, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3128,7 +3104,7 @@ class Accessibility {
 
         result := DllCall("OLEACC.dll\GetStateTextW", "uint", lStateBit, "ptr", lpszState, "uint", cchState, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3179,11 +3155,7 @@ class Accessibility {
     static CreateStdAccessibleObject(hwnd, idObject, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -3224,11 +3196,7 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -3269,11 +3237,7 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -3302,11 +3266,7 @@ class Accessibility {
     static AccSetRunningUtilityState(hwndApp, dwUtilityStateMask, dwUtilityState) {
         hwndApp := hwndApp is Win32Handle ? NumGet(hwndApp, "ptr") : hwndApp
 
-        result := DllCall("OLEACC.dll\AccSetRunningUtilityState", "ptr", hwndApp, "uint", dwUtilityStateMask, "uint", dwUtilityState, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccSetRunningUtilityState", "ptr", hwndApp, "uint", dwUtilityStateMask, "uint", dwUtilityState, "HRESULT")
         return result
     }
 
@@ -3329,11 +3289,7 @@ class Accessibility {
         hwndApp := hwndApp is Win32Handle ? NumGet(hwndApp, "ptr") : hwndApp
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := DllCall("OLEACC.dll\AccNotifyTouchInteraction", "ptr", hwndApp, "ptr", hwndTarget, "ptr", ptTarget, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEACC.dll\AccNotifyTouchInteraction", "ptr", hwndApp, "ptr", hwndTarget, "ptr", ptTarget, "HRESULT")
         return result
     }
 
@@ -3369,11 +3325,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaHUiaNodeFromVariant(pvar, phnode) {
-        result := DllCall("UIAutomationCore.dll\UiaHUiaNodeFromVariant", "ptr", pvar, "ptr", phnode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaHUiaNodeFromVariant", "ptr", pvar, "ptr", phnode, "HRESULT")
         return result
     }
 
@@ -3393,11 +3345,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaHPatternObjectFromVariant(pvar, phobj) {
-        result := DllCall("UIAutomationCore.dll\UiaHPatternObjectFromVariant", "ptr", pvar, "ptr", phobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaHPatternObjectFromVariant", "ptr", pvar, "ptr", phobj, "HRESULT")
         return result
     }
 
@@ -3417,11 +3365,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaHTextRangeFromVariant(pvar, phtextrange) {
-        result := DllCall("UIAutomationCore.dll\UiaHTextRangeFromVariant", "ptr", pvar, "ptr", phtextrange, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaHTextRangeFromVariant", "ptr", pvar, "ptr", phtextrange, "HRESULT")
         return result
     }
 
@@ -3464,11 +3408,7 @@ class Accessibility {
     static UiaGetPropertyValue(hnode, propertyId, pValue) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetPropertyValue", "ptr", hnode, "int", propertyId, "ptr", pValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetPropertyValue", "ptr", hnode, "int", propertyId, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -3493,11 +3433,7 @@ class Accessibility {
     static UiaGetPatternProvider(hnode, patternId, phobj) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetPatternProvider", "ptr", hnode, "int", patternId, "ptr", phobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetPatternProvider", "ptr", hnode, "int", patternId, "ptr", phobj, "HRESULT")
         return result
     }
 
@@ -3522,11 +3458,7 @@ class Accessibility {
 
         pruntimeIdMarshal := pruntimeId is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, pruntimeIdMarshal, pruntimeId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, pruntimeIdMarshal, pruntimeId, "HRESULT")
         return result
     }
 
@@ -3544,11 +3476,7 @@ class Accessibility {
     static UiaSetFocus(hnode) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaSetFocus", "ptr", hnode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaSetFocus", "ptr", hnode, "HRESULT")
         return result
     }
 
@@ -3594,11 +3522,7 @@ class Accessibility {
 
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "HRESULT")
         return result
     }
 
@@ -3644,11 +3568,7 @@ class Accessibility {
 
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "HRESULT")
         return result
     }
 
@@ -3695,11 +3615,7 @@ class Accessibility {
         ppOffsetsMarshal := ppOffsets is VarRef ? "ptr*" : "ptr"
         ppTreeStructuresMarshal := ppTreeStructures is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, ppOffsetsMarshal, ppOffsets, ppTreeStructuresMarshal, ppTreeStructures, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, ppOffsetsMarshal, ppOffsets, ppTreeStructuresMarshal, ppTreeStructures, "HRESULT")
         return result
     }
 
@@ -3742,11 +3658,7 @@ class Accessibility {
     static UiaNodeFromPoint(x, y, pRequest, ppRequestedData, ppTreeStructure) {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "HRESULT")
         return result
     }
 
@@ -3782,11 +3694,7 @@ class Accessibility {
     static UiaNodeFromFocus(pRequest, ppRequestedData, ppTreeStructure) {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "HRESULT")
         return result
     }
 
@@ -3808,11 +3716,7 @@ class Accessibility {
     static UiaNodeFromHandle(hwnd, phnode) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromHandle", "ptr", hwnd, "ptr", phnode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromHandle", "ptr", hwnd, "ptr", phnode, "HRESULT")
         return result
     }
 
@@ -3832,11 +3736,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaNodeFromProvider(pProvider, phnode) {
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromProvider", "ptr", pProvider, "ptr", phnode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromProvider", "ptr", pProvider, "ptr", phnode, "HRESULT")
         return result
     }
 
@@ -3853,11 +3753,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetRootNode(phnode) {
-        result := DllCall("UIAutomationCore.dll\UiaGetRootNode", "ptr", phnode, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetRootNode", "ptr", phnode, "HRESULT")
         return result
     }
 
@@ -3905,11 +3801,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetReservedNotSupportedValue() {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", &punkNotSupportedValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", &punkNotSupportedValue := 0, "HRESULT")
         return IUnknown(punkNotSupportedValue)
     }
 
@@ -3925,11 +3817,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetReservedMixedAttributeValue() {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", &punkMixedAttributeValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", &punkMixedAttributeValue := 0, "HRESULT")
         return IUnknown(punkMixedAttributeValue)
     }
 
@@ -3967,11 +3855,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRaiseAutomationPropertyChangedEvent(pProvider, id, oldValue, newValue) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationPropertyChangedEvent", "ptr", pProvider, "int", id, "ptr", oldValue, "ptr", newValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationPropertyChangedEvent", "ptr", pProvider, "int", id, "ptr", oldValue, "ptr", newValue, "HRESULT")
         return result
     }
 
@@ -3992,11 +3876,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRaiseAutomationEvent(pProvider, id) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationEvent", "ptr", pProvider, "int", id, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationEvent", "ptr", pProvider, "int", id, "HRESULT")
         return result
     }
 
@@ -4027,11 +3907,7 @@ class Accessibility {
     static UiaRaiseStructureChangedEvent(pProvider, structureChangeType, pRuntimeId, cRuntimeIdLen) {
         pRuntimeIdMarshal := pRuntimeId is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, "int", structureChangeType, pRuntimeIdMarshal, pRuntimeId, "int", cRuntimeIdLen, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, "int", structureChangeType, pRuntimeIdMarshal, pRuntimeId, "int", cRuntimeIdLen, "HRESULT")
         return result
     }
 
@@ -4053,11 +3929,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRaiseAsyncContentLoadedEvent(pProvider, asyncContentLoadedState, percentComplete) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseAsyncContentLoadedEvent", "ptr", pProvider, "int", asyncContentLoadedState, "double", percentComplete, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseAsyncContentLoadedEvent", "ptr", pProvider, "int", asyncContentLoadedState, "double", percentComplete, "HRESULT")
         return result
     }
 
@@ -4091,11 +3963,7 @@ class Accessibility {
      * @since windows8.1
      */
     static UiaRaiseTextEditTextChangedEvent(pProvider, textEditChangeType, pChangedData) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseTextEditTextChangedEvent", "ptr", pProvider, "int", textEditChangeType, "ptr", pChangedData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseTextEditTextChangedEvent", "ptr", pProvider, "int", textEditChangeType, "ptr", pChangedData, "HRESULT")
         return result
     }
 
@@ -4113,11 +3981,7 @@ class Accessibility {
      * @since windows10.0.10240
      */
     static UiaRaiseChangesEvent(pProvider, eventIdCount, pUiaChanges) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseChangesEvent", "ptr", pProvider, "int", eventIdCount, "ptr", pUiaChanges, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseChangesEvent", "ptr", pProvider, "int", eventIdCount, "ptr", pUiaChanges, "HRESULT")
         return result
     }
 
@@ -4138,11 +4002,7 @@ class Accessibility {
         displayString := displayString is Win32Handle ? NumGet(displayString, "ptr") : displayString
         activityId := activityId is Win32Handle ? NumGet(activityId, "ptr") : activityId
 
-        result := DllCall("UIAutomationCore.dll\UiaRaiseNotificationEvent", "ptr", provider, "int", notificationKind, "int", notificationProcessing, "ptr", displayString, "ptr", activityId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseNotificationEvent", "ptr", provider, "int", notificationKind, "int", notificationProcessing, "ptr", displayString, "ptr", activityId, "HRESULT")
         return result
     }
 
@@ -4161,11 +4021,7 @@ class Accessibility {
      * @since windows8.1
      */
     static UiaRaiseActiveTextPositionChangedEvent(provider, textRange) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseActiveTextPositionChangedEvent", "ptr", provider, "ptr", textRange, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRaiseActiveTextPositionChangedEvent", "ptr", provider, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -4210,11 +4066,7 @@ class Accessibility {
         pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
         pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, pCallbackMarshal, pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, pCallbackMarshal, pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "HRESULT")
         return result
     }
 
@@ -4235,11 +4087,7 @@ class Accessibility {
     static UiaRemoveEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("UIAutomationCore.dll\UiaRemoveEvent", "ptr", hEvent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaRemoveEvent", "ptr", hEvent, "HRESULT")
         return result
     }
 
@@ -4261,11 +4109,7 @@ class Accessibility {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaEventAddWindow", "ptr", hEvent, "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaEventAddWindow", "ptr", hEvent, "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -4287,11 +4131,7 @@ class Accessibility {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaEventRemoveWindow", "ptr", hEvent, "ptr", hwnd, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaEventRemoveWindow", "ptr", hEvent, "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -4312,11 +4152,7 @@ class Accessibility {
     static DockPattern_SetDockPosition(hobj, dockPosition) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\DockPattern_SetDockPosition", "ptr", hobj, "int", dockPosition, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\DockPattern_SetDockPosition", "ptr", hobj, "int", dockPosition, "HRESULT")
         return result
     }
 
@@ -4334,11 +4170,7 @@ class Accessibility {
     static ExpandCollapsePattern_Collapse(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Collapse", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Collapse", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4356,11 +4188,7 @@ class Accessibility {
     static ExpandCollapsePattern_Expand(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Expand", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Expand", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4390,11 +4218,7 @@ class Accessibility {
     static GridPattern_GetItem(hobj, row, column, pResult) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\GridPattern_GetItem", "ptr", hobj, "int", row, "int", column, "ptr", pResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\GridPattern_GetItem", "ptr", hobj, "int", row, "int", column, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -4412,11 +4236,7 @@ class Accessibility {
     static InvokePattern_Invoke(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\InvokePattern_Invoke", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\InvokePattern_Invoke", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4441,11 +4261,7 @@ class Accessibility {
     static MultipleViewPattern_GetViewName(hobj, viewId, ppStr) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\MultipleViewPattern_GetViewName", "ptr", hobj, "int", viewId, "ptr", ppStr, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\MultipleViewPattern_GetViewName", "ptr", hobj, "int", viewId, "ptr", ppStr, "HRESULT")
         return result
     }
 
@@ -4466,11 +4282,7 @@ class Accessibility {
     static MultipleViewPattern_SetCurrentView(hobj, viewId) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\MultipleViewPattern_SetCurrentView", "ptr", hobj, "int", viewId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\MultipleViewPattern_SetCurrentView", "ptr", hobj, "int", viewId, "HRESULT")
         return result
     }
 
@@ -4491,11 +4303,7 @@ class Accessibility {
     static RangeValuePattern_SetValue(hobj, val) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\RangeValuePattern_SetValue", "ptr", hobj, "double", val, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\RangeValuePattern_SetValue", "ptr", hobj, "double", val, "HRESULT")
         return result
     }
 
@@ -4516,11 +4324,7 @@ class Accessibility {
     static ScrollItemPattern_ScrollIntoView(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\ScrollItemPattern_ScrollIntoView", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ScrollItemPattern_ScrollIntoView", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4544,11 +4348,7 @@ class Accessibility {
     static ScrollPattern_Scroll(hobj, horizontalAmount, verticalAmount) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\ScrollPattern_Scroll", "ptr", hobj, "int", horizontalAmount, "int", verticalAmount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ScrollPattern_Scroll", "ptr", hobj, "int", horizontalAmount, "int", verticalAmount, "HRESULT")
         return result
     }
 
@@ -4577,11 +4377,7 @@ class Accessibility {
     static ScrollPattern_SetScrollPercent(hobj, horizontalPercent, verticalPercent) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\ScrollPattern_SetScrollPercent", "ptr", hobj, "double", horizontalPercent, "double", verticalPercent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ScrollPattern_SetScrollPercent", "ptr", hobj, "double", horizontalPercent, "double", verticalPercent, "HRESULT")
         return result
     }
 
@@ -4602,11 +4398,7 @@ class Accessibility {
     static SelectionItemPattern_AddToSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_AddToSelection", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_AddToSelection", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4627,11 +4419,7 @@ class Accessibility {
     static SelectionItemPattern_RemoveFromSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_RemoveFromSelection", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_RemoveFromSelection", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4652,11 +4440,7 @@ class Accessibility {
     static SelectionItemPattern_Select(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_Select", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\SelectionItemPattern_Select", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4674,11 +4458,7 @@ class Accessibility {
     static TogglePattern_Toggle(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TogglePattern_Toggle", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TogglePattern_Toggle", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4702,11 +4482,7 @@ class Accessibility {
     static TransformPattern_Move(hobj, x, y) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TransformPattern_Move", "ptr", hobj, "double", x, "double", y, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TransformPattern_Move", "ptr", hobj, "double", x, "double", y, "HRESULT")
         return result
     }
 
@@ -4730,11 +4506,7 @@ class Accessibility {
     static TransformPattern_Resize(hobj, width, height) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TransformPattern_Resize", "ptr", hobj, "double", width, "double", height, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TransformPattern_Resize", "ptr", hobj, "double", width, "double", height, "HRESULT")
         return result
     }
 
@@ -4756,11 +4528,7 @@ class Accessibility {
     static TransformPattern_Rotate(hobj, degrees) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TransformPattern_Rotate", "ptr", hobj, "double", degrees, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TransformPattern_Rotate", "ptr", hobj, "double", degrees, "HRESULT")
         return result
     }
 
@@ -4782,11 +4550,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         pVal := pVal is String ? StrPtr(pVal) : pVal
 
-        result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "HRESULT")
         return result
     }
 
@@ -4804,11 +4568,7 @@ class Accessibility {
     static WindowPattern_Close(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\WindowPattern_Close", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\WindowPattern_Close", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -4829,11 +4589,7 @@ class Accessibility {
     static WindowPattern_SetWindowVisualState(hobj, state) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\WindowPattern_SetWindowVisualState", "ptr", hobj, "int", state, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\WindowPattern_SetWindowVisualState", "ptr", hobj, "int", state, "HRESULT")
         return result
     }
 
@@ -4866,11 +4622,7 @@ class Accessibility {
 
         pResultMarshal := pResult is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", "ptr", hobj, "int", milliseconds, pResultMarshal, pResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", "ptr", hobj, "int", milliseconds, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -4895,11 +4647,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -4924,11 +4672,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -4957,11 +4701,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         hnodeChild := hnodeChild is Win32Handle ? NumGet(hnodeChild, "ptr") : hnodeChild
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromChild", "ptr", hobj, "ptr", hnodeChild, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromChild", "ptr", hobj, "ptr", hnodeChild, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -4990,11 +4730,7 @@ class Accessibility {
     static TextPattern_RangeFromPoint(hobj, point, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromPoint", "ptr", hobj, "ptr", point, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromPoint", "ptr", hobj, "ptr", point, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5017,11 +4753,7 @@ class Accessibility {
     static TextPattern_get_DocumentRange(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_get_DocumentRange", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_get_DocumentRange", "ptr", hobj, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5046,11 +4778,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_get_SupportedTextSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextPattern_get_SupportedTextSelection", "ptr", hobj, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5076,11 +4804,7 @@ class Accessibility {
     static TextRange_Clone(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Clone", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_Clone", "ptr", hobj, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5108,11 +4832,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Compare", "ptr", hobj, "ptr", range, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_Compare", "ptr", hobj, "ptr", range, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5150,11 +4870,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_CompareEndpoints", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_CompareEndpoints", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5189,11 +4905,7 @@ class Accessibility {
     static TextRange_ExpandToEnclosingUnit(hobj, unit) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_ExpandToEnclosingUnit", "ptr", hobj, "int", unit, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_ExpandToEnclosingUnit", "ptr", hobj, "int", unit, "HRESULT")
         return result
     }
 
@@ -5219,11 +4931,7 @@ class Accessibility {
     static TextRange_GetAttributeValue(hobj, attributeId, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetAttributeValue", "ptr", hobj, "int", attributeId, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_GetAttributeValue", "ptr", hobj, "int", attributeId, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5255,11 +4963,7 @@ class Accessibility {
     static TextRange_FindAttribute(hobj, attributeId, val, backward, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", "ptr", hobj, "int", attributeId, "ptr", val, "int", backward, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", "ptr", hobj, "int", attributeId, "ptr", val, "int", backward, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5293,11 +4997,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         text := text is Win32Handle ? NumGet(text, "ptr") : text
 
-        result := DllCall("UIAutomationCore.dll\TextRange_FindText", "ptr", hobj, "ptr", text, "int", backward, "int", ignoreCase, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_FindText", "ptr", hobj, "ptr", text, "int", backward, "int", ignoreCase, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5323,11 +5023,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5354,11 +5050,7 @@ class Accessibility {
     static TextRange_GetEnclosingElement(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetEnclosingElement", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_GetEnclosingElement", "ptr", hobj, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5387,11 +5079,7 @@ class Accessibility {
     static TextRange_GetText(hobj, maxLength, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetText", "ptr", hobj, "int", maxLength, "ptr", pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_GetText", "ptr", hobj, "int", maxLength, "ptr", pRetVal, "HRESULT")
         return result
     }
 
@@ -5423,11 +5111,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Move", "ptr", hobj, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_Move", "ptr", hobj, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5462,11 +5146,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", "ptr", hobj, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", "ptr", hobj, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5494,11 +5174,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         targetRange := targetRange is Win32Handle ? NumGet(targetRange, "ptr") : targetRange
 
-        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByRange", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByRange", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "HRESULT")
         return result
     }
 
@@ -5516,11 +5192,7 @@ class Accessibility {
     static TextRange_Select(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Select", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_Select", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5538,11 +5210,7 @@ class Accessibility {
     static TextRange_AddToSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_AddToSelection", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_AddToSelection", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5565,11 +5233,7 @@ class Accessibility {
     static TextRange_RemoveFromSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_RemoveFromSelection", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_RemoveFromSelection", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5591,11 +5255,7 @@ class Accessibility {
     static TextRange_ScrollIntoView(hobj, alignToTop) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_ScrollIntoView", "ptr", hobj, "int", alignToTop, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_ScrollIntoView", "ptr", hobj, "int", alignToTop, "HRESULT")
         return result
     }
 
@@ -5620,11 +5280,7 @@ class Accessibility {
 
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -5655,11 +5311,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         hnodeStartAfter := hnodeStartAfter is Win32Handle ? NumGet(hnodeStartAfter, "ptr") : hnodeStartAfter
 
-        result := DllCall("UIAutomationCore.dll\ItemContainerPattern_FindItemByProperty", "ptr", hobj, "ptr", hnodeStartAfter, "int", propertyId, "ptr", value, "ptr", pFound, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\ItemContainerPattern_FindItemByProperty", "ptr", hobj, "ptr", hnodeStartAfter, "int", propertyId, "ptr", value, "ptr", pFound, "HRESULT")
         return result
     }
 
@@ -5680,11 +5332,7 @@ class Accessibility {
     static LegacyIAccessiblePattern_Select(hobj, flagsSelect) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_Select", "ptr", hobj, "int", flagsSelect, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_Select", "ptr", hobj, "int", flagsSelect, "HRESULT")
         return result
     }
 
@@ -5702,11 +5350,7 @@ class Accessibility {
     static LegacyIAccessiblePattern_DoDefaultAction(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_DoDefaultAction", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_DoDefaultAction", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5728,11 +5372,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "HRESULT")
         return result
     }
 
@@ -5750,11 +5390,7 @@ class Accessibility {
     static LegacyIAccessiblePattern_GetIAccessible(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", &pAccessible := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", &pAccessible := 0, "HRESULT")
         return IAccessible(pAccessible)
     }
 
@@ -5775,11 +5411,7 @@ class Accessibility {
     static SynchronizedInputPattern_StartListening(hobj, inputType) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_StartListening", "ptr", hobj, "int", inputType, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_StartListening", "ptr", hobj, "int", inputType, "HRESULT")
         return result
     }
 
@@ -5797,11 +5429,7 @@ class Accessibility {
     static SynchronizedInputPattern_Cancel(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_Cancel", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_Cancel", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5819,11 +5447,7 @@ class Accessibility {
     static VirtualizedItemPattern_Realize(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\VirtualizedItemPattern_Realize", "ptr", hobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\VirtualizedItemPattern_Realize", "ptr", hobj, "HRESULT")
         return result
     }
 
@@ -5912,11 +5536,7 @@ class Accessibility {
     static UiaHostProviderFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", &ppProvider := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", &ppProvider := 0, "HRESULT")
         return IRawElementProviderSimple(ppProvider)
     }
 
@@ -5948,11 +5568,7 @@ class Accessibility {
     static UiaProviderForNonClient(hwnd, idObject, idChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &ppProvider := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &ppProvider := 0, "HRESULT")
         return IRawElementProviderSimple(ppProvider)
     }
 
@@ -5974,11 +5590,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaIAccessibleFromProvider(pProvider, dwFlags, pvarChild) {
-        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", &ppAccessible := 0, "ptr", pvarChild, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", &ppAccessible := 0, "ptr", pvarChild, "HRESULT")
         return IAccessible(ppAccessible)
     }
 
@@ -6002,11 +5614,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaProviderFromIAccessible(pAccessible, idChild, dwFlags) {
-        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", &ppProvider := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", &ppProvider := 0, "HRESULT")
         return IRawElementProviderSimple(ppProvider)
     }
 
@@ -6026,11 +5634,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaDisconnectAllProviders() {
-        result := DllCall("UIAutomationCore.dll\UiaDisconnectAllProviders", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaDisconnectAllProviders", "HRESULT")
         return result
     }
 
@@ -6056,11 +5660,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaDisconnectProvider(pProvider) {
-        result := DllCall("UIAutomationCore.dll\UiaDisconnectProvider", "ptr", pProvider, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("UIAutomationCore.dll\UiaDisconnectProvider", "ptr", pProvider, "HRESULT")
         return result
     }
 
@@ -6114,8 +5714,8 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6149,8 +5749,8 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

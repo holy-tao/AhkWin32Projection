@@ -6,7 +6,6 @@
 /**
  * Notification interface used to indicate that a signal event has occurred.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnsignalevents
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsignalevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,9 +43,12 @@ class IMbnSignalEvents extends IUnknown{
 
     /**
      * This notification method is called by the Mobile Broadband service to indicate that a signal quality update is available.
+     * @remarks
+     * <b>OnSignalStateChange</b> is called by the Mobile Broadband service to notify a calling application that a signal quality update is available.  This includes an update of the signal notification period, threshold for signal notification, signal strength received, and error rate in the received signal. 
+     * An application can get updated values from the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsignal">IMbnSignal</a> interface passed in this method.
      * @param {IMbnSignal} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsignal">IMbnSignal</a> interface  for which the signal quality update was received.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsignalevents-onsignalstatechange
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsignalevents-onsignalstatechange
      */
     OnSignalStateChange(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")

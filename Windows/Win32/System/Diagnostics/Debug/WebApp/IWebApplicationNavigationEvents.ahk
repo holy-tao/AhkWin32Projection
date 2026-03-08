@@ -5,7 +5,7 @@
 
 /**
  * Enables a debugging or authoring app to receive notification of navigation events.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationnavigationevents
+ * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationnavigationevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -47,7 +47,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-beforenavigate
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-beforenavigate
      */
     BeforeNavigate(htmlWindow, url, navigationFlags, targetFrameName) {
         url := url is String ? StrPtr(url) : url
@@ -68,7 +68,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-navigatecomplete
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-navigatecomplete
      */
     NavigateComplete(htmlWindow, url) {
         url := url is String ? StrPtr(url) : url
@@ -94,7 +94,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-navigateerror
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-navigateerror
      */
     NavigateError(htmlWindow, url, targetFrameName, statusCode) {
         url := url is String ? StrPtr(url) : url
@@ -115,7 +115,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-documentcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-documentcomplete
      */
     DocumentComplete(htmlWindow, url) {
         url := url is String ? StrPtr(url) : url
@@ -129,7 +129,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-downloadbegin
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-downloadbegin
      */
     DownloadBegin() {
         result := ComCall(7, this, "HRESULT")
@@ -141,7 +141,7 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationnavigationevents-downloadcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-downloadcomplete
      */
     DownloadComplete() {
         result := ComCall(8, this, "HRESULT")

@@ -422,8 +422,26 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     }
 
     /**
+     * The close command closes the device or file and any associated resources. MCI unloads a device when all instances of the device or all files are closed. All MCI devices recognize this command.
+     * @remarks
+     * To close all devices opened by your application, specify the "all" device identifier for the *lpszDeviceID* parameter.
      * 
-     * @returns {HRESULT} 
+     * Closing the **cdaudio** device stops audio playback.
+     * 
+     * **Windows 2000/XP:** If the **cdaudio** device is playing, closing the **cdaudio** device does not cause the audio to stop playing. Send the [stop](stop.md) command first.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/close
      */
     close() {
         result := ComCall(22, this, "HRESULT")
@@ -491,12 +509,41 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     }
 
     /**
+     * The open command initializes a device. All MCI devices recognize this command.
+     * @remarks
+     * MCI reserves "cdaudio" for the CD audio device type, "videodisc" for the videodisc device type, "sequencer" for the MIDI sequencer device type, "AVIVideo" for the digital-video device type, and "waveaudio" for the waveform-audio device type.
      * 
+     * As an alternative to the "type" flag, MCI can select the device based on the extension used by the file, as recorded in the registry or the \[mci extension\] section of the SYSTEM.INI file.
+     * 
+     * MCI can open AVI files by using a file-interface pointer or a stream-interface pointer. To open a file by using either type of interface pointer, specify an at sign (@) followed by the interface pointer in place of the file or device name for the *lpszDevice* parameter. For more information about the file and stream interfaces, see " [AVIFile Functions and Macros](avifile-functions-and-macros.md)."
+     * 
+     * The following command opens the "mysound" device.
+     * 
+     * ``` syntax
+     * open new type waveaudio alias mysound buffer 6
+     * ```
+     * 
+     * With device name "new", the waveform driver prepares a new waveform resource. The command assigns the device alias "mysound" and specifies a 6-second buffer.
+     * 
+     * You can eliminate the "type" flag if you combine the device name with the filename. MCI recognizes this combination when you use the following syntax:
+     * 
+     * *device\_name* ! *element\_name*
+     * 
+     * The exclamation point separates the device name from the filename. The exclamation point should not be delimited by white spaces.
+     * 
+     * The following example opens the RIGHT.WAV file using the "waveaudio" device.
+     * 
+     * ``` syntax
+     * open waveaudio!right.wav
+     * ```
+     * 
+     * The MCIWAVE driver requires an asynchronous waveform-audio device.
      * @param {BSTR} url 
      * @param {BSTR} name 
      * @param {BSTR} features 
      * @param {VARIANT_BOOL} replace 
      * @returns {IHTMLWindow2} 
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/open
      */
     open(url, name, features, replace) {
         url := url is String ? BSTR.Alloc(url).Value : url
@@ -912,9 +959,9 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {BSTR} 
      */
     toString() {
-        String := BSTR()
-        result := ComCall(69, this, "ptr", String, "HRESULT")
-        return String
+        String_R := BSTR()
+        result := ComCall(69, this, "ptr", String_R, "HRESULT")
+        return String_R
     }
 
     /**

@@ -6,7 +6,7 @@
 
 /**
  * Represents a device-dependent representation of a gradient mesh composed of patches. Use the ID2D1DeviceContext2::CreateGradientMesh method to create an instance of ID2D1GradientMesh.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1gradientmesh
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID2D1GradientMesh extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of patches that make up this gradient mesh.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatchcount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatchcount
      */
     GetPatchCount() {
         result := ComCall(4, this, "uint")
@@ -54,7 +54,7 @@ class ID2D1GradientMesh extends ID2D1Resource{
      * @returns {D2D1_GRADIENT_MESH_PATCH} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch">D2D1_GRADIENT_MESH_PATCH</a>*</b>
      * 
      * A pointer to the array to be filled with the patch data.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatches
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatches
      */
     GetPatches(startIndex, patchesCount) {
         patches := D2D1_GRADIENT_MESH_PATCH()

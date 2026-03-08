@@ -5,7 +5,7 @@
 
 /**
  * The IWMDMRevoked interface retrieves the URL from which updated components can be downloaded, if a transfer fails with a revocation error.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmrevoked
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmrevoked
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -31,11 +31,13 @@ class IWMDMRevoked extends IUnknown{
     static VTableNames => ["GetRevocationURL"]
 
     /**
-     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded.
+     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded. (IWMDMRevoked.GetRevocationURL)
+     * @remarks
+     * This method retrieves the URL from which updated components can be downloaded. If this method is not implemented by the revoked component, a default Microsoft URL is used. This location is maintained by Microsoft and contains any updates to components revoked by the Microsoft digital rights management system.
      * @param {Pointer<PWSTR>} ppwszRevocationURL Pointer to a string containing a revocation URL. This buffer is created and freed by the caller.
      * @param {Pointer<Integer>} pdwBufferLen Size of the buffer holding the revocation URL.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
         ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"

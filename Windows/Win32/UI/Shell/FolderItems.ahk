@@ -6,7 +6,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Represents the collection of items in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -87,7 +87,7 @@ class FolderItems extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the FolderItem object for a specified item in the collection.
      * @param {VARIANT} index 
      * @returns {FolderItem} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems-item
@@ -98,7 +98,7 @@ class FolderItems extends IDispatch{
     }
 
     /**
-     * 
+     * Creates and returns a new FolderItems object that is a copy of this FolderItemsss object.
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems--newenum
      */

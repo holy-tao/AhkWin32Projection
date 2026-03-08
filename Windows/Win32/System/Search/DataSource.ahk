@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Determines the source of the performance counter data.
+ * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-datasourcetypeconstants
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

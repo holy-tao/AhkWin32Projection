@@ -6,13 +6,10 @@
 /**
  * Enables receiving package state-change notifications during Windows Store app debugging.
  * @remarks
- * 
  * Implement the <b>IPackageExecutionStateChangeNotification</b> interface when you need to receive package state-change notifications during Windows Store app debugging. 
  * 
  * Call the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges">RegisterForPackageStateChanges</a> method to register for package state-change notifications.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipackageexecutionstatechangenotification
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipackageexecutionstatechangenotification
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,8 +38,8 @@ class IPackageExecutionStateChangeNotification extends IUnknown{
      * Called when package state changes during Windows Store app debugging.
      * @param {PWSTR} pszPackageFullName The package full name.
      * @param {Integer} pesNewState The new state that the package changed to.
-     * @returns {HRESULT} Return <b>S_OK</b> when you implement the <b>OnStateChanged</b>method.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackageexecutionstatechangenotification-onstatechanged
+     * @returns {HRESULT} Return <b>S_OK</b> when you implement the <b>OnStateChanged</b> method.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackageexecutionstatechangenotification-onstatechanged
      */
     OnStateChanged(pszPackageFullName, pesNewState) {
         pszPackageFullName := pszPackageFullName is String ? StrPtr(pszPackageFullName) : pszPackageFullName

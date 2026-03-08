@@ -9,7 +9,7 @@
 
 /**
  * The IGPMMigrationTable interface provides an interface to a migration table.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmmigrationtable
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmigrationtable
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IGPMMigrationTable extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-save
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-save
      */
     Save(bstrMigrationTablePath) {
         bstrMigrationTablePath := bstrMigrationTablePath is String ? BSTR.Alloc(bstrMigrationTablePath).Value : bstrMigrationTablePath
@@ -66,7 +66,7 @@ class IGPMMigrationTable extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-add
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-add
      */
     Add(lFlags, var) {
         result := ComCall(8, this, "int", lFlags, "ptr", var, "HRESULT")
@@ -79,7 +79,7 @@ class IGPMMigrationTable extends IDispatch{
      * @param {Integer} gpmEntryType 
      * @param {Pointer<VARIANT>} pvarDestination A pointer to a <b>VARIANT</b> structure. You can use the <b>DestinationOptions</b>: <b>opDestinationSameAsSource</b>, <b>opDestinationNone</b>, or <b>opDestinationByRelativeName</b> by passing in a <i>pvarDestination</i> with a <b>vt</b> member of VT_I4. To explicitly pass in the destination, pass in a <i>pvarDestination</i> with a <b>vt</b> member of VT_BSTR, and this sets the <b>DestinationOptions</b> to <b>opDestinationSet</b>. If you pass in null, <b>AddEntry</b> uses the default value for the destination option, <b>opDestinationSameAsSource</b>.
      * @returns {IGPMMapEntry} The new entry.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-addentry
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-addentry
      */
     AddEntry(bstrSource, gpmEntryType, pvarDestination) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
@@ -92,7 +92,7 @@ class IGPMMigrationTable extends IDispatch{
      * The GetEntry method gets the entry in the migration table for a specified source field.
      * @param {BSTR} bstrSource Source field of the entry to retrieve.
      * @returns {IGPMMapEntry} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmmapentry">IGPMMapEntry</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-getentry
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-getentry
      */
     GetEntry(bstrSource) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
@@ -109,7 +109,7 @@ class IGPMMigrationTable extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-deleteentry
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-deleteentry
      */
     DeleteEntry(bstrSource) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
@@ -123,7 +123,7 @@ class IGPMMigrationTable extends IDispatch{
      * @param {BSTR} bstrSource The source field of the migration table which is to be updated.
      * @param {Pointer<VARIANT>} pvarDestination A pointer to a <b>VARIANT</b> structure.  You can  use the DestinationOptions: opDestinationSameAsSource, opDestinationNone, or opDestinationByRelativeName by passing  in a <i>pvarDestination</i> with a <b>vt</b> member of VT_I4. To explicitly pass in the destination,  pass in a <i>pvarDestination</i> with a <b>vt</b> member of VT_BSTR, and this will set the DestinationOption to opDestinationSet. If you pass in null, UpdateDestination uses the default value for the destination option, opDestinationSameAsSource.
      * @returns {IGPMMapEntry} The updated entry.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-updatedestination
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-updatedestination
      */
     UpdateDestination(bstrSource, pvarDestination) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
@@ -135,7 +135,7 @@ class IGPMMigrationTable extends IDispatch{
     /**
      * Validates the migration table.
      * @returns {IGPMResult} Reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface. The <b>Result</b> property references whether the validation is successful. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmessage">Status</a> property references the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> that contains the validation errors or warnings.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-validate
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-validate
      */
     Validate() {
         result := ComCall(13, this, "ptr*", &ppResult := 0, "HRESULT")
@@ -145,7 +145,7 @@ class IGPMMigrationTable extends IDispatch{
     /**
      * Returns a IGPMMapEntryCollection interface.
      * @returns {IGPMMapEntryCollection} The list of entries in the migration table.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmmigrationtable-getentries
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-getentries
      */
     GetEntries() {
         result := ComCall(14, this, "ptr*", &ppEntries := 0, "HRESULT")

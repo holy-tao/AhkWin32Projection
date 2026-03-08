@@ -7,10 +7,8 @@
 /**
  * Provides access to a device's Forward Data Channel (FDC) Service. The FDC is an out-of-band channel that carries configuration and control messages.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_FDC)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_fdc
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_fdc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -44,8 +42,8 @@ class IBDA_FDC extends IUnknown{
      * @param {Pointer<BSTR>} CurrentPIDList Receives a comma-separated list of packet identifiers (PIDs). The caller must release the string by calling <b>SysFreeString</b>.
      * @param {Pointer<BSTR>} CurrentTIDList Receives a comma-separated list of table identifiers (TIDs). The caller must release the string by calling <b>SysFreeString</b>.
      * @param {Pointer<BOOL>} Overflow Receives the overflow status.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-getstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-getstatus
      */
     GetStatus(CurrentBitrate, CarrierLock, CurrentFrequency, CurrentSpectrumInversion, CurrentPIDList, CurrentTIDList, Overflow) {
         CurrentBitrateMarshal := CurrentBitrate is VarRef ? "uint*" : "ptr"
@@ -61,8 +59,8 @@ class IBDA_FDC extends IUnknown{
     /**
      * Requests MPEG-2 table sections, filtered by table identifier (TID).
      * @param {BSTR} TableIDs A comma-separated list of TIDs.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-requesttables
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-requesttables
      */
     RequestTables(TableIDs) {
         TableIDs := TableIDs is String ? BSTR.Alloc(TableIDs).Value : TableIDs
@@ -73,9 +71,11 @@ class IBDA_FDC extends IUnknown{
 
     /**
      * Adds one or more packet identifiers (PIDs) to the MPEG flow.
+     * @remarks
+     * This command causes the device to send a new_flow_req Application Protocol Data Unit (APDU).
      * @param {BSTR} PidsToAdd A comma-separated list of PIDs.
      * @returns {Integer} Receives the number of remaining MPEG flows on the device.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-addpid
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-addpid
      */
     AddPid(PidsToAdd) {
         PidsToAdd := PidsToAdd is String ? BSTR.Alloc(PidsToAdd).Value : PidsToAdd
@@ -86,9 +86,11 @@ class IBDA_FDC extends IUnknown{
 
     /**
      * Removes one or more packet identifiers (PIDs) from the MPEG flow.
+     * @remarks
+     * This command causes the device to send a delete_flow_req Application Protocol Data Unit (APDU).
      * @param {BSTR} PidsToRemove A comma-separated list of PIDs to remove.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-removepid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-removepid
      */
     RemovePid(PidsToRemove) {
         PidsToRemove := PidsToRemove is String ? BSTR.Alloc(PidsToRemove).Value : PidsToRemove
@@ -101,7 +103,7 @@ class IBDA_FDC extends IUnknown{
      * Adds one or more table identifiers (TIDs) to the MPEG flow.
      * @param {BSTR} TidsToAdd A comma-separated list of TIDs.
      * @returns {BSTR} Receives a comma-separated list of the current TIDs. The caller must release the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-addtid
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-addtid
      */
     AddTid(TidsToAdd) {
         TidsToAdd := TidsToAdd is String ? BSTR.Alloc(TidsToAdd).Value : TidsToAdd
@@ -114,8 +116,8 @@ class IBDA_FDC extends IUnknown{
     /**
      * Removes one or more table identifiers (TIDs) from the MPEG flow.
      * @param {BSTR} TidsToRemove A comma-separated list of TIDs to remove.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-removetid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-removetid
      */
     RemoveTid(TidsToRemove) {
         TidsToRemove := TidsToRemove is String ? BSTR.Alloc(TidsToRemove).Value : TidsToRemove
@@ -130,8 +132,8 @@ class IBDA_FDC extends IUnknown{
      * @param {Integer} MaxBufferSize The size of the <i>SecBuffer</i> array, in bytes.
      * @param {Pointer<Integer>} ActualSize Receives the number of bytes that the method copies into the  <i>SecBuffer</i> array.
      * @param {Pointer<Integer>} SecBuffer A byte array, allocated by the caller, that receives the table section.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_fdc-gettablesection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-gettablesection
      */
     GetTableSection(Pid, MaxBufferSize, ActualSize, SecBuffer) {
         PidMarshal := Pid is VarRef ? "uint*" : "ptr"

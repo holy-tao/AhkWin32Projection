@@ -5,7 +5,7 @@
 
 /**
  * Represents the context to bind inputs and outputs to a WinML model.
- * @see https://docs.microsoft.com/windows/win32/api//winml/nn-winml-iwinmlevaluationcontext
+ * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlevaluationcontext
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */
@@ -33,8 +33,8 @@ class IWinMLEvaluationContext extends IUnknown{
     /**
      * Binds the input/output to the given model.
      * @param {Pointer<WINML_BINDING_DESC>} pDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winml/ns-winml-winml_binding_desc">WINML_BINDING_DESC</a> containing the input/output binding descriptor.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-bindvalue
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-bindvalue
      */
     BindValue(pDescriptor) {
         result := ComCall(3, this, "ptr", pDescriptor, "HRESULT")
@@ -45,7 +45,7 @@ class IWinMLEvaluationContext extends IUnknown{
      * Returns the input/output description for the specific binding name.
      * @param {PWSTR} Name The name of the binding.
      * @returns {Pointer<WINML_BINDING_DESC>} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winml/ns-winml-winml_binding_desc">WINML_BINDING_DESC</a> containing the specified (Name) binding description.
-     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-getvaluebyname
+     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-getvaluebyname
      */
     GetValueByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -56,8 +56,8 @@ class IWinMLEvaluationContext extends IUnknown{
 
     /**
      * Clears the bindings for a model.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-clear
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-clear
      */
     Clear() {
         result := ComCall(5, this, "HRESULT")

@@ -7,7 +7,7 @@
 
 /**
  * The ITfCategoryMgr interface manages categories of objects for text services. The TSF manager implements this interface.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcategorymgr
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcategorymgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -67,7 +67,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-registercategory
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registercategory
      */
     RegisterCategory(rclsid, rcatid, rguid) {
         result := ComCall(3, this, "ptr", rclsid, "ptr", rcatid, "ptr", rguid, "HRESULT")
@@ -109,7 +109,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-unregistercategory
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregistercategory
      */
     UnregisterCategory(rclsid, rcatid, rguid) {
         result := ComCall(4, this, "ptr", rclsid, "ptr", rcatid, "ptr", rguid, "HRESULT")
@@ -120,7 +120,7 @@ class ITfCategoryMgr extends IUnknown{
      * ITfCategoryMgr::EnumCategoriesInItem method
      * @param {Pointer<Guid>} rguid Contains a GUID value that identifies the item to enumerate the categories for.
      * @returns {IEnumGUID} Pointer to an IEnumGUID interface pointer that receives the enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-enumcategoriesinitem
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumcategoriesinitem
      */
     EnumCategoriesInItem(rguid) {
         result := ComCall(5, this, "ptr", rguid, "ptr*", &ppEnum := 0, "HRESULT")
@@ -131,7 +131,7 @@ class ITfCategoryMgr extends IUnknown{
      * ITfCategoryMgr::EnumItemsInCategory method
      * @param {Pointer<Guid>} rcatid Contains a GUID value that identifies the category to enumerate the items for.
      * @returns {IEnumGUID} Pointer to an IEnumGUID interface pointer that receives the enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-enumitemsincategory
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumitemsincategory
      */
     EnumItemsInCategory(rcatid) {
         result := ComCall(6, this, "ptr", rcatid, "ptr*", &ppEnum := 0, "HRESULT")
@@ -140,11 +140,13 @@ class ITfCategoryMgr extends IUnknown{
 
     /**
      * ITfCategoryMgr::FindClosestCategory method
+     * @remarks
+     * The closest category to a **GUID** is chosen in one of two modes. In the first mode, the method receives a non-empty category list. It chooses the first matching **CATID** from that list or GUID_NULL if the list does not contain a category that contains the **GUID** . In the second mode, it receives an empty category list. It chooses the first category that contains the **GUID** or GUID_NULL if no category contains the **GUID** .
      * @param {Pointer<Guid>} rguid Specifies the address of the GUID for which to find the closest category.
      * @param {Pointer<Pointer<Guid>>} ppcatidList Pointer to a pointer that specifies an array of CATIDs to search for the closest category.
      * @param {Integer} ulCount Specifies the number of elements in the array of the <i>ppcatidList</i> parameter.
      * @returns {Guid} Pointer to the **GUID** that receives the CATID for the closest category.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-findclosestcategory
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-findclosestcategory
      */
     FindClosestCategory(rguid, ppcatidList, ulCount) {
         ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
@@ -201,7 +203,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-registerguiddescription
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguiddescription
      */
     RegisterGUIDDescription(rclsid, rguid, pchDesc, cch) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
@@ -244,7 +246,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-unregisterguiddescription
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregisterguiddescription
      */
     UnregisterGUIDDescription(rclsid, rguid) {
         result := ComCall(9, this, "ptr", rclsid, "ptr", rguid, "HRESULT")
@@ -257,7 +259,7 @@ class ITfCategoryMgr extends IUnknown{
      * @returns {BSTR} Pointer to a <b>BSTR</b> value that receives the description string. Allocate using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must free this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
      * 
      * Pointer to a <b>BSTR</b> value that receives the description string. This must be allocated using <b>SysAllocString</b>. The caller must free this memory using <b>SysFreeString</b> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-getguiddescription
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddescription
      */
     GetGUIDDescription(rguid) {
         pbstrDesc := BSTR()
@@ -300,7 +302,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-registerguiddword
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguiddword
      */
     RegisterGUIDDWORD(rclsid, rguid, dw) {
         result := ComCall(11, this, "ptr", rclsid, "ptr", rguid, "uint", dw, "HRESULT")
@@ -341,7 +343,7 @@ class ITfCategoryMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-unregisterguiddword
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregisterguiddword
      */
     UnregisterGUIDDWORD(rclsid, rguid) {
         result := ComCall(12, this, "ptr", rclsid, "ptr", rguid, "HRESULT")
@@ -352,7 +354,7 @@ class ITfCategoryMgr extends IUnknown{
      * ITfCategoryMgr::GetGUIDDWORD method
      * @param {Pointer<Guid>} rguid Specifies the address of the GUID for which to get the value.
      * @returns {Integer} Pointer to the <b>DWORD</b> variable that receives the value of the GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-getguiddword
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddword
      */
     GetGUIDDWORD(rguid) {
         result := ComCall(13, this, "ptr", rguid, "uint*", &pdw := 0, "HRESULT")
@@ -361,9 +363,13 @@ class ITfCategoryMgr extends IUnknown{
 
     /**
      * ITfCategoryMgr::RegisterGUID method
+     * @remarks
+     * Identical <b>GUID</b> values receive identical <b>TfGuidAtom</b> values.
+     * 
+     * A <b>TfGuidAtom</b> value is only valid within the process that <b>ITfCategoryMgr::RegisterGUID</b> is called from.
      * @param {Pointer<Guid>} rguid Contains the GUID to obtain the identifier for.
      * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfguidatom">TfGuidAtom</a> value that receives the identifier of the GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-registerguid
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguid
      */
     RegisterGUID(rguid) {
         result := ComCall(14, this, "ptr", rguid, "uint*", &pguidatom := 0, "HRESULT")
@@ -374,7 +380,7 @@ class ITfCategoryMgr extends IUnknown{
      * ITfCategoryMgr::GetGUID method
      * @param {Integer} guidatom Contains a <b>TfGuidAtom</b> value that specifies the GUID to obtain.
      * @returns {Guid} Pointer to a <b>GUID</b> value that receives the <b>GUID</b> for the specified atom. Receives GUID_NULL if the <b>GUID</b> for the atom cannot be found.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-getguid
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguid
      */
     GetGUID(guidatom) {
         pguid := Guid()
@@ -384,10 +390,12 @@ class ITfCategoryMgr extends IUnknown{
 
     /**
      * ITfCategoryMgr::IsEqualTfGuidAtom method
+     * @remarks
+     * If the atom specified by the <i>guidatom</i> parameter represents the <b>GUID</b> specified by the <i>rguid</i> parameter, the <i>pfEqual</i> parameter receives a nonzero value. Otherwise, the <i>pfEqual</i> parameter receives zero.
      * @param {Integer} guidatom Specifies an atom that represents a GUID in the internal table.
      * @param {Pointer<Guid>} rguid Specifies the address of the GUID to compare with the atom in the internal table.
      * @returns {BOOL} Pointer to a Boolean variable that receives an indication of whether the atom represents the GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcategorymgr-isequaltfguidatom
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-isequaltfguidatom
      */
     IsEqualTfGuidAtom(guidatom, rguid) {
         result := ComCall(16, this, "uint", guidatom, "ptr", rguid, "int*", &pfEqual := 0, "HRESULT")

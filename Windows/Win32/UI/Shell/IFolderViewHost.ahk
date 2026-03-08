@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that hosts an IFolderView object in a window.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifolderviewhost
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderviewhost
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -49,8 +49,8 @@ class IFolderViewHost extends IUnknown{
      * The address of a pointer to a <b>RECT</b> structure that specifies the dimensions of the folder view.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderviewhost-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewhost-initialize
      */
     Initialize(hwndParent, pdo, prc) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

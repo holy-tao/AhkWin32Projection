@@ -7,10 +7,8 @@
 /**
  * ICivicAddressReport represents a location report that contains information in the form of a street address.
  * @remarks
- * 
  * Note that any property value can be <b>NULL</b> if the value is not available.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-icivicaddressreport
+ * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-icivicaddressreport
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
@@ -44,7 +42,7 @@ class ICivicAddressReport extends ILocationReport{
     /**
      * Retrieves the first line of a street address.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the first line of a street address.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getaddressline1
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline1
      */
     GetAddressLine1() {
         pbstrAddress1 := BSTR()
@@ -55,7 +53,7 @@ class ICivicAddressReport extends ILocationReport{
     /**
      * Retrieves the second line of a street address.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the second line of a street address.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getaddressline2
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline2
      */
     GetAddressLine2() {
         pbstrAddress2 := BSTR()
@@ -66,7 +64,7 @@ class ICivicAddressReport extends ILocationReport{
     /**
      * Retrieves the city name.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the city name.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getcity
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcity
      */
     GetCity() {
         pbstrCity := BSTR()
@@ -77,7 +75,7 @@ class ICivicAddressReport extends ILocationReport{
     /**
      * Retrieves the state or province name.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the state or province name.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getstateprovince
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getstateprovince
      */
     GetStateProvince() {
         pbstrStateProvince := BSTR()
@@ -88,7 +86,7 @@ class ICivicAddressReport extends ILocationReport{
     /**
      * Retrieves the postal code.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the postal code.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getpostalcode
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getpostalcode
      */
     GetPostalCode() {
         pbstrPostalCode := BSTR()
@@ -98,8 +96,10 @@ class ICivicAddressReport extends ILocationReport{
 
     /**
      * Retrieves the two-letter country or region code.
+     * @remarks
+     * The two-letter country or region code is in ISO 3166 format.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the country or region code.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getcountryregion
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcountryregion
      */
     GetCountryRegion() {
         pbstrCountryRegion := BSTR()
@@ -108,9 +108,11 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * Reserved.
+     * Reserved. (ICivicAddressReport.GetDetailLevel)
+     * @remarks
+     * To determine whether a civic address report contains valid data for a particular field, simply inspect the field's contents. If the field contains a value,  you can assume that the field contains the most accurate information available.
      * @returns {Integer} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
      */
     GetDetailLevel() {
         result := ComCall(12, this, "uint*", &pDetailLevel := 0, "HRESULT")

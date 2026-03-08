@@ -5,7 +5,7 @@
 
 /**
  * Retrieves names and descriptive strings for codecs and formats.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmcodecstrings
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecstrings
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -55,7 +55,7 @@ class IWMCodecStrings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
      */
     GetName(pmt, cchLength, szName, pcchLength) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -91,7 +91,7 @@ class IWMCodecStrings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
      */
     GetDescription(pmt, cchLength, szDescription, pcchLength) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription

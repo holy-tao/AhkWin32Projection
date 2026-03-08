@@ -10,7 +10,6 @@
 /**
  * A group of visual elements and related properties.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -46,9 +45,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -76,7 +73,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
     /**
      * Gets a pointer to an IXpsOMVisualCollection interface that contains a collection of the visual objects in the canvas.
      * @returns {IXpsOMVisualCollection} The collection of the visual objects in the canvas. If no visual objects are attached to the canvas, an empty collection is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getvisuals
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getvisuals
      */
     GetVisuals() {
         result := ComCall(30, this, "ptr*", &visuals := 0, "HRESULT")
@@ -85,6 +82,8 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Gets a Boolean value that determines whether the edges of the objects in the canvas are to be rendered using the aliased edge mode.
+     * @remarks
+     * The property that is returned by this method corresponds to the <b>RenderOptions.EdgeMode</b> attribute of the <b>Canvas</b> element in the document markup.
      * @returns {BOOL} The Boolean value that determines whether the objects in the canvas are to be rendered  using the aliased edge mode.
      * 
      * <table>
@@ -117,7 +116,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getusealiasededgemode
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getusealiasededgemode
      */
     GetUseAliasedEdgeMode() {
         result := ComCall(31, this, "int*", &useAliasedEdgeMode := 0, "HRESULT")
@@ -126,6 +125,8 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Sets the value that determines whether the edges of objects in this canvas will be rendered using the aliased edge mode.
+     * @remarks
+     * This property corresponds to the <b>RenderOptions.EdgeMode</b> attribute of the <b>Canvas</b> element in the document markup.
      * @param {BOOL} useAliasedEdgeMode The Boolean value that determines whether  the edges of child objects in this canvas will be rendered using the aliased edge mode.
      * 
      * <table>
@@ -159,7 +160,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </tr>
      * </table>
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setusealiasededgemode
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setusealiasededgemode
      */
     SetUseAliasedEdgeMode(useAliasedEdgeMode) {
         result := ComCall(32, this, "int", useAliasedEdgeMode, "HRESULT")
@@ -168,8 +169,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Gets a short textual description of the object's contents.
+     * @remarks
+     * The property returned by this method corresponds to the <b>AutomationProperties.Name</b> attribute of the <b>Canvas</b> element in the document markup.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>shortDescription</i>.  If <i>shortDescription</i> is not <b>NULL</b>, use the <b>CoTaskMemFree</b> function to free the memory.
      * @returns {PWSTR} The short textual description of the object's contents. If this description is not set, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilityshortdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilityshortdescription
      */
     GetAccessibilityShortDescription() {
         result := ComCall(33, this, "ptr*", &shortDescription := 0, "HRESULT")
@@ -177,10 +182,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
     }
 
     /**
-     * Sets the short textual description of the object's contents.
+     * Sets the short textual description of the object's contents. (IXpsOMCanvas.SetAccessibilityShortDescription)
+     * @remarks
+     * The property that is set by this method corresponds to the <b>AutomationProperties.HelpText</b> attribute of the <b>Canvas</b> element in the document markup.
      * @param {PWSTR} shortDescription The short textual description of the object's contents. A <b>NULL</b> pointer clears the previously assigned text.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setaccessibilityshortdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setaccessibilityshortdescription
      */
     SetAccessibilityShortDescription(shortDescription) {
         shortDescription := shortDescription is String ? StrPtr(shortDescription) : shortDescription
@@ -190,9 +197,13 @@ class IXpsOMCanvas extends IXpsOMVisual{
     }
 
     /**
-     * Gets the long (detailed) textual description of the object's contents.
+     * Gets the long (detailed) textual description of the object's contents. (IXpsOMCanvas.GetAccessibilityLongDescription)
+     * @remarks
+     * The property returned by this method corresponds to the <b>AutomationProperties.HelpText</b> attribute of the <b>Canvas</b> element in the document markup.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>longDescription</i>.  If <i>longDescription</i> is not <b>NULL</b>, use the  <b>SignatureDefinitions</b>   function to free the memory.
      * @returns {PWSTR} The long (detailed) textual description of the object's contents. A <b>NULL</b> pointer is returned if this text has not been set.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilitylongdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilitylongdescription
      */
     GetAccessibilityLongDescription() {
         result := ComCall(35, this, "ptr*", &longDescription := 0, "HRESULT")
@@ -200,10 +211,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
     }
 
     /**
-     * Sets the long (detailed) textual description of the object's contents.
+     * Sets the long (detailed) textual description of the object's contents. (IXpsOMCanvas.SetAccessibilityLongDescription)
+     * @remarks
+     * The property that is set by this method corresponds to the <b>AutomationProperties.HelpText</b> attribute of the <b>Canvas</b> element in the document markup.
      * @param {PWSTR} longDescription The long (detailed) textual description of the object's contents. A <b>NULL</b> pointer clears the previously assigned value.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setaccessibilitylongdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setaccessibilitylongdescription
      */
     SetAccessibilityLongDescription(longDescription) {
         longDescription := longDescription is String ? StrPtr(longDescription) : longDescription
@@ -214,6 +227,10 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Gets a pointer to the resolved IXpsOMDictionary interface of the dictionary associated with the canvas.
+     * @remarks
+     * <b>GetDictionary</b> can return the interface pointer of a local or remote dictionary.  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getowner">GetOwner</a> can be called to determine whether the dictionary is local or remote.
+     * 
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMDictionary} A pointer to the resolved <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the dictionary.
      * 
      * The value that is returned in this parameter depends on which method has been most recently called to set the dictionary.
@@ -258,7 +275,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionary
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionary
      */
     GetDictionary() {
         result := ComCall(37, this, "ptr*", &resourceDictionary := 0, "HRESULT")
@@ -267,6 +284,10 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Gets a pointer to the IXpsOMDictionary interface of the local, unshared dictionary.
+     * @remarks
+     * When this method loads and parses the resource into the XPS OM, it might return an error that applies to another resource. This can occur because all of the relationships are parsed when the resource is loaded. 
+     * 
+     * For more information about other return values that might be returned by this method, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * @returns {IXpsOMDictionary} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface pointer to the local, unshared dictionary, if one has been set. If a local dictionary has not been set or if a remote dictionary resource has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -309,7 +330,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal
      */
     GetDictionaryLocal() {
         result := ComCall(38, this, "ptr*", &resourceDictionary := 0, "HRESULT")
@@ -318,8 +339,79 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Sets the IXpsOMDictionary interface pointer of the local, unshared dictionary.
+     * @remarks
+     * After you call <b>SetDictionaryLocal</b>, the remote dictionary resource is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource">GetDictionaryResource</a> returns a <b>NULL</b> pointer in the <i>remoteDictionaryResource</i> parameter. The table that follows explains the relationship between the local and remote values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in  <i>resourceDictionary</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionary">GetDictionary</a>
+     * </th>
+     * <th>Object that is returned in <i>resourceDictionary</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal">GetDictionaryLocal</a>
+     * </th>
+     * <th>Object that is returned in <i>remoteDictionaryResource</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource">GetDictionaryResource</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetDictionaryLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local dictionary that is set by <b>SetDictionaryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local dictionary that is set by <b>SetDictionaryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource">SetDictionaryResource</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared dictionary in the dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource">SetDictionaryResource</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The remote dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource">SetDictionaryResource</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetDictionaryLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource">SetDictionaryResource</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMDictionary} resourceDictionary The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the local, unshared dictionary. A <b>NULL</b> pointer releases  any previously assigned local dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -349,7 +441,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal
      */
     SetDictionaryLocal(resourceDictionary) {
         result := ComCall(39, this, "ptr", resourceDictionary, "HRESULT")
@@ -358,6 +450,8 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Gets a pointer to the IXpsOMRemoteDictionaryResource interface of the remote dictionary resource.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMRemoteDictionaryResource} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource">IXpsOMRemoteDictionaryResource</a> interface pointer to the remote dictionary resource, if one has been set. If a remote dictionary resource has not been set or if a local dictionary resource has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -400,7 +494,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource
      */
     GetDictionaryResource() {
         result := ComCall(40, this, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
@@ -409,8 +503,78 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * Sets the IXpsOMRemoteDictionaryResource interface pointer of the remote dictionary resource.
+     * @remarks
+     * After calling this method,  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal">GetDictionaryLocal</a>  returns a <b>NULL</b> pointer in the <i>resourceDictionary</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>resourceDictionary</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionary">GetDictionary</a>
+     * </th>
+     * <th>Object that is returned in <i>resourceDictionary</i>     by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal">GetDictionaryLocal</a>
+     * </th>
+     * <th>Object that is returned in  <i>remoteDictionaryResource</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource">GetDictionaryResource</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal">SetDictionaryLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local dictionary that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal">SetDictionaryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local dictionary that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal">SetDictionaryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetDictionaryResource</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared dictionary in the dictionary resource that is set by <b>SetDictionaryResource</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The remote dictionary resource that is set by <b>SetDictionaryResource</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionarylocal">SetDictionaryLocal</a> nor <b>SetDictionaryResource</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMRemoteDictionaryResource} remoteDictionaryResource The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource">IXpsOMRemoteDictionaryResource</a> interface of the remote dictionary resource. A <b>NULL</b> pointer releases any previously assigned dictionary resource.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -440,7 +604,7 @@ class IXpsOMCanvas extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setdictionaryresource
      */
     SetDictionaryResource(remoteDictionaryResource) {
         result := ComCall(41, this, "ptr", remoteDictionaryResource, "HRESULT")
@@ -448,9 +612,11 @@ class IXpsOMCanvas extends IXpsOMVisual{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMCanvas.Clone)
+     * @remarks
+     * The owner of the new interface is <b>NULL</b>.
      * @returns {IXpsOMCanvas} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-clone
      */
     Clone() {
         result := ComCall(42, this, "ptr*", &canvas := 0, "HRESULT")

@@ -4,8 +4,8 @@
 #Include .\IDCompositionFilterEffect.ahk
 
 /**
- * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect
+ * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionArithmeticCompositeEffect)
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -35,10 +35,10 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
      * @param {Pointer<D2D_VECTOR_4F>} coefficients Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a></b>
      * 
      * The coefficients for the equation used to composite the two input images.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficients
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficients
      */
     SetCoefficients(coefficients) {
         result := ComCall(4, this, "ptr", coefficients, "HRESULT")
@@ -50,10 +50,10 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
      * @param {BOOL} clampoutput Type: <b>BOOL</b>
      * 
      * A boolean value indicating whether to clamp the color values.  A value of TRUE causes color values to be clamped between 0 and 1.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setclampoutput
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setclampoutput
      */
     SetClampOutput(clampoutput) {
         result := ComCall(5, this, "int", clampoutput, "HRESULT")
@@ -61,9 +61,11 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
-     * 
+     * Sets the first coefficient for the equation used to composite the two input images. (overload 2/2)
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient1(float)
      */
     SetCoefficient1(animation) {
@@ -72,9 +74,13 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the first coefficient for the equation used to composite the two input images. (overload 2/2)
+     * @param {Float} Coeffcient1 Type: <b>float</b>
      * 
-     * @param {Float} Coeffcient1 
-     * @returns {HRESULT} 
+     * Specifies the first coefficient for the equation used to composite the two input images.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient1(float)
      */
     SetCoefficient11(Coeffcient1) {
@@ -83,9 +89,13 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the second coefficient for the equation used to composite the two input images. (overload 2/2)
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * An animation that represents how the value of the second coefficient changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient2(idcompositionanimation)
      */
     SetCoefficient2(animation) {
@@ -94,9 +104,11 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
-     * 
+     * Sets the second coefficient for the equation used to composite the two input images. (overload 2/2)
      * @param {Float} Coefficient2 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient2(idcompositionanimation)
      */
     SetCoefficient21(Coefficient2) {
@@ -105,9 +117,11 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
-     * 
+     * Sets the third coefficient for the equation used to composite the two input images. (overload 1/2)
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient3(float)
      */
     SetCoefficient3(animation) {
@@ -116,9 +130,13 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the third coefficient for the equation used to composite the two input images. (overload 1/2)
+     * @param {Float} Coefficient3 Type: <b>float</b>
      * 
-     * @param {Float} Coefficient3 
-     * @returns {HRESULT} 
+     * The third coefficient for the equation used to composite the two input images.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient3(float)
      */
     SetCoefficient31(Coefficient3) {
@@ -127,9 +145,11 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
-     * 
+     * Sets the fourth coefficient for the equation used to composite the two input images. (overload 2/2)
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient4(float)
      */
     SetCoefficient4(animation) {
@@ -138,9 +158,13 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the fourth coefficient for the equation used to composite the two input images. (overload 2/2)
+     * @param {Float} Coefficient4 Type: <b>float</b>
      * 
-     * @param {Float} Coefficient4 
-     * @returns {HRESULT} 
+     * The fourth coefficient for the equation used to composite the two input images.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient4(float)
      */
     SetCoefficient41(Coefficient4) {

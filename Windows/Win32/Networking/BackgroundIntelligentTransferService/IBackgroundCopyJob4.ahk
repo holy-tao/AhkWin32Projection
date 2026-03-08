@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to enable peer caching, restrict download time, and inspect user token characteristics.
- * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nn-bits3_0-ibackgroundcopyjob4
+ * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibackgroundcopyjob4
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Sets flags that determine if the files of the job can be cached and served to peers and if the job can download content from peers.
+     * @remarks
+     * Setting these flags has meaning only if the peer caching has been enabled by either setting the  <a href="https://docs.microsoft.com/windows/desktop/Bits/group-policies">EnablePeerCaching</a> group policy or calling the <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-setconfigurationflags">IBitsPeerCacheAdministration::SetConfigurationFlags</a>.
      * @param {Integer} Flags Flags that determine if the files of the job can be cached and served to peers and if the job can download content from peers. The following flags can be set:
      * 
      * <table>
@@ -105,7 +107,7 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-setpeercachingflags
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-setpeercachingflags
      */
     SetPeerCachingFlags(Flags) {
         result := ComCall(47, this, "uint", Flags, "HRESULT")
@@ -114,6 +116,8 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Retrieves flags that determine if the files of the job can be cached and served to peers and if BITS can download content for the job from peers.
+     * @remarks
+     * BITS can download from peers only if peercaching is enabled both at the computer level and at the job level; this API affects only the job level. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-setpeercachingflags">IBackgroundCopyJob4::SetPeerCachingFlags</a>.
      * @returns {Integer} Flags that determine if the files of the job can be cached and served to peers and if BITS can download content for the job from peers. The following flags can be set:
      * 
      * <table>
@@ -144,7 +148,7 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-getpeercachingflags
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getpeercachingflags
      */
     GetPeerCachingFlags() {
         result := ComCall(48, this, "uint*", &pFlags := 0, "HRESULT")
@@ -153,8 +157,12 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Gets the integrity level of the token of the owner that created or took ownership of the job.
+     * @remarks
+     * For details on how the integrity level of the user's token affects a job, see <a href="https://docs.microsoft.com/windows/desktop/Bits/user-account-control-and-bits">User Account Control and BITS</a>.
+     * 
+     * This method returns the value from the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsidsubauthority">GetSidSubAuthority</a> function. For possible mandatory integrity RID values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a> in the Security documentation.
      * @returns {Integer} Integrity level of the token of the owner that created or took ownership of the job.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerintegritylevel
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerintegritylevel
      */
     GetOwnerIntegrityLevel() {
         result := ComCall(49, this, "uint*", &pLevel := 0, "HRESULT")
@@ -163,8 +171,12 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Gets a value that determines if the token of the owner was elevated at the time they created or took ownership of the job.
+     * @remarks
+     * For details on elevated tokens, see <a href="https://docs.microsoft.com/windows/desktop/Bits/user-account-control-and-bits">User Account Control and BITS</a>.
+     * 
+     * Note that if the job was created with an elevated token, all subsequent updates to the job must be done with an elevated token.
      * @returns {BOOL} Is <b>TRUE</b> if the token of the owner was elevated at the time they created or took ownership of the job; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerelevationstate
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerelevationstate
      */
     GetOwnerElevationState() {
         result := ComCall(50, this, "int*", &pElevated := 0, "HRESULT")
@@ -173,6 +185,14 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Sets the maximum time that BITS will spend transferring the files in the job.
+     * @remarks
+     * The value is the maximum elapsed time that the job can spend in the CONNECTING or TRANSFERRING state. Time spent in the QUEUED or TRANSIENT_ERROR state does not count against the timeout value. The job enters the fatal error state with an error code of BG_E_MAXDOWNLOAD_TIMEOUT if the transfer time exceeds the timeout value. 
+     * 
+     * Note that if the computer sleeps while BITS is transferring the job's data, the time spent sleeping will count against the timeout even though data is not being transferred.
+     * 
+     * Calling the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume">IBackgroundCopyJob::Resume</a> method, resets the elapsed time.
+     * 
+     * This method overrides the MaxDownloadTime group policy.
      * @param {Integer} Timeout Maximum time, in seconds, that BITS will spend transferring the files in the job. The default is 7,776,000 seconds (90 days).
      * @returns {HRESULT} The method returns the following return values.
      * 
@@ -193,7 +213,7 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-setmaximumdownloadtime
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-setmaximumdownloadtime
      */
     SetMaximumDownloadTime(Timeout) {
         result := ComCall(51, this, "uint", Timeout, "HRESULT")
@@ -202,8 +222,10 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * Retrieves the maximum time that BITS will spend transferring the files in the job.
+     * @remarks
+     * The value is the maximum elapsed time that the job can spend in the CONNECTING or TRANSFERRING state. Time spent in the QUEUED or TRANSIENT_ERROR state does not count against the timeout value.
      * @returns {Integer} Maximum time, in seconds, that BITS will spend transferring the files in the job.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyjob4-getmaximumdownloadtime
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getmaximumdownloadtime
      */
     GetMaximumDownloadTime() {
         result := ComCall(52, this, "uint*", &pTimeout := 0, "HRESULT")

@@ -7,7 +7,7 @@
 
 /**
  * Do not use. This interface is used to provide access to distribution lists in modifiable address book containers. The interface provides methods to create, copy, and delete distribution lists, in addition to performing name resolution.
- * @see https://docs.microsoft.com/windows/win32/api//wabdefs/nn-wabdefs-idistlist
+ * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-idistlist
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

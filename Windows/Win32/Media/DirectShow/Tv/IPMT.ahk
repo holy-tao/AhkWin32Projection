@@ -7,7 +7,7 @@
 
 /**
  * The IPMT interface enables the client to get information from a program map table (PMT).
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nn-mpeg2psiparser-ipmt
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipmt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -77,7 +77,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-initialize
      */
     Initialize(pSectionList, pMPEGData) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
@@ -87,7 +87,7 @@ class IPMT extends IUnknown{
     /**
      * The GetProgramNumber method returns the program number for the PMT.
      * @returns {Integer} Receives the program_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getprogramnumber
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getprogramnumber
      */
     GetProgramNumber() {
         result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -97,7 +97,7 @@ class IPMT extends IUnknown{
     /**
      * The GetVersionNumber method returns the version number for the PMT.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -107,7 +107,7 @@ class IPMT extends IUnknown{
     /**
      * The GetPcrPid method returns the packet identifier (PID) of the packets that contain the Program Clock Reference (PCR) fields for this program.
      * @returns {Integer} Receives the PCR_PID field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getpcrpid
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getpcrpid
      */
     GetPcrPid() {
         result := ComCall(6, this, "ushort*", &pPidVal := 0, "HRESULT")
@@ -117,7 +117,7 @@ class IPMT extends IUnknown{
     /**
      * The GetCountOfTableDescriptors method returns the number of table-wide descriptors in the PMT.
      * @returns {Integer} Receives the number of descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountoftabledescriptors
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors() {
         result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -128,7 +128,7 @@ class IPMT extends IUnknown{
      * The GetTableDescriptorByIndex method retrieves a table-wide descriptor for the PMT.
      * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountoftabledescriptors">IPMT::GetCountOfTableDescriptors</a> method to get the number of table descriptors in the PMT.
      * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface pointer. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
         result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -137,10 +137,12 @@ class IPMT extends IUnknown{
 
     /**
      * The GetTableDescriptorByTag method searches the PMT for a table-wide descriptor with the specified descriptor tag.
+     * @remarks
+     * If the value of <i>pdwCookie</i> is not <b>NULL</b>, the method returns either MPEG2_S_NO_MORE_DATA_AVAILABLE or MPEG2_S_MORE_DATA_AVAILABLE to indicate whether the MGT contains additional tags that match the search criteria.
      * @param {Integer} bTag Specifies the descriptor tag for which to search.
      * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in <i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface pointer. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
@@ -152,7 +154,7 @@ class IPMT extends IUnknown{
     /**
      * The GetCountOfRecords method returns the number of records in the PMT. Each record corresponds to a stream in the program.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(10, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -163,7 +165,7 @@ class IPMT extends IUnknown{
      * The GetRecordStreamType method returns the stream type for a given elementary stream in the program.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords">IPMT::GetCountOfRecords</a> method to get the number of records in the PMT.
      * @returns {Integer} Receives the stream_type field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordstreamtype
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordstreamtype
      */
     GetRecordStreamType(dwRecordIndex) {
         result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -174,7 +176,7 @@ class IPMT extends IUnknown{
      * The GetRecordElementaryPid method returns the packet identifier (PID) for a given elementary stream in the program.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords">IPMT::GetCountOfRecords</a> method to get the number of records in the PMT.
      * @returns {Integer} Receives the elementary_PID field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordelementarypid
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordelementarypid
      */
     GetRecordElementaryPid(dwRecordIndex) {
         result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", &pPidVal := 0, "HRESULT")
@@ -185,7 +187,7 @@ class IPMT extends IUnknown{
      * The GetRecordCountOfDescriptors method returns the number of descriptors for a record in the PMT.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords">IPMT::GetCountOfRecords</a> method to get the number of records in the PMT.
      * @returns {Integer} Receives the number of descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordcountofdescriptors
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
         result := ComCall(13, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
@@ -197,7 +199,7 @@ class IPMT extends IUnknown{
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords">IPMT::GetCountOfRecords</a> method to get the number of records in the PMT.
      * @param {Integer} dwDescIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordcountofdescriptors">IPMT::GetRecordCountOfDescriptors</a> method to get the number of descriptors for a particular record.
      * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface pointer. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwDescIndex) {
         result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwDescIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -206,11 +208,13 @@ class IPMT extends IUnknown{
 
     /**
      * The GetRecordDescriptorByTag method searches a record in the PMT for a descriptor with a specified descriptor tag.
+     * @remarks
+     * If the value of <i>pdwCookie</i> is not <b>NULL</b>, the method returns either MPEG2_S_NO_MORE_DATA_AVAILABLE or MPEG2_S_MORE_DATA_AVAILABLE to indicate whether the record contains additional tags that match the search criteria.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords">IPMT::GetCountOfRecords</a> method to get the number of records in the PMT.
      * @param {Integer} bTag Specifies the descriptor tag for which to search.
      * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in <i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface pointer. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
@@ -221,6 +225,8 @@ class IPMT extends IUnknown{
 
     /**
      * The QueryServiceGatewayInfo method returns the DSM-CC service gateway information in the PMT, if any.
+     * @remarks
+     * If the method succeeds, it returns one of the two success codes listed in the previous table. It returns MPEG2_S_SG_INFO_FOUND if the PMT contains service gateway information, or MPEG2_S_SG_INFO_NOT_FOUND if the PMT does not contain any service gateway information.
      * @param {Pointer<Pointer<DSMCC_ELEMENT>>} ppDSMCCList Address of a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-dsmcc_element">DSMCC_ELEMENT</a> structures. The client must free the array by calling the <b>CoTaskMemFree</b> function.
      * @param {Pointer<Integer>} puiCount Receives the number of elements returned in <i>ppDSMCCList</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -286,7 +292,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-queryservicegatewayinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-queryservicegatewayinfo
      */
     QueryServiceGatewayInfo(ppDSMCCList, puiCount) {
         ppDSMCCListMarshal := ppDSMCCList is VarRef ? "ptr*" : "ptr"
@@ -298,6 +304,8 @@ class IPMT extends IUnknown{
 
     /**
      * The QueryMPEInfo method returns the multi-protocol encapsulation (MPE) information in the PMT, if any.
+     * @remarks
+     * If the method succeeds, it returns one of the two success codes listed in the previous table. It returns MPEG2_S_MPE_INFO_FOUND if the PMT contains MPE information, or MPEG2_S_MPE_INFO_NOT_FOUND if the PMT does not contain any MPE information.
      * @param {Pointer<Pointer<MPE_ELEMENT>>} ppMPEList Address of a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpe_element">MPE_ELEMENT</a> structures. The client must free the array by calling the <b>CoTaskMemFree</b> function.
      * @param {Pointer<Integer>} puiCount Receives the number of elements returned in <i>ppMPEList</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -363,7 +371,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-querympeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-querympeinfo
      */
     QueryMPEInfo(ppMPEList, puiCount) {
         ppMPEListMarshal := ppMPEList is VarRef ? "ptr*" : "ptr"
@@ -375,6 +383,8 @@ class IPMT extends IUnknown{
 
     /**
      * The RegisterForNextTable method registers the client to be notified when a next table arrives that will replace the current table.
+     * @remarks
+     * This method applies only to <i>current</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableAvailable Handle to an event created by the caller. The object signals the event when the <i>next</i> table arrives. When the event is signaled, call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getnexttable">IPMT::GetNextTable</a> method to retrieve the table.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -428,7 +438,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerfornexttable
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
         hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
@@ -439,8 +449,10 @@ class IPMT extends IUnknown{
 
     /**
      * The GetNextTable method retrieves the next table that follows the current table.
+     * @remarks
+     * This method applies only to <i>current</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @returns {IPMT} Address of a variable that receives an <b>IPMT</b> interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-getnexttable
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getnexttable
      */
     GetNextTable() {
         result := ComCall(19, this, "ptr*", &ppPMT := 0, "HRESULT")
@@ -449,6 +461,8 @@ class IPMT extends IUnknown{
 
     /**
      * The RegisterForWhenCurrent method registers the client to be notified when the table becomes current.
+     * @remarks
+     * This method applies only to <i>next</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableIsCurrent Handle to an event created by the caller. The object signals the event when the table becomes current.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -502,7 +516,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerforwhencurrent
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
         hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
@@ -513,6 +527,8 @@ class IPMT extends IUnknown{
 
     /**
      * The ConvertNextToCurrent method converts a next table to a current table.
+     * @remarks
+     * This method applies only to <i>next</i> tables that have become current. Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerforwhencurrent">IPMT::RegisterForWhenCurrent</a> and wait for the event to be signaled.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -565,7 +581,7 @@ class IPMT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipmt-convertnexttocurrent
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-convertnexttocurrent
      */
     ConvertNextToCurrent() {
         result := ComCall(21, this, "HRESULT")

@@ -9,7 +9,7 @@
 
 /**
  * Manages an Advanced Systems Format (ASF) profile.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfprofile
+ * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfprofile
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * Retrieves the number of streams in the profile.
      * @returns {Integer} Receives the number of streams in the profile.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getstreamcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamcount
      */
     GetStreamCount() {
         result := ComCall(33, this, "uint*", &pcStreams := 0, "HRESULT")
@@ -46,6 +46,10 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Retrieves a stream from the profile by stream index, and/or retrieves the stream number for a stream index.
+     * @remarks
+     * This method does not create a copy of the stream configuration object. The pointer that is retrieved points to the object within the profile object. You must not make any changes to the stream configuration object using this pointer, because doing so can affect the profile object in unexpected ways.
+     * 
+     * To change the configuration of the stream configuration object in the profile, you must first clone the stream configuration object by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-clone">IMFASFStreamConfig::Clone</a>. Make whatever changes are required to the clone of the object and then add the updated object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-setstream">IMFASFProfile::SetStream</a> method.
      * @param {Integer} dwStreamIndex The index of the stream to retrieve. Stream indexes are sequential and zero-based. You can get the number of streams that are in the profile by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamcount">IMFASFProfile::GetStreamCount</a> method.
      * @param {Pointer<Integer>} pwStreamNumber Receives the stream number of the requested stream. Stream numbers are one-based and are not necessarily sequential. This parameter can be set to <b>NULL</b> if the stream number is not required.
      * @param {Pointer<IMFASFStreamConfig>} ppIStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig">IMFASFStreamConfig</a> interface of the ASF stream configuration object. The caller must release the interface. This parameter can be <b>NULL</b> if you want to retrieve the stream number without accessing the stream configuration.
@@ -68,7 +72,7 @@ class IMFASFProfile extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getstream
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, ppIStream) {
         pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
@@ -79,9 +83,13 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Retrieves an Advanced Systems Format (ASF) stream configuration object for a stream in the profile. This method references the stream by stream number instead of stream index.
+     * @remarks
+     * This method does not create a copy of the stream configuration object. The pointer that is retrieved points to the object within the profile object. You must not make any changes to the stream configuration object using this pointer, because doing so can affect the profile object in unexpected ways.
+     * 
+     * To change the configuration of the stream configuration object in the profile, you must first clone the stream configuration object by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-clone">IMFASFStreamConfig::Clone</a>. Make whatever changes are required to the clone of the object and then add the updated object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-setstream">IMFASFProfile::SetStream</a> method.
      * @param {Integer} wStreamNumber The stream number for which to obtain the interface pointer.
      * @returns {IMFASFStreamConfig} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig">IMFASFStreamConfig</a> interface of the ASF stream configuration object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getstreambynumber
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreambynumber
      */
     GetStreamByNumber(wStreamNumber) {
         result := ComCall(35, this, "ushort", wStreamNumber, "ptr*", &ppIStream := 0, "HRESULT")
@@ -90,6 +98,8 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Adds a stream to the profile or reconfigures an existing stream.
+     * @remarks
+     * If the stream number in the ASF stream configuration object is already included in the profile, the information in the new object replaces the old one. If the profile does not contain a stream for the stream number, the ASF stream configuration object is added as a new stream.
      * @param {IMFASFStreamConfig} pIStream Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig">IMFASFStreamConfig</a> interface of a configured ASF stream configuration object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -110,7 +120,7 @@ class IMFASFProfile extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-setstream
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-setstream
      */
     SetStream(pIStream) {
         result := ComCall(36, this, "ptr", pIStream, "HRESULT")
@@ -119,6 +129,8 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Removes a stream from the Advanced Systems Format (ASF) profile object.
+     * @remarks
+     * After a stream is removed, the ASF profile object reassigns stream indexes so that the index values are sequential starting from zero. Any previously stored stream index numbers are no longer valid after deleting a stream.
      * @param {Integer} wStreamNumber Stream number of the stream to remove.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -139,7 +151,7 @@ class IMFASFProfile extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-removestream
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-removestream
      */
     RemoveStream(wStreamNumber) {
         result := ComCall(37, this, "ushort", wStreamNumber, "HRESULT")
@@ -148,9 +160,11 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Creates an Advanced Systems Format (ASF) stream configuration object.
+     * @remarks
+     * The ASF stream configuration object created by this method is not included in the profile. To include the stream, you must first configure the stream configuration and then call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-setstream">IMFASFProfile::SetStream</a>.
      * @param {IMFMediaType} pIMediaType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of a configured media type.
      * @returns {IMFASFStreamConfig} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig">IMFASFStreamConfig</a> interface of the new ASF stream configuration object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-createstream
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createstream
      */
     CreateStream(pIMediaType) {
         result := ComCall(38, this, "ptr", pIMediaType, "ptr*", &ppIStream := 0, "HRESULT")
@@ -159,8 +173,10 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Retrieves the number of Advanced Systems Format (ASF) mutual exclusion objects that are associated with the profile.
+     * @remarks
+     * Multiple mutual exclusion objects may be required for streams that are mutually exclusive in more than one way. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord">IMFASFMutualExclusion::AddRecord</a>.
      * @returns {Integer} Receives the number of mutual exclusion objects.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusioncount
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusioncount
      */
     GetMutualExclusionCount() {
         result := ComCall(39, this, "uint*", &pcMutexs := 0, "HRESULT")
@@ -169,9 +185,13 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Retrieves an Advanced Systems Format (ASF) mutual exclusion object from the profile.
+     * @remarks
+     * This method does not create a copy of the mutual exclusion object. The returned pointer refers to the mutual exclusion contained in the profile object. You must not make any changes to the mutual exclusion object using this pointer, because doing so can affect the profile object in unexpected ways.
+     * 
+     * To change the configuration of the mutual exclusion object in the profile, you must first clone the mutual exclusion object by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-clone">IMFASFMutualExclusion::Clone</a>. Make whatever changes are required to the clone of the object, remove the old mutual exclusion object from the profile by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-removemutualexclusion">IMFASFProfile::RemoveMutualExclusion</a> method, and then add the updated object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-addmutualexclusion">IMFASFProfile::AddMutualExclusion</a> method.
      * @param {Integer} dwMutexIndex Index of the mutual exclusion object in the profile.
      * @returns {IMFASFMutualExclusion} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfmutualexclusion">IMFASFMutualExclusion</a> interface of the ASF mutual exclusion object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusion
      */
     GetMutualExclusion(dwMutexIndex) {
         result := ComCall(40, this, "uint", dwMutexIndex, "ptr*", &ppIMutex := 0, "HRESULT")
@@ -180,6 +200,8 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Adds a configured Advanced Systems Format (ASF) mutual exclusion object to the profile.
+     * @remarks
+     * You can create a mutual exclusion object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-createmutualexclusion">IMFASFProfile::CreateMutualExclusion</a> method.
      * @param {IMFASFMutualExclusion} pIMutex Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfmutualexclusion">IMFASFMutualExclusion</a> interface of a configured ASF mutual exclusion object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -200,7 +222,7 @@ class IMFASFProfile extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-addmutualexclusion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-addmutualexclusion
      */
     AddMutualExclusion(pIMutex) {
         result := ComCall(41, this, "ptr", pIMutex, "HRESULT")
@@ -209,6 +231,8 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Removes an Advanced Systems Format (ASF) mutual exclusion object from the profile.
+     * @remarks
+     * When a mutual exclusion object is removed from the profile, the ASF profile object reassigns the mutual exclusion indexes so that they are sequential starting with zero. Any previously stored indexes are no longer valid after calling this method.
      * @param {Integer} dwMutexIndex The index of the mutual exclusion object to remove from the profile.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -229,7 +253,7 @@ class IMFASFProfile extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-removemutualexclusion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-removemutualexclusion
      */
     RemoveMutualExclusion(dwMutexIndex) {
         result := ComCall(42, this, "uint", dwMutexIndex, "HRESULT")
@@ -238,8 +262,10 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Creates a new Advanced Systems Format (ASF) mutual exclusion object. Mutual exclusion objects can be added to a profile by calling the AddMutualExclusion method.
+     * @remarks
+     * The ASF mutual exclusion object created by this method is not associated with the profile. Call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfprofile-addmutualexclusion">IMFASFProfile::AddMutualExclusion</a> after configuring the object to make this association.
      * @returns {IMFASFMutualExclusion} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfmutualexclusion">IMFASFMutualExclusion</a> interface of the new object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-createmutualexclusion
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createmutualexclusion
      */
     CreateMutualExclusion() {
         result := ComCall(43, this, "ptr*", &ppIMutex := 0, "HRESULT")
@@ -249,7 +275,7 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * IMFASFProfile::GetStreamPrioritization method
      * @returns {IMFASFStreamPrioritization} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-getstreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamprioritization
      */
     GetStreamPrioritization() {
         result := ComCall(44, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
@@ -259,8 +285,8 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * IMFASFProfile::AddStreamPrioritization method
      * @param {IMFASFStreamPrioritization} pIStreamPrioritization Reserved.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-addstreamprioritization
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-addstreamprioritization
      */
     AddStreamPrioritization(pIStreamPrioritization) {
         result := ComCall(45, this, "ptr", pIStreamPrioritization, "HRESULT")
@@ -269,8 +295,8 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * IMFASFProfile::RemoveStreamPrioritization method
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-removestreamprioritization
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-removestreamprioritization
      */
     RemoveStreamPrioritization() {
         result := ComCall(46, this, "HRESULT")
@@ -280,7 +306,7 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * IMFASFProfile::CreateStreamPrioritization method
      * @returns {IMFASFStreamPrioritization} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-createstreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createstreamprioritization
      */
     CreateStreamPrioritization() {
         result := ComCall(47, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
@@ -289,8 +315,10 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * Creates a copy of the Advanced Systems Format profile object.
+     * @remarks
+     * The cloned object is completely independent of the original.
      * @returns {IMFASFProfile} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfprofile">IMFASFProfile</a> interface of the new object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfprofile-clone
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-clone
      */
     Clone() {
         result := ComCall(48, this, "ptr*", &ppIProfile := 0, "HRESULT")

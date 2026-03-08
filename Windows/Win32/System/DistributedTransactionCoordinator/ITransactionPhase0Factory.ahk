@@ -30,9 +30,10 @@ class ITransactionPhase0Factory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {ITransactionPhase0NotifyAsync} pPhase0Notify 
      * @returns {ITransactionPhase0EnlistmentAsync} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pPhase0Notify) {
         result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "HRESULT")

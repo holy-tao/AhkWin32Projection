@@ -7,7 +7,7 @@
 
 /**
  * Describes a set of operations.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iaztask
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iaztask
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -110,14 +110,11 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the task.
+     * Sets or retrieves the name of the task. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -126,15 +123,12 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the task.
+     * Sets or retrieves the name of the task. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_name
      */
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -144,14 +138,11 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the task.
+     * Sets or retrieves a comment that describes the task. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -160,15 +151,12 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the task.
+     * Sets or retrieves a comment that describes the task. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -178,15 +166,12 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzTask sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzTask sets or retrieves an opaque field that can be used by the application to store information. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_applicationdata
      */
     get_ApplicationData() {
         pbstrApplicationData := BSTR()
@@ -195,16 +180,13 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzTask sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzTask sets or retrieves an opaque field that can be used by the application to store information. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @param {BSTR} bstrApplicationData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_applicationdata
      */
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
@@ -214,18 +196,15 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the text of the script that implements the business rule (BizRule).
+     * Sets or retrieves the text of the script that implements the business rule (BizRule). (Get)
      * @remarks
-     * 
      * The maximum length of this property is 65,536 characters.
      * 
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-get_bizrulelanguage">BizRuleLanguage</a> property must be set before this property is set.</div>
      * <div> </div>
      * An <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object that is a child object of a delegated <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object cannot have an associated BizRule.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_bizrule
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizrule
      */
     get_BizRule() {
         pbstrProp := BSTR()
@@ -234,19 +213,16 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the text of the script that implements the business rule (BizRule).
+     * Sets or retrieves the text of the script that implements the business rule (BizRule). (Put)
      * @remarks
-     * 
      * The maximum length of this property is 65,536 characters.
      * 
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-get_bizrulelanguage">BizRuleLanguage</a> property must be set before this property is set.</div>
      * <div> </div>
      * An <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object that is a child object of a delegated <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object cannot have an associated BizRule.
-     * 
-     * 
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_bizrule
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_bizrule
      */
     put_BizRule(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -256,14 +232,11 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the scripting language in which the business rule (BizRule) is implemented.
+     * Sets or retrieves the scripting language in which the business rule (BizRule) is implemented. (Get)
      * @remarks
-     * 
      * This property must be set before the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-get_bizrule">BizRule</a> property is set.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_bizrulelanguage
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizrulelanguage
      */
     get_BizRuleLanguage() {
         pbstrProp := BSTR()
@@ -272,15 +245,12 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the scripting language in which the business rule (BizRule) is implemented.
+     * Sets or retrieves the scripting language in which the business rule (BizRule) is implemented. (Put)
      * @remarks
-     * 
      * This property must be set before the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-get_bizrule">BizRule</a> property is set.
-     * 
-     * 
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_bizrulelanguage
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_bizrulelanguage
      */
     put_BizRuleLanguage(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -290,16 +260,13 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the path to the file from which the business rule (BizRule) is imported.
+     * Sets or retrieves the path to the file from which the business rule (BizRule) is imported. (Get)
      * @remarks
-     * 
      * The path information is stored for use by the UI. The UI should supply a mechanism to synchronize the contents of the file and this property.
      * 
      * The maximum length of this property is 512 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_bizruleimportedpath
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizruleimportedpath
      */
     get_BizRuleImportedPath() {
         pbstrProp := BSTR()
@@ -308,17 +275,14 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the path to the file from which the business rule (BizRule) is imported.
+     * Sets or retrieves the path to the file from which the business rule (BizRule) is imported. (Put)
      * @remarks
-     * 
      * The path information is stored for use by the UI. The UI should supply a mechanism to synchronize the contents of the file and this property.
      * 
      * The maximum length of this property is 512 characters.
-     * 
-     * 
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_bizruleimportedpath
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_bizruleimportedpath
      */
     put_BizRuleImportedPath(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -328,14 +292,11 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the task is a role definition.
+     * Sets or retrieves a value that indicates whether the task is a role definition. (Get)
      * @remarks
-     * 
      * This property represents a user interface abstraction and does not affect the functionality of the task.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_isroledefinition
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_isroledefinition
      */
     get_IsRoleDefinition() {
         result := ComCall(19, this, "int*", &pfProp := 0, "HRESULT")
@@ -343,15 +304,12 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the task is a role definition.
+     * Sets or retrieves a value that indicates whether the task is a role definition. (Put)
      * @remarks
-     * 
      * This property represents a user interface abstraction and does not affect the functionality of the task.
-     * 
-     * 
      * @param {BOOL} fProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-put_isroledefinition
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_isroledefinition
      */
     put_IsRoleDefinition(fProp) {
         result := ComCall(20, this, "int", fProp, "HRESULT")
@@ -361,11 +319,9 @@ class IAzTask extends IDispatch{
     /**
      * Retrieves the operations associated with the task.
      * @remarks
-     * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_operations
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_operations
      */
     get_Operations() {
         pvarProp := VARIANT()
@@ -376,13 +332,11 @@ class IAzTask extends IDispatch{
     /**
      * Retrieves the tasks associated with the task.
      * @remarks
-     * 
      * This property shows the nesting of <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> objects within another <b>IAzTask</b> object.
      * 
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_tasks
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_tasks
      */
     get_Tasks() {
         pvarProp := VARIANT()
@@ -393,13 +347,11 @@ class IAzTask extends IDispatch{
     /**
      * Adds the IAzOperation object with the specified name to the task.
      * @remarks
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrOp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object to add to the task.
+     * You must call the [Submit](nf-azroles-iaztask-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrOp Name of the [IAzOperation](nn-azroles-iazoperation.md) object to add to the task.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-addoperation
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-addoperation
      */
     AddOperation(bstrOp, varReserved) {
         bstrOp := bstrOp is String ? BSTR.Alloc(bstrOp).Value : bstrOp
@@ -411,13 +363,11 @@ class IAzTask extends IDispatch{
     /**
      * Removes the IAzOperation object with the specified name from the task.
      * @remarks
-     * 
-     * If there are any <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> references to an <b>IAzOperation</b> object that has been deleted from the cache, the <b>IAzOperation</b> object can no longer be used. In C++, you must release references to deleted <b>IAzOperation</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrOp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object to remove from the task.
+     * If there are any [IAzOperation](nn-azroles-iazoperation.md) references to an **IAzOperation** object that has been deleted from the cache, the **IAzOperation** object can no longer be used. In C++, you must release references to deleted **IAzOperation** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrOp Name of the [IAzOperation](nn-azroles-iazoperation.md) object to remove from the task.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-deleteoperation
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-deleteoperation
      */
     DeleteOperation(bstrOp, varReserved) {
         bstrOp := bstrOp is String ? BSTR.Alloc(bstrOp).Value : bstrOp
@@ -429,15 +379,13 @@ class IAzTask extends IDispatch{
     /**
      * Adds the IAzTask object with the specified name to the task.
      * @remarks
+     * This method allows the nesting of [IAzTask](nn-azroles-iaztask.md) objects within another **IAzTask** object.
      * 
-     * This method allows the nesting of <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> objects within another <b>IAzTask</b> object.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrTask Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object to add to the task.
+     * You must call the [Submit](nf-azroles-iaztask-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrTask Name of the [IAzTask](nn-azroles-iaztask.md) object to add to the task.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-addtask
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-addtask
      */
     AddTask(bstrTask, varReserved) {
         bstrTask := bstrTask is String ? BSTR.Alloc(bstrTask).Value : bstrTask
@@ -449,13 +397,11 @@ class IAzTask extends IDispatch{
     /**
      * Removes the IAzTask object with the specified name from the task.
      * @remarks
-     * 
-     * If there are any <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> references to an <b>IAzTask</b> object that has been deleted from the cache, the <b>IAzTask</b> object can no longer be used. In C++, you must release references to deleted <b>IAzTask</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrTask Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object to remove from the task.
+     * If there are any [IAzTask](nn-azroles-iaztask.md) references to an **IAzTask** object that has been deleted from the cache, the **IAzTask** object can no longer be used. In C++, you must release references to deleted **IAzTask** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrTask Name of the [IAzTask](nn-azroles-iaztask.md) object to remove from the task.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-deletetask
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-deletetask
      */
     DeleteTask(bstrTask, varReserved) {
         bstrTask := bstrTask is String ? BSTR.Alloc(bstrTask).Value : bstrTask
@@ -467,7 +413,7 @@ class IAzTask extends IDispatch{
     /**
      * Retrieves a value that indicates whether the task can be modified by the user context that initialized it.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-get_writable
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_writable
      */
     get_Writable() {
         result := ComCall(27, this, "int*", &pfProp := 0, "HRESULT")
@@ -586,7 +532,7 @@ class IAzTask extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
@@ -596,6 +542,8 @@ class IAzTask extends IDispatch{
 
     /**
      * Sets the specified value to the IAzTask object property with the specified property ID.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object property  to set. The following table shows the possible values.
      * 
      * <table>
@@ -740,7 +688,7 @@ class IAzTask extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
         result := ComCall(29, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -748,7 +696,9 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Adds the specified entity to the specified list.
+     * Adds the specified entity to the specified list. (IAzTask.AddPropertyItem)
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iaztask-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the  list to which to add the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -782,7 +732,7 @@ class IAzTask extends IDispatch{
      * The variant must be a <b>BSTR</b> variant.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-addpropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(30, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -790,7 +740,7 @@ class IAzTask extends IDispatch{
     }
 
     /**
-     * Removes the specified entity from the specified list.
+     * Removes the specified entity from the specified list. (IAzTask.DeletePropertyItem)
      * @param {Integer} lPropId Property ID of the  list from which to remove the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -824,7 +774,7 @@ class IAzTask extends IDispatch{
      * The variant must be a <b>BSTR</b> variant.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-deletepropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(31, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -834,13 +784,11 @@ class IAzTask extends IDispatch{
     /**
      * Persists changes made to the IAzTask object.
      * @remarks
-     * 
-     * Any additions or modifications to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object are not persisted until the <b>Submit</b> method is called.
-     * 
-     * @param {Integer} lFlags Flags that modify the behavior of the <b>Submit</b> method. The default value is zero. If the AZ_SUBMIT_FLAG_ABORT flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
+     * Any additions or modifications to an [IAzTask](nn-azroles-iaztask.md) object are not persisted until the **Submit** method is called.
+     * @param {Integer} lFlags Flags that modify the behavior of the **Submit** method. The default value is zero. If the **AZ_SUBMIT_FLAG_ABORT** flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask-submit
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-submit
      */
     Submit(lFlags, varReserved) {
         result := ComCall(32, this, "int", lFlags, "ptr", varReserved, "HRESULT")

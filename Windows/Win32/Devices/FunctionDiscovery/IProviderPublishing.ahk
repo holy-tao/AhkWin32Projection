@@ -7,12 +7,10 @@
 /**
  * Is implemented by a discovery provider to enable a client program to add and remove function instances.
  * @remarks
- * 
  * Clients access the function instance through <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-addinstance">IFunctionDiscovery::AddInstance</a> and <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-removeinstance">IFunctionDiscovery::RemoveInstance</a>.
  * 
  * The <b>IProviderPublishing</b> interface can only be implemented by discovery providers that support category change notification. At this time only PnP providers support change notification.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpublishing
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpublishing
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -43,7 +41,7 @@ class IProviderPublishing extends IUnknown{
      * @param {PWSTR} pszSubCategory The subcategory string for the function instance.
      * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer used to return the newly created function instance.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-createinstance
      */
     CreateInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
@@ -99,7 +97,7 @@ class IProviderPublishing extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-removeinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-removeinstance
      */
     RemoveInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory

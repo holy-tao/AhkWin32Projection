@@ -7,11 +7,8 @@
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.
  * @remarks
- * 
  * Under the WinNT provider, this interface is implemented on the <b>WinNTService</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfileservice
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfileservice
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

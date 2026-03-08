@@ -6,11 +6,8 @@
 /**
  * The IStreamBufferSink3 interface is exposed by the Stream Buffer Sink filter.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferSink3)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambuffersink3
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambuffersink3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IStreamBufferSink3 extends IStreamBufferSink2{
 
     /**
      * The SetAvailableFilter method limits how far the Stream Buffer Source filter can seek backward, relative to the current recording position.
+     * @remarks
+     * The minimum seek time is an absolute position within the file. For example, suppose the value is -50000000. Immediately after the method returns, the Stream Buffer Source filter can seek backward 5 seconds, but no further. After another 15 seconds of recording, the filter can seek backward 20 seconds from the new position.
      * @param {Pointer<Integer>} prtMin On input, specifies the earliest seek time, in 100-nanosecond units, relative to the recording position when the method is called. The value must be less than or equal to zero. To make the entire backing store available, use the value -MAXLONGLONG.
      * 
      * On output, this parameter receives the actual minimum seek time. The two values may differ if the requested time exceeds the amount of time that is available.
@@ -59,7 +58,7 @@ class IStreamBufferSink3 extends IStreamBufferSink2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambuffersink3-setavailablefilter
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersink3-setavailablefilter
      */
     SetAvailableFilter(prtMin) {
         prtMinMarshal := prtMin is VarRef ? "int64*" : "ptr"

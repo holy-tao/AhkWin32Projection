@@ -8,11 +8,8 @@
 /**
  * The IWindowsMediaLibrarySharingDevices.
  * @remarks
- * 
  * To obtain an <b>IWindowsMediaLibrarySharingDevices</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-getalldevices">getAllDevices</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingservices">IWindowsMediaLibrarySharingServices</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmlss/nn-wmlss-iwindowsmedialibrarysharingdevices
+ * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevices
  * @namespace Windows.Win32.Media.LibrarySharingServices
  * @version v4.0.30319
  */
@@ -48,7 +45,7 @@ class IWindowsMediaLibrarySharingDevices extends IDispatch{
      * The get_Item method retrieves an IWindowsMediaLibrarySharingDevice interface that represents an individual media device.
      * @param {Integer} index The zero-based index of the device in the collection of media devices on the home network.
      * @returns {IWindowsMediaLibrarySharingDevice} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice">IWindowsMediaLibrarySharingDevice</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &device := 0, "HRESULT")
@@ -58,7 +55,7 @@ class IWindowsMediaLibrarySharingDevices extends IDispatch{
     /**
      * The get_Count method retrieves the number of media devices on the home network.
      * @returns {Integer} A pointer to a <b>LONG</b> that receives the number of devices.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &count := 0, "HRESULT")
@@ -69,7 +66,7 @@ class IWindowsMediaLibrarySharingDevices extends IDispatch{
      * The GetDevice method retrieves an IWindowsMediaLibrarySharingDevice interface that represents an individual media device.
      * @param {BSTR} deviceID A <b>BSTR</b> that specifies the device ID.
      * @returns {IWindowsMediaLibrarySharingDevice} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice">IWindowsMediaLibrarySharingDevice</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-getdevice
      */
     GetDevice(deviceID) {
         deviceID := deviceID is String ? BSTR.Alloc(deviceID).Value : deviceID

@@ -29,8 +29,12 @@ class IDirectMusicBuffer extends IUnknown{
     static VTableNames => ["Flush", "TotalTime", "PackStructured", "PackUnstructured", "ResetReadPtr", "GetNextEvent", "GetRawBufferPtr", "GetStartTime", "GetUsedBytes", "GetMaxBytes", "GetBufferFormat", "SetStartTime", "SetUsedBytes"]
 
     /**
+     * Clears the forward buffers for the stream and writes any buffered data to the configuration file.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-flush
      */
     Flush() {
         result := ComCall(3, this, "HRESULT")

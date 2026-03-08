@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Note  This interface has been deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idrawvideoimage
+ * Note  This interface has been deprecated. (IDrawVideoImage)
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idrawvideoimage
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class IDrawVideoImage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimagebegin
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimagebegin
      */
     DrawVideoImageBegin() {
         result := ComCall(3, this, "HRESULT")
@@ -79,7 +79,7 @@ class IDrawVideoImage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimageend
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimageend
      */
     DrawVideoImageEnd() {
         result := ComCall(4, this, "HRESULT")
@@ -110,7 +110,7 @@ class IDrawVideoImage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimagedraw
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimagedraw
      */
     DrawVideoImageDraw(hdc, lprcSrc, lprcDst) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

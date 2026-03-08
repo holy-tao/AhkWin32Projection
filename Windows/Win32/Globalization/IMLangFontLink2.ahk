@@ -86,7 +86,7 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @param {HDC} hDC 
      * @param {Pointer<Integer>} puiRanges 
      * @returns {UNICODERANGE} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getfontunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontunicoderanges
      */
     GetFontUnicodeRanges(hDC, puiRanges) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC

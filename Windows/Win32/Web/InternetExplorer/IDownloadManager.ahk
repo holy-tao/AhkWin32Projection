@@ -29,7 +29,7 @@ class IDownloadManager extends IUnknown{
     static VTableNames => ["Download"]
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
      * @param {IMoniker} pmk 
      * @param {IBindCtx} pbc 
      * @param {Integer} dwBindVerb 
@@ -38,7 +38,11 @@ class IDownloadManager extends IUnknown{
      * @param {PWSTR} pszHeaders 
      * @param {PWSTR} pszRedir 
      * @param {Integer} uiCP 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
      */
     Download(pmk, pbc, dwBindVerb, grfBINDF, pBindInfo, pszHeaders, pszRedir, uiCP) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders

@@ -54,8 +54,11 @@ class IContactAggregationAggregate extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
+     * @remarks
+     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
      */
     Save() {
         result := ComCall(3, this, "HRESULT")
@@ -72,9 +75,19 @@ class IContactAggregationAggregate extends IUnknown{
     }
 
     /**
+     * Registers a window class that allows for the SysLink common control to be used in a window.
+     * @remarks
+     * This function does not have an associated header or library file so it must be called by ordinal value. Call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name Shell32.dll to obtain a module handle. Then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the ordinal number 258 to use this function.
      * 
+     * Use [**LinkWindow\_UnregisterClass**](linkwindow-unregisterclass.md) to unregister the class after use.
      * @param {PWSTR} pAggregateId 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * Type: **BOOL**
+     * 
+     * Returns **TRUE** if registration was successful; **FALSE** otherwise.
+     * @see https://learn.microsoft.com/windows/win32/shell/linkwindow-registerclass
      */
     Link(pAggregateId) {
         pAggregateId := pAggregateId is String ? StrPtr(pAggregateId) : pAggregateId

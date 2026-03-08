@@ -6,11 +6,8 @@
 /**
  * Provides access to controls that can cycle through a set of states and maintain a state after it is set.
  * @remarks
- * 
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtoggle">Toggle</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itoggleprovider
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itoggleprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -44,10 +41,14 @@ class IToggleProvider extends IUnknown{
 
     /**
      * Cycles through the toggle states of a control.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * A control must cycle through its <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-togglestate">ToggleState</a> in this order: 
+     * <b>ToggleState_On</b>, <b>ToggleState_Off</b> 
+     * and, if supported, <b>ToggleState_Indeterminate</b>.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itoggleprovider-toggle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-toggle
      */
     Toggle() {
         result := ComCall(3, this, "HRESULT")
@@ -57,14 +58,11 @@ class IToggleProvider extends IUnknown{
     /**
      * Specifies the toggle state of the control.
      * @remarks
-     * 
      * A control must cycle through its <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-togglestate">ToggleState</a> in this order:  
      * <b>ToggleState_On</b>, <b>ToggleState_Off</b> 
      * and, if supported, <b>ToggleState_Indeterminate</b>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
      */
     get_ToggleState() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")

@@ -5,8 +5,8 @@
 #Include .\IMILBitmapEffectConnector.ahk
 
 /**
- * Exposes methods that define an output connector.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectoutputconnector
+ * Exposes methods that define an output connector. (IMILBitmapEffectOutputConnector)
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * The number of connects the output connector has.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
      */
     GetNumberConnections() {
         result := ComCall(9, this, "uint*", &puiNumberConnections := 0, "HRESULT")
@@ -51,7 +51,7 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
      * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
      * 
      * A pointer that receives a pointer to the associated input connector.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getconnection
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getconnection
      */
     GetConnection(uiIndex) {
         result := ComCall(10, this, "uint", uiIndex, "ptr*", &ppConnection := 0, "HRESULT")

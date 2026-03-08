@@ -7,11 +7,8 @@
 /**
  * Provides the settings that the Task Scheduler service uses to obtain a network profile.
  * @remarks
- * 
  * When reading or writing your own XML for a task, network settings are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-networksettings-settingstype-element">NetworkSettings</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-inetworksettings
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-inetworksettings
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -51,10 +48,10 @@ class INetworkSettings extends IDispatch{
     }
 
     /**
-     * Gets or sets the name of a network profile.
+     * Gets or sets the name of a network profile. (Get)
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-inetworksettings-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-inetworksettings-get_name
      */
     get_Name(pName) {
         result := ComCall(7, this, "ptr", pName, "HRESULT")
@@ -62,10 +59,10 @@ class INetworkSettings extends IDispatch{
     }
 
     /**
-     * Gets or sets the name of a network profile.
+     * Gets or sets the name of a network profile. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-inetworksettings-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-inetworksettings-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -75,10 +72,10 @@ class INetworkSettings extends IDispatch{
     }
 
     /**
-     * Gets or sets a GUID value that identifies a network profile.
+     * Gets or sets a GUID value that identifies a network profile. (Get)
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-inetworksettings-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-inetworksettings-get_id
      */
     get_Id(pId) {
         result := ComCall(9, this, "ptr", pId, "HRESULT")
@@ -86,10 +83,10 @@ class INetworkSettings extends IDispatch{
     }
 
     /**
-     * Gets or sets a GUID value that identifies a network profile.
+     * Gets or sets a GUID value that identifies a network profile. (Put)
      * @param {BSTR} id 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-inetworksettings-put_id
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-inetworksettings-put_id
      */
     put_Id(id) {
         id := id is String ? BSTR.Alloc(id).Value : id

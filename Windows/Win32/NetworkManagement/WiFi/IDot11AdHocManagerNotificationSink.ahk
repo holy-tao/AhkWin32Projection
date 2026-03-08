@@ -5,7 +5,7 @@
 
 /**
  * Defines the notifications supported by the IDot11AdHocManager interface.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocmanagernotificationsink
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanagernotificationsink
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkadd
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkadd
      */
     OnNetworkAdd(pIAdHocNetwork) {
         result := ComCall(3, this, "ptr", pIAdHocNetwork, "HRESULT")
@@ -103,7 +103,7 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkremove
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkremove
      */
     OnNetworkRemove(Signature) {
         result := ComCall(4, this, "ptr", Signature, "HRESULT")
@@ -143,7 +143,7 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceadd
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceadd
      */
     OnInterfaceAdd(pIAdHocInterface) {
         result := ComCall(5, this, "ptr", pIAdHocInterface, "HRESULT")
@@ -183,7 +183,7 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceremove
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceremove
      */
     OnInterfaceRemove(Signature) {
         result := ComCall(6, this, "ptr", Signature, "HRESULT")

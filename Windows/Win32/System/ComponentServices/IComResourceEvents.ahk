@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if a resource is created, allocated, tracked, or destroyed.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomresourceevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomresourceevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IComResourceEvents extends IUnknown{
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomresourceevents-onresourcecreate
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcecreate
      */
     OnResourceCreate(pInfo, ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
@@ -57,7 +57,7 @@ class IComResourceEvents extends IUnknown{
      * @param {Integer} NumRated The number of possible resources evaluated for a match.
      * @param {Integer} Rating The rating of the resource actually selected.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomresourceevents-onresourceallocate
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourceallocate
      */
     OnResourceAllocate(pInfo, ObjectID, pszType, resId, enlisted, NumRated, Rating) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
@@ -73,7 +73,7 @@ class IComResourceEvents extends IUnknown{
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomresourceevents-onresourcerecycle
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcerecycle
      */
     OnResourceRecycle(pInfo, ObjectID, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
@@ -90,7 +90,7 @@ class IComResourceEvents extends IUnknown{
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomresourceevents-onresourcedestroy
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcedestroy
      */
     OnResourceDestroy(pInfo, ObjectID, hr, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
@@ -107,7 +107,7 @@ class IComResourceEvents extends IUnknown{
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomresourceevents-onresourcetrack
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcetrack
      */
     OnResourceTrack(pInfo, ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType

@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for retrieving information from the file list returned by the ISimilarity::FindSimilarFileId method.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-ifindsimilarresults
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-ifindsimilarresults
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IFindSimilarResults extends IUnknown{
     /**
      * Retrieves the number of entries in the file list that was returned by the ISimilarity::FindSimilarFileId method.
      * @returns {Integer} A pointer to a variable that receives the number of entries in the file list.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-ifindsimilarresults-getsize
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getsize
      */
     GetSize() {
         result := ComCall(3, this, "uint*", &size := 0, "HRESULT")
@@ -53,7 +53,7 @@ class IFindSimilarResults extends IUnknown{
      * @returns {HRESULT} Returns <b>S_OK</b> on success, or an error <b>HRESULT</b> on failure.
      * 
      * This method can also return the following error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-ifindsimilarresults-getnextfileid
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getnextfileid
      */
     GetNextFileId(numTraitsMatched, similarityFileId) {
         numTraitsMatchedMarshal := numTraitsMatched is VarRef ? "uint*" : "ptr"

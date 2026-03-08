@@ -7,12 +7,9 @@
 /**
  * Provides methods that enable apps to be informed of state changes and location for the input pane.
  * @remarks
- * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * Do not implement this interface; the implementation is supplied with Windows as CLSID_FrameworkInputPane.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iframeworkinputpane
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpane
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -54,7 +51,7 @@ class IFrameworkInputPane extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives a cookie for that can be used later to unregister the handler through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-unadvise">Unadvise</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advise
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advise
      */
     Advise(pWindow, pHandler) {
         result := ComCall(3, this, "ptr", pWindow, "ptr", pHandler, "uint*", &pdwCookie := 0, "HRESULT")
@@ -72,7 +69,7 @@ class IFrameworkInputPane extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives a cookie for that can be used later to unregister the handler through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-unadvise">Unadvise</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advisewithhwnd
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advisewithhwnd
      */
     AdviseWithHWND(hwnd, pHandler) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -88,8 +85,8 @@ class IFrameworkInputPane extends IUnknown{
      * A cookie that identifies the handler. This value was obtained when you registered the handler through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advise">Advise</a> method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpane-unadvise
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(5, this, "uint", dwCookie, "HRESULT")
@@ -101,7 +98,7 @@ class IFrameworkInputPane extends IUnknown{
      * @returns {RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that, when this method returns successfully, receives the location of the input pane, in screen coordinates. If the input pane is not visible, this structure receives an empty rectangle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpane-location
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-location
      */
     Location() {
         prcInputPaneScreenLocation := RECT()

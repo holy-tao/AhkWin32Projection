@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).
- * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticationengine
+ * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticationengine
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,6 +32,13 @@ class ITSGAuthenticationEngine extends IUnknown{
 
     /**
      * Authenticates a user.
+     * @remarks
+     * If this method returns <b>S_OK</b>, RD Gateway waits for the authentication 
+     *     plug-in to call a method of the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface. If any 
+     *     other value is returned, RD Gateway immediately denies the  connection request.
+     * 
+     * For a sample that uses the <b>AuthenticateUser</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
      * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
      * @param {Pointer<Integer>} cookieData A pointer to a <b>BYTE</b> that contains the cookie provided by the user.
      * @param {Integer} numCookieBytes The number of bytes referenced by the <i>cookieData</i> parameter.
@@ -41,8 +48,8 @@ class ITSGAuthenticationEngine extends IUnknown{
      * @param {ITSGAuthenticateUserSink} pSink A pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface that 
      *       the authentication plug-in must use to notify RD Gateway about the result of authentication.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser
      */
     AuthenticateUser(mainSessionId, cookieData, numCookieBytes, context, pSink) {
         cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
@@ -55,8 +62,8 @@ class ITSGAuthenticationEngine extends IUnknown{
      * Cancels an existing authentication request.
      * @param {Guid} mainSessionId An identifier assigned to the connection request.
      * @param {Pointer} context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. This value should be passed back to RD Gateway by using the methods of the  <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-cancelauthentication
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-cancelauthentication
      */
     CancelAuthentication(mainSessionId, context) {
         result := ComCall(4, this, "ptr", mainSessionId, "ptr", context, "HRESULT")

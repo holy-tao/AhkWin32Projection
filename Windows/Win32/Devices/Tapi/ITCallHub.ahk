@@ -7,7 +7,7 @@
 
 /**
  * The ITCallHub interface provides methods to retrieve information concerning a CallHub object. The IEnumCallHub::Next and ITTapi::get_CallHubs methods create the ITCallHub interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallhub
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallhub
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -85,7 +85,7 @@ class ITCallHub extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhub-clear
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-clear
      */
     Clear() {
         result := ComCall(7, this, "HRESULT")
@@ -94,9 +94,13 @@ class ITCallHub extends IDispatch{
 
     /**
      * The EnumerateCalls method enumerates calls currently associated with the call hub. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Calls method.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcall">IEnumCall</a> interface returned by <b>ITCallHub::EnumerateCalls</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumCall</b> interface to free resources associated with it.
      * @returns {IEnumCall} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcall">IEnumCall</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhub-enumeratecalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-enumeratecalls
      */
     EnumerateCalls() {
         result := ComCall(8, this, "ptr*", &ppEnumCall := 0, "HRESULT")
@@ -105,10 +109,14 @@ class ITCallHub extends IDispatch{
 
     /**
      * The get_Calls method creates a collection of calls associated with the current call hub. This method is provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateCalls method.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface returned by <b>ITCallHub::get_Calls</b>. The application must call <b>Release</b> on the 
+     * <b>ITCallInfo</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface pointers (call objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhub-get_calls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_calls
      */
     get_Calls() {
         pCalls := VARIANT()
@@ -119,7 +127,7 @@ class ITCallHub extends IDispatch{
     /**
      * The get_NumCalls method gets the number of calls currently in the CallHub.
      * @returns {Integer} Total number of calls in the CallHub.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhub-get_numcalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_numcalls
      */
     get_NumCalls() {
         result := ComCall(10, this, "int*", &plCalls := 0, "HRESULT")
@@ -130,7 +138,7 @@ class ITCallHub extends IDispatch{
      * The get_State method gets the current state of the CallHub.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callhub_state">CALLHUB_STATE</a> indicator of state.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhub-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_state
      */
     get_State() {
         result := ComCall(11, this, "int*", &pState := 0, "HRESULT")

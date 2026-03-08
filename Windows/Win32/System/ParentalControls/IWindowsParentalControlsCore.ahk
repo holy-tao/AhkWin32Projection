@@ -6,8 +6,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwindowsparentalcontrolscore
+ * . (IWindowsParentalControlsCore)
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwindowsparentalcontrolscore
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IWindowsParentalControlsCore extends IUnknown{
     /**
      * Indicates the visibility of the Parental Controls user interface.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getvisibility
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getvisibility
      */
     GetVisibility() {
         result := ComCall(3, this, "int*", &peVisibility := 0, "HRESULT")
@@ -46,7 +46,7 @@ class IWindowsParentalControlsCore extends IUnknown{
      * Retrieves a pointer to an interface for general settings for the specified user.
      * @param {PWSTR} pcszSID The SID string of the user. If this parameter is <b>NULL</b>, retrieve settings for the current user.
      * @returns {IWPCSettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wpcapi/nn-wpcapi-iwpcsettings">IWPCSettings</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getusersettings
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getusersettings
      */
     GetUserSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
@@ -59,7 +59,7 @@ class IWindowsParentalControlsCore extends IUnknown{
      * Retrieves a pointer to an interface for web restrictions settings for the specified user.
      * @param {PWSTR} pcszSID The SID string of the user. If this parameter is <b>NULL</b>, retrieve settings for the current user.
      * @returns {IWPCWebSettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wpcapi/nn-wpcapi-iwpcwebsettings">IWPCWebSettings</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebsettings
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebsettings
      */
     GetWebSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
@@ -72,7 +72,7 @@ class IWindowsParentalControlsCore extends IUnknown{
      * Retrieves the name and identifier of the currently active Web Content Filter.
      * @param {Pointer<PWSTR>} ppszName The name of the currently active Web Content Filter.
      * @returns {Guid} The GUID of the currently active Web Content Filter.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebfilterinfo
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebfilterinfo
      */
     GetWebFilterInfo(ppszName) {
         ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"

@@ -8,7 +8,7 @@
 
 /**
  * The IGPMSitesContainer interface provides the methods required to access the scope of management (SOM) objects that represent sites in a forest.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmsitescontainer
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsitescontainer
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -95,7 +95,7 @@ class IGPMSitesContainer extends IDispatch{
      * @param {BSTR} bstrSiteName Required. The site of interest; for example, Default-first-site-name. Use null-terminated string.
      * @returns {IGPMSOM} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsom">IGPMSOM</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
      */
     GetSite(bstrSiteName) {
         bstrSiteName := bstrSiteName is String ? BSTR.Alloc(bstrSiteName).Value : bstrSiteName
@@ -109,7 +109,7 @@ class IGPMSitesContainer extends IDispatch{
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to criteria to supply to the search. Valid criteria for the search include the following.
      * @returns {IGPMSOMCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsomcollection">IGPMSOMCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
      */
     SearchSites(pIGPMSearchCriteria) {
         result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")

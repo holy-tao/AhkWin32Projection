@@ -5,7 +5,7 @@
 
 /**
  * Callback interface to receive notifications from a network source on the progress of an asynchronous open operation.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsourceopenmonitor
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsourceopenmonitor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,24 @@ class IMFSourceOpenMonitor extends IUnknown{
 
     /**
      * Called by the network source when the open operation begins or ends.
+     * @remarks
+     * The networks source calls this method with the following event types.
+     * 
+     * <ul>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/meconnectstart">MEConnectStart</a>
+     * 
+     * 
+     * </li>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/meconnectend">MEConnectEnd</a>
+     * 
+     * 
+     * </li>
+     * </ul>
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/how-to-get-events-from-the-network-source">How to Get Events from the Network Source</a>.
      * @param {IMFMediaEvent} pEvent Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,7 +70,7 @@ class IMFSourceOpenMonitor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsourceopenmonitor-onsourceevent
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceopenmonitor-onsourceevent
      */
     OnSourceEvent(pEvent) {
         result := ComCall(3, this, "ptr", pEvent, "HRESULT")

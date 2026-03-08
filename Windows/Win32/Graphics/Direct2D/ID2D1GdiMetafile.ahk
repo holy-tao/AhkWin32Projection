@@ -6,7 +6,7 @@
 
 /**
  * A Direct2D resource that wraps a WMF, EMF, or EMF+ metafile.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1gdimetafile
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -58,7 +58,7 @@ class ID2D1GdiMetafile extends ID2D1Resource{
      * <td>An invalid value was passed to the method.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafile-stream
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafile-stream
      */
     Stream(sink) {
         result := ComCall(4, this, "ptr", sink, "HRESULT")
@@ -70,7 +70,7 @@ class ID2D1GdiMetafile extends ID2D1Resource{
      * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The bounds, in DIPs, of the metafile.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafile-getbounds
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafile-getbounds
      */
     GetBounds() {
         bounds := D2D_RECT_F()

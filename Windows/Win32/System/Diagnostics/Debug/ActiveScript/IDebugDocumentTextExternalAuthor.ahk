@@ -43,8 +43,9 @@ class IDebugDocumentTextExternalAuthor extends IUnknown{
     }
 
     /**
-     * 
+     * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-getfilenamefrombrowse
      */
     GetFileName() {
         pbstrShortName := BSTR()

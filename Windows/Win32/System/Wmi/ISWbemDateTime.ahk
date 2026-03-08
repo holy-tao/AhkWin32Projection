@@ -547,9 +547,25 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
+     * @remarks
+     * Not all file systems can record creation and last access times and not all file systems record them in the 
+     *     same manner. For example, on  FAT, create time has a resolution of 10 milliseconds, write time has a resolution of 
+     *     2 seconds, and access time has a resolution of 1 day (really, the access date). Therefore, the 
+     *     <b>GetFileTime</b> function may not return the same file time 
+     *     information set using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfiletime">SetFileTime</a> function.
+     * 
+     * NTFS delays updates to the last access time for a file by up to one hour after the last access. NTFS also 
+     *     permits last access time updates to be disabled. Last access time is not updated on NTFS volumes by default.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>Last access time is updated on NTFS volumes by default.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
+     * 
+     * If you rename or delete a file, then restore it shortly thereafter, Windows searches the cache for file 
+     *     information to restore. Cached information includes its short/long name pair and creation time.
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfiletime
+     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfiletime
      */
     GetFileTime(bIsLocal) {
         strFileTime := BSTR()
@@ -559,13 +575,14 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * Sets the date and time that the specified file or directory was created, last accessed, or last modified.
+     * @remarks
+     * Not all file systems can record creation and last access times and not all file systems record them in the same manner. For example, on  FAT, create time has a resolution of 10 milliseconds, write time has a resolution of 2 seconds, and access time has a resolution of 1 day (really, the access date). Therefore, the [GetFileTime](/windows/win32/api/fileapi/nf-fileapi-getfiletime) function may not return the same file time information set using **SetFileTime**. NTFS delays updates to the last access time for a file by up to one hour after the last access.
      * @param {BSTR} strFileTime 
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-setfiletime
+     * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfiletime
      */
     SetFileTime(strFileTime, bIsLocal) {
         strFileTime := strFileTime is String ? BSTR.Alloc(strFileTime).Value : strFileTime

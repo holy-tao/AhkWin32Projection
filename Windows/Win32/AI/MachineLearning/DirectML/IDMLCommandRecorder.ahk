@@ -5,7 +5,7 @@
 
 /**
  * Records dispatches of DirectML work into a Direct3D 12 command list.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmlcommandrecorder
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlcommandrecorder
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -44,7 +44,7 @@ class IDMLCommandRecorder extends IDMLDeviceChild{
      * A pointer to an [IDMLBindingTable](/windows/win32/api/directml/nn-directml-idmlbindingtable) interface representing the bindings to use for executing the dispatchable object. If the [DML_EXECUTION_FLAG_DESCRIPTORS_VOLATILE](/windows/win32/api/directml/ne-directml-dml_execution_flags)
      *           flag was not set, then you must fill out all required bindings, otherwise an error will result.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlcommandrecorder-recorddispatch
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlcommandrecorder-recorddispatch
      */
     RecordDispatch(commandList, dispatchable, bindings) {
         ComCall(8, this, "ptr", commandList, "ptr", dispatchable, "ptr", bindings)

@@ -8,15 +8,12 @@
 /**
  * Enables an integrated search experience in an Input Method Editor (IME).
  * @remarks
- * 
  * Implement the <b>ITfFnSearchCandidateProvider</b> interface in your Input Method Editor (IME) to enable an integrated search experience. Implementing this interface enables searches with meaningful results to begin before IME input has been completed, by providing a set of possible IME conversion candidates for a given input string.  Apps can use this interface to obtain IME conversions for a string, so the <b>ITfFnSearchCandidateProvider</b> interface, along with <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itffngetlinguisticalternates">ITfFnGetLinguisticAlternates</a>, provides a TSF-based replacement for the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immgetconversionlista">ImmGetConversionList</a> function.  Typically IMEs implement either <b>ITfFnGetLinguisticAlternates</b> or <b>ITfFnSearchCandidateProvider</b> (or neither).
  * 
  * Call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-getfunctionprovider">GetFunctionProvider</a> with the CLSID of a text service to get an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itffunctionprovider">ITfFunctionProvider</a> instance.  Use the following call to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itffunctionprovider-getfunction">ITfFunctionProvider::GetFunction</a> method to get the <b>ITfFnSearchCandidateProvider</b> interface pointer.
  * 
  * <c>ITfFunctionProvider::GetFunction(GUID_NULL, IID_ITfFnSearchCandidateProvider, &amp;pSearchCandidate)</c>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnsearchcandidateprovider
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnsearchcandidateprovider
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
      * @param {BSTR} bstrQuery A string that specifies the reading string that the text service attempts to convert.
      * @param {BSTR} bstrApplicationId App-specified string that enables a text service to optionally provide different candidates to different apps or contexts based on input history. You can pass an empty <b>BSTR</b>, L””, for a generic context.
      * @returns {ITfCandidateList} An <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatelist">ITfCandidateList</a> that receives the requested candidate data.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates
      */
     GetSearchCandidates(bstrQuery, bstrApplicationId) {
         bstrQuery := bstrQuery is String ? BSTR.Alloc(bstrQuery).Value : bstrQuery
@@ -58,6 +55,10 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
 
     /**
      * Provides a text Service or IME with history data when a candidate is chosen by the user.
+     * @remarks
+     * Implementing and calling the <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itfcandidatelist-setresult">SetResult</a> method is optional.
+     * 
+     * A text service or IME can return <b>E_PENDING</b> if no corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates">GetSearchCandidates</a> has been made yet for the value of <i>bstrQuery</i>.
      * @param {BSTR} bstrQuery The reading string for the text service or IME to convert.
      * @param {BSTR} bstrApplicationID App-specified string that enables a text service or IME to optionally provide different candidates to different apps or contexts based on input history. You can pass an empty <b>BSTR</b>, L””, for a generic context.
      * @param {BSTR} bstrResult A string that represents the candidate string chosen by the user.  It should be one of the candidate string values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates">GetSearchCandidates</a> method.
@@ -80,7 +81,7 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnsearchcandidateprovider-setresult
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-setresult
      */
     SetResult(bstrQuery, bstrApplicationID, bstrResult) {
         bstrQuery := bstrQuery is String ? BSTR.Alloc(bstrQuery).Value : bstrQuery

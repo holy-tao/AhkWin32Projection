@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfPropertyValue interface is implemented by the TSF manager to provide an enumeration of property values.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfpropertyvalue
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfpropertyvalue
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IEnumTfPropertyValue extends IUnknown{
     /**
      * IEnumTfPropertyValue::Clone method
      * @returns {IEnumTfPropertyValue} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfpropertyvalue">IEnumTfPropertyValue</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfpropertyvalue-clone
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -87,7 +87,7 @@ class IEnumTfPropertyValue extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfpropertyvalue-next
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-next
      */
     Next(ulCount, rgValues, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -117,7 +117,7 @@ class IEnumTfPropertyValue extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfpropertyvalue-reset
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -157,7 +157,7 @@ class IEnumTfPropertyValue extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfpropertyvalue-skip
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

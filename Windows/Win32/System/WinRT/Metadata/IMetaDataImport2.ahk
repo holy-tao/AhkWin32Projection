@@ -5,7 +5,7 @@
 
 /**
  * Extends the IMetaDataImport interface to provide the capability of working with generic types.
- * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nn-rometadataapi-imetadataimport2
+ * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataimport2
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class IMetaDataImport2 extends IMetaDataImport{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparams
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparams
      */
     EnumGenericParams(phEnum, tk, rGenericParams, cMax, pcGenericParams) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -75,8 +75,8 @@ class IMetaDataImport2 extends IMetaDataImport{
      * @param {PWSTR} wzname The name of the generic parameter.
      * @param {Integer} cchName The size of the <i>wzName</i> buffer.
      * @param {Pointer<Integer>} pchName The returned size of the name, in wide characters.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamprops
      */
     GetGenericParamProps(gp, pulParamSeq, pdwParamFlags, ptOwner, reserved, wzname, cchName, pchName) {
         wzname := wzname is String ? StrPtr(wzname) : wzname
@@ -97,8 +97,8 @@ class IMetaDataImport2 extends IMetaDataImport{
      * @param {Pointer<Integer>} tkParent A pointer to the <b>MethodDef</b> or <b>MethodRef</b> token that represents the method definition.
      * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature of the method.
      * @param {Pointer<Integer>} pcbSigBlob The size, in bytes, of <i>ppvSigBlob</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getmethodspecprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getmethodspecprops
      */
     GetMethodSpecProps(mi, tkParent, ppvSigBlob, pcbSigBlob) {
         tkParentMarshal := tkParent is VarRef ? "uint*" : "ptr"
@@ -133,7 +133,7 @@ class IMetaDataImport2 extends IMetaDataImport{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparamconstraints
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparamconstraints
      */
     EnumGenericParamConstraints(phEnum, tk, rGenericParamConstraints, cMax, pcGenericParamConstraints) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -149,8 +149,8 @@ class IMetaDataImport2 extends IMetaDataImport{
      * @param {Integer} gpc The token to the generic parameter constraint for which to return the metadata.
      * @param {Pointer<Integer>} ptGenericParam A pointer to the token that represents the generic parameter that is constrained.
      * @param {Pointer<Integer>} ptkConstraintType A pointer to a <b>TypeDef</b>, <b>TypeRef</b>, or <b>TypeSpec</b> token that represents a constraint on ptGenericParam.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamconstraintprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamconstraintprops
      */
     GetGenericParamConstraintProps(gpc, ptGenericParam, ptkConstraintType) {
         ptGenericParamMarshal := ptGenericParam is VarRef ? "uint*" : "ptr"
@@ -162,10 +162,60 @@ class IMetaDataImport2 extends IMetaDataImport{
 
     /**
      * Gets a value identifying the nature of the code in the portable executable (PE) file, typically a DLL or EXE file, that is defined in the current metadata scope.
+     * @remarks
+     * The value referenced by the <i>pdwMachine</i> parameter can be one of the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Machine architecture</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * IMAGE_FILE_MACHINE_I386
+     * 
+     * 
+     * 
+     * 0x014C
+     * 
+     * 
+     * </td>
+     * <td>x86
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * IMAGE_FILE_MACHINE_IA64
+     * 
+     * 
+     * 
+     * 0x0200
+     * 
+     * 
+     * </td>
+     * <td>Intel IPF
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * IMAGE_FILE_MACHINE_AMD64
+     * 
+     * 
+     * 
+     * 0x8664
+     * 
+     * 
+     * </td>
+     * <td>x64
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} pdwPEKind A pointer to a value of the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corpekind-enumeration">CorPEKind</a> enumeration that describes the PE file.
      * @param {Pointer<Integer>} pdwMAchine A pointer to a value that identifies the architecture of the machine. See the next section for possible values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getpekind
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getpekind
      */
     GetPEKind(pdwPEKind, pdwMAchine) {
         pdwPEKindMarshal := pdwPEKind is VarRef ? "uint*" : "ptr"
@@ -177,11 +227,13 @@ class IMetaDataImport2 extends IMetaDataImport{
 
     /**
      * Gets the version number of the runtime that was used to build the assembly.
+     * @remarks
+     * The <b>GetVersionString</b> method gets the built-for version of the current metadata scope. If the scope has never been saved, it will not have a built-for version, and an empty string will be returned.
      * @param {PWSTR} pwzBuf An array to store the string that specifies the version.
      * @param {Integer} ccBufSize The size, in wide characters, of the <i>pwzBuf</i> array.
      * @param {Pointer<Integer>} pccBufSize The number of wide characters, including a null terminator, returned in the <i>pwzBuf</i> array.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getversionstring
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getversionstring
      */
     GetVersionString(pwzBuf, ccBufSize, pccBufSize) {
         pwzBuf := pwzBuf is String ? StrPtr(pwzBuf) : pwzBuf
@@ -216,7 +268,7 @@ class IMetaDataImport2 extends IMetaDataImport{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enummethodspecs
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enummethodspecs
      */
     EnumMethodSpecs(phEnum, tk, rMethodSpecs, cMax, pcMethodSpecs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"

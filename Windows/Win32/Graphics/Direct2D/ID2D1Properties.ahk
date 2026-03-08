@@ -7,7 +7,6 @@
 /**
  * Represents a set of run-time bindable and discoverable properties that allow a data-driven application to modify the state of a Direct2D effect.
  * @remarks
- * 
  * This interface supports access through either indices or property names. In addition to top-level properties, each property in an <b>ID2D1Properties</b> object may contain an <b>ID2D1Properties</b> object, which stores metadata describing the parent property. 
  * 
  * <h3><a id="Overview"></a><a id="overview"></a><a id="OVERVIEW"></a>Overview</h3>
@@ -134,7 +133,7 @@
  * </td>
  * </tr>
  * <tr>
- * <td>Max / D2D1_SUBPROPERTY_MIN</td>
+ * <td>Max / D2D1_SUBPROPERTY_MAX</td>
  * <td>Same as parent property.
  * 				<div class="alert"><b>Note</b>  Applicable only to numeric-type properties.</div>
  * <div> </div>
@@ -200,7 +199,7 @@
  * 
  * The type of each sub-element will be whatever the type of the array is. In the example above, this was an array of strings.
  * 
- * <h3><a id="Enum-Type_Sub-Poperties"></a><a id="enum-type_sub-poperties"></a><a id="ENUM-TYPE_SUB-POPERTIES"></a>Enum-Type Sub-Poperties</h3>
+ * <h3><a id="Enum-Type_Sub-Poperties"></a><a id="enum-type_sub-poperties"></a><a id="ENUM-TYPE_SUB-POPERTIES"></a>Enum-Type Sub-Properties</h3>
  * If the property has type <b>D2D1_PROPERTY_TYPE_ENUM</b> then the property will have the value of the corresponding enumeration. There will be a sub-array of fields that will conform to the general rules for array sub-properties and consist of the name/value pairs. For example:
  * 
  * 
@@ -237,9 +236,7 @@
  * <td>The index which corresponds to the <i>N</i>th enumeration value.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -266,10 +263,12 @@ class ID2D1Properties extends IUnknown{
 
     /**
      * Gets the number of top-level properties.
+     * @remarks
+     * This method returns the number of custom properties on the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a> interface. System properties and sub-properties are part of a closed set, and are enumerable by iterating over this closed set.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * This method returns the number of custom (non-system) properties that can be accessed by the object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
      */
     GetPropertyCount() {
         result := ComCall(3, this, "uint")
@@ -277,11 +276,40 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the property name that corresponds to the given index.
+     * @remarks
+     * This method returns an empty string if <i>index</i> is invalid. If the method returns <b>RESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b>, <i>name</i> will still be filled and truncated.
+     * @param {Integer} index Type: <b>UINT32</b>
      * 
-     * @param {Integer} index 
-     * @param {PWSTR} name 
-     * @param {Integer} nameCount 
-     * @returns {HRESULT} 
+     * The index of the property for which the name is being returned.
+     * @param {PWSTR} name Type: <b>PWSTR</b>
+     * 
+     * When this method returns, contains the name being retrieved.
+     * @param {Integer} nameCount Type: <b>UINT32</b>
+     * 
+     * The number of characters in the <i>name</i> buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</td>
+     * <td>The supplied buffer was too small to accommodate the data.</td>
+     * </tr>
+     * <tr>
+     * <td>D2DERR_INVALID_PROPERTY</td>
+     * <td>The specified property does not exist.</td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyname(uint32_pwstr_uint32)
      */
     GetPropertyName(index, name, nameCount) {
@@ -292,9 +320,22 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the number of characters for the given property name. This is a template overload. See Remarks.
+     * @remarks
+     * The value returned by this method can be used to ensure that the buffer size for <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyname(uint32_pwstr_uint32)">GetPropertyName</a> is appropriate. 
      * 
-     * @param {Integer} index 
-     * @returns {Integer} 
+     * 
+     * <pre class="syntax">template&lt;typename U&gt;
+     *     UINT32 GetPropertyNameLength(
+     *         U index
+     *         ) CONST;
+     * </pre>
+     * @param {Integer} index Type: <b>U</b>
+     * 
+     * The index of the property name to retrieve.
+     * @returns {Integer} Type: <b>UINT32</b>
+     * 
+     * This method returns the size in characters of the name corresponding to the given property index, or zero if the property index does not exist.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertynamelength(u)
      */
     GetPropertyNameLength(index) {
@@ -303,9 +344,15 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the D2D1_PROPERTY_TYPE of the selected property.
+     * @remarks
+     * If the property does not exist, the method returns <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE_UNKNOWN</a>.
+     * @param {Integer} index Type: <b>UINT32</b>
      * 
-     * @param {Integer} index 
-     * @returns {Integer} 
+     * The index of the property for which the type will be retrieved.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE</a></b>
+     * 
+     * This method returns a <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE</a>-typed value for the type of the selected property.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-gettype(uint32)
      */
     GetType(index) {
@@ -315,13 +362,15 @@ class ID2D1Properties extends IUnknown{
 
     /**
      * Gets the index corresponding to the given property name.
+     * @remarks
+     * If the property doesn't exist, then this method returns [D2D1_INVALID_PROPERTY_INDEX](/windows/win32/direct2d/direct2d-constants#d2d1_invalid_property_index-uintmax). This reserved value will never map to a valid index, and will cause <b>NULL</b> or sentinel values to be returned from other parts of the property interface.
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the property to retrieve.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The index of the corresponding property name.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
      */
     GetPropertyIndex(name) {
         name := name is String ? StrPtr(name) : name
@@ -331,12 +380,55 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Sets the named property to the given value. (overload 1/2)
+     * @remarks
+     * If the property does not exist, the request is ignored and the method returns <b>D2DERR_INVALID_PROPERTY</b>.
      * 
-     * @param {PWSTR} name 
+     * Any error not in the standard set returned by a property implementation will be mapped into the standard error range.
+     * @param {PWSTR} name Type: <b>PCWSTR</b>
+     * 
+     * The name of the property to set.
      * @param {Integer} type 
-     * @param {Pointer<Integer>} data 
-     * @param {Integer} dataSize 
-     * @returns {HRESULT} 
+     * @param {Pointer<Integer>} data Type: <b>const BYTE*</b>
+     * 
+     * The data to set.
+     * @param {Integer} dataSize Type: <b>UINT32</b>
+     * 
+     * The number of bytes in the data to set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>D2DERR_INVALID_PROPERTY</td>
+     * <td>The specified property does not exist.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Failed to allocate necessary memory.</td>
+     * </tr>
+     * <tr>
+     * <td>D3DERR_OUT_OF_VIDEO_MEMORY</td>
+     * <td>Failed to allocate required video memory.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more arguments are invalid.</td>
+     * </tr>
+     * <tr>
+     * <td>E_FAIL</td>
+     * <td>Unspecified failure.</td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvaluebyname(pcwstr_constbyte_uint32)
      */
     SetValueByName(name, type, data, dataSize) {
@@ -349,12 +441,52 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
+     * Sets the corresponding property by index. This is a template overload. (overload 2/2)
+     * @remarks
+     * <pre class="syntax">template&lt;typename U&gt;
+     *     HRESULT SetValue(
+     *         U index,
+     *         _In_reads_(dataSize) CONST BYTE *data,
+     *         UINT32 dataSize
+     *         );
+     * </pre>
+     * @param {Integer} index The index of the property to set.
      * @param {Integer} type 
-     * @param {Pointer<Integer>} data 
-     * @param {Integer} dataSize 
-     * @returns {HRESULT} 
+     * @param {Pointer<Integer>} data The data to set.
+     * @param {Integer} dataSize The number of bytes in the data to set.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>D2DERR_INVALID_PROPERTY</td>
+     * <td>The specified property does not exist.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Failed to allocate necessary memory.</td>
+     * </tr>
+     * <tr>
+     * <td>D3DERR_OUT_OF_VIDEO_MEMORY</td>
+     * <td>Failed to allocate required video memory.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more arguments are invalid.</td>
+     * </tr>
+     * <tr>
+     * <td>E_FAIL</td>
+     * <td>Unspecified failure.</td>
+     * </tr>
+     * </table>
+     * �
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvalue(u_constbyte_uint32)
      */
     SetValue(index, type, data, dataSize) {
@@ -365,7 +497,7 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the property value by name. This is a template overload. See Remarks. (overload 2/2)
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {Integer} dataSize 
@@ -380,8 +512,17 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the value of the property by index. This is a template overload. See Remarks. (overload 2/2)
+     * @remarks
+     * <pre class="syntax">template&lt;typename T, typename U&gt;
+     *     HRESULT GetValue(
+     *         U index,
+     *         _Out_ T *value
+     *         ) const;
+     * </pre>
+     * @param {Integer} index Type: <b>U</b>
      * 
-     * @param {Integer} index 
+     * The index of the property from which the value is to be obtained.
      * @param {Integer} type 
      * @param {Integer} dataSize 
      * @returns {Integer} 
@@ -393,9 +534,24 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the size of the property value in bytes, using the property index. This is a template overload. See Remarks.
+     * @remarks
+     * This method returns zero if <i>index</i> does not exist.
      * 
-     * @param {Integer} index 
-     * @returns {Integer} 
+     * 
+     * 
+     * 
+     * <pre class="syntax">template&lt;typename U&gt;
+     *     UINT32 GetValueSize(
+     *         U index
+     *         ) CONST;
+     * </pre>
+     * @param {Integer} index Type: <b>U</b>
+     * 
+     * The index of the property.
+     * @returns {Integer} Type: <b>UINT32</b>
+     * 
+     * This method returns size of the value in bytes, using the property index
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluesize(u)
      */
     GetValueSize(index) {
@@ -404,9 +560,15 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the sub-properties of the provided property by index.
+     * @remarks
+     * If there are no sub-properties, <i>subProperties</i> will be <b>NULL</b>, and <b>D2DERR_NO_SUBPROPERTIES</b> will be returned.
+     * @param {Integer} index Type: <b>UINT32</b>
      * 
-     * @param {Integer} index 
-     * @returns {ID2D1Properties} 
+     * The index of the  sub-properties to be retrieved.
+     * @returns {ID2D1Properties} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the sub-properties.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getsubproperties(uint32_id2d1properties)
      */
     GetSubProperties(index) {

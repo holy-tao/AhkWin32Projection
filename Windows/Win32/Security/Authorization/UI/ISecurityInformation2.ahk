@@ -6,7 +6,7 @@
 
 /**
  * Enables the access control editor to obtain information from the client that is not provided by the ISecurityInformation interface.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/nn-aclui-isecurityinformation2
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation2
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
@@ -33,13 +33,16 @@ class ISecurityInformation2 extends IUnknown{
 
     /**
      * The IsDaclCanonical method determines whether the ACEs contained in the specified DACL structure are ordered according to the definition of DACL ordering implemented by the client.
+     * @remarks
+     * If the return value of this method is <b>FALSE</b>, the access control editor  displays a message box stating that the DACL is incorrectly ordered. If this method is not provided and the editor requires this information, the editor will check the  canonical ordering defined in 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pDacl A pointer to a discretionary 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure initialized by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-initializeacl">InitializeAcl</a>.
      * @returns {BOOL} Returns <b>TRUE</b> if the ACEs contained in the specified DACL structure are ordered according to the definition of DACL ordering implemented by the client.
      * 
      * Returns <b>FALSE</b> if the ACEs are not ordered correctly.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation2-isdaclcanonical
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation2-isdaclcanonical
      */
     IsDaclCanonical(pDacl) {
         result := ComCall(3, this, "ptr", pDacl, "int")
@@ -48,12 +51,19 @@ class ISecurityInformation2 extends IUnknown{
 
     /**
      * The LookupSids method returns the common names corresponding to each of the elements in the specified list of SIDs.
+     * @remarks
+     * Your implementation of <b>LookupSids</b> can return E_NOTIMPL if the access control editor is to determine the common names corresponding to the specified SIDs. However, if the access control editor receives any return code other than S_OK, the editor determines this information.
+     * 
+     * The client must return the common names through the data object using the following format.
+     * 
+     * 
+     * ```cpp
      * @param {Integer} cSids The number of 
      * pointers to  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures pointed to by <i>rgpSids</i>.
      * @param {Pointer<PSID>} rgpSids A pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures.
      * @returns {IDataObject} A pointer to a pointer to a returned data transfer object that contains the common names of the SIDs. Optionally, this parameter also returns the user principal name (UPN) of the SIDs in the <i>rgpSids</i> parameter. The data transfer object is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-sid_info">SID_INFO</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation2-lookupsids
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation2-lookupsids
      */
     LookupSids(cSids, rgpSids) {
         rgpSidsMarshal := rgpSids is VarRef ? "ptr*" : "ptr"

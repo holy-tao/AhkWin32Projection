@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Adds the header if it does not exist. Used with <b>HTTP_ADDREQ_FLAG_REPLACE</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpaddrequestheadersa
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

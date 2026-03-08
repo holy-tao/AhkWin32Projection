@@ -5,7 +5,7 @@
 
 /**
  * Used to modify and save imported quota templates.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotatemplateimported
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplateimported
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -39,9 +39,9 @@ class IFsrmQuotaTemplateImported extends IFsrmQuotaTemplate{
     }
 
     /**
-     * Retrieves or sets a value that determines whether a quota template is overwritten if it exists when the template is imported.
+     * Retrieves or sets a value that determines whether a quota template is overwritten if it exists when the template is imported. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplateimported-get_overwriteoncommit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplateimported-get_overwriteoncommit
      */
     get_OverwriteOnCommit() {
         result := ComCall(26, this, "short*", &overwrite := 0, "HRESULT")
@@ -49,10 +49,10 @@ class IFsrmQuotaTemplateImported extends IFsrmQuotaTemplate{
     }
 
     /**
-     * Retrieves or sets a value that determines whether a quota template is overwritten if it exists when the template is imported.
+     * Retrieves or sets a value that determines whether a quota template is overwritten if it exists when the template is imported. (Put)
      * @param {VARIANT_BOOL} overwrite 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplateimported-put_overwriteoncommit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplateimported-put_overwriteoncommit
      */
     put_OverwriteOnCommit(overwrite) {
         result := ComCall(27, this, "short", overwrite, "HRESULT")

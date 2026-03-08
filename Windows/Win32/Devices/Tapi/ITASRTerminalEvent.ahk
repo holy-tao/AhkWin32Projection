@@ -7,7 +7,7 @@
 
 /**
  * The ITASRTerminalEvent interface contains methods that retrieve the description of Automatic Speech Recognition terminal events that have occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itasrterminalevent
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itasrterminalevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -57,7 +57,7 @@ class ITASRTerminalEvent extends IDispatch{
      * The get_Terminal method returns a pointer to the ITTerminal interface for the terminal on which the event occurred.
      * @returns {ITTerminal} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itasrterminalevent-get_terminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itasrterminalevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -68,7 +68,7 @@ class ITASRTerminalEvent extends IDispatch{
      * The get_Call method returns a pointer to the ITCallInfo interface for the call object involved in the terminal event.
      * @returns {ITCallInfo} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itasrterminalevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itasrterminalevent-get_call
      */
     get_Call() {
         result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -78,7 +78,7 @@ class ITASRTerminalEvent extends IDispatch{
     /**
      * The get_Error method returns an HRESULT cast of the error associated with the terminal event.
      * @returns {HRESULT} Pointer to error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itasrterminalevent-get_error
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itasrterminalevent-get_error
      */
     get_Error() {
         result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")

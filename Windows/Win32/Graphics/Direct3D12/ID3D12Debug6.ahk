@@ -4,6 +4,8 @@
 #Include .\ID3D12Debug5.ahk
 
 /**
+ * A debug interface controls debug settings.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug6
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -31,7 +33,7 @@ class ID3D12Debug6 extends ID3D12Debug5{
     static VTableNames => ["SetForceLegacyBarrierValidation"]
 
     /**
-     * 
+     * TBD
      * @param {BOOL} Enable 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug6-setforcelegacybarriervalidation

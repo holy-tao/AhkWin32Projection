@@ -7,7 +7,6 @@
 /**
  * The IWiaEventCallback interface is used by applications to receive notification of Windows Image Acquisition (WIA) hardware device events.
  * @remarks
- * 
  * The <b>IWiaEventCallback</b> interface, like all Component Object Model (COM) interfaces, inherits the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface methods. 
  * 
  * <table class="clsStd">
@@ -34,8 +33,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwiaeventcallback
+ * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiaeventcallback
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -62,6 +60,10 @@ class IWiaEventCallback extends IUnknown{
 
     /**
      * The IWiaEventCallback::ImageEventCallback method is invoked by the Windows Image Acquisition (WIA) run-time system when a hardware device event occurs.
+     * @remarks
+     * To receive notification of WIA hardware device events, applications pass a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaeventcallback">IWiaEventCallback</a> interface to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiadevmgr-registereventcallbackinterface">RegisterEventCallbackInterface</a> method. The WIA run-time system then uses that interface pointer to invoke the <b>IWiaEventCallback::ImageEventCallback</b> method whenever a WIA hardware device event occurs.
+     * 
+     * Note that there is no guarantee the callback will be invoked on the same thread that registered the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaeventcallback">IWiaEventCallback</a> interface.
      * @param {Pointer<Guid>} pEventGUID Type: <b>const GUID*</b>
      * 
      * Specifies the unique identifier of the event. For a complete list of device events, see <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-event-identifiers">WIA Event Identifiers</a>.
@@ -88,8 +90,8 @@ class IWiaEventCallback extends IUnknown{
      * Reserved for user information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaeventcallback-imageeventcallback
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaeventcallback-imageeventcallback
      */
     ImageEventCallback(pEventGUID, bstrEventDescription, bstrDeviceID, bstrDeviceDescription, dwDeviceType, bstrFullItemName, pulEventType, ulReserved) {
         bstrEventDescription := bstrEventDescription is String ? BSTR.Alloc(bstrEventDescription).Value : bstrEventDescription

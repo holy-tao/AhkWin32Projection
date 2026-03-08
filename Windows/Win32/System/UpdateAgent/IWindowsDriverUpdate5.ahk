@@ -4,8 +4,8 @@
 #Include .\IWindowsDriverUpdate4.ahk
 
 /**
- * Contains the properties and methods that are available only from a Windows driver update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdate5
+ * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate5)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdate5
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -47,12 +47,9 @@ class IWindowsDriverUpdate5 extends IWindowsDriverUpdate4{
     /**
      * Gets an AutoSelectionMode value indicating the automatic selection mode of an update in the Control Panel of Windows Update.
      * @remarks
-     * 
      * The AutoSelection property indicates whether the update will be automatically selected when the user views the available updates in the Windows Update user interface.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate5-get_autoselection
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate5-get_autoselection
      */
     get_AutoSelection() {
         result := ComCall(67, this, "int*", &retval := 0, "HRESULT")
@@ -62,12 +59,9 @@ class IWindowsDriverUpdate5 extends IWindowsDriverUpdate4{
     /**
      * Gets an AutoDownloadMode value that indicates the automatic download mode of update.
      * @remarks
-     * 
      * The AutoDownload property indicates whether the update will be automatically downloaded by Automatic Updates.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate5-get_autodownload
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate5-get_autodownload
      */
     get_AutoDownload() {
         result := ComCall(68, this, "int*", &retval := 0, "HRESULT")

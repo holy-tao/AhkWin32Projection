@@ -5,7 +5,7 @@
 
 /**
  * The IDvbLogicalChannelDescriptor2 interface enables the client to get a logical channel descriptor from a DVB stream. The logical channel descriptor may be present in the network information table (NIT).
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvblogicalchanneldescriptor2
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblogicalchanneldescriptor2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The IDvdCmd interface waits for DVD commands to start or end.The DVD Navigator creates synchronization objects that expose this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idvdcmd
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcmd
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IDvdCmd extends IUnknown{
     /**
      * The WaitForStart method blocks the DVD Navigator until the command associated with this object begins.
      * @returns {HRESULT} Returns S_OK if successful or an <b>HRESULT</b> error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdcmd-waitforstart
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcmd-waitforstart
      */
     WaitForStart() {
         result := ComCall(3, this, "HRESULT")
@@ -43,7 +43,7 @@ class IDvdCmd extends IUnknown{
     /**
      * The WaitForEnd method blocks the DVD Navigator until the command associated with this object completes or is canceled.
      * @returns {HRESULT} Returns S_OK if successful or an <b>HRESULT</b> error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdcmd-waitforend
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcmd-waitforend
      */
     WaitForEnd() {
         result := ComCall(4, this, "HRESULT")

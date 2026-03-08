@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * The ticket-granting server can issue a new ticket-granting ticket with a different network address based on the presented ticket.
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

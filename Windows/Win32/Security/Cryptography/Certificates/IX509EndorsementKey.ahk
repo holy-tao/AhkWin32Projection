@@ -7,7 +7,7 @@
 
 /**
  * X.509 Endorsement Key Interface
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509endorsementkey
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509endorsementkey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -55,9 +55,9 @@ class IX509EndorsementKey extends IDispatch{
     }
 
     /**
-     * The name of the encryption provider. The default is the Microsoft Platform Crypto Provider. You must set the ProviderName property before you call the Open method. You cannot change the ProviderName property after you have called the Open method.
+     * The name of the encryption provider. The default is the Microsoft Platform Crypto Provider. You must set the ProviderName property before you call the Open method. You cannot change the ProviderName property after you have called the Open method. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-get_providername
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_providername
      */
     get_ProviderName() {
         pValue := BSTR()
@@ -66,10 +66,10 @@ class IX509EndorsementKey extends IDispatch{
     }
 
     /**
-     * The name of the encryption provider. The default is the Microsoft Platform Crypto Provider. You must set the ProviderName property before you call the Open method. You cannot change the ProviderName property after you have called the Open method.
+     * The name of the encryption provider. The default is the Microsoft Platform Crypto Provider. You must set the ProviderName property before you call the Open method. You cannot change the ProviderName property after you have called the Open method. (Put)
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-put_providername
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-put_providername
      */
     put_ProviderName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -81,7 +81,7 @@ class IX509EndorsementKey extends IDispatch{
     /**
      * The bit length of the endorsement key. You can only access this property after the Open method has been called.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-get_length
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_length
      */
     get_Length() {
         result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
@@ -91,7 +91,7 @@ class IX509EndorsementKey extends IDispatch{
     /**
      * Indicates whether the Open method has been successfully called.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-get_opened
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_opened
      */
     get_Opened() {
         result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
@@ -100,10 +100,12 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * Add an endorsement key certificate to the key storage provider (KSP) that supports endorsement keys.
+     * @remarks
+     * Only non-manufacturer certificates can be added to the key storage provider.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @param {BSTR} strCertificate The certificate to add to the store. The public key from this certificate must match the public key of the endorsement key.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-addcertificate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-addcertificate
      */
     AddCertificate(Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
@@ -114,10 +116,12 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * Removes an endorsement certificate related to the endorsement key from the key storage provider. You can only call the RemoveCertificate method after the Open method has been successfully called.
+     * @remarks
+     * Only non-manufacturer certificates can be removed from the key storage provider.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @param {BSTR} strCertificate The certificate to remove from the store.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-removecertificate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-removecertificate
      */
     RemoveCertificate(Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
@@ -132,7 +136,7 @@ class IX509EndorsementKey extends IDispatch{
      * @param {Integer} dwIndex The index of the requested endorsement certificate.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {BSTR} The endorsement certificate requested.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-getcertificatebyindex
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatebyindex
      */
     GetCertificateByIndex(ManufacturerOnly, dwIndex, Encoding) {
         pValue := BSTR()
@@ -144,7 +148,7 @@ class IX509EndorsementKey extends IDispatch{
      * Gets the count of the endorsement certificates in the key storage provider.
      * @param {VARIANT_BOOL} ManufacturerOnly True to return the count for only manufacturer certificates. False to return the count for only non-manufacturer certificates.
      * @returns {Integer} The count of endorsement certificates from the key storage provider.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-getcertificatecount
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatecount
      */
     GetCertificateCount(ManufacturerOnly) {
         result := ComCall(14, this, "short", ManufacturerOnly, "int*", &pCount := 0, "HRESULT")
@@ -154,7 +158,7 @@ class IX509EndorsementKey extends IDispatch{
     /**
      * Exports the endorsement public key.
      * @returns {IX509PublicKey} The exported endorsement public key.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-exportpublickey
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-exportpublickey
      */
     ExportPublicKey() {
         result := ComCall(15, this, "ptr*", &ppPublicKey := 0, "HRESULT")
@@ -163,8 +167,8 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * Opens the endorsement key. The endorsement key must be open before you can retrieve an information from the endorsement key, add or remove certificates, or export the endorsement key.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-open
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-open
      */
     Open() {
         result := ComCall(16, this, "HRESULT")
@@ -173,8 +177,13 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * Closes the endorsement key. You can only call the Close method after the Open method has been successfully called.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509endorsementkey-close
+     * @remarks
+     * The <b>Close</b> method releases any resources held
+     *     by the object except for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509endorsementkey-get_providername">ProviderName</a>.
+     *     The <b>ProviderName</b> is released when it is re-assigned
+     *     or when this object is destroyed.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-close
      */
     Close() {
         result := ComCall(17, this, "HRESULT")

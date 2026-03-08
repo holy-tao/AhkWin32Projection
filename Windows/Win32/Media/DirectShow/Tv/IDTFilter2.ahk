@@ -7,11 +7,8 @@
 /**
  * The IDTFilter2 interface extends the IDTFilter interface and is exposed by the Decrypter/Detagger filter.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-idtfilter2
+ * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class IDTFilter2 extends IDTFilter{
     /**
      * Not implemented in this release.
      * @returns {BSTR} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-get_challengeurl
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-get_challengeurl
      */
     get_ChallengeUrl() {
         pbstrChallengeUrl := BSTR()
@@ -58,7 +55,7 @@ class IDTFilter2 extends IDTFilter{
      * Not implemented in this release.
      * @param {Pointer<Integer>} protType Reserved.
      * @returns {Integer} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
@@ -110,7 +107,7 @@ class IDTFilter2 extends IDTFilter{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-getlasterrorcode
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getlasterrorcode
      */
     GetLastErrorCode() {
         result := ComCall(13, this, "HRESULT")

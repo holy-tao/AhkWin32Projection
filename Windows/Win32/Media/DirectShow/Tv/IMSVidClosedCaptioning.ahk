@@ -6,11 +6,8 @@
 /**
  * The IMSVidClosedCaptioning interface enables or disables closed captions.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidclosedcaptioning
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidclosedcaptioning
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -52,7 +49,7 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
     /**
      * The get_Enable method queries whether closed captioning is enabled.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning-get_enable
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-get_enable
      */
     get_Enable() {
         result := ComCall(16, this, "short*", &On := 0, "HRESULT")
@@ -63,7 +60,7 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
      * The put_Enable method enables or disables closed captioning.
      * @param {VARIANT_BOOL} On 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning-put_enable
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-put_enable
      */
     put_Enable(On) {
         result := ComCall(17, this, "short", On, "HRESULT")

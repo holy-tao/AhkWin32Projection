@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Maintains a list of pooled objects, keyed by IObjPool, that are used until the transaction completes.
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionresourcepool
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  * @version v4.0.30319
  */

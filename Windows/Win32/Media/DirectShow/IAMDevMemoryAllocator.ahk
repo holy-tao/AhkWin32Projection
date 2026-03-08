@@ -5,7 +5,7 @@
 
 /**
  * Note  This interface is no longer supported by the AVI Splitter. Note  This interface was defined to support older hardware decoders that required AVI files to be read into directly hardware memory.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamdevmemoryallocator
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdevmemoryallocator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,12 +32,14 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * Note  The IAMDevMemoryAllocator interface is deprecated. Retrieves information about the memory capabilities.
+     * @remarks
+     * Use this method to find out the total amount of memory available. This method returns values for the entire on-board memory that is available on that device. If multiple filters (devices) share the memory, it will return the amount available to that specific device, which might be a portion of the total amount of on-board memory. This amount will be implementation-specific. For example, the on-board memory manager on the codec might be able to access all 32 megabytes (MB) of memory on the card. However, individual pin implementations of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamdevmemoryallocator">IAMDevMemoryAllocator</a> only report a portion of this memory.
      * @param {Pointer<Integer>} pdwcbTotalFree Pointer to the total free memory size.
      * @param {Pointer<Integer>} pdwcbLargestFree Pointer to the returned largest free memory size.
      * @param {Pointer<Integer>} pdwcbTotalMemory Pointer to the returned total memory size.
      * @param {Pointer<Integer>} pdwcbMinimumChunk Pointer to the returned minimum chunk size, giving granularity and alignment rules.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemoryallocator-getinfo
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-getinfo
      */
     GetInfo(pdwcbTotalFree, pdwcbLargestFree, pdwcbTotalMemory, pdwcbMinimumChunk) {
         pdwcbTotalFreeMarshal := pdwcbTotalFree is VarRef ? "uint*" : "ptr"
@@ -51,9 +53,11 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * Note  The IAMDevMemoryAllocator interface is deprecated. Tests whether the specific instance (device) of the allocator allocated a memory pointer.
+     * @remarks
+     * The hardware filter typically uses this method to test whether the pointer actually points to on-board memory.
      * @param {Pointer<Integer>} pBuffer Pointer to the allocated memory buffer's address.
      * @returns {HRESULT} Returns S_OK if the on-board allocator allocated the memory, or S_FALSE if not. Memory that is on the particular device but not allocated will also return S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemoryallocator-checkmemory
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-checkmemory
      */
     CheckMemory(pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -64,9 +68,11 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * Note  The IAMDevMemoryAllocator interface is deprecated. Allocates a memory buffer.
+     * @remarks
+     * Call this method to allocate a block of memory from the available pool.
      * @param {Pointer<Integer>} pdwcbBuffer Pointer to a <b>DWORD</b> whose input value is the number of bytes to allocate and whose output value is the actual number of bytes allocated.
      * @returns {Pointer<Integer>} Pointer that will receive the address of the allocated memory buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemoryallocator-alloc
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-alloc
      */
     Alloc(pdwcbBuffer) {
         pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : "ptr"
@@ -77,9 +83,11 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * Note  The IAMDevMemoryAllocator interface is deprecated. Frees the previously allocated memory.
+     * @remarks
+     * This method frees a block of memory from the pool.
      * @param {Pointer<Integer>} pBuffer Pointer to the allocated memory.
-     * @returns {HRESULT} Returns E_INVALIDARG if the specified allocator didn't allocate the memory (that is, <a href="/windows/desktop/api/strmif/nf-strmif-iamdevmemoryallocator-checkmemory">CheckMemory</a> fails).
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemoryallocator-free
+     * @returns {HRESULT} Returns E_INVALIDARG if the specified allocator didn't allocate the memory (that is, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamdevmemoryallocator-checkmemory">CheckMemory</a> fails).
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-free
      */
     Free(pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -90,9 +98,13 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * Note  The IAMDevMemoryAllocator interface is deprecated. Retrieves an IUnknown interface pointer to a device memory control object that can be aggregated with a custom allocator.
+     * @remarks
+     * The device memory control object is necessary to aggregate with the custom allocator, because renderers that require the use of on-board memory will query for <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamdevmemorycontrol">IAMDevMemoryControl</a> when they receive a new allocator, to verify that the memory is from the same device. This occurs because the hardware filter will receive an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imemallocator">IMemAllocator</a> object, which might or might not use the on-board memory. To decide if it is a compatible allocator, the object would query for the <b>IAMDevMemoryControl</b> interface to access specific methods. The <b>IAMDevMemoryControl</b> creates an aggregated object that implements the methods of <b>IAMDevMemoryControl</b> (these are often hardware-specific).
+     * 
+     * See COM documentation for rules on how the outer object implements aggregation.
      * @param {IUnknown} pUnkOuter Pointer to the custom allocator's own <b>IUnknown</b> interface. This interface aggregates the device memory control object inside the custom allocator.
      * @returns {IUnknown} Address of a pointer to the newly created control object's own <b>IUnknown</b>. This inner <b>IUnknown</b> interface should be released when the outer object is destroyed. The custom allocator should call the <b>QueryInterface</b> method on this pointer to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamdevmemorycontrol">IAMDevMemoryControl</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemoryallocator-getdevmemoryobject
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-getdevmemoryobject
      */
     GetDevMemoryObject(pUnkOuter) {
         result := ComCall(7, this, "ptr*", &ppUnkInnner := 0, "ptr", pUnkOuter, "HRESULT")

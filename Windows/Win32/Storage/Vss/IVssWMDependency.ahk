@@ -5,7 +5,7 @@
 
 /**
  * The IVssWMDependency is a C++ (not COM) interface returned by the IVssWMComponent interface and used by applications when backing up or restoring a component that has an explicit writer-component dependency on a component managed by another writer.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsswmdependency
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswmdependency
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -27,6 +27,12 @@ class IVssWMDependency extends IUnknown{
 
     /**
      * The GetWriterId method retrieves the class ID of a writer containing a component that the current component depends on in an explicit writer-component dependency.
+     * @remarks
+     * A dependency does not indicate an order of preference between the component with the documented dependencies and the components it depends on. A dependency merely indicates that the component and the components it depends on must always be backed up or restored together.
+     * 
+     * It is possible to have multiple instances of a given writer class; however, any component's logical path and name should be unique.
+     * 
+     * If there are multiple instances of a writer class, it will be necessary to use logical path and component name information to identify the instance managing the component that the current component depends on.
      * @param {Pointer<Guid>} pWriterId The class ID of a writer that manages a component on which the current component depends.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -87,7 +93,7 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -99,14 +105,14 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswmdependency-getwriterid
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmdependency-getwriterid
      */
     GetWriterId(pWriterId) {
         result := ComCall(3, this, "ptr", pWriterId, "HRESULT")
@@ -115,6 +121,14 @@ class IVssWMDependency extends IUnknown{
 
     /**
      * The GetLogicalPath method retrieves the logical path of a component that the current component depends on in explicit writer-component dependency.
+     * @remarks
+     * The caller must free the memory used by the returned string by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * A dependency does not indicate an order of preference between the component with the documented dependencies and the components it depends on. A dependency merely indicates that the component and the components it depends on must always be backed up or restored together.
+     * 
+     * It is possible to have multiple instances of a given writer class; however, any component's logical path and name should be unique.
+     * 
+     * If there are multiple instances of a writer class, it will be necessary to use logical path and component name information to identify the instance managing the component that the current component depends on.
      * @param {Pointer<BSTR>} pbstrLogicalPath The address of a caller-allocated variable that receives a <b>NULL</b>-terminated wide character string containing the logical path of the component that the current component depends on.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -175,7 +189,7 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -187,14 +201,14 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswmdependency-getlogicalpath
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmdependency-getlogicalpath
      */
     GetLogicalPath(pbstrLogicalPath) {
         result := ComCall(4, this, "ptr", pbstrLogicalPath, "HRESULT")
@@ -203,6 +217,14 @@ class IVssWMDependency extends IUnknown{
 
     /**
      * The GetComponentName method retrieves the name of a component that the current component depends on in an explicit writer-component dependency.
+     * @remarks
+     * The caller must free the memory used by the returned string by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * 
+     * A dependency does not indicate an order of preference between the component with the documented dependencies and the components it depends on. A dependency merely indicates that the component and the components it depends on must always be backed up or restored together.
+     * 
+     * It is possible to have multiple instances of a given writer class; however, any component's logical path and name should be unique.
+     * 
+     * If there are multiple instances of a writer class, it will be necessary to use logical path and component name information to identify the instance managing the component that the current component depends on.
      * @param {Pointer<BSTR>} pbstrComponentName The address of a caller-allocated variable that receives a <b>NULL</b>-terminated wide character string containing the name of the component that the current component depends on.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -263,7 +285,7 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -275,14 +297,14 @@ class IVssWMDependency extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswmdependency-getcomponentname
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmdependency-getcomponentname
      */
     GetComponentName(pbstrComponentName) {
         result := ComCall(5, this, "ptr", pbstrComponentName, "HRESULT")

@@ -6,11 +6,9 @@
 /**
  * Exposes methods that set and retrieve information about a computer's default sharing settings for the Users (C:\Users) or Public (C:\Users\Public) folder. Also exposes a set of methods that allow control of printer sharing.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * An implementation of this interface is included in the <b>CSharingConfiguration</b> class. Third parties do not provide their own implementation.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-isharingconfigurationmanager
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-isharingconfigurationmanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,6 +41,14 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Shares the Users or Public folder. If the folder is already shared, this method updates its sharing status.
+     * @remarks
+     * Running this method requires an Administrator privilege level.
+     * 
+     * If the folder named in <i>dsid</i> is not shared, this method shares the folder using the permission level provided in the <i>role</i> parameter.
+     * 
+     * If the folder named in <i>dsid</i> is already shared, this method updates the permissions on the share with the value provided in the <i>role</i> parameter.
+     * 
+     * Because as of Windows 7 the <b>Public</b> folder is shared through <b>Users</b> rather than directly, creating a share on <b>Public</b> causes an Server Message Block (SMB) share to be created on <b>Users</b>.
      * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that indicates the folder to share or update.
@@ -70,7 +76,7 @@ class ISharingConfigurationManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-createshare
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-createshare
      */
     CreateShare(dsid, role) {
         result := ComCall(3, this, "int", dsid, "int", role, "HRESULT")
@@ -79,13 +85,15 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Removes sharing from either the Users or Public folder.
+     * @remarks
+     * Running this method requires an Administrator privilege level.
      * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that specifies the folder to no longer share.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-deleteshare
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-deleteshare
      */
     DeleteShare(dsid) {
         result := ComCall(4, this, "int", dsid, "HRESULT")
@@ -94,13 +102,15 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Queries whether the Users or Public folder is shared.
+     * @remarks
+     * Because as of Windows 7 <b>Public</b> is shared in-place through <b>Users</b>, callers should always check for the Users share first. If a share is found to exist on <b>Users</b>, then it follows that a share exists on <b>Public</b> as well.
      * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that indicates the folder whose sharing state is being checked.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * S_OK if the folder is shared; otherwise, S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-shareexists
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-shareexists
      */
     ShareExists(dsid) {
         result := ComCall(5, this, "int", dsid, "HRESULT")
@@ -115,7 +125,7 @@ class ISharingConfigurationManager extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a>*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a> values that indicate the sharing permissions set for the folder specified in the <i>dsid</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-getsharepermissions
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-getsharepermissions
      */
     GetSharePermissions(dsid) {
         result := ComCall(6, this, "int", dsid, "int*", &pRole := 0, "HRESULT")
@@ -124,10 +134,12 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Shares all local printers connected to a computer, enabling them to be discovered by other computers on the network.
+     * @remarks
+     * Running this method requires an Administrator privilege level.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-shareprinters
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-shareprinters
      */
     SharePrinters() {
         result := ComCall(7, this, "HRESULT")
@@ -136,10 +148,12 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Stops sharing all local, shared printers connected to a computer.
+     * @remarks
+     * Running this method requires an Administrator privilege level.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-stopsharingprinters
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-stopsharingprinters
      */
     StopSharingPrinters() {
         result := ComCall(8, this, "HRESULT")
@@ -191,7 +205,7 @@ class ISharingConfigurationManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-areprintersshared
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-areprintersshared
      */
     ArePrintersShared() {
         result := ComCall(9, this, "HRESULT")

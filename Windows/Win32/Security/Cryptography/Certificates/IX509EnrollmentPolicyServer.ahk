@@ -10,7 +10,7 @@
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509enrollmentpolicyserver
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @param {Integer} context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -88,7 +88,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object has already been initialized.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object has already been initialized.
      * 
      * </td>
      * </tr>
@@ -104,7 +104,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize
      */
     Initialize(bstrPolicyServerUrl, bstrPolicyServerId, authFlags, fIsUnTrusted, context) {
         bstrPolicyServerUrl := bstrPolicyServerUrl is String ? BSTR.Alloc(bstrPolicyServerUrl).Value : bstrPolicyServerUrl
@@ -119,7 +119,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @param {Integer} option 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -149,7 +149,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy
      */
     LoadPolicy(option) {
         result := ComCall(8, this, "int", option, "HRESULT")
@@ -159,7 +159,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a collection of the templates supported by the certificate enrollment policy (CEP) server.
      * @returns {IX509CertificateTemplates} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplates">IX509CertificateTemplates</a> interface that represents the template collection.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-gettemplates
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-gettemplates
      */
     GetTemplates() {
         result := ComCall(9, this, "ptr*", &pTemplates := 0, "HRESULT")
@@ -170,7 +170,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * Retrieves a collection of certificate enrollment servers that support a specified template.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> interface that represents the template.
      * @returns {ICertificationAuthorities} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertificationauthorities">ICertificationAuthorities</a> interface that represents the server collection.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcasfortemplate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcasfortemplate
      */
     GetCAsForTemplate(pTemplate) {
         result := ComCall(10, this, "ptr", pTemplate, "ptr*", &ppCAs := 0, "HRESULT")
@@ -180,7 +180,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a collection of certification enrollment servers included in the policy.
      * @returns {ICertificationAuthorities} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertificationauthorities">ICertificationAuthorities</a> interface that represents the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcas
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcas
      */
     GetCAs() {
         result := ComCall(11, this, "ptr*", &ppCAs := 0, "HRESULT")
@@ -189,9 +189,11 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Validates the current policy information.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy">LoadPolicy</a> with the input parameter set to <b>LoadOptionReload</b>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -216,12 +218,12 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> has been initialized by calling the <a href="/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport">InitializeImport</a> method.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> has been initialized by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport">InitializeImport</a> method.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-validate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-validate
      */
     Validate() {
         result := ComCall(12, this, "HRESULT")
@@ -231,7 +233,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Is not implemented.
      * @returns {IObjectIds} Not used.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcustomoids
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcustomoids
      */
     GetCustomOids() {
         result := ComCall(13, this, "ptr*", &ppObjectIds := 0, "HRESULT")
@@ -240,8 +242,10 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves the date and time at which the policy expires and should be refreshed.
+     * @remarks
+     * The date is stored as an 8-byte real value that represents a Coordinated Universal Time (Greenwich Mean Time) value between January 1, 1900 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents 12:00 on January 1, 1900; 3.25 represents 06:00 on January 2, 1900.
      * @returns {Float} Pointer to a <b>DATE</b> value that identifies the time.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getnextupdatetime
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getnextupdatetime
      */
     GetNextUpdateTime() {
         result := ComCall(14, this, "double*", &pDate := 0, "HRESULT")
@@ -250,8 +254,10 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves the date and time at which the policy was last downloaded.
+     * @remarks
+     * The date is stored as an 8-byte real value that represents a Coordinated Universal Time (Greenwich Mean Time) value between January 1, 1900 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents 12:00 on January 1, 1900; 3.25 represents 06:00 on January 2, 1900.
      * @returns {Float} Pointer to a <b>DATE</b> value that identifies the time.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getlastupdatetime
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getlastupdatetime
      */
     GetLastUpdateTime() {
         result := ComCall(15, this, "double*", &pDate := 0, "HRESULT")
@@ -261,7 +267,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a string value that contains the URL for the certificate enrollment policy (CEP) server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the URL.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverurl
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
         pValue := BSTR()
@@ -272,7 +278,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a string value that uniquely identifies the certificate enrollment policy (CEP) server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the ID string.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
         pValue := BSTR()
@@ -283,7 +289,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a display name for the certificate enrollment policy (CEP) server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the display name.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getfriendlyname
      */
     GetFriendlyName() {
         pValue := BSTR()
@@ -293,8 +299,10 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves a Boolean value that specifies whether this is the default certificate enrollment policy (CEP) server.
+     * @remarks
+     * The default server is set by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-initialize">Initialize</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver">ICertPropertyEnrollmentPolicyServer</a> interface.
      * @returns {VARIANT_BOOL} Pointer to a Boolean value that specifies whether this is the default server.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getisdefaultcep
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getisdefaultcep
      */
     GetIsDefaultCEP() {
         result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
@@ -303,8 +311,10 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves a value that specifies whether the ClientId attribute is set in the policy server flags of the certificate enrollment policy (CEP) server.
+     * @remarks
+     * This method returns <b>VARIANT_TRUE</b> if the <b>PsfUseClientId</b> bit is set on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-policyserverurlflags">PolicyServerUrlFlags</a> enumeration for this CEP server. If this flag is set, the <b>ClientID</b> attribute is included in certificate requests during the enrollment process and can be used by the certification authority for diagnostic or auditing purposes. Examples of the type of information included in this attribute include the name of the cryptographic service provider, the Windows version number, the user name, the computer DNS name, and the domain controller DNS name.
      * @returns {VARIANT_BOOL} Pointer to a Boolean value that specifies whether the <b>PsfUseClientId</b> bit is set on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-policyserverurlflags">PolicyServerUrlFlags</a> enumeration for this certificate enrollment policy (CEP) server.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getuseclientid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getuseclientid
      */
     GetUseClientId() {
         result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
@@ -314,7 +324,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a value that specifies whether to allow an untrusted certification authority certificate.
      * @returns {VARIANT_BOOL} Pointer to a Boolean value that specifies whether to allow the certificate.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getallowuntrustedca
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getallowuntrustedca
      */
     GetAllowUnTrustedCA() {
         result := ComCall(21, this, "short*", &pValue := 0, "HRESULT")
@@ -324,7 +334,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves the path of the policy cache file on the certificate enrollment policy (CEP) server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the path.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachepath
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachepath
      */
     GetCachePath() {
         pValue := BSTR()
@@ -335,7 +345,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves the name of the directory on the certificate enrollment policy (CEP) server that contains the policy cache file.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the directory name.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachedir
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachedir
      */
     GetCacheDir() {
         pValue := BSTR()
@@ -346,7 +356,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * Retrieves a value that specifies the authentication type used by the client to authenticate itself to the certificate enrollment policy (CEP) server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-getauthflags
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getauthflags
      */
     GetAuthFlags() {
         result := ComCall(24, this, "int*", &pValue := 0, "HRESULT")
@@ -355,13 +365,43 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Sets the credential used to contact the certificate enrollment policy (CEP) server.
+     * @remarks
+     * The <i>strCredential</i> and <i>strPassword</i> arguments will change depending on the value specified in the <i>flag</i> argument as shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>flag</i> parameter </th>
+     * <th><i>strCredential</i> parameter</th>
+     * <th><i>strPassword</i> parameter</th>
+     * </tr>
+     * <tr>
+     * <td>X509AuthAnonymous</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthKerberos</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthUsername</td>
+     * <td>Clear text user name recognized by the CEP server.</td>
+     * <td>Clear text password associated with the user name.</td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthCertificate</td>
+     * <td>Contains a 20 byte SHA-1 hash (thumbprint) of the certificate.</td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * </table>
      * @param {Integer} hWndParent Parent window handle.
      * @param {Integer} flag 
      * @param {BSTR} strCredential A <b>BSTR</b> variable that contains the credential.
      * @param {BSTR} strPassword A <b>BSTR</b> variable that contains the password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -380,7 +420,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-setcredential
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-setcredential
      */
     SetCredential(hWndParent, flag, strCredential, strPassword) {
         strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
@@ -392,8 +432,15 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves a value that specifies whether the template or certification authority collections have changed in Active Directory.
+     * @remarks
+     * The <b>QueryChanges</b> method is relevant only when you specify <b>LoadOptionRegisterForADChanges</b> in the <i>option</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy">LoadPolicy</a> method. The method returns <b>VARIANT_TRUE</b> for either of the following cases:
+     * 
+     * <ul>
+     * <li>The template collection in Active Directory has changed since the last time <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-gettemplates">GetTemplates</a> was called.</li>
+     * <li>The certification authority collection in Active Directory has changed since the last time <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcas">GetCAs</a> was called.</li>
+     * </ul>
      * @returns {VARIANT_BOOL} Pointer to a Boolean value that specifies whether the collections have changed.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-querychanges
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-querychanges
      */
     QueryChanges() {
         result := ComCall(26, this, "short*", &pValue := 0, "HRESULT")
@@ -402,10 +449,12 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Initializes the certificate enrollment policy (CEP) server from a collection of templates and object identifiers.
+     * @remarks
+     * Call this method to import templates and OIDs previously written to a buffer by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export">Export</a> method.
      * @param {VARIANT} val A <b>VARIANT</b> of type <b>VT_ARRAY|VT_UI1</b> that contains the templates and object identifiers.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -419,7 +468,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The  <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object has already been initialized.
+     * The  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object has already been initialized.
      * 
      * </td>
      * </tr>
@@ -435,7 +484,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport
      */
     InitializeImport(val) {
         result := ComCall(27, this, "ptr", val, "HRESULT")
@@ -444,9 +493,13 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Exports templates and object identifiers associated with the certificate enrollment policy (CEP) server to a buffer.
+     * @remarks
+     * To prevent memory leaks, you must free the <b>VARIANT</b> returned by this function.
+     * 
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy">LoadPolicy</a> before calling this function and after calling <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize">Initialize</a> for the exported data to be meaningful.
      * @param {Integer} exportFlags 
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> of type <b>VT_ARRAY|VT_UI1</b> that receives the templates and object identifiers.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
      */
     Export(exportFlags) {
         pVal := VARIANT()
@@ -455,14 +508,11 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves an arbitrary cost for contacting the certificate enrollment policy server.
+     * Specifies and retrieves an arbitrary cost for contacting the certificate enrollment policy server. (IX509EnrollmentPolicyServer.get_Cost)
      * @remarks
-     * 
      * If multiple CEP servers have the same ID value (specified when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize">Initialize</a> method is called), the server with the lowest cost is contacted first.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-get_cost
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-get_cost
      */
     get_Cost() {
         result := ComCall(29, this, "uint*", &pValue := 0, "HRESULT")
@@ -470,15 +520,12 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves an arbitrary cost for contacting the certificate enrollment policy server.
+     * Specifies and retrieves an arbitrary cost for contacting the certificate enrollment policy server. (IX509EnrollmentPolicyServer.put_Cost)
      * @remarks
-     * 
      * If multiple CEP servers have the same ID value (specified when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize">Initialize</a> method is called), the server with the lowest cost is contacted first.
-     * 
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-put_cost
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-put_cost
      */
     put_Cost(value) {
         result := ComCall(30, this, "uint", value, "HRESULT")

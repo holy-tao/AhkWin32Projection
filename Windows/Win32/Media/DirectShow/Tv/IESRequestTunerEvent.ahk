@@ -6,10 +6,8 @@
 /**
  * Contains methods that enable a Protected Broadcast Driver Architecture (PBDA)-supported device to get exclusive access to a tuner and its Conditional Access Services (CAS).
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESRequestTunerEvent)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iesrequesttunerevent
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesrequesttunerevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,7 +35,7 @@ class IESRequestTunerEvent extends IESEvent{
     /**
      * Gets a code that indicates the priority of a device request for exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getpriority
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getpriority
      */
     GetPriority() {
         result := ComCall(8, this, "char*", &pbyPriority := 0, "HRESULT")
@@ -47,7 +45,7 @@ class IESRequestTunerEvent extends IESEvent{
     /**
      * Gets a code that indicates the reason a device is requesting exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getreason
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getreason
      */
     GetReason() {
         result := ComCall(9, this, "char*", &pbyReason := 0, "HRESULT")
@@ -57,7 +55,7 @@ class IESRequestTunerEvent extends IESEvent{
     /**
      * Gets a code that indicates the consequences of a device request for exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getconsequences
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getconsequences
      */
     GetConsequences() {
         result := ComCall(10, this, "char*", &pbyConsequences := 0, "HRESULT")
@@ -67,7 +65,7 @@ class IESRequestTunerEvent extends IESEvent{
     /**
      * Gets a value indicating the amount of time that a device estimates it needs exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} Gets the estimated time that exclusive access is needed, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
      */
     GetEstimatedTime() {
         result := ComCall(11, this, "uint*", &pdwEstimatedTime := 0, "HRESULT")

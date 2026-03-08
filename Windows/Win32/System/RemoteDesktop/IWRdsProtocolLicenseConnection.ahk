@@ -7,10 +7,8 @@
 /**
  * Exposes methods used by the Remote Desktop Services service to perform the licensing handshake during a connection sequence.
  * @remarks
- * 
  * To avoid a possible deadlock when calling any of the methods on this interface, you should not make any function or method calls that will directly or indirectly result in a Remote Desktop Services API being called. If you need to make any outbound call, you should start a new thread and make the outbound call from the new thread.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwrdsprotocollicenseconnection
+ * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollicenseconnection
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -39,7 +37,7 @@ class IWRdsProtocolLicenseConnection extends IUnknown{
      * Requests license capabilities from the client.
      * @param {Pointer<Integer>} pcbLicenseCapabilities A pointer to an integer that contains the size of the structure specified by the <i>ppLicensingCapabilities</i> parameter.
      * @returns {WTS_LICENSE_CAPABILITIES} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_license_capabilities">WRDS_LICENSE_CAPABILITIES</a> structure that contains information about the client license capabilities.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-requestlicensingcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-requestlicensingcapabilities
      */
     RequestLicensingCapabilities(pcbLicenseCapabilities) {
         pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : "ptr"
@@ -51,10 +49,12 @@ class IWRdsProtocolLicenseConnection extends IUnknown{
 
     /**
      * Sends a license to the client.
+     * @remarks
+     * For more information about the byte arrays exchanged in this call (such as the <b>SERVER_NEW_LICENSE</b>, <b>SERVER_PLATFORM_CHALLENGE</b>, <b>SERVER_LICENSE_REQUEST</b>, and <b>SERVER_UPGRADE_LICENSE</b> packet structures), see <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rdpele/3d3f160a-3ab3-4dfb-ba4e-47c27cd79409">[MS-RDPELE]: Remote Desktop Protocol: Licensing Extension</a>.
      * @param {Pointer<Integer>} pClientLicense A pointer to a byte array that contains the license.
      * @param {Integer} cbClientLicense An integer that contains the size, in bytes, of the license.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>. The remote connection manager logs any errors that you return.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-sendclientlicense
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>. The remote connection manager logs any errors that you return.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-sendclientlicense
      */
     SendClientLicense(pClientLicense, cbClientLicense) {
         pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : "ptr"
@@ -65,11 +65,13 @@ class IWRdsProtocolLicenseConnection extends IUnknown{
 
     /**
      * Requests a license from the client.
+     * @remarks
+     * For more information about the byte arrays exchanged in this call (such as the <b>CLIENT_LICENSE_INFO</b>, <b>CLIENT_NEW_LICENSE_REQUEST</b>, and <b>CLIENT_PLATFORM_CHALLENGE_RESPONSE</b> packet structures), see <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rdpele/3d3f160a-3ab3-4dfb-ba4e-47c27cd79409">[MS-RDPELE]: Remote Desktop Protocol: Licensing Extension</a>.
      * @param {Pointer<Integer>} Reserve1 A pointer to a byte array that contains additional data that can be acted upon by the client.
      * @param {Integer} Reserve2 An integer that contains the size, in bytes, of the data specified by the <i>Reserve1</i> parameter.
      * @param {Pointer<Integer>} pcbClientLicense An integer that contains the size, in bytes, of the request specified by the <i>ppClientLicense</i> parameter.
      * @returns {Integer} A pointer to a byte array that contains the license request.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-requestclientlicense
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-requestclientlicense
      */
     RequestClientLicense(Reserve1, Reserve2, pcbClientLicense) {
         Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
@@ -82,8 +84,8 @@ class IWRdsProtocolLicenseConnection extends IUnknown{
     /**
      * Notifies the protocol whether the licensing process completed successfully.
      * @param {Integer} ulComplete An integer that specifies whether the licensing process ended successfully. A value of 1 means success. All other values indicate failure.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-protocolcomplete
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollicenseconnection-protocolcomplete
      */
     ProtocolComplete(ulComplete) {
         result := ComCall(6, this, "uint", ulComplete, "HRESULT")

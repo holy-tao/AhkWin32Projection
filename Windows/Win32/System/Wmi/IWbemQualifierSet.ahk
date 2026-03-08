@@ -6,15 +6,12 @@
 /**
  * Acts as a container for the entire set of named qualifiers for a single property or entire object (a class or instance).
  * @remarks
- * 
  * It is strongly recommended that Windows Management dynamic providers never implement this interface because  WMI provides the implementation. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a>.
  * 
  * Within WMI, this interface is always in-process. Put operations only affect the local copy of the object. Get operations retrieve values from the local copy. Updates are performed only when entire objects are read or written using methods on the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemqualifierset
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemqualifierset
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -51,7 +48,7 @@ class IWbemQualifierSet extends IUnknown{
      * @param {Pointer<Integer>} plFlavor Can be <b>NULL</b>. If not <b>NULL</b>, this must point to a <b>LONG</b> that receives the qualifier flavor bits for the requested qualifier. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/qualifier-flavors">Qualifier Flavors</a> and <a href="https://docs.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_flavor_type">WBEM_FLAVOR_TYPE</a>.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-get
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-get
      */
     Get(wszName, lFlags, pVal, plFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -69,8 +66,8 @@ class IWbemQualifierSet extends IUnknown{
      * 
      * Only variants and arrays of type <b>VT_I4</b>, <b>VT_R8</b>, <b>VT_BSTR</b>, <b>VT_BOOL</b> are supported.
      * @param {Integer} lFlavor Desired qualifier flavors for this qualifier.  The following list lists the appropriate constants for <i>lFlavor</i>. The default value is zero (0).
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-put
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-put
      */
     Put(wszName, pVal, lFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -82,8 +79,8 @@ class IWbemQualifierSet extends IUnknown{
     /**
      * The IWbemQualifierSet::Delete method deletes the specified qualifier by name.
      * @param {PWSTR} wszName Name of the qualifier to delete. The pointer is treated as read-only.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-delete
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-delete
      */
     Delete(wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -94,11 +91,14 @@ class IWbemQualifierSet extends IUnknown{
 
     /**
      * The IWbemQualifierSet::GetNames method retrieves the names of all of the qualifiers available from the current object or property. Alternately, depending on the filter value of IFlags, this method retrieves the names of certain qualifiers.
+     * @remarks
+     * For an example of using <b>SAFEARRAY</b>s of <b>BSTR</b>s, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/retrieving-part-of-an-instance">Retrieving Part of a WMI Instance</a>.
      * @param {Integer} lFlags One of the following constants.
      * @returns {Pointer<SAFEARRAY>} A new <b>SAFEARRAY</b> is created that contains the requested names.
      * 
      * In all cases where no error is returned, a new array is created and <i>pstrNames</i> is set to point to it. This occurs even though the resulting array has zero elements. On error, a new <b>SAFEARRAY</b> is not returned.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-getnames
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-getnames
      */
     GetNames(lFlags) {
         result := ComCall(6, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
@@ -108,8 +108,8 @@ class IWbemQualifierSet extends IUnknown{
     /**
      * The IWbemQualifierSet::BeginEnumeration method resets before there is an enumeration of all the qualifiers in the object.
      * @param {Integer} lFlags Specifies the qualifiers to include in the enumeration. It must be one of the following constants.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-beginenumeration
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-beginenumeration
      */
     BeginEnumeration(lFlags) {
         result := ComCall(7, this, "int", lFlags, "HRESULT")
@@ -126,7 +126,7 @@ class IWbemQualifierSet extends IUnknown{
      * @param {Pointer<Integer>} plFlavor If not <b>NULL</b>, the value pointed to is set to the qualifier flavor. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/qualifier-flavors">Qualifier Flavors</a> and <a href="https://docs.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_flavor_type">WBEM_FLAVOR_TYPE</a>.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-next
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-next
      */
     Next(lFlags, pstrName, pVal, plFlavor) {
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
@@ -137,8 +137,8 @@ class IWbemQualifierSet extends IUnknown{
 
     /**
      * Call the IWbemQualifierSet::EndEnumeration method when you plan to terminate enumerations initiated with IWbemQualifierSet::BeginEnumeration and IWbemQualifierSet::Next.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemqualifierset-endenumeration
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-endenumeration
      */
     EndEnumeration() {
         result := ComCall(9, this, "HRESULT")

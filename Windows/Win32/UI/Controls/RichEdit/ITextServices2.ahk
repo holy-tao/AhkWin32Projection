@@ -5,7 +5,7 @@
 
 /**
  * The ITextServices2 interface extends the ITextServices interface.
- * @see https://docs.microsoft.com/windows/win32/api//textserv/nl-textserv-itextservices2
+ * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itextservices2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -27,6 +27,10 @@ class ITextServices2 extends ITextServices{
 
     /**
      * Resizes a control so it fits its content appropriately. This method is similar to TxGetNaturalSize, but also retrieves the ascent of the top line of text.
+     * @remarks
+     * The first four parameters are similar to equivalent parameters in <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itextservices-txdraw">ITextServices::TxDraw</a> and give the same information. In the case where the lines must be recalculated, <b>TxGetNaturalSize2</b>  uses these values in the same ways as in <b>ITextServices::TxDraw</b>.
+     * 
+     * The <i>pwidth</i> and <i>pheight</i> parameters are in/out parameters. The host passes in the tentative width and height of the natural extent of the text object. The text services object compares these values against its current cached state, and if different, recalculates lines. Then, it computes and returns the natural size, as specified by <i>dwMode</i>.
      * @param {Integer} dwAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The aspect for the drawing. It can be any of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
@@ -138,11 +142,11 @@ class ITextServices2 extends ITextServices{
      * @param {Pointer<Integer>} pascent Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * For single-line controls, receives the ascent (units above the baseline) of characters in the top line of text.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>.
      * 
-     * If text services could not activate the object, the return value is one of the following <b>HRESULT</b> codes. For more information on COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If text services could not activate the object, the return value is one of the following <b>HRESULT</b> codes. For more information on COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -183,7 +187,7 @@ class ITextServices2 extends ITextServices{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itextservices2-txgetnaturalsize2
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txgetnaturalsize2
      */
     TxGetNaturalSize2(dwAspect, hdcDraw, hicTargetDev, ptd, dwMode, psizelExtent, pwidth, pheight, pascent) {
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
@@ -202,7 +206,7 @@ class ITextServices2 extends ITextServices{
      * @param {ID2D1RenderTarget} pRenderTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1rendertarget">ID2D1RenderTarget</a>*</b>
      * 
      * The Direct2D rendering object that draws the text services object.
-     * @param {Pointer<RECTL>} lprcBounds Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">LPCRECTL</a></b>
+     * @param {Pointer<RECTL>} lprcBounds Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rectl">LPCRECTL</a></b>
      * 
      * The bounding (client) rectangle.
      * @param {Pointer<RECT>} lprcUpdate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPRECT</a></b>
@@ -238,10 +242,10 @@ class ITextServices2 extends ITextServices{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itextservices2-txdrawd2d
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txdrawd2d
      */
     TxDrawD2D(pRenderTarget, lprcBounds, lprcUpdate, lViewId) {
         result := ComCall(22, this, "ptr", pRenderTarget, "ptr", lprcBounds, "ptr", lprcUpdate, "int", lViewId, "HRESULT")

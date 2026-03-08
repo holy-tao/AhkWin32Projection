@@ -5,7 +5,7 @@
 
 /**
  * Enables sending an audio stream from the collaboration sharer Microsoft ActiveX control to collaboration viewer controls.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IRDPSRAPIAudioStream extends IUnknown{
     /**
      * Initializes the audio stream.
      * @returns {Integer} On return, indicates the stream period in 100 nanosecond intervals. The collaboration sharer calculates how frequently to call the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer">GetBuffer</a> method from this value.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-initialize
      */
     Initialize() {
         result := ComCall(3, this, "int64*", &pnPeriodInHundredNsIntervals := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IRDPSRAPIAudioStream extends IUnknown{
     /**
      * Starts the audio stream.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-start
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-start
      */
     Start() {
         result := ComCall(4, this, "HRESULT")
@@ -53,7 +53,7 @@ class IRDPSRAPIAudioStream extends IUnknown{
     /**
      * Stops the audio stream.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-stop
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-stop
      */
     Stop() {
         result := ComCall(5, this, "HRESULT")
@@ -66,7 +66,7 @@ class IRDPSRAPIAudioStream extends IUnknown{
      * @param {Pointer<Integer>} pcbData The size in bytes of the available data in the buffer.
      * @param {Pointer<Integer>} pTimestamp The time-based location of the location pointer.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
      */
     GetBuffer(ppbData, pcbData, pTimestamp) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
@@ -80,7 +80,7 @@ class IRDPSRAPIAudioStream extends IUnknown{
     /**
      * Releases the hold on the buffer after the GetBuffer method is called.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-freebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-freebuffer
      */
     FreeBuffer() {
         result := ComCall(7, this, "HRESULT")

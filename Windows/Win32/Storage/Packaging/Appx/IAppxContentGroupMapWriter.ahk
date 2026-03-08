@@ -5,7 +5,7 @@
 
 /**
  * Provides a write-only object model for a content group map.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,8 +33,8 @@ class IAppxContentGroupMapWriter extends IUnknown{
     /**
      * Adds an automatic content group to the content group map.
      * @param {PWSTR} groupName The automatic content group name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticgroup
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticgroup
      */
     AddAutomaticGroup(groupName) {
         groupName := groupName is String ? StrPtr(groupName) : groupName
@@ -46,8 +46,8 @@ class IAppxContentGroupMapWriter extends IUnknown{
     /**
      * Adds files to an automatic content group in a content group map.
      * @param {PWSTR} fileName The name of the file to be added to the automatic content group.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticfile
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticfile
      */
     AddAutomaticFile(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -57,8 +57,15 @@ class IAppxContentGroupMapWriter extends IUnknown{
     }
 
     /**
+     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
+     * @remarks
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
+     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
+     * 
+     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(5, this, "HRESULT")

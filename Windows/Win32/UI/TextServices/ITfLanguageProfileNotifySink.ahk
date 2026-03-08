@@ -5,7 +5,7 @@
 
 /**
  * The ITfLanguageProfileNotifySink interface is implemented by an application to receive notifications when the language profile changes.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itflanguageprofilenotifysink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itflanguageprofilenotifysink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ITfLanguageProfileNotifySink extends IUnknown{
      * ITfLanguageProfileNotifySink::OnLanguageChange method
      * @param {Integer} langid Contains a <b>LANGID</b> value the identifies the new language profile.
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a flag that permits or prevents the language profile change. Receives zero to prevent the language profile change or nonzero to permit the language profile change.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
      */
     OnLanguageChange(langid) {
         result := ComCall(3, this, "ushort", langid, "int*", &pfAccept := 0, "HRESULT")
@@ -43,8 +43,8 @@ class ITfLanguageProfileNotifySink extends IUnknown{
 
     /**
      * ITfLanguageProfileNotifySink::OnLanguageChanged method
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechanged
      */
     OnLanguageChanged() {
         result := ComCall(4, this, "HRESULT")

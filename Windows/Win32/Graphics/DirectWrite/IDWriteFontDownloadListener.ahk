@@ -5,7 +5,7 @@
 
 /**
  * Application-defined callback interface that receives notifications from the font download queue (IDWriteFontDownloadQueue interface).
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontdownloadlistener
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadlistener
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -45,7 +45,7 @@ class IDWriteFontDownloadListener extends IUnknown{
      * 
      * Result of the download operation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
      */
     DownloadCompleted(downloadQueue, context, downloadResult) {
         ComCall(3, this, "ptr", downloadQueue, "ptr", context, "int", downloadResult)

@@ -7,7 +7,6 @@
 /**
  * The IGetClusterDataInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a cluster.
  * @remarks
- * 
  * You can use the <b>IGetClusterDataInfo</b> interface when 
  *      Cluster Administrator calls your implementations of the following methods:
  * 
@@ -32,9 +31,7 @@
  *      <i>piData</i> parameter for these methods. Use <i>piData</i> to call the 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method for one of the 
  *      <b>IGetClusterDataInfo</b> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-igetclusterdatainfo
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusterdatainfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -60,7 +57,12 @@ class IGetClusterDataInfo extends IUnknown{
     static VTableNames => ["GetClusterName", "GetClusterHandle", "GetObjectCount"]
 
     /**
-     * Returns the name of the cluster.
+     * Returns the name of the cluster. (IGetClusterDataInfo.GetClusterName)
+     * @remarks
+     * If the <i>lpszName</i> parameter is set to <b>NULL</b> and the 
+     *      <i>pcchName</i> parameter is not set to <b>NULL</b>, the 
+     *      <b>GetClusterName</b> method returns 
+     *      <b>NOERROR</b>.
      * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the cluster; or 
      *        <b>NULL</b> to indicate that the caller is requesting only the length of the name. Although 
      *        declared as a <b>BSTR</b>, this parameter is implemented as an 
@@ -109,13 +111,13 @@ class IGetClusterDataInfo extends IUnknown{
      * </td>
      * <td width="60%">
      * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
-     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername">GetClusterName</a> returns the 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername">GetClusterName</a> returns the 
      *          required number of characters in the content of <i>pcchName</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername
      */
     GetClusterName(lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
@@ -129,7 +131,7 @@ class IGetClusterDataInfo extends IUnknown{
     /**
      * Returns a handle to the cluster.
      * @returns {HCLUSTER} A cluster handle.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getclusterhandle
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclusterhandle
      */
     GetClusterHandle() {
         result := ComCall(4, this, "ptr")
@@ -138,8 +140,13 @@ class IGetClusterDataInfo extends IUnknown{
 
     /**
      * Returns a count of the number of selected cluster objects.
+     * @remarks
+     * Because <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> supports 
+     *      only one selected object, the 
+     *      <b>GetObjectCount</b> method always returns 
+     *      1.
      * @returns {Integer} A count of the number of selected objects.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(5, this, "int")

@@ -6,12 +6,10 @@
 #Include .\IBrowserService.ahk
 
 /**
- * Deprecated.
+ * Deprecated. (IBrowserService2)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice">IBrowserService</a> interface, from which it inherits.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-ibrowserservice2
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -53,7 +51,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-wndprocbs
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-wndprocbs
      */
     WndProcBS(hwnd, uMsg, wParam, lParam) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -66,8 +64,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Sets the folder's current view mode as the default view mode for all folders. Used by the Folder Options dialog.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-setasdeffoldersettings
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-setasdeffoldersettings
      */
     SetAsDefFolderSettings() {
         result := ComCall(34, this, "HRESULT")
@@ -79,7 +77,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <b>RECT</b> structure that receives the allowed dimensions.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-getviewrect
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getviewrect
      */
     GetViewRect() {
         prc := RECT()
@@ -94,8 +92,8 @@ class IBrowserService2 extends IBrowserService{
      * Additional information provided by the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-size">WM_SIZE</a> message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-onsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onsize
      */
     OnSize(wParam) {
         result := ComCall(36, this, "ptr", wParam, "HRESULT")
@@ -109,8 +107,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure that receives the initialization parameters passed to the window procedure (WinProc) of the class.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-oncreate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-oncreate
      */
     OnCreate(pcs) {
         result := ComCall(37, this, "ptr", pcs, "HRESULT")
@@ -131,7 +129,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the command processing; it depends on the command sent.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-oncommand
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-oncommand
      */
     OnCommand(wParam, lParam) {
         result := ComCall(38, this, "ptr", wParam, "ptr", lParam, "ptr")
@@ -142,8 +140,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Calls the derived class from the base class on receipt of a WM_DESTROY message. The derived class handles the message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-ondestroy
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-ondestroy
      */
     OnDestroy() {
         result := ComCall(39, this, "HRESULT")
@@ -158,7 +156,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the notification processing; it depends on the notification sent.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-onnotify
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onnotify
      */
     OnNotify(pnm) {
         result := ComCall(40, this, "ptr", pnm, "ptr")
@@ -169,8 +167,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Calls the derived class from the base class on receipt of a WM_SETFOCUS message. The derived class handles the message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-onsetfocus
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onsetfocus
      */
     OnSetFocus() {
         result := ComCall(41, this, "HRESULT")
@@ -184,8 +182,8 @@ class IBrowserService2 extends IBrowserService{
      * The state of the subframe window.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-onframewindowactivatebs
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onframewindowactivatebs
      */
     OnFrameWindowActivateBS(fActive) {
         result := ComCall(42, this, "int", fActive, "HRESULT")
@@ -196,8 +194,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Coordinates the view lifetime between the base class and its derived class.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-releaseshellview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-releaseshellview
      */
     ReleaseShellView() {
         result := ComCall(43, this, "HRESULT")
@@ -208,8 +206,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Coordinates state updating while the browser is switching between a current and a pending view.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-activatependingview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-activatependingview
      */
     ActivatePendingView() {
         result := ComCall(44, this, "HRESULT")
@@ -230,7 +228,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to the new browser window handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-createviewwindow
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createviewwindow
      */
     CreateViewWindow(psvNew, psvOld, prcView) {
         phwnd := HWND()
@@ -246,7 +244,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of a pointer to the interface pointer requested in the <i>riid</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-createbrowserpropsheetext
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createbrowserpropsheetext
      */
     CreateBrowserPropSheetExt(riid) {
         result := ComCall(46, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -255,10 +253,12 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Provides direct access to the browser view window created by IBrowserService2::CreateViewWindow.
+     * @remarks
+     * <b>IBrowserService2::GetViewWindow</b> retrieves the same handle as found in the <b>_hwndView</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ns-shdeprecated-basebrowserdatalh">BASEBROWSERDATA</a> structure. This method simply provides direct access to that view, bypassing the need to access the <b>BASEBROWSERDATA</b> structure though a method such as <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getbasebrowserdata">IBrowserService2::GetBaseBrowserData</a>.
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to the handle of the browser window.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-getviewwindow
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getviewwindow
      */
     GetViewWindow() {
         phwndView := HWND()
@@ -268,10 +268,12 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Gets a read-only structure containing the protected elements owned by the base class, for the purpose of determining state.
+     * @remarks
+     * This method is used as an optimization to access the internal state of the base browser. The state should be updated only by the base browser.
      * @returns {Pointer<BASEBROWSERDATALH>} Type: <b>LPCBASEBROWSERDATA*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ns-shdeprecated-basebrowserdatalh">BASEBROWSERDATA</a> structure that receives the read-only state of the base browser.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-getbasebrowserdata
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getbasebrowserdata
      */
     GetBaseBrowserData() {
         result := ComCall(48, this, "ptr*", &pbbd := 0, "HRESULT")
@@ -282,8 +284,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Gets a structure that allows read/write access to protected members of the base class. Note, however, that state should only be updated by the base browser.
      * @returns {Pointer<BASEBROWSERDATALH>} Type: <b>LPBASEBROWSERDATA</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/shdeprecated/ns-shdeprecated-basebrowserdatalh">BASEBROWSERDATA</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-putbasebrowserdata
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ns-shdeprecated-basebrowserdatalh">BASEBROWSERDATA</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-putbasebrowserdata
      */
     PutBaseBrowserData() {
         result := ComCall(49, this, "ptr")
@@ -300,8 +302,8 @@ class IBrowserService2 extends IBrowserService{
      * The new browser window's ID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-initializetravellog
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-initializetravellog
      */
     InitializeTravelLog(ptl, dw) {
         result := ComCall(50, this, "ptr", ptl, "uint", dw, "HRESULT")
@@ -312,8 +314,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Informs the base class when it becomes the topmost browser instance.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-settopbrowser
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-settopbrowser
      */
     SetTopBrowser() {
         result := ComCall(51, this, "HRESULT")
@@ -321,14 +323,14 @@ class IBrowserService2 extends IBrowserService{
     }
 
     /**
-     * Deprecated. Checks for and updates the browser's offline status, synchronzing the state between the base class and any derived classes.
+     * Deprecated. Checks for and updates the browser's offline status, synchronizing the state between the base class and any derived classes.
      * @param {Integer} iCmd Type: <b>int</b>
      * 
      * One of the following commands.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * In the case of SBSC_TOGGLE, returns standard error codes. In the case of SBSC_QUERY, returns S_OK if offline, S_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-offline
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-offline
      */
     Offline(iCmd) {
         result := ComCall(52, this, "int", iCmd, "HRESULT")
@@ -342,8 +344,8 @@ class IBrowserService2 extends IBrowserService{
      * A value of type <b>BOOL</b> that indicates whether to allow view resizing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-allowviewresize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-allowviewresize
      */
     AllowViewResize(f) {
         result := ComCall(53, this, "int", f, "HRESULT")
@@ -357,8 +359,8 @@ class IBrowserService2 extends IBrowserService{
      * The activation state of the window. This is always the SVUIA_ACTIVATE_FOCUS (0x0002) value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-svuia_status">SVUIA_STATUS</a> enumeration defined in Shobjidl.h.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-setactivatestate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-setactivatestate
      */
     SetActivateState(u) {
         result := ComCall(54, this, "uint", u, "HRESULT")
@@ -367,11 +369,13 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Updates the value of the _eSecureLockIcon member of the BASEBROWSERDATA structure, which tracks the icon indicating a secure site, as well as updating the icon itself in the UI.
+     * @remarks
+     * SECURELOCK_SUGGEST_UNSECURE is equivalent to SECURELOCK_FIRSTSUGGEST.
      * @param {Integer} eSecureLock Type: <b>int</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-updatesecurelockicon
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-updatesecurelockicon
      */
     UpdateSecureLockIcon(eSecureLock) {
         result := ComCall(55, this, "int", eSecureLock, "HRESULT")
@@ -382,8 +386,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables the download manager in the base class.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-initializedownloadmanager
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-initializedownloadmanager
      */
     InitializeDownloadManager() {
         result := ComCall(56, this, "HRESULT")
@@ -394,8 +398,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables transitions in the browser view window.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-initializetransitionsite
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-initializetransitionsite
      */
     InitializeTransitionSite() {
         result := ComCall(57, this, "HRESULT")
@@ -412,8 +416,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the outer object's <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a> automation interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_initialize
      */
     _Initialize(hwnd, pauto) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -426,8 +430,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables a derived class to request that the base class cancel any pending navigation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_cancelpendingnavigationasync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_cancelpendingnavigationasync
      */
     _CancelPendingNavigationAsync() {
         result := ComCall(59, this, "HRESULT")
@@ -438,8 +442,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables a derived class to request that the base class cancel any pending views.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_cancelpendingview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_cancelpendingview
      */
     _CancelPendingView() {
         result := ComCall(60, this, "HRESULT")
@@ -450,8 +454,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables the base class to check whether the browser view needs to save changes before closing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_maysavechanges
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_maysavechanges
      */
     _MaySaveChanges() {
         result := ComCall(61, this, "HRESULT")
@@ -465,8 +469,8 @@ class IBrowserService2 extends IBrowserService{
      * <b>TRUE</b> to indicate that the view is to be paused, <b>FALSE</b> otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_pauseorresumeview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_pauseorresumeview
      */
     _PauseOrResumeView(fPaused) {
         result := ComCall(62, this, "int", fPaused, "HRESULT")
@@ -477,8 +481,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Enables a derived class to ask the base class whether a modal UI is visible. A modal UI blocks minimize and close behavior in the browser window.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_disablemodeless
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_disablemodeless
      */
     _DisableModeless() {
         result := ComCall(63, this, "HRESULT")
@@ -499,6 +503,8 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Coordinates the renaming of the current browser view when the browser is redirected.
+     * @remarks
+     * This method is called in response to <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice-notifyredirect">NotifyRedirect</a>.
      * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> representing the current browser view.
@@ -507,8 +513,8 @@ class IBrowserService2 extends IBrowserService{
      * A PIDL that indicates the new name of the browser view.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_tryshell2rename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_tryshell2rename
      */
     _TryShell2Rename(psv, pidlNew) {
         result := ComCall(65, this, "ptr", psv, "ptr", pidlNew, "HRESULT")
@@ -517,10 +523,12 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Coordinates state updates while switching between current and pending browser views.
+     * @remarks
+     * This method is called by <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice2-activatependingview">IBrowserService2::ActivatePendingView</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_switchactivationnow
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_switchactivationnow
      */
     _SwitchActivationNow() {
         result := ComCall(66, this, "HRESULT")
@@ -529,6 +537,8 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Enables the derived class to issue a command through the IOleCommandTarget::Exec method directly, instead of relying on the base class.
+     * @remarks
+     * For further information, see <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a>.
      * @param {IUnknown} punkBar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a> interface.
@@ -552,8 +562,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to a <b>VARIANTARG</b> structure to receive command output. Can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_execchildren
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_execchildren
      */
     _ExecChildren(punkBar, fBroadcast, pguidCmdGroup, nCmdID, nCmdexecopt, pvarargIn, pvarargOut) {
         result := ComCall(67, this, "ptr", punkBar, "int", fBroadcast, "ptr", pguidCmdGroup, "uint", nCmdID, "uint", nCmdexecopt, "ptr", pvarargIn, "ptr", pvarargOut, "HRESULT")
@@ -579,8 +589,8 @@ class IBrowserService2 extends IBrowserService{
      * Additional message-specific information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_sendchildren
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_sendchildren
      */
     _SendChildren(hwndBar, fBroadcast, uMsg, wParam, lParam) {
         hwndBar := hwndBar is Win32Handle ? NumGet(hwndBar, "ptr") : hwndBar
@@ -591,13 +601,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Gets a structure containing folder information.
+     * @remarks
+     * This method is called by the derived class.
      * @param {Pointer<FOLDERSETDATA>} pfsd Type: <b>tagFolderSetData*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ns-shdeprecated-foldersetdata">FOLDERSETDATA</a> structure that receives the folder information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-getfoldersetdata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getfoldersetdata
      */
     GetFolderSetData(pfsd) {
         result := ComCall(69, this, "ptr", pfsd, "HRESULT")
@@ -611,8 +623,8 @@ class IBrowserService2 extends IBrowserService{
      * The ID of the toolbar gaining focus, or ITB_VIEW if the view is gaining focus.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_onfocuschange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_onfocuschange
      */
     _OnFocusChange(itb) {
         result := ComCall(70, this, "uint", itb, "HRESULT")
@@ -626,8 +638,8 @@ class IBrowserService2 extends IBrowserService{
      * A value of type <b>BOOL</b> that indicates whether child windows should be shown or hidden.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-v_showhidechildwindows
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_showhidechildwindows
      */
     v_ShowHideChildWindows(fChildOnly) {
         result := ComCall(71, this, "int", fChildOnly, "HRESULT")
@@ -639,7 +651,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the index of the last toolbar with focus, or ITB_VIEW if the focus was last on the view.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_get_itblastfocus
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_get_itblastfocus
      */
     _get_itbLastFocus() {
         result := ComCall(72, this, "uint")
@@ -653,8 +665,8 @@ class IBrowserService2 extends IBrowserService{
      * The index of the last toolbar with focus. Set this parameter to ITB_VIEW to indicate that the view had the last focus.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_put_itblastfocus
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_put_itblastfocus
      */
     _put_itbLastFocus(itbLastFocus) {
         result := ComCall(73, this, "uint", itbLastFocus, "HRESULT")
@@ -668,8 +680,8 @@ class IBrowserService2 extends IBrowserService{
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-svuia_status">SVUIA_STATUS</a> enumeration declaring the browser view's state value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_uiactivateview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_uiactivateview
      */
     _UIActivateView(uState) {
         result := ComCall(74, this, "uint", uState, "HRESULT")
@@ -678,13 +690,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Used with IBrowserService2::_GetEffectiveClientArea to negotiate the size and position of the browser view.
+     * @remarks
+     * This method is called by <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getviewrect">IBrowserService2::GetViewRect</a>.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure stating the dimensions of the browser view's border.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_getviewborderrect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_getviewborderrect
      */
     _GetViewBorderRect(prc) {
         result := ComCall(75, this, "ptr", prc, "HRESULT")
@@ -695,8 +709,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Called to inform other functions involved in the browser view size negotiations that the allowable browser view dimensions have changed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_updateviewrectsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_updateviewrectsize
      */
     _UpdateViewRectSize() {
         result := ComCall(76, this, "HRESULT")
@@ -705,13 +719,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Resizes the border of the browser view in response to the addition or removal of toolbars.
+     * @remarks
+     * The implementation of this method calls <a href="https://docs.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborderhelper">IBrowserService2::_ResizeNextBorderHelper</a>.
      * @param {Integer} itb Type: <b>UINT</b>
      * 
      * The index of the toolbar that was added or removed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborder
      */
     _ResizeNextBorder(itb) {
         result := ComCall(77, this, "uint", itb, "HRESULT")
@@ -722,8 +738,8 @@ class IBrowserService2 extends IBrowserService{
      * Deprecated. Calls IBrowserService2::_UpdateViewRectSize, then updates the browser view by using IOleInPlaceActiveObject::ResizeBorder.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_resizeview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizeview
      */
     _ResizeView() {
         result := ComCall(78, this, "HRESULT")
@@ -738,7 +754,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {RECT} Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure indicating the dimensions of the available client area.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_geteffectiveclientarea
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_geteffectiveclientarea
      */
     _GetEffectiveClientArea(hmon) {
         hmon := hmon is Win32Handle ? NumGet(hmon, "ptr") : hmon
@@ -759,10 +775,10 @@ class IBrowserService2 extends IBrowserService{
      * @param {PWSTR} pwszName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer that contains the Unicode name of the window.
-     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a></b>
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a></b>
      * 
      * Stream that can be used to load or save the view state.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-v_getviewstream
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_getviewstream
      */
     v_GetViewStream(pidl, grfMode, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -785,7 +801,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-forwardviewmsg
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-forwardviewmsg
      */
     ForwardViewMsg(uMsg, wParam, lParam) {
         result := ComCall(81, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
@@ -799,8 +815,8 @@ class IBrowserService2 extends IBrowserService{
      * A handle to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures, each structure describing a keyboard mnemonic.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-setacceleratormenu
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-setacceleratormenu
      */
     SetAcceleratorMenu(hacc) {
         hacc := hacc is Win32Handle ? NumGet(hacc, "ptr") : hacc
@@ -811,10 +827,12 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Returns the number of toolbars in the browser window.
+     * @remarks
+     * This method is implemented by the derived class.
      * @returns {Integer} Type: <b>int</b>
      * 
      * The number of toolbars in the browser window.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbarcount
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbarcount
      */
     _GetToolbarCount() {
         result := ComCall(83, this, "int")
@@ -823,13 +841,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Gets a specific item from a toolbar.
+     * @remarks
+     * This method is implemented by the derived class.
      * @param {Integer} itb Type: <b>int</b>
      * 
      * The index of the toolbar item to retrieve.
      * @returns {Pointer<TOOLBARITEM>} Type: <b>LPTOOLBARITEM</b>
      * 
      * A pointer to a [TOOLBARITEM](./ns-shdeprecated-toolbaritem.md) structure that represents a toolbar item.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbaritem
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbaritem
      */
     _GetToolbarItem(itb) {
         result := ComCall(84, this, "int", itb, "ptr")
@@ -838,13 +858,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Saves the state of browser toolbars.
+     * @remarks
+     * This method is implemented by the derived class.
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> used to store the browser toolbar's state.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_savetoolbars
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_savetoolbars
      */
     _SaveToolbars(pstm) {
         result := ComCall(85, this, "ptr", pstm, "HRESULT")
@@ -853,13 +875,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Loads the saved state of the browser's toolbars.
+     * @remarks
+     * This method is implemented by the derived class.
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> from which to load the state  of the browser's toolbars.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_loadtoolbars
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_loadtoolbars
      */
     _LoadToolbars(pstm) {
         result := ComCall(86, this, "ptr", pstm, "HRESULT")
@@ -873,8 +897,8 @@ class IBrowserService2 extends IBrowserService{
      * <b>TRUE</b> to close the toolbar through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idockingwindow-closedw">IDockingWindow::CloseDW</a>; <b>FALSE</b> to release the toolbar.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_closeandreleasetoolbars
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_closeandreleasetoolbars
      */
     _CloseAndReleaseToolbars(fClose) {
         result := ComCall(87, this, "int", fClose, "HRESULT")
@@ -900,8 +924,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to the handle of the window that contains the toolbar.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-v_maygetnexttoolbarfocus
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_maygetnexttoolbarfocus
      */
     v_MayGetNextToolbarFocus(lpMsg, itbNext, citb, pptbi, phwnd) {
         pptbiMarshal := pptbi is VarRef ? "ptr*" : "ptr"
@@ -920,8 +944,8 @@ class IBrowserService2 extends IBrowserService{
      * A value of type <b>BOOL</b> that indicates whether to use an <b>HMONITOR</b> to determine the display. <b>TRUE</b> to use the <b>HMONITOR</b>; <b>FALSE</b> to ignore the particular display in the size determination.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborderhelper
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborderhelper
      */
     _ResizeNextBorderHelper(itb, bUseHmonitor) {
         result := ComCall(89, this, "uint", itb, "int", bUseHmonitor, "HRESULT")
@@ -936,7 +960,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The index of the browser toolbar item.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_findtbar
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_findtbar
      */
     _FindTBar(punkSrc) {
         result := ComCall(90, this, "ptr", punkSrc, "uint")
@@ -956,8 +980,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> that contains a keystroke message that indicates an accelerator.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_setfocus
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_setfocus
      */
     _SetFocus(ptbi, hwnd, lpMsg) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -973,8 +997,8 @@ class IBrowserService2 extends IBrowserService{
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> that contains the keystroke message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-v_maytranslateaccelerator
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_maytranslateaccelerator
      */
     v_MayTranslateAccelerator(pmsg) {
         result := ComCall(92, this, "ptr", pmsg, "HRESULT")
@@ -992,7 +1016,7 @@ class IBrowserService2 extends IBrowserService{
      * @returns {RECT} Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the dimensions of the available border space for the browser.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-_getborderdwhelper
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_getborderdwhelper
      */
     _GetBorderDWHelper(punkSrc, bUseHmonitor) {
         lprectBorder := RECT()
@@ -1007,8 +1031,8 @@ class IBrowserService2 extends IBrowserService{
      * The PIDL of the navigation destination.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice2-v_checkzonecrossing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_checkzonecrossing
      */
     v_CheckZoneCrossing(pidl) {
         result := ComCall(94, this, "ptr", pidl, "HRESULT")

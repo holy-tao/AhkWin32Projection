@@ -5,7 +5,7 @@
 
 /**
  * Enumerates files in content groups from a content group map.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroupfilesenumerator
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupfilesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAppxContentGroupFilesEnumerator extends IUnknown{
     /**
      * Gets the file from the content group at the current position of the enumerator.
      * @returns {PWSTR} The file at the position of the enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &file := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IAppxContentGroupFilesEnumerator extends IUnknown{
     }
 
     /**
-     * Determines whether there is a file at the current position of the enumerator.
+     * Determines whether there is a file at the current position of the enumerator. (IAppxContentGroupFilesEnumerator.GetHasCurrent)
      * @returns {BOOL} <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -51,11 +51,11 @@ class IAppxContentGroupFilesEnumerator extends IUnknown{
     }
 
     /**
-     * Advances the position of the enumerator to the next file.
+     * Advances the position of the enumerator to the next file. (IAppxContentGroupFilesEnumerator.MoveNext)
      * @returns {BOOL} <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

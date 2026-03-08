@@ -5,8 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Represents the download content of an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloadcontent
+ * Represents the download content of an update. (IUpdateDownloadContent)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatedownloadcontent
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IUpdateDownloadContent extends IDispatch{
     /**
      * Gets the location of the download content on the server that hosts the update.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl
      */
     get_DownloadUrl() {
         retval := BSTR()

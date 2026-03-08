@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * Export in base 64 format.
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_certcontext_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Gets or sets the thumbnail stream. This interface is for internal use only and can only be called by the photos application.
- * @see https://docs.microsoft.com/windows/win32/api//thumbnailstreamcache/nn-thumbnailstreamcache-ithumbnailstreamcache
+ * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nn-thumbnailstreamcache-ithumbnailstreamcache
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,8 +44,8 @@ class IThumbnailStreamCache extends IUnknown{
      * @param {Integer} requestedThumbnailSize The requested size of the thumbnail.
      * @param {Pointer<SIZE>} thumbnailSize The actual size of the returned thumbnail.
      * @param {Pointer<IStream>} thumbnailStream The requested thumbnail.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-getthumbnailstream
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-getthumbnailstream
      */
     GetThumbnailStream(path, cacheId, options, requestedThumbnailSize, thumbnailSize, thumbnailStream) {
         path := path is String ? StrPtr(path) : path
@@ -60,8 +60,8 @@ class IThumbnailStreamCache extends IUnknown{
      * @param {Integer} cacheId The identifier of the thumbnail.
      * @param {SIZE} thumbnailSize The size of the thumbnail.
      * @param {IStream} thumbnailStream The pointer to the thumbnail stream.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-setthumbnailstream
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-setthumbnailstream
      */
     SetThumbnailStream(path, cacheId, thumbnailSize, thumbnailStream) {
         path := path is String ? StrPtr(path) : path

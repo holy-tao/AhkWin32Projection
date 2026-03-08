@@ -5,7 +5,7 @@
 
 /**
  * The IFilterGraph3 interface extends the IFilterGraph2 interface, which contains methods for building filter graphs.The Filter Graph Manager implements this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifiltergraph3
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph3
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IFilterGraph3 extends IFilterGraph2{
 
     /**
      * The SetSyncSourceEx method establishes two reference clocks for the filter graph:\_a primary clock that is used by most of the filters, and a secondary clock that is used only by one specified filter.
+     * @remarks
+     * If the filter graph is running or paused, this method return VFW_E_NOT_STOPPED.
+     * 
+     * To clear both reference clocks, set all three parameters to <b>NULL</b>. To set a single clock for the entire graph, with no secondary clock, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediafilter-setsyncsource">IMediaFilter::SetSyncSource</a> method on the Filter Graph Manager.
      * @param {IReferenceClock} pClockForMostOfFilterGraph Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ireferenceclock">IReferenceClock</a> interface of the main reference clock. Every filter in the graph uses this clock, except for the filter specified by the <i>pFilter</i> parameter.
      * @param {IReferenceClock} pClockForFilter Pointer to the <b>IReferenceClock</b> interface of the secondary clock. The filter specified by the <i>pFilter</i> parameter uses this clock.
      * @param {IBaseFilter} pFilter Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of a filter in the graph. This filter uses the secondary reference clock.
@@ -65,7 +69,7 @@ class IFilterGraph3 extends IFilterGraph2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltergraph3-setsyncsourceex
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph3-setsyncsourceex
      */
     SetSyncSourceEx(pClockForMostOfFilterGraph, pClockForFilter, pFilter) {
         result := ComCall(21, this, "ptr", pClockForMostOfFilterGraph, "ptr", pClockForFilter, "ptr", pFilter, "HRESULT")

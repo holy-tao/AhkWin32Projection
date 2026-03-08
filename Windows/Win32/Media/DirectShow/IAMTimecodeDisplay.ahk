@@ -5,7 +5,7 @@
 
 /**
  * The IAMTimecodeDisplay interface controls an external SMPTE/MIDI timecode display device.DirectShow currently does not provide any filters that implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtimecodedisplay
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtimecodedisplay
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IAMTimecodeDisplay extends IUnknown{
 
     /**
      * The GetTCDisplayEnable method determines whether an external device's timecode character generator output is enabled or disabled.
+     * @remarks
+     * This method is not intended for character rendering inside a filter graph, it is purely intended for hardware displays. Ensure that your external timecode reader or generator has display capability before trying to use this method.
      * @returns {Integer} Pointer to a value indicating whether timecode character generator output is enabled. OATRUE indicates enabled; OAFALSE indicates disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodedisplay-gettcdisplayenable
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-gettcdisplayenable
      */
     GetTCDisplayEnable() {
         result := ComCall(3, this, "int*", &pState := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IAMTimecodeDisplay extends IUnknown{
 
     /**
      * The SetTCDisplayEnable method enables or disables an external device's timecode character output generator.
+     * @remarks
+     * This method is not intended for rendering characters inside a filter graph, it is purely intended for hardware displays. Ensure that your external timecode reader or generator has display capability before trying to use this method.
      * @param {Integer} State Value specifying whether to enable or disable the timecode character output generator. Specify OATRUE to enable or OAFALSE to disable.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodedisplay-settcdisplayenable
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-settcdisplayenable
      */
     SetTCDisplayEnable(State) {
         result := ComCall(4, this, "int", State, "HRESULT")
@@ -92,7 +96,7 @@ class IAMTimecodeDisplay extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodedisplay-gettcdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-gettcdisplay
      */
     GetTCDisplay(Param) {
         result := ComCall(5, this, "int", Param, "int*", &pValue := 0, "HRESULT")
@@ -294,7 +298,7 @@ class IAMTimecodeDisplay extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodedisplay-settcdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-settcdisplay
      */
     SetTCDisplay(Param, Value) {
         result := ComCall(6, this, "int", Param, "int", Value, "HRESULT")

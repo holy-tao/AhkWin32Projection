@@ -7,7 +7,7 @@
 
 /**
  * The IEnumMcastScope interface provides COM-standard enumeration methods for the IMcastScope interface. The IMcastAddressAllocation::EnumerateScopes method returns a pointer to IEnumMcastScope.
- * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nn-mdhcp-ienummcastscope
+ * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nn-mdhcp-ienummcastscope
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IEnumMcastScope extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The Next method gets the next specified number of elements in the enumeration sequence. (IEnumMcastScope.Next)
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> interface returned by <b>IEnumMcastScope::Next</b>. The application must call <b>Release</b> on the 
+     * <b>IMcastScope</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Pointer to the number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {IMcastScope} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-ienummcastscope-next
+     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +52,7 @@ class IEnumMcastScope extends IUnknown{
     }
 
     /**
-     * The Reset method resets to the beginning of enumeration sequence.
+     * The Reset method resets to the beginning of enumeration sequence. (IEnumMcastScope.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -68,7 +72,7 @@ class IEnumMcastScope extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-ienummcastscope-reset
+     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -76,7 +80,7 @@ class IEnumMcastScope extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. (IEnumMcastScope.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -108,7 +112,7 @@ class IEnumMcastScope extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-ienummcastscope-skip
+     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -116,10 +120,14 @@ class IEnumMcastScope extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. (IEnumMcastScope.Clone)
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-ienummcastscope">IEnumMcastScope</a> interface returned by <b>IEnumMcastScope::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumMcastScope</b> interface to free resources associated with it.
      * @returns {IEnumMcastScope} Pointer to the new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-ienummcastscope">IEnumMcastScope</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-ienummcastscope-clone
+     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

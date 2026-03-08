@@ -7,7 +7,7 @@
 
 /**
  * Defines a collection of principals.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazapplicationgroup
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplicationgroup
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -114,14 +114,11 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the application group.
+     * Sets or retrieves the name of the application group. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -130,15 +127,12 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the application group.
+     * Sets or retrieves the name of the application group. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-put_name
      */
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -148,9 +142,9 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the group type of the application group.
+     * Sets or retrieves the group type of the application group. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_type
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_type
      */
     get_Type() {
         result := ComCall(9, this, "int*", &plProp := 0, "HRESULT")
@@ -158,10 +152,10 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the group type of the application group.
+     * Sets or retrieves the group type of the application group. (Put)
      * @param {Integer} lProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-put_type
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-put_type
      */
     put_Type(lProp) {
         result := ComCall(10, this, "int", lProp, "HRESULT")
@@ -169,15 +163,13 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the Lightweight Directory Access Protocol (LDAP) query used to define membership for an LDAP query application group.
+     * Sets or retrieves the Lightweight Directory Access Protocol (LDAP) query used to define membership for an LDAP query application group. (Get)
      * @remarks
-     * 
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_LDAP_QUERY. 
      * 
      * The maximum length of this property is 4,096 characters.
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_ldapquery
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_ldapquery
      */
     get_LdapQuery() {
         pbstrProp := BSTR()
@@ -186,16 +178,14 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the Lightweight Directory Access Protocol (LDAP) query used to define membership for an LDAP query application group.
+     * Sets or retrieves the Lightweight Directory Access Protocol (LDAP) query used to define membership for an LDAP query application group. (Put)
      * @remarks
-     * 
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_LDAP_QUERY. 
      * 
      * The maximum length of this property is 4,096 characters.
-     * 
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-put_ldapquery
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-put_ldapquery
      */
     put_LdapQuery(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -207,13 +197,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the application groups that belong to this application group.
      * @remarks
-     * 
      * This property allows the nesting of <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> objects within another <b>IAzApplicationGroup</b> object.
      * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_appmembers
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_appmembers
      */
     get_AppMembers() {
         pvarProp := VARIANT()
@@ -224,13 +212,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the application groups that are refused membership in this application group.
      * @remarks
-     * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
      * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_appnonmembers
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_appnonmembers
      */
     get_AppNonMembers() {
         pvarProp := VARIANT()
@@ -241,13 +227,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the security identifiers (SIDs), in text form, of accounts that belong to the application group.
      * @remarks
-     * 
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_BASIC.
      * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_members
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_members
      */
     get_Members() {
         pvarProp := VARIANT()
@@ -258,7 +242,6 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the security identifiers (SIDs), in text form, of accounts that are refused membership in the application group.
      * @remarks
-     * 
      * The application group will never have an  account specified by this property as a member, even if that account is specified directly or indirectly by the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
      * 
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_BASIC.
@@ -266,9 +249,8 @@ class IAzApplicationGroup extends IDispatch{
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
      * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_nonmembers
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembers
      */
     get_NonMembers() {
         pvarProp := VARIANT()
@@ -277,14 +259,11 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the application group.
+     * Sets or retrieves a comment that describes the application group. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -293,15 +272,12 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the application group.
+     * Sets or retrieves a comment that describes the application group. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-put_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -313,15 +289,13 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified IAzApplicationGroup object to the list of application groups that belong to this application group.
      * @remarks
+     * To view the list of application groups that belong to this application group, use the [AppMembers](nf-azroles-iazapplicationgroup-get_appmembers.md) property.
      * 
-     * To view the list of application groups that belong to this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_appmembers">AppMembers</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to add to the list of the application groups that belong to this application group.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to add to the list of the application groups that belong to this application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addappmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addappmember
      */
     AddAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -333,13 +307,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified IAzApplicationGroup object from the list of application groups that belong to this application group.
      * @remarks
-     * 
-     * To view the list of application groups that belong to this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_appmembers">AppMembers</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to remove from the list of  application groups that belong to this application group.
+     * To view the list of application groups that belong to this application group, use the [AppMembers](nf-azroles-iazapplicationgroup-get_appmembers.md) property.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to remove from the list of  application groups that belong to this application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deleteappmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deleteappmember
      */
     DeleteAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -351,17 +323,15 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified IAzApplicationGroup object to the list of application groups that are refused membership in this application group.
      * @remarks
-     * 
-     * To view the list of application groups that are refused membership in this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_appnonmembers">AppNonMembers</a> property.
+     * To view the list of application groups that are refused membership in this application group, use the [AppNonMembers](nf-azroles-iazapplicationgroup-get_appnonmembers.md) property.
      * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to add to the list of the application groups that are refused membership in this application group.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to add to the list of the application groups that are refused membership in this application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addappnonmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addappnonmember
      */
     AddAppNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -373,13 +343,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified IAzApplicationGroup object from the list of application groups that are refused membership in this application group.
      * @remarks
-     * 
-     * To view the list of application groups that are refused membership in this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_appnonmembers">AppNonMembers</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to remove from the list of the application groups that are refused membership in this application group.
+     * To view the list of application groups that are refused membership in this application group, use the [AppNonMembers](nf-azroles-iazapplicationgroup-get_appnonmembers.md) property.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to remove from the list of the application groups that are refused membership in this application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deleteappnonmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deleteappnonmember
      */
     DeleteAppNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -391,15 +359,13 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified security identifier (SID) in text form to the list of accounts that belong to the application group.
      * @remarks
+     * To view the list of SIDs of accounts that belong to this application group in text form, use the [Members](nf-azroles-iazapplicationgroup-get_members.md) property.
      * 
-     * To view the list of SIDs of accounts that belong to this application group in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of  accounts that belong to the application group.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of accounts that belong to the application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addmember
      */
     AddMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -411,13 +377,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified security identifier (SID) in text form from the list of accounts that belong to the application group.
      * @remarks
-     * 
-     * To view the list of SIDs of accounts that belong to this application group in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of  accounts that belong to the application group.
+     * To view the list of SIDs of accounts that belong to this application group in text form, use the [Members](nf-azroles-iazapplicationgroup-get_members.md) property.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of accounts that belong to the application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deletemember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletemember
      */
     DeleteMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -429,19 +393,17 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified security identifier (SID) in text form to the list of accounts that are refused membership in the application group.
      * @remarks
-     * 
-     * The application group will never have an  account added using this method as a member, even if that account is specified directly or indirectly by the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
+     * The application group will never have an  account added using this method as a member, even if that account is specified directly or indirectly by the [Members](nf-azroles-iazapplicationgroup-get_members.md) property.
      * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
      * 
-     * To view the list of SIDs of accounts that are refused membership in this application group in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembers">NonMembers</a> property.
+     * To view the list of SIDs of accounts that are refused membership in this application group in text form, use the [NonMembers](nf-azroles-iazapplicationgroup-get_nonmembers.md) property.
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of  accounts that are refused membership in the application group.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of accounts that are refused membership in the application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addnonmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addnonmember
      */
     AddNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -453,13 +415,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified security identifier (SID) in text form from the list of accounts that are refused membership in the application group.
      * @remarks
-     * 
-     * To view the list of SIDs of accounts that are refused membership in this application group in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembers">NonMembers</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of  accounts that are refused membership in the application group.
+     * To view the list of SIDs of accounts that are refused membership in this application group in text form, use the [NonMembers](nf-azroles-iazapplicationgroup-get_nonmembers.md) property.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of accounts that are refused membership in the application group.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deletenonmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletenonmember
      */
     DeleteNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -471,7 +431,7 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves a value that indicates whether the application group can be modified by the user context that initialized it.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_writable
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_writable
      */
     get_Writable() {
         result := ComCall(27, this, "int*", &pfProp := 0, "HRESULT")
@@ -610,7 +570,7 @@ class IAzApplicationGroup extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
@@ -620,6 +580,8 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * Sets the specified value to the IAzApplicationGroup object property with the specified property ID.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object property  to set. The following table shows the possible values.
      * 
      * <table>
@@ -724,7 +686,7 @@ class IAzApplicationGroup extends IDispatch{
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
         result := ComCall(29, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -732,83 +694,25 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Adds the specified entity to the specified list.
+     * Adds the specified entity to the specified list. (IAzApplicationGroup.AddPropertyItem)
      * @remarks
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {Integer} lPropId Property ID of the list to which to add the entity specified by the _varProp_ parameter.
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
+     * The following table shows the possible values:
      * 
-     * @param {Integer} lPropId Property ID of the  list to which to add the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_APP_MEMBERS"></a><a id="az_prop_group_app_members"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_APP_MEMBERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addappmember">AddAppMember</a> method
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_APP_NON_MEMBERS"></a><a id="az_prop_group_app_non_members"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_APP_NON_MEMBERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addappnonmember">AddAppNonMember</a> method
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_MEMBERS"></a><a id="az_prop_group_members"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_MEMBERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addmember">AddMember</a> method
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_MEMBERS_NAME"></a><a id="az_prop_group_members_name"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_MEMBERS_NAME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addmembername">AddMemberName</a> method
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_NON_MEMBERS"></a><a id="az_prop_group_non_members"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_NON_MEMBERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addnonmember">AddNonMember</a> method
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_PROP_GROUP_NON_MEMBERS_NAME"></a><a id="az_prop_group_non_members_name"></a><dl>
-     * <dt><b>AZ_PROP_GROUP_NON_MEMBERS_NAME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can also be added using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-addnonmembername">AddNonMemberName</a> method
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * | Value | Meaning |
+     * |--------|--------|
+     * | `AZ_PROP_GROUP_APP_MEMBERS` | Can also be added using the [AddAppMember](nf-azroles-iazapplicationgroup-addappmember.md) method. |
+     * | `AZ_PROP_GROUP_APP_NON_MEMBERS` | Can also be added using the [AddAppNonMember](nf-azroles-iazapplicationgroup-addappnonmember.md) method. |
+     * | `AZ_PROP_GROUP_MEMBERS` | Can also be added using the [AddMember](nf-azroles-iazapplicationgroup-addmember.md) method. |
+     * | `AZ_PROP_GROUP_MEMBERS_NAME` | Can also be added using the [AddMemberName](nf-azroles-iazapplicationgroup-addmembername.md) method. |
+     * | `AZ_PROP_GROUP_NON_MEMBERS` | Can also be added using the [AddNonMember](nf-azroles-iazapplicationgroup-addnonmember.md) method. |
+     * | `AZ_PROP_GROUP_NON_MEMBERS_NAME` | Can also be added using the [AddNonMemberName](nf-azroles-iazapplicationgroup-addnonmembername.md) method. |
      * @param {VARIANT} varProp TBD
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addpropertyitem
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(30, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -816,7 +720,7 @@ class IAzApplicationGroup extends IDispatch{
     }
 
     /**
-     * Removes the specified entity from the specified list.
+     * Removes the specified entity from the specified list. (IAzApplicationGroup.DeletePropertyItem)
      * @param {Integer} lPropId Property ID of the  list from which to remove the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -894,7 +798,7 @@ class IAzApplicationGroup extends IDispatch{
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deletepropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(31, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -904,15 +808,13 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Persists changes made to the IAzApplicationGroup object.
      * @remarks
+     * Any additions or modifications to an [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object are not persisted until the **Submit** method is called.
      * 
-     * Any additions or modifications to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object are not persisted until the <b>Submit</b> method is called. 
-     * 
-     * A created <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object must be submitted before it can be referenced. The destructor for an object silently discards unsubmitted changes.
-     * 
-     * @param {Integer} lFlags Flags that modify the behavior of the <b>Submit</b> method. The default value is zero. If the AZ_SUBMIT_FLAG_ABORT flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
+     * A created [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object must be submitted before it can be referenced. The destructor for an object silently discards unsubmitted changes.
+     * @param {Integer} lFlags Flags that modify the behavior of the **Submit** method. The default value is zero. If the **AZ_SUBMIT_FLAG_ABORT** flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-submit
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-submit
      */
     Submit(lFlags, varReserved) {
         result := ComCall(32, this, "int", lFlags, "ptr", varReserved, "HRESULT")
@@ -922,15 +824,13 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified account name to the list of accounts that belong to the application group.
      * @remarks
+     * To view the list of account names of  accounts that belong to this application group, use the [MembersName](nf-azroles-iazapplicationgroup-get_membersname.md) property.
      * 
-     * To view the list of account names of  accounts that belong to this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_membersname">MembersName</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the account name to add to the list of accounts that belong to the application group. The account name must be in user principal name (UPN) format. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the account name to add to the list of accounts that belong to the application group. The account name must be in user principal name (UPN) format. The [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addmembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addmembername
      */
     AddMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -942,13 +842,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified account name from the list of accounts that belong to the application group.
      * @remarks
-     * 
-     * To view the list of account names of  accounts that belong to this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_membersname">MembersName</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the account name to remove from the list of   accounts that belong to the application group. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * To view the list of account names of  accounts that belong to this application group, use the [MembersName](nf-azroles-iazapplicationgroup-get_membersname.md) property.
+     * @param {BSTR} bstrProp String that contains the account name to remove from the list of accounts that belong to the application group. The account name must be in user principal name (UPN) format (for example, `someone@example.com`). The [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deletemembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletemembername
      */
     DeleteMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -960,19 +858,17 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Adds the specified account name to the list of accounts that are refused membership in the application group.
      * @remarks
-     * 
-     * The application group will never have an  account added using this method as a member, even if that account is specified directly or indirectly by the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
+     * The application group will never have an  account added using this method as a member, even if that account is specified directly or indirectly by the [Members](nf-azroles-iazapplicationgroup-get_members.md) property.
      * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
      * 
-     * To view the list of account names of  accounts that are refused membership in this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembersname">NonMembersName</a> property.
+     * To view the list of account names of  accounts that are refused membership in this application group, use the [NonMembersName](nf-azroles-iazapplicationgroup-get_nonmembersname.md) property.
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the SID to add to the list of accounts that are refused membership in the application group. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * You must call the [Submit](nf-azroles-iazapplicationgroup-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the SID to add to the list of accounts that are refused membership in the application group. The account name must be in user principal name (UPN) format (for example, `someone@example.com`). The [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-addnonmembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addnonmembername
      */
     AddNonMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -984,13 +880,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Removes the specified account name from the list of accounts that are refused membership in the application group.
      * @remarks
-     * 
-     * To view the list of account names of accounts that are refused membership in this application group, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembersname">NonMembersName</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the account name to remove from the list of   accounts that are refused membership in the application group. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * To view the list of account names of accounts that are refused membership in this application group, use the [NonMembersName](nf-azroles-iazapplicationgroup-get_nonmembersname.md) property.
+     * @param {BSTR} bstrProp String that contains the account name to remove from the list of accounts that are refused membership in the application group. The account name must be in user principal name (UPN) format (for example, `someone@example.com`). The [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-deletenonmembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletenonmembername
      */
     DeleteNonMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -1002,13 +896,11 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the account names of accounts that belong to the application group.
      * @remarks
-     * 
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_BASIC.
      * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_membersname
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_membersname
      */
     get_MembersName() {
         pvarProp := VARIANT()
@@ -1019,7 +911,6 @@ class IAzApplicationGroup extends IDispatch{
     /**
      * Retrieves the account names of accounts that are refused membership in the application group.
      * @remarks
-     * 
      * The application group will never have an  account specified by this property as a member, even if that account is specified directly or indirectly by the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_members">Members</a> property.
      * 
      * Denying membership to an account in an application group does not prevent that account from being assigned to a role through a different application group, nor from being granted permission to a resource through assignment to any other role.
@@ -1027,9 +918,8 @@ class IAzApplicationGroup extends IDispatch{
      * This property is ignored unless the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_type">Type</a> property is AZ_GROUPTYPE_BASIC.
      * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup-get_nonmembersname
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembersname
      */
     get_NonMembersName() {
         pvarProp := VARIANT()

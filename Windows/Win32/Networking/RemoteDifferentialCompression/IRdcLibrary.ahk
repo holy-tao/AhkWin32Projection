@@ -9,7 +9,7 @@
 
 /**
  * Is the primary interface for using RDC.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdclibrary
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdclibrary
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -45,7 +45,7 @@ class IRdcLibrary extends IUnknown{
      * @param {Integer} fileSize The approximate size of the file.
      * @returns {Integer} Pointer to a <b>ULONG</b> that will receive the suggested maximum recursion 
      *     depth.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-computedefaultrecursiondepth
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-computedefaultrecursiondepth
      */
     ComputeDefaultRecursionDepth(fileSize) {
         result := ComCall(3, this, "uint", fileSize, "uint*", &depth := 0, "HRESULT")
@@ -63,7 +63,7 @@ class IRdcLibrary extends IUnknown{
      * @returns {IRdcGeneratorParameters} Pointer to a location that will receive an 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer. On a 
      *   successful return the interface will be initialized on return. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-creategeneratorparameters
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategeneratorparameters
      */
     CreateGeneratorParameters(parametersType, level) {
         result := ComCall(4, this, "int", parametersType, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
@@ -72,12 +72,14 @@ class IRdcLibrary extends IUnknown{
 
     /**
      * Opens an existing serialized parameter block and returns an IRdcGeneratorParameters interface pointer initialized with the data.
+     * @remarks
+     * To create a serialized parameter block, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize">IRdcGeneratorParameters::Serialize</a> method.
      * @param {Integer} size The size, in bytes, of the serialized parameter block.
      * @param {Pointer<Integer>} parametersBlob Pointer to a serialized parameter block.
      * @returns {IRdcGeneratorParameters} Pointer to a location that will receive the returned 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer. Callers 
      *   must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
      */
     OpenGeneratorParameters(size, parametersBlob) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
@@ -99,7 +101,7 @@ class IRdcLibrary extends IUnknown{
      * @returns {IRdcGenerator} Pointer to a location that will receive the returned 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgenerator">IRdcGenerator</a> interface pointer. Callers must release the 
      *       interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-creategenerator
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategenerator
      */
     CreateGenerator(depth, iGeneratorParametersArray) {
         result := ComCall(6, this, "uint", depth, "ptr*", iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
@@ -108,6 +110,9 @@ class IRdcLibrary extends IUnknown{
 
     /**
      * Creates a signature comparator.
+     * @remarks
+     * The caller must create a separate signature comparator for each 
+     *     level of recursion.
      * @param {IRdcFileReader} iSeedSignaturesFile An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcfilereader">IRdcFileReader</a> interface pointer initialized to 
      *       read the seed signatures.
      * @param {Integer} comparatorBufferSize Specifies the size of the comparator buffer. The range is from 
@@ -116,7 +121,7 @@ class IRdcLibrary extends IUnknown{
      * @returns {IRdcComparator} Pointer to a location that will receive an 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdccomparator">IRdcComparator</a> interface pointer. On a successful return 
      *       the interface will be initialized on return. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-createcomparator
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-createcomparator
      */
     CreateComparator(iSeedSignaturesFile, comparatorBufferSize) {
         result := ComCall(7, this, "ptr", iSeedSignaturesFile, "uint", comparatorBufferSize, "ptr*", &iComparator := 0, "HRESULT")
@@ -129,7 +134,7 @@ class IRdcLibrary extends IUnknown{
      * @returns {IRdcSignatureReader} Pointer to a location that will receive an 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcsignaturereader">IRdcSignatureReader</a> interface pointer. On a 
      *   successful return the interface will be initialized on return. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-createsignaturereader
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-createsignaturereader
      */
     CreateSignatureReader(iFileReader) {
         result := ComCall(8, this, "ptr", iFileReader, "ptr*", &iSignatureReader := 0, "HRESULT")
@@ -143,8 +148,8 @@ class IRdcLibrary extends IUnknown{
      * @param {Pointer<Integer>} minimumCompatibleAppVersion Address of a <b>ULONG</b> that will receive the oldest version of RDC supported by 
      *       the installed version of RDC. This corresponds to the 
      *       <b>MSRDC_MINIMUM_COMPATIBLE_APP_VERSION</b> value.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdclibrary-getrdcversion
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-getrdcversion
      */
     GetRDCVersion(currentVersion, minimumCompatibleAppVersion) {
         currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"

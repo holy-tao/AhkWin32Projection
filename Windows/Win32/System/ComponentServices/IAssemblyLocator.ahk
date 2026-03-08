@@ -6,7 +6,7 @@
 
 /**
  * Retrieves information about an assembly when using managed code in the .NET Framework common language runtime.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iassemblylocator
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iassemblylocator
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IAssemblyLocator extends IDispatch{
      * @param {BSTR} applicationName The name of the application domain.
      * @param {BSTR} assemblyName The name of the assembly.
      * @returns {Pointer<SAFEARRAY>} An array listing the names of the modules in the assembly.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iassemblylocator-getmodules
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iassemblylocator-getmodules
      */
     GetModules(applicationDir, applicationName, assemblyName) {
         applicationDir := applicationDir is String ? BSTR.Alloc(applicationDir).Value : applicationDir

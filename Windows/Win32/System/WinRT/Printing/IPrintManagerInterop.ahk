@@ -5,7 +5,7 @@
 
 /**
  * Enables access to PrintManager methods in a Windows Store app that manages multiple windows.
- * @see https://docs.microsoft.com/windows/win32/api//printmanagerinterop/nn-printmanagerinterop-iprintmanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nn-printmanagerinterop-iprintmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IPrintManagerInterop extends IInspectable{
 
     /**
      * Gets the PrintManager instance for the specified window.
+     * @remarks
+     * You can use the <b>GetForWindow</b> method to get the <a href="https://docs.microsoft.com/uwp/api/Windows.Graphics.Printing.PrintManager">PrintManager</a> for the specified window. The <b>GetForWindow</b> method is equivalent to the <a href="https://docs.microsoft.com/uwp/api/windows.graphics.printing.printmanager.getforcurrentview">GetForCurrentView</a> method, except that you supply a reference to a window from a multi-window Windows Store app.
      * @param {HWND} appWindow The window to get the <a href="https://docs.microsoft.com/uwp/api/Windows.Graphics.Printing.PrintManager">PrintManager</a> instance for.
      * @param {Pointer<Guid>} riid The reference ID of the specified window.
      * @returns {Pointer<Void>} The <a href="https://docs.microsoft.com/uwp/api/Windows.Graphics.Printing.PrintManager">PrintManager</a> instance for the specified window.
-     * @see https://docs.microsoft.com/windows/win32/api//printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-getforwindow
+     * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
@@ -46,10 +48,12 @@ class IPrintManagerInterop extends IInspectable{
 
     /**
      * Displays the UI for printing content for the specified window.
+     * @remarks
+     * You can use the <b>ShowPrintUIForWindowAsync</b> method to show the print UI for the specified window. The <b>ShowPrintUIForWindowAsync</b> method is equivalent to the <a href="https://docs.microsoft.com/uwp/api/windows.graphics.printing.printmanager.showprintuiasync">ShowPrintUIAsync</a> method, except that you supply a reference to a window from a multi-window Windows Store app.
      * @param {HWND} appWindow The window to show the print UI  for.
      * @param {Pointer<Guid>} riid The reference ID of the specified window.
      * @returns {Pointer<Void>} The asynchronous operation that reports completion.
-     * @see https://docs.microsoft.com/windows/win32/api//printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-showprintuiforwindowasync
+     * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-showprintuiforwindowasync
      */
     ShowPrintUIForWindowAsync(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow

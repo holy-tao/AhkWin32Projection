@@ -5,7 +5,7 @@
 
 /**
  * Holds the appropriate digits and numeric punctuation for a specified locale.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritenumbersubstitution
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

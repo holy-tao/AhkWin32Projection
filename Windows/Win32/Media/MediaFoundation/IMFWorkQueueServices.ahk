@@ -6,11 +6,8 @@
 /**
  * Controls the work queues created by the Media Session.
  * @remarks
- * 
  * If the application is using the protected media path (PMP) session, the methods in this interface automatically marshal the calls to the PMP process.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfworkqueueservices
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfworkqueueservices
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,10 +34,36 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Registers the topology work queues with the Multimedia Class Scheduler Service (MMCSS).
+     * @remarks
+     * Each source node in the topology defines one branch of the topology. The branch includes every topology node that receives data from that node. An application can assign each branch of a topology its own work queue and then associate those work queues with MMCSS tasks. 
+     * 
+     * To use this method, perform the following steps.
+     * 
+     * <ol>
+     * <li>Create the topology.</li>
+     * <li>Set the following attributes on the source nodes in the topology.<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-workqueue-id-attribute">MF_TOPONODE_WORKQUEUE_ID</a>. Specifies an identifier for the work queue.
+     *           The Media Session will allocate a new work queue.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-workqueue-mmcss-class-attribute">MF_TOPONODE_WORKQUEUE_MMCSS_CLASS</a>. Specifies the MMCSS class.
+     *           </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-workqueue-mmcss-taskid-attribute">MF_TOPONODE_WORKQUEUE_MMCSS_TASKID</a>. Specifies the MMCSS task identifier (optional). If this attribute is not set, MMCSS assigns a new task identifier.
+     *           </li>
+     * </ul>
+     * </li>
+     * <li>Queue the topology by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a>.</li>
+     * <li>Wait for the <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessiontopologystatus">MESessionTopologyStatus</a> event with the <b>MF_TOPOSTATUS_READY</b>  status.</li>
+     * <li>Call <b>BeginRegisterTopologyWorkQueuesWithMMCSS</b>. This method registers all of the topology work queues with MMCSS.</li>
+     * </ol>
+     * The <b>BeginRegisterTopologyWorkQueuesWithMMCSS</b> method is asynchronous. When the operation completes, the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method is called. Within the callback method, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-endregistertopologyworkqueueswithmmcss">IMFWorkQueueServices::EndRegisterTopologyWorkQueuesWithMMCSS</a> to complete the asynchronous request. After this operation completes, the Media Session automatically registers the work queues for every new topology that is queued on the Media Session. The application does not need to call the method again for new topologies.
+     * 
+     * To unregister the topology work queues from MMCSS, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregistertopologyworkqueueswithmmcss">IMFWorkQueueServices::BeginUnregisterTopologyWorkQueuesWithMMCSS</a>.
      * @param {IMFAsyncCallback} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} pState A pointer to the <b>IUnknown</b> interface of a state object defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-beginregistertopologyworkqueueswithmmcss
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-beginregistertopologyworkqueueswithmmcss
      */
     BeginRegisterTopologyWorkQueuesWithMMCSS(pCallback, pState) {
         result := ComCall(3, this, "ptr", pCallback, "ptr", pState, "HRESULT")
@@ -49,6 +72,8 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Completes an asynchronous request to register the topology work queues with the Multimedia Class Scheduler Service (MMCSS).
+     * @remarks
+     * Call this method when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginregistertopologyworkqueueswithmmcss">IMFWorkQueueServices::BeginRegisterTopologyWorkQueuesWithMMCSS</a> method completes asynchronously.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -69,7 +94,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-endregistertopologyworkqueueswithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endregistertopologyworkqueueswithmmcss
      */
     EndRegisterTopologyWorkQueuesWithMMCSS(pResult) {
         result := ComCall(4, this, "ptr", pResult, "HRESULT")
@@ -78,6 +103,8 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Unregisters the topology work queues from the Multimedia Class Scheduler Service (MMCSS).
+     * @remarks
+     * This method is asynchronous. When the operation completes, the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method is called. At that point, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-endunregistertopologyworkqueueswithmmcss">IMFWorkQueueServices::EndUnregisterTopologyWorkQueuesWithMMCSS</a> to complete the asynchronous request.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} pState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -99,7 +126,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-beginunregistertopologyworkqueueswithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregistertopologyworkqueueswithmmcss
      */
     BeginUnregisterTopologyWorkQueuesWithMMCSS(pCallback, pState) {
         result := ComCall(5, this, "ptr", pCallback, "ptr", pState, "HRESULT")
@@ -108,6 +135,8 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Completes an asynchronous request to unregister the topology work queues from the Multimedia Class Scheduler Service (MMCSS).
+     * @remarks
+     * Call this method when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginregistertopologyworkqueueswithmmcss">IMFWorkQueueServices::BeginRegisterTopologyWorkQueuesWithMMCSS</a> method completes asynchronously.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -128,7 +157,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-endunregistertopologyworkqueueswithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endunregistertopologyworkqueueswithmmcss
      */
     EndUnregisterTopologyWorkQueuesWithMMCSS(pResult) {
         result := ComCall(6, this, "ptr", pResult, "HRESULT")
@@ -181,7 +210,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcssclass
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcssclass
      */
     GetTopologyWorkQueueMMCSSClass(dwTopologyWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
@@ -196,7 +225,7 @@ class IMFWorkQueueServices extends IUnknown{
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) task identifier for a specified branch of the current topology.
      * @param {Integer} dwTopologyWorkQueueId Identifies the work queue assigned to this topology branch. The application defines this value by setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-workqueue-id-attribute">MF_TOPONODE_WORKQUEUE_ID</a> attribute on the source node for the branch.
      * @returns {Integer} Receives the task identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcsstaskid
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcsstaskid
      */
     GetTopologyWorkQueueMMCSSTaskId(dwTopologyWorkQueueId) {
         result := ComCall(8, this, "uint", dwTopologyWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
@@ -205,14 +234,18 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Associates a platform work queue with a Multimedia Class Scheduler Service (MMCSS) task.
+     * @remarks
+     * This method is asynchronous. When the operation completes, the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method is called. At that point, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-endregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::EndRegisterPlatformWorkQueueWithMMCSS</a> to complete the asynchronous request.
+     * 
+     * To unregister the work queue from the MMCSS class, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginUnregisterPlatformWorkQueueWithMMCSS</a>.
      * @param {Integer} dwPlatformWorkQueue The platform work queue to register with MMCSS. See <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>.
      *           To register all of the standard work queues to the same MMCSS task, set this parameter to <b>MFASYNC_CALLBACK_QUEUE_ALL</b>.
      * @param {PWSTR} wszClass The name of the MMCSS task to be performed.
      * @param {Integer} dwTaskId The unique task identifier. To obtain a new task identifier, set this value to zero.
      * @param {IMFAsyncCallback} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} pState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-beginregisterplatformworkqueuewithmmcss
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-beginregisterplatformworkqueuewithmmcss
      */
     BeginRegisterPlatformWorkQueueWithMMCSS(dwPlatformWorkQueue, wszClass, dwTaskId, pCallback, pState) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
@@ -223,9 +256,13 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Completes an asynchronous request to associate a platform work queue with a Multimedia Class Scheduler Service (MMCSS) task.
+     * @remarks
+     * Call this function when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginRegisterPlatformWorkQueueWithMMCSS</a> method completes asynchronously.
+     * 
+     * To unregister the work queue from the MMCSS class, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginUnregisterPlatformWorkQueueWithMMCSS</a>.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {Integer} The unique task identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-endregisterplatformworkqueuewithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endregisterplatformworkqueuewithmmcss
      */
     EndRegisterPlatformWorkQueueWithMMCSS(pResult) {
         result := ComCall(10, this, "ptr", pResult, "uint*", &pdwTaskId := 0, "HRESULT")
@@ -234,6 +271,8 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Unregisters a platform work queue from a Multimedia Class Scheduler Service (MMCSS) task.
+     * @remarks
+     * This method is asynchronous. When the operation completes, the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method is called. At that point, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-endunregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::EndUnregisterPlatformWorkQueueWithMMCSS</a> to complete the asynchronous request.
      * @param {Integer} dwPlatformWorkQueue Platform work queue to register with MMCSS. See <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginRegisterPlatformWorkQueueWithMMCSS</a>.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} pState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
@@ -256,7 +295,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss
      */
     BeginUnregisterPlatformWorkQueueWithMMCSS(dwPlatformWorkQueue, pCallback, pState) {
         result := ComCall(11, this, "uint", dwPlatformWorkQueue, "ptr", pCallback, "ptr", pState, "HRESULT")
@@ -265,6 +304,8 @@ class IMFWorkQueueServices extends IUnknown{
 
     /**
      * Completes an asynchronous request to unregister a platform work queue from a Multimedia Class Scheduler Service (MMCSS) task.
+     * @remarks
+     * Call this method when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginUnregisterPlatformWorkQueueWithMMCSS</a> method completes asynchronously.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -285,7 +326,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-endunregisterplatformworkqueuewithmmcss
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endunregisterplatformworkqueuewithmmcss
      */
     EndUnregisterPlatformWorkQueueWithMMCSS(pResult) {
         result := ComCall(12, this, "ptr", pResult, "HRESULT")
@@ -327,7 +368,7 @@ class IMFWorkQueueServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-getplaftormworkqueuemmcssclass
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-getplaftormworkqueuemmcssclass
      */
     GetPlaftormWorkQueueMMCSSClass(dwPlatformWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
@@ -342,7 +383,7 @@ class IMFWorkQueueServices extends IUnknown{
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) task identifier for a specified platform work queue.
      * @param {Integer} dwPlatformWorkQueueId Platform work queue to query. See <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfworkqueueservices-beginregisterplatformworkqueuewithmmcss">IMFWorkQueueServices::BeginRegisterPlatformWorkQueueWithMMCSS</a>.
      * @returns {Integer} Receives the task identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservices-getplatformworkqueuemmcsstaskid
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-getplatformworkqueuemmcsstaskid
      */
     GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId) {
         result := ComCall(14, this, "uint", dwPlatformWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")

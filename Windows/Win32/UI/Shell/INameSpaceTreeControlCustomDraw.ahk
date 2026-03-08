@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreecontrolcustomdraw
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolcustomdraw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * When this method returns, contains a pointer to an <b>LRESULT</b>, which contains one or more of the values from the <a href="https://docs.microsoft.com/windows/desktop/Controls/cdrf-constants">CDRF Constants</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-prepaint
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-prepaint
      */
     PrePaint(hdc, prc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -60,8 +60,8 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-postpaint
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-postpaint
      */
     PostPaint(hdc, prc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -90,7 +90,7 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * When this method returns, contains a pointer to an <b>LRESULT</b>, which points to one or more of the values from the <a href="https://docs.microsoft.com/windows/desktop/Controls/cdrf-constants">CDRF Constants</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
      */
     ItemPrePaint(hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -115,8 +115,8 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-nstccustomdraw">NSTCCUSTOMDRAW</a> struct that determines the details of the drawing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itempostpaint
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itempostpaint
      */
     ItemPostPaint(hdc, prc, pnstccdItem) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

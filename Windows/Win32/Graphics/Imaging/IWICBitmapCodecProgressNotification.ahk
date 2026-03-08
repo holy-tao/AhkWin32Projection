@@ -6,11 +6,8 @@
 /**
  * Exposes methods used for progress notification for encoders and decoders.
  * @remarks
- * 
  * This interface is not supported by the Windows provided codecs.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapcodecprogressnotification
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapcodecprogressnotification
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -37,6 +34,16 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
 
     /**
      * Registers a progress notification callback function.
+     * @remarks
+     * Applications can only register a single callback. Subsequent registration calls will replace the previously registered callback. To unregister a callback, pass in <b>NULL</b> or register a new callback function.
+     * 
+     * Progress is reported in an increasing order between 0.0 and 1.0. 
+     *             If <i>dwProgressFlags</i> includes <b>WICProgressNotificationBegin</b>, the callback is guaranteed to be called with progress 0.0.
+     *             If <i>dwProgressFlags</i> includes <b>WICProgressNotificationEnd</b>, the callback is guaranteed to be called with progress 1.0.
+     *          
+     * 
+     * <b>WICProgressNotificationFrequent</b> increases the frequency in which the callback is called.
+     *             If an operation is expected to take more than 30 seconds, <b>WICProgressNotificationFrequent</b> should be added to <i>dwProgressFlags</i>.
      * @param {Pointer<PFNProgressNotification>} pfnProgressNotification Type: <b>PFNProgressNotification</b>
      * 
      * A function pointer to the application defined progress notification callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nc-wincodec-pfnprogressnotification">ProgressNotificationCallback</a> for the callback signature.
@@ -48,8 +55,8 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressoperation">WICProgressOperation</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressnotification">WICProgressNotification</a> flags to use for progress notification.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
      */
     RegisterProgressNotification(pfnProgressNotification, pvData, dwProgressFlags) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"

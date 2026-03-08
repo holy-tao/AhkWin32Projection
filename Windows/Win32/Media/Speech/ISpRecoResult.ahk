@@ -57,10 +57,11 @@ class ISpRecoResult extends ISpPhrase{
     }
 
     /**
-     * 
+     * The GetAudioLanguage method retrieves a string indicating which language is available on the specified audio stream.
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/getaudiolanguage-method
      */
     GetAudio(ulStartElement, cElements) {
         result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")

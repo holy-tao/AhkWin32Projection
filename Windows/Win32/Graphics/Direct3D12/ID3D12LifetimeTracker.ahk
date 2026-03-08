@@ -7,8 +7,7 @@
  * Represents facilities for controlling the lifetime a lifetime-tracked object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12lifetimetracker
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12lifetimetracker
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -34,8 +33,10 @@ class ID3D12LifetimeTracker extends ID3D12DeviceChild{
     static VTableNames => ["DestroyOwnedObject"]
 
     /**
+     * Destroys a lifetime-tracked object.
+     * @param {ID3D12DeviceChild} pObject Type: **[ID3D12DeviceChild](./nn-d3d12-id3d12devicechild.md)\***
      * 
-     * @param {ID3D12DeviceChild} pObject 
+     * A pointer to an **ID3D12DeviceChild** interface representing the lifetime-tracked object.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12lifetimetracker-destroyownedobject
      */

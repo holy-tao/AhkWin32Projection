@@ -4642,11 +4642,7 @@ class Extensions {
     static DebugConnect(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
         return Interface
     }
 
@@ -4659,11 +4655,7 @@ class Extensions {
     static DebugConnectWide(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
         return Interface
     }
 
@@ -4673,11 +4665,7 @@ class Extensions {
      * @returns {Pointer<Void>} 
      */
     static DebugCreate(InterfaceId) {
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
         return Interface
     }
 
@@ -4688,11 +4676,7 @@ class Extensions {
      * @returns {Pointer<Void>} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions) {
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "HRESULT")
         return Interface
     }
 
@@ -4702,11 +4686,7 @@ class Extensions {
      * @returns {IDataModelManager} 
      */
     static CreateDataModelManager(debugHost) {
-        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", &manager := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", &manager := 0, "HRESULT")
         return IDataModelManager(manager)
     }
 

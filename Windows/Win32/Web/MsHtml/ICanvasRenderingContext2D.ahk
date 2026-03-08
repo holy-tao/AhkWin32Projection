@@ -178,8 +178,38 @@ class ICanvasRenderingContext2D extends IDispatch{
     }
 
     /**
+     * The restore command copies a still image from a file to the frame buffer. This is the reverse of the capture command. Digital-video devices recognize this command.
+     * @remarks
+     * Devices can recognize a variety of image formats; a Windows device-independent bitmap is always recognized.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszRestore"></span><span id="lpszrestore"></span><span id="LPSZRESTORE"></span>*lpszRestore*
+     * 
+     * One or more of the following flags.
+     * 
+     * 
+     * 
+     * | Value           | Meaning                                                                                                                                                                                                                                                                                                                         |
+     * |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | at *rectangle*  | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.If this flag is not used, the image is copied to the upper left corner of the frame buffer.<br/> |
+     * | from *filename* | Specifies the image filename to recall. This flag is required.                                                                                                                                                                                                                                                                  |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", "test", or a combination of these. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/restore
      */
     restore() {
         result := ComCall(8, this, "HRESULT")
@@ -187,8 +217,55 @@ class ICanvasRenderingContext2D extends IDispatch{
     }
 
     /**
+     * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
+     * @remarks
+     * The *filename* variable is required if the device was opened using the "new" device identifier.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilename"></span><span id="lpszfilename"></span><span id="LPSZFILENAME"></span>*lpszFilename*
+     * 
+     * Flag specifying the name of the file being saved and, optionally, additional flags modifying the save operation. The following table lists device types that recognize the **save** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning              | Meaning               |
+     * |--------------|----------------------|-----------------------|
+     * | digitalvideo | abort at *rectangle* | *filename*keepreserve |
+     * | overlay      | at *rectangle*       | *filename*            |
+     * | sequencer    | *filename*           |                       |
+     * | waveaudio    | *filename*           |                       |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszFilename** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value          | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+     * |----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | abort          | Stops a **save** operation in progress. If used, this must be the only item present.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * | at *rectangle* | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.For digital-video devices, the [capture](capture.md) command is used to capture the contents of the frame buffer.<br/>                                                                                                                                               |
+     * | *filename*     | Specifies the filename to assign to the data file. If a path is not specified, the file will be placed on the disk and in the directory previously specified on the explicit or implicit [reserve](reserve.md) command. If **reserve** has not been issued, the default drive and directory are those associated with the application's task. If a path is specified, the device might require it to be on the disk drive specified by the explicit or implicit **reserve**. This flag is required. |
+     * | keepreserve    | Specifies that unused disk space left over from the original **reserve** command is not deallocated.                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/save
      */
     save() {
         result := ComCall(9, this, "HRESULT")
@@ -631,8 +708,27 @@ class ICanvasRenderingContext2D extends IDispatch{
     }
 
     /**
+     * Discards the current pixel if the specified value is less than zero.
+     * @remarks
+     * Use the **clip** HLSL intrinsic function to simulate clipping planes if each component of the *x* parameter represents the distance from a plane.
      * 
-     * @returns {HRESULT} 
+     * Also, use the **clip** function to test for alpha behavior, as shown in the following example:
+     * 
+     * 
+     * ```
+     * clip( Input.Color.A < 0.1f ? -1:1 );
+     * ```
+     * @returns {HRESULT} | Item                                                   | Description                            |
+     * |--------------------------------------------------------|----------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified value.<br/> |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * None.
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-clip
      */
     clip() {
         result := ComCall(49, this, "HRESULT")

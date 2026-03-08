@@ -6,11 +6,8 @@
 /**
  * A pool interface represents a common memory space (or pool) for sharing variables between effects.
  * @remarks
- * 
  * To create an effect pool, call a function like <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10createeffectpoolfromfile">D3DX10CreateEffectPoolFromFile</a>. Effect pools can improve performance by reducing the number of API calls required to make state changes (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-performance">Using Effect Pools</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectpool
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectpool
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -37,10 +34,10 @@ class ID3D10EffectPool extends IUnknown{
 
     /**
      * Get the effect that created the effect pool.
-     * @returns {ID3D10Effect} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
+     * @returns {ID3D10Effect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
      * 
-     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectpool-aseffect
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpool-aseffect
      */
     AsEffect() {
         result := ComCall(3, this, "ptr")

@@ -30,9 +30,10 @@ class ID2D1Factory8 extends ID2D1Factory7{
     static VTableNames => ["CreateDevice"]
 
     /**
-     * 
+     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
      * @param {IDXGIDevice} dxgiDevice 
      * @returns {ID2D1Device7} 
+     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(dxgiDevice) {
         result := ComCall(33, this, "ptr", dxgiDevice, "ptr*", &d2dDevice6 := 0, "HRESULT")

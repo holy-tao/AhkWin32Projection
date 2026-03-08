@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfhttpdownloadsession
+ * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadSession)
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadsession
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class IMFHttpDownloadSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-setserver
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsession-setserver
      */
     SetServer(szServerName, nPort) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
@@ -86,7 +86,7 @@ class IMFHttpDownloadSession extends IUnknown{
      * <div> </div>
      * @param {PWSTR} szReferrer Pointer to a string that specifies the URL of the document from which the URL in the request <i>szObjectName</i> was obtained. If this parameter is set to NULL, no referring document is specified.
      * @returns {IMFHttpDownloadRequest} Upon successful return of the method, this parameter is set to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadrequest">IMFHttpDownloadRequest</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-createrequest
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsession-createrequest
      */
     CreateRequest(szObjectName, fBypassProxyCache, fSecure, szVerb, szReferrer) {
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
@@ -119,7 +119,7 @@ class IMFHttpDownloadSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-close
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsession-close
      */
     Close() {
         result := ComCall(5, this, "HRESULT")

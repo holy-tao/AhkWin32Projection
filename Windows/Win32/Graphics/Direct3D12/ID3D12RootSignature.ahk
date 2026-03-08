@@ -5,7 +5,7 @@
 
 /**
  * The root signature defines what resources are bound to the graphics pipeline. A root signature is configured by the app and links command lists to the resources the shaders require. Currently, there is one graphics and one compute root signature per app.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12rootsignature
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12rootsignature
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

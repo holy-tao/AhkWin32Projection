@@ -257,11 +257,7 @@ class Fxc {
     static D3DReadFileToBlob(pFileName) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr*", &ppContents := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr*", &ppContents := 0, "HRESULT")
         return ID3DBlob(ppContents)
     }
 
@@ -287,11 +283,7 @@ class Fxc {
     static D3DWriteBlobToFile(pBlob, pFileName, bOverwrite) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "int", bOverwrite, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "int", bOverwrite, "HRESULT")
         return result
     }
 
@@ -345,11 +337,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -432,11 +420,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr*", ppCode, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -465,11 +449,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -509,11 +489,7 @@ class Fxc {
     static D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr*", ppCodeText, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr*", ppCodeText, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -533,11 +509,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetdebuginfo
      */
     static D3DGetDebugInfo(pSrcData, SrcDataSize) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppDebugInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppDebugInfo := 0, "HRESULT")
         return ID3DBlob(ppDebugInfo)
     }
 
@@ -574,11 +546,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflect
      */
     static D3DReflect(pSrcData, SrcDataSize, pInterface) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr*", &ppReflector := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr*", &ppReflector := 0, "HRESULT")
         return ppReflector
     }
 
@@ -599,11 +567,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
      */
     static D3DReflectLibrary(pSrcData, SrcDataSize, riid) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr*", &ppReflector := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr*", &ppReflector := 0, "HRESULT")
         return ppReflector
     }
 
@@ -627,11 +591,7 @@ class Fxc {
     static D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
         return ID3DBlob(ppDisassembly)
     }
 
@@ -691,11 +651,7 @@ class Fxc {
 
         pFinishByteOffsetMarshal := pFinishByteOffset is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, "ptr*", ppDisassembly, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, "ptr*", ppDisassembly, "HRESULT")
         return result
     }
 
@@ -710,11 +666,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreatelinker
      */
     static D3DCreateLinker() {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateLinker", "ptr*", &ppLinker := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateLinker", "ptr*", &ppLinker := 0, "HRESULT")
         return ID3D11Linker(ppLinker)
     }
 
@@ -737,11 +689,7 @@ class Fxc {
     static D3DLoadModule(pSrcData, cbSrcDataSize) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, "ptr", cbSrcDataSize, "ptr*", &ppModule := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, "ptr", cbSrcDataSize, "ptr*", &ppModule := 0, "HRESULT")
         return ID3D11Module(ppModule)
     }
 
@@ -759,11 +707,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreatefunctionlinkinggraph
      */
     static D3DCreateFunctionLinkingGraph(uFlags) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr*", &ppFunctionLinkingGraph := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr*", &ppFunctionLinkingGraph := 0, "HRESULT")
         return ID3D11FunctionLinkingGraph(ppFunctionLinkingGraph)
     }
 
@@ -799,11 +743,7 @@ class Fxc {
         pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : "ptr"
         pTotalInstsMarshal := pTotalInsts is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", StartInstIndex, "ptr", NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", StartInstIndex, "ptr", NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "HRESULT")
         return result
     }
 
@@ -821,11 +761,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputsignatureblob
      */
     static D3DGetInputSignatureBlob(pSrcData, SrcDataSize) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -843,11 +779,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetoutputsignatureblob
      */
     static D3DGetOutputSignatureBlob(pSrcData, SrcDataSize) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -865,11 +797,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputandoutputsignatureblob
      */
     static D3DGetInputAndOutputSignatureBlob(pSrcData, SrcDataSize) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -890,11 +818,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dstripshader
      */
     static D3DStripShader(pShaderBytecode, BytecodeLength, uStripFlags) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr*", &ppStrippedBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr*", &ppStrippedBlob := 0, "HRESULT")
         return ID3DBlob(ppStrippedBlob)
     }
 
@@ -920,11 +844,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetblobpart
      */
     static D3DGetBlobPart(pSrcData, SrcDataSize, Part, Flags) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr*", &ppPart := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr*", &ppPart := 0, "HRESULT")
         return ID3DBlob(ppPart)
     }
 
@@ -959,11 +879,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dsetblobpart
      */
     static D3DSetBlobPart(pSrcData, SrcDataSize, Part, Flags, pPart, PartSize) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr*", &ppNewShader := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr*", &ppNewShader := 0, "HRESULT")
         return ID3DBlob(ppNewShader)
     }
 
@@ -980,11 +896,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreateblob
      */
     static D3DCreateBlob(Size) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size, "ptr*", &ppBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size, "ptr*", &ppBlob := 0, "HRESULT")
         return ID3DBlob(ppBlob)
     }
 
@@ -1005,11 +917,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompressshaders
      */
     static D3DCompressShaders(uNumShaders, pShaderData, uFlags) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, "ptr", pShaderData, "uint", uFlags, "ptr*", &ppCompressedData := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, "ptr", pShaderData, "uint", uFlags, "ptr*", &ppCompressedData := 0, "HRESULT")
         return ID3DBlob(ppCompressedData)
     }
 
@@ -1048,11 +956,7 @@ class Fxc {
         pIndicesMarshal := pIndices is VarRef ? "uint*" : "ptr"
         pTotalShadersMarshal := pTotalShaders is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, pIndicesMarshal, pIndices, "uint", uFlags, "ptr*", ppShaders, pTotalShadersMarshal, pTotalShaders, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, pIndicesMarshal, pIndices, "uint", uFlags, "ptr*", ppShaders, pTotalShadersMarshal, pTotalShaders, "HRESULT")
         return result
     }
 
@@ -1070,11 +974,7 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassemble10effect
      */
     static D3DDisassemble10Effect(pEffect, Flags) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr*", &ppDisassembly := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr*", &ppDisassembly := 0, "HRESULT")
         return ID3DBlob(ppDisassembly)
     }
 

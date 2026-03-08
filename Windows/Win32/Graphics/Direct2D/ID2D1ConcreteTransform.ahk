@@ -5,7 +5,7 @@
 
 /**
  * Represents the set of transforms implemented by the effect-rendering system, which provides fixed-functionality.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1concretetransform
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1concretetransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
 
     /**
      * Sets the properties of the output buffer of the specified transform node.
+     * @remarks
+     * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-isbufferprecisionsupported">ID2D1EffectContext::IsBufferPrecisionSupported</a> method to see if buffer precision is supported.
+     * 
+     * The available channel depth and precision depend on the capabilities of the underlying Microsoft Direct3D device.
      * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * The number of bits and the type of the output buffer.
@@ -56,7 +60,7 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
      * <td>One or more arguments are not valid</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setoutputbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setoutputbuffer
      */
     SetOutputBuffer(bufferPrecision, channelDepth) {
         result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "HRESULT")
@@ -69,7 +73,7 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
      * 
      * <b>TRUE</b> if the output should be cached; otherwise,  <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setcached
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setcached
      */
     SetCached(isCached) {
         ComCall(5, this, "int", isCached)

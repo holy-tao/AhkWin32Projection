@@ -4,13 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * A device-child interface accesses data used by a device.
+ * A device-child interface accesses data used by a device. (ID3D10DeviceChild)
  * @remarks
- * 
  * There are several types of device child interfaces, all of which inherit this interface. They include shaders, state objects, and input layouts.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10devicechild
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10devicechild
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -36,24 +33,23 @@ class ID3D10DeviceChild extends IUnknown{
     static VTableNames => ["GetDevice", "GetPrivateData", "SetPrivateData", "SetPrivateDataInterface"]
 
     /**
-     * Get a pointer to the device that created this interface.
+     * Get a pointer to the device that created this interface. (ID3D10DeviceChild.GetDevice)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one, so be sure to call ::release() on the returned pointer(s) before they are freed or else you will have a memory leak.
-     * 
-     * 
      * @param {Pointer<ID3D10Device>} ppDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>**</b>
      * 
      * Address of a pointer to a device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10devicechild-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10devicechild-getdevice
      */
     GetDevice(ppDevice) {
         ComCall(3, this, "ptr*", ppDevice)
     }
 
     /**
-     * Get application-defined data from a device child.
+     * Get application-defined data from a device child. (ID3D10DeviceChild.GetPrivateData)
+     * @remarks
+     * The data stored in the device child is set with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10devicechild-setprivatedata">ID3D10DeviceChild::SetPrivateData</a>.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the data.
@@ -63,10 +59,10 @@ class ID3D10DeviceChild extends IUnknown{
      * @param {Pointer} pData Type: <b>void*</b>
      * 
      * Pointer to the data stored with the device child. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the guid will be destroyed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10devicechild-getprivatedata
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10devicechild-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
@@ -76,7 +72,9 @@ class ID3D10DeviceChild extends IUnknown{
     }
 
     /**
-     * Set application-defined data to a device child and associate that data with an application-defined guid.
+     * Set application-defined data to a device child and associate that data with an application-defined guid. (ID3D10DeviceChild.SetPrivateData)
+     * @remarks
+     * The data stored in the device child with this method can be retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10devicechild-getprivatedata">ID3D10DeviceChild::GetPrivateData</a>.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the data.
@@ -86,10 +84,10 @@ class ID3D10DeviceChild extends IUnknown{
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Pointer to the data to be stored with this device child. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the specified guid will be destroyed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10devicechild-setprivatedata
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10devicechild-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
         result := ComCall(5, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
@@ -97,17 +95,19 @@ class ID3D10DeviceChild extends IUnknown{
     }
 
     /**
-     * Associate an IUnknown-derived interface with this device child and associate that interface with an application-defined guid.
+     * Associate an IUnknown-derived interface with this device child and associate that interface with an application-defined guid. (ID3D10DeviceChild.SetPrivateDataInterface)
+     * @remarks
+     * When this method is called ::addref() will be called on the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>-derived interface, and when the device child is destroyed ::release() will be called on the IUnknown-derived interface.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the interface.
      * @param {IUnknown} pData Type: <b>const IUnknown*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>-derived interface to be associated with the device child.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10devicechild-setprivatedatainterface
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10devicechild-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
         result := ComCall(6, this, "ptr", guid, "ptr", pData, "HRESULT")

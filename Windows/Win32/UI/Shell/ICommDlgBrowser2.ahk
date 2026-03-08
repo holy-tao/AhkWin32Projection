@@ -6,7 +6,6 @@
 /**
  * Extends the capabilities of ICommDlgBrowser. This interface is exposed by the common file dialog boxes when they host a Shell browser. A pointer to ICommDlgBrowser2 can be obtained by calling QueryInterface on the IShellBrowser object.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icommdlgbrowser">ICommDlgBrowser</a> interface, from which it inherits.
  * 
  * <div class="alert"><b>Note</b>  In Windows XP and earlier, this interface was defined in Shlobj.h.</div>
@@ -19,8 +18,7 @@
  * 
  * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icommdlgbrowser2
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icommdlgbrowser2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -55,8 +53,8 @@ class ICommDlgBrowser2 extends ICommDlgBrowser{
      * A flag that can can take one of the following two values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-notify
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-notify
      */
     Notify(ppshv, dwNotifyType) {
         result := ComCall(6, this, "ptr", ppshv, "uint", dwNotifyType, "HRESULT")
@@ -77,7 +75,7 @@ class ICommDlgBrowser2 extends ICommDlgBrowser{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if a new default shortcut menu text was returned in <i>pshv</i>. If S_FALSE is returned, use the normal default text. Otherwise, returns a standard COM error value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-getdefaultmenutext
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-getdefaultmenutext
      */
     GetDefaultMenuText(ppshv, pszText, cchMax) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -91,7 +89,7 @@ class ICommDlgBrowser2 extends ICommDlgBrowser{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that controls the behavior of the view when in common dialog mode.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-getviewflags
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-getviewflags
      */
     GetViewFlags() {
         result := ComCall(8, this, "uint*", &pdwFlags := 0, "HRESULT")

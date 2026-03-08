@@ -5,7 +5,7 @@
 
 /**
  * The IAMLatency interface reports the amount of latency that a filter introduces into the graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamlatency
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamlatency
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAMLatency extends IUnknown{
     /**
      * The GetLatency method retrieves the expected latency associated with this filter.
      * @returns {Integer} Pointer to a variable that receives the latency in 100-nanosecond units.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamlatency-getlatency
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamlatency-getlatency
      */
     GetLatency() {
         result := ComCall(3, this, "int64*", &prtLatency := 0, "HRESULT")

@@ -154,11 +154,7 @@ class DxMediaObjects {
     static DMORegister(szName, clsidDMO, guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "HRESULT")
         return result
     }
 
@@ -189,11 +185,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmounregister
      */
     static DMOUnregister(clsidDMO, guidCategory) {
-        result := DllCall("msdmo.dll\DMOUnregister", "ptr", clsidDMO, "ptr", guidCategory, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\DMOUnregister", "ptr", clsidDMO, "ptr", guidCategory, "HRESULT")
         return result
     }
 
@@ -211,11 +203,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmoenum
      */
     static DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
-        result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr*", &ppEnum := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDMO(ppEnum)
     }
 
@@ -279,11 +267,7 @@ class DxMediaObjects {
         pulInputTypesSuppliedMarshal := pulInputTypesSupplied is VarRef ? "uint*" : "ptr"
         pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, "ptr", pOutputTypes, "HRESULT")
         return result
     }
 
@@ -339,11 +323,7 @@ class DxMediaObjects {
     static DMOGetName(clsidDMO, szName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "HRESULT")
         return result
     }
 
@@ -403,11 +383,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-moinitmediatype
      */
     static MoInitMediaType(pmt, cbFormat) {
-        result := DllCall("msdmo.dll\MoInitMediaType", "ptr", pmt, "uint", cbFormat, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoInitMediaType", "ptr", pmt, "uint", cbFormat, "HRESULT")
         return result
     }
 
@@ -449,11 +425,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-mofreemediatype
      */
     static MoFreeMediaType(pmt) {
-        result := DllCall("msdmo.dll\MoFreeMediaType", "ptr", pmt, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoFreeMediaType", "ptr", pmt, "HRESULT")
         return result
     }
 
@@ -509,11 +481,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-mocopymediatype
      */
     static MoCopyMediaType(pmtDest, pmtSrc) {
-        result := DllCall("msdmo.dll\MoCopyMediaType", "ptr", pmtDest, "ptr", pmtSrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoCopyMediaType", "ptr", pmtDest, "ptr", pmtSrc, "HRESULT")
         return result
     }
 
@@ -571,11 +539,7 @@ class DxMediaObjects {
     static MoCreateMediaType(ppmt, cbFormat) {
         ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, "uint", cbFormat, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, "uint", cbFormat, "HRESULT")
         return result
     }
 
@@ -619,11 +583,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-modeletemediatype
      */
     static MoDeleteMediaType(pmt) {
-        result := DllCall("msdmo.dll\MoDeleteMediaType", "ptr", pmt, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoDeleteMediaType", "ptr", pmt, "HRESULT")
         return result
     }
 
@@ -679,11 +639,7 @@ class DxMediaObjects {
     static MoDuplicateMediaType(ppmtDest, pmtSrc) {
         ppmtDestMarshal := ppmtDest is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("msdmo.dll\MoDuplicateMediaType", ppmtDestMarshal, ppmtDest, "ptr", pmtSrc, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("msdmo.dll\MoDuplicateMediaType", ppmtDestMarshal, ppmtDest, "ptr", pmtSrc, "HRESULT")
         return result
     }
 

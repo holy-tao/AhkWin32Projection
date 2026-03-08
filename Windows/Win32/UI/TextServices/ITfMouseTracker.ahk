@@ -5,7 +5,7 @@
 
 /**
  * The ITfMouseTracker interface is implemented by the TSF manager and is used by a text service to manage mouse event notification sinks. An instance of this interface is obtained by querying an ITfContext object for IID_ITfMouseTracker.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfmousetracker
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmousetracker
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,10 +32,14 @@ class ITfMouseTracker extends IUnknown{
 
     /**
      * ITfMouseTracker::AdviseMouseSink method
+     * @remarks
+     * When the advise sink is installed, a mouse event that occurs over the range specified by <i>range</i> will result in the mouse event sink <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfmousesink-onmouseevent">ITfMouseSink::OnMouseEvent</a> call.
+     * 
+     * The value placed in <i>pdwCookie</i> must be saved and passed to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfmousetracker-unadvisemousesink">ITfMouseTracker::UnadviseMouseSink</a> to remove the mouse event sink.
      * @param {ITfRange} range Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that specifies the range of text that the mouse sink is installed for.
      * @param {ITfMouseSink} pSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfmousesink">ITfMouseSink</a> interface.
      * @returns {Integer} Pointer to a DWORD value that receives a cookie that identifies the mouse event sink.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmousetracker-advisemousesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetracker-advisemousesink
      */
     AdviseMouseSink(range, pSink) {
         result := ComCall(3, this, "ptr", range, "ptr", pSink, "uint*", &pdwCookie := 0, "HRESULT")
@@ -86,7 +90,7 @@ class ITfMouseTracker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmousetracker-unadvisemousesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetracker-unadvisemousesink
      */
     UnadviseMouseSink(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")

@@ -5,8 +5,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Enumerates objects with the IUnknown interface. It can be used to enumerate through the objects in a component containing multiple objects.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-ienumunknown
+ * The IEnumUnknown (objidlbase.h) interface enumerates objects with the IUnknown interface and can enumerate through the objects in a component containing multiple objects.
+ * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ienumunknown
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,14 +32,14 @@ class IEnumUnknown extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * The IEnumUnknown::Next (objidlbase.h) method retrieves the specified number of items in the enumeration sequence.
      * @param {Integer} celt The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
      * @param {Pointer<IUnknown>} rgelt An array of enumerated items.
      * 
      * The enumerator is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>, and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through each pointer enumerated. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
      * @param {Pointer<Integer>} pceltFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
      * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-next
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -49,10 +49,10 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * The IEnumUnknown::Skip (objidlbase.h) method skips over the specified number of items in the enumeration sequence.
      * @param {Integer} celt The number of items to be skipped.
      * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-skip
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -60,9 +60,11 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * The IEnumUnknown::Reset (objidlbase.h) method resets the enumeration sequence to the beginning.
+     * @remarks
+     * There is no guarantee that the same set of objects will be enumerated after the reset operation has completed. A static collection is reset to the beginning, but it can be too expensive for some collections, such as files in a directory, to guarantee this condition.
      * @returns {HRESULT} The return value is S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-reset
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -70,9 +72,9 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * The IEnumUnknown::Clone (objidlbase.h) method creates a new enumerator that contains the same enumeration state as the current one.
      * @returns {IEnumUnknown} A pointer to the cloned enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-clone
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

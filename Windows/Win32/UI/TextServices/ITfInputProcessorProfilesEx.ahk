@@ -5,7 +5,7 @@
 
 /**
  * This interface is implemented by the TSF manager and used by a text service or application to set the display description of the language profile.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofilesex
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofilesex
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class ITfInputProcessorProfilesEx extends ITfInputProcessorProfiles{
      * @param {PWSTR} pchFile 
      * @param {Integer} cchFile 
      * @param {Integer} uResId 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilesex-setlanguageprofiledisplayname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilesex-setlanguageprofiledisplayname
      */
     SetLanguageProfileDisplayName(rclsid, langid, guidProfile, pchFile, cchFile, uResId) {
         pchFile := pchFile is String ? StrPtr(pchFile) : pchFile

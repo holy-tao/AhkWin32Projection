@@ -6,12 +6,10 @@
 /**
  * Called by AutoPlay. Exposes methods that get dynamic information regarding a registered handler prior to displaying it to the user.
  * @remarks
- * 
  * Prior to this interface, when an application registered a handler and was displayed in the autoplay prompt, the handler was always shown as long as the content type (for example, mp3 or avi) associated with that handler was found on the media device. The same icon and action string were always displayed.
  * 
  * If a handler implements this interface prior to showing the handler,  AutoPlay will first call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo">IDynamicHWHandler::GetDynamicInfo</a> to determine if this handler is to be presented to the user. If you want to show the handler, you may specify a different action string than the one supplied by the static handler registration under <b>HKLM</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-idynamichwhandler
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idynamichwhandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,6 +36,22 @@ class IDynamicHWHandler extends IUnknown{
 
     /**
      * Called by the system to determine whether a particular handler will be shown before the AutoPlay dialog is displayed.
+     * @remarks
+     * To register a dynamic handler, add a REG_SZ named "DynamicHWHandlerCLSID" and assign it the CLSID of your IDynamicHWHandler implementation.
+     * 
+     * Example:
+     * 
+     * 
+     * <pre><b>HKLM</b>
+     *    <b>Software</b>
+     *       <b>Microsoft</b>
+     *          <b>Windows</b>
+     *             <b>CurrentVersion</b>
+     *                <b>Explorer</b>
+     *                   <b>AutoplayHandlers</b>
+     *                      <b>Handlers</b>
+     *                         <b>YourHandler</b>
+     *                            <b>DynamicHWHandlerCLSID</b> = [REG_SZ] {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</pre>
      * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that indicates the device path or drive root.
@@ -47,7 +61,7 @@ class IDynamicHWHandler extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to the new action string, or <b>NULL</b> if the default action string is to be used.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo
      */
     GetDynamicInfo(pszDeviceID, dwContentType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID

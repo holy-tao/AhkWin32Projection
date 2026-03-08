@@ -8,8 +8,7 @@
  * Provides methods for getting information about the parameters to the call to ID3D12VideoDevice::CreateVideoProcessor that created the video processor.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videoprocessor
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,8 +34,8 @@ class ID3D12VideoProcessor extends ID3D12Pageable{
     static VTableNames => ["GetNodeMask", "GetNumInputStreamDescs", "GetInputStreamDescs", "GetOutputStreamDesc"]
 
     /**
-     * 
-     * @returns {Integer} 
+     * Gets the node mask provided when the video processor was created with a call to ID3D12VideoDevice::CreateVideoProcessor.
+     * @returns {Integer} This method returns a UINT.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocessor-getnodemask
      */
     GetNodeMask() {
@@ -45,8 +44,8 @@ class ID3D12VideoProcessor extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @returns {Integer} 
+     * Gets the number of input stream descriptions provided when the video processor was created with a call to ID3D12VideoDevice::CreateVideoProcessor.
+     * @returns {Integer} This method returns UINT. Use this value to determine the correct size of the array you pass in the *pInputStreamDescs* parameter to [ID3D12VideoProcessor::GetInputStreamDescs](nf-d3d12video-id3d12videoprocessor-getinputstreamdescs.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocessor-getnuminputstreamdescs
      */
     GetNumInputStreamDescs() {
@@ -55,9 +54,9 @@ class ID3D12VideoProcessor extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @param {Integer} NumInputStreamDescs 
-     * @returns {D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC} 
+     * Gets the input stream descriptions provided when the video processor was created with a call to ID3D12VideoDevice::CreateVideoProcessor.
+     * @param {Integer} NumInputStreamDescs The size of the array pointed to by *pInputStreamDescs*. Get the number of input stream descriptions associated with the video processor by calling [ID3DVideoProcessor::GetNumInputStreamDescs](nf-d3d12video-id3d12videoprocessor-getnuminputstreamdescs.md).
+     * @returns {D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC} An array of [D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC](ns-d3d12video-d3d12_video_process_input_stream_desc.md) structures that is populated with the input stream descriptions associated with the video processor.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocessor-getinputstreamdescs
      */
     GetInputStreamDescs(NumInputStreamDescs) {
@@ -67,8 +66,8 @@ class ID3D12VideoProcessor extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @returns {D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC} 
+     * Gets the output stream description provided when the video processor was created with a call to ID3D12VideoDevice::CreateVideoProcessor.
+     * @returns {D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC} This method returns [D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC](ns-d3d12video-d3d12_video_process_output_stream_desc.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocessor-getoutputstreamdesc
      */
     GetOutputStreamDesc() {

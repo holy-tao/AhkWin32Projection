@@ -6,13 +6,10 @@
 /**
  * The IVMRDeinterlaceControl interface provides support for advanced hardware-accelerated deinterlacing using the Video Mixing Renderer Filter 7 (VMR-7).
  * @remarks
- * 
  * This interface is applicable only when the VMR is in mixer mode. All methods in this interface return VFW_E_VMR_NOT_IN_MIXER_MODE if the VMR is not in mixer mode.
  * 
  * Deinterlacing modes are identified by GUIDs. The graphics device driver returns an array of GUIDs for the modes that it supports. The array is sorted in order of quality, from best quality to lowest quality. To retrieve the list of GUIDs, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getnumberofdeinterlacemodes">GetNumberOfDeinterlaceModes</a> method. To obtain more information about a particular mode, pass this GUID to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemodecaps">GetDeinterlaceModeCaps</a> method. To configure the VMR to use a particular mode, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode">SetDeinterlaceMode</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrdeinterlacecontrol
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrdeinterlacecontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -39,10 +36,29 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The GetNumberOfDeinterlaceModes method retrieves the deinterlacing modes available to the VMR for the specified video format.
-     * @param {Pointer<VMRVideoDesc>} lpVideoDescription Pointer to a [VMRVideoDesc](/windows/desktop/api/strmif/ns-strmif-vmrvideodesc) structure that describes the video.
+     * @remarks
+     * This method returns an array of GUIDs, where each GUID represents a deinterlacing mode that is supported in hardware by the graphics device driver. The array is sorted by quality, so the first entry represents the best quality, the second entry represents the next best quality, and so forth.
+     * 
+     * All drivers are required to support the following mode:
+     * 
+     * <table>
+     * <tr>
+     * <th><b>GUID</b></th>
+     * <th>Description
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td>DXVA_DeinterlaceBobDevice</td>
+     * <td>Bob mode</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Drivers can support additional modes and should define their own GUIDs to identify them. For each returned mode, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemodecaps">IVMRDeinterlaceControl::GetDeinterlaceModeCaps</a> method to get information about that mode.
+     * @param {Pointer<VMRVideoDesc>} lpVideoDescription Pointer to a [VMRVideoDesc](/windows/win32/api/strmif/ns-strmif-vmrvideodesc) structure that describes the video.
      * @param {Pointer<Integer>} lpdwNumDeinterlaceModes Pointer to a <b>DWORD</b> value. On input, this value specifies the size of the array given in <i>lpDeinterlaceModes</i>. On output, it receives number of GUIDs the method copied into the array.
      * @returns {Guid} Address of an array allocated by caller. The method fills the array with GUID values. To determine the size of the array that is needed, set this parameter to <b>NULL</b> and check the value returned in <i>lpdwNumDeinterlaceModes</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-getnumberofdeinterlacemodes
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getnumberofdeinterlacemodes
      */
     GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes) {
         lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
@@ -54,8 +70,10 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The GetDeinterlaceModeCaps method retrieves the capabilities of a specific deinterlacing mode supported by the graphics device driver.
+     * @remarks
+     * The method returns [VMRVideoDesc](/windows/win32/api/strmif/ns-strmif-vmrvideodesc) and [VMRDeinterlaceCaps](/windows/desktop/api/strmif/ns-strmif-vmrdeinterlacecaps) structures.
      * @param {Pointer<Guid>} lpDeinterlaceMode Pointer to a GUID that identifies the deinterlacing mode. Call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getnumberofdeinterlacemodes">GetNumberOfDeinterlaceModes</a> method to obtain a list of GUIDs supported by the driver.
-     * @param {Pointer<VMRVideoDesc>} lpVideoDescription Pointer to a [VMRVideoDesc](/windows/desktop/api/strmif/ns-strmif-vmrvideodesc) structure describing the video to deinterlace. Set the <b>dwSize</b> member of the structure before calling the method.
+     * @param {Pointer<VMRVideoDesc>} lpVideoDescription Pointer to a [VMRVideoDesc](/windows/win32/api/strmif/ns-strmif-vmrvideodesc) structure describing the video to deinterlace. Set the <b>dwSize</b> member of the structure before calling the method.
      * @param {Pointer<VMRDeinterlaceCaps>} lpDeinterlaceCaps Pointer to a [VMRDeinterlaceCaps](/windows/desktop/api/strmif/ns-strmif-vmrdeinterlacecaps) structure. Set the <b>dwSize</b> member of the structure before calling the method. The method fills the structure with information about the specified deinterlacing mode.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
@@ -131,7 +149,7 @@ class IVMRDeinterlaceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemodecaps
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemodecaps
      */
     GetDeinterlaceModeCaps(lpDeinterlaceMode, lpVideoDescription, lpDeinterlaceCaps) {
         result := ComCall(4, this, "ptr", lpDeinterlaceMode, "ptr", lpVideoDescription, "ptr", lpDeinterlaceCaps, "HRESULT")
@@ -140,9 +158,11 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The GetDeinterlaceMode method retrieves the deinterlacing mode for the specified video stream.
+     * @remarks
+     * The VMR may not be able to use the requested mode, in which case it falls back to another deinterlace mode, as specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlaceprefs">IVMRDeinterlaceControl::SetDeinterlacePrefs</a> method.
      * @param {Integer} dwStreamID Index of the video stream to check.
      * @returns {Guid} Pointer to a variable that receives a GUID. The GUID identifies the deinterlacing mode currently in use. If no deinterlacing mode was set, the value is GUID_NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemode
      */
     GetDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()
@@ -152,6 +172,17 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The SetDeinterlaceMode method sets the deinterlacing mode for the specified video stream.
+     * @remarks
+     * If the application does not specify the mode, the VMR defaults to the first mode reported by the driver. In either case, if the VMR cannot use the preferred mode, it falls back to another mode as specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlaceprefs">IVMRDeinterlaceControl::SetDeinterlacePrefs</a> method.
+     * 
+     * The <b>SetDeinterlaceMode</b> method is effective only for new connections made to the VMR. Some deinterlacing modes require additional reference samples; the exact number depends on the mode. The VMR allocates surfaces for these additional samples. The client must set the deinterlace mode before the surfaces have been allocated. Surface allocation occurs after any of the following:
+     * 
+     * <ul>
+     * <li>Pin connections, including dynamic reconnections</li>
+     * <li>Dynamic format changes (the upstream filter calls <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-receiveconnection">IPin::ReceiveConnection</a> to specify a new format)</li>
+     * <li>Resolution changes</li>
+     * <li>Monitor changes</li>
+     * </ul>
      * @param {Integer} dwStreamID Index of the video stream to set. To set all streams, use the value 0xFFFFFFFF.
      * @param {Pointer<Guid>} lpDeinterlaceMode Pointer to a GUID that specifies the deinterlacing mode. To turn off deinterlacing, use the value GUID_NULL.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
@@ -206,7 +237,7 @@ class IVMRDeinterlaceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode
      */
     SetDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
         result := ComCall(6, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
@@ -215,8 +246,10 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The GetDeinterlacePrefs method queries how the VMR will select a deinterlacing mode if it cannot use the preferred deinterlacing mode.
+     * @remarks
+     * By default, the preferred deinterlacing mode is the first mode reported by the driver. The application can set the preferred mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode">IVMRDeinterlaceControl::SetDeinterlaceMode</a> method. If the VMR cannot use the preferred mode, it will fall back to another mode as specified by the <i>dwDeinterlacePrefs</i> parameter.
      * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrdeinterlaceprefs">VMRDeinterlacePrefs</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlaceprefs
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlaceprefs
      */
     GetDeinterlacePrefs() {
         result := ComCall(7, this, "uint*", &lpdwDeinterlacePrefs := 0, "HRESULT")
@@ -225,6 +258,8 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * The SetDeinterlacePrefs method specifies how the VMR will select a deinterlacing mode if it cannot use the preferred deinterlacing mode.
+     * @remarks
+     * By default, the preferred deinterlacing mode is the first mode reported by the driver. The application can set the preferred mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlacemode">IVMRDeinterlaceControl::SetDeinterlaceMode</a> method. If the VMR cannot use the preferred mode, it will fall back to another mode as specified by the <i>dwDeinterlacePrefs</i> parameter.
      * @param {Integer} dwDeinterlacePrefs A member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrdeinterlaceprefs">VMRDeinterlacePrefs</a> enumeration type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      *           
@@ -268,7 +303,7 @@ class IVMRDeinterlaceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlaceprefs
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-setdeinterlaceprefs
      */
     SetDeinterlacePrefs(dwDeinterlacePrefs) {
         result := ComCall(8, this, "uint", dwDeinterlacePrefs, "HRESULT")
@@ -279,7 +314,7 @@ class IVMRDeinterlaceControl extends IUnknown{
      * The GetActualDeinterlaceMode method returns the deinterlacing mode that the VMR is using for a specified stream.
      * @param {Integer} dwStreamID Index of the video stream.
      * @returns {Guid} Pointer to a variable that receives a GUID value that identifies the deinterlacing mode. The method returns GUID_NULL if the VMR has not initialized the deinterlacing hardware, or if the VMR determines that this stream should not be deinterlaced.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrdeinterlacecontrol-getactualdeinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getactualdeinterlacemode
      */
     GetActualDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()

@@ -50,13 +50,21 @@ class IHTMLPainterEventInfo extends IUnknown{
 
     /**
      * Sets the cursor shape.
+     * @remarks
+     * The cursor is set only if the new cursor is different from the previous cursor; otherwise, the function returns immediately. 
+     * 
+     * The cursor is a shared resource. A window should set the cursor shape only when the cursor is in its client area or when the window is capturing mouse input. In systems without a mouse, the window should restore the previous cursor before the cursor leaves the client area or before it relinquishes control to another window. 
+     * 
+     * If your application must set the cursor while it is in a window, make sure the class cursor for the specified window's class is set to <b>NULL</b>. If the class cursor is not <b>NULL</b>, the system restores the class cursor each time the mouse is moved. 
+     * 
+     * The cursor is not shown on the screen if the internal cursor display count is less than zero. This occurs if the application uses the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showcursor">ShowCursor</a> function to hide the cursor more times than to show the cursor.
      * @param {Integer} lPartID 
      * @returns {HRESULT} Type: <b>HCURSOR</b>
      * 
      * The return value is the handle to the previous cursor, if there was one. 
      * 
      * If there was no previous cursor, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setcursor
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setcursor
      */
     SetCursor(lPartID) {
         result := ComCall(5, this, "int", lPartID, "HRESULT")

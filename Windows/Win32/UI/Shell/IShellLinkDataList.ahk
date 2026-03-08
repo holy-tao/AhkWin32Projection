@@ -6,7 +6,6 @@
 /**
  * Exposes methods that allow an application to attach extra data blocks to a Shell link. These methods add, copy, or remove data blocks.
  * @remarks
- * 
  * The data blocks are in the form of a structure. The first two members are the same for all data blocks. The first member gives the structure's size. The second member is a signature that identifies the type of data block. The remaining members hold the block's data. There are five types of data block currently supported.
  * 				
  * 
@@ -57,8 +56,7 @@
  * 
  * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishelllinkdatalist
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -91,7 +89,7 @@ class IShellLinkDataList extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
      */
     AddDataBlock(pDataBlock) {
         pDataBlockMarshal := pDataBlock is VarRef ? "ptr" : "ptr"
@@ -108,7 +106,7 @@ class IShellLinkDataList extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>VOID**</b>
      * 
      * The address of a pointer to a copy of the data block structure. If <b>IShellLinkDataList::CopyDataBlock</b> returns a successful result, the calling application must free the memory when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
      */
     CopyDataBlock(dwSig) {
         result := ComCall(4, this, "uint", dwSig, "ptr*", &ppDataBlock := 0, "HRESULT")
@@ -123,7 +121,7 @@ class IShellLinkDataList extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-removedatablock
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-removedatablock
      */
     RemoveDataBlock(dwSig) {
         result := ComCall(5, this, "uint", dwSig, "HRESULT")
@@ -135,7 +133,7 @@ class IShellLinkDataList extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Pointer to one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-shell_link_data_flags">SHELL_LINK_DATA_FLAGS</a> that indicate the current option settings.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
      */
     GetFlags() {
         result := ComCall(6, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -149,8 +147,8 @@ class IShellLinkDataList extends IUnknown{
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-shell_link_data_flags">SHELL_LINK_DATA_FLAGS</a> that indicate the option settings.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-setflags
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(7, this, "uint", dwFlags, "HRESULT")

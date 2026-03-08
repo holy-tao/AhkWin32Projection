@@ -6,7 +6,6 @@
 /**
  * Do not use. Defines methods for reading and writing properties for a single contact.
  * @remarks
- * 
  * Classes that implement this interface often also implement these interfaces:
  *             
  * 
@@ -28,8 +27,7 @@
  * <li>
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactproperties">IContactProperties</a>: Enables manipulation of contact properties.</li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontact
+ * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontact
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */
@@ -103,7 +101,7 @@ class IContact extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-getcontactid
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-getcontactid
      */
     GetContactID(pszContactID, cchContactID, pdwcchContactIDRequired) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
@@ -168,7 +166,7 @@ class IContact extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-getpath
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-getpath
      */
     GetPath(pszPath, cchPath, pdwcchPathRequired) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -181,6 +179,9 @@ class IContact extends IUnknown{
 
     /**
      * Saves changes made to this contact to the contact file.
+     * @remarks
+     * If the contact changes between creation and <b>IContact::CommitChanges</b> 
+     * 		and an incompatible change was made on disk, may return ERROR_SHARING_VIOLATION.
      * @param {Integer} dwCommitFlags Type: <b>DWORD</b>
      * 
      * Reserved parameter. Must be 0.
@@ -228,7 +229,7 @@ class IContact extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-commitchanges
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-commitchanges
      */
     CommitChanges(dwCommitFlags) {
         result := ComCall(5, this, "uint", dwCommitFlags, "HRESULT")

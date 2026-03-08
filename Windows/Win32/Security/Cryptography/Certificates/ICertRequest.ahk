@@ -6,7 +6,7 @@
 
 /**
  * Provides communications between a client or intermediary application and Certificate services.
- * @see https://docs.microsoft.com/windows/win32/api//certcli/nn-certcli-icertrequest
+ * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class ICertRequest extends IDispatch{
 
     /**
      * Submits a request to the Certificate Services server.
+     * @remarks
+     * If you read a BASE64 format request from a file, ensure that the file is in Unicode, or convert it from ASCII to Unicode before submitting the request with this method.
      * @param {Integer} Flags Specifies the request format, type of request, and whether the request is encrypted. One of the following format attribute flags can be used to specify how the request is encoded. 
      * 
      * 
@@ -283,7 +285,7 @@ class ICertRequest extends IDispatch{
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>An HTTPS URL is not supported as an input.
      * @returns {Integer} A pointer to the request's disposition value.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-submit
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-submit
      */
     Submit(Flags, strRequest, strAttributes, strConfig) {
         strRequest := strRequest is String ? BSTR.Alloc(strRequest).Value : strRequest
@@ -296,13 +298,17 @@ class ICertRequest extends IDispatch{
 
     /**
      * Retrieves a certificate's disposition status from an earlier request that may have previously returned CR_DISP_INCOMPLETE or CR_DISP_UNDER_SUBMISSION.
+     * @remarks
+     * A successful call to this method generates an EXITEVENT_CERTRETRIEVEPENDING event. An active exit module will receive notification of this event (by means of a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certexit/nf-certexit-icertexit-notify">ICertExit3::Notify</a>) if the exit module specified this event when calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certexit/nf-certexit-icertexit-initialize">ICertExit3::Initialize</a>.
      * @param {Integer} RequestId The ID of the request that had previously returned CR_DISP_INCOMPLETE or CR_DISP_UNDER_SUBMISSION.
      * @param {BSTR} strConfig Represents a valid configuration string for the Certificate Services server. The string can be either an HTTPS URL for an enrollment server or in the form <i>ComputerName</i><b>\\</b><i>CAName</i>, where <i>ComputerName</i> is the network name of the server, and <i>CAName</i> is the common name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>An HTTPS URL is not supported as an input.
      * @returns {Integer} A pointer to the request's disposition value.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-retrievepending
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-retrievepending
      */
     RetrievePending(RequestId, strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -313,8 +319,15 @@ class ICertRequest extends IDispatch{
 
     /**
      * Gets the last return code for this request. This returns the error code information, rather than the disposition of the request.
+     * @remarks
+     * The value retrieved by <b>GetLastStatus</b> depends on the most recent call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest3::Submit</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-retrievepending">ICertRequest3::RetrievePending</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-getcacertificate">ICertRequest3::GetCACertificate</a>. If a call to one of these methods fails on the server, call <b>GetLastStatus</b> to retrieve the error number. Some server failures (such as denied requests) return S_OK and a disposition other than CR_DISP_ISSUED from the method call, and you can use <b>GetLastStatus</b> to retrieve the specific cause of failure. If a call to one of these methods succeeds, then a subsequent call to <b>GetLastStatus</b> returns S_OK (which is zero).
+     * 
+     * Additionally, the request disposition is stored in the Certificate Services database, and can be viewed by means of the Certification Authority MMC snap-in (choose the Request Disposition column).
      * @returns {Integer} A pointer to the request's status code.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-getlaststatus
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getlaststatus
      */
     GetLastStatus() {
         result := ComCall(9, this, "int*", &pStatus := 0, "HRESULT")
@@ -324,7 +337,7 @@ class ICertRequest extends IDispatch{
     /**
      * Gets the current internal request number for the request and subsequent certificate.
      * @returns {Integer} A pointer to the request ID value.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-getrequestid
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getrequestid
      */
     GetRequestId() {
         result := ComCall(10, this, "int*", &pRequestId := 0, "HRESULT")
@@ -333,8 +346,12 @@ class ICertRequest extends IDispatch{
 
     /**
      * Gets a human-readable message that gives the current disposition of the certificate request.
+     * @remarks
+     * An application would call this method to obtain the message retrieved from the server by means of an earlier call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest3::Submit</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-retrievepending">ICertRequest3::RetrievePending</a>. Additionally, the message is stored in the Certificate Services database and may be viewed by the Certification Authority MMC snap-in (choose the Request Disposition Message column). If the message contains localized text, it was localized on the server (based on the server's locale).
      * @returns {BSTR} A pointer to the <b>BSTR</b> that contains the disposition message.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-getdispositionmessage
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getdispositionmessage
      */
     GetDispositionMessage() {
         pstrDispositionMessage := BSTR()
@@ -344,6 +361,8 @@ class ICertRequest extends IDispatch{
 
     /**
      * Returns the certification authority (CA) certificate for the Certificate Services server.
+     * @remarks
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {Integer} fExchangeCertificate A Boolean value that specifies which CA certificate to return. If <i>fExchangeCertificate</i> is set to <b>false</b>, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">signature certificate</a> of the CA will be returned. The Signature certificate of the CA can be used to verify signatures on certificates issued by the CA.
      * 
      * <b>Windows Server 2003:  </b>If <i>fExchangeCertificate</i> is set to <b>true</b>, the Exchange certificate of the CA will be returned. The Exchange certificate of the CA can be used to encrypt requests sent to the CA.
@@ -419,7 +438,7 @@ class ICertRequest extends IDispatch{
      * </tr>
      * </table>
      * @returns {BSTR} A pointer to the <b>BSTR</b> that contains the CA certificate for the Certificate Services server, in the specified format.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-getcacertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcacertificate
      */
     GetCACertificate(fExchangeCertificate, strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -431,6 +450,10 @@ class ICertRequest extends IDispatch{
 
     /**
      * Returns the certificate issued for the request as an X.509 certificate, or optionally packaged in a Public Key Cryptography Standards (PKCS)
+     * @remarks
+     * An application would call this method to retrieve the certificate issued by means of an earlier call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest3::Submit</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-retrievepending">ICertRequest3::RetrievePending</a>.
      * @param {Integer} Flags A flag for the format and  whether the complete certificate chain is included.
      * 
      * 
@@ -514,12 +537,15 @@ class ICertRequest extends IDispatch{
      * 
      * For example, to retrieve a binary certificate with complete certificate chain in C++ you would write the following.
      * 
-     * <pre class="syntax" xml:space="preserve"><code>hResult = pCertReq-&gt;GetCACertificate(FALSE, bstrConfig,
-     *      CR_OUT_BINARY | CR_OUT_CHAIN, &amp;bstrCert);</code></pre>
+     * 
+     * ``` syntax
+     * hResult = pCertReq-&gt;GetCACertificate(FALSE, bstrConfig,
+     *      CR_OUT_BINARY | CR_OUT_CHAIN, &amp;bstrCert);
+     * ```
      * @returns {BSTR} A pointer to the <b>BSTR</b> that contains the certificate, in the specified format.
      * 
      * When using this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and then pass the address of this variable as <i>pstrCertificate</i>. When you have finished using the certificate pointed to by <i>pstrCertificate</i>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest-getcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcertificate
      */
     GetCertificate(Flags) {
         pstrCertificate := BSTR()

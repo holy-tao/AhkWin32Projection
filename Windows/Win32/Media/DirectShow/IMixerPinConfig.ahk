@@ -5,7 +5,7 @@
 
 /**
  * The IMixerPinConfig interface is exposed on the input pins of the Overlay Mixer filter and contains methods that manipulate video streams in various ways.
- * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nn-mpconfig-imixerpinconfig
+ * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nn-mpconfig-imixerpinconfig
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,11 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The SetRelativePosition method sets the position of the stream in the display window.
+     * @remarks
+     * This method assumes window coordinates of {0, 0, 10,000, 10,000}. Therefore, if you want your video stream to be rendered in the bottom right quarter of the display window, you would call this method with the parameters {5,000, 5,000, 10,000, 10,000}.
+     * 
+     * <div class="alert"><b>Note</b>  Values greater than 10,000 are invalid and will cause an error.</div>
+     * <div> </div>
      * @param {Integer} dwLeft Value specifying the x-coordinate in the upper-left corner of the display window.
      * @param {Integer} dwTop Value specifying the y-coordinate in the upper-left corner of the display window.
      * @param {Integer} dwRight Value specifying the x-coordinate in the bottom-right corner of the display window.
@@ -66,7 +71,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setrelativeposition
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setrelativeposition
      */
     SetRelativePosition(dwLeft, dwTop, dwRight, dwBottom) {
         result := ComCall(3, this, "uint", dwLeft, "uint", dwTop, "uint", dwRight, "uint", dwBottom, "HRESULT")
@@ -75,6 +80,8 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The GetRelativePosition method retrieves the position of the stream in the display window.
+     * @remarks
+     * This method assumes window coordinates of {0, 0, 10,000, 10,000}. If the video stream is being rendered in the bottom right quarter of the display window, this method would return {5,000, 5,000, 10,000, 10,000}.
      * @param {Pointer<Integer>} pdwLeft Pointer to a value indicating the x-coordinate in the top-left corner of the display window.
      * @param {Pointer<Integer>} pdwTop Pointer to a value indicating the y-coordinate in the top-left corner of the display window.
      * @param {Pointer<Integer>} pdwRight Pointer to a value indicating the x-coordinate in the bottom-right corner of the display window.
@@ -109,7 +116,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getrelativeposition
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getrelativeposition
      */
     GetRelativePosition(pdwLeft, pdwTop, pdwRight, pdwBottom) {
         pdwLeftMarshal := pdwLeft is VarRef ? "uint*" : "ptr"
@@ -123,9 +130,15 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The SetZOrder method sets the z-order of a particular video stream.
+     * @remarks
+     * The z-order indicates which streams can clip other streams. Images with larger z-values are always in front of images with smaller z-values.
+     * 
+     * The relative order of multiple streams is significant only if the video images overlap.
+     * 
+     * Specifying the same z-order for two overlapping streams can cause strange video artifacts.
      * @param {Integer} dwZOrder Value indicating the order in which streams will clip each other.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setzorder
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setzorder
      */
     SetZOrder(dwZOrder) {
         result := ComCall(5, this, "uint", dwZOrder, "HRESULT")
@@ -134,9 +147,11 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The GetZOrder method retrieves the z-order of a particular video stream.
+     * @remarks
+     * Images with larger z-values are always in front of images with smaller z-values.
      * @param {Pointer<Integer>} pdwZOrder Pointer to a value indicating the order in which streams will clip each other.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getzorder
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getzorder
      */
     GetZOrder(pdwZOrder) {
         pdwZOrderMarshal := pdwZOrder is VarRef ? "uint*" : "ptr"
@@ -147,9 +162,22 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The SetColorKey method sets the color key being used by a video stream.
+     * @remarks
+     * The term <i>color key</i> has different meanings depending on which stream it is referring to. The color key of the primary stream refers to the destination color key being used by the overlay surface. The color key of the secondary stream refers to the source color key used, when blitting from an offscreen surface to the primary surface.
+     * 
+     * Applications should set the color key of the primary pin to an obscure color (some color which, in all probability, will not be present on the desktop). Overlay mixer filters will try to pick an obscure color, but if the application knows that the specified color is part of some other content, then the application should change it.
+     * 
+     * Setting the color key on the secondary stream can be used to make the stream transparent and enable nonrectangular images. For example, if the secondary stream is closed-captioned text, then the closed-captioned text decoder should paint a solid color in the background and then set the color key on the corresponding pin to that color. This ensures that all pixels are transferred except those specified by the color key. If possible, applications should set the color key of the secondary stream to the same as that of the primary stream to give a slight performance advantage.
+     * 
+     * Setting this value on the primary stream sets the destination color key being used by the overlay surface. By default, the destination color key is used as the color key for all transparent (secondary) streams.
+     * 
+     * Valid arguments for the <i>pColorKey</i> parameter include CK_INDEX when video display mode is set to 256 colors, and CK_RGB when video display mode is set to a higher color depth such as hi-color, 24-bit, or 32-bit. The CK_RGB flag must be specified along with the CK_INDEX. If CK_INDEX flag is set then the index will be used as palette index in 256 color mode. But you must provide a <b>COLORREF</b> with a valid true color so that if the display mode is changed on the fly, DirectShow can switch to using the specified true color. This is because a number of true colors can be mapped to a single palette index, but going the other way from the palette index to a true color is not one-to-one.
+     * 
+     * <div class="alert"><b>Note</b>  Currently, this method is implemented only for the primary input pin.</div>
+     * <div> </div>
      * @param {Pointer<COLORKEY>} pColorKey Pointer to a [COLORKEY](../strmif/ns-strmif-colorkey.md) structure.
-     * @returns {HRESULT} Returns an <code>HRESULT</code> value.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setcolorkey
+     * @returns {HRESULT} Returns an <c>HRESULT</c> value.
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setcolorkey
      */
     SetColorKey(pColorKey) {
         result := ComCall(7, this, "ptr", pColorKey, "HRESULT")
@@ -158,6 +186,13 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The GetColorKey method retrieves the color key being used by a video stream.
+     * @remarks
+     * Getting the value on the primary stream will retrieve the destination color key being used by the overlay surface. Getting this value on the secondary pin returns the color key being used by that particular stream.
+     * 
+     * Current DirectShow implementation of this interface can return <b>NULL</b> for either the <i>pColorKey</i> or the <i>pColor</i> parameters; however, the method will fail and return E_INVALIDARG if both parameters are <b>NULL</b>.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>DWORD</b> value returned by the <i>pColor</i> parameter is the actual color being used. So, if the bit depth of the display is 8, 16, 24, 32 the last 8, 16, 24 or 32 bits of the <b>DWORD</b> specify the actual value of the color key.</div>
+     * <div> </div>
      * @param {Pointer<COLORKEY>} pColorKey Pointer to a [COLORKEY](../strmif/ns-strmif-colorkey.md) structure that contains the key type and a palette index.
      * @param {Pointer<Integer>} pColor Pointer to a value indicating the 8-bit palette index of the [COLORKEY](../strmif/ns-strmif-colorkey.md) returned if the current display mode is 8-bit palettized. Otherwise it is a value representing the color key in the pixel format of the current display mode.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
@@ -185,7 +220,7 @@ class IMixerPinConfig extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * <code>GetColorKey</code> failed because the color key isn't known.
+     * <c>GetColorKey</c> failed because the color key isn't known.
      * 
      * </td>
      * </tr>
@@ -201,7 +236,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getcolorkey
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getcolorkey
      */
     GetColorKey(pColorKey, pColor) {
         pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
@@ -212,6 +247,13 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The SetBlendingParameter method sets the blending parameter that defines how a secondary stream is blended with a primary stream.
+     * @remarks
+     * The value of the <i>dwBlendingParameter</i> parameter must be between 0 and 255, where 0 makes the secondary stream invisible and 255 makes the primary stream invisible in the area that the secondary stream occupies. If no value is set the default is 255.
+     * 
+     * This method is not intended to be called on the primary stream.
+     * 
+     * <div class="alert"><b>Note</b>  Current DirectShow implementation of this interface allows only values of 0 or 255 for the <i>dwBlendingParameter</i> parameter. Any other values are invalid.</div>
+     * <div> </div>
      * @param {Integer} dwBlendingParameter Value between 0 and 255 that indicates the amount of blending between a primary stream and a secondary stream.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
@@ -254,7 +296,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setblendingparameter
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setblendingparameter
      */
     SetBlendingParameter(dwBlendingParameter) {
         result := ComCall(9, this, "uint", dwBlendingParameter, "HRESULT")
@@ -263,6 +305,8 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The GetBlendingParameter method retrieves the value of the blending parameter that defines how a secondary stream is blended with a primary stream.
+     * @remarks
+     * A value of zero indicates that the secondary stream is invisible; a value of 255 indicates the primary stream is invisible in the area that the secondary stream occupies.
      * @param {Pointer<Integer>} pdwBlendingParameter Pointer to a value between 0 and 255 that indicates the amount of blending between a primary stream and a secondary stream.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
@@ -305,7 +349,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getblendingparameter
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getblendingparameter
      */
     GetBlendingParameter(pdwBlendingParameter) {
         pdwBlendingParameterMarshal := pdwBlendingParameter is VarRef ? "uint*" : "ptr"
@@ -316,6 +360,8 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The SetAspectRatioMode method sets the aspect ratio correction mode for window resizing.
+     * @remarks
+     * Currently this function is implemented only on the primary pin of the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter. Calling it on a secondary pin will result in an error.
      * @param {Integer} amAspectRatioMode Value specifying one of the <a href="https://docs.microsoft.com/windows/desktop/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode">AM_ASPECT_RATIO_MODE</a> enumerated type members.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
@@ -358,7 +404,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setaspectratiomode
      */
     SetAspectRatioMode(amAspectRatioMode) {
         result := ComCall(11, this, "int", amAspectRatioMode, "HRESULT")
@@ -409,7 +455,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getaspectratiomode
      */
     GetAspectRatioMode(pamAspectRatioMode) {
         pamAspectRatioModeMarshal := pamAspectRatioMode is VarRef ? "int*" : "ptr"
@@ -422,7 +468,7 @@ class IMixerPinConfig extends IUnknown{
      * The SetStreamTransparent method sets the stream to transparent.
      * @param {BOOL} bStreamTransparent Value specifying the transparency of the stream. Pass in <b>TRUE</b> to indicate stream is transparent; <b>FALSE</b> to indicate not a transparent stream.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-setstreamtransparent
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setstreamtransparent
      */
     SetStreamTransparent(bStreamTransparent) {
         result := ComCall(13, this, "int", bStreamTransparent, "HRESULT")
@@ -484,7 +530,7 @@ class IMixerPinConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig-getstreamtransparent
+     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getstreamtransparent
      */
     GetStreamTransparent(pbStreamTransparent) {
         pbStreamTransparentMarshal := pbStreamTransparent is VarRef ? "int*" : "ptr"

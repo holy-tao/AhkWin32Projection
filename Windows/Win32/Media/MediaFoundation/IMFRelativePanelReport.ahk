@@ -6,11 +6,8 @@
 /**
  * This interface is used to retrieve the current relative panel location for a display region.
  * @remarks
- * 
  * Use the methods of the [IMFRelativePanelWatcher](nn-mfidl-imfrelativepanelwatcher.md) interface to get an instance of this interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfrelativepanelreport
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrelativepanelreport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,8 +33,8 @@ class IMFRelativePanelReport extends IUnknown{
     static VTableNames => ["GetRelativePanel"]
 
     /**
-     * 
-     * @returns {Integer} 
+     * Gets a value from the ACPI_PLD_PANEL enumeration indicating the location of the capture device.
+     * @returns {Integer} Receives a pointer to a **ULONG** value from the **ACPI_PLD_PANEL** enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelreport-getrelativepanel
      */
     GetRelativePanel() {

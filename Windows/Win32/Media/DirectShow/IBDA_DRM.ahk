@@ -6,11 +6,8 @@
 /**
  * The IBDA_DRM interface is used to request a tuner to perform a DRM handshake with the user's computer.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DRM)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_drm
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_drm
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -69,7 +66,7 @@ class IBDA_DRM extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drm-getdrmpairingstatus
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drm-getdrmpairingstatus
      */
     GetDRMPairingStatus(pdwStatus, phError) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
@@ -81,9 +78,11 @@ class IBDA_DRM extends IUnknown{
 
     /**
      * The PerformDRMPairing method requests the tuner to perform a DRM handshake with the user's computer.
+     * @remarks
+     * If you call this method asynchronously (<i>fSync</i> equal to <b>FALSE</b>), you can poll the status of the operation by calling <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_drm-getdrmpairingstatus">IBDA_DRM::GetDRMPairingStatus</a>. While the operation is in progress, <b>GetDRMPairingStatus</b> returns S_FALSE.
      * @param {BOOL} fSync If <b>TRUE</b>, the method blocks until the operation is completed. If <b>FALSE</b>, the operation is completed asynchronously.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drm-performdrmpairing
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drm-performdrmpairing
      */
     PerformDRMPairing(fSync) {
         result := ComCall(4, this, "int", fSync, "HRESULT")

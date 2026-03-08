@@ -9,15 +9,12 @@
 /**
  * The INetFwAuthorizedApplications interface provides access to a collection of applications authorized open ports in the firewall.
  * @remarks
- * 
  * An instance of this interface is retrieved through the
  * <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_authorizedapplications">AuthorizedApplications</a> property of the INetFwProfile interface. 
  * 
  * All
  * configuration changes take effect immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwauthorizedapplications
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwauthorizedapplications
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -59,7 +56,7 @@ class INetFwAuthorizedApplications extends IDispatch{
     /**
      * Specifies the number of items in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &count := 0, "HRESULT")
@@ -68,6 +65,8 @@ class INetFwAuthorizedApplications extends IDispatch{
 
     /**
      * The Add method adds a new application to the collection.
+     * @remarks
+     * If an application with the same path already exists, the existing settings are overwritten.
      * @param {INetFwAuthorizedApplication} app <table>
      * <tr>
      * <td><strong>C++</strong></td>
@@ -196,7 +195,7 @@ class INetFwAuthorizedApplications extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-add
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-add
      */
     Add(app) {
         result := ComCall(8, this, "ptr", app, "HRESULT")
@@ -205,6 +204,10 @@ class INetFwAuthorizedApplications extends IDispatch{
 
     /**
      * The Remove method removes an application from the collection.
+     * @remarks
+     * The <b>imageFileName</b> parameter must be a fully qualified path and may contain environment variables.
+     * 
+     * If the application does not exist in the collection, the Remove method has no effect.
      * @param {BSTR} imageFileName Application name to be removed.
      * @returns {HRESULT} <h3>C++</h3>
      * If the method succeeds the return value is <b>S_OK</b>.
@@ -296,7 +299,7 @@ class INetFwAuthorizedApplications extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-remove
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-remove
      */
     Remove(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
@@ -309,7 +312,7 @@ class INetFwAuthorizedApplications extends IDispatch{
      * The Item method returns the specified application if it is in the collection.
      * @param {BSTR} imageFileName Application to retrieve.
      * @returns {INetFwAuthorizedApplication} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplication">INetFwAuthorizedApplication</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-item
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-item
      */
     Item(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
@@ -321,7 +324,7 @@ class INetFwAuthorizedApplications extends IDispatch{
     /**
      * Returns an object supporting IEnumVARIANT that can be used to iterate through all the applications in the collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get__newenum
      */
     get__NewEnum() {
         result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")

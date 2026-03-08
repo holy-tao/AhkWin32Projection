@@ -6,11 +6,8 @@
 /**
  * The IBDA_PinControl interface is exposed on a BDA device filter's pins. A Network Provider calls these methods to determine the type and identifier of each pin on the filter. A Network Provider uses this information when building the graph.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_PinControl)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_pincontrol
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_pincontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -39,7 +36,7 @@ class IBDA_PinControl extends IUnknown{
      * The GetPinID method retrieves the ID of the pin.
      * @param {Pointer<Integer>} pulPinID Pointer that receives the pin's identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
      */
     GetPinID(pulPinID) {
         pulPinIDMarshal := pulPinID is VarRef ? "uint*" : "ptr"
@@ -52,7 +49,7 @@ class IBDA_PinControl extends IUnknown{
      * The GetPinType method retrieves the type of the pin.
      * @param {Pointer<Integer>} pulPinType Pointer that receives the pin type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
      */
     GetPinType(pulPinType) {
         pulPinTypeMarshal := pulPinType is VarRef ? "uint*" : "ptr"
@@ -63,9 +60,11 @@ class IBDA_PinControl extends IUnknown{
 
     /**
      * The RegistrationContext method retrieves the registration context of a particular pin.
+     * @remarks
+     * The registration context uniquely identifies an instance of a particular pin. A Network Provider does not modify this value; it simply retains it in order to keep track of the pins in the graph.
      * @param {Pointer<Integer>} pulRegistrationCtx Pointer that receives the registration context.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
      */
     RegistrationContext(pulRegistrationCtx) {
         pulRegistrationCtxMarshal := pulRegistrationCtx is VarRef ? "uint*" : "ptr"

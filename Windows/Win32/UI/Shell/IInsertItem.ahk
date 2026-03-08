@@ -5,7 +5,7 @@
 
 /**
  * IInsertItem may be altered or unavailable.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iinsertitem
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iinsertitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,8 +37,8 @@ class IInsertItem extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that corresponds to an item in a Shell folder.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iinsertitem-insertitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iinsertitem-insertitem
      */
     InsertItem(pidl) {
         result := ComCall(3, this, "ptr", pidl, "HRESULT")

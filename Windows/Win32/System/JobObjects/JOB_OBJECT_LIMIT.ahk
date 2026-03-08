@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Establishes a maximum number of simultaneously active processes associated with the job. The <b>ActiveProcessLimit</b> member contains additional information.
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_limit_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

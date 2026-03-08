@@ -8,10 +8,8 @@
 /**
  * Represents the collection of fax accounts on the fax server. It provides methods and properties for enumerating the accounts, retrieving a particular account, and reporting the total number of accounts.
  * @remarks
- * 
  * A default implementation of <b>IFaxAccounts</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccounts">FaxAccounts</a> object. The interface and the object are supported only on Windows Vista or later.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxaccounts
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccounts
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -73,7 +71,7 @@ class IFaxAccounts extends IDispatch{
      * @returns {IFaxAccount} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>**</b>
      * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccount">FaxAccount</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccounts-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccounts-get_item
      */
     get_Item(vIndex) {
         result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxAccount := 0, "HRESULT")
@@ -83,7 +81,7 @@ class IFaxAccounts extends IDispatch{
     /**
      * Holds the number of items in the IFaxAccounts collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccounts-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccounts-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")

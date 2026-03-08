@@ -8,7 +8,7 @@
 
 /**
  * Provides factory methods to create Function Discovery objects.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -35,8 +35,10 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
 
     /**
      * Enables providers to reuse the in-memory property store implementation.
+     * @remarks
+     * If providers wish to cache properties, either when the function instance is created or when the property store is first opened, the provider can use this method to create an in memory property store, set properties as necessary, and then either assign it to the function instance at creation time using <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createinstance">CreateInstance</a> or when the property store is first opened using <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreopen">InstancePropertyStoreOpen</a>.
      * @returns {IPropertyStore} A pointer to an <b>IPropertyStore</b> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createpropertystore
      */
     CreatePropertyStore() {
         result := ComCall(3, this, "ptr*", &ppIPropertyStore := 0, "HRESULT")
@@ -45,6 +47,14 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
 
     /**
      * Creates a function instance.
+     * @remarks
+     * The provider should specify the subcategory (may be <b>NULL</b>), the instance identifier, a provider-allocated context (if required), and an optional property store.  
+     * 
+     * <b>CreateInstance</b> returns an appropriately initialized function instance to the provider.
+     * 
+     * The context specified by the provider will be passed back to the provider for all subsequent function instance related methods, such as <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancereleased">InstanceReleased</a>, <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreopen">InstancePropertyStoreOpen</a>, <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreflush">InstancePropertyStoreFlush</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancequeryservice">InstanceQueryService</a>.
+     * 
+     * The provider must guarantee that the provider reference count does not go to zero, possibly on another thread, while <b>CreateInstance</b>  is being called.
      * @param {PWSTR} pszSubCategory The subcategory string for the function instance. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>.
      * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.  
      * 
@@ -57,7 +67,7 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
      * @param {IPropertyStore} pIPropertyStore A pointer to an <b>IPropertyStore</b> interface.
      * @param {IFunctionDiscoveryProvider} pIFunctionDiscoveryProvider A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryprovider">IFunctionDiscoveryProvider</a> provider instance creating this function instance.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createinstance
      */
     CreateInstance(pszSubCategory, pszProviderInstanceIdentity, iProviderInstanceContext, pIPropertyStore, pIFunctionDiscoveryProvider) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
@@ -69,8 +79,13 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
 
     /**
      * Creates a function instance collection.
+     * @remarks
+     * Providers that return results synchronously through the <i>ppIFunctionInstanceCollection</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-query">IFunctionDiscoveryProvider::Query</a> method can use this to create a collection to return the results with.
+     * 
+     * 
+     * Client programmers can create and use the Function Discovery instance collection object, as it can also be created using <b>CoCreateInstance</b>.
      * @returns {IFunctionInstanceCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection">IFunctionInstanceCollection</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createfunctioninstancecollection
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createfunctioninstancecollection
      */
     CreateFunctionInstanceCollection() {
         result := ComCall(5, this, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")

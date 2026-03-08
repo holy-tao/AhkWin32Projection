@@ -7,8 +7,7 @@
  * This interface controls Device Removed Extended Data (DRED) settings.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12deviceremovedextendeddatasettings
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddatasettings
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -34,8 +33,8 @@ class ID3D12DeviceRemovedExtendedDataSettings extends IUnknown{
     static VTableNames => ["SetAutoBreadcrumbsEnablement", "SetPageFaultEnablement", "SetWatsonDumpEnablement"]
 
     /**
-     * 
-     * @param {Integer} Enablement 
+     * Configures the enablement settings for Device Removed Extended Data (DRED) auto-breadcrumbs.
+     * @param {Integer} Enablement A [D3D12_DRED_ENABLEMENT](ne-d3d12-d3d12_dred_enablement.md) value. The default is **D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED**.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12deviceremovedextendeddatasettings-setautobreadcrumbsenablement
      */
@@ -44,8 +43,8 @@ class ID3D12DeviceRemovedExtendedDataSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Enablement 
+     * Configures the enablement settings for Device Removed Extended Data (DRED) page fault reporting.
+     * @param {Integer} Enablement A [D3D12_DRED_ENABLEMENT](ne-d3d12-d3d12_dred_enablement.md) value. The default is **D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED**.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12deviceremovedextendeddatasettings-setpagefaultenablement
      */
@@ -54,8 +53,8 @@ class ID3D12DeviceRemovedExtendedDataSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Enablement 
+     * Configures the enablement settings for Device Removed Extended Data (DRED) Watson dump creation.
+     * @param {Integer} Enablement A [D3D12_DRED_ENABLEMENT](ne-d3d12-d3d12_dred_enablement.md) value. The default is **D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED**.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12deviceremovedextendeddatasettings-setwatsondumpenablement
      */

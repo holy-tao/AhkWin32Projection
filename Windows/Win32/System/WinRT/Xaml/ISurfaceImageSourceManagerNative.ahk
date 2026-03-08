@@ -4,7 +4,7 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * Enables performing bulk operations across all SurfaceImageSource objects created in the same process.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcemanagernative
  * @namespace Windows.Win32.System.WinRT.Xaml
  * @version v4.0.30319

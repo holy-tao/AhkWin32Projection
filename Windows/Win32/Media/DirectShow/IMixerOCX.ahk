@@ -5,7 +5,7 @@
 
 /**
  * The IMixerOCX interface is implemented on the Overlay Mixer.
- * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nn-mixerocx-imixerocx
+ * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nn-mixerocx-imixerocx
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMixerOCX extends IUnknown{
      * @param {Integer} ulScreenWidth Specifies the new screen width in pixels.
      * @param {Integer} ulScreenHeight Specifies the new screen height in pixels.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-ondisplaychange
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-ondisplaychange
      */
     OnDisplayChange(ulBitsPerPixel, ulScreenWidth, ulScreenHeight) {
         result := ComCall(3, this, "uint", ulBitsPerPixel, "uint", ulScreenWidth, "uint", ulScreenHeight, "HRESULT")
@@ -48,7 +48,7 @@ class IMixerOCX extends IUnknown{
      * @param {Pointer<Integer>} pdwPictAspectRatioX Pointer that receives the value of the X dimension.
      * @param {Pointer<Integer>} pdwPictAspectRatioY Pointer that receives the value of the Y dimension.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-getaspectratio
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getaspectratio
      */
     GetAspectRatio(pdwPictAspectRatioX, pdwPictAspectRatioY) {
         pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
@@ -63,7 +63,7 @@ class IMixerOCX extends IUnknown{
      * @param {Pointer<Integer>} pdwVideoWidth Pointer that receives the video width in pixels.
      * @param {Pointer<Integer>} pdwVideoHeight Pointer that receives the video height in pixels.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-getvideosize
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getvideosize
      */
     GetVideoSize(pdwVideoWidth, pdwVideoHeight) {
         pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
@@ -76,7 +76,7 @@ class IMixerOCX extends IUnknown{
     /**
      * The GetStatus method returns the current status of the Overlay Mixer. (Not implemented.).
      * @returns {Pointer<Integer>} Pointer that receives the current status of the Overlay Mixer.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getstatus
      */
     GetStatus() {
         result := ComCall(6, this, "ptr*", &pdwStatus := 0, "HRESULT")
@@ -85,10 +85,12 @@ class IMixerOCX extends IUnknown{
 
     /**
      * The OnDraw method instructs the Overlay Mixer to draw the video rectangle.
+     * @remarks
+     * The HDC provided here should not be cached.
      * @param {HDC} hdcDraw Specifies the device context associated with the parent window.
      * @param {Pointer<RECT>} prcDraw Specifies the rectangle coordinates of the video rectangle.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-ondraw
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-ondraw
      */
     OnDraw(hdcDraw, prcDraw) {
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
@@ -132,7 +134,7 @@ class IMixerOCX extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-setdrawregion
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-setdrawregion
      */
     SetDrawRegion(lpptTopLeftSC, prcDrawCC, lprcClip) {
         result := ComCall(8, this, "ptr", lpptTopLeftSC, "ptr", prcDrawCC, "ptr", lprcClip, "HRESULT")
@@ -141,9 +143,11 @@ class IMixerOCX extends IUnknown{
 
     /**
      * The Advise method provides the Overlay Mixer with a pointer to the client's IMixerOCXNotify interface for callback notifications.
+     * @remarks
+     * Call this method if you wish to receive callbacks from the Overlay Mixer.
      * @param {IMixerOCXNotify} pmdns Specifies the client's <a href="https://docs.microsoft.com/windows/desktop/api/mixerocx/nn-mixerocx-imixerocxnotify">IMixerOCXNotify</a> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-advise
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-advise
      */
     Advise(pmdns) {
         result := ComCall(9, this, "ptr", pmdns, "HRESULT")
@@ -153,7 +157,7 @@ class IMixerOCX extends IUnknown{
     /**
      * The UnAdvise method instructs the Overlay Mixer to release its pointer to the client's IMixerOCXNotify interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocx-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-unadvise
      */
     UnAdvise() {
         result := ComCall(10, this, "HRESULT")

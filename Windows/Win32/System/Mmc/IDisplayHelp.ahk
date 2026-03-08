@@ -5,7 +5,7 @@
 
 /**
  * The IDisplayHelp interface is introduced in MMC version 1.1.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-idisplayhelp
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-idisplayhelp
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -32,6 +32,25 @@ class IDisplayHelp extends IUnknown{
 
     /**
      * The IDisplayHelp::ShowTopic method displays the specified HTML Help topic in the merged MMC HTML Help file.
+     * @remarks
+     * MMC versions 1.0 and 1.1 required that <i>pszHelpTopic</i> be allocated with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and that MMC would then free the string. This violated the COM rules for allocation of in-parameters, which require that they be both allocated and freed by the caller (the snap-in). In MMC 1.2 and MMC 2.0, it is no longer required that <i>pszHelpTopic</i> be allocated with <b>CoTaskMemAlloc</b>. The caller is free to use whatever memory management it desires. If the caller chooses to use <b>CoTaskMemAlloc</b>, it is also responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the string.
+     * 
+     * A snap-in can provide context help for the selected item by handling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-contexthelp">MMCN_CONTEXTHELP</a> notification in its 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-notify">IComponent::Notify</a> method and calling <b>IDisplayHelp::ShowTopic</b>.
+     * 
+     * For property pages, the snap-in should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-mmcpropertyhelp">MMCPropertyHelp</a> instead of <b>IDisplayHelp::ShowTopic</b>. Because an MMC property sheet is typically running on a separate thread, the property page cannot use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-idisplayhelp">IDisplayHelp</a> interface directly. Instead, the property page can call 
+     * <b>MMCPropertyHelp</b> from the MMC library to achieve the same result. 
+     * <b>MMCPropertyHelp</b> takes the same topic string parameter as <b>IDisplayHelp::ShowTopic</b> and handles marshalling the request to the main MMC thread.
+     * 
+     * If the snap-in handles the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-contexthelp">MMCN_CONTEXTHELP</a> notification, MMC expects the snap-in to specify a Help topic for the selected item. Consequently, in the notification handler for the <b>MMCN_CONTEXTHELP</b> notification, the snap-in has two options:
+     * 
+     * <ul>
+     * <li>It can call <b>IDisplayHelp::ShowTopic</b> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-mmcpropertyhelp">MMCPropertyHelp</a> to specify the Help topic and then return <b>S_OK</b> to indicate success. Be aware that the snap-in should only return <b>S_OK</b> if it specifies a Help topic. If the snap-in returns <b>S_OK</b> without specifying a Help topic, no Help topic will be displayed.</li>
+     * <li>It can return <b>S_FALSE</b> to the notification. MMC then displays the Help collection file with the default MMC topic selected.</li>
+     * </ul>
      * @param {PWSTR} pszHelpTopic A pointer to a <b>NULL</b>-terminated string specifying the topic to display in the merged MMC HTML Help file. The string must have the following format:
      * 
      * 
@@ -63,7 +82,7 @@ class IDisplayHelp extends IUnknown{
      * 
      * Support for numeric IDs for topics is not included in versions 1.2 and earlier.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-idisplayhelp-showtopic
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-idisplayhelp-showtopic
      */
     ShowTopic(pszHelpTopic) {
         pszHelpTopic := pszHelpTopic is String ? StrPtr(pszHelpTopic) : pszHelpTopic

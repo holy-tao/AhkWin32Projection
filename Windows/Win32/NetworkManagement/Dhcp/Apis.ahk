@@ -3961,10 +3961,58 @@ class Dhcp {
     }
 
     /**
+     * Obtains a MIB data structure that contains current statistics about the specified DHCP server.
+     * @param {PWSTR} ServerIpAddress Pointer to a zero-delimited string that contains the IPv4 address of the DHCP server for which statistical information is to be retrieved. This value is specified in the format "*.*.*.*". 
      * 
-     * @param {PWSTR} ServerIpAddress 
-     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo 
-     * @returns {Integer} 
+     * If this parameter is <b>NULL</b>, then the local DHCP server process is queried.
+     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5">DHCP_MIB_INFO_V5</a> structure that contains statistical information about the DHCP server specified in the <i>ServerIpAddress</i> parameter.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
+     * 
+     * </div>
+     * <div> </div>
+     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This call was performed by a client who is not a member of the "DHCP Administrators" security group.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_DHCP_JET_ERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred while accessing the DHCP server's database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters provides an invalid value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov5
      */
     static DhcpGetMibInfo(ServerIpAddress, MibInfo) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
@@ -8323,12 +8371,13 @@ class Dhcp {
     }
 
     /**
-     * 
-     * @param {PWSTR} ServerIpAddress 
-     * @param {PWSTR} Uname 
-     * @param {PWSTR} Domain 
-     * @param {PWSTR} Passwd 
-     * @returns {Integer} 
+     * Sets the credentials used by the DHCP server to create Domain Name System (DNS) registrations for the DHCP client lease record.
+     * @param {PWSTR} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server  on which the DNS credentials will be set.
+     * @param {PWSTR} Uname Pointer to a null-terminated Unicode string that specifies the user name for the DNS credentials.
+     * @param {PWSTR} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
+     * @param {PWSTR} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
+     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
      */
     static DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress

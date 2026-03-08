@@ -7,7 +7,7 @@
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
- * @see https://docs.microsoft.com/windows/win32/api//xenroll/nn-xenroll-icenroll4
+ * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll4
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -72,10 +72,10 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Sets or retrieves the certificate that is used to archive a private key with a PKCS
+     * Sets or retrieves the certificate that is used to archive a private key with a PKCS (Put)
      * @param {BSTR} bstrCert 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-put_privatekeyarchivecertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_privatekeyarchivecertificate
      */
     put_PrivateKeyArchiveCertificate(bstrCert) {
         bstrCert := bstrCert is String ? BSTR.Alloc(bstrCert).Value : bstrCert
@@ -85,9 +85,9 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Sets or retrieves the certificate that is used to archive a private key with a PKCS
+     * Sets or retrieves the certificate that is used to archive a private key with a PKCS (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-get_privatekeyarchivecertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_privatekeyarchivecertificate
      */
     get_PrivateKeyArchiveCertificate() {
         pbstrCert := BSTR()
@@ -96,14 +96,12 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Sets or retrieves a hash of the certificate data.
+     * Sets or retrieves a hash of the certificate data. (Put)
      * @remarks
-     * 
      * The thumbprint is used to point to a pending certificate.
-     * 
      * @param {BSTR} bstrThumbPrint 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-put_thumbprint
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_thumbprint
      */
     put_ThumbPrint(bstrThumbPrint) {
         bstrThumbPrint := bstrThumbPrint is String ? BSTR.Alloc(bstrThumbPrint).Value : bstrThumbPrint
@@ -113,13 +111,11 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Sets or retrieves a hash of the certificate data.
+     * Sets or retrieves a hash of the certificate data. (Get)
      * @remarks
-     * 
      * The thumbprint is used to point to a pending certificate.
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-get_thumbprint
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_thumbprint
      */
     get_ThumbPrint() {
         pbstrThumbPrint := BSTR()
@@ -133,7 +129,7 @@ class ICEnroll4 extends ICEnroll3{
      * <b>CryptBinaryToString</b>.
      * @param {BSTR} strBinary A binary data BLOB to be converted to a string.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the encoded data. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-binarytostring
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-binarytostring
      */
     binaryToString(Flags, strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
@@ -149,7 +145,7 @@ class ICEnroll4 extends ICEnroll3{
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptstringtobinarya">CryptStringToBinary</a>.
      * @param {BSTR} strEncoded An encoded string to be converted to a binary data <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a>.
      * @returns {BSTR} A pointer to a  <b>BSTR</b> that receives the binary data. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-stringtobinary
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-stringtobinary
      */
     stringToBinary(Flags, strEncoded) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
@@ -169,7 +165,7 @@ class ICEnroll4 extends ICEnroll3{
      * @param {BSTR} strValue The base64-encoded or binary extension value.
      * @returns {HRESULT} <h3>VB</h3>
      * The return value is an <b>HRESULT</b>, with <b>S_OK</b> returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-addextensiontorequest
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-addextensiontorequest
      */
     addExtensionToRequest(Flags, strName, strValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -188,8 +184,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-addattributetorequest
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-addattributetorequest
      */
     addAttributeToRequest(Flags, strName, strValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -208,8 +204,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-addnamevaluepairtorequest
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-addnamevaluepairtorequest
      */
     addNameValuePairToRequest(Flags, strName, strValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -225,8 +221,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-resetextensions
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-resetextensions
      */
     resetExtensions() {
         result := ComCall(92, this, "HRESULT")
@@ -239,8 +235,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-resetattributes
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-resetattributes
      */
     resetAttributes() {
         result := ComCall(93, this, "HRESULT")
@@ -248,12 +244,14 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Creates a PKCS
+     * Creates a PKCS (ICEnroll4.createRequest)
+     * @remarks
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request. If a .pvk or .spc file was specified, the method displays a user interface that asks whether the user will allow a write operation to the file system.
      * @param {Integer} Flags 
      * @param {BSTR} strDNName This parameter can be <b>NULL</b>; otherwise, this parameter specifies the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an OID may be provided instead.
      * @param {BSTR} Usage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * @returns {BSTR} A pointer to a <b>BSTR</b> (BASE64_HEADER format) that receives the request. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-createrequest
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createrequest
      */
     createRequest(Flags, strDNName, Usage) {
         strDNName := strDNName is String ? BSTR.Alloc(strDNName).Value : strDNName
@@ -265,7 +263,9 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Creates a PKCS
+     * Creates a PKCS (ICEnroll4.createFileRequest)
+     * @remarks
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request and whether the user will allow a write operation to the file system.
      * @param {Integer} Flags 
      * @param {BSTR} strDNName This parameter can be <b>NULL</b>; otherwise, this parameter specifies the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an OID can be provided instead.
      * @param {BSTR} strUsage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that describes the purpose of the request being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
@@ -274,8 +274,8 @@ class ICEnroll4 extends ICEnroll3{
      * If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-createfilerequest
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createfilerequest
      */
     createFileRequest(Flags, strDNName, strUsage, strRequestFileName) {
         strDNName := strDNName is String ? BSTR.Alloc(strDNName).Value : strDNName
@@ -288,13 +288,19 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Accepts delivery of the credentials issued in response to an earlier call to createRequest and places the credentials in the appropriate store.
+     * @remarks
+     * The response must contain exactly one certificate; a child certificate cannot be present.
+     * 
+     * The response may be either a PKCS #7 or a full CMC response; however, to accept a full CMC response, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> must support <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding of CMC structures.
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow installation of a  certificate.
      * @param {BSTR} strResponse A string that represents the base64-encoded response.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-acceptresponse
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-acceptresponse
      */
     acceptResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
@@ -305,13 +311,19 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Accepts delivery of the credentials issued in response to an earlier call to createFileRequest, and it places the credentials in the appropriate store.
+     * @remarks
+     * The response named in the <i>strResponseFileName</i> parameter must contain exactly one certificate; a child certificate cannot be present.
+     * 
+     * The response may be either a PKCS #7 or a full CMC response; however, to accept a full CMC response, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> must support <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding of CMC structures.
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow installation of a  certificate and whether the user will allow a read operation from the file system.
      * @param {BSTR} strResponseFileName Specifies the name of the file that contains the base64-encoded response.
      * @returns {HRESULT} <h3>VB</h3>
      * If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-acceptfileresponse
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-acceptfileresponse
      */
     acceptFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
@@ -322,9 +334,13 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Retrieves the certificate from a certification authority's response. This method was first defined by the ICEnroll4 interface.
+     * @remarks
+     * The response contained in <i>strResponse</i> must contain exactly one certificate; a child certificate cannot be present.
+     * 
+     * The response may be either a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">PKCS #7</a> or a full <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Certificate Management over CMS</a> (CMC) response. However, to accept a full CMC response, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) must support <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding of CMC structures.
      * @param {BSTR} strResponse The base64-encoded response.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the certificate retrieved from the response. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-getcertfromresponse
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getcertfromresponse
      */
     getCertFromResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
@@ -336,9 +352,15 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Retrieves the certificate from a file containing a response from a certification authority. This method was first defined in the ICEnroll4 interface.
+     * @remarks
+     * The response contained in <i>strResponseFileName</i> must contain exactly one certificate; a child certificate cannot be present.
+     * 
+     * The response may be either a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">PKCS #7</a> or a full <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Certificate Management over CMS</a> (CMC) response. However, to accept a full CMC response, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) must support <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding of CMC structures.
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow a read operation from the file system.
      * @param {BSTR} strResponseFileName Specifies the name of the file that contains the response.
      * @returns {BSTR} A pointer to a <b>BSTR</b> value that receives the certificate retrieved from the response. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-getcertfromfileresponse
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getcertfromfileresponse
      */
     getCertFromFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
@@ -349,10 +371,12 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Saves the accepted certificate chain and private key in a Personal Information Exchange (PFX) format string. The PFX format is also known as PKCS
+     * Saves the accepted certificate chain and private key in a Personal Information Exchange (PFX) format string. The PFX format is also known as PKCS (ICEnroll4.createPFX)
+     * @remarks
+     * This method is disabled when  the Certificate Enrollment Control is executed as a scripted control.
      * @param {BSTR} strPassword A password for the PFX-format message. This value can be empty or <b>NULL</b> to indicate that no password is used.  When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the base64-encoded PFX format certificate information. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-createpfx
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createpfx
      */
     createPFX(strPassword) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
@@ -364,14 +388,16 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Saves the accepted certificate chain and private key in a file in Personal Information Exchange (PFX) format. This method was first defined in the ICEnroll4 interface.
+     * @remarks
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow a write operation to the file system.
      * @param {BSTR} strPassword A password for the PFX; this value can be empty (or <b>NULL</b>) to indicate that no password is used. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function.  For more information about handling passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {BSTR} strPFXFileName The name of the file that will receive the base64-encoded PFX data.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-createfilepfx
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createfilepfx
      */
     createFilePFX(strPassword, strPFXFileName) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
@@ -391,8 +417,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-setpendingrequestinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-setpendingrequestinfo
      */
     setPendingRequestInfo(lRequestID, strCADNS, strCAName, strFriendlyName) {
         strCADNS := strCADNS is String ? BSTR.Alloc(strCADNS).Value : strCADNS
@@ -405,6 +431,8 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Enumerates pending certificate requests and retrieves a specified property from each. This method was first defined in the ICEnroll4 interface.
+     * @remarks
+     * This method is disabled when  the Certificate Enrollment Control is executed as a scripted control.
      * @param {Integer} lIndex Specifies the ordinal position of the pending request whose property will be retrieved. Specify zero for the first request.
      * @param {Integer} lDesiredProperty 
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the value of the retrieved property. 
@@ -413,7 +441,7 @@ class ICEnroll4 extends ICEnroll3{
      * 
      * 
      * When you have finished using the <b>VARIANT</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-enumpendingrequest
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-enumpendingrequest
      */
     enumPendingRequest(lIndex, lDesiredProperty) {
         pvarProperty := VARIANT()
@@ -428,8 +456,8 @@ class ICEnroll4 extends ICEnroll3{
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-removependingrequest
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-removependingrequest
      */
     removePendingRequest(strThumbprint) {
         strThumbprint := strThumbprint is String ? BSTR.Alloc(strThumbprint).Value : strThumbprint
@@ -440,10 +468,15 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Retrieves size information for the signature and exchange keys. This method was first defined in the ICEnroll4 interface.
+     * @remarks
+     * If the CSP does not support this method, an error is returned.
+     * 
+     * For more information about the XEKL_KEYSIZE_INC value, see PP_SIG_KEYSIZE_INC usage in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetprovparam">CryptGetProvParam</a> reference page.
      * @param {Integer} lSizeSpec 
      * @param {Integer} lKeySpec 
      * @returns {Integer} A pointer to a variable that receives the key size, in bits.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-getkeylenex
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
      */
     GetKeyLenEx(lSizeSpec, lKeySpec) {
         result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, "int*", &pdwKeySize := 0, "HRESULT")
@@ -452,9 +485,11 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Processes a certificate or chain of certificates, placing them into the appropriate certificate stores.InstallPKCS7 except that it returns the number of certificates actually installed in local stores.
+     * @remarks
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow installation of a  certificate.
      * @param {BSTR} PKCS7 A string that contains a certificate or chain of certificates.
      * @returns {Integer} Returns the number of certificates installed into local stores.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-installpkcs7ex
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-installpkcs7ex
      */
     InstallPKCS7Ex(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
@@ -465,6 +500,12 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * Adds a certificate template (or &quot;certificate type&quot;) to a request.
+     * @remarks
+     * This method supports only the new request method, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll4-createrequest">createRequest</a>. It does not support the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createpkcs10">createPKCS10</a> method.
+     * 
+     * This method can be called multiple times to establish multiple certificate templates for the request.
      * @param {Integer} lType 
      * @param {BSTR} bstrOIDOrName The certificate template fully qualified name which is being added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a>. This value is interpreted by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>.
      * @param {Integer} lMajorVersion Sets the major version of the template. This parameter is ignored if <i>lFlag</i> is XECT_EXTENSION_V!.
@@ -472,7 +513,7 @@ class ICEnroll4 extends ICEnroll3{
      * @param {Integer} lMinorVersion Sets the minor version of the template. This parameter is ignored if <i>lFlag</i> is XECT_EXTENSION_V1 or if <i>fMinorVersion</i> is <b>FALSE</b>.
      * @returns {HRESULT} <h3>VB</h3>
      *  The return value is an <b>HRESULT</b>, with <b>S_OK</b> returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-addcerttypetorequestex
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-addcerttypetorequestex
      */
     addCertTypeToRequestEx(lType, bstrOIDOrName, lMajorVersion, fMinorVersion, lMinorVersion) {
         bstrOIDOrName := bstrOIDOrName is String ? BSTR.Alloc(bstrOIDOrName).Value : bstrOIDOrName
@@ -485,7 +526,7 @@ class ICEnroll4 extends ICEnroll3{
      * Retrieves the type of the specified cryptographic service provider (CSP). This method was first defined in the ICEnroll4 interface.
      * @param {BSTR} strProvName A string value that specifies the name of the CSP whose type is being requested.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-getprovidertype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getprovidertype
      */
     getProviderType(strProvName) {
         strProvName := strProvName is String ? BSTR.Alloc(strProvName).Value : strProvName
@@ -498,7 +539,7 @@ class ICEnroll4 extends ICEnroll3{
      * Sets the signer's certificate.
      * @param {BSTR} bstrCert 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-put_signercertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_signercertificate
      */
     put_SignerCertificate(bstrCert) {
         bstrCert := bstrCert is String ? BSTR.Alloc(bstrCert).Value : bstrCert
@@ -508,7 +549,7 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * 
+     * Sets or retrieves a client ID request attribute. The client ID request attribute indicates the source of the certificate request. This property was first defined in the ICEnroll4 interface. (Put)
      * @param {Integer} lClientId 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_clientid
@@ -519,7 +560,7 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * 
+     * Sets or retrieves a client ID request attribute. The client ID request attribute indicates the source of the certificate request. This property was first defined in the ICEnroll4 interface. (Get)
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_clientid
      */
@@ -534,7 +575,7 @@ class ICEnroll4 extends ICEnroll3{
      * @param {Integer} lReserved This parameter is reserved and must be zero.
      * @param {BSTR} bstrProperty 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-addblobpropertytocertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-addblobpropertytocertificate
      */
     addBlobPropertyToCertificate(lPropertyId, lReserved, bstrProperty) {
         bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
@@ -546,7 +587,7 @@ class ICEnroll4 extends ICEnroll3{
     /**
      * Resets the properties of a BLOB.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-resetblobproperties
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-resetblobproperties
      */
     resetBlobProperties() {
         result := ComCall(113, this, "HRESULT")
@@ -554,10 +595,10 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Determines whether the subject key ID extension is added to the certificate request that is generated.
+     * Determines whether the subject key ID extension is added to the certificate request that is generated. (Put)
      * @param {BOOL} fInclude 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-put_includesubjectkeyid
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_includesubjectkeyid
      */
     put_IncludeSubjectKeyID(fInclude) {
         result := ComCall(114, this, "int", fInclude, "HRESULT")
@@ -565,9 +606,9 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * Determines whether the subject key ID extension is added to the certificate request that is generated.
+     * Determines whether the subject key ID extension is added to the certificate request that is generated. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll4-get_includesubjectkeyid
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_includesubjectkeyid
      */
     get_IncludeSubjectKeyID() {
         result := ComCall(115, this, "int*", &pfInclude := 0, "HRESULT")

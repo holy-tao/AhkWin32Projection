@@ -5,7 +5,7 @@
 
 /**
  * Provides proper maintenance of caches. It maintains the caches by connecting the running object's IDataObject implementation to the cache, allowing the cache to receive notifications from the running object.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/nn-oleidl-iolecachecontrol
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecachecontrol
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IOleCacheControl extends IUnknown{
 
     /**
      * Notifies the cache that the data source object has entered the running state so that the cache object can establish advise sinks as needed.
+     * @remarks
+     * When <b>OnRun</b> is called, the cache sets up advisory connections as necessary with the source data object so it can receive notifications. The advisory connection created between the running object and the cache is destroyed when <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecachecontrol-onstop">IOleCacheControl::OnStop</a> is called.
+     * 
+     * Some object handlers or in-process servers might use the cache passively, and not call <b>OnRun</b>. These applications must call <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache2-updatecache">IOleCache2::UpdateCache</a>, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-initcache">IOleCache::InitCache</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-setdata">IOleCache::SetData</a> to fill the cache when necessary to ensure that the cache gets updated.
+     * 
+     * <b>OnRun</b> does not add a reference count on the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> passed in <i>pDataObject</i>. Because it is the responsibility of the caller of <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olerun">OleRun</a> to ensure that the lifetime of the <i>pDataObject</i> pointer lasts until <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecachecontrol-onstop">OnStop</a> is called, the caller must be holding a pointer to <b>IDataObject</b> on the data object of interest.
      * @param {IDataObject} pDataObject A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object that is entering the running state.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
@@ -74,7 +80,7 @@ class IOleCacheControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecachecontrol-onrun
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecachecontrol-onrun
      */
     OnRun(pDataObject) {
         result := ComCall(3, this, "ptr", pDataObject, "HRESULT")
@@ -83,6 +89,8 @@ class IOleCacheControl extends IUnknown{
 
     /**
      * Notifies the cache that it should terminate any existing advise sinks. No indication is given as to whether a connection actually existed.
+     * @remarks
+     * The data advisory connection between the running object and the cache is destroyed as part of calling <b>OnStop</b>.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
      * <table>
@@ -113,7 +121,7 @@ class IOleCacheControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecachecontrol-onstop
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecachecontrol-onstop
      */
     OnStop() {
         result := ComCall(4, this, "HRESULT")

@@ -7,7 +7,6 @@
 /**
  * Represents a reference to XML markup that has been or will be signed.
  * @remarks
- * 
  * To create 
  * 				an <b>IOpcSignatureReference</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceset-create">IOpcSignatureReferenceSet::Create</a> method. <b>IOpcSignatureReferenceSet::Create</b> does not create the reference to the package-specific <b>Object</b> element; that reference is created automatically when the signature is generated.
  * 
@@ -79,9 +78,7 @@
  *     </Object>
  * </Signature>
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturereference
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereference
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -108,10 +105,14 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets the identifier for the reference.
+     * @remarks
+     * This method allocates memory used by the string returned in <i>referenceId</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * Providing an identifier for a reference is optional. If used, the identifier is serialized as the optional <b>Id</b> attribute  of a <b>Reference</b> element in the signature markup.
      * @returns {PWSTR} An identifier for the reference.
      * 
      * If the identifier is not set, <i>referenceId</i> will be the empty string, "".
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getid
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getid
      */
     GetId() {
         result := ComCall(3, this, "ptr*", &referenceId := 0, "HRESULT")
@@ -120,12 +121,38 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets the URI of the referenced XML element.
+     * @remarks
+     * The URI of the referenced element is serialized in the signature markup as the <b>URI</b> attribute of a <b>Reference</b> element.
+     * 
+     * The following table shows two examples of the <i>referenceUri</i> parameter value represented as strings.<table>
+     * <tr>
+     * <th><i>referenceUri</i> Value as String</th>
+     * <th>Referenced Element</th>
+     * <th>Element Description</th>
+     * </tr>
+     * <tr>
+     * <td>"#<i>idMyCustomObject</i>"</td>
+     * <td>"&lt;Object Id="<i>idMyCustomObject</i>"&gt;<i>...</i>&lt;/Object&gt;"</td>
+     * <td>
+     * An application-specific <b>Object</b> element.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>"#<i>idMyElement</i>"</td>
+     * <td>"&lt;Object&gt;&lt;<i>MyElement</i> Id="<i>idMyElement</i>"&gt;<i>...</i>&lt;/<i>MyElement</i>&gt;...&lt;/Object&gt;"</td>
+     * <td>
+     * A child element of an application-specific <b>Object</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {IUri} A pointer to the  URI of the referenced element.
      * 
      * This URI represented by a string is  "#" followed by  the <b>Id</b> attribute value of the referenced element: "#<i>&lt;elementIdValue&gt;</i>".
      * 
      * For examples, see the Remarks section.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-geturi
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-geturi
      */
     GetUri() {
         result := ComCall(4, this, "ptr*", &referenceUri := 0, "HRESULT")
@@ -134,10 +161,16 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets a string that indicates the type of the referenced XML element.
+     * @remarks
+     * This method allocates memory used by the string returned in <i>type</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * Providing a type for the referenced XML  element is optional. If used, the type of the referenced element is serialized in the signature markup as the optional <b>Type</b> attribute  value of a <b>Reference</b> element. 
+     * 
+     * The caller can use the type of the referenced element to indicate whether the element  is an <b>Object</b>, <b>SignatureProperty</b>, or <b>Manifest</b> element. This identification can aid the caller in processing the reference.
      * @returns {PWSTR} A string that indicates the type of the referenced XML  element.
      * 
      * If the type  is not set, the <i>type</i> parameter will be the empty string "".
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettype
      */
     GetType() {
         result := ComCall(5, this, "ptr*", &type := 0, "HRESULT")
@@ -147,7 +180,7 @@ class IOpcSignatureReference extends IUnknown{
     /**
      * Gets the canonicalization method to use on the referenced XML element, when the element is signed.
      * @returns {Integer} The canonicalization method to use on the referenced XML element, when the element is signed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-gettransformmethod
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettransformmethod
      */
     GetTransformMethod() {
         result := ComCall(6, this, "int*", &transformMethod := 0, "HRESULT")
@@ -156,8 +189,10 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets the digest method to use on the referenced XML element, when the element is signed.
+     * @remarks
+     * This method allocates memory used by the string returned in <i>digestMethod</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
      * @returns {PWSTR} The digest method to use on the referenced XML element.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getdigestmethod
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestmethod
      */
     GetDigestMethod() {
         result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -166,6 +201,8 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets the digest value that is calculated for the referenced XML element when the element is signed.
+     * @remarks
+     * This method allocates memory used by the buffer returned in <i>digestValue</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
      * @param {Pointer<Pointer<Integer>>} digestValue A pointer to a buffer that contains the digest value calculated using the specified digest method when the referenced XML element is signed.
      * @param {Pointer<Integer>} count The size of the <i>digestValue</i> buffer.
      * 
@@ -200,7 +237,7 @@ class IOpcSignatureReference extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getdigestvalue
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
         digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"

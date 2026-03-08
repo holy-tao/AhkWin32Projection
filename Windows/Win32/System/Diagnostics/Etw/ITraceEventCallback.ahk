@@ -4,7 +4,9 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * Used by ETW to provide information to the relogger as the tracing process starts, ends, and logs events.
+ * @remarks
+ * This interface is not supported on Windows 7 for the IA64 architecture.
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itraceeventcallback
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
@@ -42,8 +44,8 @@ class ITraceEventCallback extends IUnknown{
      *         existing events.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onbeginprocesstrace
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onbeginprocesstrace
      */
     OnBeginProcessTrace(HeaderEvent, Relogger) {
         result := ComCall(3, this, "ptr", HeaderEvent, "ptr", Relogger, "HRESULT")
@@ -57,8 +59,8 @@ class ITraceEventCallback extends IUnknown{
      * The trace relogger that was used to register this callback and relog this trace.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onfinalizeprocesstrace
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onfinalizeprocesstrace
      */
     OnFinalizeProcessTrace(Relogger) {
         result := ComCall(4, this, "ptr", Relogger, "HRESULT")
@@ -75,8 +77,8 @@ class ITraceEventCallback extends IUnknown{
      * The trace relogger that was used to register this callback and relog this trace.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onevent
      */
     OnEvent(Event, Relogger) {
         result := ComCall(5, this, "ptr", Event, "ptr", Relogger, "HRESULT")

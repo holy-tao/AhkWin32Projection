@@ -17,10 +17,8 @@
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.
  * @remarks
- * 
  * A default implementation of <b>IFaxServer</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxserver
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxserver
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -158,13 +156,17 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::Connect method connects a fax client application to the specified fax server.
+     * @remarks
+     * Before accessing most of the objects of the fax extended Component Object Model (COM), the application must call this method to initiate a connection with an active fax server. A fax server connection is not required for you to access a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument">FaxDocument</a> object. The method fails if the client is not connected to an active fax server. 
+     * 
+     * To connect to the local server, set the <i>bstrServerName</i> parameter to <b>NULL</b> or an empty string. For usage examples, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-connecting-to-the-fax-server">Connecting to the Fax Server</a>.
      * @param {BSTR} bstrServerName Type: <b>BSTR</b>
      * 
      * A null-terminated string that specifies the name of the target fax server, such as "computername". If this parameter is <b>NULL</b> or an empty string, the method connects the application to the fax server on the local computer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-connect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-connect
      */
     Connect(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
@@ -176,7 +178,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_ServerName property retrieves the name of the active fax server to which the fax client is connected.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_servername
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_servername
      */
     get_ServerName() {
         pbstrServerName := BSTR()
@@ -186,10 +188,12 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::GetDeviceProviders method creates a IFaxDeviceProviders interface, a collection of fax service providers (FSPs) that are currently registered with the fax service.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxDeviceProviders} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdeviceproviders">IFaxDeviceProviders</a>**</b>
      * 
      * An address of a pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdeviceproviders">IFaxDeviceProviders</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-getdeviceproviders
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getdeviceproviders
      */
     GetDeviceProviders() {
         result := ComCall(9, this, "ptr*", &ppFaxDeviceProviders := 0, "HRESULT")
@@ -198,10 +202,14 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::GetDevices method creates a IFaxDevices interface, a collection of all the fax devices exposed by all the fax service providers (FSPs) currently registered with the fax service.
+     * @remarks
+     * You can use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdevices">IFaxDevices</a> interface to enumerate the fax devices associated with a connected fax server and to create <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdevice">IFaxDevice</a> interfaces for them.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxDevices} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdevices">IFaxDevices</a>**</b>
      * 
      * An address of a pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdevices">IFaxDevices</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-getdevices
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getdevices
      */
     GetDevices() {
         result := ComCall(10, this, "ptr*", &ppFaxDevices := 0, "HRESULT")
@@ -211,7 +219,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_InboundRouting property creates a IFaxInboundRouting configuration interface. The interface permits access to an inbound fax routing extension and its methods.
      * @returns {IFaxInboundRouting} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_inboundrouting
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_inboundrouting
      */
     get_InboundRouting() {
         result := ComCall(11, this, "ptr*", &ppFaxInboundRouting := 0, "HRESULT")
@@ -221,7 +229,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_Folders property accesses a IFaxFolders configuration interface. You can use the interface to access the folders, jobs, and messages on a connected fax server.
      * @returns {IFaxFolders} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_folders
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_folders
      */
     get_Folders() {
         result := ComCall(12, this, "ptr*", &pFaxFolders := 0, "HRESULT")
@@ -231,7 +239,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_LoggingOptions property creates a IFaxLoggingOptions configuration interface. The interface permits configuration of both the activity logging options and the event logging categories that the fax service uses.
      * @returns {IFaxLoggingOptions} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_loggingoptions
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_loggingoptions
      */
     get_LoggingOptions() {
         result := ComCall(13, this, "ptr*", &ppFaxLoggingOptions := 0, "HRESULT")
@@ -241,12 +249,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_MajorVersion property is a value that specifies the major part of the version number for the fax service.
      * @remarks
-     * 
      * The format for the fax service build number is MajorVersion.MinorVersion.MajorBuild.MinorBuild.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_majorversion
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorversion
      */
     get_MajorVersion() {
         result := ComCall(14, this, "int*", &plMajorVersion := 0, "HRESULT")
@@ -256,12 +261,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_MinorVersion property is a value that specifies the minor part of the version number for the fax service.
      * @remarks
-     * 
      * The format for the fax service build number is MajorVersion.MinorVersion.MajorBuild.MinorBuild.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_minorversion
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorversion
      */
     get_MinorVersion() {
         result := ComCall(15, this, "int*", &plMinorVersion := 0, "HRESULT")
@@ -271,12 +273,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_MajorBuild property is a value that specifies the major part of the build number for the fax service.
      * @remarks
-     * 
      * The format for the fax service build number is MajorVersion.MinorVersion.MajorBuild.MinorBuild.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_majorbuild
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorbuild
      */
     get_MajorBuild() {
         result := ComCall(16, this, "int*", &plMajorBuild := 0, "HRESULT")
@@ -286,12 +285,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_MinorBuild property is a value that specifies the minor part of the build number for the fax service.
      * @remarks
-     * 
      * The format for the fax service build number is MajorVersion.MinorVersion.MajorBuild.MinorBuild.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_minorbuild
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorbuild
      */
     get_MinorBuild() {
         result := ComCall(17, this, "int*", &plMinorBuild := 0, "HRESULT")
@@ -301,12 +297,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_Debug property is a Boolean value that indicates whether the fax server was created in a debug environment.
      * @remarks
-     * 
      * If this property is equal to <b>TRUE</b>, the fax server was created in a debug environment. If this property is equal to <b>FALSE</b>, the fax server was not created in a debug environment.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_debug
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_debug
      */
     get_Debug() {
         result := ComCall(18, this, "short*", &pbDebug := 0, "HRESULT")
@@ -316,7 +309,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_Activity property creates a IFaxActivity interface object. The interface permits a fax client application to access information about the activity on a connected fax server, and the fax server status.
      * @returns {IFaxActivity} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_activity
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_activity
      */
     get_Activity() {
         result := ComCall(19, this, "ptr*", &ppFaxActivity := 0, "HRESULT")
@@ -326,12 +319,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_OutboundRouting property creates a IFaxOutboundRouting configuration interface. The interface permits users to configure outbound routing groups and rules.
      * @remarks
-     * 
      * This property is not supported in Windows XP, and will return the error: <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-error-codes">FAX_E_NOT_SUPPORTED_ON_THIS_SKU</a>.
-     * 
-     * 
      * @returns {IFaxOutboundRouting} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_outboundrouting
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_outboundrouting
      */
     get_OutboundRouting() {
         result := ComCall(20, this, "ptr*", &ppFaxOutboundRouting := 0, "HRESULT")
@@ -341,7 +331,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_ReceiptOptions property creates a IFaxReceiptOptions configuration interface. The object permits a fax client application to set and retrieve the receipt configuration that the fax service uses to send fax receipts.
      * @returns {IFaxReceiptOptions} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_receiptoptions
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_receiptoptions
      */
     get_ReceiptOptions() {
         result := ComCall(21, this, "ptr*", &ppFaxReceiptOptions := 0, "HRESULT")
@@ -351,7 +341,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_Security property creates a IFaxSecurity configuration interface. The interface permits the calling application to set and retrieve a security descriptor for the fax server.
      * @returns {IFaxSecurity} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_security
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_security
      */
     get_Security() {
         result := ComCall(22, this, "ptr*", &ppFaxSecurity := 0, "HRESULT")
@@ -362,8 +352,8 @@ class IFaxServer extends IDispatch{
      * The IFaxServer::Disconnect method terminates a fax client application's connection to a fax server. The method fails if the client is not connected to an active fax server.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-disconnect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-disconnect
      */
     Disconnect() {
         result := ComCall(23, this, "HRESULT")
@@ -372,13 +362,17 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::GetExtensionProperty method retrieves an extension configuration property stored at the server level.
+     * @remarks
+     * The returned data is a blob of bytes represented as a variant safe array of unsigned chars (VT_UI1 | VT_ARRAY). The data is only relevant to the specific extension that uses it. For more information see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-extension-configuration-api">About the Fax Extension Configuration API</a>.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @param {BSTR} bstrGUID Type: [in] <b>BSTR</b>
      * 
      * Specifies a string GUID that uniquely identifies the data to be retrieved.
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * Pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> that specifies the data.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-getextensionproperty
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getextensionproperty
      */
     GetExtensionProperty(bstrGUID) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
@@ -390,6 +384,10 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::SetExtensionProperty method stores an extension configuration property at the server level.
+     * @remarks
+     * The extension configuration property is a blob of bytes represented as a variant safe array of unsigned chars (VT_UI1 | VT_ARRAY). The data is only relevant to the specific extension that uses it. For more information see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-extension-configuration-api">About the Fax Extension Configuration API</a>.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {BSTR} bstrGUID Type: <b>BSTR</b>
      * 
      * Specifies a string GUID that identifies the data to set.
@@ -399,8 +397,8 @@ class IFaxServer extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> that specifies the data to be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-setextensionproperty
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-setextensionproperty
      */
     SetExtensionProperty(bstrGUID, vProperty) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
@@ -411,13 +409,128 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::ListenToServerEvents method registers the FaxServer object to receive notifications about one or more types of server events, or to stop these notifications.
+     * @remarks
+     * In Microsoft Visual Basic, if you want the fax server to receive notifications, you have to create the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object using the following syntax:
+     * 
+     * 
+     * 
+     * ```
+     * 
+     * Dim WithEvents objFaxServer As New FAXCOMEXLib.FaxServer
+     * Set objFaxServer = CreateObject("FaxServer") 
+     * 
+     * ```
+     * 
+     * 
+     * In Microsoft Visual C++, the <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> interface on the <b>FaxServer</b> object receives notifications of the events.
+     * 
+     * 
+     * By default, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object does not receive notifications for any server events. If you want the <b>FaxServer</b> object to receive notifications, you must call <b>IFaxServer::ListenToServerEvents</b> and pass to it the event types for which you want to receive notifications. To stop receiving the notification, call this method with <i>EventTypes</i> equal to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetNONE</a>.
+     * 
+     * Access rights for this method depend on which events are requested, as shown in the following table.
+     * 
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <td>Event</td>
+     * <td>Required access rights</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetINCOMING_CALL</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_IN_ARCHIVE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetIN_QUEUE</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td></td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_JOBS</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetOUT_QUEUE</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td></td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_JOBS</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetCONFIG</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetDEVICE_STATUS</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetACTIVITY</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetIN_ARCHIVE</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td></td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_IN_ARCHIVE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">fsetOUT_ARCHIVE</a>
+     * </td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td></td>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_OUT_ARCHIVE</a>
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">FAX_SERVER_EVENTS_TYPE_ENUM</a></b>
      * 
      * A value that contains a set of bit flags representing the types of events for which the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object is registering to receive notifications. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">FAX_SERVER_EVENTS_TYPE_ENUM</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-listentoserverevents
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-listentoserverevents
      */
     ListenToServerEvents(EventTypes) {
         result := ComCall(26, this, "int", EventTypes, "HRESULT")
@@ -426,6 +539,10 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::RegisterDeviceProvider method registers a fax service provider (FSP) with the fax service. Registration takes place after the fax service restarts.
+     * @remarks
+     * Only an administrator can register a FSP.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {BSTR} bstrGUID Type: <b>BSTR</b>
      * 
      * Null-terminated string that contains the GUID that uniquely identifies the FSP that is registering.
@@ -443,8 +560,8 @@ class IFaxServer extends IDispatch{
      * A <b>long</b> value that indicates the version of the FSP. Should be equal to 0x00010000.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-registerdeviceprovider
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-registerdeviceprovider
      */
     RegisterDeviceProvider(bstrGUID, bstrFriendlyName, bstrImageName, TspName, lFSPIVersion) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
@@ -458,13 +575,17 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::UnregisterDeviceProvider method unregisters (removes the registration of) an existing device provider. Unregistration will take place only after the fax server is restarted.
+     * @remarks
+     * Only an administrator can unregister a fax service provider.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {BSTR} bstrUniqueName Type: <b>BSTR</b>
      * 
      * Required. Specifies the unique name that identifies the FSP that is unregistering.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-unregisterdeviceprovider
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-unregisterdeviceprovider
      */
     UnregisterDeviceProvider(bstrUniqueName) {
         bstrUniqueName := bstrUniqueName is String ? BSTR.Alloc(bstrUniqueName).Value : bstrUniqueName
@@ -475,6 +596,12 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::RegisterInboundRoutingExtension method registers a fax inbound routing extension with the fax service. Registration takes place after the fax service restarts.
+     * @remarks
+     * Only an administrator can register a routing extension. Also, this method works only on the local fax server.
+     * 
+     * This property is not supported in Windows XP, and will return the error: <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-error-codes">FAX_E_NOT_SUPPORTED_ON_THIS_SKU</a>. 
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {BSTR} bstrExtensionName Type: <b>BSTR</b>
      * 
      * String that specifies the internal name of the fax routing extension DLL.
@@ -490,8 +617,8 @@ class IFaxServer extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> that specifies a safearray of <b>BSTR</b>s. The array must be unidimensional, it cannot be empty, and it must have a lower limit of zero. Each item (string) in the array must identify a routing method. The string must have the following format: Method name; Friendly name; Function Name; Method GUID
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-registerinboundroutingextension
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-registerinboundroutingextension
      */
     RegisterInboundRoutingExtension(bstrExtensionName, bstrFriendlyName, bstrImageName, vMethods) {
         bstrExtensionName := bstrExtensionName is String ? BSTR.Alloc(bstrExtensionName).Value : bstrExtensionName
@@ -504,13 +631,17 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::UnregisterInboundRoutingExtension method unregisters an existing inbound routing extension. Unregistration will take place only after the fax server is restarted.
+     * @remarks
+     * Only an administrator can unregister a routing extension. Also, this method works only on the local fax server.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {BSTR} bstrExtensionUniqueName Type: <b>BSTR</b>
      * 
      * String value that specifies the internal name of the fax routing extension DLL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-unregisterinboundroutingextension
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-unregisterinboundroutingextension
      */
     UnregisterInboundRoutingExtension(bstrExtensionUniqueName) {
         bstrExtensionUniqueName := bstrExtensionUniqueName is String ? BSTR.Alloc(bstrExtensionUniqueName).Value : bstrExtensionUniqueName
@@ -522,7 +653,7 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_RegisteredEvents property is a value from an enumeration that indicates the types of fax service events a client application is listening for.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_registeredevents
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_registeredevents
      */
     get_RegisteredEvents() {
         result := ComCall(31, this, "int*", &pEventTypes := 0, "HRESULT")
@@ -532,12 +663,9 @@ class IFaxServer extends IDispatch{
     /**
      * The IFaxServer::get_APIVersion property is a value that indicates the version of the fax server API.
      * @remarks
-     * 
      * In general, each new version of the fax server API is fully compatible with previous API versions. When connecting to a fax server using the Component Object Model (COM) objects, the API version of the fax server is not required because the COM layer performs the conversions and mapping to transparently support the fax API version of the server. However, if you want to detect the version of the fax server you are connected to, you can use the <b>IFaxServer::get_APIVersion</b> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver-get_apiversion
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_apiversion
      */
     get_APIVersion() {
         result := ComCall(32, this, "int*", &pAPIVersion := 0, "HRESULT")

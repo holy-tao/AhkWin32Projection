@@ -4,8 +4,8 @@
 #Include .\IUpdateSearcher2.ahk
 
 /**
- * Searches for updates on a server.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatesearcher3
+ * Searches for updates on a server. (IUpdateSearcher3)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher3
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

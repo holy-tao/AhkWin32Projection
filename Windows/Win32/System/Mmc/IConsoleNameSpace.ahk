@@ -5,7 +5,7 @@
 
 /**
  * Enables snap-ins to enumerate dynamic subcontainers in the scope pane. The particular snap-in determines what qualifies as a subcontainer.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iconsolenamespace
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsolenamespace
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IConsoleNameSpace extends IUnknown{
      * ID member of the structure contains the item identifier assigned by MMC for the newly inserted item. Be aware that this value is the <b>HSCOPEITEM</b> handle of the inserted item. The snap-in should store this value in order to later manipulate the inserted item by calling methods such as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-getitem">IConsoleNameSpace2::GetItem</a>.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-insertitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-insertitem
      */
     InsertItem(item) {
         result := ComCall(3, this, "ptr", item, "HRESULT")
@@ -49,7 +49,7 @@ class IConsoleNameSpace extends IUnknown{
      * @param {Pointer} hItem A handle to the item whose child items are to be deleted from the scope pane. If the second argument to <b>IConsoleNameSpace2::DeleteItem</b> is set to <b>TRUE</b>, the item is also deleted.
      * @param {Integer} fDeleteThis If <b>TRUE</b>, the item specified by hItem is also deleted; otherwise, it is not.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-deleteitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-deleteitem
      */
     DeleteItem(hItem, fDeleteThis) {
         result := ComCall(4, this, "ptr", hItem, "int", fDeleteThis, "HRESULT")
@@ -61,7 +61,7 @@ class IConsoleNameSpace extends IUnknown{
      * @param {Pointer<SCOPEDATAITEM>} item A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-scopedataitem">SCOPEDATAITEM</a> structure that contains 
      *       information about the item to be set in the scope pane.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-setitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-setitem
      */
     SetItem(item) {
         result := ComCall(5, this, "ptr", item, "HRESULT")
@@ -76,7 +76,7 @@ class IConsoleNameSpace extends IUnknown{
      * 
      * If mask specifies the <b>SDI_STATE</b> value, the <b>nState</b> member contains the item's state information.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-getitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getitem
      */
     GetItem(item) {
         result := ComCall(6, this, "ptr", item, "HRESULT")
@@ -85,11 +85,13 @@ class IConsoleNameSpace extends IUnknown{
 
     /**
      * The IConsoleNameSpace2::GetChildItem method enables the snap-in to get the handle to a child item in the scope pane.
+     * @remarks
+     * If the handle to the child item is not obtained, <b>NULL</b> is returned.
      * @param {Pointer} item A handle to a parent item in the scope pane.
      * @param {Pointer<Pointer>} pItemChild A pointer to the handle that identifies the child item in the scope pane that has been returned.
      * @param {Pointer<Pointer>} pCookie A pointer to the cookie associated with the child item that has been returned.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-getchilditem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getchilditem
      */
     GetChildItem(item, pItemChild, pCookie) {
         pItemChildMarshal := pItemChild is VarRef ? "ptr*" : "ptr"
@@ -101,11 +103,13 @@ class IConsoleNameSpace extends IUnknown{
 
     /**
      * The IConsoleNameSpace2::GetNextItem method enables the snap-in to retrieve the handle to the next item in the scope view.
+     * @remarks
+     * If there is no item next to the given item, <b>NULL</b> is returned.
      * @param {Pointer} item A handle to an item in the scope pane.
      * @param {Pointer<Pointer>} pItemNext A pointer to the handle to the next item in the scope pane that has been returned.
      * @param {Pointer<Pointer>} pCookie A pointer to the cookie of the next item that has been returned.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-getnextitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getnextitem
      */
     GetNextItem(item, pItemNext, pCookie) {
         pItemNextMarshal := pItemNext is VarRef ? "ptr*" : "ptr"
@@ -117,11 +121,13 @@ class IConsoleNameSpace extends IUnknown{
 
     /**
      * The IConsoleNameSpace2::GetParentItem method enables the snap-in to retrieve the handle to a parent item in the scope view.
+     * @remarks
+     * If the given item has no parent, <b>NULL</b> is returned.
      * @param {Pointer} item A handle to an item in the scope pane.
      * @param {Pointer<Pointer>} pItemParent A pointer to the handle to the parent item that is returned.
      * @param {Pointer<Pointer>} pCookie A pointer to the cookie associated with the parent item that is returned.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace-getparentitem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getparentitem
      */
     GetParentItem(item, pItemParent, pCookie) {
         pItemParentMarshal := pItemParent is VarRef ? "ptr*" : "ptr"

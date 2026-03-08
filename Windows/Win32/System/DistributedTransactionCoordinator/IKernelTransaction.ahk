@@ -30,8 +30,9 @@ class IKernelTransaction extends IUnknown{
     static VTableNames => ["GetHandle"]
 
     /**
-     * 
+     * Retrieves certain properties of an object handle.
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-gethandleinformation
      */
     GetHandle() {
         pHandle := HANDLE()

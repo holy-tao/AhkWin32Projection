@@ -6,7 +6,7 @@
 
 /**
  * Provides access to information about an item (cell) in a spreadsheet.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-ispreadsheetitemprovider
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-ispreadsheetitemprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class ISpreadsheetItemProvider extends IUnknown{
     /**
      * Specifies the formula for this spreadsheet cell.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-get_formula
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-get_formula
      */
     get_Formula() {
         pRetVal := BSTR()
@@ -54,7 +54,7 @@ class ISpreadsheetItemProvider extends IUnknown{
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces that represent the annotations associated with the spreadsheet cell.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationobjects
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationobjects
      */
     GetAnnotationObjects() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -62,11 +62,11 @@ class ISpreadsheetItemProvider extends IUnknown{
     }
 
     /**
-     * Retrieves an array of annotation type identifiers indicating the types of annotations that are associated with this spreadsheet cell.
+     * Retrieves an array of annotation type identifiers indicating the types of annotations that are associated with this spreadsheet cell. (ISpreadsheetItemProvider.GetAnnotationTypes)
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives an array of annotation type identifiers, one for each type of annotation associated with the spreadsheet cell. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">Annotation Type Identifiers</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationtypes
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationtypes
      */
     GetAnnotationTypes() {
         result := ComCall(5, this, "ptr*", &pRetVal := 0, "HRESULT")

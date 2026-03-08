@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//thumbcache/nn-thumbcache-ithumbnailcacheprimer
+ * . (IThumbnailCachePrimer)
+ * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailcacheprimer
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,12 +31,12 @@ class IThumbnailCachePrimer extends IUnknown{
     static VTableNames => ["PageInThumbnail"]
 
     /**
-     * .
+     * . (IThumbnailCachePrimer.PageInThumbnail)
      * @param {IShellItem} psi 
      * @param {Integer} wtsFlags 
      * @param {Integer} cxyRequestedThumbSize 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail
      */
     PageInThumbnail(psi, wtsFlags, cxyRequestedThumbSize) {
         result := ComCall(3, this, "ptr", psi, "int", wtsFlags, "uint", cxyRequestedThumbSize, "HRESULT")

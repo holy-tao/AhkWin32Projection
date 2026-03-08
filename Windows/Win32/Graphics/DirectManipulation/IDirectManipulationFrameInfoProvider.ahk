@@ -5,7 +5,7 @@
 
 /**
  * Represents a time-keeping object that measures the latency of the composition infrastructure used by the application and provides this data to Direct Manipulation.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationframeinfoprovider
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationframeinfoprovider
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -32,11 +32,13 @@ class IDirectManipulationFrameInfoProvider extends IUnknown{
 
     /**
      * Retrieves the composition timing information from the compositor.
+     * @remarks
+     * The system implementation of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationframeinfoprovider">IDirectManipulationFrameInfoProvider</a> uses <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-portal">DirectComposition</a>. <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-idcompositiondevice-getframestatistics">GetFrameStatistics</a> is used to calculate the parameter values for <b>GetNextFrameInfo</b>.
      * @param {Pointer<Integer>} time The current time, in milliseconds.
      * @param {Pointer<Integer>} processTime The time, in milliseconds, when the compositor begins constructing the next frame.
      * @param {Pointer<Integer>} compositionTime The time, in milliseconds, when the compositor finishes composing and drawing the next frame on the screen.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
      */
     GetNextFrameInfo(time, processTime, compositionTime) {
         timeMarshal := time is VarRef ? "uint*" : "ptr"

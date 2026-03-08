@@ -5,7 +5,7 @@
 
 /**
  * Allows you to access fallback fonts from the font list.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefontfallback
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritefontfallback
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,44 +32,41 @@ class IDWriteFontFallback extends IUnknown{
 
     /**
      * Determines an appropriate font to use to render the beginning range of text.
-     * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
-     * 
-     * The text source implementation holds the text and locale.
-     * @param {Integer} textPosition Type: <b>UINT32</b>
+     * @param {IDWriteTextAnalysisSource} analysisSource 
+     * @param {Integer} textPosition Type: **UINT32**
      * 
      * Starting position to analyze.
-     * @param {Integer} textLength Type: <b>UINT32</b>
+     * @param {Integer} textLength Type: **UINT32**
      * 
      * Length of the text to analyze.
-     * @param {IDWriteFontCollection} baseFontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
+     * @param {IDWriteFontCollection} baseFontCollection Type: **[**IDWriteFontCollection**](/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection)\***
      * 
      * Default font collection to use.
-     * @param {PWSTR} baseFamilyName Type: <b>const wchar_t*</b>
+     * @param {PWSTR} baseFamilyName Type: **const wchar\_t\***
      * 
-     * Family name of the base font. If you pass null, no matching     will be done against the family.
-     * @param {Integer} baseWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * Family name of the base font. If you pass null, no matching will be done against the family.
+     * @param {Integer} baseWeight Type: **[**DWRITE\_FONT\_WEIGHT**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight)**
      * 
      * The desired weight.
-     * @param {Integer} baseStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @param {Integer} baseStyle Type: **[**DWRITE\_FONT\_STYLE**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style)**
      * 
      * The desired style.
-     * @param {Integer} baseStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @param {Integer} baseStretch Type: **[**DWRITE\_FONT\_STRETCH**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
      * 
      * The desired stretch.
-     * @param {Pointer<Integer>} mappedLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} mappedLength Type: **UINT32\***
      * 
-     * Length of text mapped to the mapped font. This will always be less than     or equal to the text length and greater than zero (if the text length is non-zero) so     the caller advances at least one character.
-     * @param {Pointer<IDWriteFont>} mappedFont Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * Length of text mapped to the mapped font. This will always be less than or equal to the text length and greater than zero (if the text length is non-zero) so the caller advances at least one character.
+     * @param {Pointer<IDWriteFont>} mappedFont Type: **[**IDWriteFont**](/windows/win32/api/dwrite/nn-dwrite-idwritefont)\*\***
      * 
-     * The font that should be used to render the first <i>mappedLength</i>     characters of the text. If it returns NULL, that means that no font can render the     text, and <i>mappedLength</i> is the number of characters to skip (rendered with a missing
-     *          glyph).
-     * @param {Pointer<Float>} scale Type: <b>FLOAT*</b>
+     * The font that should be used to render the first *mappedLength* characters of the text. If it returns NULL, that means that no font can render the text, and *mappedLength* is the number of characters to skip (rendered with a missing glyph).
+     * @param {Pointer<Float>} scale Type: **FLOAT\***
      * 
      * Scale factor to multiply the em size of the returned font by.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontfallback-mapcharacters
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontfallback-mapcharacters
      */
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, baseWeight, baseStyle, baseStretch, mappedLength, mappedFont, scale) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName

@@ -6,11 +6,8 @@
 /**
  * The IMSVidInputDevice interface represents any input device that is recognized by the Video Control, such as a television tuner card.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidInputDevice)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidinputdevice
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidinputdevice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -45,7 +42,7 @@ class IMSVidInputDevice extends IMSVidDevice{
      * The IsViewable method determines whether this device can view the specified tune request.
      * @param {Pointer<VARIANT>} v Specifies the tune request as a <b>VARIANT</b> type.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidinputdevice-isviewable
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidinputdevice-isviewable
      */
     IsViewable(v) {
         result := ComCall(16, this, "ptr", v, "short*", &pfViewable := 0, "HRESULT")
@@ -54,9 +51,11 @@ class IMSVidInputDevice extends IMSVidDevice{
 
     /**
      * The View method configures this input device to view the specified tune request.
+     * @remarks
+     * Before calling this method, set the device as the active input by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-put_inputactive">IMSVidCtl::put_InputActive</a> method. Unless the application needs to choose a specific input device, however, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">IMSVidCtl::View</a> method is recommended instead of the <b>IMSVidInputDevice::View</b> method.
      * @param {Pointer<VARIANT>} v Specifies the tune request as a <b>VARIANT</b> type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidinputdevice-view
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidinputdevice-view
      */
     View(v) {
         result := ComCall(17, this, "ptr", v, "HRESULT")

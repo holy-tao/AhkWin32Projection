@@ -30,6 +30,19 @@ class IStiDeviceControl extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {Integer} dwDeviceType 
      * @param {Integer} dwMode 
      * @param {PWSTR} pwszPortName 
@@ -45,7 +58,7 @@ class IStiDeviceControl extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(dwDeviceType, dwMode, pwszPortName, dwFlags) {
         pwszPortName := pwszPortName is String ? StrPtr(pwszPortName) : pwszPortName
@@ -133,11 +146,27 @@ class IStiDeviceControl extends IUnknown{
 
     /**
      * Retrieves the calling thread's last-error code value.
+     * @remarks
+     * Functions executed by the calling thread set this value by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> function. You should call the 
+     * <b>GetLastError</b> function immediately when a function's return value indicates that such a call will return useful data. That is because some functions call 
+     * <b>SetLastError</b> with a zero when they succeed, wiping out the error code set by the most recently failed function.
+     * 
+     * To obtain an error string for system error codes, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function. For a complete list of error codes provided by the operating system, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * 
+     * The error codes returned by a function are not part of the Windows API specification and can vary by operating system or device driver. For this reason, we cannot provide the complete list of error codes that can be returned by each function. There are also many functions whose documentation does not include even a partial list of error codes that can be returned.
+     * 
+     * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to one. That indicates that the error code has been defined by an application, and ensures that your error code does not conflict with any error codes defined by the system.
+     * 
+     * To convert a system error into an <b>HRESULT</b> value, use the 
+     * <a href="https://docs.microsoft.com/windows/win32/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro.
      * @param {Pointer<Integer>} lpdwLastError 
      * @returns {HRESULT} The return value is the calling thread's last-error code.
      * 
      * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
-     * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
+     * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(lpdwLastError) {
         lpdwLastErrorMarshal := lpdwLastError is VarRef ? "uint*" : "ptr"

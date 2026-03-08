@@ -5,7 +5,7 @@
 
 /**
  * An extension to IPropertyPage to support initial selection of a property on a page.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ipropertypage2
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertypage2
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,6 +32,9 @@ class IPropertyPage2 extends IPropertyPage{
 
     /**
      * Specifies which field is to receive the focus when the property page is activated.
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * If this method is called before a page is activated, the page should store the property and set the focus to it in the next call to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-activate">IPropertyPage::Activate</a>. If the page is already active, <b>EditProperty</b> should set the focus to the specific property field.
      * @param {Integer} dispID The property that is to receive the focus.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -63,7 +66,7 @@ class IPropertyPage2 extends IPropertyPage{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypage2-editproperty
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage2-editproperty
      */
     EditProperty(dispID) {
         result := ComCall(14, this, "int", dispID, "HRESULT")

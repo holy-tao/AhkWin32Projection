@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that allow third-party providers to query the currently enabled provider.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcprovidersupport
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcprovidersupport
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IWPCProviderSupport extends IUnknown{
 
     /**
      * Retrieves the GUID of the current provider.
+     * @remarks
+     * The <i>pguidProvider</i> parameter will be a null GUID if there is no currently selected provider.
      * @returns {Guid} The GUID of the current provider.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcprovidersupport-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcprovidersupport-getcurrent
      */
     GetCurrent() {
         pguidProvider := Guid()

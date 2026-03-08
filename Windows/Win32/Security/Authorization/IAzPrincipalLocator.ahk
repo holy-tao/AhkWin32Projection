@@ -8,12 +8,10 @@
 /**
  * Locates and chooses ADAM principals in Authorization Manager.
  * @remarks
- * 
  * An <b>IAzPrincipalLocator</b> object can contain a name resolver and an object picker. A name resolver translates <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifiers</a> (SIDs) into display names. An object picker displays a dialog box that enables a user to select from a list of ADAM principals. The dialog box can appear when a user modifies application groups or roles through the Authorization Manager user interface.
  * 
  * The <b>IAzPrincipalLocator</b> interface must be registered under the following key. <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>AzMan</b>&#92;<b>ObjectPicker</b></p>Under this registry key, create a subkey with a value of the COM class ID of the <b>IAzPrincipalLocator</b> interface. Authorization Manager supports only one registered principal locator.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazprincipallocator
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazprincipallocator
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -61,7 +59,7 @@ class IAzPrincipalLocator extends IDispatch{
     /**
      * Gets a pointer to the IAzNameResolver interface associated with this IAzPrincipalLocator object.
      * @returns {IAzNameResolver} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazprincipallocator-get_nameresolver
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_nameresolver
      */
     get_NameResolver() {
         result := ComCall(7, this, "ptr*", &ppNameResolver := 0, "HRESULT")
@@ -71,7 +69,7 @@ class IAzPrincipalLocator extends IDispatch{
     /**
      * Gets a pointer to the IAzObjectPicker interface associated with this IAzPrincipalLocator object.
      * @returns {IAzObjectPicker} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazprincipallocator-get_objectpicker
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_objectpicker
      */
     get_ObjectPicker() {
         result := ComCall(8, this, "ptr*", &ppObjectPicker := 0, "HRESULT")

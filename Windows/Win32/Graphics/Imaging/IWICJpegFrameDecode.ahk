@@ -11,10 +11,8 @@
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.
  * @remarks
- * 
  * Obtain this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on the Windows-provided <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecoder</a> interface for the JPEG decoder.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicjpegframedecode
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicjpegframedecode
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -41,10 +39,12 @@ class IWICJpegFrameDecode extends IUnknown{
 
     /**
      * Retrieves a value indicating whether this decoder supports indexing for efficient random access.
+     * @remarks
+     * Indexing is only supported for some JPEG types. Call this method
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if indexing is supported; otherwise, false.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-doessupportindexing
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-doessupportindexing
      */
     DoesSupportIndexing() {
         result := ComCall(3, this, "int*", &pfIndexingSupported := 0, "HRESULT")
@@ -53,16 +53,26 @@ class IWICJpegFrameDecode extends IUnknown{
 
     /**
      * Enables indexing of the JPEG for efficient random access.
+     * @remarks
+     * This method enables efficient random-access to the image pixels at the expense of memory usage.  The amount of memory required for indexing depends on the requested index granularity.   Unless <b>SetIndexing</b> is called, it is much more efficient to access a JPEG by progressing through its pixels top-down during calls to <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a>.
+     * 
+     * 
+     * This method will fail if indexing is unsupported on the file.  <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicjpegframedecode-doessupportindexing">IWICJpegFrameDecode::DoesSupportIndexing</a> should be called to first determine whether indexing is supported.  If this method is called multiple times, the final call changes the index granularity to the requested size.
+     * 
+     * 
+     * The provided interval size controls horizontal spacing of index entries.  This value is internally rounded up according to the JPEG’s MCU (minimum coded unit) size, which is typically either 8 or 16 unscaled pixels.  The vertical size of the index interval is always equal to one MCU size.
+     * 
+     * Indexes can be generated immediately, or during future calls to <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a> to reduce redundant decompression work.
      * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicjpegindexingoptions">WICJpegIndexingOptions</a></b>
      * 
      * A value specifying whether indexes should be generated immediately or deferred until a future call to <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a>.
      * @param {Integer} horizontalIntervalSize Type: <b>UINT</b>
      * 
      * The granularity of the indexing, in pixels.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK upon successful completion.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-setindexing
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-setindexing
      */
     SetIndexing(options, horizontalIntervalSize) {
         result := ComCall(4, this, "int", options, "uint", horizontalIntervalSize, "HRESULT")
@@ -71,10 +81,10 @@ class IWICJpegFrameDecode extends IUnknown{
 
     /**
      * Removes the indexing from a JPEG that has been indexed using IWICJpegFrameDecode::SetIndexing.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns S_OK upons successful completion.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-clearindexing
+     * Returns S_OK upon successful completion.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-clearindexing
      */
     ClearIndexing() {
         result := ComCall(5, this, "HRESULT")
@@ -82,7 +92,7 @@ class IWICJpegFrameDecode extends IUnknown{
     }
 
     /**
-     * Retrieves a copy of the AC Huffman table for the specified scan and table.
+     * Retrieves a copy of the AC Huffman table for the specified scan and table. (IWICJpegFrameDecode.GetAcHuffmanTable)
      * @param {Integer} scanIndex Type: <b>UINT</b>
      * 
      * The zero-based index of the scan for which data is retrieved.
@@ -92,7 +102,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {DXGI_JPEG_AC_HUFFMAN_TABLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-jpeg-ac-huffman-table">DXGI_JPEG_AC_HUFFMAN_TABLE</a>*</b>
      * 
      * A pointer that receives the table data. This parameter must not be NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-getachuffmantable
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-getachuffmantable
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
@@ -101,7 +111,7 @@ class IWICJpegFrameDecode extends IUnknown{
     }
 
     /**
-     * Retrieves a copy of the DC Huffman table for the specified scan and table.
+     * Retrieves a copy of the DC Huffman table for the specified scan and table. (IWICJpegFrameDecode.GetDcHuffmanTable)
      * @param {Integer} scanIndex Type: <b>UINT</b>
      * 
      * The zero-based index of the scan for which data is retrieved.
@@ -111,7 +121,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {DXGI_JPEG_DC_HUFFMAN_TABLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-jpeg-ac-huffman-table">DXGI_JPEG_AC_HUFFMAN_TABLE</a>*</b>
      * 
      * A pointer that receives the table data. This parameter must not be NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-getdchuffmantable
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-getdchuffmantable
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
@@ -120,7 +130,7 @@ class IWICJpegFrameDecode extends IUnknown{
     }
 
     /**
-     * Retrieves a copy of the quantization table.
+     * Retrieves a copy of the quantization table. (IWICJpegFrameDecode.GetQuantizationTable)
      * @param {Integer} scanIndex Type: <b>UINT</b>
      * 
      * The zero-based index of the scan for which data is retrieved.
@@ -130,7 +140,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {DXGI_JPEG_QUANTIZATION_TABLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-jpeg-quantization-table">DXGI_JPEG_QUANTIZATION_TABLE</a>*</b>
      * 
      * A pointer that receives the table data. This parameter must not be NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-getquantizationtable
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-getquantizationtable
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
@@ -143,7 +153,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {WICJpegFrameHeader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicjpegframeheader">WICJpegFrameHeader</a>*</b>
      * 
      * A pointer that receives the frame header data.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-getframeheader
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-getframeheader
      */
     GetFrameHeader() {
         pFrameHeader := WICJpegFrameHeader()
@@ -159,7 +169,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {WICJpegScanHeader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicjpegscanheader">WICJpegScanHeader</a>*</b>
      * 
      * A pointer that receives the frame header data.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-getscanheader
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-getscanheader
      */
     GetScanHeader(scanIndex) {
         pScanHeader := WICJpegScanHeader()
@@ -184,7 +194,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * @param {Pointer<Integer>} pcbScanDataActual Type: <b>UINT*</b>
      * 
      * A pointer that receives the size of the scan data actually copied into <i>pbScanData</i>. The size returned may be smaller that the size of <i>cbScanData</i>. This  parameter may be NULL.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method can return one of these values.
      * 
@@ -216,7 +226,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframedecode-copyscan
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-copyscan
      */
     CopyScan(scanIndex, scanOffset, cbScanData, pbScanData, pcbScanDataActual) {
         pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * Provides a means of determining the source of inherited access control entries (ACEs) in discretionary access control lists (DACLs) and system access control lists (SACLs).
- * @see https://docs.microsoft.com/windows/win32/api//aclui/nn-aclui-isecurityobjecttypeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityobjecttypeinfo
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class ISecurityObjectTypeInfo extends IUnknown{
      * @returns {HRESULT} If the function is successful, the return value is S_OK.
      * 
      *  
-     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityobjecttypeinfo-getinheritsource
+     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityobjecttypeinfo-getinheritsource
      */
     GetInheritSource(si, pACL, ppInheritArray) {
         ppInheritArrayMarshal := ppInheritArray is VarRef ? "ptr*" : "ptr"

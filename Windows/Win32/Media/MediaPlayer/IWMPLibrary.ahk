@@ -6,7 +6,7 @@
 
 /**
  * The IWMPLibrary interface represents a library.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmplibrary
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrary
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -52,6 +52,8 @@ class IWMPLibrary extends IUnknown{
 
     /**
      * The get_name method retrieves the display name of the current library.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the name of the current library.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -72,7 +74,7 @@ class IWMPLibrary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_name
      */
     get_name(pbstrName) {
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
@@ -81,6 +83,8 @@ class IWMPLibrary extends IUnknown{
 
     /**
      * The get_type method retrieves a value that indicates the library type.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} pwmplt Pointer to a variable that receives a value from the <b>WMPLibraryType</b> enumeration that indicates the library type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -101,7 +105,7 @@ class IWMPLibrary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_type
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_type
      */
     get_type(pwmplt) {
         pwmpltMarshal := pwmplt is VarRef ? "int*" : "ptr"
@@ -112,8 +116,10 @@ class IWMPLibrary extends IUnknown{
 
     /**
      * The get_mediaCollection method retrieves a pointer to the IWMPMediaCollection interface for the current library.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {IWMPMediaCollection} Address of a variable that receives a pointer to the <b>IWMPMediaCollection</b> interface for the current library.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_mediacollection
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_mediacollection
      */
     get_mediaCollection() {
         result := ComCall(5, this, "ptr*", &ppIWMPMediaCollection := 0, "HRESULT")
@@ -122,6 +128,8 @@ class IWMPLibrary extends IUnknown{
 
     /**
      * The isIdentical method retrieves a value that indicates whether the supplied object is the same as the current one.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {IWMPLibrary} pIWMPLibrary Pointer to an <b>IWMPLibrary</b> interface that represents the object to compare with current one.
      * @param {Pointer<VARIANT_BOOL>} pvbool Pointer to a <b>VARIANT_BOOL</b> that receives the result of the comparison. VARIANT_TRUE indicates that the objects are the same.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -143,7 +151,7 @@ class IWMPLibrary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-isidentical
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-isidentical
      */
     isIdentical(pIWMPLibrary, pvbool) {
         pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"

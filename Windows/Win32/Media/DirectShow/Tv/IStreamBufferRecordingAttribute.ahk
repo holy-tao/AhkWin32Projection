@@ -7,11 +7,8 @@
 /**
  * The IStreamBufferRecordingAttribute interface sets and retrieves attributes on a stream buffer recording.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferRecordingAttribute)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferrecordingattribute
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferrecordingattribute
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,13 +35,17 @@ class IStreamBufferRecordingAttribute extends IUnknown{
 
     /**
      * The SetAttribute method sets an attribute on the stream buffer file.
+     * @remarks
+     * If an attribute with that name already exists, the method overwrites it with the new value.
+     * 
+     * The method fails if the recorder object is already recording.
      * @param {Integer} ulReserved Reserved. Set this parameter to zero.
      * @param {PWSTR} pszAttributeName Wide-character string that contains the name of the attribute.
      * @param {Integer} StreamBufferAttributeType Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ne-sbe-streambuffer_attr_datatype">STREAMBUFFER_ATTR_DATATYPE</a> enumeration that defines the data type of the attribute data.
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that contains the attribute data.
      * @param {Integer} cbAttributeLength The size of the buffer specified in <i>pbAttribute</i>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordingattribute-setattribute
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-setattribute
      */
     SetAttribute(ulReserved, pszAttributeName, StreamBufferAttributeType, pbAttribute, cbAttributeLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
@@ -59,7 +60,7 @@ class IStreamBufferRecordingAttribute extends IUnknown{
      * The GetAttributeCount method returns the number of attributes that are currently defined for this stream buffer file.
      * @param {Integer} ulReserved Reserved. Set this parameter to zero.
      * @returns {Integer} Pointer to a variable that receives the number of attributes.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordingattribute-getattributecount
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributecount
      */
     GetAttributeCount(ulReserved) {
         result := ComCall(4, this, "uint", ulReserved, "ushort*", &pcAttributes := 0, "HRESULT")
@@ -103,7 +104,7 @@ class IStreamBufferRecordingAttribute extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordingattribute-getattributebyname
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributebyname
      */
     GetAttributeByName(pszAttributeName, pulReserved, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
@@ -156,7 +157,7 @@ class IStreamBufferRecordingAttribute extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordingattribute-getattributebyindex
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributebyindex
      */
     GetAttributeByIndex(wIndex, pulReserved, pszAttributeName, pcchNameLength, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
@@ -175,7 +176,7 @@ class IStreamBufferRecordingAttribute extends IUnknown{
      * The EnumAttributes method enumerates the existing attributes of the stream buffer file. This method returns an enumerator object, which the caller can then use to enumerate the attributes.
      * @returns {IEnumStreamBufferRecordingAttrib} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-ienumstreambufferrecordingattrib">IEnumStreamBufferRecordingAttrib</a> interface pointer.
      *           The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordingattribute-enumattributes
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-enumattributes
      */
     EnumAttributes() {
         result := ComCall(7, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")

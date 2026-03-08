@@ -6,7 +6,7 @@
 
 /**
  * The ITRequest interface allows an application to use Assisted Telephony. Assisted Telephony provides telephony-enabled applications with a simple mechanism for making phone calls without requiring the developer to become fully literate in telephony.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itrequest
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itrequest
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class ITRequest extends IDispatch{
 
     /**
      * The MakeCall method makes a call to the designated party.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDestAddress, pAppName, pCalledParty,</i> and <i>pComment</i> parameters. The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variables are no longer needed.
      * @param {BSTR} pDestAddress Pointer to a <b>BSTR</b> containing the destination address for the call.
      * @param {BSTR} pAppName Pointer to a <b>BSTR</b> containing the name of the application.
      * @param {BSTR} pCalledParty Pointer to a <b>BSTR</b> containing the called party name.
@@ -100,7 +104,7 @@ class ITRequest extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequest-makecall
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequest-makecall
      */
     MakeCall(pDestAddress, pAppName, pCalledParty, pComment) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress

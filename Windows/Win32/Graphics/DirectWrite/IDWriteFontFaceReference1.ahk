@@ -7,7 +7,7 @@
 
 /**
  * Represents a reference to a font face. A uniquely identifying reference to a font, from which you can create a font face to query font metrics and use for rendering.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontfacereference1
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,8 +33,10 @@ class IDWriteFontFaceReference1 extends IDWriteFontFaceReference{
     static VTableNames => ["CreateFontFace", "GetFontAxisValueCount", "GetFontAxisValues"]
 
     /**
+     * Uses the reference to create a font face, for use with layout, shaping, or rendering.
+     * @returns {IDWriteFontFace5} Type: **[IDWriteFontFace5](./nn-dwrite_3-idwritefontface5.md)\*\***
      * 
-     * @returns {IDWriteFontFace5} 
+     * The address of a pointer to an [IDWriteFontFace5](./nn-dwrite_3-idwritefontface5.md) interface. On successful completion, the function sets the pointer to a newly created font face object, otherwise it sets the pointer to `nullptr`.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference1-createfontface
      */
     CreateFontFace() {
@@ -43,8 +45,10 @@ class IDWriteFontFaceReference1 extends IDWriteFontFaceReference{
     }
 
     /**
+     * Retrieves the number of axes specified by the reference.
+     * @returns {Integer} Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
+     * The number of axes defined by the font face.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference1-getfontaxisvaluecount
      */
     GetFontAxisValueCount() {
@@ -53,9 +57,13 @@ class IDWriteFontFaceReference1 extends IDWriteFontFaceReference{
     }
 
     /**
+     * Retrieves the list of font axis values specified by the reference.
+     * @param {Integer} fontAxisValueCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} fontAxisValueCount 
-     * @returns {DWRITE_FONT_AXIS_VALUE} 
+     * The maximum number of font axis values to write into the memory block pointed to by `fontAxisValues`.
+     * @returns {DWRITE_FONT_AXIS_VALUE} Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md)\***
+     * 
+     * A pointer to an array of **DWRITE_FONT_AXIS_VALUE** structures into which **GetFontAxisValues** writes the list of font axis values. You're responsible for managing the size and the lifetime of this array. Call [GetFontAxisValueCount](./nf-dwrite_3-idwritefontfacereference1-getfontaxisvaluecount.md) to determine the size of array to allocate.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference1-getfontaxisvalues
      */
     GetFontAxisValues(fontAxisValueCount) {

@@ -7,14 +7,12 @@
 /**
  * Exposes methods that send data about the session and that can terminate it.
  * @remarks
- * 
  * The instant messaging (IM) application implements this interface and passes the object that implements <b>IRendezvousSession</b> and supports the <a href="https://docs.microsoft.com/previous-versions/ms715092(v=vs.85)">DRendezvousSessionEvents</a> connection point. 
  * 
  * The Windows Remote Assistance application calls <b>IRendezvousSession</b>-&gt;<a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> to retain the session after the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rendezvoussession/nf-rendezvoussession-irendezvousapplication-setrendezvoussession">SetRendezvousSession</a> completes. 
  * 
  * The Windows Remote Assistance application calls <b>IRendezvousSession</b>-&gt;<a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> when the session is complete.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nn-rendezvoussession-irendezvoussession
+ * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nn-rendezvoussession-irendezvoussession
  * @namespace Windows.Win32.System.RemoteAssistance
  * @version v4.0.30319
  */
@@ -63,7 +61,7 @@ class IRendezvousSession extends IUnknown{
     /**
      * Retrieves a value that indicates the session state.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state
      */
     get_State() {
         result := ComCall(3, this, "int*", &pSessionState := 0, "HRESULT")
@@ -73,7 +71,7 @@ class IRendezvousSession extends IUnknown{
     /**
      * Retrieves a pointer to a BSTR that contains the Windows Messenger contact name.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvoussession-get_remoteuser
+     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_remoteuser
      */
     get_RemoteUser() {
         bstrUserName := BSTR()
@@ -84,7 +82,7 @@ class IRendezvousSession extends IUnknown{
     /**
      * Retrieves a value that indicates session information. For example, the session flag can indicate whether the user is the inviter or the invitee.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvoussession-get_flags
+     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_flags
      */
     get_Flags() {
         result := ComCall(5, this, "int*", &pFlags := 0, "HRESULT")
@@ -135,7 +133,7 @@ class IRendezvousSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvoussession-sendcontextdata
+     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-sendcontextdata
      */
     SendContextData(bstrData) {
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
@@ -148,8 +146,8 @@ class IRendezvousSession extends IUnknown{
      * Terminates the remote RendezvousApplication.
      * @param {HRESULT} hr The <b>HRESULT</b> from the application termination.
      * @param {BSTR} bstrAppData Application data.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvoussession-terminate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-terminate
      */
     Terminate(hr, bstrAppData) {
         bstrAppData := bstrAppData is String ? BSTR.Alloc(bstrAppData).Value : bstrAppData

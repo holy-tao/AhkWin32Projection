@@ -61,8 +61,9 @@ class IBidiRequest extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a list of properties the recognizer can return for a result range.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
      */
     GetResult() {
         result := ComCall(5, this, "int*", &phr := 0, "HRESULT")

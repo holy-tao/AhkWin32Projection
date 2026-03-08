@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfhttpdownloadrequest
+ * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadRequest)
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadrequest
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-addheader
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-addheader
      */
     AddHeader(szHeader) {
         szHeader := szHeader is String ? StrPtr(szHeader) : szHeader
@@ -75,6 +75,8 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to send a HTTP or HTTPS request.
+     * @remarks
+     * The implementation of <b>BeginWrite</b> does not need to make a private copy of the memory pointed to by <i>pbPayload</i>, as Microsoft Media Foundation will not reallocate, free, or write to the buffer while an asynchronous write is still pending.
      * @param {Pointer<Integer>} pbPayload Pointer to a buffer that contains the message payload to send in the request. This parameter is used for POST requests. GET requests do not carry a message payload and therefore <i>pbPayload</i> is NULL.
      * @param {Integer} cbPayload The size of the <i>pbPayload</i> buffer, in bytes.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object that is implemented by Microsoft Media Foundation.
@@ -110,7 +112,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-beginsendrequest
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginsendrequest
      */
     BeginSendRequest(pbPayload, cbPayload, pCallback, punkState) {
         pbPayloadMarshal := pbPayload is VarRef ? "char*" : "ptr"
@@ -142,7 +144,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-endsendrequest
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endsendrequest
      */
     EndSendRequest(pResult) {
         result := ComCall(5, this, "ptr", pResult, "HRESULT")
@@ -173,7 +175,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-beginreceiveresponse
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreceiveresponse
      */
     BeginReceiveResponse(pCallback, punkState) {
         result := ComCall(6, this, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -182,6 +184,8 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to complete the asynchronous operation started by BeginReceiveResponse.
+     * @remarks
+     * If the server failed the request but responded with a specific HTTP status code, the <b>EndReceiveResponse</b> should still return S_OK. Media Foundation will invoke the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gethttpstatus">GetHttpStatus</a> method to retrieve the HTTP status code.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Microsoft Media Foundation will pass in the same pointer that its callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
@@ -203,7 +207,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse
      */
     EndReceiveResponse(pResult) {
         result := ComCall(7, this, "ptr", pResult, "HRESULT")
@@ -212,11 +216,13 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to receive the message body of the response to a previously sent HTTP or HTTPS request.
+     * @remarks
+     * Microsoft Media Foundation never invokes <b>BeginReadPayload</b> while a previous call to <b>BeginReadPayload</b> has not yet completed.
      * @param {Integer} cb Specifies the size of the <i>pb</i> buffer, in bytes.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object that is implemented by Microsoft Media Foundation.
      * @param {IUnknown} punkState Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a state object, defined by Microsoft Media Foundation. This parameter can be NULL.
      * @returns {Integer} Pointer to a buffer that receives the data.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
      */
     BeginReadPayload(cb, pCallback, punkState) {
         result := ComCall(8, this, "char*", &pb := 0, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -243,12 +249,12 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Successfully wrote data to the buffer provided in <a href="/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload">BeginReadPayload</a>.
+     * Successfully wrote data to the buffer provided in <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload">BeginReadPayload</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-endreadpayload
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreadpayload
      */
     EndReadPayload(pResult, pqwOffset, pcbRead) {
         pqwOffsetMarshal := pqwOffset is VarRef ? "uint*" : "ptr"
@@ -263,7 +269,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @param {PWSTR} szHeaderName The name of the HTTP header for which the value is being queried.
      * @param {Integer} dwIndex The index number of the specified header, for the case where the response contains multiple headers with the same name. A value of 0 indicates that the value of the first header with the specified name is requested, 1 indicates that the second header is requested, and so on.
      * @returns {PWSTR} Set to the value of the requested header, not including the carriage return or line feed characters. The memory for <i>ppszHeaderValue</i> must be allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and will be freed by Media Foundation with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-queryheader
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-queryheader
      */
     QueryHeader(szHeaderName, dwIndex) {
         szHeaderName := szHeaderName is String ? StrPtr(szHeaderName) : szHeaderName
@@ -274,8 +280,10 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Returns the URL that is used for sending the request.
+     * @remarks
+     * By default, <b>GetURL</b> returns an URL which is synthesized from the parameters provided by Media Foundation in the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadsession-setserver">IMFHttpDownloadSession::SetServer</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadsession-createrequest">IMFHttpDownloadSession::CreateRequest</a> methods. However, if the HTTP server has redirected the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadrequest">IMFHttpDownloadRequest</a> to a different server (i.e., through a “302 See Other” HTTP response) then the <b>GetURL</b> method returns the URL that the HTTP server specified.
      * @returns {PWSTR} The URL that is used for sending the request to the server. Note that this URL may be different if the server has issued a HTTP protocol “redirect”. The memory for <i>pszURL</i> must be allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and will be freed by Media Foundation with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-geturl
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-geturl
      */
     GetURL() {
         result := ComCall(11, this, "ptr*", &ppszURL := 0, "HRESULT")
@@ -284,8 +292,10 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to detect the case when a HTTP or HTTPS request has been redirected to a different server of different &quot;origin&quot;.
+     * @remarks
+     * The <i>pfNullSourceOrigin</i> parameter should be set to TRUE if <b>HasNullSourceOrigin</b> is invoked before <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse">EndReceiveResponse</a> has been invoked. For more information about the concept of origin in HTTP, see <a href="https://tools.ietf.org/html/rfc6454">RFC-6454</a>.
      * @returns {BOOL} Set to TRUE if the current request has a “null” source origin. The source origin would become “null” if the HTTP request was redirected from one server to another, and the two servers have different origins.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-hasnullsourceorigin
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-hasnullsourceorigin
      */
     HasNullSourceOrigin() {
         result := ComCall(12, this, "int*", &pfNullSourceOrigin := 0, "HRESULT")
@@ -294,6 +304,8 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to retrieve the values of the TimeSeekRange.DLNA.ORG HTTP header, if any, that the server specified in its response.
+     * @remarks
+     * The values of all the parameters should be set to 0 if <b>GetTimeSeekResult</b> is invoked before <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse">EndReceiveResponse</a> has been invoked. For information about the syntax for the TimeSeekRange.DLNA.ORG header, please refer to the <a href="http://www.dlna.org/guidelines/">DLNA web site</a>.
      * @param {Pointer<Integer>} pqwStartTime The starting time offset, specified in units of one-hundred nanoseconds.
      * @param {Pointer<Integer>} pqwStopTime The end time offset, specified in units of one-hundred nanoseconds
      * @param {Pointer<Integer>} pqwDuration The time duration of data contained in the response, specified in units of one-hundred nanoseconds. Set this parameter to 0 if the server did not specify a duration (i.e., specified “*” as the duration.)
@@ -339,7 +351,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-gettimeseekresult
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
         pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"
@@ -353,7 +365,7 @@ class IMFHttpDownloadRequest extends IUnknown{
     /**
      * Invoked by Microsoft Media Foundation to retrieve the HTTP status code that the server specified in its response. Media Foundation invokes this method after a successful call to EndReceiveResponse.
      * @returns {Integer} The HTTP status code of the response. For example, the value is  200 for a typical successful response.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-gethttpstatus
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gethttpstatus
      */
     GetHttpStatus() {
         result := ComCall(14, this, "uint*", &pdwHttpStatus := 0, "HRESULT")
@@ -362,8 +374,10 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to check if it should invoke BeginReadPayload to read data from the message body of the response.
+     * @remarks
+     * Microsoft Media Foundation invokes <b>GetAtEndOfPayload</b> only after having successfully invoked <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse">EndReceiveResponse</a>.
      * @returns {BOOL} Set to FALSE if a call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload">BeginReadPayload</a> can return one or more bytes of data to Media Foundation. Set to TRUE when there is no more data to return.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-getatendofpayload
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getatendofpayload
      */
     GetAtEndOfPayload() {
         result := ComCall(15, this, "int*", &pfAtEndOfPayload := 0, "HRESULT")
@@ -372,8 +386,10 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to retrieve the total length of the resource that is being downloaded, if known.
+     * @remarks
+     * Microsoft Media Foundation invokes <b>GetTotalLength</b> only after having successfully invoked <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse">EndReceiveResponse</a>. The total length of the resource may be larger than the amount of data returned by the server in the current response. For example, if the request included the HTTP “Range” header, the data returned in the response may be less than total length of the resource. The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getrangeendoffset">GetRangeEndOffset</a> method can be used to calculate how much data is returned in the current response.
      * @returns {Integer} The total length, in bytes, of the resource being downloaded, if known. If not known, set to <b>MAX_ULONG</b> (0xFFFFFFFFFFFFFFFF).
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-gettotallength
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettotallength
      */
     GetTotalLength() {
         result := ComCall(16, this, "uint*", &pqwTotalLength := 0, "HRESULT")
@@ -382,8 +398,10 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to retrieve the offset of the last byte in the current response, counted from the start of the resource. This is useful when a request uses the HTTP “Range” header to download only a portion of a resource.
+     * @remarks
+     * Microsoft Media Foundation invokes <b>GetRangeEndOffset</b> only after having successfully invoked <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreceiveresponse">EndReceiveResponse</a>.
      * @returns {Integer} The offset of the last byte in the current response, counted from the start of the resource, if known. For example, if the request specified the HTTP header, “Range: bytes=1000-“ and the size of the message body in the response is 200 bytes, then <i>pwqRangeEnd</i> becomes 1199. If the value is not known, for example, because the server did not specify the size of its response, <i>pwqRangeEnd</i> is set to MAX_ULONG (0xFFFFFFFFFFFFFFFF).
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-getrangeendoffset
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getrangeendoffset
      */
     GetRangeEndOffset() {
         result := ComCall(17, this, "uint*", &pqwRangeEnd := 0, "HRESULT")
@@ -392,6 +410,8 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * Invoked by Microsoft Media Foundation to allow IMFHttpDownloadRequest to free any internal resources. It will also cancel the current request if it is still in progress.
+     * @remarks
+     * Microsoft Media Foundation will not invoke any other methods on the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadrequest">IMFHttpDownloadRequest</a> interface after having invoked <b>Close</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
@@ -412,7 +432,7 @@ class IMFHttpDownloadRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadrequest-close
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-close
      */
     Close() {
         result := ComCall(18, this, "HRESULT")

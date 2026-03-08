@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Local system has a valid connection to the Internet, but it might or might not be currently connected.
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstate
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

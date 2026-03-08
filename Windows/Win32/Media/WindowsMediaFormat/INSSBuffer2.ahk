@@ -5,7 +5,7 @@
 
 /**
  * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
- * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nn-wmsbuffer-inssbuffer2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class INSSBuffer2 extends INSSBuffer{
     static VTableNames => ["GetSampleProperties", "SetSampleProperties"]
 
     /**
-     * 
+     * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
      * @param {Integer} cbProperties 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
@@ -42,7 +42,7 @@ class INSSBuffer2 extends INSSBuffer{
     }
 
     /**
-     * 
+     * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
      * @param {Integer} cbProperties 
      * @param {Pointer<Integer>} pbProperties 
      * @returns {HRESULT} 

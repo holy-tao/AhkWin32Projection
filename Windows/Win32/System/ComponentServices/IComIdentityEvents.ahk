@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber about an activity that is part of an Internet Information Services (IIS) Active Server Pages (ASP) page. For example, if a COM+ object is invoked in an ASP page, the user would be notified of this activity.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomidentityevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomidentityevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IComIdentityEvents extends IUnknown{
      * @param {PWSTR} pszServerIP The IP address of the IIS server.
      * @param {PWSTR} pszURL The URL on IIS server generating object reference.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomidentityevents-oniisrequestinfo
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomidentityevents-oniisrequestinfo
      */
     OnIISRequestInfo(pInfo, ObjId, pszClientIP, pszServerIP, pszURL) {
         pszClientIP := pszClientIP is String ? StrPtr(pszClientIP) : pszClientIP

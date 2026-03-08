@@ -29,10 +29,17 @@ class ISpRegDataKey extends ISpDataKey{
     static VTableNames => ["SetKey"]
 
     /**
-     * 
+     * Copies an array of keyboard key states into the calling thread's keyboard input-state table. This is the same table accessed by the GetKeyboardState and GetKeyState functions. Changes made to this table do not affect keyboard input to any other thread.
+     * @remarks
+     * Because the <b>SetKeyboardState</b> function alters the input state of the calling thread and not the global input state of the system, an application cannot use <b>SetKeyboardState</b> to set the NUM LOCK, CAPS LOCK, or SCROLL LOCK (or the Japanese KANA) indicator lights on the keyboard. These can be set or cleared using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendinput">SendInput</a> to simulate keystrokes.
      * @param {HKEY} hkey 
      * @param {BOOL} fReadOnly 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setkeyboardstate
      */
     SetKey(hkey, fReadOnly) {
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey

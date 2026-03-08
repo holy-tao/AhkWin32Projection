@@ -50,10 +50,11 @@ class IHlinkTarget extends IUnknown{
     }
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {Integer} grfHLNF 
      * @param {PWSTR} pwzJumpLocation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(grfHLNF, pwzJumpLocation) {
         pwzJumpLocation := pwzJumpLocation is String ? StrPtr(pwzJumpLocation) : pwzJumpLocation
@@ -76,9 +77,13 @@ class IHlinkTarget extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the display name for a certificate. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The cryptdlg.h header defines GetFriendlyNameOfCert as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pwzLocation 
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/nf-cryptdlg-getfriendlynameofcerta
      */
     GetFriendlyName(pwzLocation) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation

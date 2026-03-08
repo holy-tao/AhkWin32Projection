@@ -7,7 +7,7 @@
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspropertyvalue
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -130,8 +130,10 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * Clears the current values of the property value object.
-     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertyvalue-clear
+     * @remarks
+     * None
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue-clear
      */
     Clear() {
         result := ComCall(7, this, "HRESULT")

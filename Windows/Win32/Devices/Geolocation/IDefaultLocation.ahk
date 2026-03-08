@@ -7,11 +7,9 @@
 /**
  * IDefaultLocation provides methods used to specify or retrieve the default location.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  An application does not receive the expected location change event from <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged">OnLocationChanged</a> if both of the following conditions are true. First, the application runs as a service, in the context of the LOCALSERVICE, SYSTEM, or NETWORKSERVICE user account. Second, the location change event results from changing the default location, either manually when the user selects <b>Default Location</b> in Control Panel, or programmatically when an application calls <b>IDefaultLocation::SetReport</b>.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-idefaultlocation
+ * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-idefaultlocation
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
@@ -44,6 +42,15 @@ class IDefaultLocation extends IUnknown{
 
     /**
      * Sets the default location.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> is the base interface of specific location report types. The actual interface you use for <i>pLocationReport</i> must match the type you specify through <i>reportType</i>.
+     * 
+     * Note that the type specified by <i>reportType</i> must be the <b>IID</b> of either <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-icivicaddressreport">ICivicAddressReport</a> or <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilatlongreport">ILatLongReport</a>.
+     * 
+     * The latitude and longitude provided in a latitude/longitude report must correspond to a location on the globe. Otherwise this method returns an <b>HRESULT</b> error value.
+     * 
+     * <div class="alert"><b>Note</b>  An application does not receive the expected location change event from <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged">OnLocationChanged</a> if both of the following conditions are true. First, the application runs as a service, in the context of the LOCALSERVICE, SYSTEM, or NETWORKSERVICE user account. Second, the location change event results from changing the default location, either manually when the user selects <b>Default Location</b> in Control Panel, or programmatically when an application calls <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-idefaultlocation">IDefaultLocation::SetReport</a>.</div>
+     * <div> </div>
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that represents the interface ID of the type of report that is passed using <i>pLocationReport</i>.
      * @param {ILocationReport} pLocationReport Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> instance that contains the location report from the default location provider.
      * @returns {HRESULT} Possible values include, but are not limited to, those in the following table.
@@ -87,7 +94,7 @@ class IDefaultLocation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-idefaultlocation-setreport
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-setreport
      */
     SetReport(reportType, pLocationReport) {
         result := ComCall(3, this, "ptr", reportType, "ptr", pLocationReport, "HRESULT")
@@ -96,9 +103,13 @@ class IDefaultLocation extends IUnknown{
 
     /**
      * Retrieves the specified report type from the default location provider.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> is the base interface for specific location report types. The actual interface you use for <i>ppLocationReport</i> must match the type you specified through <i>reportType</i>.
+     * 
+     * A call to <b>IDefaultLocation::GetReport</b> may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> representing the interface ID for the type of report being retrieved.
      * @returns {ILocationReport} The address of a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> that receives the specified location report from the default location provider.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-idefaultlocation-getreport
+     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-getreport
      */
     GetReport(reportType) {
         result := ComCall(4, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")

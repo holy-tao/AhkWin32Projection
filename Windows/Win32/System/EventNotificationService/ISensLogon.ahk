@@ -6,7 +6,7 @@
 
 /**
  * The ISensLogon interface handles logon events fired by SENS.
- * @see https://docs.microsoft.com/windows/win32/api//sensevts/nn-sensevts-isenslogon
+ * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isenslogon
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
  */
@@ -32,7 +32,12 @@ class ISensLogon extends IDispatch{
     static VTableNames => ["Logon", "Logoff", "StartShell", "DisplayLock", "DisplayUnlock", "StartScreenSaver", "StopScreenSaver"]
 
     /**
-     * The Logon method notifies an application that a user is logged on.
+     * The Logon method notifies an application that a user is logged on. (ISensLogon.Logon)
+     * @remarks
+     * SENS calls this method to notify an application that a user is logged on.
+     * 
+     * <div class="alert"><b>Important</b>  This function will not work with multiple logins through Remote Desktop Services and does not support Remote Desktop Services or Fast-User Switching scenarios. Desktop applications can register for session changes notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a>. Services can handle session change notifications via SERVICE_CONTROL_SESSIONCHANGE control codes in their <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> callback function.</div>
+     * <div> </div>
      * @param {BSTR} bstrUserName The name of a user who is logged on.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -53,7 +58,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-logon
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-logon
      */
     Logon(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -63,7 +68,12 @@ class ISensLogon extends IDispatch{
     }
 
     /**
-     * The Logoff method notifies an application that a user is logged off.
+     * The Logoff method notifies an application that a user is logged off. (ISensLogon.Logoff)
+     * @remarks
+     * SENS calls this method to notify an application that a user is logged off.
+     * 
+     * <div class="alert"><b>Important</b>  This function will not work with multiple logins through Remote Desktop Services and does not support Remote Desktop Services or Fast-User Switching scenarios. Desktop applications can register for session changes notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a>. Services can handle session change notifications via SERVICE_CONTROL_SESSIONCHANGE control codes in their <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> callback function.</div>
+     * <div> </div>
      * @param {BSTR} bstrUserName The name of a user who logs off.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -84,7 +94,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-logoff
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-logoff
      */
     Logoff(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -95,6 +105,8 @@ class ISensLogon extends IDispatch{
 
     /**
      * The StartShell method notifies an application that the shell is started.
+     * @remarks
+     * SENS calls this method to notify an application that the shell is started.
      * @param {BSTR} bstrUserName The name of a current user.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -115,7 +127,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-startshell
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-startshell
      */
     StartShell(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -126,6 +138,11 @@ class ISensLogon extends IDispatch{
 
     /**
      * The DisplayLock method notifies an application that the screen display is locked.
+     * @remarks
+     * SENS calls this method to notify an application that the screen display is locked.
+     * 
+     * <div class="alert"><b>Important</b>  This function will not work with multiple logins through Remote Desktop Services and does not support Remote Desktop Services or Fast-User Switching scenarios. Desktop applications can register for session changes notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a>. Services can handle session change notifications via SERVICE_CONTROL_SESSIONCHANGE control codes in their <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> callback function.</div>
+     * <div> </div>
      * @param {BSTR} bstrUserName The name of a current user.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -146,7 +163,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-displaylock
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-displaylock
      */
     DisplayLock(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -156,9 +173,32 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The DisplayUnLock method notifies an application that the screen display is unlocked.
+     * @remarks
+     * SENS calls this method to notify an application that the screen display is unlocked.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
+     * <div class="alert"><b>Important</b>  This function will not work with multiple logins through Remote Desktop Services and does not support Remote Desktop Services or Fast-User Switching scenarios. Desktop applications can register for session changes notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a>. Services can handle session change notifications via SERVICE_CONTROL_SESSIONCHANGE control codes in their <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> callback function.</div>
+     * <div> </div>
+     * @param {BSTR} bstrUserName The name of a current user.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-displayunlock
      */
     DisplayUnlock(bstrUserName) {
@@ -170,6 +210,8 @@ class ISensLogon extends IDispatch{
 
     /**
      * The StartScreenSaver method notifies an application that a screen saver is started.
+     * @remarks
+     * SENS calls this method to notify an application that a screen saver is started.
      * @param {BSTR} bstrUserName The name of a current user.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -190,7 +232,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-startscreensaver
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-startscreensaver
      */
     StartScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -201,6 +243,8 @@ class ISensLogon extends IDispatch{
 
     /**
      * The StopScreenSaver method notifies an application that a screen saver is stopped.
+     * @remarks
+     * SENS calls this method to notify an application that a screen saver is stopped.
      * @param {BSTR} bstrUserName The name of a current user.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -221,7 +265,7 @@ class ISensLogon extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-stopscreensaver
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-stopscreensaver
      */
     StopScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName

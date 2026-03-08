@@ -7,7 +7,6 @@
 /**
  * Defines a module that is used to classify files or store and retrieve properties from files.
  * @remarks
- * 
  * The name and module type identify a unique module (a classifier module and storage module can use the same 
  *     name).
  * 
@@ -16,9 +15,7 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">Commit</a>), the developer should ensure that there are no 
  *     active classification rules that use that module. If this is not properly performed, the rules will produce errors 
  *     during classification runs and the UI will reflect a module that is no longer available.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -123,14 +120,11 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * A string representation specifying the COM class identifier for the class that implements the module defined by this module definition.
+     * A string representation specifying the COM class identifier for the class that implements the module defined by this module definition. (Get)
      * @remarks
-     * 
      * Note that the COM class  identifier specified must refer to a class that implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleimplementation">IFsrmPipelineModuleImplementation</a>, which is inherited though <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduleimplementation">IFsrmClassifierModuleImplementation</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduleimplementation">IFsrmStorageModuleImplementation</a>, depending on the type of module.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid
      */
     get_ModuleClsid() {
         moduleClsid := BSTR()
@@ -139,15 +133,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * A string representation specifying the COM class identifier for the class that implements the module defined by this module definition.
+     * A string representation specifying the COM class identifier for the class that implements the module defined by this module definition. (Put)
      * @remarks
-     * 
      * Note that the COM class  identifier specified must refer to a class that implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleimplementation">IFsrmPipelineModuleImplementation</a>, which is inherited though <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduleimplementation">IFsrmClassifierModuleImplementation</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduleimplementation">IFsrmStorageModuleImplementation</a>, depending on the type of module.
-     * 
-     * 
      * @param {BSTR} moduleClsid 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_moduleclsid
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_moduleclsid
      */
     put_ModuleClsid(moduleClsid) {
         moduleClsid := moduleClsid is String ? BSTR.Alloc(moduleClsid).Value : moduleClsid
@@ -157,9 +148,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The name of the module definition.
+     * The name of the module definition. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_name
      */
     get_Name() {
         name := BSTR()
@@ -168,10 +159,10 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The name of the module definition.
+     * The name of the module definition. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -181,14 +172,11 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The name of the company that created the classification or storage module.
+     * The name of the company that created the classification or storage module. (Get)
      * @remarks
-     * 
      * This property is optional.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_company
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_company
      */
     get_Company() {
         company := BSTR()
@@ -197,15 +185,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The name of the company that created the classification or storage module.
+     * The name of the company that created the classification or storage module. (Put)
      * @remarks
-     * 
      * This property is optional.
-     * 
-     * 
      * @param {BSTR} company 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_company
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_company
      */
     put_Company(company) {
         company := company is String ? BSTR.Alloc(company).Value : company
@@ -215,14 +200,11 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The version of the module definition.
+     * The version of the module definition. (Get)
      * @remarks
-     * 
      * This property is optional. There is no restriction to the version's format.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
      */
     get_Version() {
         version := BSTR()
@@ -231,15 +213,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The version of the module definition.
+     * The version of the module definition. (Put)
      * @remarks
-     * 
      * This property is optional. There is no restriction to the version's format.
-     * 
-     * 
      * @param {BSTR} version 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_version
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_version
      */
     put_Version(version) {
         version := version is String ? BSTR.Alloc(version).Value : version
@@ -251,12 +230,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     /**
      * The type of module.
      * @remarks
-     * 
      * The type is specified when you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createmoduledefinition">IFsrmClassificationModule::CreateModuleDefinition</a> method to create the module definition object.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduletype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduletype
      */
     get_ModuleType() {
         result := ComCall(20, this, "int*", &moduleType := 0, "HRESULT")
@@ -264,9 +240,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * Determines whether the module is enabled.
+     * Determines whether the module is enabled. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_enabled
      */
     get_Enabled() {
         result := ComCall(21, this, "short*", &enabled := 0, "HRESULT")
@@ -274,10 +250,10 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * Determines whether the module is enabled.
+     * Determines whether the module is enabled. (Put)
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(22, this, "short", enabled, "HRESULT")
@@ -285,18 +261,15 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * Determines whether the module needs to read the contents of the file.
+     * Determines whether the module needs to read the contents of the file. (Get)
      * @remarks
-     * 
      * If the 
      *     <b>NeedsFileContent</b> property 
      *     value is <b>VARIANT_TRUE</b>, FSRM will provide a stream for a file's contents to the module. 
      *     This may be necessary if a classification module needs to analyze the contents of the file to determine the 
      *     property values or if a storage module handles property values embedded in the file's contents
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_needsfilecontent
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_needsfilecontent
      */
     get_NeedsFileContent() {
         result := ComCall(23, this, "short*", &needsFileContent := 0, "HRESULT")
@@ -304,19 +277,16 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * Determines whether the module needs to read the contents of the file.
+     * Determines whether the module needs to read the contents of the file. (Put)
      * @remarks
-     * 
      * If the 
      *     <b>NeedsFileContent</b> property 
      *     value is <b>VARIANT_TRUE</b>, FSRM will provide a stream for a file's contents to the module. 
      *     This may be necessary if a classification module needs to analyze the contents of the file to determine the 
      *     property values or if a storage module handles property values embedded in the file's contents
-     * 
-     * 
      * @param {VARIANT_BOOL} needsFileContent 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_needsfilecontent
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_needsfilecontent
      */
     put_NeedsFileContent(needsFileContent) {
         result := ComCall(24, this, "short", needsFileContent, "HRESULT")
@@ -324,9 +294,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The account to use when running the module.
+     * The account to use when running the module. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_account
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_account
      */
     get_Account() {
         result := ComCall(25, this, "int*", &retrievalAccount := 0, "HRESULT")
@@ -334,10 +304,10 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The account to use when running the module.
+     * The account to use when running the module. (Put)
      * @param {Integer} retrievalAccount 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_account
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_account
      */
     put_Account(retrievalAccount) {
         result := ComCall(26, this, "int", retrievalAccount, "HRESULT")
@@ -345,16 +315,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The list of file extensions supported by this module.
+     * The list of file extensions supported by this module. (Get)
      * @remarks
-     * 
      * This property is optional. Set this property only if you support a limited number of file types. FSRM uses the 
      *     list of extensions to determine the files that it sends to the module. If the list is empty, FSRM will send the 
      *     module all files.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_supportedextensions
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_supportedextensions
      */
     get_SupportedExtensions() {
         result := ComCall(27, this, "ptr*", &supportedExtensions := 0, "HRESULT")
@@ -362,17 +329,14 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The list of file extensions supported by this module.
+     * The list of file extensions supported by this module. (Put)
      * @remarks
-     * 
      * This property is optional. Set this property only if you support a limited number of file types. FSRM uses the 
      *     list of extensions to determine the files that it sends to the module. If the list is empty, FSRM will send the 
      *     module all files.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} supportedExtensions 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_supportedextensions
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_supportedextensions
      */
     put_SupportedExtensions(supportedExtensions) {
         result := ComCall(28, this, "ptr", supportedExtensions, "HRESULT")
@@ -380,16 +344,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The optional parameters to pass to the module.
+     * The optional parameters to pass to the module. (Get)
      * @remarks
-     * 
      * There is no limit to length of the parameter name or value, nor is there a limit the number of parameters that you can specify. Specifying a parameter without a value is valid (for example, "parameter=").
      * 
      * The parameters are included in the module definition that FSRM passes to the module's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> implementation.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_parameters
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_parameters
      */
     get_Parameters() {
         result := ComCall(29, this, "ptr*", &parameters := 0, "HRESULT")
@@ -397,17 +358,14 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * The optional parameters to pass to the module.
+     * The optional parameters to pass to the module. (Put)
      * @remarks
-     * 
      * There is no limit to length of the parameter name or value, nor is there a limit the number of parameters that you can specify. Specifying a parameter without a value is valid (for example, "parameter=").
      * 
      * The parameters are included in the module definition that FSRM passes to the module's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> implementation.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} parameters 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_parameters
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_parameters
      */
     put_Parameters(parameters) {
         result := ComCall(30, this, "ptr", parameters, "HRESULT")

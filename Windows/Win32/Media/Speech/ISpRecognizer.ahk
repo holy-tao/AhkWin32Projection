@@ -51,10 +51,30 @@ class ISpRecognizer extends ISpProperties{
     }
 
     /**
+     * Sets an input scope for the specified window.
+     * @remarks
+     * Calling this method replaces whatever scope is associated with the window.
      * 
+     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
+     * 
+     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
+     * 
+     * If you call this method on a window (<i>hwnd</i> parameter) that has 
+     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
+     * scope change.
      * @param {IUnknown} pUnkInput 
      * @param {BOOL} fAllowFormatChanges 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method was successful.</td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-setinputscope
      */
     SetInput(pUnkInput, fAllowFormatChanges) {
         result := ComCall(9, this, "ptr", pUnkInput, "int", fAllowFormatChanges, "HRESULT")
@@ -149,10 +169,11 @@ class ISpRecognizer extends ISpProperties{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Integer} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(WaveFormatType, pFormatId) {
         result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", &ppCoMemWFEX := 0, "HRESULT")

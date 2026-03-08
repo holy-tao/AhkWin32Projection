@@ -9,7 +9,7 @@
 
 /**
  * The ITTerminalSupport2 interface is derived from the ITTerminalSupport interface. ITTerminalSupport2 supports the retrieval of information about pluggable terminal classes and superclasses by C, C++, and scripting applications.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itterminalsupport2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itterminalsupport2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -43,10 +43,14 @@ class ITTerminalSupport2 extends ITTerminalSupport{
 
     /**
      * The get_PluggableSuperclasses method returns a collection of ITPluggableTerminalSuperclassInfo superclass information interface pointers.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itpluggableterminalsuperclassinfo">ITPluggableTerminalSuperclassInfo</a> interface returned by <b>ITTerminalSupport2::get_PluggableSuperclasses</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itpluggableterminalsuperclassinfo">ITPluggableTerminalSuperclassInfo</a> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itpluggableterminalsuperclassinfo">ITPluggableTerminalSuperclassInfo</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminalsupport2-get_pluggablesuperclasses
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-get_pluggablesuperclasses
      */
     get_PluggableSuperclasses() {
         pVariant := VARIANT()
@@ -56,9 +60,13 @@ class ITTerminalSupport2 extends ITTerminalSupport{
 
     /**
      * The EnumeratePluggableSuperclasses method enumerates the pluggable terminal superclasses registered on the current system.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumpluggablesuperclassinfo">IEnumPluggableSuperclassInfo</a> interface returned by <b>ITTerminalSupport2::EnumeratePluggableSuperclasses</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumPluggableSuperclassInfo</b> interface to free resources associated with it.
      * @returns {IEnumPluggableSuperclassInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumpluggablesuperclassinfo">IEnumPluggableSuperclassInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggablesuperclasses
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggablesuperclasses
      */
     EnumeratePluggableSuperclasses() {
         result := ComCall(14, this, "ptr*", &ppSuperclassEnumerator := 0, "HRESULT")
@@ -67,13 +75,17 @@ class ITTerminalSupport2 extends ITTerminalSupport{
 
     /**
      * The get_PluggableTerminalClasses method returns a collection of ITPluggableTerminalClassInfo terminal class information interface pointers.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itpluggableterminalclassinfo">ITPluggableTerminalClassInfo</a> interface returned by <b>ITTerminalSupport2::get_PluggableTerminalClasses</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITPluggableTerminalClassInfo</b> interface to free resources associated with it.
      * @param {BSTR} bstrTerminalSuperclass The <b>BSTR</b> representation of the CLSID for the terminal superclass.
      * @param {Integer} lMediaType Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> supported by the terminal classes.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itpluggableterminalclassinfo">ITPluggableTerminalClassInfo</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminalsupport2-get_pluggableterminalclasses
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-get_pluggableterminalclasses
      */
     get_PluggableTerminalClasses(bstrTerminalSuperclass, lMediaType) {
         bstrTerminalSuperclass := bstrTerminalSuperclass is String ? BSTR.Alloc(bstrTerminalSuperclass).Value : bstrTerminalSuperclass
@@ -85,12 +97,16 @@ class ITTerminalSupport2 extends ITTerminalSupport{
 
     /**
      * The EnumeratePluggableTerminalClasses method enumerates the pluggable terminal classes registered under a given superclass.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumpluggableterminalclassinfo">IEnumPluggableTerminalClassInfo</a> interface returned by <b>ITTerminalSupport2::EnumeratePluggableTerminalClasses</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumPluggableTerminalClassInfo</b> interface to free resources associated with it.
      * @param {Guid} iidTerminalSuperclass CLSID for the terminal superclass.
      * @param {Integer} lMediaType Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> supported by the terminal classes.
      * @returns {IEnumPluggableTerminalClassInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumpluggableterminalclassinfo">IEnumPluggableTerminalClassInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggableterminalclasses
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggableterminalclasses
      */
     EnumeratePluggableTerminalClasses(iidTerminalSuperclass, lMediaType) {
         result := ComCall(16, this, "ptr", iidTerminalSuperclass, "int", lMediaType, "ptr*", &ppClassEnumerator := 0, "HRESULT")

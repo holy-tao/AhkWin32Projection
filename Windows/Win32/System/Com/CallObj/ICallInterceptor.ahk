@@ -6,7 +6,7 @@
 
 /**
  * Supports the registration and un-registering of event sinks wishing to be notified of calls made directly on the interface.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/nn-callobj-icallinterceptor
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallinterceptor
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class ICallInterceptor extends ICallIndirect{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallinterceptor-registersink
+     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallinterceptor-registersink
      */
     RegisterSink(psink) {
         result := ComCall(7, this, "ptr", psink, "HRESULT")
@@ -74,7 +74,7 @@ class ICallInterceptor extends ICallIndirect{
     /**
      * Retrieves the registered event sink.
      * @returns {ICallFrameEvents} A pointer to a pointer to the event sink. See <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframeevents">ICallFrameEvents</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallinterceptor-getregisteredsink
+     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallinterceptor-getregisteredsink
      */
     GetRegisteredSink() {
         result := ComCall(8, this, "ptr*", &ppsink := 0, "HRESULT")

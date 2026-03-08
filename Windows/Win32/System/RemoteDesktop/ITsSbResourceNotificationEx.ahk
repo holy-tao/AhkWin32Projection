@@ -5,8 +5,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbresourcenotificationex
+ * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotificationEx)
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourcenotificationex
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,14 +32,14 @@ class ITsSbResourceNotificationEx extends IUnknown{
     static VTableNames => ["NotifySessionChangeEx", "NotifyTargetChangeEx", "NotifyClientConnectionStateChangeEx"]
 
     /**
-     * Notifies registered plug-ins about state changes in a session object.
+     * Notifies registered plug-ins about state changes in a session object. (ITsSbResourceNotificationEx.NotifySessionChangeEx)
      * @param {BSTR} targetName The name of the target.
      * @param {BSTR} userName The user name.
      * @param {BSTR} domain The user domain.
      * @param {Integer} sessionId Identifies the session that changed.
      * @param {Integer} sessionState A <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value specifying he type of change that occurred.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotificationex-notifysessionchangeex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotificationex-notifysessionchangeex
      */
     NotifySessionChangeEx(targetName, userName, domain, sessionId, sessionState) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
@@ -51,11 +51,11 @@ class ITsSbResourceNotificationEx extends IUnknown{
     }
 
     /**
-     * Notifies registered plug-ins about state changes in a target object.
+     * Notifies registered plug-ins about state changes in a target object. (ITsSbResourceNotificationEx.NotifyTargetChangeEx)
      * @param {BSTR} targetName The name of the target.
      * @param {Integer} targetChangeType A value of the <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_change_type">TARGET_CHANGE_TYPE</a> enumeration that specifies the type of change that occurred in a target.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotificationex-notifytargetchangeex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotificationex-notifytargetchangeex
      */
     NotifyTargetChangeEx(targetName, targetChangeType) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
@@ -65,15 +65,15 @@ class ITsSbResourceNotificationEx extends IUnknown{
     }
 
     /**
-     * Notifies registered plug-ins about state changes in a client connection.
+     * Notifies registered plug-ins about state changes in a client connection. (ITsSbResourceNotificationEx.NotifyClientConnectionStateChangeEx)
      * @param {BSTR} userName The user name.
      * @param {BSTR} domain The user domain.
      * @param {BSTR} initialProgram The initial program.
      * @param {BSTR} poolName The name of the pool.
      * @param {BSTR} targetName The name of the target.
      * @param {Integer} connectionChangeType 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotificationex-notifyclientconnectionstatechangeex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotificationex-notifyclientconnectionstatechangeex
      */
     NotifyClientConnectionStateChangeEx(userName, domain, initialProgram, poolName, targetName, connectionChangeType) {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName

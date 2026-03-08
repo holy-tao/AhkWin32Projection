@@ -201,9 +201,16 @@ class IDynamicPortMapping extends IDispatch{
     }
 
     /**
+     * Enables monitoring on a particular drive.
+     * @remarks
+     * The **Enable** method does not wait for monitoring to be enabled completely before it returns, because this could take a while. Instead, it returns immediately after starting the System Restore service and filter driver.
      * 
+     * To enable System Restore on a non-system drive, you must first enable System Restore on the system drive.
+     * 
+     * This method fails in safe mode.
      * @param {VARIANT_BOOL} vb 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/sr/enable-systemrestore
      */
     Enable(vb) {
         result := ComCall(18, this, "short", vb, "HRESULT")

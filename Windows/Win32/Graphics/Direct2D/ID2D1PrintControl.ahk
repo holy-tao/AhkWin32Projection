@@ -5,7 +5,7 @@
 
 /**
  * Converts Direct2D primitives stored in an ID2D1CommandList into a fixed page representation. The print sub-system then consumes the primitives.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1printcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1printcontrol
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -73,7 +73,7 @@ class ID2D1PrintControl extends IUnknown{
      * <td>The print job is already finished.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1printcontrol-addpage
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1printcontrol-addpage
      */
     AddPage(commandList, pageSize, pagePrintTicketStream, tag1, tag2) {
         tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
@@ -111,7 +111,7 @@ class ID2D1PrintControl extends IUnknown{
      * <td>The print job is already finished.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1printcontrol-close
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1printcontrol-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

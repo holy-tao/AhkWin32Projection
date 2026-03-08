@@ -35,11 +35,7 @@ class Direct3D11 {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11devicefromdxgidevice
      */
     static CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice) {
-        result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", &graphicsDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", &graphicsDevice := 0, "HRESULT")
         return IInspectable(graphicsDevice)
     }
 
@@ -64,11 +60,7 @@ class Direct3D11 {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11surfacefromdxgisurface
      */
     static CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface) {
-        result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", &graphicsSurface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", &graphicsSurface := 0, "HRESULT")
         return IInspectable(graphicsSurface)
     }
 

@@ -8,7 +8,7 @@
 
 /**
  * Contains methods and properties that enable you to manage a collection of certificate properties.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertproperties
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertproperties
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class ICertProperties extends IDispatch{
      * Retrieves a property from the collection by index number.
      * @param {Integer} Index 
      * @returns {ICertProperty} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -61,7 +61,7 @@ class ICertProperties extends IDispatch{
     /**
      * Retrieves the number of properties in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -69,9 +69,9 @@ class ICertProperties extends IDispatch{
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (ICertProperties.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -83,7 +83,7 @@ class ICertProperties extends IDispatch{
      * @param {ICertProperty} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertproperty">ICertProperty</a> interface that represents the property to add to the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -103,7 +103,7 @@ class ICertProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-add
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -115,8 +115,8 @@ class ICertProperties extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the property to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -127,8 +127,8 @@ class ICertProperties extends IDispatch{
      * Removes all properties from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -153,7 +153,7 @@ class ICertProperties extends IDispatch{
      * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -185,7 +185,7 @@ class ICertProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertproperties-initializefromcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperties-initializefromcertificate
      */
     InitializeFromCertificate(MachineContext, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate

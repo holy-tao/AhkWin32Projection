@@ -6,7 +6,7 @@
 
 /**
  * Enables an application to get a topology from the sequencer source.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediasourcetopologyprovider
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasourcetopologyprovider
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IMFMediaSourceTopologyProvider extends IUnknown{
      * Returns a topology for a media source that builds an internal topology.
      * @param {IMFPresentationDescriptor} pPresentationDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the media source's presentation descriptor. To get this pointer, either call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasource-createpresentationdescriptor">IMFMediaSource::CreatePresentationDescriptor</a> on the media source, or get the pointer from the <a href="https://docs.microsoft.com/windows/desktop/medfound/menewpresentation">MENewPresentation</a> event.
      * @returns {IMFTopology} Receives a pointer to the topology's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourcetopologyprovider-getmediasourcetopology
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourcetopologyprovider-getmediasourcetopology
      */
     GetMediaSourceTopology(pPresentationDescriptor) {
         result := ComCall(3, this, "ptr", pPresentationDescriptor, "ptr*", &ppTopology := 0, "HRESULT")

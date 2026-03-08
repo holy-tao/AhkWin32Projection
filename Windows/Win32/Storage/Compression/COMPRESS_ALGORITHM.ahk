@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * LZMS compression algorithm
+ * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-createcompressor
  * @namespace Windows.Win32.Storage.Compression
  * @version v4.0.30319
  */

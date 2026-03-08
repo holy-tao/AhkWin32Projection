@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IStream.ahk
 
 /**
- * Exposes methods to manage input/outpout (I/O) to an asynchronous stream.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-istreamasync
+ * Exposes methods to manage input/output (I/O) to an asynchronous stream.
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-istreamasync
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IStreamAsync extends IStream{
 
     /**
      * Reads information from a stream asynchronously. For example, the Shell implements this interface on file items when transferring them asynchronously.
+     * @remarks
+     * <b>IStreamAsync::ReadAsync</b> should reset the event specified by the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure to a nonsignaled state when it begins the input/output (I/O) operation.
+     * 
+     * This method has been implemented in the Shell as a thin wrapper around the public <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a> API.
      * @param {Pointer} pv Type: <b>void*</b>
      * 
      * When this method returns successfully, returns a buffer that is <i>cb</i> bytes long and contains <i>pcbRead</i> bytes of information from the read operation.
@@ -44,7 +48,7 @@ class IStreamAsync extends IStream{
      * @returns {Integer} Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> value that, when this method returns successfully, states the actual number of bytes read to the buffer pointed to by <i>pv</i>. This value can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamasync-readasync
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-readasync
      */
     ReadAsync(pv, cb, lpOverlapped) {
         result := ComCall(14, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "ptr", lpOverlapped, "HRESULT")
@@ -53,6 +57,8 @@ class IStreamAsync extends IStream{
 
     /**
      * Writes information to a stream asynchronously. For example, the Shell implements this method on file items when transferring them asynchronously.
+     * @remarks
+     * <b>WriteAsync</b> should reset the event specified by the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure to a nonsignaled state when it begins the input/output (I/O) operation.
      * @param {Pointer} lpBuffer Type: <b>const void*</b>
      * 
      * A pointer to a buffer of size <i>cb</i> bytes that contains the information to be written to the stream.
@@ -65,7 +71,7 @@ class IStreamAsync extends IStream{
      * @returns {Integer} Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> value that, when the method returns successfully, states the actual number of bytes written to the stream. This value can be <b>NULL</b> if this information is not needed.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamasync-writeasync
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-writeasync
      */
     WriteAsync(lpBuffer, cb, lpOverlapped) {
         result := ComCall(15, this, "ptr", lpBuffer, "uint", cb, "uint*", &pcbWritten := 0, "ptr", lpOverlapped, "HRESULT")
@@ -83,7 +89,7 @@ class IStreamAsync extends IStream{
      * @returns {Integer} Type: <b>LPDWORD</b>
      * 
      * When this method returns, contains the number of bytes that were actually transferred by a read or write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamasync-overlappedresult
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-overlappedresult
      */
     OverlappedResult(lpOverlapped, bWait) {
         result := ComCall(16, this, "ptr", lpOverlapped, "uint*", &lpNumberOfBytesTransferred := 0, "int", bWait, "HRESULT")
@@ -94,8 +100,8 @@ class IStreamAsync extends IStream{
      * Marks all pending input/output (I/O) operations as canceled.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamasync-cancelio
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-cancelio
      */
     CancelIo() {
         result := ComCall(17, this, "HRESULT")

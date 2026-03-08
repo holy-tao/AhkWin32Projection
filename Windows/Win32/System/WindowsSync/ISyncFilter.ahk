@@ -4,6 +4,10 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Represents information about a filter that is used to control the data that is included in an ISyncChangeBatch object.
+ * @remarks
+ * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object.  The filtered change batch object contains an <b>ISyncFilterInfo</b> object that describes how the contents of the change batch were filtered.
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfilterinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

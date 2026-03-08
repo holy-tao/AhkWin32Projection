@@ -6,7 +6,7 @@
 
 /**
  * The IEnumNetSharingPrivateConnection interface provides methods for enumerating the currently configured privately-shared connections.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-ienumnetsharingprivateconnection
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-ienumnetsharingprivateconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * The Next method retrieves the specified number of privately-shared connections that start from the current enumeration position.
+     * The Next method retrieves the specified number of privately-shared connections that start from the current enumeration position. (IEnumNetSharingPrivateConnection.Next)
      * @param {Integer} celt Specifies the number of privately-shared connections to retrieve.
      * @param {Pointer<VARIANT>} rgVar Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> variable for the connection. This variant contains a pointer to an 
@@ -140,7 +140,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingprivateconnection-next
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingprivateconnection-next
      */
     Next(celt, rgVar, pCeltFetched) {
         pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
@@ -150,7 +150,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
     }
 
     /**
-     * The Skip method skips the specified number of privately-shared connections for this enumeration.
+     * The Skip method skips the specified number of privately-shared connections for this enumeration. (IEnumNetSharingPrivateConnection.Skip)
      * @param {Integer} celt Specifies the number of privately-shared connections to skip.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
@@ -250,7 +250,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingprivateconnection-skip
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingprivateconnection-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -258,7 +258,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
     }
 
     /**
-     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration.
+     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration. (IEnumNetSharingPrivateConnection.Reset)
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -357,7 +357,7 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingprivateconnection-reset
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingprivateconnection-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -365,10 +365,10 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
     }
 
     /**
-     * The Clone method creates a new enumeration interface from this enumeration.
+     * The Clone method creates a new enumeration interface from this enumeration. (IEnumNetSharingPrivateConnection.Clone)
      * @returns {IEnumNetSharingPrivateConnection} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-ienumnetsharingprivateconnection">IEnumNetSharingPrivateConnection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingprivateconnection-clone
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingprivateconnection-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

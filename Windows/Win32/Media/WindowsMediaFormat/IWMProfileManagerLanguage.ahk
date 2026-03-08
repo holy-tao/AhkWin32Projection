@@ -5,7 +5,7 @@
 
 /**
  * The IWMProfileManagerLanguage interface controls the language of the system profiles parsed by the profile manager.An IWMProfileManagerLanguage interface exists for every profile manager object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmprofilemanagerlanguage
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofilemanagerlanguage
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMProfileManagerLanguage extends IUnknown{
 
     /**
      * The GetUserLanguageID method retrieves the language identifier for the system profiles loaded by the profile manager object.
+     * @remarks
+     * The default language is U.S. English (0x409).
      * @param {Pointer<Integer>} wLangID Pointer to a <b>WORD</b> that receives the language identifier (LANGID) of the language set in the profile manager.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,7 +54,7 @@ class IWMProfileManagerLanguage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
      */
     GetUserLanguageID(wLangID) {
         wLangIDMarshal := wLangID is VarRef ? "ushort*" : "ptr"
@@ -63,6 +65,8 @@ class IWMProfileManagerLanguage extends IUnknown{
 
     /**
      * The SetUserLanguageID method sets the language of the system profiles that will be parsed by the profile manager object.
+     * @remarks
+     * English – United States (0x0409) is the default language. This method will also return NS_E_MOMATCHING_ELEMENT for all languages except US English if you have not moved the correct .prx file into the system root directory.
      * @param {Integer} wLangID <b>WORD</b> containing the language identifier (LANGID) of the language you want to use.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -94,7 +98,7 @@ class IWMProfileManagerLanguage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-setuserlanguageid
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-setuserlanguageid
      */
     SetUserLanguageID(wLangID) {
         result := ComCall(4, this, "ushort", wLangID, "HRESULT")

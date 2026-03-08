@@ -10,7 +10,6 @@
 /**
  * Represents a set of configurable attribute properties (name-value pairs) for an Online Certificate Status Protocol (OCSP) service.
  * @remarks
- * 
  * The <b>IOCSPPropertyCollection</b> contains attributes for the following:
  * 
  * <ul>
@@ -26,9 +25,7 @@
  * 
  * 
  * OCSP attributes govern OCSP responder service behavior for all CA configurations. For more information on CA configurations, see the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> interface topic.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocsppropertycollection
+ * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocsppropertycollection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -76,7 +73,7 @@ class IOCSPPropertyCollection extends IDispatch{
     /**
      * Gets an enumerator for a property set.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -87,7 +84,7 @@ class IOCSPPropertyCollection extends IDispatch{
      * Gets the property identified by index in a property set.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_item
      */
     get_Item(Index) {
         pVal := VARIANT()
@@ -98,7 +95,7 @@ class IOCSPPropertyCollection extends IDispatch{
     /**
      * Gets the number of properties in a property set.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -109,7 +106,7 @@ class IOCSPPropertyCollection extends IDispatch{
      * Gets the property identified by name in a property set.
      * @param {BSTR} bstrPropName 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-get_itembyname
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_itembyname
      */
     get_ItemByName(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -133,7 +130,7 @@ class IOCSPPropertyCollection extends IDispatch{
      * </tr>
      * </table>
      * @returns {IOCSPProperty} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspproperty">IOCSPProperty</a> interface for the newly created object.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-createproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-createproperty
      */
     CreateProperty(bstrPropName, pVarPropValue) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -146,7 +143,7 @@ class IOCSPPropertyCollection extends IDispatch{
      * Removes a named property from a property set.
      * @param {BSTR} bstrPropName A string that contains the name of the property to remove.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-deleteproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-deleteproperty
      */
     DeleteProperty(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -177,12 +174,12 @@ class IOCSPPropertyCollection extends IDispatch{
      * If the method succeeds, it returns <b>S_OK</b>.
      * 
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * If the method returns <b>E_UNEXPECTED</b>, the array pointed to by the <i>pVarProperties</i> parameter contained duplicate properties.
      * 
      * If the method returns <b>DISP_E_ARRAYISLOCKED</b>, the array pointed to by the <i>pVarProperties</i> parameter is locked.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-initializefromproperties
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-initializefromproperties
      */
     InitializeFromProperties(pVarProperties) {
         result := ComCall(13, this, "ptr", pVarProperties, "HRESULT")
@@ -194,7 +191,7 @@ class IOCSPPropertyCollection extends IDispatch{
      * @returns {VARIANT} A pointer to a safe array that contains the properties as name-value pairs.
      * 
      * This array is a two-dimensional array of elements, each of type <b>VARIANT</b>. The array contains one row for each named property in the collection. Each row contains two columns: the property name and the property value.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocsppropertycollection-getallproperties
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-getallproperties
      */
     GetAllProperties() {
         pVarProperties := VARIANT()

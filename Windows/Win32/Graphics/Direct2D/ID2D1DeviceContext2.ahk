@@ -13,7 +13,7 @@
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext1 interface, plus it enables functionality such as ink rendering, gradient mesh rendering, and improved image loading.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1devicecontext2
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext2
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -39,9 +39,13 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
     static VTableNames => ["CreateInk", "CreateInkStyle", "CreateGradientMesh", "CreateImageSourceFromWic", "CreateLookupTable3D", "CreateImageSourceFromDxgi", "GetGradientMeshWorldBounds", "DrawInk", "DrawGradientMesh", "DrawGdiMetafile", "CreateTransformedImageSource"]
 
     /**
+     * Creates a new ID2D1Ink object that starts at the given point. (overload 1/2)
+     * @param {Pointer<D2D1_INK_POINT>} startPoint Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_point">D2D1_INK_POINT</a></b>
      * 
-     * @param {Pointer<D2D1_INK_POINT>} startPoint 
-     * @returns {ID2D1Ink} 
+     * The starting point of the first segment of the first stroke in the new ink object.
+     * @returns {ID2D1Ink} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to a new ink object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createink(constd2d1_ink_point__id2d1ink)
      */
     CreateInk(startPoint) {
@@ -50,9 +54,13 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
     }
 
     /**
+     * Creates a new ID2D1InkStyle object, for use with ink rendering methods such as DrawInk. (overload 2/2)
+     * @param {Pointer<D2D1_INK_STYLE_PROPERTIES>} inkStyleProperties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_style_properties">D2D1_INK_STYLE_PROPERTIES</a></b>
      * 
-     * @param {Pointer<D2D1_INK_STYLE_PROPERTIES>} inkStyleProperties 
-     * @returns {ID2D1InkStyle} 
+     * The properties of the ink style to be created.
+     * @returns {ID2D1InkStyle} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1inkstyle">ID2D1InkStyle</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to a new ink style object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createinkstyle(constd2d1_ink_style_properties_id2d1inkstyle)
      */
     CreateInkStyle(inkStyleProperties) {
@@ -71,7 +79,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @returns {ID2D1GradientMesh} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh">ID2D1GradientMesh</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the new gradient mesh.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-creategradientmesh
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-creategradientmesh
      */
     CreateGradientMesh(patches, patchesCount) {
         result := ComCall(97, this, "ptr", patches, "uint", patchesCount, "ptr*", &gradientMesh := 0, "HRESULT")
@@ -79,11 +87,32 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
     }
 
     /**
+     * Creates an image source object from a WIC bitmap source, while populating all pixel memory within the image source. The image is loaded and stored while using a minimal amount of memory. (overload 2/3)
+     * @remarks
+     * This method creates an image source which can be used to draw the image.  
      * 
-     * @param {IWICBitmapSource} wicBitmapSource 
-     * @param {Integer} loadingOptions 
+     * This method supports images that exceed the maximum texture size.  Large images are internally stored within a sparse tile cache.   
+     * 
+     * This API supports the same set of pixel formats and alpha modes supported by <a href="https://docs.microsoft.com/windows/desktop/Direct2D/id2d1devicecontext-createbitmapfromwicbitmap-overload">CreateBitmapFromWicBitmap</a>.  
+     *           If the GPU does not support a given pixel format,
+     *           this method will return D2DERR_UNSUPPORTED_PIXEL_FORMAT.  This method does not apply adjustments such as gamma 
+     *           or alpha premultiplication which affect the appearance of the image.
+     *         
+     * 
+     * This method automatically selects an appropriate storage format to minimize GPU memory usage., such as using separate 
+     *         luminance and chrominance textures for JPEG images. 
+     * 
+     * If the loadingOptions argument is NULL, D2D uses D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE.
+     * @param {IWICBitmapSource} wicBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
+     * 
+     * The WIC bitmap source to create the image source from.
+     * @param {Integer} loadingOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options">D2D1_IMAGE_SOURCE_LOADING_OPTIONS</a></b>
+     * 
+     * Options for creating the image source.  Default options are used if NULL.
      * @param {Integer} alphaMode 
-     * @returns {ID2D1ImageSourceFromWic} 
+     * @returns {ID2D1ImageSourceFromWic} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesourcefromwic">ID2D1ImageSourceFromWic</a>**</b>
+     * 
+     * Receives the new image source instance.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromwic(iwicbitmapsource_d2d1_image_source_loading_options_id2d1imagesourcefromwic)
      */
     CreateImageSourceFromWic(wicBitmapSource, loadingOptions, alphaMode) {
@@ -92,7 +121,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
     }
 
     /**
-     * Creates a 3D lookup table for mapping a 3-channel input to a 3-channel output. The table data must be provided in 4-channel format.
+     * Creates a 3D lookup table for mapping a 3-channel input to a 3-channel output. The table data must be provided in 4-channel format. (ID2D1DeviceContext2.CreateLookupTable3D)
      * @param {Integer} precision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * Precision of the input lookup table data.
@@ -112,7 +141,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @returns {ID2D1LookupTable3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1lookuptable3d">ID2D1LookupTable3D</a>**</b>
      * 
      * Receives the new lookup table instance.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-createlookuptable3d
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createlookuptable3d
      */
     CreateLookupTable3D(precision, extents, data, dataCount, strides) {
         extentsMarshal := extents is VarRef ? "uint*" : "ptr"
@@ -125,6 +154,112 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
 
     /**
      * Creates an image source from a set of DXGI surface(s). The YCbCr surface(s) are converted to RGBA automatically during subsequent drawing.
+     * @remarks
+     * This method creates an image source, which can be used to draw the image.
+     * 
+     * This method supports surfaces that use a limited set of DXGI formats and DXGI color space types.  Only the below set of combinations of color space types, surface formats, and surface counts are supported:
+     * 
+     * <table>
+     * <tr>
+     * <th>Color Space Type</th>
+     * <th>Surface Count(s)</th>
+     * <th>Surface Format(s)</th>
+     * </tr>
+     * <tr>
+     * <td>DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709</td>
+     * <td>1</td>
+     * <td>Standard D2D-supported pixel formats:
+     *               <ul>
+     * <li>DXGI_FORMAT_A8_UNORM</li>
+     * <li>DXGI_FORMAT_R8_UNORM</li>
+     * <li>DXGI_FORMAT_R8G8_UNORM</li>
+     * <li>DXGI_FORMAT_R8G8B8A8_UNORM</li>
+     * <li>DXGI_FORMAT_B8G8R8A8_UNORM</li>
+     * <li>DXGI_FORMAT_B8G8R8X8_UNORM</li>
+     * <li>DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</li>
+     * <li>DXGI_FORMAT_B8G8R8A8_UNORM_SRGB</li>
+     * <li>DXGI_FORMAT_R16G16B16A16_FLOAT</li>
+     * <li>DXGI_FORMAT_R16G16B16A16_UNORM</li>
+     * <li>DXGI_FORMAT_R32G32B32A32_FLOAT</li>
+     * <li>DXGI_FORMAT_BC1_UNORM</li>
+     * <li>DXGI_FORMAT_BC2_UNORM</li>
+     * <li>DXGI_FORMAT_BC3_UNORM</li>
+     * </ul>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>DXGI_COLOR_SPACE_YCBCR_FULL_G22_NONE_P709_X601</td>
+     * <td>1, 2, 3</td>
+     * <td>When Surface count is 1:
+     *               <ul>
+     * <li>DXGI_FORMAT_AYUV</li>
+     * <li>DXGI_FORMAT_NV12</li>
+     * <li>DXGI_FORMAT_YUY2</li>
+     * <li>DXGI_FORMAT_P208</li>
+     * <li>DXGI_FORMAT_V208</li>
+     * <li>DXGI_FORMAT_V408</li>
+     * </ul>
+     * When Surface Count is 2:
+     * 
+     * <ul>
+     * <li>{DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8G8_UNORM}</li>
+     * </ul>
+     * When Surface Count is 3:
+     * 
+     * <ul>
+     * <li>{DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8_UNORM}</li>
+     * </ul>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P601
+     *               DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P601
+     * 
+     * DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P709
+     * 
+     * DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P709
+     * 
+     * DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P2020
+     * 
+     * DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P2020
+     * 
+     * </td>
+     * <td>1,2,3</td>
+     * <td>
+     * When Surface count is 1: 
+     * 
+     * <ul>
+     * <li>DXGI_FORMAT_NV12</li>
+     * <li>DXGI_FORMAT_YUY2</li>
+     * <li>DXGI_FORMAT_P208</li>
+     * <li>DXGI_FORMAT_V208</li>
+     * </ul>
+     * When Surface Count is 2:
+     * 
+     * <ul>
+     * <li>{DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8G8_UNORM}</li>
+     * </ul>
+     * When Surface Count is 3:
+     * 
+     * <ul>
+     * <li>{DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8_UNORM, DXGI_FORMAT_R8_UNORM}</li>
+     * </ul>
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The GPU must also have sufficient support for a pixel format to be supported by D2D.  To determine whether D2D supports a format, call IsDxgiFormatSupported.
+     * 
+     * This API converts YCbCr formats to sRGB using the provided color space type and options.  RGBA data is assumed to be in the desired space, and D2D does not apply any conversion.
+     * 
+     * If multiple surfaces are provided, this method infers whether chroma planes are subsampled (by 2x) from the relative sizes of each
+     *           corresponding source rectangle (or if the source rectangles parameter is NULL, the bounds of each surface).  The second and third rectangle must each
+     *           be equal in size to the first rectangle, or to the first rectangle with one or both dimensions scaled by 0.5 (while rounding up).
+     *         
+     * 
+     * If provided, the source rectangles must be within the bounds of the corresponding surface.  The source rectangles may have different origins.
+     *           In this case, this method shifts the data from each plane to align with one another.
      * @param {Pointer<IDXGISurface>} surfaces Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgisurface">IDXGISurface</a>**</b>
      * 
      * The DXGI surfaces to create the image source from.
@@ -140,7 +275,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @returns {ID2D1ImageSource} Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesource">ID2D1ImageSource</a>**</b>
      * 
      * Receives the new image source instance.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi
      */
     CreateImageSourceFromDxgi(surfaces, surfaceCount, colorSpace, options) {
         result := ComCall(100, this, "ptr*", surfaces, "uint", surfaceCount, "int", colorSpace, "int", options, "ptr*", &imageSource := 0, "HRESULT")
@@ -149,13 +284,16 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
 
     /**
      * Returns the world bounds of a given gradient mesh.
+     * @remarks
+     * The world bounds reflect the current DPI, unit mode, and world transform of the context. They indicate which pixels would be impacted by calling DrawGradientMesh with the given gradient mesh. 
+     * They do not reflect the current clip rectangle set on the device context or the extent of the context’s current target.
      * @param {ID2D1GradientMesh} gradientMesh Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh">ID2D1GradientMesh</a>*</b>
      * 
      * The gradient mesh whose world bounds will be calculated.
      * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * When this method returns, contains a pointer to the bounds of the gradient mesh, in device independent pixels (DIPs).
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-getgradientmeshworldbounds
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-getgradientmeshworldbounds
      */
     GetGradientMeshWorldBounds(gradientMesh) {
         pBounds := D2D_RECT_F()
@@ -164,7 +302,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
     }
 
     /**
-     * Renders the given ink object using the given brush and ink style.
+     * Renders the given ink object using the given brush and ink style. (ID2D1DeviceContext2.DrawInk)
      * @param {ID2D1Ink} ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
      * 
      * The ink object to be rendered.
@@ -175,29 +313,38 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * 
      * The ink style to use when rendering the ink object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawink
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawink
      */
     DrawInk(ink, brush, inkStyle) {
         ComCall(102, this, "ptr", ink, "ptr", brush, "ptr", inkStyle)
     }
 
     /**
-     * Renders a given gradient mesh to the target.
+     * Renders a given gradient mesh to the target. (ID2D1DeviceContext2.DrawGradientMesh)
      * @param {ID2D1GradientMesh} gradientMesh Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh">ID2D1GradientMesh</a>*</b>
      * 
      * The gradient mesh to be rendered.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawgradientmesh
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawgradientmesh
      */
     DrawGradientMesh(gradientMesh) {
         ComCall(103, this, "ptr", gradientMesh)
     }
 
     /**
+     * Draws a metafile to the device context using the given source and destination rectangles. (overload 1/3)
+     * @param {ID2D1GdiMetafile} gdiMetafile Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile">ID2D1GdiMetafile</a>*</b>
      * 
-     * @param {ID2D1GdiMetafile} gdiMetafile 
-     * @param {Pointer<D2D_RECT_F>} destinationRectangle 
-     * @param {Pointer<D2D_RECT_F>} sourceRectangle 
+     * The metafile to draw.
+     * @param {Pointer<D2D_RECT_F>} destinationRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
+     * 
+     * The rectangle in the target where the metafile will be drawn, relative to the upper left corner (defined in DIPs) of the render target. 
+     *      If NULL is specified, the destination rectangle is {0, 0, w, h}, where w and h are the width and height of the metafile as reported by 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1gdimetafile-getbounds">ID2D1GdiMetafile::GetBounds</a>.
+     * @param {Pointer<D2D_RECT_F>} sourceRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
+     * 
+     * The rectangle of the source metafile that will be drawn, relative to the upper left corner (defined in DIPs) of the metafile. 
+     *      If NULL is specified, the source rectangle is the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getsourcebounds">ID2D1GdiMetafile1::GetSourceBounds</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawgdimetafile(id2d1gdimetafile_constd2d1_rect_f__constd2d1_rect_f_)
      */
@@ -216,7 +363,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @returns {ID2D1TransformedImageSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1transformedimagesource">ID2D1TransformedImageSource</a>**</b>
      * 
      * Receives the new image source.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext2-createtransformedimagesource
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createtransformedimagesource
      */
     CreateTransformedImageSource(imageSource, properties) {
         result := ComCall(105, this, "ptr", imageSource, "ptr", properties, "ptr*", &transformedImageSource := 0, "HRESULT")

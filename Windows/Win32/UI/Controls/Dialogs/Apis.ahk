@@ -888,11 +888,7 @@ class Dialogs {
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexa
      */
     static PrintDlgExA(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "HRESULT")
         return result
     }
 
@@ -903,11 +899,7 @@ class Dialogs {
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexw
      */
     static PrintDlgExW(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "HRESULT")
         return result
     }
 

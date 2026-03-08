@@ -6,7 +6,7 @@
 
 /**
  * The IUPnPRemoteEndpointInfo interface allows a hosted device to obtain information about a requester (that is, a control point) and the request.
- * @see https://docs.microsoft.com/windows/win32/api//upnphost/nn-upnphost-iupnpremoteendpointinfo
+ * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpremoteendpointinfo
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -39,6 +39,8 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
 
     /**
      * The GetDwordValue method gets a 4-byte value that provides information about either a request or requester.
+     * @remarks
+     * Currently, the only valid value for the <i>bstrValueName</i> parameter is "AddressFamily". For any other value, this method will return the COM error code E_INVALIDARG.
      * @param {BSTR} bstrValueName String that specifies the category of information to be retrieved.
      * @returns {Integer} Pointer to a 4-byte value, the meaning of which depends on the value of <i>bstrValueName</i>.
      * 
@@ -70,7 +72,7 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getdwordvalue
+     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getdwordvalue
      */
     GetDwordValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
@@ -81,11 +83,13 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
 
     /**
      * The GetStringValue method gets a string that provides information about either a request or requester.
+     * @remarks
+     * Currently, the only valid values for the <i>bstrValueName</i> parameter are "RemoteAddress" and (Windows 7 only) "HttpUserAgent". For any other value, this method will return the COM error code E_INVALIDARG.
      * @param {BSTR} bstrValueName String that specifies the category of information to be retrieved.
      * @returns {BSTR} Pointer to a string, the meaning of which depends on the value of <i>bstrValueName</i>.
      * 
      * If <i>bstrValueName</i> is "RemoteAddress", the string is the requester's IP address.<b>Windows 7:  </b>To retrieve the HTTP UserAgent header, set <i>bstrValueName</i> to "HttpUserAgent".
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getstringvalue
+     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getstringvalue
      */
     GetStringValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
@@ -99,7 +103,7 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
      * The GetGuidValue method currently is not supported.
      * @param {BSTR} bstrValueName Not supported.
      * @returns {Guid} Not supported.
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getguidvalue
+     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getguidvalue
      */
     GetGuidValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName

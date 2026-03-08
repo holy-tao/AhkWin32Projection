@@ -5,7 +5,7 @@
 
 /**
  * This interface is not supported. Do not use.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iusetobrowseitem
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iusetobrowseitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

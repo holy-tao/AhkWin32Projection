@@ -6,10 +6,8 @@
 /**
  * Gets the capabilities of a device's auxiliary input connectors. This interface provides access to a device's Aux Service.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_AUX)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_aux
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_aux
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,7 +35,7 @@ class IBDA_AUX extends IUnknown{
     /**
      * Gets the number of auxiliary connectors on the device.
      * @returns {Integer} Receives the number of auxiliary connectors.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_aux-querycapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities
      */
     QueryCapabilities() {
         result := ComCall(3, this, "uint*", &pdwNumAuxInputsBSTR := 0, "HRESULT")
@@ -46,6 +44,8 @@ class IBDA_AUX extends IUnknown{
 
     /**
      * Gets the capabilities of an auxiliary connector, specified by index.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities">IBDA_AUX::QueryCapabilities</a> method before calling this method.
      * @param {Integer} dwIndex The zero-based index of the auxiliary connector. To get the number of connectors on the device, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities">IBDA_AUX::QueryCapabilities</a>.
      * @param {Pointer<Integer>} dwInputID Receives a unique identifier for the auxiliary connector.
      * @param {Pointer<Guid>} pConnectorType Receives a GUID that specifies the type of connector.
@@ -78,9 +78,9 @@ class IBDA_AUX extends IUnknown{
      * </table>
      * @param {Pointer<Integer>} ConnTypeNum Receives a numeric identifier for the auxiliary input.
      * @param {Pointer<Integer>} NumVideoStds Receives the number of analog video standards that the connector supports.
-     * @param {Pointer<Integer>} AnalogStds Receives a bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration, specifying which analog video standards the connector supports.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_aux-enumcapability
+     * @param {Pointer<Integer>} AnalogStds Receives a bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration, specifying which analog video standards the connector supports.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-enumcapability
      */
     EnumCapability(dwIndex, dwInputID, pConnectorType, ConnTypeNum, NumVideoStds, AnalogStds) {
         dwInputIDMarshal := dwInputID is VarRef ? "uint*" : "ptr"

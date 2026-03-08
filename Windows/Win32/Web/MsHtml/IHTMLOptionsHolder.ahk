@@ -373,11 +373,11 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {IHTMLObjectElement} object 
+     * @param {IHTMLObjectElement} object_R 
      * @returns {VARIANT_BOOL} 
      */
-    isApartmentModel(object) {
-        result := ComCall(31, this, "ptr", object, "short*", &fApartment := 0, "HRESULT")
+    isApartmentModel(object_R) {
+        result := ComCall(31, this, "ptr", object_R, "short*", &fApartment := 0, "HRESULT")
         return fApartment
     }
 

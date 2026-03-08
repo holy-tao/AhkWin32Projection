@@ -7,7 +7,6 @@
 /**
  * Exposed by a client to specify how to filter the enumeration of a Shell folder by a server application.
  * @remarks
- * 
  * This interface is most often used with <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shbrowseforfoldera">SHBrowseForFolder</a> to filter the contents of the tree view displayed in a folder selection dialog box. To use <b>IFolderFilter</b> with <b>SHBrowseForFolder</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-browseinfoa">BIF_NEWDIALOGSTYLE</a> flag must be set.
  * 
  * When your application calls <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shbrowseforfoldera">SHBrowseForFolder</a>, you become a client of the folder browser object. The folder browser object communicates with you by sending messages to a callback function, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762598(v=vs.85)">BrowseCallbackProc</a>. The <b>BFFM_IUNKNOWN</b> message handled by that callback function contains a pointer to the folder browser's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. To filter the display of a folder's contents, do the following:
@@ -17,11 +16,9 @@
  * <ol>
  * <li>Use the folder browser's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method to request a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifolderfiltersite">IFolderFilterSite</a> interface.</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifolderfiltersite-setfilter">IFolderFilterSite::SetFilter</a>, passing it a pointer to your <b>IFolderFilter</b> interface.</li>
- * <li>The folder browser then queries <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags">IFolderFilter::GetEnumFlags</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow">IFolderFilter::ShouldShow</a>to determine how to filter the enumeration.</li>
+ * <li>The folder browser then queries <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags">IFolderFilter::GetEnumFlags</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow">IFolderFilter::ShouldShow</a> to determine how to filter the enumeration.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifolderfilter
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderfilter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -48,6 +45,33 @@ class IFolderFilter extends IUnknown{
 
     /**
      * Specifies whether an individual item should be allowed through the filter and which should be blocked.
+     * @remarks
+     * The host calls this method for each item in the folder referred to by <i>psf</i> or <i>pidlFolder</i>.
+     * 
+     * It is recommended that your implementation convert the <i>psf</i> and <i>pidlItem</i> information into an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>, which is easier to consume. The following example shows this:
+     * 
+     *                 
+     * 
+     * 
+     * ```
+     * STDMETHODIMP ShouldShow(IShellFolder *psf, 
+     *                         PCIDLIST_ABSOLUTE pidlFolder, 
+     *                         PCUITEMID_CHILD pidlItem)
+     * {
+     *     IShellItem *psi;
+     * 
+     *     HRESULT hr = SHCreateItemWithParent(NULL, psf, pidlItem, IID_PPV_ARGS(&psi));
+     *     if (SUCCEEDED(hr))
+     *     {
+     *         // Determine here whether the item should be shown. This determination
+     *         // is application-dependent.
+     * 
+     *         psi->Release();
+     *     }
+     * 
+     *     return hr;
+     * }
+     * ```
      * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface.
@@ -60,7 +84,7 @@ class IFolderFilter extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the item should be shown, S_FALSE if it should not be shown, or a standard error code if an error is encountered. If an error is encountered, the item is not shown.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow
      */
     ShouldShow(psf, pidlFolder, pidlItem) {
         result := ComCall(3, this, "ptr", psf, "ptr", pidlFolder, "ptr", pidlItem, "HRESULT")
@@ -81,7 +105,7 @@ class IFolderFilter extends IUnknown{
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to the host's window handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
      */
     GetEnumFlags(psf, pidlFolder, pgrfFlags) {
         pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"

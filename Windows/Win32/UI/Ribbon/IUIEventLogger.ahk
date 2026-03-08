@@ -5,7 +5,7 @@
 
 /**
  * The IUIEventLogger interface is implemented by the application and defines the ribbon events callback method.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuieventlogger
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuieventlogger
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IUIEventLogger extends IUnknown{
      * Receives notifications that a ribbon event has occurred.
      * @param {Pointer<UI_EVENTPARAMS>} pEventParams The parameters associated with the event. This value varies according to the event type.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuieventlogger-onuievent
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuieventlogger-onuievent
      */
     OnUIEvent(pEventParams) {
         ComCall(3, this, "ptr", pEventParams)

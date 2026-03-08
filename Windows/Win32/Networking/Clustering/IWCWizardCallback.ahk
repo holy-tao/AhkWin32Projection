@@ -6,7 +6,6 @@
 /**
  * The IWCWizardCallback interface is called by a Failover Cluster Administrator extension to add a property page to a Failover Cluster Administrator Wizard and to manage navigation.
  * @remarks
- * 
  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
  *      your 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendwizard-createwizardpages">IWEExtendWizard::CreateWizardPages</a> 
@@ -14,9 +13,7 @@
  *      interface.
  * 
  * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iwcwizard97callback">IWCWizard97Callback</a> to add Wizard97 pages.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwcwizardcallback
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwcwizardcallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -43,6 +40,18 @@ class IWCWizardCallback extends IUnknown{
 
     /**
      * Adds a property page to a Failover Cluster Administrator Wizard.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> extensions call the 
+     *      <b>AddWizardPage</b> method from their 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendwizard-createwizardpages">IWEExtendWizard::CreateWizardPages</a> 
+     *      methods. Before calling <b>AddWizardPage</b>, 
+     *      extensions must call the function 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> to retrieve a 
+     *      handle to pass in the <i>hpage</i> parameter.
+     * 
+     * Use 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwcwizard97callback-addwizard97page">IWCWizard97Calllback::AddWizard97Page</a> 
+     *      to add Wizard97 pages.
      * @param {Pointer<Integer>} hpage Handle to the property page to be added.
      * @returns {HRESULT} If <b>AddWizardPage</b> is not successful, 
      *        it can return other <b>HRESULT</b> values.
@@ -77,7 +86,7 @@ class IWCWizardCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage
      */
     AddWizardPage(hpage) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"
@@ -88,6 +97,16 @@ class IWCWizardCallback extends IUnknown{
 
     /**
      * Enables or disables the Next or Finish button on a Failover Cluster Administrator Wizard page, depending on whether the current page is last.
+     * @remarks
+     * Extensions should call the <b>EnableNext</b> 
+     *      method in their handling of the <b>PSN_SETACTIVE</b> message for a property page that 
+     *      they have added to the Failover Cluster Administrator Wizard. 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> determines whether 
+     *      the <b>Next</b> or <b>Finish</b> button should be displayed based on 
+     *      the page specified in the <i>hpage</i> parameter.
+     * 
+     * For Wizard97 pages, use 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwcwizard97callback-enablenext">IWCWizard97Callback::EnableNext</a>.
      * @param {Pointer<Integer>} hpage Handle to the property page containing the button to be enabled or disabled.
      * @param {BOOL} bEnable Value indicating whether to enable or disable the button. If <i>bEnable</i> is set to 
      *        <b>TRUE</b>, the appropriate button is enabled. If <i>bEnable</i> is set 
@@ -125,7 +144,7 @@ class IWCWizardCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcwizardcallback-enablenext
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-enablenext
      */
     EnableNext(hpage, bEnable) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"

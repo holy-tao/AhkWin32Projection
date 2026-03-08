@@ -8,7 +8,6 @@
 /**
  * An unordered set of IOpcRelationshipSelector interface pointers that represent the selection criteria that is used to identify relationships for signing.
  * @remarks
- * 
  * Use the methods of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointers in the set to select relationships for signing.
  * 
  * To create an <b>IOpcRelationshipSelectorSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset">IOpcSignatureRelationshipReference::CreateRelationshipSelectorSet</a> method.
@@ -16,10 +15,7 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is created and added to the set, the criterion it provides access to is saved when the package is saved.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is deleted from the set, the criterion it provides access to is not saved when the package is saved.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipselectorset
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipselectorset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -46,12 +42,16 @@ class IOpcRelationshipSelectorSet extends IUnknown{
 
     /**
      * Creates an IOpcRelationshipSelector interface pointer to represent how a subset of relationships are selected to be signed, and adds the new pointer to the set.
+     * @remarks
+     * Use the methods of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointers in the set to select relationships for signing.
+     * 
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is created and added to the set, the criterion it provides access to is saved when the package is saved.
      * @param {Integer} selector A value that describes how to interpret the  string that is passed in <i>selectionCriterion</i>.
      * @param {PWSTR} selectionCriterion A string that is interpreted to yield a criterion.
      * @returns {IOpcRelationshipSelector} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer that represents how relationships are selected from a Relationships part.
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new interface is not needed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorset-create
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorset-create
      */
     Create(selector, selectionCriterion) {
         selectionCriterion := selectionCriterion is String ? StrPtr(selectionCriterion) : selectionCriterion
@@ -62,6 +62,8 @@ class IOpcRelationshipSelectorSet extends IUnknown{
 
     /**
      * Deletes a specified IOpcRelationshipSelector interface pointer from the set.
+     * @remarks
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is deleted from the set, the criterion it provides access to is not saved when the package is saved.
      * @param {IOpcRelationshipSelector} relationshipSelector An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -93,7 +95,7 @@ class IOpcRelationshipSelectorSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorset-delete
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorset-delete
      */
     Delete(relationshipSelector) {
         result := ComCall(4, this, "ptr", relationshipSelector, "HRESULT")
@@ -103,7 +105,7 @@ class IOpcRelationshipSelectorSet extends IUnknown{
     /**
      * Gets an enumerator of IOpcRelationshipSelector interface pointers in the set.
      * @returns {IOpcRelationshipSelectorEnumerator} A pointer to an enumerator of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &relationshipSelectorEnumerator := 0, "HRESULT")

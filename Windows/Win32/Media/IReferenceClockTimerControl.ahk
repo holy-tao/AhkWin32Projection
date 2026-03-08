@@ -6,7 +6,6 @@
 /**
  * The IReferenceClockTimerControl interface changes the timer period used by a reference clock. This interface is exposed by the DirectShow System Reference Clock.
  * @remarks
- * 
  * By default, the system reference clock in DirectShow sets the timer period to the minimum value allowed by the timer. Typically, this value is 1 millisecond.
  * 
  * The timer period is a global settings in Windows. A higher resolution can improve the accuracy of time-out intervals in wait functions. However, it can also reduce overall system performance, because the thread scheduler switches tasks more often. High resolutions can also prevent the CPU power management system from entering power-saving modes. Setting a higher resolution does not improve the accuracy of the high-resolution performance counter.
@@ -14,8 +13,7 @@
  * The main purpose of this interface is to override the reference clock's default timer setting. To do so, call <b>SetDefaultTimerResolution</b> with the value zero. This can result in a lower timer resolution, which might enable the user's computer to enter a power saving mode. (The actual behavior depends on many other factors, such as what other processes are running.) The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator</a> filter uses this interface as described here.
  * 
  * If a DirectShow filter requires a higher timer resolution, it should call <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a>. Typically this requirement would apply only to renderer filters.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ireferenceclocktimercontrol
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ireferenceclocktimercontrol
  * @namespace Windows.Win32.Media
  * @version v4.0.30319
  */
@@ -42,6 +40,10 @@ class IReferenceClockTimerControl extends IUnknown{
 
     /**
      * The SetDefaultTimerResolution method sets the minimum timer resolution.
+     * @remarks
+     * The reference clock attempts to set the period of the timer to <i>timerResolution</i>. The actual period of the timer might differ, depending on the hardware. To find the minimum and maximum timer resolution, call the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timegetdevcaps">timeGetDevCaps</a> function. The reference clock sets the timer resolution is set by calling <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a>. If <i>timerResolution</i> is 0, the method cancels the previous timer request by calling <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a>. (When the reference clock is destroyed, it automatically cancels any previous request.)
+     * 
+     * If this method is not called, the reference clock sets the timer resolution to 1 millisecond. To get the best power management performance, it is recommended that you call this method with the value zero. This overrides the clock's default setting of 1 millisecond. If any filters in the graph require a higher timer resolution, they can call <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> individually. Typically only renderers should require a particular timer resolution.
      * @param {Integer} timerResolution Minimum timer resolution, in 100-nanosecond units. If the value is zero, the reference clock cancels its previous request.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -62,7 +64,7 @@ class IReferenceClockTimerControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclocktimercontrol-setdefaulttimerresolution
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ireferenceclocktimercontrol-setdefaulttimerresolution
      */
     SetDefaultTimerResolution(timerResolution) {
         result := ComCall(3, this, "int64", timerResolution, "HRESULT")
@@ -71,8 +73,10 @@ class IReferenceClockTimerControl extends IUnknown{
 
     /**
      * The GetDefaultTimerResolution method returns the timer resolution that was requested by the reference clock.
+     * @remarks
+     * The value returned in <i>pTimerResolution</i> is the period that the reference clock attempts to set on the underlying timer. The actual timer period might differ, depending on the hardware. If the reference clock did not request a minimum timer resolution, the <i>pTimerResolution</i> parameter receives the value zero.
      * @returns {Integer} Receives the requested timer resolution, in 100-nanosecond units.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclocktimercontrol-getdefaulttimerresolution
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ireferenceclocktimercontrol-getdefaulttimerresolution
      */
     GetDefaultTimerResolution() {
         result := ComCall(4, this, "int64*", &pTimerResolution := 0, "HRESULT")

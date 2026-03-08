@@ -7,7 +7,7 @@
 
 /**
  * The ITextStrings interface represents a collection of rich-text strings that are useful for manipulating rich text.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextstrings
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstrings
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -34,13 +34,15 @@ class ITextStrings extends IDispatch{
 
     /**
      * Gets an ITextRange2 object for a selected index in a string collection.
+     * @remarks
+     * The first string corresponds to Index = 1 and the last to Count which is given by <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstrings-getcount">ITextStrings_GetCount</a>.
      * @param {Integer} Index Type: <b>long</b>
      * 
      * The index of the string to retrieve. The default value is 1.
      * @returns {ITextRange2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>**</b>
      * 
      * The object to receive the range.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-item
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-item
      */
     Item(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
@@ -52,7 +54,7 @@ class ITextStrings extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of strings.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcount
      */
     GetCount() {
         result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
@@ -61,12 +63,14 @@ class ITextStrings extends IDispatch{
 
     /**
      * Adds a string to the end of the collection.
+     * @remarks
+     * Adding an item to the end of a collection is like pushing a parameter onto the stack.
      * @param {BSTR} bstr Type: <b>BSTR</b>
      * 
      * The string. The value can be <b>NULL</b> for  a null string.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -96,7 +100,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-add
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-add
      */
     Add(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -107,15 +111,17 @@ class ITextStrings extends IDispatch{
 
     /**
      * Appends a string to the string at the specified index in the collection.
+     * @remarks
+     * The index is relative to the top of the collection, so if  <i>iString</i> is equal to 0 the string is inserted at the top. If <i>iString</i> is equal to  –1, it is inserted below the top string, and so on.
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The string to append.
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -145,7 +151,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-append
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-append
      */
     Append(pRange, iString) {
         result := ComCall(10, this, "ptr", pRange, "int", iString, "HRESULT")
@@ -157,10 +163,10 @@ class ITextStrings extends IDispatch{
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-cat2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-cat2
      */
     Cat2(iString) {
         result := ComCall(11, this, "int", iString, "HRESULT")
@@ -172,10 +178,10 @@ class ITextStrings extends IDispatch{
      * @param {BSTR} bstr Type: <b>BSTR</b>
      * 
      * The text to insert. The value can be <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-cattop2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-cattop2
      */
     CatTop2(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -186,12 +192,14 @@ class ITextStrings extends IDispatch{
 
     /**
      * Deletes the contents of a given range.
+     * @remarks
+     * If the text selected by the range is not completely contained by the string, the method fails.
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The range to delete.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -221,7 +229,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-deleterange
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-deleterange
      */
     DeleteRange(pRange) {
         result := ComCall(13, this, "ptr", pRange, "HRESULT")
@@ -230,6 +238,8 @@ class ITextStrings extends IDispatch{
 
     /**
      * Encodes an object, given a set of argument strings.
+     * @remarks
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a> for a more detailed discussion of the arguments.
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The object type. See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a> for a table of definitions.
@@ -257,10 +267,10 @@ class ITextStrings extends IDispatch{
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The specifying range that points at the desired formatting.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-encodefunction
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-encodefunction
      */
     EncodeFunction(Type, Align, Char, Char1, Char2, Count, TeXStyle, cCol, pRange) {
         result := ComCall(14, this, "int", Type, "int", Align, "int", Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "ptr", pRange, "HRESULT")
@@ -269,13 +279,15 @@ class ITextStrings extends IDispatch{
 
     /**
      * Gets the count of characters for a selected string index.
+     * @remarks
+     * The index is relative to the top of the collection, so <i>iString</i> = 0 returns the character count of the top string, <i>iString</i> = –1 returns that for the one below the top string, and so on.
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The string character count.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-getcch
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcch
      */
     GetCch(iString) {
         result := ComCall(15, this, "int", iString, "int*", &pcch := 0, "HRESULT")
@@ -284,13 +296,15 @@ class ITextStrings extends IDispatch{
 
     /**
      * Inserts a NULL string in the collection at a selected string index.
+     * @remarks
+     * The index is relative to the top of the collection, so <i>iString</i> = 0 inserts the <b>NULL</b> string at the top, <i>iString</i> = –1 inserts it below the top string, and so on.
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-insertnullstr
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-insertnullstr
      */
     InsertNullStr(iString) {
         result := ComCall(16, this, "int", iString, "HRESULT")
@@ -299,16 +313,18 @@ class ITextStrings extends IDispatch{
 
     /**
      * Moves the start boundary of a string, by index, for a selected number of characters.
+     * @remarks
+     * The index is relative to the top of the collection, so <i>iString</i> = 0 moves the top string boundary, <i>iString</i> = –1 moves the boundary of the string below the top string, and so on.
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
      * @param {Integer} cch Type: <b>long</b>
      * 
      * The selected number of characters to move the boundary.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-moveboundary
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-moveboundary
      */
     MoveBoundary(iString, cch) {
         result := ComCall(17, this, "int", iString, "int", cch, "HRESULT")
@@ -320,9 +336,9 @@ class ITextStrings extends IDispatch{
      * @param {BSTR} bstr Type: <b>BSTR</b>
      * 
      * The string to prefix to the collection.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -341,7 +357,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-prefixtop
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-prefixtop
      */
     PrefixTop(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -352,15 +368,17 @@ class ITextStrings extends IDispatch{
 
     /**
      * Removes a string from a string collection, starting at an index.
+     * @remarks
+     * The index is relative to the top of the collection, so <i>iString</i> = 0 removes the top string (<i>cString</i> must be 1), <i>iString</i> = –1 removes the one below the top string (and the top string if <i>cString</i> = 2), and so on.
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
      * @param {Integer} cString Type: <b>long</b>
      * 
      * The count of strings to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -379,7 +397,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-remove
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-remove
      */
     Remove(iString, cString) {
         result := ComCall(19, this, "int", iString, "int", cString, "HRESULT")
@@ -394,9 +412,9 @@ class ITextStrings extends IDispatch{
      * @param {ITextRange2} pRangeS Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The formatted text.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -426,7 +444,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-setformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-setformattedtext
      */
     SetFormattedText(pRangeD, pRangeS) {
         result := ComCall(20, this, "ptr", pRangeD, "ptr", pRangeS, "HRESULT")
@@ -441,9 +459,9 @@ class ITextStrings extends IDispatch{
      * @param {Integer} cp Type: <b>long</b>
      * 
      * The character position in source range's story that has the desired character formatting.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -462,7 +480,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-setopcp
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-setopcp
      */
     SetOpCp(iString, cp) {
         result := ComCall(21, this, "int", iString, "int", cp, "HRESULT")
@@ -471,15 +489,17 @@ class ITextStrings extends IDispatch{
 
     /**
      * Suffixes a string to the top string in the collection.
+     * @remarks
+     * This method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstrings-append">ITextStrings::Append</a>, but appends a string instead of a range.
      * @param {BSTR} bstr Type: <b>BSTR</b>
      * 
      * The text to suffix to the top string.
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The range with the desired character formatting.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -498,7 +518,7 @@ class ITextStrings extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-suffixtop
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-suffixtop
      */
     SuffixTop(bstr, pRange) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -509,10 +529,10 @@ class ITextStrings extends IDispatch{
 
     /**
      * Swaps the top two strings in the collection.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstrings-swap
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-swap
      */
     Swap() {
         result := ComCall(23, this, "HRESULT")

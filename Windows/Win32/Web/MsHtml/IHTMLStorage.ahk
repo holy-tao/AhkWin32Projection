@@ -69,9 +69,13 @@ class IHTMLStorage extends IDispatch{
     }
 
     /**
-     * 
+     * Synthesizes a keystroke.
+     * @remarks
+     * An application can simulate a press of the PRINTSCRN key in order to obtain a screen snapshot and save it to the clipboard. To do this, call <b>keybd_event</b> with the 
+     * 				<i>bVk</i> parameter set to <b>VK_SNAPSHOT</b>.
      * @param {Integer} lIndex 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-keybd_event
      */
     key(lIndex) {
         __MIDL__IHTMLStorage0000 := BSTR()

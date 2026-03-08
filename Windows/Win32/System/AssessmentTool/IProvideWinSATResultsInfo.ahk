@@ -8,7 +8,7 @@
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatresultsinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatresultsinfo
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
      * Retrieves summary information for a subcomponent of the assessment.
      * @param {Integer} assessment A subcomponent of the assessment whose summary information you want to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_type">WINSAT_ASSESSMENT_TYPE</a> enumeration.
      * @returns {IProvideWinSATAssessmentInfo} An <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo">IProvideWinSATAssessmentInfo</a> interface that you use to get the score for the subcomponent.
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-getassessmentinfo
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-getassessmentinfo
      */
     GetAssessmentInfo(assessment) {
         result := ComCall(7, this, "int", assessment, "ptr*", &ppinfo := 0, "HRESULT")
@@ -75,7 +75,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
     /**
      * Retrieves the state of the assessment.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate
      */
     get_AssessmentState() {
         result := ComCall(8, this, "int*", &state := 0, "HRESULT")
@@ -85,7 +85,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
     /**
      * Retrieves the date and time that the assessment was run.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentdatetime
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentdatetime
      */
     get_AssessmentDateTime() {
         fileTime := VARIANT()
@@ -96,7 +96,6 @@ class IProvideWinSATResultsInfo extends IDispatch{
     /**
      * Retrieves the base score for the computer.
      * @remarks
-     * 
      * The Windows Experience Index feature measures the capability of your computer's hardware configuration and expresses this measurement as a number called a base score. A higher base score generally means that your computer will perform better and faster than a computer with a lower base score, especially when performing more advanced and resource-intensive tasks. 
      * 
      * 
@@ -109,11 +108,8 @@ class IProvideWinSATResultsInfo extends IDispatch{
      * 
      * 
      * To get the score for a subcomponent of the assessment, such as the CPU, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score">IProvideWinSATAssessmentInfo::get_Score</a> method.
-     * 
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating
      */
     get_SystemRating() {
         result := ComCall(10, this, "float*", &level := 0, "HRESULT")
@@ -123,12 +119,9 @@ class IProvideWinSATResultsInfo extends IDispatch{
     /**
      * Retrieves a string that you can use in a UI to indicate whether the assessment is valid.
      * @remarks
-     * 
      * If the assessment is valid, the string is "Windows Experience Index"; otherwise, the string is "Windows Experience Index : Unrated". To determine the validity of the assessment, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate">IProvideWinSATResultsInfo::get_AssessmentState</a> method.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_ratingstatedesc
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_ratingstatedesc
      */
     get_RatingStateDesc() {
         description := BSTR()

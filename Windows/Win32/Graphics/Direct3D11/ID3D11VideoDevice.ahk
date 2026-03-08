@@ -14,15 +14,12 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device.
+ * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)
  * @remarks
- * 
  * The Direct3D 11 device supports this interface. To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> interface pointer.
  * 
  * If you query an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> for <b>ID3D11VideoDevice</b> and the Direct3D 11 device created is using the reference rasterizer or WARP, or is a hardware device and you are using the Microsoft Basic Display Adapter, <b>E_NOINTERFACE</b> is returned.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11videodevice
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videodevice
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -49,10 +46,14 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a video decoder device for Microsoft Direct3D 11.
+     * @remarks
+     * This method allocates the necessary decoder buffers. 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-clearstate">ID3D11DeviceContext::ClearState</a> method does not affect the internal state of the video decoder.
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a> structure that describes the video stream and the decoder profile.
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pConfig A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a> structure that specifies the decoder configuration.
      * @returns {ID3D11VideoDecoder} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideodecoder
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder
      */
     CreateVideoDecoder(pVideoDesc, pConfig) {
         result := ComCall(3, this, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", &ppDecoder := 0, "HRESULT")
@@ -61,10 +62,12 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a video processor device for Microsoft Direct3D 11.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-clearstate">ID3D11DeviceContext::ClearState</a> method does not affect the internal state of the video processor.
      * @param {ID3D11VideoProcessorEnumerator} pEnum A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator">ID3D11VideoProcessorEnumerator</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator">ID3D11VideoDevice::CreateVideoProcessorEnumerator</a>.
      * @param {Integer} RateConversionIndex Specifies the frame-rate conversion capabilities for the video processor. The value is a zero-based index that corresponds to the <i>TypeIndex</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorrateconversioncaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorRateConversionCaps</a> method.
      * @returns {ID3D11VideoProcessor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor
      */
     CreateVideoProcessor(pEnum, RateConversionIndex) {
         result := ComCall(4, this, "ptr", pEnum, "uint", RateConversionIndex, "ptr*", &ppVideoProcessor := 0, "HRESULT")
@@ -73,9 +76,13 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a channel to communicate with the Microsoft Direct3D device or the graphics driver.
+     * @remarks
+     * If the <i>ChannelType</i> parameter is <b>D3D11_AUTHENTICATED_CHANNEL_D3D11</b>, the method creates a channel with the Direct3D device. This type of channel does not support authentication.
+     * 
+     * If <i>ChannelType</i> is <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_SOFTWARE</b> or <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_HARDWARE</b>, the method creates an authenticated channel with the graphics driver.
      * @param {Integer} ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type">D3D11_AUTHENTICATED_CHANNEL_TYPE</a> enumeration.
      * @returns {ID3D11AuthenticatedChannel} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
      */
     CreateAuthenticatedChannel(ChannelType) {
         result := ComCall(5, this, "int", ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
@@ -84,6 +91,8 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a cryptographic session to encrypt video content that is sent to the graphics driver.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-clearstate">ID3D11DeviceContext::ClearState</a> method does not affect the internal state of the cryptographic session.
      * @param {Pointer<Guid>} pCryptoType A pointer to a GUID that specifies the type of encryption to use. The following GUIDs are defined.
      * 
      * 
@@ -125,7 +134,7 @@ class ID3D11VideoDevice extends IUnknown{
      * </tr>
      * </table>
      * @returns {ID3D11CryptoSession} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createcryptosession
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createcryptosession
      */
     CreateCryptoSession(pCryptoType, pDecoderProfile, pKeyExchangeType) {
         result := ComCall(6, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
@@ -134,10 +143,12 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a resource view for a video decoder, describing the output sample for the decoding operation.
+     * @remarks
+     * Set the <i>ppVDOVView</i> parameter to <b>NULL</b> to test whether a view is supported.
      * @param {ID3D11Resource} pResource A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11resource">ID3D11Resource</a> interface of the decoder surface. The resource must be created with the <b>D3D11_BIND_DECODER</b> flag. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_FLAG</a>.
      * @param {Pointer<D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC>} pDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_output_view_desc">D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC</a> structure that describes the view.
      * @returns {ID3D11VideoDecoderOutputView} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoderoutputview">ID3D11VideoDecoderOutputView</a> interface. The caller must release the interface. If this parameter is <b>NULL</b>, the method checks whether the view is supported, but does not create the view.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideodecoderoutputview
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoderoutputview
      */
     CreateVideoDecoderOutputView(pResource, pDesc) {
         result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppVDOVView := 0, "HRESULT")
@@ -146,11 +157,27 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a resource view for a video processor, describing the input sample for the video processing operation.
+     * @remarks
+     * Set the <i>ppVPIView</i> parameter to <b>NULL</b> to test whether a view is supported.
+     * 
+     * The surface format is given in the <b>FourCC</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_input_view_desc">D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC</a> structure. The method fails if the video processor does not support this format as an input sample. An app must specify 0 when using 9_1, 9_2, or 9_3 feature levels. 
+     * 
+     * Resources used for video processor input views must use the following bind flag combinations:
+     * 
+     * <ul>
+     * <li>Any combination of bind flags that includes <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_DECODER</a>,<b>D3D11_BIND_VIDEO_ENCODER</b>, <b>D3D11_BIND_RENDER_TARGET</b>, and <b>D3D11_BIND_UNORDERED_ACCESS_VIEW</b> can be used as for video processor input views (regardless of what other bind flags may be set).</li>
+     * <li>Bind flags = 0 is also allowed for a video processor input view.</li>
+     * <li>Other restrictions will apply such as:<ul>
+     * <li>No multi-sampling is allowed.</li>
+     * <li>The Texture2D must have been created using <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-usage">D3D11_USAGE_DEFAULT</a>.</li>
+     * </ul>
+     * </li>
+     * </ul>
      * @param {ID3D11Resource} pResource A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11resource">ID3D11Resource</a> interface of the input surface.
      * @param {ID3D11VideoProcessorEnumerator} pEnum A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator">ID3D11VideoProcessorEnumerator</a> interface that specifies the video processor. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator">ID3D11VideoDevice::CreateVideoProcessorEnumerator</a>.
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC>} pDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_input_view_desc">D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC</a> structure that describes the view.
      * @returns {ID3D11VideoProcessorInputView} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorinputview">ID3D11VideoProcessorInputView</a> interface. The caller must release the resource. If this parameter is <b>NULL</b>, the method checks whether the view is supported, but does not create the view.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorinputview
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorinputview
      */
     CreateVideoProcessorInputView(pResource, pEnum, pDesc) {
         result := ComCall(8, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPIView := 0, "HRESULT")
@@ -159,11 +186,35 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Creates a resource view for a video processor, describing the output sample for the video processing operation.
+     * @remarks
+     * Set the <i>ppVPOView</i> parameter to <b>NULL</b> to test whether a view is supported.
+     * 
+     * Resources used for video processor output views must use the following <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_FLAG</a> combinations:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_RENDER_TARGET</a> indicates that it can be used for a video processor output view. The following bind flags are allowed to be set with <b>D3D11_BIND_RENDER_TARGET</b>:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_VIDEO_ENCODER</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_SHADER_RESOURCE</a>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>Other restrictions will apply such as:<ul>
+     * <li>No multi-sampling is allowed.</li>
+     * <li>The Texture2D must have been created using <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-usage">D3D11_USAGE_DEFAULT</a>.</li>
+     * </ul>
+     * </li>
+     * <li>Some YUV formats can be supported as a video processor output view, but might not be supported as a 3D render target.  D3D11 will allow the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_RENDER_TARGET</a> flag for these formats, but <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createrendertargetview">CreateRenderTargetView</a> will not be allowed for these formats.</li>
+     * </ul>
+     * If stereo output is enabled, the output view must have 2 array elements.  Otherwise, it must only have a single array element.
      * @param {ID3D11Resource} pResource A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11resource">ID3D11Resource</a> interface of the output surface. The resource must be created with the <b>D3D11_BIND_RENDER_TARGET</b> flag. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_FLAG</a>.
      * @param {ID3D11VideoProcessorEnumerator} pEnum A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator">ID3D11VideoProcessorEnumerator</a> interface that specifies the video processor. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator">ID3D11VideoDevice::CreateVideoProcessorEnumerator</a>.
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC>} pDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_output_view_desc">D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC</a> structure that describes the view.
      * @returns {ID3D11VideoProcessorOutputView} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessoroutputview">ID3D11VideoProcessorOutputView</a> interface. The caller must release the resource. If this parameter is <b>NULL</b>, the method checks whether the view is supported, but does not create the view.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideoprocessoroutputview
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessoroutputview
      */
     CreateVideoProcessorOutputView(pResource, pEnum, pDesc) {
         result := ComCall(9, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPOView := 0, "HRESULT")
@@ -172,9 +223,11 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Enumerates the video processor capabilities of the driver.
+     * @remarks
+     * To create the video processor device, pass the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator">ID3D11VideoProcessorEnumerator</a> pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a> method.
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_CONTENT_DESC>} pDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_content_desc">D3D11_VIDEO_PROCESSOR_CONTENT_DESC</a> structure that describes the video content.
      * @returns {ID3D11VideoProcessorEnumerator} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator">ID3D11VideoProcessorEnumerator</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator
      */
     CreateVideoProcessorEnumerator(pDesc) {
         result := ComCall(10, this, "ptr", pDesc, "ptr*", &ppEnum := 0, "HRESULT")
@@ -183,8 +236,10 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Gets the number of profiles that are supported by the driver.
+     * @remarks
+     * To enumerate the profiles, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile">ID3D11VideoDevice::GetVideoDecoderProfile</a>.
      * @returns {Integer} Returns the number of profiles.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofilecount
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofilecount
      */
     GetVideoDecoderProfileCount() {
         result := ComCall(11, this, "uint")
@@ -195,7 +250,7 @@ class ID3D11VideoDevice extends IUnknown{
      * Gets a profile that is supported by the driver.
      * @param {Integer} Index The zero-based index of the profile. To get the number of profiles that the driver supports, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofilecount">ID3D11VideoDevice::GetVideoDecoderProfileCount</a>.
      * @returns {Guid} Receives a GUID that identifies the profile.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile
      */
     GetVideoDecoderProfile(Index) {
         pDecoderProfile := Guid()
@@ -205,10 +260,12 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Given aprofile, checks whether the driver supports a specified output format.
+     * @remarks
+     * If the driver does not support the profile given in <i>pDecoderProfile</i>, the method returns <b>E_INVALIDARG</b>. If the driver supports the profile, but the DXGI format is not compatible with the profile, the method succeeds but returns the value <b>FALSE</b> in <i>pSupported</i>.
      * @param {Pointer<Guid>} pDecoderProfile A pointer to a GUID that identifies the profile. To get the list of supported profiles, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile">ID3D11VideoDevice::GetVideoDecoderProfile</a>.
      * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value that specifies the output format. Typical values include <b>DXGI_FORMAT_NV12</b> and <b>DXGI_FORMAT_420_OPAQUE</b>.
      * @returns {BOOL} Receives the value <b>TRUE</b> if the format is supported, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-checkvideodecoderformat
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkvideodecoderformat
      */
     CheckVideoDecoderFormat(pDecoderProfile, Format) {
         result := ComCall(13, this, "ptr", pDecoderProfile, "int", Format, "int*", &pSupported := 0, "HRESULT")
@@ -217,9 +274,11 @@ class ID3D11VideoDevice extends IUnknown{
 
     /**
      * Gets the number of decoder configurations that the driver supports for a specified video description.
+     * @remarks
+     * To enumerate the decoder configurations, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfig">ID3D11VideoDevice::GetVideoDecoderConfig</a>.
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pDesc A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a> structure that describes the video stream.
      * @returns {Integer} Receives the number of decoder configurations.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount
      */
     GetVideoDecoderConfigCount(pDesc) {
         result := ComCall(14, this, "ptr", pDesc, "uint*", &pCount := 0, "HRESULT")
@@ -231,7 +290,7 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pDesc A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a> structure that describes the video stream.
      * @param {Integer} Index The zero-based index of the decoder configuration. To get the number of configurations that the driver supports, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount">ID3D11VideoDevice::GetVideoDecoderConfigCount</a>.
      * @returns {D3D11_VIDEO_DECODER_CONFIG} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a> structure. The method fills in the structure with the decoder configuration.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfig
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfig
      */
     GetVideoDecoderConfig(pDesc, Index) {
         pConfig := D3D11_VIDEO_DECODER_CONFIG()
@@ -267,7 +326,7 @@ class ID3D11VideoDevice extends IUnknown{
      * 
      * The driver might disallow some combinations of encryption type and profile.
      * @returns {D3D11_VIDEO_CONTENT_PROTECTION_CAPS} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_content_protection_caps">D3D11_VIDEO_CONTENT_PROTECTION_CAPS</a> structure. The method fills in this structure with the driver's content protection capabilities.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps
      */
     GetContentProtectionCaps(pCryptoType, pDecoderProfile) {
         pCaps := D3D11_VIDEO_CONTENT_PROTECTION_CAPS()
@@ -299,7 +358,7 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {Pointer<Guid>} pDecoderProfile A pointer to a GUID that specifies the decoding profile. To get  profiles that the driver supports, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile">ID3D11VideoDevice::GetVideoDecoderProfile</a>. If decoding will not be used, set this parameter to <b>NULL</b>.
      * @param {Integer} Index The zero-based index of the key-exchange type. The driver reports the number of types in the <b>KeyExchangeTypeCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_content_protection_caps">D3D11_VIDEO_CONTENT_PROTECTION_CAPS</a> structure.
      * @returns {Guid} Receives a GUID that identifies the type of key exchange.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-checkcryptokeyexchange
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkcryptokeyexchange
      */
     CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index) {
         pKeyExchangeType := Guid()
@@ -312,8 +371,8 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {Pointer<Guid>} guid The GUID associated with the data.
      * @param {Integer} DataSize The size of the data, in bytes.
      * @param {Pointer} pData A pointer to the data.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-setprivatedata
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
         result := ComCall(18, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
@@ -324,8 +383,8 @@ class ID3D11VideoDevice extends IUnknown{
      * Sets a private IUnknown pointer on the video device and associates that pointer with a GUID.
      * @param {Pointer<Guid>} guid The GUID associated with the pointer.
      * @param {IUnknown} pData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodevice-setprivatedatainterface
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
         result := ComCall(19, this, "ptr", guid, "ptr", pData, "HRESULT")

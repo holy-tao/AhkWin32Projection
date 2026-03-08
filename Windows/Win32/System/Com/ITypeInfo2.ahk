@@ -6,8 +6,8 @@
 #Include .\ITypeInfo.ahk
 
 /**
- * Used for reading information about objects.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-itypeinfo2
+ * Used for reading information about objects. (ITypeInfo2)
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypeinfo2
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class ITypeInfo2 extends ITypeInfo{
     /**
      * Returns the TYPEKIND enumeration quickly, without doing any allocations.
      * @returns {Integer} A TYPEKIND value.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-gettypekind
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypekind
      */
     GetTypeKind() {
         result := ComCall(22, this, "int*", &pTypeKind := 0, "HRESULT")
@@ -45,7 +45,7 @@ class ITypeInfo2 extends ITypeInfo{
     /**
      * Returns the type flags without any allocations. This returns a flag that expands the type flags without growing the TYPEATTR (type attribute).
      * @returns {Integer} A TYPEFLAG value.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-gettypeflags
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypeflags
      */
     GetTypeFlags() {
         result := ComCall(23, this, "uint*", &pTypeFlags := 0, "HRESULT")
@@ -53,11 +53,11 @@ class ITypeInfo2 extends ITypeInfo{
     }
 
     /**
-     * Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member).
+     * Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member). (ITypeInfo2.GetFuncIndexOfMemId)
      * @param {Integer} memid The member identifier.
      * @param {Integer} invKind The invoke kind.
      * @returns {Integer} An index into the function.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */
     GetFuncIndexOfMemId(memid, invKind) {
         result := ComCall(24, this, "int", memid, "int", invKind, "uint*", &pFuncIndex := 0, "HRESULT")
@@ -65,10 +65,10 @@ class ITypeInfo2 extends ITypeInfo{
     }
 
     /**
-     * Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member).
+     * Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member). (ITypeInfo2.GetVarIndexOfMemId)
      * @param {Integer} memid The member identifier.
      * @returns {Integer} The index.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getvarindexofmemid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarindexofmemid
      */
     GetVarIndexOfMemId(memid) {
         result := ComCall(25, this, "int", memid, "uint*", &pVarIndex := 0, "HRESULT")
@@ -76,10 +76,10 @@ class ITypeInfo2 extends ITypeInfo{
     }
 
     /**
-     * Gets the custom data.
+     * Gets the custom data. (ITypeInfo2.GetCustData)
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The custom data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getcustdata
      */
     GetCustData(guid) {
         pVarVal := VARIANT()
@@ -92,7 +92,7 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} index The index of the function for which to get the custom data.
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The custom data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getfunccustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfunccustdata
      */
     GetFuncCustData(index, guid) {
         pVarVal := VARIANT()
@@ -106,7 +106,7 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} indexParam The index of the parameter of this function for which to get the custom data.
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The retrieved data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getparamcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getparamcustdata
      */
     GetParamCustData(indexFunc, indexParam, guid) {
         pVarVal := VARIANT()
@@ -119,7 +119,7 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} index The index of the variable for which to get the custom data.
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The retrieved data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getvarcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarcustdata
      */
     GetVarCustData(index, guid) {
         pVarVal := VARIANT()
@@ -132,7 +132,7 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} index The index of the implementation type for the custom data.
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The retrieved data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getimpltypecustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getimpltypecustdata
      */
     GetImplTypeCustData(index, guid) {
         pVarVal := VARIANT()
@@ -142,6 +142,10 @@ class ITypeInfo2 extends ITypeInfo{
 
     /**
      * Retrieves the documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.
+     * @remarks
+     * Gets information at the type information level (about the type information and its members). The caller should free the BSTR parameters.
+     * 
+     * This function will call <b>_DLLGetDocumentation</b> in the specified DLL to retrieve the desired Help string, if there is a Help string context for this item. If no Help string context exists or an error occurs, then it will defer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-itypeinfo-getdocumentation">GetDocumentation</a> method and return the associated documentation string.
      * @param {Integer} memid The member identifier for the type description.
      * @param {Integer} lcid The locale identifier.
      * @param {Pointer<BSTR>} pbstrHelpString The name of the specified item. If the caller does not need the item name, then <i>pbstrHelpString</i> can be null.
@@ -191,7 +195,7 @@ class ITypeInfo2 extends ITypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getdocumentation2
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getdocumentation2
      */
     GetDocumentation2(memid, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
@@ -201,9 +205,11 @@ class ITypeInfo2 extends ITypeInfo{
     }
 
     /**
-     * Gets all custom data items for the library.
+     * Gets all custom data items for the library. (ITypeInfo2.GetAllCustData)
+     * @remarks
+     * After the call, the caller needs to release memory used to hold the custom data item by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-clearcustdata">ClearCustData</a>.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getallcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallcustdata
      */
     GetAllCustData() {
         pCustData := CUSTDATA()
@@ -213,9 +219,11 @@ class ITypeInfo2 extends ITypeInfo{
 
     /**
      * Gets all custom data from the specified function.
+     * @remarks
+     * After the call, the caller needs to release memory used to hold the custom data item by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-clearcustdata">ClearCustData</a>.
      * @param {Integer} index The index of the function for which to get the custom data.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getallfunccustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallfunccustdata
      */
     GetAllFuncCustData(index) {
         pCustData := CUSTDATA()
@@ -228,7 +236,7 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} indexFunc The index of the function for which to get the custom data.
      * @param {Integer} indexParam The index of the parameter of this function for which to get the custom data.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getallparamcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallparamcustdata
      */
     GetAllParamCustData(indexFunc, indexParam) {
         pCustData := CUSTDATA()
@@ -240,7 +248,7 @@ class ITypeInfo2 extends ITypeInfo{
      * Gets the variable for the custom data.
      * @param {Integer} index The index of the variable for which to get the custom data.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getallvarcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallvarcustdata
      */
     GetAllVarCustData(index) {
         pCustData := CUSTDATA()
@@ -252,7 +260,7 @@ class ITypeInfo2 extends ITypeInfo{
      * Gets all custom data for the specified implementation type.
      * @param {Integer} index The index of the implementation type for the custom data.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypeinfo2-getallimpltypecustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallimpltypecustdata
      */
     GetAllImplTypeCustData(index) {
         pCustData := CUSTDATA()

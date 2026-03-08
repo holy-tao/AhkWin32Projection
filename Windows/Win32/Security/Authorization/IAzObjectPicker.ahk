@@ -7,10 +7,8 @@
 /**
  * Displays a dialog box that allows users to select one or more principals from a list.
  * @remarks
- * 
  * Implement this interface when you need a custom dialog box that allows users to choose principals.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazobjectpicker
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazobjectpicker
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -57,8 +55,8 @@ class IAzObjectPicker extends IDispatch{
      * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_BSTR</b> that contains a string representation of a SID.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazobjectpicker-getprincipals
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazobjectpicker-getprincipals
      */
     GetPrincipals(hParentWnd, bstrTitle, pvSidTypes, pvNames, pvSids) {
         hParentWnd := hParentWnd is Win32Handle ? NumGet(hParentWnd, "ptr") : hParentWnd
@@ -71,7 +69,7 @@ class IAzObjectPicker extends IDispatch{
     /**
      * Gets the name of the IAzObjectPicker object.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazobjectpicker-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazobjectpicker-get_name
      */
     get_Name() {
         pbstrName := BSTR()

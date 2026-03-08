@@ -30,11 +30,20 @@ class IHlinkSite extends IUnknown{
     static VTableNames => ["QueryService", "GetMoniker", "ReadyToNavigate", "OnNavigationComplete"]
 
     /**
+     * Retrieves the configuration parameters of the specified service. (Unicode)
+     * @remarks
+     * The 
+     * <b>QueryServiceConfig</b> function returns the service configuration information kept in the registry for a particular service. This configuration information is first set by a service control program using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. This information may have been updated by a service configuration program using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> function.
      * 
+     * If the service was running when the configuration information was last changed, the information returned by 
+     * <b>QueryServiceConfig</b> will not reflect the current configuration of the service. Instead, it will reflect the configuration of the service when it is next run. The <b>DisplayName</b> key is an exception to this. When the <b>DisplayName</b> key is changed, it takes effect immediately, regardless of whether the service is running.
      * @param {Integer} dwSiteData 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfigw
      */
     QueryService(dwSiteData, guidService, riid) {
         result := ComCall(3, this, "uint", dwSiteData, "ptr", guidService, "ptr", riid, "ptr*", &ppiunk := 0, "HRESULT")

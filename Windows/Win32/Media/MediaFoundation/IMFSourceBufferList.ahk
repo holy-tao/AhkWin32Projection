@@ -5,7 +5,7 @@
 
 /**
  * Represents a collection of IMFSourceBuffer objects.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfsourcebufferlist
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfsourcebufferlist
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFSourceBufferList extends IUnknown{
     /**
      * Gets the number of IMFSourceBuffer objects in the list.
      * @returns {Integer} The number of source buffers in the list.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getlength
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getlength
      */
     GetLength() {
         result := ComCall(3, this, "uint")
@@ -44,7 +44,7 @@ class IMFSourceBufferList extends IUnknown{
      * Gets the IMFSourceBuffer at the specified index in the list.
      * @param {Integer} index The index of the source buffer to get.
      * @returns {IMFSourceBuffer} The source buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getsourcebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getsourcebuffer
      */
     GetSourceBuffer(index) {
         result := ComCall(4, this, "uint", index, "ptr")

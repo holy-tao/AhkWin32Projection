@@ -4,8 +4,8 @@
 #Include .\IDMLObject.ahk
 
 /**
- * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmldevice
+ * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns **DXGI_ERROR_UNSUPPORTED** if the [DML_FEATURE](/windows/win32/api/directml/ne-directml-dml_feature) is unrecognized or unsupported, and **E_INVALIDARG** if the parameters are incorrect.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-checkfeaturesupport
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureQueryDataSize, featureQueryData, featureSupportDataSize, featureSupportData) {
         result := ComCall(7, this, "int", feature, "uint", featureQueryDataSize, "ptr", featureQueryData, "uint", featureSupportDataSize, "ptr", featureSupportData, "HRESULT")
@@ -68,7 +68,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the operator. This is the address of a pointer to an [IDMLOperator](/windows/win32/api/directml/nn-directml-idmloperator), representing  the operator created.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-createoperator
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperator
      */
     CreateOperator(desc, riid) {
         result := ComCall(8, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -89,7 +89,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the compiled operator. This is the address of a pointer to an [IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator), representing  the compiled operator created.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-compileoperator
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-compileoperator
      */
     CompileOperator(op, flags, riid) {
         result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -112,7 +112,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the operator initializer. This is the address of a pointer to an [IDMLOperatorInitializer](/windows/win32/api/directml/nn-directml-idmloperatorinitializer), representing  the operator initializer created.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-createoperatorinitializer
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
     CreateOperatorInitializer(operatorCount, operators, riid) {
         result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -127,7 +127,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the command recorder. This is the address of a pointer to an [IDMLCommandRecorder](/windows/win32/api/directml/nn-directml-idmlcommandrecorder), representing  the command recorder created.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-createcommandrecorder
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createcommandrecorder
      */
     CreateCommandRecorder(riid) {
         result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -145,7 +145,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the binding table. This is the address of a pointer to an [IDMLBindingTable](/windows/win32/api/directml/nn-directml-idmlbindingtable), representing  the binding table created.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-createbindingtable
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createbindingtable
      */
     CreateBindingTable(desc, riid) {
         result := ComCall(12, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -163,7 +163,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-evict
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-evict
      */
     Evict(count, ppObjects) {
         result := ComCall(13, this, "uint", count, "ptr*", ppObjects, "HRESULT")
@@ -181,7 +181,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-makeresident
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-makeresident
      */
     MakeResident(count, ppObjects) {
         result := ComCall(14, this, "uint", count, "ptr*", ppObjects, "HRESULT")
@@ -193,7 +193,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * An [HRESULT](/windows/desktop/winprog/windows-data-types) containing the reason that the device was removed, or **S_OK** if the device has not been removed.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-getdeviceremovedreason
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-getdeviceremovedreason
      */
     GetDeviceRemovedReason() {
         result := ComCall(15, this, "HRESULT")
@@ -208,7 +208,7 @@ class IDMLDevice extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>, representing  the device.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice-getparentdevice
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-getparentdevice
      */
     GetParentDevice(riid) {
         result := ComCall(16, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

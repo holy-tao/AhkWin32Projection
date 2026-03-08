@@ -7,7 +7,6 @@
 /**
  * The IEnumWIA_DEV_CAPS interface enumerates the currently available Windows Image Acquisition (WIA) hardware device capabilities. Device capabilities include commands and events that the device supports.
  * @remarks
- * 
  * The <b>IEnumWIA_DEV_CAPS</b> interface is a specific implementation for WIA of the standard OLE enumeration interface. For details, see <a href="https://docs.microsoft.com/previous-versions/ms680089(v=vs.85)">IEnumXXXX</a>.
  * 
  * Applications obtain a pointer to the <b>IEnumWIA_DEV_CAPS</b> interface by invoking the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities">IWiaItem::EnumDeviceCapabilities</a> method.
@@ -38,9 +37,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-ienumwia_dev_caps
+ * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-ienumwia_dev_caps
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -67,6 +64,12 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
 
     /**
      * The IEnumWIA_DEV_CAPS::Next method fills an array of pointers to WIA_DEV_CAP structures.
+     * @remarks
+     * Applications use this method to query the capabilities of each available Windows Image Acquisition (WIA) hardware device. To do so, the application passes a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_dev_cap">WIA_DEV_CAP</a> structures that it allocates. It also passes in the number of array elements in the parameter <i>celt</i>. The <b>IEnumWIA_DEV_CAPS::Next</b> method fills the array with structures. Applications then use the structures to enumerate WIA hardware device capabilities.
+     * 
+     * WIA device capabilities are defined as events and commands that the device supports. Using the <i>rgelt</i> array, <b>IEnumWIA_DEV_CAPS::Next</b> passes a single structure to the application for each event and command that the device supports.
+     * 
+     * Note that <b>IEnumWIA_DEV_CAPS::Next</b> dynamically allocates the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_dev_cap">WIA_DEV_CAP</a> structures it provides to applications. Therefore, applications must delete the <b>WIA_DEV_CAP</b> structures they receive through the <i>rgelt</i> parameter. Applications should use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the <i>bstrName</i>, <i>bstrDescription</i>, and <i>bstrIcon</i> fields of all <b>WIA_DEV_CAP</b> structures.
      * @param {Integer} celt Type: <b>ULONG</b>
      * 
      * Specifies the number of array elements in the array indicated by the <i>rgelt</i> parameter.
@@ -78,8 +81,8 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
      * On output, this parameter contains the number of structure pointers actually stored in the array indicated by the <i>rgelt</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_caps-next
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -96,7 +99,7 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the method returns S_OK. It returns S_FALSE if it could not skip the specified number of device capabilities. If the method fails, it returns a standard COM error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_caps-skip
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -107,8 +110,8 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
      * The IEnumWIA_DEV_CAPS::Reset method is used by applications to restart the enumeration of device capabilities.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_caps-reset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -117,10 +120,12 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
 
     /**
      * The IEnumWIA_DEV_CAPS::Clone method creates an additional instance of the IEnumWIA_DEV_CAPS interface and sends back a pointer to it.
+     * @remarks
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the pointers they receive through the <i>ppIEnum</i> parameter.
      * @returns {IEnumWIA_DEV_CAPS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a>**</b>
      * 
      * Contains the address of a pointer to the instance of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> that <b>IEnumWIA_DEV_CAPS::Clone</b> creates.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_caps-clone
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
@@ -132,7 +137,7 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to a <b>ULONG</b> that receives the number of elements in the enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_caps-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-getcount
      */
     GetCount() {
         result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")

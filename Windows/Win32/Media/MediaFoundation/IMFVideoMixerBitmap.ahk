@@ -6,7 +6,7 @@
 
 /**
  * Alpha-blends a static bitmap image with the video displayed by the Enhanced Video Renderer (EVR).
- * @see https://docs.microsoft.com/windows/win32/api//evr9/nn-evr9-imfvideomixerbitmap
+ * @see https://learn.microsoft.com/windows/win32/api/evr9/nn-evr9-imfvideomixerbitmap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,6 +33,12 @@ class IMFVideoMixerBitmap extends IUnknown{
 
     /**
      * Sets a bitmap image for the enhanced video renderer (EVR) to alpha-blend with the video.
+     * @remarks
+     * The application can provide the image either as a GDI bitmap or as a Direct3D surface. The EVR mixer blends the image with the next video frame and all subsequent frames, until the image is changed or removed. The image can contain embedded per-pixel alpha information so that transparent regions can be defined. Transparent areas can also be identified using a color key value.
+     * 
+     * If you use a Direct3D surface, the surface format must be 32-bit RGB, either D3DFMT_X8R8G8B8 or D3DFMT_A8R8G8B8, and the surface must be allocated from the D3DPOOL_SYSTEMMEM memory pool.
+     * 
+     * There is no defined limit to how frequently you can pass images to the video renderer. However, changing the image several times per second can impact the performance and smoothness of the video.
      * @param {Pointer<MFVideoAlphaBitmap>} pBmpParms Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmap">MFVideoAlphaBitmap</a> structure that contains information about the bitmap, the source and destination rectangles, the color key, and other information.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -64,7 +70,7 @@ class IMFVideoMixerBitmap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-imfvideomixerbitmap-setalphabitmap
+     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideomixerbitmap-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
         result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
@@ -103,7 +109,7 @@ class IMFVideoMixerBitmap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-imfvideomixerbitmap-clearalphabitmap
+     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideomixerbitmap-clearalphabitmap
      */
     ClearAlphaBitmap() {
         result := ComCall(4, this, "HRESULT")
@@ -112,6 +118,8 @@ class IMFVideoMixerBitmap extends IUnknown{
 
     /**
      * Updates the current alpha-blending settings, including the source and destination rectangles, the color key, and other information. You can update some or all of the blending parameters.
+     * @remarks
+     * The video must be playing for the changes to take effect.
      * @param {Pointer<MFVideoAlphaBitmapParams>} pBmpParms Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmapparams">MFVideoAlphaBitmapParams</a> structure that contains the blending parameters.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -149,12 +157,12 @@ class IMFVideoMixerBitmap extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * No bitmap is currently set. You must call <a href="/windows/desktop/api/evr9/nf-evr9-imfvideomixerbitmap-setalphabitmap">IMFVideoMixerBitmap::SetAlphaBitmap</a> to set a bitmap.
+     * No bitmap is currently set. You must call <a href="https://docs.microsoft.com/windows/desktop/api/evr9/nf-evr9-imfvideomixerbitmap-setalphabitmap">IMFVideoMixerBitmap::SetAlphaBitmap</a> to set a bitmap.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-imfvideomixerbitmap-updatealphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideomixerbitmap-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
         result := ComCall(5, this, "ptr", pBmpParms, "HRESULT")
@@ -163,8 +171,10 @@ class IMFVideoMixerBitmap extends IUnknown{
 
     /**
      * Retrieves the current settings that the enhanced video renderer (EVR) uses to alpha-blend the bitmap with the video.
+     * @remarks
+     * This method returns the current values of all the blending parameters, not just those that the application specified. Ignore the <b>dwFlags</b> member of the structure.
      * @returns {MFVideoAlphaBitmapParams} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmapparams">MFVideoAlphaBitmapParams</a> structure that receives the current blending parameters.
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-imfvideomixerbitmap-getalphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideomixerbitmap-getalphabitmapparameters
      */
     GetAlphaBitmapParameters() {
         pBmpParms := MFVideoAlphaBitmapParams()

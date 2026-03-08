@@ -7,11 +7,8 @@
 /**
  * Enables apps to obtain the window handle of the window (CoreWindow) associated with this interface.
  * @remarks
- * 
  * Windows Store apps can have multiple <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corewindow">CoreWindow</a> instances. Each <b>CoreWindow</b> instance also has a native interface for accessing the underlying HWND, represented as an instance of <b>ICoreWindowInterop</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//corewindow/nn-corewindow-icorewindowinterop
+ * @see https://learn.microsoft.com/windows/win32/api/corewindow/nn-corewindow-icorewindowinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -53,7 +50,7 @@ class ICoreWindowInterop extends IUnknown{
     /**
      * Obtains the handle (HWND) to the CoreWindow for an app.
      * @returns {HWND} 
-     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
+     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
      */
     get_WindowHandle() {
         hwnd := HWND()
@@ -62,10 +59,10 @@ class ICoreWindowInterop extends IUnknown{
     }
 
     /**
-     * Sets whether or not the message to the CoreWindow has been handled.
+     * Sets whether or not the message to the CoreWindow has been handled. (ICoreWindowInterop.put_MessageHandled)
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icorewindowinterop-put_messagehandled
+     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-put_messagehandled
      */
     put_MessageHandled(value) {
         result := ComCall(4, this, "char", value, "HRESULT")

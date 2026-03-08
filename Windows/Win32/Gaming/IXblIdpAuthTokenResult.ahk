@@ -4,8 +4,8 @@
 #Include ..\System\Com\IUnknown.ahk
 
 /**
- * Reserved for Microsoft use.
- * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nn-xblidpauthmanager-ixblidpauthtokenresult
+ * Reserved for Microsoft use. (IXblIdpAuthTokenResult)
+ * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nn-xblidpauthmanager-ixblidpauthtokenresult
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */
@@ -37,9 +37,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     static VTableNames => ["GetStatus", "GetErrorCode", "GetToken", "GetSignature", "GetSandbox", "GetEnvironment", "GetMsaAccountId", "GetXuid", "GetGamertag", "GetAgeGroup", "GetPrivileges", "GetMsaTarget", "GetMsaPolicy", "GetMsaAppId", "GetRedirect", "GetMessage", "GetHelpId", "GetEnforcementBans", "GetRestrictions", "GetTitleRestrictions"]
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetStatus)
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status">XBL_IDP_AUTH_TOKEN_STATUS</a>*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getstatus
      */
     GetStatus() {
         result := ComCall(3, this, "int*", &status := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetErrorCode)
      * @returns {HRESULT} The error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-geterrorcode
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-geterrorcode
      */
     GetErrorCode() {
         result := ComCall(4, this, "int*", &errorCode := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetToken)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettoken
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettoken
      */
     GetToken() {
         result := ComCall(5, this, "ptr*", &token := 0, "HRESULT")
@@ -67,9 +67,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetSignature)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsignature
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsignature
      */
     GetSignature() {
         result := ComCall(6, this, "ptr*", &signature := 0, "HRESULT")
@@ -77,9 +77,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetSandbox)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsandbox
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getsandbox
      */
     GetSandbox() {
         result := ComCall(7, this, "ptr*", &sandbox := 0, "HRESULT")
@@ -87,9 +87,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetEnvironment)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenvironment
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenvironment
      */
     GetEnvironment() {
         result := ComCall(8, this, "ptr*", &environment := 0, "HRESULT")
@@ -97,9 +97,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetMsaAccountId)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaaccountid
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaaccountid
      */
     GetMsaAccountId() {
         result := ComCall(9, this, "ptr*", &msaAccountId := 0, "HRESULT")
@@ -107,9 +107,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetXuid)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getxuid
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getxuid
      */
     GetXuid() {
         result := ComCall(10, this, "ptr*", &xuid := 0, "HRESULT")
@@ -117,9 +117,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetGamertag)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getgamertag
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getgamertag
      */
     GetGamertag() {
         result := ComCall(11, this, "ptr*", &gamertag := 0, "HRESULT")
@@ -127,9 +127,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetAgeGroup)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getagegroup
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getagegroup
      */
     GetAgeGroup() {
         result := ComCall(12, this, "ptr*", &ageGroup := 0, "HRESULT")
@@ -137,9 +137,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetPrivileges)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getprivileges
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getprivileges
      */
     GetPrivileges() {
         result := ComCall(13, this, "ptr*", &privileges := 0, "HRESULT")
@@ -147,9 +147,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetMsaTarget)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsatarget
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsatarget
      */
     GetMsaTarget() {
         result := ComCall(14, this, "ptr*", &msaTarget := 0, "HRESULT")
@@ -157,9 +157,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetMsaPolicy)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsapolicy
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsapolicy
      */
     GetMsaPolicy() {
         result := ComCall(15, this, "ptr*", &msaPolicy := 0, "HRESULT")
@@ -167,9 +167,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetMsaAppId)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaappid
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmsaappid
      */
     GetMsaAppId() {
         result := ComCall(16, this, "ptr*", &msaAppId := 0, "HRESULT")
@@ -177,9 +177,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetRedirect)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getredirect
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getredirect
      */
     GetRedirect() {
         result := ComCall(17, this, "ptr*", &redirect := 0, "HRESULT")
@@ -187,9 +187,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetMessage)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmessage
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getmessage
      */
     GetMessage() {
         result := ComCall(18, this, "ptr*", &message := 0, "HRESULT")
@@ -197,9 +197,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetHelpId)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gethelpid
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gethelpid
      */
     GetHelpId() {
         result := ComCall(19, this, "ptr*", &helpId := 0, "HRESULT")
@@ -207,9 +207,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetEnforcementBans)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenforcementbans
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getenforcementbans
      */
     GetEnforcementBans() {
         result := ComCall(20, this, "ptr*", &enforcementBans := 0, "HRESULT")
@@ -217,9 +217,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetRestrictions)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getrestrictions
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getrestrictions
      */
     GetRestrictions() {
         result := ComCall(21, this, "ptr*", &restrictions := 0, "HRESULT")
@@ -227,9 +227,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
     }
 
     /**
-     * Reserved for Microsoft use.
+     * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetTitleRestrictions)
      * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettitlerestrictions
+     * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-gettitlerestrictions
      */
     GetTitleRestrictions() {
         result := ComCall(22, this, "ptr*", &titleRestrictions := 0, "HRESULT")

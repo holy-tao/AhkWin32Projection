@@ -6,7 +6,7 @@
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmmapentry
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmapentry
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

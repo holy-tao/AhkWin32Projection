@@ -7,12 +7,9 @@
 /**
  * Exposes methods that retrieve information about a Shell item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Third parties do not implement this interface; only use the implementation provided with the system.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishellitem
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -55,7 +52,7 @@ class IShellItem extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains a pointer of type <i>riid</i> that is returned by the handler specified by <i>rbhid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
      */
     BindToHandler(pbc, bhid, riid) {
         result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -67,7 +64,7 @@ class IShellItem extends IUnknown{
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * The address of a pointer to the parent of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getparent
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getparent
      */
     GetParent() {
         result := ComCall(4, this, "ptr*", &ppsi := 0, "HRESULT")
@@ -76,13 +73,15 @@ class IShellItem extends IUnknown{
 
     /**
      * Gets the display name of the IShellItem object.
+     * @remarks
+     * It is the responsibility of the caller to free the string pointed to by <i>ppszName</i> when it is no longer needed. Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> on *<i>ppszName</i> to free the memory.
      * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> values that indicates how the name should look.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname
      */
     GetDisplayName(sigdnName) {
         result := ComCall(5, this, "int", sigdnName, "ptr*", &ppszName := 0, "HRESULT")
@@ -97,7 +96,7 @@ class IShellItem extends IUnknown{
      * @returns {Integer} Type: <b>SFGAOF*</b>
      * 
      * A pointer to a value that, when this method returns successfully, contains the requested attributes. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values. Only those attributes specified by <i>sfgaoMask</i> are returned; other attribute values are undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
      */
     GetAttributes(sfgaoMask) {
         result := ComCall(6, this, "uint", sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
@@ -106,6 +105,13 @@ class IShellItem extends IUnknown{
 
     /**
      * Compares two IShellItem objects.
+     * @remarks
+     * The data type used in the second parameter, SICHINTF, is defined as: 
+     * 
+     * 
+     * ```
+     * typedef DWORD SICHINTF;
+     * ```
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object to compare with the existing <b>IShellItem</b> object.
@@ -115,7 +121,7 @@ class IShellItem extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * This parameter receives the result of the comparison. If the two items are the same this parameter equals zero; if they are different the parameter is nonzero.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-compare
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare
      */
     Compare(psi, hint) {
         result := ComCall(7, this, "ptr", psi, "uint", hint, "int*", &piOrder := 0, "HRESULT")

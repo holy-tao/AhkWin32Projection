@@ -6,15 +6,12 @@
 /**
  * Represents an arbitrary 3D transformation defined by a 4-by-4 matrix.
  * @remarks
- * 
  * A 3D matrix transform represents the following 4-by-4 matrix:
  * 
  * <img alt="Four-by-four 3D transform matrix" src="./images/3D_matrix.png"/>
  * 
  *  The application can set any of the values in the first three columns. Note that the fourth column is padded to allow for matrix concatenation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionmatrixtransform3d
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionmatrixtransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -41,13 +38,17 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
 
     /**
      * Changes all values of the matrix of this 3D transformation effect.
+     * @remarks
+     * This method fails if any of the matrix values are NaN, positive infinity, or negative infinity.
+     * 
+     * If any of the matrix elements were previously animated, this method removes the animations and sets the elements to the specified static value.
      * @param {Pointer<D3DMATRIX>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a></b>
      * 
      * The new matrix for this 3D transformation effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
      */
     SetMatrix(matrix) {
         result := ComCall(3, this, "ptr", matrix, "HRESULT")
@@ -55,11 +56,23 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
     }
 
     /**
+     * Animates the value of one element of the matrix of this 3D transform.
+     * @remarks
+     * This method makes a copy of the specified animation. If the object referenced by the <i>animation</i> parameter is changed after calling this method, the change does not affect the specified element unless this method is called again. If the specified element was previously animated, calling this method replaces the previous animation with the new animation.
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * This method fails if <i>animation</i> is an invalid pointer or if it was not created by the same <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiondevice">IDCompositionDevice</a> interface as the affected transform. The interface cannot be a custom implementation; only interfaces created by Microsoft DirectComposition can be used with this method.
+     * @param {Integer} row Type: <b>int</b>
+     * 
+     * The row index of the element to change. This value must be between 0 and 3, inclusive.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The column index of the element to change. This value must be between 0 and 3, inclusive.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the value of the specified element changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
     SetMatrixElement(row, column, animation) {
@@ -68,11 +81,21 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
     }
 
     /**
+     * Animates the value of one element of the matrix of this 3D transform.
+     * @remarks
+     * This method makes a copy of the specified animation. If the object referenced by the <i>animation</i> parameter is changed after calling this method, the change does not affect the specified element unless this method is called again. If the specified element was previously animated, calling this method replaces the previous animation with the new animation.
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
+     * This method fails if <i>animation</i> is an invalid pointer or if it was not created by the same <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiondevice">IDCompositionDevice</a> interface as the affected transform. The interface cannot be a custom implementation; only interfaces created by Microsoft DirectComposition can be used with this method.
+     * @param {Integer} row Type: <b>int</b>
+     * 
+     * The row index of the element to change. This value must be between 0 and 3, inclusive.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The column index of the element to change. This value must be between 0 and 3, inclusive.
      * @param {Float} value 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
     SetMatrixElement1(row, column, value) {

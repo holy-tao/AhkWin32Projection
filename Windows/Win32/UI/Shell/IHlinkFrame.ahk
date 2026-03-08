@@ -49,12 +49,13 @@ class IHlinkFrame extends IUnknown{
     }
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 
      * @param {IHlink} pihlNavigate 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(grfHLNF, pbc, pibsc, pihlNavigate) {
         result := ComCall(5, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlNavigate, "HRESULT")

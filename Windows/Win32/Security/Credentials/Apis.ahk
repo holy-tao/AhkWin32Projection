@@ -895,11 +895,7 @@ class Credentials {
         isReadyMarshal := isReady is VarRef ? "int*" : "ptr"
         keyCredentialManagerOperationErrorStatesMarshal := keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "HRESULT")
         return result
     }
 
@@ -913,11 +909,7 @@ class Credentials {
     static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "HRESULT")
         return result
     }
 
@@ -927,11 +919,7 @@ class Credentials {
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation() {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo := 0, "HRESULT")
         return keyCredentialManagerInfo
     }
 
@@ -1095,8 +1083,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredWriteW", "ptr", Credential, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1252,8 +1240,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredWriteA", "ptr", Credential, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1309,8 +1297,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1366,8 +1354,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1443,8 +1431,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1520,8 +1508,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1674,8 +1662,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsW", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1828,8 +1816,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsA", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1928,8 +1916,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2028,8 +2016,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2079,8 +2067,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredDeleteW", "ptr", TargetName, "uint", Type, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2130,8 +2118,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredDeleteA", "ptr", TargetName, "uint", Type, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2185,8 +2173,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredRenameW", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2240,8 +2228,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredRenameA", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2285,8 +2273,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, TargetInfoMarshal, TargetInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2330,8 +2318,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, TargetInfoMarshal, TargetInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2368,8 +2356,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, CredentialMarshal, Credential, MarshaledCredentialMarshal, MarshaledCredential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2406,8 +2394,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, CredentialMarshal, Credential, MarshaledCredentialMarshal, MarshaledCredential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2443,8 +2431,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, CredTypeMarshal, CredType, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2480,8 +2468,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, CredTypeMarshal, CredType, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2621,8 +2609,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, pcchMaxUserNameMarshal, pcchMaxUserName, "ptr", pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, "ptr", pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2728,8 +2716,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, pcchlMaxUserNameMarshal, pcchlMaxUserName, "ptr", pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, "ptr", pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2842,8 +2830,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("credui.dll\CredPackAuthenticationBufferW", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2956,8 +2944,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("credui.dll\CredPackAuthenticationBufferA", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2996,8 +2984,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredProtectW", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, pcchMaxCharsMarshal, pcchMaxChars, ProtectionTypeMarshal, ProtectionType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3036,8 +3024,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredProtectA", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, pcchMaxCharsMarshal, pcchMaxChars, ProtectionTypeMarshal, ProtectionType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3100,8 +3088,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnprotectW", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3164,8 +3152,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnprotectA", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3193,8 +3181,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredIsProtectedW", "ptr", pszProtectedCredentials, pProtectionTypeMarshal, pProtectionType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3222,8 +3210,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredIsProtectedA", "ptr", pszProtectedCredentials, pProtectionTypeMarshal, pProtectionType, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3255,8 +3243,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3288,8 +3276,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3384,8 +3372,8 @@ class Credentials {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredGetSessionTypes", "uint", MaximumPersistCount, MaximumPersistMarshal, MaximumPersist, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7275,7 +7263,7 @@ class Credentials {
 
         result := DllCall("WinSCard.dll\SCardAccessStartedEvent", "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)

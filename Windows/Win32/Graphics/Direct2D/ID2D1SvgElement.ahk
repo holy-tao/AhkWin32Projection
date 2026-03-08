@@ -6,7 +6,7 @@
 
 /**
  * Interface for all SVG elements.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgelement
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgelement
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -35,9 +35,9 @@ class ID2D1SvgElement extends ID2D1Resource{
      * Gets the document that contains this element.
      * @param {Pointer<ID2D1SvgDocument>} document Type: <b>ID2D1SvgDocument**</b>
      * 
-     * Ouputs the document that contains this element. This argument will be null if the element has been removed from the tree.
+     * Outputs the document that contains this element. This argument will be null if the element has been removed from the tree.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getdocument
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getdocument
      */
     GetDocument(document) {
         ComCall(4, this, "ptr*", document)
@@ -51,10 +51,10 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {Integer} nameCount Type: <b>UINT32</b>
      * 
      * Length of the value in the name argument.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-gettagname
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettagname
      */
     GetTagName(name, nameCount) {
         name := name is String ? StrPtr(name) : name
@@ -68,7 +68,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the string length of the tag name. The returned string length does not include room for the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-gettagnamelength
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettagnamelength
      */
     GetTagNameLength() {
         result := ComCall(6, this, "uint")
@@ -76,11 +76,11 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * Returns a boolean indicating wether this element represents text content.
+     * Returns a boolean indicating whether this element represents text content.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns TRUE if this element represents text content, e.g. the content of a 'title' or 'desc' element. Text content does not have a tag name.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-istextcontent
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-istextcontent
      */
     IsTextContent() {
         result := ComCall(7, this, "int")
@@ -93,7 +93,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * Outputs the parent element.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getparent
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getparent
      */
     GetParent(parent) {
         ComCall(8, this, "ptr*", parent)
@@ -104,7 +104,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns TRUE if this element has children.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-haschildren
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-haschildren
      */
     HasChildren() {
         result := ComCall(9, this, "int")
@@ -117,7 +117,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * Outputs the first child of this element.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getfirstchild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getfirstchild
      */
     GetFirstChild(child) {
         ComCall(10, this, "ptr*", child)
@@ -129,7 +129,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * Outputs the last child of this element.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getlastchild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getlastchild
      */
     GetLastChild(child) {
         ComCall(11, this, "ptr*", child)
@@ -143,7 +143,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
      * 
      * The output previousChild element will be non-null if the referenceChild has a previous sibling. If the referenceChild is the first child, the output is null.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getpreviouschild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getpreviouschild
      */
     GetPreviousChild(referenceChild) {
         result := ComCall(12, this, "ptr", referenceChild, "ptr*", &previousChild := 0, "HRESULT")
@@ -158,7 +158,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
      * 
      * The output nextChild element will be non-null if the referenceChild has a next sibling. If the referenceChild is the last child, the output is null.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getnextchild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getnextchild
      */
     GetNextChild(referenceChild) {
         result := ComCall(13, this, "ptr", referenceChild, "ptr*", &nextChild := 0, "HRESULT")
@@ -175,12 +175,12 @@ class ID2D1SvgElement extends ID2D1Resource{
      * The element that the child should be inserted before.
      *             If referenceChild is null, the newChild is placed as the last child.
      *             If referenceChild is non-null, it must be an immediate child of this element.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code. Returns an error if this element cannot accept children
      *             of the type of newChild. Returns an error if the newChild is an ancestor of this
      *             element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-insertchildbefore
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-insertchildbefore
      */
     InsertChildBefore(newChild, referenceChild) {
         result := ComCall(14, this, "ptr", newChild, "ptr", referenceChild, "HRESULT")
@@ -192,12 +192,12 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {ID2D1SvgElement} newChild Type: <b>ID2D1SvgElement*</b>
      * 
      * The element to append.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
      *           Returns an error if this element cannot accept children of the type of newChild. 
      *           Returns an error if the newChild is an ancestor of this element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-appendchild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-appendchild
      */
     AppendChild(newChild) {
         result := ComCall(15, this, "ptr", newChild, "HRESULT")
@@ -212,12 +212,12 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {ID2D1SvgElement} oldChild Type: <b>ID2D1SvgElement*</b>
      * 
      * The child element to be replaced. The oldChild element must be an immediate child of this element.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code. Returns an error if
      *             this element cannot accept children of the type of newChild. Returns an error if
      *             the newChild is an ancestor of this element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-replacechild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-replacechild
      */
     ReplaceChild(newChild, oldChild) {
         result := ComCall(16, this, "ptr", newChild, "ptr", oldChild, "HRESULT")
@@ -229,10 +229,10 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {ID2D1SvgElement} oldChild Type: <b>ID2D1SvgElement*</b>
      * 
      * The child element to be removed. The oldChild element must be an immediate child of this element.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-removechild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-removechild
      */
     RemoveChild(oldChild) {
         result := ComCall(17, this, "ptr", oldChild, "HRESULT")
@@ -247,7 +247,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
      * 
      * The new child element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-createchild
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-createchild
      */
     CreateChild(tagName) {
         tagName := tagName is String ? StrPtr(tagName) : tagName
@@ -268,7 +268,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * TReturns true if the attribute is explicitly set on the element or if it is present within an inline style. Returns FALSE if the attribute is not a valid
      *             attribute on this element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-isattributespecified
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-isattributespecified
      */
     IsAttributeSpecified(name, inherited) {
         name := name is String ? StrPtr(name) : name
@@ -284,7 +284,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of specified attributes on this element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributecount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributecount
      */
     GetSpecifiedAttributeCount() {
         result := ComCall(20, this, "uint")
@@ -305,7 +305,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Outputs whether the attribute is set to the inherit value.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributename
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributename
      */
     GetSpecifiedAttributeName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
@@ -325,10 +325,10 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {Pointer<BOOL>} inherited Type: <b>BOOL*</b>
      * 
      * Indicates whether the attribute is set to the inherit value.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributenamelength
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributenamelength
      */
     GetSpecifiedAttributeNameLength(index, nameLength, inherited) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
@@ -343,11 +343,11 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the attribute to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code. Returns an error if the attribute name is not valid
      *             on this element.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-removeattribute
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-removeattribute
      */
     RemoveAttribute(name) {
         name := name is String ? StrPtr(name) : name
@@ -362,10 +362,10 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * The new value of the text content element.
      * @param {Integer} nameCount Type: <b>UINT32</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-settextvalue
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-settextvalue
      */
     SetTextValue(name, nameCount) {
         name := name is String ? StrPtr(name) : name
@@ -382,10 +382,10 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {Integer} nameCount Type: <b>UINT32</b>
      * 
      * The length of the value in the name argument.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-gettextvalue
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettextvalue
      */
     GetTextValue(name, nameCount) {
         name := name is String ? StrPtr(name) : name
@@ -399,7 +399,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the length of the text content value.  The returned string length does not include room for the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-gettextvaluelength
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettextvaluelength
      */
     GetTextValueLength() {
         result := ComCall(26, this, "uint")
@@ -407,7 +407,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Sets an attribute of this element.
      * @param {PWSTR} name 
      * @param {ID2D1SvgAttribute} value 
      * @returns {HRESULT} 
@@ -421,7 +421,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Sets an attribute of this element.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {Pointer} value 
@@ -437,7 +437,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Sets an attribute of this element.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {PWSTR} value 
@@ -453,7 +453,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Gets an attribute of this element.
      * @param {PWSTR} name 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -467,7 +467,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Gets an attribute of this element.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {Pointer} value 
@@ -483,7 +483,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Gets an attribute of this element.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {PWSTR} value 
@@ -509,8 +509,8 @@ class ID2D1SvgElement extends ID2D1Resource{
      * The string type of the attribute.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
-     * The lengthe of the attribute. The returned string length does not include room for the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgelement-getattributevaluelength
+     * The length of the attribute. The returned string length does not include room for the null terminator.
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getattributevaluelength
      */
     GetAttributeValueLength(name, type) {
         name := name is String ? StrPtr(name) : name

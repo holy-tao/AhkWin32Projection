@@ -30,8 +30,9 @@ class IDataModelScript extends IUnknown{
     static VTableNames => ["GetName", "Rename", "Populate", "Execute", "Unlink", "IsInvocable", "InvokeMain"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         scriptName := BSTR()
@@ -40,9 +41,10 @@ class IDataModelScript extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {PWSTR} scriptName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(scriptName) {
         scriptName := scriptName is String ? StrPtr(scriptName) : scriptName
@@ -62,9 +64,10 @@ class IDataModelScript extends IUnknown{
     }
 
     /**
-     * 
+     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
      * @param {IDataModelScriptClient} client 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
      */
     Execute(client) {
         result := ComCall(6, this, "ptr", client, "HRESULT")

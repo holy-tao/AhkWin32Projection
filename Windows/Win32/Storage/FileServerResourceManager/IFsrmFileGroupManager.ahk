@@ -9,7 +9,6 @@
 /**
  * Used to manage file group objects.
  * @remarks
- * 
  * FSRM defines the following groups:
  * 
  * <ul>
@@ -27,9 +26,7 @@
  * </ul>
  * To create this object from a script, use the "Fsrm.FsrmFileGroupManager" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilegroupmanager
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -65,7 +62,7 @@ class IFsrmFileGroupManager extends IDispatch{
      * @returns {IFsrmFileGroup} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup">IFsrmFileGroup</a> interface to the new file group. To 
      *       add the file group to FSRM, call 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileGroup::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
      */
     CreateFileGroup() {
         result := ComCall(7, this, "ptr*", &fileGroup := 0, "HRESULT")
@@ -77,7 +74,7 @@ class IFsrmFileGroupManager extends IDispatch{
      * @param {BSTR} name The name of the file group to retrieve. The string is limited to 4,000 characters.
      * @returns {IFsrmFileGroup} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup">IFsrmFileGroup</a> interface to the retrieved file 
      *       group.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-getfilegroup
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-getfilegroup
      */
     GetFileGroup(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -98,7 +95,7 @@ class IFsrmFileGroupManager extends IDispatch{
      * 
      * The collection contains only committed file groups; the collection will not contain newly created file groups 
      *        that have not been committed.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
      */
     EnumFileGroups(options) {
         result := ComCall(9, this, "int", options, "ptr*", &fileGroups := 0, "HRESULT")
@@ -107,10 +104,15 @@ class IFsrmFileGroupManager extends IDispatch{
 
     /**
      * Exports the specified file groups as an XML string.
+     * @remarks
+     * Typically, you use this method to save the file groups information to a file. You can then copy the file to 
+     *     another computer and call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups">IFsrmFileGroupManager::ImportFileGroups</a> 
+     *     method to import the file groups.
      * @param {Pointer<VARIANT>} fileGroupNamesArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of the names 
      *       of the file groups to export. If <b>NULL</b>, the method exports all file groups.
      * @returns {BSTR} The specified file groups in XML format.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
      */
     ExportFileGroups(fileGroupNamesArray) {
         serializedFileGroups := BSTR()
@@ -133,7 +135,7 @@ class IFsrmFileGroupManager extends IDispatch{
      * To add the file groups to FSRM, call the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit">IFsrmCommittableCollection::Commit</a> 
      *        method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups
      */
     ImportFileGroups(serializedFileGroups, fileGroupNamesArray) {
         serializedFileGroups := serializedFileGroups is String ? BSTR.Alloc(serializedFileGroups).Value : serializedFileGroups

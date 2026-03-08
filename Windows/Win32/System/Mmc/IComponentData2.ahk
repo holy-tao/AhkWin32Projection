@@ -6,7 +6,7 @@
 
 /**
  * The IComponentData2 interface supersedes the IComponentData interface.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-icomponentdata2
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icomponentdata2
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IComponentData2 extends IComponentData{
      * @param {Integer} type A value that specifies the data object as one of the following constant values, which are members of the 
      * <b>DATA_OBJECT_TYPES</b> enumeration.
      * @returns {IDispatch} Dispatch interface pointer. The snap-in sets *<i>ppDispatch</i> to the <b>IDispatch</b> interface corresponding to the <i>cookie</i> value.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata2-querydispatch
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata2-querydispatch
      */
     QueryDispatch(cookie, type) {
         result := ComCall(10, this, "ptr", cookie, "int", type, "ptr*", &ppDispatch := 0, "HRESULT")

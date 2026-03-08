@@ -5,8 +5,18 @@
 #Include .\IWbemObjectSink.ahk
 
 /**
- * Creates a sink interface that can receive all types of notifications within the WMI programming model.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemobjectsinkex
+ * Called by a source to provide a notification.
+ * @remarks
+ * When implementing an event subscription sink (<a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a> or <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemeventsink">IWbemEventSink</a>), do  not call into WMI from within the <b>Indicate</b>  method on the sink object.  For example, calling <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-cancelasynccall">IWbemServices::CancelAsyncCall</a>  from within an implementation of <b>Indicate</b> can interfere with the WMI state. To cancel an event subscription, set a flag and call <b>IWbemServices::CancelAsyncCall</b> from another thread or object. For implementations that are not related to an event sink, such as object, enum, and query retrievals, you can call back into WMI.
+ * 
+ * Sink implementations should process the event notification within 100 MSEC because the WMI thread that delivers the event notification cannot do other work until the sink object has completed processing. If the notification requires a large amount of processing, the sink can use an internal queue for another thread to handle the processing.
+ * 
+ * When an event provider calls 
+ * <b>Indicate</b> to provide an event, the call can fail with <b>WBEM_E_SERVER_TOO_BUSY</b>. The provider can choose to respond to this message by re-firing the event.
+ * 
+ * <div class="alert"><b>Note</b>  Because the callback to the sink might not be returned at the same authentication level as the client requires, it is recommended that you use semisynchronous instead of asynchronous communication.  For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.</div>
+ * <div> </div>
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -32,11 +42,11 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     static VTableNames => ["WriteMessage", "WriteError", "PromptUser", "WriteProgress", "WriteStreamParameter"]
 
     /**
-     * TBD
+     * TBD (IWbemObjectSinkEx.WriteMessage)
      * @param {Integer} uChannel 
      * @param {BSTR} strMessage 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsinkex-writemessage
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writemessage
      */
     WriteMessage(uChannel, strMessage) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
@@ -46,10 +56,10 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     }
 
     /**
-     * TBD
+     * TBD (IWbemObjectSinkEx.WriteError)
      * @param {IWbemClassObject} pObjError 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsinkex-writeerror
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writeerror
      */
     WriteError(pObjError) {
         result := ComCall(6, this, "ptr", pObjError, "char*", &puReturned := 0, "HRESULT")
@@ -57,11 +67,11 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     }
 
     /**
-     * TBD
+     * TBD (IWbemObjectSinkEx.PromptUser)
      * @param {BSTR} strMessage 
      * @param {Integer} uPromptType 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsinkex-promptuser
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-promptuser
      */
     PromptUser(strMessage, uPromptType) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
@@ -71,14 +81,14 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     }
 
     /**
-     * TBD
+     * TBD (IWbemObjectSinkEx.WriteProgress)
      * @param {BSTR} strActivity 
      * @param {BSTR} strCurrentOperation 
      * @param {BSTR} strStatusDescription 
      * @param {Integer} uPercentComplete 
      * @param {Integer} uSecondsRemaining 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsinkex-writeprogress
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writeprogress
      */
     WriteProgress(strActivity, strCurrentOperation, strStatusDescription, uPercentComplete, uSecondsRemaining) {
         strActivity := strActivity is String ? BSTR.Alloc(strActivity).Value : strActivity
@@ -90,13 +100,13 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     }
 
     /**
-     * TBD
+     * TBD (IWbemObjectSinkEx.WriteStreamParameter)
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} vtValue 
      * @param {Integer} ulType 
      * @param {Integer} ulFlags 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsinkex-writestreamparameter
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writestreamparameter
      */
     WriteStreamParameter(strName, vtValue, ulType, ulFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName

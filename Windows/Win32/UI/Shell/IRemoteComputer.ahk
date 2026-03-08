@@ -6,12 +6,10 @@
 /**
  * Exposes a method that enumerates or initializes a namespace extension when it is invoked on a remote object. This interface is used, for example, to initialize the remote printers virtual folder.
  * @remarks
- * 
  * Implement <b>IRemoteComputer</b> when your namespace extension may be invoked on a remote computer.
  * 
  * You do not call this interface directly. <b>IRemoteComputer</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iremotecomputer
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iremotecomputer
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,6 +36,8 @@ class IRemoteComputer extends IUnknown{
 
     /**
      * Used by Windows Explorer or Windows Internet Explorer when it is initializing or enumerating a namespace extension invoked on a remote computer.
+     * @remarks
+     * If failure is returned, the extension won't appear for the specified computer. Otherwise, the extension will appear and target the remote computer.
      * @param {PWSTR} pszMachine Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the machine name of the remote computer.
@@ -47,7 +47,7 @@ class IRemoteComputer extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or standard OLE error values otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iremotecomputer-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iremotecomputer-initialize
      */
     Initialize(pszMachine, bEnumerating) {
         pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine

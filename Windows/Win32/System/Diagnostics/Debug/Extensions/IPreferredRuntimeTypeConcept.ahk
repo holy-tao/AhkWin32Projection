@@ -35,7 +35,7 @@ class IPreferredRuntimeTypeConcept extends IUnknown{
      * @returns {IModelObject} 
      */
     CastToPreferredRuntimeType(contextObject) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(3, this, "ptr", contextObject, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 }

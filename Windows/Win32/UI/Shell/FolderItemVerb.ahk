@@ -5,7 +5,7 @@
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
- * 
+ * Represents a single verb available to an item. This object contains properties and methods that allow you to retrieve information about the verb.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitemverb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -87,8 +87,11 @@ class FolderItemVerb extends IDispatch{
     }
 
     /**
+     * Executes a verb on the FolderItem associated with the verb.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/shell/folderitemverb-doit
      */
     DoIt() {

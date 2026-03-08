@@ -5,7 +5,7 @@
 
 /**
  * The IWMPSyncDevice3 interface provides methods for estimating the size required to synchronize a playlist to a device.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpsyncdevice3
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice3
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
 
     /**
      * The estimateSyncSize method initiates the estimation of the size required on the device to synchronize a specified playlist.
+     * @remarks
+     * The estimation of required size is done asynchronously. That is, this method initiates the estimation and then returns immediately. When the estimation is complete, Windows Media Player raises the <a href="https://docs.microsoft.com/windows/desktop/WMP/iwmpevents4-syncestimationcomplete">IWMPEvents4::SyncEstimationComplete</a> event.
+     * 
+     * The estimation cannot occur if a synchronization session is currently in progress for the device.
+     * 
+     * If you call this method and then call it again before the first estimation is complete, the first estimation is canceled and a new estimation is initiated.
      * @param {IWMPPlaylist} pNonRulePlaylist A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nn-wmp-iwmpplaylist">IWMPPlaylist</a> interface that represents the playlist for which the size will be estimated. This parameter can be set to <b>NULL</b>. If this argument is specified the estimation will return the size of <i>pNonRulePlaylist</i> and the current sync rules, if any.
      * @param {IWMPPlaylist} pRulesPlaylist A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nn-wmp-iwmpplaylist">IWMPPlaylist</a> interface that represents the playlist for which the size will be estimated. This parameter can be set to <b>NULL</b>. If this argument is specified then the current sync rules will be excluded from the estimation so that the estimation will return the size of <i>pNonRulePlaylist</i> and <i>pRulesPlaylist</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -75,7 +81,7 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice3-estimatesyncsize
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice3-estimatesyncsize
      */
     estimateSyncSize(pNonRulePlaylist, pRulesPlaylist) {
         result := ComCall(20, this, "ptr", pNonRulePlaylist, "ptr", pRulesPlaylist, "HRESULT")
@@ -84,6 +90,8 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
 
     /**
      * The cancelEstimation method cancels an estimation that was previously initiated by estimateSyncSize.
+     * @remarks
+     * When you call this method, Windows Media Player raises the<a href="https://docs.microsoft.com/windows/desktop/WMP/iwmpevents4-syncestimationcomplete"> IWMPEvents4::SyncEstimationComplete</a> event with an <b>HRESULT</b> of E_ABORT.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -103,7 +111,7 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice3-cancelestimation
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice3-cancelestimation
      */
     cancelEstimation() {
         result := ComCall(21, this, "HRESULT")

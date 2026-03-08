@@ -6,7 +6,7 @@
 
 /**
  * Used by a dynamic virtual channel plug-in to render bitmaps.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer
+ * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -39,8 +39,8 @@ class IWTSBitmapRenderer extends IUnknown{
      * @param {Integer} cbStride The stride width of the bitmap.
      * @param {Integer} cbImageBuffer The size, in bytes, of the <i>pImageBuffer</i> buffer.
      * @param {Pointer<Integer>} pImageBuffer An array of bytes that contains the data to render.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-render
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-render
      */
     Render(imageFormat, dwWidth, dwHeight, cbStride, cbImageBuffer, pImageBuffer) {
         pImageBufferMarshal := pImageBuffer is VarRef ? "char*" : "ptr"
@@ -56,7 +56,7 @@ class IWTSBitmapRenderer extends IUnknown{
      * The address of a 
      *       <a href="https://docs.microsoft.com/windows/win32/api/tsvirtualchannels/ns-tsvirtualchannels-bitmap_renderer_statistics">BITMAP_RENDERER_STATISTICS</a> structure 
      *       that receives the bitmap rendering statistics.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-getrendererstatistics
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-getrendererstatistics
      */
     GetRendererStatistics() {
         pStatistics := BITMAP_RENDERER_STATISTICS()
@@ -66,8 +66,8 @@ class IWTSBitmapRenderer extends IUnknown{
 
     /**
      * Called by a dynamic virtual channel plug-in to remove a render mapping.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-removemapping
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-removemapping
      */
     RemoveMapping() {
         result := ComCall(5, this, "HRESULT")

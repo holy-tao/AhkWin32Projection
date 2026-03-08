@@ -7,7 +7,7 @@
 
 /**
  * Represents a name-value pair for OCSPServiceProperties or ProviderProperties.
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocspproperty
+ * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -57,12 +57,9 @@ class IOCSPProperty extends IDispatch{
     /**
      * Gets the identifier part of the name-value pair represented by an OCSPProperty object.
      * @remarks
-     * 
      * For possible values of <i>pVal</i>, see <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties">OCSPServiceProperties</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties">ProviderProperties</a>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspproperty-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_name
      */
     get_Name() {
         pVal := BSTR()
@@ -71,14 +68,11 @@ class IOCSPProperty extends IDispatch{
     }
 
     /**
-     * Gets or sets the data part of the name-value pair represented by an OCSPProperty object.
+     * Gets or sets the data part of the name-value pair represented by an OCSPProperty object. (Get)
      * @remarks
-     * 
      * For possible values of <i>newVal</i> and <i>pVal</i>, see <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties">OCSPServiceProperties</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties">ProviderProperties</a>.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_value
      */
     get_Value() {
         pVal := VARIANT()
@@ -87,15 +81,12 @@ class IOCSPProperty extends IDispatch{
     }
 
     /**
-     * Gets or sets the data part of the name-value pair represented by an OCSPProperty object.
+     * Gets or sets the data part of the name-value pair represented by an OCSPProperty object. (Put)
      * @remarks
-     * 
      * For possible values of <i>newVal</i> and <i>pVal</i>, see <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties">OCSPServiceProperties</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties">ProviderProperties</a>.
-     * 
-     * 
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspproperty-put_value
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-put_value
      */
     put_Value(newVal) {
         result := ComCall(9, this, "ptr", newVal, "HRESULT")
@@ -105,7 +96,7 @@ class IOCSPProperty extends IDispatch{
     /**
      * Gets a value that indicates whether an OCSPProperty object has been modified since it was instantiated.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspproperty-get_modified
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_modified
      */
     get_Modified() {
         result := ComCall(10, this, "short*", &pVal := 0, "HRESULT")

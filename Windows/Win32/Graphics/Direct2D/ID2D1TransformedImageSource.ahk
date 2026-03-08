@@ -5,7 +5,7 @@
 
 /**
  * Represents an image source which shares resources with an original image source.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1transformedimagesource
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1transformedimagesource
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID2D1TransformedImageSource extends ID2D1Image{
      * 
      * Retrieves the source image used to create the transformed image source.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getsource
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getsource
      */
     GetSource(imageSource) {
         ComCall(4, this, "ptr*", imageSource)
@@ -48,7 +48,7 @@ class ID2D1TransformedImageSource extends ID2D1Image{
      * 
      * the properties specified when the transformed image source was created.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getproperties
      */
     GetProperties(properties) {
         ComCall(5, this, "ptr", properties)

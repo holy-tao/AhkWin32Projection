@@ -6,7 +6,7 @@
 
 /**
  * Supports collection of XML elements for indexed access.
- * @see https://docs.microsoft.com/windows/win32/api//msxml/nn-msxml-ixmlelementcollection
+ * @see https://learn.microsoft.com/windows/win32/api/msxml/nn-msxml-ixmlelementcollection
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
@@ -57,9 +57,11 @@ class IXMLElementCollection extends IDispatch{
     }
 
     /**
-     * Retrieves the number of elements in the collection.
+     * Retrieves the number of elements in the collection. (IXMLElementCollection.get_length)
+     * @remarks
+     * This method is implemented in MSXML 1.0. It is no longer supported by Microsoft in current versions of MSXML. This documentation is provided for informational purposes only.
      * @returns {Integer} The number of elements in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml/nf-msxml-ixmlelementcollection-get_length
+     * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-get_length
      */
     get_length() {
         result := ComCall(8, this, "int*", &p := 0, "HRESULT")
@@ -77,10 +79,12 @@ class IXMLElementCollection extends IDispatch{
 
     /**
      * Retrieves the child elements from a collection using their index, name, or both.
+     * @remarks
+     * This method is implemented in MSXML 1.0. It is no longer supported by Microsoft in current versions of MSXML. This documentation is provided for informational purposes only.
      * @param {VARIANT} var1 A valid index numeric value (within the length of <a href="https://docs.microsoft.com/windows/desktop/api/msxml/nn-msxml-ixmlelementcollection">IXMLElementCollection</a>) or the name of an element in the XML hierarchy.
      * @param {VARIANT} var2 A valid index numeric value (within the length of <a href="https://docs.microsoft.com/windows/desktop/api/msxml/nn-msxml-ixmlelementcollection">IXMLElementCollection</a>) or the name of an element in the XML hierarchy.
      * @returns {IDispatch} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//msxml/nf-msxml-ixmlelementcollection-item
+     * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-item
      */
     item(var1, var2) {
         result := ComCall(10, this, "ptr", var1, "ptr", var2, "ptr*", &ppDisp := 0, "HRESULT")

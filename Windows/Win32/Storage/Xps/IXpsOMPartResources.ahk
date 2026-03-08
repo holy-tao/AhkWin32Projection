@@ -10,7 +10,6 @@
 /**
  * Provides access to all shared, part-based resources of the XPS document.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -47,9 +46,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsompartresources
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompartresources
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -76,8 +73,10 @@ class IXpsOMPartResources extends IUnknown{
 
     /**
      * Gets the IXpsOMFontResourceCollection interface that contains the fonts that are used in the XPS document.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMFontResourceCollection} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresourcecollection">IXpsOMFontResourceCollection</a> interface that contains the fonts that are used in the XPS document.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getfontresources
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getfontresources
      */
     GetFontResources() {
         result := ComCall(3, this, "ptr*", &fontResources := 0, "HRESULT")
@@ -86,8 +85,10 @@ class IXpsOMPartResources extends IUnknown{
 
     /**
      * Gets the IXpsOMImageResourceCollection interface that contains the images that are used in the XPS document.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMImageResourceCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresourcecollection">IXpsOMImageResourceCollection</a> interface that contains the images that are used in the XPS document.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getimageresources
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getimageresources
      */
     GetImageResources() {
         result := ComCall(4, this, "ptr*", &imageResources := 0, "HRESULT")
@@ -96,8 +97,10 @@ class IXpsOMPartResources extends IUnknown{
 
     /**
      * Gets the IXpsOMColorProfileResourceCollection interface that contains the color profiles that are used in the XPS document.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMColorProfileResourceCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresourcecollection">IXpsOMColorProfileResourceCollection</a> interface that contains  the color profiles that are used in the XPS document.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getcolorprofileresources
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getcolorprofileresources
      */
     GetColorProfileResources() {
         result := ComCall(5, this, "ptr*", &colorProfileResources := 0, "HRESULT")
@@ -106,8 +109,10 @@ class IXpsOMPartResources extends IUnknown{
 
     /**
      * Gets the IXpsOMRemoteDictionaryResourceCollection interface that contains the remote resource dictionaries that are used in the XPS document.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMRemoteDictionaryResourceCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresourcecollection">IXpsOMRemoteDictionaryResourceCollection</a> interface that  contains the remote resource dictionaries that are used in the XPS document.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getremotedictionaryresources
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getremotedictionaryresources
      */
     GetRemoteDictionaryResources() {
         result := ComCall(6, this, "ptr*", &dictionaryResources := 0, "HRESULT")

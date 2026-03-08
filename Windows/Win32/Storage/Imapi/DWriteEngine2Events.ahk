@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * Implement this interface to receive notifications of the current write operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-dwriteengine2events
+ * Implement this interface to receive notifications of the current write operation. (DWriteEngine2Events)
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-dwriteengine2events
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -37,18 +37,27 @@ class DWriteEngine2Events extends IDispatch{
     static VTableNames => ["Update"]
 
     /**
-     * Implement this method to receive progress notification of the current write operation.
-     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2">IWriteEngine2</a> interface that initiated the write operation. 
+     * Implement this method to receive progress notification of the current write operation. (DWriteEngine2Events.Update)
+     * @remarks
+     * Notifications are sent in response to calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-writesection">IWriteEngine2::WriteSection</a> method.
      * 
-     * This parameter is a <b>MsftWriteEngine2</b> object in script.
+     * Notification is sent:
+     * 
+     * <ul>
+     * <li>Once before the operation begins</li>
+     * <li>Every 0.5 seconds during the write operation</li>
+     * <li>Once after the operation completes</li>
+     * </ul>
+     * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-cancelwrite">IWriteEngine2::CancelWrite</a> method.
+     * @param {IDispatch} object_R 
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2eventargs">IWriteEngine2EventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftWriteEngine2</b> object in script.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-dwriteengine2events-update
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-dwriteengine2events-update
      */
-    Update(object, progress) {
-        result := ComCall(7, this, "ptr", object, "ptr", progress, "HRESULT")
+    Update(object_R, progress) {
+        result := ComCall(7, this, "ptr", object_R, "ptr", progress, "HRESULT")
         return result
     }
 }

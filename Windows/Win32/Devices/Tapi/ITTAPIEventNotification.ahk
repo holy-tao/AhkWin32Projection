@@ -5,7 +5,7 @@
 
 /**
  * The ITTAPIEventNotification interface is an outgoing interface that allows an application to control the processing of event information.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ittapieventnotification
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapieventnotification
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -32,6 +32,9 @@ class ITTAPIEventNotification extends IUnknown{
 
     /**
      * The Event method is called by TAPI to determine the response to an asynchronous event notification.
+     * @remarks
+     * You must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-put_eventfilter">ITTAPI::put_EventFilter</a> method to set the event filter mask and enable reception of events. If you do not call <b>ITTAPI::put_EventFilter</b>, your application will not receive any events.
      * @param {Integer} TapiEvent <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> indicator of the event.
      * @param {IDispatch} pEvent Pointer to an <b>IDispatch</b> interface of the object associated with this event.
      * @returns {HRESULT} This method can return one of these values.
@@ -75,7 +78,7 @@ class ITTAPIEventNotification extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapieventnotification-event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapieventnotification-event
      */
     Event(TapiEvent, pEvent) {
         result := ComCall(3, this, "int", TapiEvent, "ptr", pEvent, "HRESULT")

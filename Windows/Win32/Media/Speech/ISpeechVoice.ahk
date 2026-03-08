@@ -341,8 +341,11 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause() {
         result := ComCall(30, this, "HRESULT")
@@ -350,8 +353,9 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume() {
         result := ComCall(31, this, "HRESULT")
@@ -359,10 +363,27 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
+     * Determines which pointer input frame generated the most recently retrieved message for the specified pointer and discards any queued (unretrieved) pointer input messages generated from the same pointer input frame.
+     * @remarks
+     * Parallel-mode devices may report pointer input in frames, that is, they may report the state and position of all pointers from that device in a single input report to the system. Ideally, applications should view the entire frame as a single input unless the application-specific requirements dictate otherwise.
      * 
+     * The <b>SkipPointerFrameMessages</b> function can be used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframeinfo">GetPointerFrameInfo</a> function (or one of its type-specific variants) to consume entire frames as a single input.
+     * 
+     * When an application sees a pointer message, it can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframeinfo">GetPointerFrameInfo</a> function to retrieve the entire pointer input frame to which the pointer message belongs, hence obtaining an updated view of all of the pointers currently owned by the window. Note that the returned frame contains only pointers that are currently owned by the same window as the specified pointer.
+     * 
+     * Having retrieved the entire frame of information, the application can then call the <b>SkipPointerFrameMessages</b> function to skip remaining pointer messages associated with this frame that are pending retrieval. This saves the application the overhead of retrieving and processing the remaining messages one by one.
+     * 
+     * <div class="alert"><b>Warning</b>  The <b>SkipPointerFrameMessages</b> function should be used only when the caller can be sure that no other entity on the caller’s thread (such as  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a>) is expecting to retrieve pending pointer messages. For this reason, <b>SkipPointerFrameMessages</b> should not be used in conjunction with Direct Manipulation when processing multiple, simultaneous interactions.</div>
+     * <div> </div>
+     * Note that the information retrieved is associated with the pointer frame most recently retrieved by the calling thread. Once the calling thread retrieves its next message, the information associated with the previous pointer frame may no longer be available.
+     * 
+     * If the pointer frame contains no additional pointers besides the specified pointer, this function succeeds with no action.
+     * 
+     * If the calling thread does not own the window to which the pointer message has been delivered, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-skippointerframemessages
      */
     Skip(Type, NumItems) {
         Type := Type is String ? BSTR.Alloc(Type).Value : Type

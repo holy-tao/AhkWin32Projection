@@ -30,10 +30,26 @@ class IDBSchemaCommand extends IUnknown{
     static VTableNames => ["GetCommand", "GetSchemas"]
 
     /**
+     * Retrieves the command-line string for the current process. (ANSI)
+     * @remarks
+     * The lifetime of the returned value is managed by the system, applications should not free or modify this value.
      * 
+     * Console processes can use the <i>argc</i> and <i>argv</i> arguments of the <b>main</b> or <b>wmain</b> functions by implementing those as the program entry point.
+     * GUI processes can use the <i>lpCmdLine</i> argument of the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> or wWinMain functions by implementing those as the program entry point.
+     * 
+     * To convert the command line to an <i>argv</i> style array of strings, pass the result from GetCommandLineA to
+     * <a href="https://docs.microsoft.com/windows/win32/api/shellapi/nf-shellapi-commandlinetoargvw">CommandLineToArgW</a>.
+     * 
+     * <div class="alert"><b>Note</b>  The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.</div>
+     * <div> </div>
+     * 
+     * > [!NOTE]
+     * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @returns {ICommand} 
+     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      */
     GetCommand(pUnkOuter, rguidSchema) {
         result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "ptr*", &ppCommand := 0, "HRESULT")

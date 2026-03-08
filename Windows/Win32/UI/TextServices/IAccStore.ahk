@@ -36,10 +36,15 @@ class IAccStore extends IUnknown{
     static VTableNames => ["Register", "Unregister", "GetDocuments", "LookupByHWND", "LookupByPoint", "OnDocumentFocus", "GetFocused"]
 
     /**
-     * 
+     * The expert must implement the Register expert function. Network Monitor calls the Register expert function to obtain information about the expert.
+     * @remarks
+     * The **Version** member of the [**EXPERTENUMINFO**](expertenuminfo.md) structure must be zero.
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is **TRUE**, and the function returns the requested information.
+     * 
+     * If the function is unsuccessful, the return value is **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/register-expert
      */
     Register(riid, punk) {
         result := ComCall(3, this, "ptr", riid, "ptr", punk, "HRESULT")
@@ -47,9 +52,30 @@ class IAccStore extends IUnknown{
     }
 
     /**
-     * 
+     * Removes the active instance of an application from the recovery list.
+     * @remarks
+     * You do not need to call this function before exiting. You need to remove the registration only if you choose to not recover data.
      * @param {IUnknown} punk 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Internal error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-unregisterapplicationrecoverycallback
      */
     Unregister(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")

@@ -39,8 +39,9 @@ class IDebugSyncOperation extends IUnknown{
     }
 
     /**
-     * 
+     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
      */
     Execute() {
         result := ComCall(4, this, "ptr*", &ppunkResult := 0, "HRESULT")

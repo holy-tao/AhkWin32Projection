@@ -31,8 +31,10 @@ class IInternetSecurityMgrSite extends IUnknown{
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumchildwindows">EnumChildWindows</a> function is more reliable than calling <b>GetWindow</b> in a loop. An application that calls <b>GetWindow</b> to perform this task risks being caught in an infinite loop or referencing a handle to a window that has been destroyed.
      * @returns {HWND} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindow
      */
     GetWindow() {
         phwnd := HWND()

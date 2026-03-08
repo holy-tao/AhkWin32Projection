@@ -5,7 +5,7 @@
 
 /**
  * The IWbemShutdown interface indicates to the provider that an instance of an object is ready to be discarded. The provider can use this call to release resources that it is referencing currently.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemshutdown
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemshutdown
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWbemShutdown extends IUnknown{
      * @param {Integer} uMaxMilliseconds Reserved. This value must be zero (0).
      * @param {IWbemContext} pCtx Reserved. This value must be <b>NULL</b>.
      * @returns {HRESULT} This method returns an <b>HRESULT</b>, which identifies the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemshutdown-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemshutdown-shutdown
      */
     Shutdown(uReason, uMaxMilliseconds, pCtx) {
         result := ComCall(3, this, "int", uReason, "uint", uMaxMilliseconds, "ptr", pCtx, "HRESULT")

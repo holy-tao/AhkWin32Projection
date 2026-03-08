@@ -6,7 +6,6 @@
 /**
  * Represents a communication channel that components that are hosted by the print spooler use to send notifications to applications. If the channel is bidirectional, applications can use the same channel to send responses back to the component.
  * @remarks
- * 
  * Objects implementing this interface are created by the Print Spooler in response to a call of <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel">CreatePrintAsyncNotifyChannel</a> by a Print Spooler-hosted component.
  * 
  * Call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IPrintAsyncNotifyChannel::Release</a> only:
@@ -22,9 +21,7 @@
  * </ol>
  * </li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nn-prnasnot-iprintasyncnotifychannel
+ * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifychannel
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */
@@ -51,6 +48,14 @@ class IPrintAsyncNotifyChannel extends IUnknown{
 
     /**
      * Sends a notification from a component that is hosted by the print spooler to one or more listening applications, or sends a response from an application back to a component.
+     * @remarks
+     * For a unidirectional channel, if a <b>SendNotification</b> call is made while the print spooler is processing an earlier <b>SendNotification</b> call, the print spooler queues the pending notification. Queued notifications are discarded if either the component that is hosted by the print spooler or the application calls <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-iprintasyncnotifychannel-closechannel">IPrintAsyncNotifyChannel::CloseChannel</a>.
+     * 
+     * For a bidirectional channel, if a <b>SendNotification</b> call is made while the Print-Spooler is processing an earlier <b>SendNotification</b> call, then the pending call will fail. In that case, if the caller is a sender inside print spooler, <b>SendNotification</b> returns CHANNEL_WAITING_FOR_CLIENT_NOTIFICATION. If the caller is a listener sending a reply, then <b>SendNotification</b> returns ASYNC_CALL_IN_PROGRESS.
+     * 
+     * When multiple listeners exist for the same bidirectional channel, the initial notification sent on the channel will be delivered to all listeners. The first listener to reply will acquire the channel. Listeners calling <b>SendNotification</b> after the channel was acquired will fail with error CHANNEL_ACQUIRED.
+     * 
+     * A listener receiving an initial notification on a bidirectional channel might not be interested in acquiring the channel. In this case the listener can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method can be called. The <b>IUnknown::Release</b> method does not need to be called if <b>SendNotification</b> or <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-iprintasyncnotifychannel-closechannel">IPrintAsyncNotifyChannel::CloseChannel</a> methods are called.
      * @param {IPrintAsyncNotifyDataObject} pData A pointer to the content of the notification and its size and type.
      * @returns {HRESULT} <table>
      * <tr>
@@ -123,9 +128,9 @@ class IPrintAsyncNotifyChannel extends IUnknown{
      * 
      * The return values are COM error codes. Because this function might complete the operation successfully yet return an HRESULT other than S_OK you should use the SUCCEEDED or FAILED macro to determine the success of the call. To get the specific HRESULT that was returned by the function, use the HRESULT_CODE macro. The following code example shows how these macros can be used.
      * 
-     * See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
      * 
-     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * 
      * 
      * ```cpp
@@ -167,7 +172,7 @@ class IPrintAsyncNotifyChannel extends IUnknown{
      * }
      * 
      * ```
-     * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-iprintasyncnotifychannel-sendnotification
+     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifychannel-sendnotification
      */
     SendNotification(pData) {
         result := ComCall(3, this, "ptr", pData, "HRESULT")
@@ -175,7 +180,13 @@ class IPrintAsyncNotifyChannel extends IUnknown{
     }
 
     /**
-     * Closes the channel.
+     * Closes the channel. (IPrintAsyncNotifyChannel.CloseChannel)
+     * @remarks
+     * <b>CloseChannel</b> can be called by either side of the communication channel—the component that is hosted by the print spooler or the listening application.
+     * 
+     * If an <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-iprintasyncnotifychannel-sendnotification">IPrintAsyncNotifyChannel::SendNotification</a> call is made while the print spooler is processing an earlier call to <b>SendNotification</b>, the print spooler will queue the notifications. Queued notifications are discarded if either the component that is hosted by the print spooler or the application calls <b>CloseChannel</b>.
+     * 
+     * <b>CloseChannel</b> cannot be called immediately after the call to <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel">CreatePrintAsyncNotifyChannel</a>.
      * @param {IPrintAsyncNotifyDataObject} pData Pointer to a notification that specifies why the channel closed. This pointer can be <b>NULL</b>.
      * @returns {HRESULT} <table>
      * <tr>
@@ -257,9 +268,9 @@ class IPrintAsyncNotifyChannel extends IUnknown{
      * 
      * The return values are COM error codes. Because this function might complete the operation successfully yet return an HRESULT other than S_OK you should use the SUCCEEDED or FAILED macro to determine the success of the call. To get the specific HRESULT that was returned by the function, use the HRESULT_CODE macro. The following code example shows how these macros can be used.
      * 
-     * See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
      * 
-     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * 
      * 
      * ```cpp
@@ -303,7 +314,7 @@ class IPrintAsyncNotifyChannel extends IUnknown{
      * }
      * 
      * ```
-     * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-iprintasyncnotifychannel-closechannel
+     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifychannel-closechannel
      */
     CloseChannel(pData) {
         result := ComCall(4, this, "ptr", pData, "HRESULT")

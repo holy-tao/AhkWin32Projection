@@ -6,12 +6,10 @@
 /**
  * Exposes methods that extract data from enumeration information. IPropertyEnumType2 extends IPropertyEnumType.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertyenumtype">IPropertyEnumType</a> interface, from which it inherits.
  * 
  * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertyenumtype2
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtype2
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -41,7 +39,7 @@ class IPropertyEnumType2 extends IPropertyEnumType{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to a buffer that, when this method returns successfully, receives a string of the form &lt;dll name&gt;,-&lt;resid&gt; that is suitable to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathparseiconlocationa">PathParseIconLocation</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype2-getimagereference
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype2-getimagereference
      */
     GetImageReference() {
         result := ComCall(8, this, "ptr*", &ppszImageRes := 0, "HRESULT")

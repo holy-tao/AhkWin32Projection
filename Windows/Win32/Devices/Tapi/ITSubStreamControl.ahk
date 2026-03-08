@@ -8,7 +8,7 @@
 
 /**
  * The ITSubStreamControl interface exposes methods that allow an application to enumerate, create, or remove substreams. Many MSPs do not support this interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itsubstreamcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itsubstreamcontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -42,9 +42,15 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * The CreateSubStream method creates a substream.
+     * @remarks
+     * Many MSPs do not support dynamic creation of substreams, and simply return TAPI_E_MAXSTREAMS in their implementation of this method.
+     * 
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface returned by <b>ITSubStreamControl::CreateSubStream</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITSubStream</b> interface to free resources associated with it.
      * @returns {ITSubStream} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface created.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream
      */
     CreateSubStream() {
         result := ComCall(7, this, "ptr*", &ppSubStream := 0, "HRESULT")
@@ -53,6 +59,8 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * The RemoveSubStream method removes a substream.
+     * @remarks
+     * Some MSPs may not support the advanced concept of creating and removing substreams, and simply return TAPI_E_NOTSUPPORTED.
      * @param {ITSubStream} pSubStream Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> to be removed.
      * @returns {HRESULT} This method can return one of these values.
@@ -107,7 +115,7 @@ class ITSubStreamControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-removesubstream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-removesubstream
      */
     RemoveSubStream(pSubStream) {
         result := ComCall(8, this, "ptr", pSubStream, "HRESULT")
@@ -116,9 +124,13 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * The EnumerateSubStreams method enumerates currently available media substreams. Provided for C and C++ applications. Automation client applications such as Visual Basic must use the get_SubStreams method.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumsubstream">IEnumSubStream</a> interface returned by <b>ITSubStreamControl::EnumerateSubStreams</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumSubStream</b> interface to free resources associated with it.
      * @returns {IEnumSubStream} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumsubstream">IEnumSubStream</a> enumeration of substreams.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-enumeratesubstreams
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-enumeratesubstreams
      */
     EnumerateSubStreams() {
         result := ComCall(9, this, "ptr*", &ppEnumSubStream := 0, "HRESULT")
@@ -127,10 +139,14 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * The get_SubStreams method creates a collection of substreams currently available. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateSubStreams method.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface returned by <b>ITSubStreamControl::get_SubStreams</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITSubStream</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-get_substreams
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-get_substreams
      */
     get_SubStreams() {
         pVariant := VARIANT()

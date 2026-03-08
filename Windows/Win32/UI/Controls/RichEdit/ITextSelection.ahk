@@ -7,7 +7,6 @@
 /**
  * A text selection is a text range with selection highlighting.
  * @remarks
- * 
  * The selection is associated with some kind of view, and has some UI-oriented methods that allow one to emulate keyboard input. Thus, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> methods on a text selection, as well as the <b>ITextSelection</b> methods.
  * 
  * For keyboard input emulation, ranges used in selections use the concept of the <i>active end</i>, which is typically the end that was last moved. For example, if an <b>ITextRange::Move</b>* method operates on a range that is actually a text selection, the most recently moved end is the active one. The most familiar examples of the active end are those involving Shift+Arrow Key handling, where the active end is the one that moves. Accordingly, the <b>ITextSelection</b> methods include move methods for the active end, such as <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a>, and methods to get and set the active end status. These methods manipulate selections in ways similar to the standard cursor-keypad operations. This allows you to implement, for example, a macro recorder facility.
@@ -75,8 +74,7 @@
  * Applications typically do not implement the <b>ITextSelection</b> interface. Instead, Microsoft text solutions such as rich edit controls implement <b>ITextSelection</b> as part of their Text Object Model (TOM) implementation.
  * 
  * Applications can retrieve an <b>ITextSelection</b> pointer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-getselection">GetSelection</a> method.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextselection
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextselection
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -144,7 +142,7 @@ class ITextSelection extends ITextRange{
      *  
      * 
      * Each of the table values is binary. Thus, if any value is not set, the text selection has the opposite property.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-getflags
      */
     GetFlags() {
         result := ComCall(58, this, "int*", &pFlags := 0, "HRESULT")
@@ -153,6 +151,19 @@ class ITextSelection extends ITextRange{
 
     /**
      * Sets the text selection flags.
+     * @remarks
+     * To make sure that the start end is active and that the ambiguous 
+     * 				character position is displayed at the end of the line, execute the following code: 
+     * 
+     * 
+     * ```
+     * selection.Flags = tomSelStartActive + tomSelAtEOL
+     * ```
+     * 
+     * 
+     * The 
+     * 				Flags property is useful because an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object can select itself. With <b>SetFlags</b>, you can change the active end from the default value of End, select the caret position for an ambiguous 
+     * 				character position, or change the Insert/Overtype mode.
      * @param {Integer} Flags Type: <b>long</b>
      * 
      * New flag values. It can be any combination of the following. 
@@ -197,7 +208,7 @@ class ITextSelection extends ITextRange{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-setflags
      */
     SetFlags(Flags) {
         result := ComCall(59, this, "int", Flags, "HRESULT")
@@ -263,7 +274,7 @@ class ITextSelection extends ITextRange{
      * <td>Shape.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-gettype
      */
     GetType() {
         result := ComCall(60, this, "int*", &pType := 0, "HRESULT")
@@ -272,6 +283,63 @@ class ITextSelection extends ITextRange{
 
     /**
      * Generalizes the functionality of the Left Arrow key.
+     * @remarks
+     * The WordBasic move methods like 
+     * 				<b>CharRight</b>, 
+     * 				<b>CharLeft</b>, 
+     * 				<b>WordRight</b>, and 
+     * 				<b>WordLeft</b> are hybrids that can do four things that are closely related to the standard arrow-key edit behavior: 
+     * 
+     * <ul>
+     * <li>Move the current insertion point if there's no selection. </li>
+     * <li>Move the active end of the selection if there is a selection. </li>
+     * <li>Turn an insertion point into a selection and vice versa. </li>
+     * <li>Return a Boolean stating if movement occurred. </li>
+     * </ul>
+     * The 
+     * 				<i>Extend</i> argument of 
+     * 				<b>MoveLeft</b> and
+     * 				 <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> enables you to be consistent with the first three items above, and the 
+     * 				<i>pDelta</i> is a generalization of the fourth. For example, given a selection consisting of a single range, you have the following correspondences (for left-to-right characters).
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>ITextSelection</th>
+     * <th>WordBasic</th>
+     * <th>Function</th>
+     * </tr>
+     * <tr>
+     * <td>selection.MoveRight tomWord, 1, 1</td>
+     * <td>WordRight 1,1</td>
+     * <td>Moves active end one word right.</td>
+     * </tr>
+     * <tr>
+     * <td>selection.MoveLeft tomCharacter, 1, 1</td>
+     * <td>CharLeft 1,1</td>
+     * <td>Moves active end one character left.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * As in WordBasic, if 
+     * 				<i>Count</i> is less than zero, the meanings of left and right are interchanged, that is <c>MoveLeft (Unit, Count, Extend)</code> is equivalent to <code>MoveRight (Unit, -Count, Extend)</c>. 
+     * 
+     * Similar to WordBasic and the Left Arrow key UI behavior, calling <code>MoveLeft (
+     * 				Unit, Count)</code> on a degenerate selection moves the insertion point the specified number of 
+     * 				<i>Unit</i>s. On a degenerate range, calling 
+     * 				<code>MoveLeft(
+     * 				Unit, Count, 1)</code> where <c>Count</c> is greater than zero  causes the range to become nondegenerate with the left end being the active end. 
+     * 
+     * When 
+     * 				<i>Extend</i> is <b>tomExtend</b> (or is nonzero), <b>MoveLeft</b> moves only the active end of the selection, leaving the other end where it is. However, if 
+     * 				<i>Extend</i> equals zero and the selection starts as a nondegenerate range, <c>MoveLeft(Unit, Count)</code> where <code>Count</c> is greater than zero
+     * 				 moves the active end <c>Count</c> - 1 units left, and then moves the other end to the active end. In other words, it makes an insertion point at the active end. Collapsing the range counts as one 
+     * 				unit. Thus, 
+     * 				<c>MoveLeft(tomCharacter)</c> converts a nondegenerate selection into a degenerate one at the selection's left end. Here, 
+     * 				<i>Count</i> has the default value of 1 and 
+     * 				<i>Extend</i> has the default value of zero. This example corresponds to pressing the Left Arrow key. 
+     * 				<b>MoveLeft</b> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> are related to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> move methods, but differ in that they explicitly use the active end (the end moved by pressing the Shift key).
      * @param {Integer} Unit Type: <b>long</b>
      * 
      * Unit to use. It can be one of the following. 
@@ -313,7 +381,7 @@ class ITextSelection extends ITextRange{
      * 
      * The actual count of units the insertion point or active end is moved left. This parameter can be null. Collapsing the selection, when 
      * 					<i>Extend</i> is 0, counts as one unit.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-moveleft
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveleft
      */
     MoveLeft(Unit, Count, Extend) {
         result := ComCall(61, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -322,6 +390,52 @@ class ITextSelection extends ITextRange{
 
     /**
      * Generalizes the functionality of the Right Arrow key.
+     * @remarks
+     * Microsoft WordBasic move methods like 
+     * 				<b>CharRight</b>, 
+     * 				<b>CharLeft</b>, 
+     * 				<b>WordRight</b>, and 
+     * 				<b>WordLeft</b> are hybrids that can do four things that are closely related to the standard arrow-key edit behavior: 
+     * 
+     * <ul>
+     * <li>Move the current insertion point if there's no selection. </li>
+     * <li>Move the active end of the selection if there is a selection. </li>
+     * <li>Turn an insertion point into a selection and vice versa. </li>
+     * <li>Return a Boolean stating if movement occurred. </li>
+     * </ul>
+     * The 
+     * 				<i>Extend</i> argument of <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a>  and <b>MoveRight</b> enables you to be consistent with the first three items above, and the 
+     * 				<i>pDelta</i> is a generalization of the fourth. For example, given a selection, s, consisting of a single range, you have the following correspondences (for left-to-right characters).
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>ITextSelection</th>
+     * <th>WordBasic</th>
+     * <th>Function</th>
+     * </tr>
+     * <tr>
+     * <td>s.MoveRight tomWord, 1, 1</td>
+     * <td>WordRight 1,1</td>
+     * <td>Moves active end one word right.</td>
+     * </tr>
+     * <tr>
+     * <td>s.MoveLeft tomCharacter, 1, 1</td>
+     * <td>CharLeft 1,1</td>
+     * <td>Moves active end one character left.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * As in WordBasic, if 
+     * 				<i>Count</i> is less than zero, the meanings of left and right are interchanged, that is <c>MoveLeft (Unit, Count, Extend)</code> is equivalent to <code>MoveRight(Unit, -Count, Extend)</c>. 
+     * 
+     * Similar to WordBasic and the Right Arrow key UI behavior, calling <c>MoveRight(Unit, Count)</c> on a degenerate selection moves the insertion point the specified number of 
+     * 				units. On a degenerate range, calling <c>MoveRight(Unit, Count, 1)</code>  where <code>Count</c> is greater than zero causes the range to become nondegenerate with the right end being the active end.
+     * 
+     * When 
+     * 				<i>Extend</i> is <b>tomExtend</b> (or is nonzero), <b>MoveRight</b> moves only the active end of the selection, leaving the other end where it is. However, if 
+     * 				<i>Extend</i> equals zero and the selection starts as a nondegenerate range, <c>MoveRight(Unit, Count)</code> where <code>Count</code> is greater than zero moves the active end <code>Count</c> - 1 units right, and then moves the other end to the active end. In other words, it makes an insertion point at the active end. Collapsing the range counts as one 
+     * 				unit. Thus, <c>MoveRight(tomCharacter)</c> converts a nondegenerate selection into a degenerate one at the selection's right end. Here, <i>Count</i> has the default value of 1 and <i>Extend</i> has the default value of zero. This example corresponds to pressing the Right Arrow key. <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <b>MoveRight</b> are related to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> move methods, but differ in that they explicitly use the active end (the end moved by pressing the Shift key).
      * @param {Integer} Unit Type: <b>long</b>
      * 
      * Unit to use. It can be one of the following. 
@@ -358,7 +472,7 @@ class ITextSelection extends ITextRange{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual count of units the insertion point or active end is moved left. This parameter can be null. Collapsing the selection, when <i>Extend</i> is 0, counts as one unit.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-moveright
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveright
      */
     MoveRight(Unit, Count, Extend) {
         result := ComCall(62, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -367,6 +481,8 @@ class ITextSelection extends ITextRange{
 
     /**
      * Mimics the functionality of the Up Arrow and Page Up keys.
+     * @remarks
+     * The <b>MoveUp</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-movedown">MoveDown</a> methods are similar to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> methods, except that they reflect the behavior of the Up Arrow, Down Arrow, Page Up, and Page Down keys on the cursor-keypad.
      * @param {Integer} Unit Type: <b>long</b>
      * 
      * Unit to use in the operation. It can be one of the following. 
@@ -410,7 +526,7 @@ class ITextSelection extends ITextRange{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual count of units the insertion point or active end is moved down. This parameter can be null. Collapsing the selection counts as one unit.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-moveup
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveup
      */
     MoveUp(Unit, Count, Extend) {
         result := ComCall(63, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -419,6 +535,8 @@ class ITextSelection extends ITextRange{
 
     /**
      * Mimics the functionality of the Down Arrow and Page Down keys.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveup">ITextSelection::MoveUp</a> and <b>ITextSelection::MoveDown</b> methods are similar to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">ITextSelection::MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">ITextSelection::MoveRight</a> methods, except that they reflect the behavior of the Up Arrow, Down Arrow, Page Up, and Page Down keys on the cursor-keypad.
      * @param {Integer} Unit Type: <b>long</b>
      * 
      * Unit to use in the operation. It can be one of the following. 
@@ -464,7 +582,7 @@ class ITextSelection extends ITextRange{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * Pointer to a variable that receives the actual count of units the insertion point or active end is moved down. Collapsing the selection counts as one unit. This parameter can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-movedown
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-movedown
      */
     MoveDown(Unit, Count, Extend) {
         result := ComCall(64, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -473,6 +591,23 @@ class ITextSelection extends ITextRange{
 
     /**
      * Generalizes the functionality of the Home key.
+     * @remarks
+     * The <b>ITextSelection::HomeKey</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">ITextSelection::EndKey</a> methods are used to mimic the standard Home/End key behavior.
+     * 
+     * <b>tomLine</b> mimics the Home or End key behavior 
+     * 				<i>without</i> the Ctrl key pressed, while <b>tomStory</b> mimics the behavior 
+     * 				<i>with</i> the Ctrl key pressed. Similarly, <b>tomMove</b> mimics the Home or End key behavior 
+     * 				<i>without</i> the Shift key pressed, while <b>tomExtend</b> mimics the behavior 
+     * 				<i>with</i> the Shift key pressed. So 
+     * 				<c>HomeKey(tomStory)</c> converts the selection into an insertion point at the beginning of the associated story, while <b>HomeKey</b>(tomStory, tomExtend) moves the active end of the selection to the beginning of the story and leaves the other end where it was.
+     * 
+     * The <b>HomeKey</b> and 
+     * 				<b>EndKey</b> methods are logical methods like the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">Move</a> methods, rather than directional methods. Thus, they depend on the language that is involved. For example, in Arabic text, <b>HomeKey</b> moves to the right end of a line, whereas in English text, it moves to the left. Thus, <b>HomeKey</b> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">EndKey</a> methods are different than the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">ITextSelection::MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">ITextSelection::MoveRight</a> methods. Also, note that the <b>HomeKey</b> method is quite different from the 
+     * 				<b>Start</b> property, which is the cp at the beginning of the selection. <b>HomeKey</b> and 
+     * 				<b>EndKey</b> also differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">StartOf</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">EndOf</a> methods in that they extend from the active end, whereas 
+     * 				<b>StartOf</b> extends from Start and 
+     * 				<b>EndOf</b> extends from End.
      * @param {Integer} Unit Type: <b>long</b>
      * @param {Integer} Extend Type: <b>long</b>
      * 
@@ -482,7 +617,7 @@ class ITextSelection extends ITextRange{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * Pointer to a variable that receives the count of characters that the insertion point or the active end is moved. This parameter can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-homekey
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-homekey
      */
     HomeKey(Unit, Extend) {
         result := ComCall(65, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -491,6 +626,28 @@ class ITextSelection extends ITextRange{
 
     /**
      * Mimics the functionality of the End key.
+     * @remarks
+     * Setting <i>Extend</i> to <b>tomExtend</b> (or nonzero) corresponds to the Shift key being pressed. Setting <i>Unit</i> to <b>tomLine</b> corresponds to the Ctrl key not being pressed.  Setting <i>Unit</i> to <b>tomStory</b> to Ctrl being pressed. The <i>pDelta</i> parameters receives the number of characters that the insertion point or active end is moved.
+     * 			
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">ITextSelection::HomeKey</a> and <b>ITextSelection::EndKey</b> methods are used to mimic the standard Home/End key behavior.
+     * 
+     * The <b>tomLine</b> value mimics the Home or End key behavior 
+     * 				<i>without</i> the Ctrl key pressed, while <b>tomStory</b> mimics the behavior 
+     * 				<i>with</i> the Ctrl
+     * 				key pressed. Similarly, <b>tomMove</b> mimics the Home or End key behavior 
+     * 				<i>without</i> the Shift key pressed, while <b>tomExtend</b> mimics the behavior 
+     * 				<i>with</i> the Shift key pressed. So 
+     * 				<c>EndKey(tomStory)</code> converts the selection into an insertion point at the end of the associated story, while <code>EndKey(tomStory, tomExtend)</c> moves the active end of the selection to the end of the story and leaves the other end where it was.
+     * 
+     * The 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">HomeKey</a> and <b>EndKey</b> methods are logical methods like the <b>Move*</b> methods, rather than directional methods. Thus, they depend on the language that is involved. For example, in Arabic text, 
+     * 				<b>HomeKey</b> moves to the right end of a line, whereas in English text, it moves to the left. Thus, 
+     * 				<b>HomeKey</b> and <b>EndKey</b> are different than the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> methods. Also, note that the <b>EndKey</b> method is quite different from the 
+     * 				<b>End</b> property, which is the <c>cp</c> at the end of the selection. 
+     * 				<b>HomeKey</b> and <b>EndKey</b> also differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">StartOf</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">EndOf</a> methods in that they extend from the active end, whereas 
+     * 				<b>StartOf</b> extends from Start and 
+     * 				<b>EndOf</b> extends from End.
      * @param {Integer} Unit Type: <b>long</b>
      * 
      * Unit to use. It can be one of the following.
@@ -554,7 +711,7 @@ class ITextSelection extends ITextRange{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * Pointer to a variable that receives the count of characters that the insertion point or the active end is moved. This parameter can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-endkey
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-endkey
      */
     EndKey(Unit, Extend) {
         result := ComCall(66, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
@@ -563,13 +720,17 @@ class ITextSelection extends ITextRange{
 
     /**
      * Types the string given by bstr at this selection as if someone typed it. This is similar to the underlying SetText method, but is sensitive to the Insert/Overtype key state and UI settings like AutoCorrect and smart quotes.
+     * @remarks
+     * This method types the string given by <i>bstr</i> at this selection as if someone typed it. Using <b>TypeText</b> is faster than sending characters through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> function, but it is slower than using <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">SetText</a>. 
+     * 
+     * <b>TypeText</b> is similar to the underlying <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">SetText</a> method, however, it is sensitive to the Insert/Overtype key state and UI settings like AutoCorrect and smart quotes. For example, it deletes any nondegenerate selection and then inserts or overtypes (depending on the Insert/Overtype key state—see the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-setflags">SetFlags</a> method) the string <i>bstr</i> at the insertion point, leaving this selection as an insertion point following the inserted text.
      * @param {BSTR} bstr Type: <b>BSTR</b>
      * 
      * String to type into this selection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an 
-     * 						<b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * 						<b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -610,7 +771,7 @@ class ITextSelection extends ITextRange{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextselection-typetext
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-typetext
      */
     TypeText(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr

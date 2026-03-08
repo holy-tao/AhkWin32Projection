@@ -7,7 +7,6 @@
 /**
  * Defines how often the task is run and how long the repetition pattern is repeated after the task is started.
  * @remarks
- * 
  * If you specify a repetition duration for a task, you must also specify the repetition interval.
  * 
  * If you register a task that contains a  trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched five times. The five repetitions can be defined by the following pattern.
@@ -22,10 +21,7 @@
  * <b>Windows Server 2003, Windows XP and Windows 2000:  </b>If you register a task that contains a trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched four times.
  * 
  * When reading or writing  XML for a task, the repetition pattern is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-irepetitionpattern
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irepetitionpattern
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -72,17 +68,14 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets the amount of time between each restart of the task.
+     * Gets or sets the amount of time between each restart of the task. (Get)
      * @remarks
-     * 
      * If you specify a repetition duration for a task, you must also specify the repetition interval.
      * 
      * When reading or writing XML for a task, the repetition interval is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-interval-repetitiontype-element">Interval</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pInterval 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-get_interval
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_interval
      */
     get_Interval(pInterval) {
         result := ComCall(7, this, "ptr", pInterval, "HRESULT")
@@ -90,17 +83,14 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets the amount of time between each restart of the task.
+     * Gets or sets the amount of time between each restart of the task. (Put)
      * @remarks
-     * 
      * If you specify a repetition duration for a task, you must also specify the repetition interval.
      * 
      * When reading or writing XML for a task, the repetition interval is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-interval-repetitiontype-element">Interval</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} interval 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-put_interval
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-put_interval
      */
     put_Interval(interval) {
         interval := interval is String ? BSTR.Alloc(interval).Value : interval
@@ -110,17 +100,14 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets how long the pattern is repeated.
+     * Gets or sets how long the pattern is repeated. (Get)
      * @remarks
-     * 
      * If you specify a repetition duration for a task, you must also specify the repetition interval.
      * 
      * When reading or writing XML for a task, the repetition duration is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-duration-repetitiontype-element">Duration</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pDuration 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-get_duration
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_duration
      */
     get_Duration(pDuration) {
         result := ComCall(9, this, "ptr", pDuration, "HRESULT")
@@ -128,17 +115,14 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets how long the pattern is repeated.
+     * Gets or sets how long the pattern is repeated. (Put)
      * @remarks
-     * 
      * If you specify a repetition duration for a task, you must also specify the repetition interval.
      * 
      * When reading or writing XML for a task, the repetition duration is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-duration-repetitiontype-element">Duration</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} duration 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-put_duration
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-put_duration
      */
     put_Duration(duration) {
         duration := duration is String ? BSTR.Alloc(duration).Value : duration
@@ -148,15 +132,12 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets a Boolean value that indicates if a running instance of the task is stopped at the end of the repetition pattern duration.
+     * Gets or sets a Boolean value that indicates if a running instance of the task is stopped at the end of the repetition pattern duration. (Get)
      * @remarks
-     * 
      * When reading or writing XML for a task, this information is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element">StopAtDurationEnd</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<VARIANT_BOOL>} pStop 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend
      */
     get_StopAtDurationEnd(pStop) {
         pStopMarshal := pStop is VarRef ? "short*" : "ptr"
@@ -166,15 +147,12 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
-     * Gets or sets a Boolean value that indicates if a running instance of the task is stopped at the end of the repetition pattern duration.
+     * Gets or sets a Boolean value that indicates if a running instance of the task is stopped at the end of the repetition pattern duration. (Put)
      * @remarks
-     * 
      * When reading or writing XML for a task, this information is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element">StopAtDurationEnd</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {VARIANT_BOOL} stop 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irepetitionpattern-put_stopatdurationend
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-put_stopatdurationend
      */
     put_StopAtDurationEnd(stop) {
         result := ComCall(12, this, "short", stop, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Provides access to all the controls on a Visual Basic container.
- * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nn-vbinterf-ivbgetcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-ivbgetcontrol
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IVBGetControl extends IUnknown{
 
     /**
      * Enumerates the controls on the form.
+     * @remarks
+     * When migrating a VBX control to an OLE control, 
+     *     <b>EnumControls</b> replaces the Visual Basic 
+     *     <b>VBGetControl</b>, which is no longer supported.
      * @param {Integer} dwOleContF Specifies the type of OLE objects to be enumerated. This parameter can be one of the following 
      *       values enumerated by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olecontf">OLECONTF</a> enumeration.
      * 
@@ -102,7 +106,7 @@ class IVBGetControl extends IUnknown{
      *       flag.
      * @param {Integer} dwWhich 
      * @returns {IEnumUnknown} Pointer to an enumeration of OLE objects.
-     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-ivbgetcontrol-enumcontrols
+     * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-ivbgetcontrol-enumcontrols
      */
     EnumControls(dwOleContF, dwWhich) {
         result := ComCall(3, this, "uint", dwOleContF, "uint", dwWhich, "ptr*", &ppenumUnk := 0, "HRESULT")

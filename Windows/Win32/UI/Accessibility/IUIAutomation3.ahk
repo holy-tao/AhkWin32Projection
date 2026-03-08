@@ -5,7 +5,7 @@
 
 /**
  * Extends the IUIAutomation2 interface to expose additional methods for controlling Microsoft UI Automation functionality.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomation3
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation3
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IUIAutomation3 extends IUIAutomation2{
 
     /**
      * Registers a method that handles programmatic text-edit events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
@@ -43,10 +45,10 @@ class IUIAutomation3 extends IUIAutomation2{
      * @param {IUIAutomationTextEditTextChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler">IUIAutomationTextEditTextChangedEventHandler</a>*</b>
      * 
      * A pointer to the object that handles the programmatic text-edit event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation3-addtextedittextchangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation3-addtextedittextchangedeventhandler
      */
     AddTextEditTextChangedEventHandler(element, scope, textEditChangeType, cacheRequest, handler) {
         result := ComCall(64, this, "ptr", element, "int", scope, "int", textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
@@ -55,16 +57,24 @@ class IUIAutomation3 extends IUIAutomation2{
 
     /**
      * Removes a programmatic text-edit event handler.
+     * @remarks
+     * A Microsoft UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element from which to remove the handler.
      * @param {IUIAutomationTextEditTextChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler">IUIAutomationTextEditTextChangedEventHandler</a>*</b>
      * 
      * A pointer to the  interface that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation3-addtextedittextchangedeventhandler">IUIAutomation3::AddTextEditTextChangedEventHandler</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation3-removetextedittextchangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation3-removetextedittextchangedeventhandler
      */
     RemoveTextEditTextChangedEventHandler(element, handler) {
         result := ComCall(65, this, "ptr", element, "ptr", handler, "HRESULT")

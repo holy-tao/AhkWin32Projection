@@ -12676,11 +12676,7 @@ class FileSystem {
         ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
         CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiSetAsyncNotifyCallback", ContextMarshal, Context, "ptr", Callback, CallbackDataMarshal, CallbackData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiSetAsyncNotifyCallback", ContextMarshal, Context, "ptr", Callback, CallbackDataMarshal, CallbackData, "HRESULT")
         return result
     }
 
@@ -12695,11 +12691,7 @@ class FileSystem {
     static SspiGetAsyncCallStatus(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiGetAsyncCallStatus", HandleMarshal, Handle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiGetAsyncCallStatus", HandleMarshal, Handle, "HRESULT")
         return result
     }
 
@@ -12758,11 +12750,7 @@ class FileSystem {
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
         ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiAcquireCredentialsHandleAsyncW", AsyncContextMarshal, AsyncContext, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiAcquireCredentialsHandleAsyncW", AsyncContextMarshal, AsyncContext, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "HRESULT")
         return result
     }
 
@@ -12820,11 +12808,7 @@ class FileSystem {
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
         ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiAcquireCredentialsHandleAsyncA", AsyncContextMarshal, AsyncContext, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiAcquireCredentialsHandleAsyncA", AsyncContextMarshal, AsyncContext, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "HRESULT")
         return result
     }
 
@@ -12874,11 +12858,7 @@ class FileSystem {
         pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
         ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiInitializeSecurityContextAsyncW", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiInitializeSecurityContextAsyncW", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "HRESULT")
         return result
     }
 
@@ -12930,11 +12910,7 @@ class FileSystem {
         pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
         ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiInitializeSecurityContextAsyncA", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiInitializeSecurityContextAsyncA", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "HRESULT")
         return result
     }
 
@@ -12988,11 +12964,7 @@ class FileSystem {
         pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
         ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiAcceptSecurityContextAsync", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiAcceptSecurityContextAsync", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "HRESULT")
         return result
     }
 
@@ -13008,11 +12980,7 @@ class FileSystem {
     static SspiFreeCredentialsHandleAsync(AsyncContext, phCredential) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiFreeCredentialsHandleAsync", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiFreeCredentialsHandleAsync", AsyncContextMarshal, AsyncContext, "ptr", phCredential, "HRESULT")
         return result
     }
 
@@ -13038,11 +13006,7 @@ class FileSystem {
     static SspiDeleteSecurityContextAsync(AsyncContext, phContext) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiDeleteSecurityContextAsync", AsyncContextMarshal, AsyncContext, "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ksecdd.sys\SspiDeleteSecurityContextAsync", AsyncContextMarshal, AsyncContext, "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -13123,11 +13087,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-completeauthtoken
      */
     static CompleteAuthToken(phContext, pToken) {
-        result := DllCall("SECUR32.dll\CompleteAuthToken", "ptr", phContext, "ptr", pToken, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\CompleteAuthToken", "ptr", phContext, "ptr", pToken, "HRESULT")
         return result
     }
 
@@ -13140,11 +13100,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querysecuritycontexttoken
      */
     static QuerySecurityContextToken(phContext) {
-        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "HRESULT")
         return Token
     }
 
@@ -13185,11 +13141,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-applycontroltoken
      */
     static ApplyControlToken(phContext, pInput) {
-        result := DllCall("SECUR32.dll\ApplyControlToken", "ptr", phContext, "ptr", pInput, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ApplyControlToken", "ptr", phContext, "ptr", pInput, "HRESULT")
         return result
     }
 
@@ -13226,11 +13178,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcontextattributesw
      */
     static SetContextAttributesW(phContext, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SECUR32.dll\SetContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SetContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13456,11 +13404,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-makesignature
      */
     static MakeSignature(phContext, fQOP, pMessage, MessageSeqNo) {
-        result := DllCall("SECUR32.dll\MakeSignature", "ptr", phContext, "uint", fQOP, "ptr", pMessage, "uint", MessageSeqNo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\MakeSignature", "ptr", phContext, "uint", fQOP, "ptr", pMessage, "uint", MessageSeqNo, "HRESULT")
         return result
     }
 
@@ -13482,11 +13426,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-verifysignature
      */
     static VerifySignature(phContext, pMessage, MessageSeqNo) {
-        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "HRESULT")
         return pfQOP
     }
 
@@ -13502,11 +13442,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-exportsecuritycontext
      */
     static ExportSecurityContext(phContext, fFlags, pPackedContext) {
-        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "HRESULT")
         return pToken
     }
 

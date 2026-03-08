@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-iatsc_ett
+ * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_ett
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class IATSC_ETT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-initialize
      */
     Initialize(pSectionList, pMPEGData) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
@@ -85,7 +85,7 @@ class IATSC_ETT extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -95,7 +95,7 @@ class IATSC_ETT extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the protocol_version field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getprotocolversion
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getprotocolversion
      */
     GetProtocolVersion() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -105,7 +105,7 @@ class IATSC_ETT extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the ETM_id field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getetmid
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getetmid
      */
     GetEtmId() {
         result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -168,7 +168,7 @@ class IATSC_ETT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getextendedmessagetext
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getextendedmessagetext
      */
     GetExtendedMessageText(pdwLength, ppText) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"

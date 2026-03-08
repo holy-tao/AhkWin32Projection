@@ -48,9 +48,16 @@ class IDataSourceLocator extends IDispatch{
     }
 
     /**
+     * Gets or sets the handle value of the window on which ink is drawn. (IInkCollector.put_hWnd)
+     * @remarks
+     * If two or more windows exist, this property allows you to specify which window collects ink.
      * 
+     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> objects, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. You can then set the <b>hWnd</b> property and re-enable the object by setting the <b>Enabled</b> property to <b>TRUE</b>.</div>
+     * <div> </div>
+     * In Automation, this property is called <b>hWnd Property</b>.
      * @param {HWND} hwndParent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_hwnd
      */
     put_hWnd(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

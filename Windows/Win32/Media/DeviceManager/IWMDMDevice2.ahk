@@ -6,7 +6,7 @@
 
 /**
  * The IWMDMDevice2 interface extends IWMDMDevice by making it possible to get the video formats supported by a device, find storage from its name, and use property pages.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmdevice2
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevice2
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class IWMDMDevice2 extends IWMDMDevice{
 
     /**
      * The GetStorage method searches the immediate children of the root storage for a storage with the given name.
+     * @remarks
+     * This function is not recursive; it only searches the immediate children of the device root storage. For a recursive search version of this function, use <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevice3-findstorage">IWMDMDevice3::FindStorage</a>.
      * @param {PWSTR} pszStorageName Pointer to a <b>null</b>-terminated string specifying the name of the storage to find. This parameter does not support wildcard characters.
      * @returns {IWMDMStorage} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorage">IWMDMStorage</a> interface of the storage specified by the <i>pszStorageName</i> parameter. The caller must release this interface when done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevice2-getstorage
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getstorage
      */
     GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
@@ -46,6 +48,8 @@ class IWMDMDevice2 extends IWMDMDevice{
 
     /**
      * The GetFormatSupport2 method retrieves the formats supported by the device, including audio and video codecs, and MIME file formats.
+     * @remarks
+     * This method extends <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevice-getformatsupport">IWMDMDevice::GetFormatSupport</a> to handle video formats. The recommended method for getting format support, however, is <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevice3-getformatcapability">IWMDMDevice3::GetFormatCapability</a>. If <b>GetFormatCapability</b> isn't supported, the device will probably not support video, and <b>GetFormatSupport</b> is probably sufficient.
      * @param {Integer} dwFlags <b>DWORD</b> specifying audio formats, video formats, and MIME types. This flag specifies what the application is requesting the service provider to fill in. The caller can set one or more of the following three values.
      * 
      * <table>
@@ -81,8 +85,8 @@ class IWMDMDevice2 extends IWMDMDevice{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevice2-getformatsupport2
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getformatsupport2
      */
     GetFormatSupport2(dwFlags, ppAudioFormatEx, pnAudioFormatCount, ppVideoFormatEx, pnVideoFormatCount, ppFileType, pnFileTypeCount) {
         ppAudioFormatExMarshal := ppAudioFormatEx is VarRef ? "ptr*" : "ptr"
@@ -108,8 +112,8 @@ class IWMDMDevice2 extends IWMDMDevice{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevice2-getspecifypropertypages
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getspecifypropertypages
      */
     GetSpecifyPropertyPages(ppSpecifyPropPages, pppUnknowns, pcUnks) {
         pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : "ptr"
@@ -121,6 +125,12 @@ class IWMDMDevice2 extends IWMDMDevice{
 
     /**
      * The GetCanonicalName method retrieves the canonical name of the device.
+     * @remarks
+     * The application can use the retrieved canonical name to call <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdevicemanager2-getdevicefromcanonicalname">IWMDeviceManager2::GetDeviceFromCanonicalName</a> to find this device again.
+     * 
+     * The returned canonical name is in the format &lt; <i>PnP Device Path</i> &gt;$&lt; <i>index</i> &gt;, where <i>index</i> is a zero-based index into the device objects returned by the service provider for the specified PnP device path.
+     * 
+     * The format of canonical name is subject to change in future releases of Windows Media Device Manager.
      * @param {PWSTR} pwszPnPName Wide-character buffer for the canonical names. This buffer must be allocated and released by the caller.
      * @param {Integer} nMaxChars Integer specifying the maximum number of characters that can be placed in <i>pwszPnPName</i>, including the termination character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -175,7 +185,7 @@ class IWMDMDevice2 extends IWMDMDevice{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevice2-getcanonicalname
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getcanonicalname
      */
     GetCanonicalName(pwszPnPName, nMaxChars) {
         pwszPnPName := pwszPnPName is String ? StrPtr(pwszPnPName) : pwszPnPName

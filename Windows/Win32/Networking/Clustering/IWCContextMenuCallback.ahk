@@ -7,14 +7,11 @@
 /**
  * The IWCContextMenuCallback interface is called by a Failover Cluster Administrator extension to add items to a Failover Cluster Administrator context menu.
  * @remarks
- * 
  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
  *      your 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems">IWEExtendContextMenu::AddContextMenuItems</a> 
  *      method to call the <b>IWCContextMenuCallback</b> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwccontextmenucallback
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwccontextmenucallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -41,6 +38,22 @@ class IWCContextMenuCallback extends IUnknown{
 
     /**
      * Adds a menu item to a Failover Cluster Administrator context menu.
+     * @remarks
+     * The <b>AddExtensionMenuItem</b> 
+     *      method adds items at the top of the context menu and follows them by a separator. The command identified by 
+     *      <i>nCommandID</i> is passed in the <i>nCommandID</i> parameter to the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweinvokecommand-invokecommand">IWEInvokeCommand::InvokeCommand</a> method 
+     *      when the user selects this menu item.
+     * 
+     * Note that the <b>MF_OWNERDRAW</b> and <b>MF_POPUP</b> flags are not 
+     *      supported specifically for the <i>uFlags</i> parameter.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> extensions call 
+     *      <b>AddExtensionMenuItem</b> from 
+     *      their 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems">IWEExtendContextMenu::AddContextMenuItems</a> 
+     *      method.
      * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the item to be added to the menu. Although 
      *        declared as a <b>BSTR</b>, this parameter is implemented as an 
      *        <b>LPWSTR</b>.
@@ -98,7 +111,7 @@ class IWCContextMenuCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem
      */
     AddExtensionMenuItem(lpszName, lpszStatusBarText, nCommandID, nSubmenuCommandID, uFlags) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName

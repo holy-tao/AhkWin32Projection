@@ -8,7 +8,7 @@
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.
- * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nn-fhcfg-ifhconfigmgr
+ * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhconfigmgr
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
@@ -41,8 +41,10 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Loads the File History configuration information for the current user into an FhConfigMgr object.
+     * @remarks
+     * This method or the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-createdefaultconfiguration">IFhConfigMgr::CreateDefaultConfiguration</a> method must be called before any other <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nn-fhcfg-ifhconfigmgr">IFhConfigMgr</a> method can be called.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code such as one of the values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-loadconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-loadconfiguration
      */
     LoadConfiguration() {
         result := ComCall(3, this, "HRESULT")
@@ -51,11 +53,13 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Creates File History configuration files with default settings for the current user and loads them into an FhConfigMgr object.
+     * @remarks
+     * This method or the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-loadconfiguration">LoadConfiguration</a> method must be called before any other <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nn-fhcfg-ifhconfigmgr">IFhConfigMgr</a> method can be called.
      * @param {BOOL} OverwriteIfExists If File History configuration files already exist for the current user and this parameter is set to <b>TRUE</b>, those files are overwritten and all previous settings and policies are reset to default values.
      * 
      * If File History configuration files already exist for the current user and this parameter is set to <b>FALSE</b>, those files are not overwritten and an unsuccessful <b>HRESULT</b> value is returned.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-createdefaultconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-createdefaultconfiguration
      */
     CreateDefaultConfiguration(OverwriteIfExists) {
         result := ComCall(4, this, "int", OverwriteIfExists, "HRESULT")
@@ -64,8 +68,10 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Saves to disk all the changes that were made in an FhConfigMgr object since the last time that the LoadConfiguration, CreateDefaultConfiguration or SaveConfiguration method was called for the File History configuration files of the current user.
+     * @remarks
+     * This method can be called as many times as needed during the lifetime of an <a href="https://docs.microsoft.com/windows/desktop/DevNotes/fhconfigmgr">FhConfigMgr</a> object.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-saveconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-saveconfiguration
      */
     SaveConfiguration() {
         result := ComCall(5, this, "HRESULT")
@@ -74,12 +80,28 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Adds an exclusion rule to the exclusion list or removes a rule from the list.
+     * @remarks
+     * The File History protection scope is the set of files that are backed up by the File History feature.  It contains inclusion rules and exclusion rules. Inclusion rules specify the files and folders that are included. Exclusion rules specify the files and folders that are excluded.
+     * 
+     * The default protection scope includes all folders from all user libraries and the  Contacts, Desktop, and Favorites folders.
+     * 
+     * Exclusion rules take precedence over inclusion rules. In other words, if an inclusion rule conflicts with an exclusion rule, the File History feature follows the exclusion rule.
+     * 
+     * To reduce the protection scope, use the <b>IFhConfigMgr::AddRemoveExcludeRule</b> to add exclusion rules. 
+     * 
+     * This method can be used to add or remove exclusion rules. It cannot be used to modify inclusion rules.
+     * 
+     * User libraries can be enumerated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderitem">SHGetKnownFolderItem</a> function and the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> interfaces.
+     * 
+     * Standard folders and libraries are specified by a GUID, prefixed with an asterisk. For example,  *a990ae9f-a03b-4e80-94bc-9912d7504104 specifies the Pictures library. For a list of standard folders and libraries and their GUIDs, see the <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> documentation. 
+     * 
+     * Custom libraries are specified by name. Folders are specified by their full path (for example, C:\Users\Public\Videos).
      * @param {BOOL} Add If this parameter is <b>TRUE</b>, a new exclusion rule is added.
      * If it is set to <b>FALSE</b>, an existing exclusion rule is removed.
      * @param {Integer} Category Specifies the type of the exclusion rule. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration for possible values.
      * @param {BSTR} Item The folder path or library name or GUID of the item that the exclusion rule applies to.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule
      */
     AddRemoveExcludeRule(Add, Category, Item) {
         Item := Item is String ? BSTR.Alloc(Item).Value : Item
@@ -90,10 +112,20 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Retrieves the inclusion and exclusion rules that are currently stored in an FhConfigMgr object.
+     * @remarks
+     * The File History protection scope is the set of files that are backed up by this feature.  It contains inclusion rules and exclusion rules. Inclusion rules specify the files and folders that are included. Exclusion rules specify the files and folders that are excluded.
+     * 
+     * The default protection scope includes all folders from all user libraries and the  Contacts, Desktop, and Favorites folders.
+     * 
+     * You can modify the File History protection scope  by adding exclusion rules to reduce the File History protection scope without removing folders from user libraries.
+     * 
+     * Exclusion rules take precedence over inclusion rules. In other words, if an inclusion rule conflicts with an exclusion rule, the File History feature follows the exclusion rule.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule">IFhConfigMgr::AddRemoveExcludeRule</a> method can be used to add or remove exclusion rules. It cannot be used to modify the inclusion rules.
      * @param {BOOL} Include If set to <b>TRUE</b>, inclusion rules are returned. If set to <b>FALSE</b>, exclusion rules are returned.
      * @param {Integer} Category An <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration value that specifies the type of the inclusion or exclusion rules.
      * @returns {IFhScopeIterator} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nn-fhcfg-ifhscopeiterator">IFhScopeIterator</a> interface pointer that can be used to enumerate the rules in the requested category.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules
      */
     GetIncludeExcludeRules(Include, Category) {
         result := ComCall(7, this, "int", Include, "int", Category, "ptr*", &Iterator := 0, "HRESULT")
@@ -102,9 +134,13 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Retrieves the numeric parameter for a local policy for the File History feature.
+     * @remarks
+     * Each local policy contains a numeric parameter that specifies how or when the File History feature backs up files and folders. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_local_policy_type">FH_LOCAL_POLICY_TYPE</a> enumeration for more information about the local policies that can be specified.
+     * 
+     * To set the numeric parameter value for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy">IFhConfigMgr::SetLocalPolicy</a> method.
      * @param {Integer} LocalPolicyType Specifies the local policy.
      * @returns {Integer} Receives the value of the numeric parameter for the specified local policy.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
      */
     GetLocalPolicy(LocalPolicyType) {
         result := ComCall(8, this, "int", LocalPolicyType, "uint*", &PolicyValue := 0, "HRESULT")
@@ -113,10 +149,14 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Changes the numeric parameter value of a local policy in an FhConfigMgr object.
+     * @remarks
+     * Each local policy contains a numeric parameter that specifies how or when the File History feature backs up files and folders. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_local_policy_type">FH_LOCAL_POLICY_TYPE</a> enumeration for more information about the local policies that can be specified.
+     * 
+     * To retrieve the numeric parameter value for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy">IFhConfigMgr::GetLocalPolicy</a> method.
      * @param {Integer} LocalPolicyType Specifies the local policy.
      * @param {Integer} PolicyValue Specifies the new value of the numeric parameter for the specified local policy.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy
      */
     SetLocalPolicy(LocalPolicyType, PolicyValue) {
         result := ComCall(9, this, "int", LocalPolicyType, "uint", PolicyValue, "HRESULT")
@@ -126,7 +166,7 @@ class IFhConfigMgr extends IUnknown{
     /**
      * Retrieves the backup status value for an FhConfigMgr object.
      * @returns {Integer} Receives the backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for the list of possible backup status values.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus
      */
     GetBackupStatus() {
         result := ComCall(10, this, "int*", &BackupStatus := 0, "HRESULT")
@@ -135,9 +175,11 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Changes the backup status value for an FhConfigMgr object.
+     * @remarks
+     * <b>FH_STATUS_DISABLED_BY_GP</b> is not a valid value for the <i>BackupStatus</i> parameter.
      * @param {Integer} BackupStatus The backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for a list of possible backup status values.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-setbackupstatus
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setbackupstatus
      */
     SetBackupStatus(BackupStatus) {
         result := ComCall(11, this, "int", BackupStatus, "HRESULT")
@@ -146,8 +188,10 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Returns a pointer to an IFhTarget interface that can be used to query information about the currently assigned backup target.
+     * @remarks
+     * If no backup target is currently assigned, this method returns <c>HRESULT_FROM_WIN32(ERROR_NOT_FOUND)</c>.
      * @returns {IFhTarget} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nn-fhcfg-ifhtarget">IFhTarget</a> interface of an object that represents the currently assigned default target, or <b>NULL</b> if there is no default target.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-getdefaulttarget
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getdefaulttarget
      */
     GetDefaultTarget() {
         result := ComCall(12, this, "ptr*", &DefaultTarget := 0, "HRESULT")
@@ -156,9 +200,13 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Checks whether a certain storage device or network share can be used as a File History backup target.
+     * @remarks
+     * For local disks, the <i>TargetUrl</i> parameter contains the drive letter. This path must end with a trailing backslash (for example, "X:\\").
+     * 
+     * For network shares, the <i>TargetUrl</i> parameter contains the full path of the share.  This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
      * @param {BSTR} TargetUrl The storage device or network share to be validated.
      * @returns {Integer} Receives the result of the device validation. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_device_validation_result">FH_DEVICE_VALIDATION_RESULT</a> enumeration for the list of possible device validation result values.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-validatetarget
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-validatetarget
      */
     ValidateTarget(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
@@ -169,10 +217,16 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Provisions a certain storage device or network share as a File History backup target and assigns it as the default backup target for the current user.
+     * @remarks
+     * For local disks, the <i>TargetUrl</i> parameter contains the drive letter. This path must end with a trailing backslash (for example, "X:\\").
+     * 
+     * For network shares, the <i>TargetUrl</i> parameter contains the full path of the share.  This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
+     * 
+     * It is highly recommended that the storage device or network share specified by the <i>TargetUrl</i> parameter be validated first using the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-validatetarget">IFhConfigMgr::ValidateTarget</a> method. If <b>ValidateTarget</b> returns a validation result other than <b>FH_VALID_TARGET</b>, assigning this storage device or network share as the default backup target may have unpredictable consequences.
      * @param {BSTR} TargetUrl Specifies the storage device or network share to be provisioned and assigned as the default.
      * @param {BSTR} TargetName Specifies a user-friendly name for the specified backup target.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code such as one of the values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-provisionandsetnewtarget
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-provisionandsetnewtarget
      */
     ProvisionAndSetNewTarget(TargetUrl, TargetName) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
@@ -184,9 +238,15 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Causes the currently assigned backup target to be recommended or not recommended to other members of the home group that the computer belongs to.
+     * @remarks
+     * When a backup target is recommended to other computers in the home group, users on those computers see that storage device in the list of available backup targets in the File History item in Control Panel. 
+     * 
+     * If the backup target is not recommended to other computers in the home group, or if the recommendation is withdrawn, the target does not appear in the list of available backup targets on the other computers.
+     * 
+     * A backup target cannot be recommended or not recommended on a computer that is joined to a domain or on a computer that is having ARM architecture.
      * @param {BOOL} Recommend If set to <b>TRUE</b>, the currently assigned backup target is recommended to other members of the home group. If set to <b>FALSE</b> and the currently assigned backup target is currently recommended to other members of the home group, this recommendation is withdrawn.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code such as one of the values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-changedefaulttargetrecommendation
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-changedefaulttargetrecommendation
      */
     ChangeDefaultTargetRecommendation(Recommend) {
         result := ComCall(15, this, "int", Recommend, "HRESULT")
@@ -195,6 +255,18 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Retrieves the current File History protection state.
+     * @remarks
+     * The caller is responsible for releasing the memory allocated for <i>ProtectedUntilTime</i> by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> on it.
+     * 
+     * The protection state indicates the File History operational state and the date and time until which all files within the protection scope are protected.
+     * 
+     * If the target is full or disconnected, the File History feature will provide a degraded level of protection as follows: 
+     * 
+     * <ul>
+     * <li>Files will be backed up to the File History cache on one of the local disks.</li>
+     * <li>If the cache fills up during this time, older copies will be deleted from the cache to back up newer copies.</li>
+     * <li>If the target is low on free space, the degraded level of protection will start once the target becomes full.</li>
+     * </ul>
      * @param {Pointer<Integer>} ProtectionState On return, this parameter receives the current File History protection state. The following protection states are defined in the FhStatus.h header file.
      * 
      * <table>
@@ -364,7 +436,7 @@ class IFhConfigMgr extends IUnknown{
      * <li>The file was created or included in the File History protection scope at or after that point in time.</li>
      * </ul>
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code such as one of the values defined in the FhErrors.h header file.
-     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhconfigmgr-queryprotectionstatus
+     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-queryprotectionstatus
      */
     QueryProtectionStatus(ProtectionState, ProtectedUntilTime) {
         ProtectionStateMarshal := ProtectionState is VarRef ? "uint*" : "ptr"

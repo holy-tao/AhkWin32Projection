@@ -6,7 +6,7 @@
 
 /**
  * Enumerates component categories registered in the system.
- * @see https://docs.microsoft.com/windows/win32/api//comcat/nn-comcat-ienumcategoryinfo
+ * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-ienumcategoryinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,14 +32,14 @@ class IEnumCATEGORYINFO extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumCATEGORYINFO.Next)
      * @param {Integer} celt The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
      * @param {Pointer<CATEGORYINFO>} rgelt An array of enumerated items.
      * 
      * The enumerator is responsible for allocating any memory, and the caller is responsible for freeing it. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
      * @param {Pointer<Integer>} pceltFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
      * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumcategoryinfo-next
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumcategoryinfo-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -49,10 +49,10 @@ class IEnumCATEGORYINFO extends IUnknown{
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumCATEGORYINFO.Skip)
      * @param {Integer} celt The number of items to be skipped.
      * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumcategoryinfo-skip
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumcategoryinfo-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -60,9 +60,11 @@ class IEnumCATEGORYINFO extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumCATEGORYINFO.Reset)
+     * @remarks
+     * There is no guarantee that the same set of objects will be enumerated after the reset operation has completed. A static collection is reset to the beginning, but it can be too expensive for some collections, such as files in a directory, to guarantee this condition.
      * @returns {HRESULT} The return value is S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumcategoryinfo-reset
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumcategoryinfo-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -70,9 +72,9 @@ class IEnumCATEGORYINFO extends IUnknown{
     }
 
     /**
-     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * Creates a new enumerator that contains the same enumeration state as the current one. (IEnumCATEGORYINFO.Clone)
      * @returns {IEnumCATEGORYINFO} A pointer to the cloned enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumcategoryinfo-clone
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumcategoryinfo-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

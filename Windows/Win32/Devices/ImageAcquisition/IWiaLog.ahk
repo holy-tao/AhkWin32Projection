@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * This interface is not supported.
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwialog
+ * This interface is not supported. (IWiaLog)
+ * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwialog
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -38,12 +38,12 @@ class IWiaLog extends IUnknown{
     static VTableNames => ["InitializeLog", "hResult", "Log"]
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLog.InitializeLog)
      * @param {Integer} hInstance Type: <b>LONG</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-initializelog
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-initializelog
      */
     InitializeLog(hInstance) {
         result := ComCall(3, this, "int", hInstance, "HRESULT")
@@ -51,12 +51,12 @@ class IWiaLog extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLog.hResult)
      * @param {HRESULT} hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-hresult
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-hresult
      */
     hResult(hResult) {
         result := ComCall(4, this, "int", hResult, "HRESULT")
@@ -64,15 +64,15 @@ class IWiaLog extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLog.Log)
      * @param {Integer} lFlags Type: <b>LONG</b>
      * @param {Integer} lResID Type: <b>LONG</b>
      * @param {Integer} lDetail Type: <b>LONG</b>
      * @param {BSTR} bstrText Type: <b>BSTR</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-log
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-log
      */
     Log(lFlags, lResID, lDetail, bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText

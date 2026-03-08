@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for getting and setting the properties of an ID3D12StateObject.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12stateobjectproperties
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12stateobjectproperties
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -35,12 +35,12 @@ class ID3D12StateObjectProperties extends IUnknown{
      * @param {PWSTR} pExportName Entrypoint in the state object for which to retrieve an identifier.
      * @returns {Pointer<Void>} A pointer to the shader identifier.
      * 
-     * The data referenced by this pointer is valid as long as the state object it came from is valid.  The size of the data returned is <a href="/windows/desktop/direct3d12/constants">D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES</a>.  Applications should copy and cache this data to avoid the cost of searching for it in the state object if it will need to be retrieved many times.  The identifier is used in shader records within shader tables in GPU memory, which the app must populate. 
+     * The data referenced by this pointer is valid as long as the state object it came from is valid.  The size of the data returned is <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES</a>.  Applications should copy and cache this data to avoid the cost of searching for it in the state object if it will need to be retrieved many times.  The identifier is used in shader records within shader tables in GPU memory, which the app must populate. 
      * 
      * The data itself globally identifies the shader, so even if the shader appears in a different state object with same associations, like any root signatures, it will have the same identifier.
      * 
      * If the shader isn’t fully resolved in the state object, the return value is <b>nullptr</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12stateobjectproperties-getshaderidentifier
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12stateobjectproperties-getshaderidentifier
      */
     GetShaderIdentifier(pExportName) {
         pExportName := pExportName is String ? StrPtr(pExportName) : pExportName
@@ -51,6 +51,12 @@ class ID3D12StateObjectProperties extends IUnknown{
 
     /**
      * Gets the amount of stack memory required to invoke a raytracing shader in HLSL.
+     * @remarks
+     * This method only needs to be called if the app wants to configure the stack size by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12stateobjectproperties-setpipelinestacksize">SetPipelineStackSize</a>, rather than relying on the conservative default stack size. This method is only valid for ray generation shaders, hit groups, miss shaders, and callable shaders. Even ray generation shaders may return a non-zero value despite being at the bottom of the stack.
+     * 
+     * For hit groups, stack size must be queried for the individual shaders comprising it (intersection shaders, any hit shaders, closest hit shaders), as each likely has a different stack size requirement.  The stack size can’t be queried on these individual shaders directly, as the way they are compiled can be influenced by the overall hit group that contains them.  The <i>pExportName</i> parameter includes syntax for identifying individual shaders within a hit group.
+     * 
+     * This API can be called on either collection state objects or raytracing pipeline state objects.
      * @param {PWSTR} pExportName The shader entrypoint in the state object for which to retrieve stack size.  For hit groups, an individual shader within the hit group must be specified using the syntax:
      * 
      * hitGroupName::shaderType
@@ -66,7 +72,7 @@ class ID3D12StateObjectProperties extends IUnknown{
      * 
      * An example value is: "myTreeLeafHitGroup::anyhit".
      * @returns {Integer} Amount of stack memory, in bytes, required to invoke the shader.  If the shader isn’t fully resolved in the state object, or the shader is unknown or of a type for which a stack size isn’t relevant, such as a hit group, the return value is 0xffffffff.  The 32-bit 0xffffffff value is used  for the UINT64 return value to ensure that bad return values don’t get lost when summed up with other values as part of calculating an overall pipeline stack size.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12stateobjectproperties-getshaderstacksize
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12stateobjectproperties-getshaderstacksize
      */
     GetShaderStackSize(pExportName) {
         pExportName := pExportName is String ? StrPtr(pExportName) : pExportName
@@ -77,8 +83,10 @@ class ID3D12StateObjectProperties extends IUnknown{
 
     /**
      * Gets the current pipeline stack size.
+     * @remarks
+     * This method and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12stateobjectproperties-setpipelinestacksize">SetPipelineStackSize</a> are not re-entrant.  This means if calling either or both from separate threads, the app must synchronize on its own.
      * @returns {Integer} The current pipeline stack size in bytes. When called on non-executable state objects, such as collections, the return value is 0.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12stateobjectproperties-getpipelinestacksize
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12stateobjectproperties-getpipelinestacksize
      */
     GetPipelineStackSize() {
         result := ComCall(5, this, "uint")
@@ -88,17 +96,14 @@ class ID3D12StateObjectProperties extends IUnknown{
     /**
      * Set the current pipeline stack size.
      * @remarks
-     * 
      * This method and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12stateobjectproperties-getpipelinestacksize">GetPipelineStackSize</a> are not re-entrant.  This means if calling either or both from separate threads, the app must synchronize on its own.
      * 
      * The runtime drops calls to state objects other than raytracing pipelines, such as collections.
-     * 
-     * 
      * @param {Integer} PipelineStackSizeInBytes Stack size in bytes to use during pipeline execution for each shader thread. There can be many thousands of threads in flight at once on the GPU.
      * 
      * If the value is greater than 0xffffffff (the maximum value of a 32-bit UINT) the runtime will drop the call, and the debug layer will print an error, as this is likely the result of summing up invalid stack sizes returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12stateobjectproperties-getshaderstacksize">GetShaderStackSize</a> called with invalid parameters, which return 0xffffffff.  In this case, the previously set stack size, or the default, remains.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12stateobjectproperties-setpipelinestacksize
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12stateobjectproperties-setpipelinestacksize
      */
     SetPipelineStackSize(PipelineStackSizeInBytes) {
         ComCall(6, this, "uint", PipelineStackSizeInBytes)

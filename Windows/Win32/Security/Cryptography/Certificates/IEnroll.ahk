@@ -5,8 +5,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests.
- * @see https://docs.microsoft.com/windows/win32/api//xenroll/nn-xenroll-ienroll
+ * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll)
+ * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -221,19 +221,16 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Creates a base64-encoded PKCS
+     * Creates a base64-encoded PKCS (IEnroll.createFilePKCS10WStr)
      * @remarks
-     * 
      * By default, the Microsoft Base Cryptographic Provider is used, and a unique signature key is created.
-     * 
-     * 
      * @param {PWSTR} DNName The distinguished name (DN) of the entity for which the request is being made. <i>DNName</i> must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention. For example, "CN=User, O=Microsoft". If a two-letter prefix does not exist, an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) may be provided instead.
      * @param {PWSTR} Usage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">OID</a> that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * 
      * The OID is passed through to the PKCS #10 request. The control does not examine the OID.
      * @param {PWSTR} wszPKCS10FileName The name of the file in which the base64-encoded PKCS #10 is saved. The contents of this file may be submitted to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> for processing.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-createfilepkcs10wstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr
      */
     createFilePKCS10WStr(DNName, Usage, wszPKCS10FileName) {
         DNName := DNName is String ? StrPtr(DNName) : DNName
@@ -245,10 +242,27 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Accepts and processes a PKCS
+     * Accepts and processes a PKCS (IEnroll.acceptFilePKCS7WStr)
+     * @remarks
+     * By default, the MY, CA, ROOT, and REQUEST system stores are used to store the certificates. However, you can specify other stores by assigning the following properties before calling this method:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_mystorenamewstr">MyStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_castorenamewstr">CAStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_rootstorenamewstr">RootStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_requeststorenamewstr">RequestStoreNameWStr</a>
+     * </li>
+     * </ul>
      * @param {PWSTR} wszPKCS7FileName Specifies the name of the file containing the PKCS #7.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Upon successful completion of this function, the PKCS #7 in the file will be accepted.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr
      */
     acceptFilePKCS7WStr(wszPKCS7FileName) {
         wszPKCS7FileName := wszPKCS7FileName is String ? StrPtr(wszPKCS7FileName) : wszPKCS7FileName
@@ -258,7 +272,9 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Creates a base64-encoded PKCS
+     * Creates a base64-encoded PKCS (IEnroll.createPKCS10WStr)
+     * @remarks
+     * By default, the Microsoft Base Cryptographic Provider is used, PROV_RSA_FULL is the provider type, a signature key is created, and a unique new key set is created.
      * @param {PWSTR} DNName A null-terminated Unicode string that contains the distinguished name (DN) of the entity for which the request is being made. In this parameter, the DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention. For example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) may be provided instead.
      * @param {PWSTR} Usage A null-terminated Unicode string that contains an OID that describes the purpose of the certificate being generated. For example, Individual or Commercial Authenticode certificate, or Client Authentication. You can also specify multiple OIDs separated by a comma.
      * 
@@ -268,8 +284,8 @@ class IEnroll extends IUnknown{
      * When you have finished using this memory, free it by passing the <b>pbData</b> member of this structure to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK and <i>pPkcs10Blob</i> contains a base64-encoded PKCS #10 request that can be directly posted to a web server for processing.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-createpkcs10wstr
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-createpkcs10wstr
      */
     createPKCS10WStr(DNName, Usage, pPkcs10Blob) {
         DNName := DNName is String ? StrPtr(DNName) : DNName
@@ -280,10 +296,30 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Accepts and processes a PKCS
+     * Accepts and processes a PKCS (IEnroll.acceptPKCS7Blob)
+     * @remarks
+     * The PKCS #7 input as a parameter for <b>acceptPKCS7Blob</b> contains the request certificate and the chain of certificates identifying the issuer of the certificate. Typically, but not always, the chain of certificates does not include the root. The PKCS #7 can be in base64-encoded, binary, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.509</a> certificate format (with or without the "begin cert"  and  "end cert" tags). The certificate and the associated keys generated for it are put in the MY store. A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificate</a> is placed in the ROOT store, and the rest of the chain of certificates is placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) store. If any ROOT certificates found in the PKCS #7 are accepted, Crypt32 will notify the user that a ROOT certificate is being added to the user's store. The user has the option of declining the ROOT certificate. This option is provided so that the user can decline to place an untrusted root in the ROOT store. Declining to place the ROOT in the ROOT store will not cause Certificate Enrollment Control to fail acceptance.
+     * 
+     * 
+     * By default, the MY, CA, ROOT, and REQUEST system stores are used to store the certificates. However, you can specify other stores by assigning the following properties before calling this method:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_mystorenamewstr">MyStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_castorenamewstr">CAStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_rootstorenamewstr">RootStoreNameWStr</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_requeststorenamewstr">RequestStoreNameWStr</a>
+     * </li>
+     * </ul>
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pBlobPKCS7 Represents the base64-encoded PKCS #7 containing the certificate and the chain of certificates identifying the issuer.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Upon successful completion of this function, the PKCS #7 will be accepted.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-acceptpkcs7blob
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-acceptpkcs7blob
      */
     acceptPKCS7Blob(pBlobPKCS7) {
         result := ComCall(6, this, "ptr", pBlobPKCS7, "HRESULT")
@@ -293,8 +329,8 @@ class IEnroll extends IUnknown{
     /**
      * Retrieves a certificate context based on a PKCS
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pBlobPKCS7 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that represents the PKCS #7.
-     * @returns {Pointer<CERT_CONTEXT>} The return value is a pointer to a <a href="/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> representing the certificate context, or <b>NULL</b> if the method fails.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-getcertcontextfrompkcs7
+     * @returns {Pointer<CERT_CONTEXT>} The return value is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> representing the certificate context, or <b>NULL</b> if the method fails.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getcertcontextfrompkcs7
      */
     getCertContextFromPKCS7(pBlobPKCS7) {
         result := ComCall(7, this, "ptr", pBlobPKCS7, "ptr")
@@ -303,42 +339,51 @@ class IEnroll extends IUnknown{
 
     /**
      * The getMyStore method is not implemented.
-     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-getmystore
+     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getmystore
      */
     getMyStore() {
         result := ComCall(8, this, "ptr")
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * The getCAStore method is not implemented.
-     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-getcastore
+     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getcastore
      */
     getCAStore() {
         result := ComCall(9, this, "ptr")
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * The getROOTHStore method is not implemented.
-     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-getroothstore
+     * @returns {HCERTSTORE} This method always returns <b>NULL</b>. <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_CALL_NOT_IMPLEMENTED</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getroothstore
      */
     getROOTHStore() {
         result := ComCall(10, this, "ptr")
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * The IEnroll4::enumProvidersWStr method retrieves the names of the available cryptographic service providers (CSPs) specified by the ProviderType property.
+     * @remarks
+     * If the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_providertype">ProviderType</a> property value has not been set, the default value (usually PROV_RSA_FULL) of <b>ProviderType</b> as set in the registry is used.
+     * 
+     * The <b>enumProvidersWStr</b> method  calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptenumprovidersa">CryptEnumProviders</a> function.
      * @param {Integer} dwIndex Specifies the ordinal position of the CSP whose name will be retrieved. Specify zero for the first CSP.
      * @param {Integer} dwFlags Specifies flags that are passed through to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptenumprovidersa">CryptEnumProviders</a> function. Not currently used; specify zero.
      * @param {Pointer<PWSTR>} pbstrProvName A pointer to a <b>LPWSTR</b> variable that receives the name of a CSP with the specified property type.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. The value ERROR_NO_MORE_ITEMS is returned when there are no more CSPs with the property type indicated by the 
-     * <a href="/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_providertype">ProviderType</a> property.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-enumproviderswstr
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_providertype">ProviderType</a> property.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumproviderswstr
      */
     enumProvidersWStr(dwIndex, dwFlags, pbstrProvName) {
         pbstrProvNameMarshal := pbstrProvName is VarRef ? "ptr*" : "ptr"
@@ -349,10 +394,13 @@ class IEnroll extends IUnknown{
 
     /**
      * Retrieves the names of containers for the cryptographic service provider (CSP) specified by the ProviderNameWStr property.
+     * @remarks
+     * If the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_providernamewstr">ProviderNameWStr</a> property value has not been set, the default value (usually Microsoft Base Cryptographic Provider) of <b>ProviderNameWStr</b> as set in the registry is used.
      * @param {Integer} dwIndex Specifies the ordinal position of the container whose name will be retrieved. Specify zero for the first container.
      * @param {Pointer<PWSTR>} pbstr A pointer to a <b>LPWSTR</b> variable that receives the name of the container.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. The value ERROR_NO_MORE_ITEMS is returned when there are no more items.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-enumcontainerswstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumcontainerswstr
      */
     enumContainersWStr(dwIndex, pbstr) {
         pbstrMarshal := pbstr is VarRef ? "ptr*" : "ptr"
@@ -365,7 +413,7 @@ class IEnroll extends IUnknown{
      * The freeRequestInfoBlob method deletes a certificate context. This method was first defined in the IEnroll interface.
      * @param {CRYPT_INTEGER_BLOB} pkcs7OrPkcs10 A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that specifies the session information whose context is being deleted.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-freerequestinfoblob
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-freerequestinfoblob
      */
     freeRequestInfoBlob(pkcs7OrPkcs10) {
         result := ComCall(13, this, "ptr", pkcs7OrPkcs10, "HRESULT")
@@ -373,9 +421,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The MyStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where certificates with linked private keys are kept.
+     * The MyStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where certificates with linked private keys are kept. (Get)
      * @remarks
-     * 
      * The <b>MyStoreNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -386,11 +433,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_mystorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystorenamewstr
      */
     get_MyStoreNameWStr(szwName) {
         szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
@@ -400,9 +445,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The MyStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where certificates with linked private keys are kept.
+     * The MyStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where certificates with linked private keys are kept. (Put)
      * @remarks
-     * 
      * The <b>MyStoreNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -413,11 +457,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_mystorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_mystorenamewstr
      */
     put_MyStoreNameWStr(szwName) {
         szwName := szwName is String ? StrPtr(szwName) : szwName
@@ -427,9 +469,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store specified by the MyStoreTypeWStr property.
+     * Sets or retrieves the type of store specified by the MyStoreTypeWStr property. (Get)
      * @remarks
-     * 
      * The <b>MyStoreTypeWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -440,11 +481,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_mystoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoretypewstr
      */
     get_MyStoreTypeWStr(szwType) {
         szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
@@ -454,9 +493,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store specified by the MyStoreTypeWStr property.
+     * Sets or retrieves the type of store specified by the MyStoreTypeWStr property. (Put)
      * @remarks
-     * 
      * The <b>MyStoreTypeWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -467,11 +505,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_mystoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_mystoretypewstr
      */
     put_MyStoreTypeWStr(szwType) {
         szwType := szwType is String ? StrPtr(szwType) : szwType
@@ -481,9 +517,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the registry location used for the MY store.
+     * Sets or retrieves the registry location used for the MY store. (Get)
      * @remarks
-     * 
      * The <b>MyStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using its <i>dwFlags</i> parameter.
      * 
@@ -498,11 +533,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_mystoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoreflags
      */
     get_MyStoreFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -512,9 +545,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the registry location used for the MY store.
+     * Sets or retrieves the registry location used for the MY store. (Put)
      * @remarks
-     * 
      * The <b>MyStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using its <i>dwFlags</i> parameter.
      * 
@@ -529,11 +561,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_mystoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_mystoreflags
      */
     put_MyStoreFlags(dwFlags) {
         result := ComCall(19, this, "int", dwFlags, "HRESULT")
@@ -541,9 +571,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The CAStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept.
+     * The CAStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept. (Get)
      * @remarks
-     * 
      * The <b>CAStoreNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -554,11 +583,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_castorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castorenamewstr
      */
     get_CAStoreNameWStr(szwName) {
         szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
@@ -568,9 +595,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The CAStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept.
+     * The CAStoreNameWStr property of IEnroll4 sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept. (Put)
      * @remarks
-     * 
      * The <b>CAStoreNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -581,11 +607,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_castorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_castorenamewstr
      */
     put_CAStoreNameWStr(szwName) {
         szwName := szwName is String ? StrPtr(szwName) : szwName
@@ -595,9 +619,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the CAStoreNameWStr property.
+     * Sets or retrieves the type of store to use for the store specified by the CAStoreNameWStr property. (Get)
      * @remarks
-     * 
      * The <b>CAStoreTypeWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -608,11 +631,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_castoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoretypewstr
      */
     get_CAStoreTypeWStr(szwType) {
         szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
@@ -622,9 +643,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the CAStoreNameWStr property.
+     * Sets or retrieves the type of store to use for the store specified by the CAStoreNameWStr property. (Put)
      * @remarks
-     * 
      * The <b>CAStoreTypeWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -635,11 +655,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_castoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_castoretypewstr
      */
     put_CAStoreTypeWStr(szwType) {
         szwType := szwType is String ? StrPtr(szwType) : szwType
@@ -649,9 +667,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The CAStoreFlags property of IEnroll4 sets or retrieves a flag that controls the certification authority (CA) store when the store is opened.
+     * The CAStoreFlags property of IEnroll4 sets or retrieves a flag that controls the certification authority (CA) store when the store is opened. (Get)
      * @remarks
-     * 
      * The <b>CAStoreFlags</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -662,11 +679,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_castoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoreflags
      */
     get_CAStoreFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -676,9 +691,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The CAStoreFlags property of IEnroll4 sets or retrieves a flag that controls the certification authority (CA) store when the store is opened.
+     * The CAStoreFlags property of IEnroll4 sets or retrieves a flag that controls the certification authority (CA) store when the store is opened. (Put)
      * @remarks
-     * 
      * The <b>CAStoreFlags</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -689,11 +703,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_castoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_castoreflags
      */
     put_CAStoreFlags(dwFlags) {
         result := ComCall(25, this, "int", dwFlags, "HRESULT")
@@ -701,9 +713,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RootStoreNameWStr property of IEnroll4 sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept.
+     * The RootStoreNameWStr property of IEnroll4 sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept. (Get)
      * @remarks
-     * 
      * <b>RootStoreNameWStr</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -714,11 +725,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_rootstorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstorenamewstr
      */
     get_RootStoreNameWStr(szwName) {
         szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
@@ -728,9 +737,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RootStoreNameWStr property of IEnroll4 sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept.
+     * The RootStoreNameWStr property of IEnroll4 sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept. (Put)
      * @remarks
-     * 
      * <b>RootStoreNameWStr</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -741,11 +749,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_rootstorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_rootstorenamewstr
      */
     put_RootStoreNameWStr(szwName) {
         szwName := szwName is String ? StrPtr(szwName) : szwName
@@ -755,9 +761,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RootStoreNameWStr property.
+     * Sets or retrieves the type of store to use for the store specified by the RootStoreNameWStr property. (Get)
      * @remarks
-     * 
      * <b>RootStoreTypeWStr</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -768,11 +773,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_rootstoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoretypewstr
      */
     get_RootStoreTypeWStr(szwType) {
         szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
@@ -782,9 +785,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RootStoreNameWStr property.
+     * Sets or retrieves the type of store to use for the store specified by the RootStoreNameWStr property. (Put)
      * @remarks
-     * 
      * <b>RootStoreTypeWStr</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -795,11 +797,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_rootstoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_rootstoretypewstr
      */
     put_RootStoreTypeWStr(szwType) {
         szwType := szwType is String ? StrPtr(szwType) : szwType
@@ -809,9 +809,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the registry location used for the root store.
+     * Sets or retrieves the registry location used for the root store. (Get)
      * @remarks
-     * 
      * The <b>RootStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using  its <i>dwFlags</i> parameter.
      * 
@@ -826,11 +825,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_rootstoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoreflags
      */
     get_RootStoreFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -840,9 +837,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the registry location used for the root store.
+     * Sets or retrieves the registry location used for the root store. (Put)
      * @remarks
-     * 
      * The <b>RootStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using  its <i>dwFlags</i> parameter.
      * 
@@ -857,11 +853,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_rootstoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_rootstoreflags
      */
     put_RootStoreFlags(dwFlags) {
         result := ComCall(31, this, "int", dwFlags, "HRESULT")
@@ -869,9 +863,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RequestStoreNameWStr property of IEnroll4 sets or retrieves the name of the store that contains the dummy certificate.
+     * The RequestStoreNameWStr property of IEnroll4 sets or retrieves the name of the store that contains the dummy certificate. (Get)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreNameWStr</b> property is  performed only in advanced applications. Changing this value is not recommended for most applications.
      * 
      * 
@@ -891,11 +884,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_requeststorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststorenamewstr
      */
     get_RequestStoreNameWStr(szwName) {
         szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
@@ -905,9 +896,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RequestStoreNameWStr property of IEnroll4 sets or retrieves the name of the store that contains the dummy certificate.
+     * The RequestStoreNameWStr property of IEnroll4 sets or retrieves the name of the store that contains the dummy certificate. (Put)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreNameWStr</b> property is  performed only in advanced applications. Changing this value is not recommended for most applications.
      * 
      * 
@@ -927,11 +917,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_requeststorenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_requeststorenamewstr
      */
     put_RequestStoreNameWStr(szwName) {
         szwName := szwName is String ? StrPtr(szwName) : szwName
@@ -941,9 +929,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RequestStoreNameWStr property. This store type is passed directly to the CertOpenStore function.
+     * Sets or retrieves the type of store to use for the store specified by the RequestStoreNameWStr property. This store type is passed directly to the CertOpenStore function. (Get)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreTypeWStr</b> property is  performed only in advanced applications.
      * 
      * 
@@ -963,11 +950,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_requeststoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoretypewstr
      */
     get_RequestStoreTypeWStr(szwType) {
         szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
@@ -977,9 +962,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RequestStoreNameWStr property. This store type is passed directly to the CertOpenStore function.
+     * Sets or retrieves the type of store to use for the store specified by the RequestStoreNameWStr property. This store type is passed directly to the CertOpenStore function. (Put)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreTypeWStr</b> property is  performed only in advanced applications.
      * 
      * 
@@ -999,11 +983,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_requeststoretypewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_requeststoretypewstr
      */
     put_RequestStoreTypeWStr(szwType) {
         szwType := szwType is String ? StrPtr(szwType) : szwType
@@ -1013,9 +995,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RequestStoreFlags property of IEnroll4 sets or retrieves the registry location used for the request store.
+     * The RequestStoreFlags property of IEnroll4 sets or retrieves the registry location used for the request store. (Get)
      * @remarks
-     * 
      * The <b>RequestStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function  by using its <i>dwFlags</i> parameter.
      * 
@@ -1038,11 +1019,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_requeststoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoreflags
      */
     get_RequestStoreFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -1052,9 +1031,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The RequestStoreFlags property of IEnroll4 sets or retrieves the registry location used for the request store.
+     * The RequestStoreFlags property of IEnroll4 sets or retrieves the registry location used for the request store. (Put)
      * @remarks
-     * 
      * The <b>RequestStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function  by using its <i>dwFlags</i> parameter.
      * 
@@ -1077,11 +1055,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_requeststoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_requeststoreflags
      */
     put_RequestStoreFlags(dwFlags) {
         result := ComCall(37, this, "int", dwFlags, "HRESULT")
@@ -1089,9 +1065,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the key container to use.
+     * Sets or retrieves the name of the key container to use. (Get)
      * @remarks
-     * 
      * The container specified may be an existing container or a new one. It may only be an existing container if the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_useexistingkeyset">UseExistingKeySet</a> property is set, as long as the key set has not been generated yet. For example, if only an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange key</a> set has been generated for a container, it is still possible to perform a certificate enrollment using the signature key set without setting <b>UseExistingKeySet</b>. The <i>exchange key set</i> could be used if <b>UseExistingKeySet</b> is set beforehand.
      * 
@@ -1108,11 +1083,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwContainer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_containernamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_containernamewstr
      */
     get_ContainerNameWStr(szwContainer) {
         szwContainerMarshal := szwContainer is VarRef ? "ptr*" : "ptr"
@@ -1122,9 +1095,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the key container to use.
+     * Sets or retrieves the name of the key container to use. (Put)
      * @remarks
-     * 
      * The container specified may be an existing container or a new one. It may only be an existing container if the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_useexistingkeyset">UseExistingKeySet</a> property is set, as long as the key set has not been generated yet. For example, if only an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange key</a> set has been generated for a container, it is still possible to perform a certificate enrollment using the signature key set without setting <b>UseExistingKeySet</b>. The <i>exchange key set</i> could be used if <b>UseExistingKeySet</b> is set beforehand.
      * 
@@ -1141,11 +1113,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwContainer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_containernamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_containernamewstr
      */
     put_ContainerNameWStr(szwContainer) {
         szwContainer := szwContainer is String ? StrPtr(szwContainer) : szwContainer
@@ -1155,9 +1125,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the cryptographic service provider (CSP) to use.
+     * Sets or retrieves the name of the cryptographic service provider (CSP) to use. (Get)
      * @remarks
-     * 
      * The <b>ProviderNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1171,11 +1140,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-enumcontainerswstr">enumContainersWStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szwProvider 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_providernamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providernamewstr
      */
     get_ProviderNameWStr(szwProvider) {
         szwProviderMarshal := szwProvider is VarRef ? "ptr*" : "ptr"
@@ -1185,9 +1152,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the cryptographic service provider (CSP) to use.
+     * Sets or retrieves the name of the cryptographic service provider (CSP) to use. (Put)
      * @remarks
-     * 
      * The <b>ProviderNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1201,11 +1167,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-enumcontainerswstr">enumContainersWStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szwProvider 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_providernamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_providernamewstr
      */
     put_ProviderNameWStr(szwProvider) {
         szwProvider := szwProvider is String ? StrPtr(szwProvider) : szwProvider
@@ -1215,9 +1179,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of provider.
+     * Sets or retrieves the type of provider. (Get)
      * @remarks
-     * 
      * For general information about provider types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-types">Cryptographic Provider Types</a>.
      * 
@@ -1242,11 +1205,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-enumproviderswstr">enumProvidersWStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_providertype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providertype
      */
     get_ProviderType(pdwType) {
         pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
@@ -1256,9 +1217,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of provider.
+     * Sets or retrieves the type of provider. (Put)
      * @remarks
-     * 
      * For general information about provider types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-types">Cryptographic Provider Types</a>.
      * 
@@ -1283,11 +1243,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-enumproviderswstr">enumProvidersWStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_providertype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_providertype
      */
     put_ProviderType(dwType) {
         result := ComCall(43, this, "int", dwType, "HRESULT")
@@ -1295,9 +1253,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of key generated.
+     * Sets or retrieves the type of key generated. (Get)
      * @remarks
-     * 
      * For the Microsoft Base Cryptographic Provider, the <b>KeySpec</b> property has a value of AT_KEYEXCHANGE for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a>, or AT_SIGNATURE for signature keys. The default is AT_SIGNATURE.
      * 
      * For information about the other Microsoft CSPs, see 
@@ -1316,11 +1273,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_keyspec
      */
     get_KeySpec(pdw) {
         pdwMarshal := pdw is VarRef ? "int*" : "ptr"
@@ -1330,9 +1285,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the type of key generated.
+     * Sets or retrieves the type of key generated. (Put)
      * @remarks
-     * 
      * For the Microsoft Base Cryptographic Provider, the <b>KeySpec</b> property has a value of AT_KEYEXCHANGE for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a>, or AT_SIGNATURE for signature keys. The default is AT_SIGNATURE.
      * 
      * For information about the other Microsoft CSPs, see 
@@ -1351,11 +1305,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_keyspec
      */
     put_KeySpec(dw) {
         result := ComCall(45, this, "int", dw, "HRESULT")
@@ -1363,9 +1315,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The ProviderFlags property of IEnroll4 sets or retrieves the provider type.
+     * The ProviderFlags property of IEnroll4 sets or retrieves the provider type. (Get)
      * @remarks
-     * 
      * For  more information about   valid <b>ProviderFlags</b> values for the Microsoft Base Cryptographic Provider, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI function.
      * 
@@ -1384,11 +1335,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_providerflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providerflags
      */
     get_ProviderFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -1398,9 +1347,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The ProviderFlags property of IEnroll4 sets or retrieves the provider type.
+     * The ProviderFlags property of IEnroll4 sets or retrieves the provider type. (Put)
      * @remarks
-     * 
      * For  more information about   valid <b>ProviderFlags</b> values for the Microsoft Base Cryptographic Provider, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI function.
      * 
@@ -1419,11 +1367,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_providerflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_providerflags
      */
     put_ProviderFlags(dwFlags) {
         result := ComCall(47, this, "int", dwFlags, "HRESULT")
@@ -1431,10 +1377,9 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The UseExistingKeySet property of IEnroll4 sets or retrieves a Boolean value that determines whether the existing keys should be used.
+     * The UseExistingKeySet property of IEnroll4 sets or retrieves a Boolean value that determines whether the existing keys should be used. (Get)
      * @remarks
-     * 
-     *  If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
+     * If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
      * 
      * 
      * The <b>UseExistingKeySet</b> property affects the behavior of the following methods:
@@ -1447,11 +1392,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<BOOL>} fUseExistingKeys 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_useexistingkeyset
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_useexistingkeyset
      */
     get_UseExistingKeySet(fUseExistingKeys) {
         fUseExistingKeysMarshal := fUseExistingKeys is VarRef ? "int*" : "ptr"
@@ -1461,10 +1404,9 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The UseExistingKeySet property of IEnroll4 sets or retrieves a Boolean value that determines whether the existing keys should be used.
+     * The UseExistingKeySet property of IEnroll4 sets or retrieves a Boolean value that determines whether the existing keys should be used. (Put)
      * @remarks
-     * 
-     *  If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
+     * If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
      * 
      * 
      * The <b>UseExistingKeySet</b> property affects the behavior of the following methods:
@@ -1477,11 +1419,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BOOL} fUseExistingKeys 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_useexistingkeyset
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_useexistingkeyset
      */
     put_UseExistingKeySet(fUseExistingKeys) {
         result := ComCall(49, this, "int", fUseExistingKeys, "HRESULT")
@@ -1489,9 +1429,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the values passed to CryptGenKey when the certificate request is generated.
+     * Sets or retrieves the values passed to CryptGenKey when the certificate request is generated. (Get)
      * @remarks
-     * 
      * By default, private keys are not exportable unless a .pvk file is requested. To make the private key exportable without specifying a .pvk file, set <b>GenKeyFlags</b> to CRYPT_EXPORTABLE.
      * 
      * To specify a .pvk file name,  use the 
@@ -1520,11 +1459,9 @@ class IEnroll extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  The default value for the <b>GenKeyFlags</b> property is zero. If you need to change this value, you must do so before calling these methods. After calling any of these methods, you cannot change the <b>GenKeyFlags</b> property value.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_genkeyflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_genkeyflags
      */
     get_GenKeyFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
@@ -1534,9 +1471,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the values passed to CryptGenKey when the certificate request is generated.
+     * Sets or retrieves the values passed to CryptGenKey when the certificate request is generated. (Put)
      * @remarks
-     * 
      * By default, private keys are not exportable unless a .pvk file is requested. To make the private key exportable without specifying a .pvk file, set <b>GenKeyFlags</b> to CRYPT_EXPORTABLE.
      * 
      * To specify a .pvk file name,  use the 
@@ -1565,11 +1501,9 @@ class IEnroll extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  The default value for the <b>GenKeyFlags</b> property is zero. If you need to change this value, you must do so before calling these methods. After calling any of these methods, you cannot change the <b>GenKeyFlags</b> property value.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_genkeyflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_genkeyflags
      */
     put_GenKeyFlags(dwFlags) {
         result := ComCall(51, this, "int", dwFlags, "HRESULT")
@@ -1577,9 +1511,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The DeleteRequestCert property of IEnroll4 sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted.
+     * The DeleteRequestCert property of IEnroll4 sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted. (Get)
      * @remarks
-     * 
      * The <b>DeleteRequestCert</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1590,11 +1523,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<BOOL>} fDelete 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_deleterequestcert
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_deleterequestcert
      */
     get_DeleteRequestCert(fDelete) {
         fDeleteMarshal := fDelete is VarRef ? "int*" : "ptr"
@@ -1604,9 +1535,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The DeleteRequestCert property of IEnroll4 sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted.
+     * The DeleteRequestCert property of IEnroll4 sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted. (Put)
      * @remarks
-     * 
      * The <b>DeleteRequestCert</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1617,11 +1547,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BOOL} fDelete 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_deleterequestcert
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_deleterequestcert
      */
     put_DeleteRequestCert(fDelete) {
         result := ComCall(53, this, "int", fDelete, "HRESULT")
@@ -1629,9 +1557,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The WriteCertToUserDS property of IEnroll4 sets or retrieves a Boolean value that determines whether the certificate is written to the user's Active Directory store.
+     * The WriteCertToUserDS property of IEnroll4 sets or retrieves a Boolean value that determines whether the certificate is written to the user's Active Directory store. (Get)
      * @remarks
-     * 
      * <b>WriteCertToUserDS</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -1642,11 +1569,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<BOOL>} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_writecerttouserds
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttouserds
      */
     get_WriteCertToUserDS(fBool) {
         fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
@@ -1656,9 +1581,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The WriteCertToUserDS property of IEnroll4 sets or retrieves a Boolean value that determines whether the certificate is written to the user's Active Directory store.
+     * The WriteCertToUserDS property of IEnroll4 sets or retrieves a Boolean value that determines whether the certificate is written to the user's Active Directory store. (Put)
      * @remarks
-     * 
      * <b>WriteCertToUserDS</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -1669,11 +1593,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BOOL} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_writecerttouserds
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_writecerttouserds
      */
     put_WriteCertToUserDS(fBool) {
         result := ComCall(55, this, "int", fBool, "HRESULT")
@@ -1681,9 +1603,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether the distinguished name in the request is encoded as a T61 string instead of as a Unicode string.
+     * Sets or retrieves a Boolean value that determines whether the distinguished name in the request is encoded as a T61 string instead of as a Unicode string. (Get)
      * @remarks
-     * 
      * The <b>EnableT61DNEncoding</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1694,11 +1615,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<BOOL>} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_enablet61dnencoding
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_enablet61dnencoding
      */
     get_EnableT61DNEncoding(fBool) {
         fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
@@ -1708,9 +1627,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether the distinguished name in the request is encoded as a T61 string instead of as a Unicode string.
+     * Sets or retrieves a Boolean value that determines whether the distinguished name in the request is encoded as a T61 string instead of as a Unicode string. (Put)
      * @remarks
-     * 
      * The <b>EnableT61DNEncoding</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1721,11 +1639,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createfilepkcs10wstr">createFilePKCS10WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BOOL} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_enablet61dnencoding
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_enablet61dnencoding
      */
     put_EnableT61DNEncoding(fBool) {
         result := ComCall(57, this, "int", fBool, "HRESULT")
@@ -1733,9 +1649,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP).
+     * Sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP). (Get)
      * @remarks
-     * 
      * This property is typically used with smart cards, where the certificate is written to the smart card in addition to being written to the "MY" store.
      * 
      * The default value is <b>true</b>, which means that the Certificate Enrollment Control will try to write the certificate to the CSP but will not fail unless a hardware token error is encountered. If this value is <b>true</b>, but no smart card or other hardware-dependent CSP is installed, then hardware token errors will be ignored.
@@ -1753,11 +1668,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<BOOL>} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_writecerttocsp
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttocsp
      */
     get_WriteCertToCSP(fBool) {
         fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
@@ -1767,9 +1680,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP).
+     * Sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP). (Put)
      * @remarks
-     * 
      * This property is typically used with smart cards, where the certificate is written to the smart card in addition to being written to the "MY" store.
      * 
      * The default value is <b>true</b>, which means that the Certificate Enrollment Control will try to write the certificate to the CSP but will not fail unless a hardware token error is encountered. If this value is <b>true</b>, but no smart card or other hardware-dependent CSP is installed, then hardware token errors will be ignored.
@@ -1787,11 +1699,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BOOL} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_writecerttocsp
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_writecerttocsp
      */
     put_WriteCertToCSP(fBool) {
         result := ComCall(59, this, "int", fBool, "HRESULT")
@@ -1799,9 +1709,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The SPCFileNameWStr property of IEnroll4 sets or retrieves the name of the file to which to write the base64-encoded PKCS
+     * The SPCFileNameWStr property of IEnroll4 sets or retrieves the name of the file to which to write the base64-encoded PKCS (Get)
      * @remarks
-     * 
      * The file is written as a binary PKCS #7. Specifying this file does not affect the acceptance of the certificates into any of the user's stores.
      * 
      * If the file already exists, the user is notified and prompted for permission to overwrite it.
@@ -1817,11 +1726,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<PWSTR>} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_spcfilenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_spcfilenamewstr
      */
     get_SPCFileNameWStr(szw) {
         szwMarshal := szw is VarRef ? "ptr*" : "ptr"
@@ -1831,9 +1738,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * The SPCFileNameWStr property of IEnroll4 sets or retrieves the name of the file to which to write the base64-encoded PKCS
+     * The SPCFileNameWStr property of IEnroll4 sets or retrieves the name of the file to which to write the base64-encoded PKCS (Put)
      * @remarks
-     * 
      * The file is written as a binary PKCS #7. Specifying this file does not affect the acceptance of the certificates into any of the user's stores.
      * 
      * If the file already exists, the user is notified and prompted for permission to overwrite it.
@@ -1849,11 +1755,9 @@ class IEnroll extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-acceptfilepkcs7wstr">acceptFilePKCS7WStr</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {PWSTR} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_spcfilenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_spcfilenamewstr
      */
     put_SPCFileNameWStr(szw) {
         szw := szw is String ? StrPtr(szw) : szw
@@ -1863,9 +1767,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the file that will contain exported keys.
+     * Sets or retrieves the name of the file that will contain exported keys. (Get)
      * @remarks
-     * 
      * The <b>PVKFileNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1897,11 +1800,9 @@ class IEnroll extends IUnknown{
      * Any keys generated by following the previous steps will be not exportable. Therefore, it is recommended that the user set the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_genkeyflags">GenKeyFlags</a> property before the <b>PVKFileNameWStr</b> property when they are used together.
      * 
      * Alternatively, the user could determine the current value of the CRYPT_EXPORTABLE bit in the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_genkeyflags">GenKeyFlags</a> property and then perform a bitwise-<b>OR</b>  operation between this value and any changes that are made to the <b>GenKeyFlags</b> property to ensure that the bit is not wiped out. The user could also specifically set the CRYPT_EXPORTABLE bit when updating the <b>GenKeyFlags</b> property.
-     * 
-     * 
      * @param {Pointer<PWSTR>} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_pvkfilenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_pvkfilenamewstr
      */
     get_PVKFileNameWStr(szw) {
         szwMarshal := szw is VarRef ? "ptr*" : "ptr"
@@ -1911,9 +1812,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves the name of the file that will contain exported keys.
+     * Sets or retrieves the name of the file that will contain exported keys. (Put)
      * @remarks
-     * 
      * The <b>PVKFileNameWStr</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1945,11 +1845,9 @@ class IEnroll extends IUnknown{
      * Any keys generated by following the previous steps will be not exportable. Therefore, it is recommended that the user set the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_genkeyflags">GenKeyFlags</a> property before the <b>PVKFileNameWStr</b> property when they are used together.
      * 
      * Alternatively, the user could determine the current value of the CRYPT_EXPORTABLE bit in the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-get_genkeyflags">GenKeyFlags</a> property and then perform a bitwise-<b>OR</b>  operation between this value and any changes that are made to the <b>GenKeyFlags</b> property to ensure that the bit is not wiped out. The user could also specifically set the CRYPT_EXPORTABLE bit when updating the <b>GenKeyFlags</b> property.
-     * 
-     * 
      * @param {PWSTR} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_pvkfilenamewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_pvkfilenamewstr
      */
     put_PVKFileNameWStr(szw) {
         szw := szw is String ? StrPtr(szw) : szw
@@ -1959,9 +1857,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS
+     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS (IEnroll.get_HashAlgorithmWStr)
      * @remarks
-     * 
      * This  signature hashing algorithm is not to be confused with the hashing algorithm used to sign the certificate. The enrollment control currently supports any OID for hashing algorithms, plus the following display name values: SHA1 (the default), MD2, and MD5. When retrieving this property, the retrieved value is in OID format (that is, SHA1 appears as 1.3.14.3.2.29). When setting this property, the corresponding OID format can be used as an alternative to the text shown for the defined friendly values.
      * 
      * The Certificate Enrollment Control considers the value of the <b>HashAlgorithmWStr</b> property  as a hint to the hashing algorithm to use for signing the PKCS #10 certification request. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) supports the algorithm specified in the <b>HashAlgorithmWStr</b> property, the algorithm will be used. Otherwise, the Certificate Enrollment Control will try to use SHA1. If SHA1 is not supported by the CSP, then MD5 will be tried. If neither SHA1 nor MD5 is supported, the Certificate Enrollment Control will try to use the first hashing algorithm returned from the CSP.
@@ -1981,11 +1878,9 @@ class IEnroll extends IUnknown{
      * 
      * If both the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll2-get_hashalgid">HashAlgID</a> and <b>HashAlgorithmWStr</b> properties are set, whichever is last updated will specify which hashing algorithm will be used to sign the PKCS #10 certification request.
-     * 
-     * 
      * @param {Pointer<PWSTR>} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_hashalgorithmwstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_hashalgorithmwstr
      */
     get_HashAlgorithmWStr(szw) {
         szwMarshal := szw is VarRef ? "ptr*" : "ptr"
@@ -1995,9 +1890,8 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS
+     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS (IEnroll.put_HashAlgorithmWStr)
      * @remarks
-     * 
      * This  signature hashing algorithm is not to be confused with the hashing algorithm used to sign the certificate. The enrollment control currently supports any OID for hashing algorithms, plus the following display name values: SHA1 (the default), MD2, and MD5. When retrieving this property, the retrieved value is in OID format (that is, SHA1 appears as 1.3.14.3.2.29). When setting this property, the corresponding OID format can be used as an alternative to the text shown for the defined friendly values.
      * 
      * The Certificate Enrollment Control considers the value of the <b>HashAlgorithmWStr</b> property  as a hint to the hashing algorithm to use for signing the PKCS #10 certification request. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) supports the algorithm specified in the <b>HashAlgorithmWStr</b> property, the algorithm will be used. Otherwise, the Certificate Enrollment Control will try to use SHA1. If SHA1 is not supported by the CSP, then MD5 will be tried. If neither SHA1 nor MD5 is supported, the Certificate Enrollment Control will try to use the first hashing algorithm returned from the CSP.
@@ -2017,11 +1911,9 @@ class IEnroll extends IUnknown{
      * 
      * If both the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll2-get_hashalgid">HashAlgID</a> and <b>HashAlgorithmWStr</b> properties are set, whichever is last updated will specify which hashing algorithm will be used to sign the PKCS #10 certification request.
-     * 
-     * 
      * @param {PWSTR} szw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_hashalgorithmwstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_hashalgorithmwstr
      */
     put_HashAlgorithmWStr(szw) {
         szw := szw is String ? StrPtr(szw) : szw
@@ -2031,15 +1923,12 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Specifies the certificate context for the renewal certificate.
+     * Specifies the certificate context for the renewal certificate. (Get)
      * @remarks
-     * 
      * For more information about how to create a certificate renewal request, see <a href="https://docs.microsoft.com/previous-versions/ms867026(v=msdn.10)#certenroll_topic8">Creating a Renewal Request</a> in Creating Certificate Requests Using the Certificate Enrollment Control and CryptoAPI.
-     * 
-     * 
      * @param {Pointer<Pointer<CERT_CONTEXT>>} ppCertContext 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-get_renewalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_renewalcertificate
      */
     get_RenewalCertificate(ppCertContext) {
         ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
@@ -2049,15 +1938,12 @@ class IEnroll extends IUnknown{
     }
 
     /**
-     * Specifies the certificate context for the renewal certificate.
+     * Specifies the certificate context for the renewal certificate. (Put)
      * @remarks
-     * 
      * For more information about how to create a certificate renewal request, see <a href="https://docs.microsoft.com/previous-versions/ms867026(v=msdn.10)#certenroll_topic8">Creating a Renewal Request</a> in Creating Certificate Requests Using the Certificate Enrollment Control and CryptoAPI.
-     * 
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCertContext 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-put_renewalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_renewalcertificate
      */
     put_RenewalCertificate(pCertContext) {
         result := ComCall(67, this, "ptr", pCertContext, "HRESULT")
@@ -2066,9 +1952,11 @@ class IEnroll extends IUnknown{
 
     /**
      * Adds a certificate template to a request (used to support the enterprise certification authority (CA)).
+     * @remarks
+     * This method can be called multiple times if more than one certificate template is desired for the request.
      * @param {PWSTR} szw Fully qualified name of the certificate template which is being added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a>. This value is interpreted by the certification authority.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>, with S_OK returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-addcerttypetorequestwstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addcerttypetorequestwstr
      */
     AddCertTypeToRequestWStr(szw) {
         szw := szw is String ? StrPtr(szw) : szw
@@ -2079,10 +1967,12 @@ class IEnroll extends IUnknown{
 
     /**
      * Adds the authenticated name-value pair of an attribute to the request. The certification authority (CA) interprets the meaning of the name-value pair.
+     * @remarks
+     * The <b>AddNameValuePairToSignatureWStr</b> method is used  to add attributes to the request.
      * @param {PWSTR} Name A null-terminated Unicode string that contains the name of the attribute, such as "2.5.4.6", for the country/region name.
      * @param {PWSTR} Value A null-terminated Unicode string that contains the value of the attribute, such as "US" or "<i>DomainName</i>&#92;<i>UserID</i>".
      * @returns {HRESULT} The return value is an <b>HRESULT</b>, with S_OK returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-addnamevaluepairtosignaturewstr
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addnamevaluepairtosignaturewstr
      */
     AddNameValuePairToSignatureWStr(Name, Value) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -2096,7 +1986,7 @@ class IEnroll extends IUnknown{
      * The AddExtensionsToRequest method adds extensions to the certificate request. This method was first defined in the IEnroll interface.
      * @param {Pointer<CERT_EXTENSIONS>} pCertExtensions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extensions">CERT_EXTENSIONS</a> structure that represents the extensions to add to the request.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>, with S_OK returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-addextensionstorequest
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addextensionstorequest
      */
     AddExtensionsToRequest(pCertExtensions) {
         result := ComCall(70, this, "ptr", pCertExtensions, "HRESULT")
@@ -2107,7 +1997,7 @@ class IEnroll extends IUnknown{
      * The AddAuthenticatedAttributesToPKCS7Request method adds authenticated attributes to a PKCS
      * @param {Pointer<CRYPT_ATTRIBUTES>} pAttributes A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attributes">CRYPT_ATTRIBUTES</a> structure that represents the authenticated attributes to add to the PKCS #7 certificate request.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>, with S_OK returned if the call is successful.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-addauthenticatedattributestopkcs7request
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addauthenticatedattributestopkcs7request
      */
     AddAuthenticatedAttributesToPKCS7Request(pAttributes) {
         result := ComCall(71, this, "ptr", pAttributes, "HRESULT")
@@ -2123,8 +2013,8 @@ class IEnroll extends IUnknown{
      * When you have finished using this memory, free it by passing the <b>pbData</b> member of this structure to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-ienroll-createpkcs7requestfromrequest
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-createpkcs7requestfromrequest
      */
     CreatePKCS7RequestFromRequest(pRequest, pSigningCertContext, pPkcs7Blob) {
         result := ComCall(72, this, "ptr", pRequest, "ptr", pSigningCertContext, "ptr", pPkcs7Blob, "HRESULT")

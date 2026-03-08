@@ -6,7 +6,7 @@
 
 /**
  * Represents a video presenter. A video presenter is an object that receives video frames, typically from a video mixer, and presents them in some way, typically by rendering them to the display.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imfvideopresenter
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideopresenter
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class IMFVideoPresenter extends IMFClockStateSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideopresenter-processmessage
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopresenter-processmessage
      */
     ProcessMessage(eMessage, ulParam) {
         result := ComCall(8, this, "int", eMessage, "ptr", ulParam, "HRESULT")
@@ -74,8 +74,10 @@ class IMFVideoPresenter extends IMFClockStateSink{
 
     /**
      * Retrieves the presenter's media type.
+     * @remarks
+     * This method returns the media type that the presenter sets for the mixer's output type. It describes the format of the composited image.
      * @returns {IMFVideoMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfvideomediatype">IMFVideoMediaType</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideopresenter-getcurrentmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopresenter-getcurrentmediatype
      */
     GetCurrentMediaType() {
         result := ComCall(9, this, "ptr*", &ppMediaType := 0, "HRESULT")

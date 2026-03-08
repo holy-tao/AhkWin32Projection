@@ -247,9 +247,10 @@ class ISpeechRecognizer extends IDispatch{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Integer} Type 
      * @returns {ISpeechAudioFormat} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(Type) {
         result := ComCall(23, this, "int", Type, "ptr*", &Format := 0, "HRESULT")
@@ -369,10 +370,34 @@ class ISpeechRecognizer extends IDispatch{
     }
 
     /**
+     * Retrieves the path to the root directory where user profiles are stored. (Unicode)
+     * @remarks
+     * The following is an example of the path returned by <b>GetProfilesDirectory</b> in Windows XP:
      * 
+     * 
+     * ``` syntax
+     * C:\Documents and Settings
+     * ```
+     * 
+     * The following is an example of the path returned by <b>GetProfilesDirectory</b> in Windows 7:
+     * 
+     * 
+     * ``` syntax
+     * C:\Users
+     * ```
+     * 
+     * To obtain the paths of subdirectories of this directory, use the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> (Windows XP and earlier) or <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a> (Windows Vista) function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The userenv.h header defines GetProfilesDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getprofilesdirectoryw
      */
     GetProfiles(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes

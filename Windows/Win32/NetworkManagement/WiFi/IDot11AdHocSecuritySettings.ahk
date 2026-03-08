@@ -5,7 +5,7 @@
 
 /**
  * Specifies the security settings for a wireless ad hoc network.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocsecuritysettings
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocsecuritysettings
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -96,7 +96,7 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
      */
     GetDot11AuthAlgorithm(pAuth) {
         pAuthMarshal := pAuth is VarRef ? "int*" : "ptr"
@@ -171,7 +171,7 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
      */
     GetDot11CipherAlgorithm(pCipher) {
         pCipherMarshal := pCipher is VarRef ? "int*" : "ptr"

@@ -6,7 +6,7 @@
 
 /**
  * Enables access to all settings interfaces of the Minimum Compliance API.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwindowsparentalcontrols
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwindowsparentalcontrols
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IWindowsParentalControls extends IWindowsParentalControlsCore{
      * Retrieves a pointer to an interface for games restrictions settings for the specified user.
      * @param {PWSTR} pcszSID The SID string of the user. If this parameter is <b>NULL</b>, retrieve settings for the current user.
      * @returns {IWPCGamesSettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wpcapi/nn-wpcapi-iwpcgamessettings">IWPCGamesSettings</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrols-getgamessettings
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrols-getgamessettings
      */
     GetGamesSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID

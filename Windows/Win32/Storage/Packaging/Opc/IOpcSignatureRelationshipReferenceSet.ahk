@@ -9,18 +9,14 @@
 /**
  * An unordered set of IOpcSignatureRelationshipReference interface pointers that represent references to Relationships parts that contain relationships to be signed.
  * @remarks
- * 
- *  To create an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer that represents a reference to a Relationships part, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create">Create</a> method. This reference will indicate whether  all or a subset of the  relationships in the Relationships part will be signed when the signature is generated.
+ * To create an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer that represents a reference to a Relationships part, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create">Create</a> method. This reference will indicate whether  all or a subset of the  relationships in the Relationships part will be signed when the signature is generated.
  * 
  * To access an <b>IOpcSignatureRelationshipReferenceSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getsignaturerelationshipreferenceset">IOpcSigningOptions::GetSignatureRelationshipReferenceSet</a> method.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturerelationshipreferenceset
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturerelationshipreferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -47,6 +43,42 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
 
     /**
      * Creates an IOpcSignatureRelationshipReference interface pointer that represents a reference to a Relationships part, and adds the new interface pointer to the set.
+     * @remarks
+     * This method creates a reference to a Relationships part. All or a subset of the  relationships that are stored in a referenced Relationships part can be signed when the signature is generated.
+     * 
+     * To sign all of the relationships in a Relationships part, call this method with the <i>relationshipSigningOption</i> parameter value set to <b>OPC_RELATIONSHIP_SIGN_PART</b> and the <i>selectorSet</i> parameter value set to <b>NULL</b>.
+     * 
+     * To sign a subset of the relationships in a Relationships part, call this method with the <i>relationshipSigningOption</i> parameter value set to <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b> and the <i>selectorSet</i> parameter value set to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer. To create an <b>IOpcRelationshipSelectorSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset">CreateRelationshipSelectorSet</a> method.
+     * 
+     * The following table summarizes the parameter values required by this method to create a reference that indicates whether all of the relationships or a subset of the relationships (which are stored in the Relationships part to be referenced) are to be signed.<table>
+     * <tr>
+     * <th>Description</th>
+     * <th><i>relationshipSigningOption</i> Value</th>
+     * <th><i>selectorSet</i> Value</th>
+     * </tr>
+     * <tr>
+     * <td>Sign all of the relationships in the Relationships part</td>
+     * <td><b>OPC_RELATIONSHIP_SIGN_PART</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>Sign a subset of the relationships in the Relationships part</td>
+     * <td><b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b></td>
+     * <td>An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * If a subset of relationships are to be signed, the specified transform method is ignored.  Instead, when the signature is generated, the first transform applied is the Relationships Transform, and the second is the  <b>OPC_CANONICALIZATION_C14N</b> canonicalization method.
+     * 
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
+     * 
+     *  Relationships that will not be signed can be removed, modified or added to  the package without invalidating the signature. If a subset of relationships has been selected for signing and the subset is altered, the signature will be invalidated.
+     * 
+     * <div class="alert"><b>Important</b>  A selected subset could be altered if the relationship type of a relationship that is added to or modified in a referenced Relationships part matches a relationship type that was used to select one or more relationships in the subset.</div>
+     * <div> </div>
      * @param {IOpcUri} sourceUri An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a>  interface pointer that represents the source URI of the relationships to be selected for signing.
      * @param {PWSTR} digestMethod The digest method to be used for the relationships to be selected. To use the default digest method, pass <b>NULL</b> in this parameter.
      * 
@@ -67,7 +99,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
      * 
      * For more information about the transform methods to be applied when  <i>relationshipSigningOption</i>  is set to <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b>, see Remarks.
      * @returns {IOpcSignatureRelationshipReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer that represents the referenced Relationships part.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create
      */
     Create(sourceUri, digestMethod, relationshipSigningOption, selectorSet, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
@@ -78,8 +110,10 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
 
     /**
      * Creates an IOpcRelationshipSelectorSet interface pointer that is used as the selectorSet parameter value of the Create method.
+     * @remarks
+     * To select a subset of the relationships (which are stored in the Relationships part to be referenced) to be signed when the signature is generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create">Create</a> method with the <i>relationshipSigningOption</i> parameter value set to <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b> and the <i>selectorSet</i> parameter value set to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer created by this method.
      * @returns {IOpcRelationshipSelectorSet} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset
      */
     CreateRelationshipSelectorSet() {
         result := ComCall(4, this, "ptr*", &selectorSet := 0, "HRESULT")
@@ -88,6 +122,8 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
 
     /**
      * Deletes a specified IOpcSignatureRelationshipReference interface pointer from the set.
+     * @remarks
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
      * @param {IOpcSignatureRelationshipReference} relationshipReference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a>  interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -119,7 +155,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-delete
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-delete
      */
     Delete(relationshipReference) {
         result := ComCall(5, this, "ptr", relationshipReference, "HRESULT")
@@ -129,7 +165,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
     /**
      * Gets an enumerator of IOpcSignatureRelationshipReference interface pointers in the set.
      * @returns {IOpcSignatureRelationshipReferenceEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &relationshipReferenceEnumerator := 0, "HRESULT")

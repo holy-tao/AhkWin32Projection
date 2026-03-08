@@ -30,12 +30,18 @@ class IWMPNodeWindowlessHost extends IUnknown{
 
     /**
      * The InvalidateRect function adds a rectangle to the specified window's update region. The update region represents the portion of the window's client area that must be redrawn.
+     * @remarks
+     * The invalidated areas accumulate in the update region until the region is processed when the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message occurs or until the region is validated by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function.
+     * 
+     * The system sends a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.
+     * 
+     * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background is erased in the entire region, not just in the specified part.
      * @param {Pointer<RECT>} prc 
      * @param {BOOL} fErase 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-invalidaterect
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invalidaterect
      */
     InvalidateRect(prc, fErase) {
         result := ComCall(3, this, "ptr", prc, "int", fErase, "HRESULT")

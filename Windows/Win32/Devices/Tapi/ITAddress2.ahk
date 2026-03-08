@@ -8,7 +8,7 @@
 
 /**
  * The ITAddress2 interface derives from the ITAddress interface. ITAddress2 adds methods to the Address object in order to support phone devices. All Address objects enumerated from TAPI 3.1 automatically implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itaddress2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -49,10 +49,18 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The get_Phones method returns a VARIANT pointer to an ITCollection of phone objects corresponding to the phone devices that can be used with this address.
+     * @remarks
+     * A phone device declares itself as being available on all addresses that support audio terminals by the TSP setting the PHONEFEATURE_GENERICPHONE bit in the <b>dwPhoneFeatures</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonecaps">PHONECAPS</a> structure. A phone device can also declare itself as being preferred to an address or set of addresses by returning address/line IDs via 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonegetid">phoneGetID</a> with device class tapi/line. If no phones are available for use with the address, this method produces an empty collection and returns S_OK.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>ITAddress2::get_Phones</b>. The application must call <b>Release</b> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a VARIANT containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-get_phones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_phones
      */
     get_Phones() {
         pPhones := VARIANT()
@@ -62,9 +70,17 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The EnumeratePhones method enumerates the phone objects corresponding to the phone devices that can be used with this address.
+     * @remarks
+     * A phone device declares itself as being available on all addresses that support audio terminals by the TSP setting the PHONEFEATURE_GENERICPHONE bit in the <b>dwPhoneFeatures</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonecaps">PHONECAPS</a> structure. A phone device can also declare itself as being preferred to an address or set of addresses by returning address/line IDs using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonegetid">phoneGetID</a> with device class tapi/line. If no phones are available for use with the address, this method produces an empty enumeration and returns S_OK.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface returned by <b>ITAddress2::EnumeratePhones</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumPhone</b> interface to free resources associated with it.
      * @returns {IEnumPhone} Pointer to the new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-enumeratephones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-enumeratephones
      */
     EnumeratePhones() {
         result := ComCall(23, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
@@ -77,7 +93,7 @@ class ITAddress2 extends ITAddress{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
      * @returns {ITPhone} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-getphonefromterminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-getphonefromterminal
      */
     GetPhoneFromTerminal(pTerminal) {
         result := ComCall(24, this, "ptr", pTerminal, "ptr*", &ppPhone := 0, "HRESULT")
@@ -86,10 +102,17 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The get_PreferredPhones method returns a collection of phone objects corresponding to the phone devices that are preferred for use with this address.
+     * @remarks
+     * A phone device declares itself as being preferred to an address or set of addresses by returning address/line IDs using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonegetid">phoneGetID</a> with device class tapi/line. If no phones are available for use with this address, the method produces an empty collection and returns S_OK.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>ITAddress2::get_PreferredPhones</b>. The application must call <b>Release</b> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-get_preferredphones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_preferredphones
      */
     get_PreferredPhones() {
         pPhones := VARIANT()
@@ -99,8 +122,15 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The EnumeratePreferredPhones method enumerates the preferred phone objects for this address.
+     * @remarks
+     * A phone device declares itself as being preferred to an address or set of addresses by returning address/line IDs using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonegetid">phoneGetID</a> with device class tapi/line. If no phones are available for use with the address, this method produces an empty enumeration and returns S_OK.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface returned by <b>ITAddress2::EnumeratePreferredPhones</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumPhone</b> interface to free resources associated with it.
      * @returns {IEnumPhone} Pointer to the location where, on success, this method will place a pointer to an enumeration object that contains the returned list of phones.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-enumeratepreferredphones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-enumeratepreferredphones
      */
     EnumeratePreferredPhones() {
         result := ComCall(26, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
@@ -113,7 +143,7 @@ class ITAddress2 extends ITAddress{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of event type information being checked.
      * @param {Integer} lSubEvent Subevent value. <b>NULL</b> if not applicable.
      * @returns {VARIANT_BOOL} Pointer to VARIANT_BOOL indicating whether the current event is required by the application.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-get_eventfilter
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_eventfilter
      */
     get_EventFilter(TapiEvent, lSubEvent) {
         result := ComCall(27, this, "int", TapiEvent, "int", lSubEvent, "short*", &pEnable := 0, "HRESULT")
@@ -126,8 +156,8 @@ class ITAddress2 extends ITAddress{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of the event type.
      * @param {Integer} lSubEvent Subevent descriptor.
      * @param {VARIANT_BOOL} bEnable VARIANT_TRUE if the application requires notification of this event type. VARIANT_FALSE if the application does not require notifications for this event.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-put_eventfilter
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-put_eventfilter
      */
     put_EventFilter(TapiEvent, lSubEvent, bEnable) {
         result := ComCall(28, this, "int", TapiEvent, "int", lSubEvent, "short", bEnable, "HRESULT")
@@ -181,7 +211,7 @@ class ITAddress2 extends ITAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-devicespecific
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-devicespecific
      */
     DeviceSpecific(pCall, pParams, dwSize) {
         pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
@@ -191,7 +221,7 @@ class ITAddress2 extends ITAddress{
     }
 
     /**
-     * The DeviceSpecificVariant method enables service providers to provide access to features not offered by other TAPI functions.
+     * The DeviceSpecificVariant method enables service providers to provide access to features not offered by other TAPI functions. (ITAddress2.DeviceSpecificVariant)
      * @param {ITCallInfo} pCall Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface of the call object.
      * @param {VARIANT} varDevSpecificByteArray VARIANT containing the parameter block. The format of this parameter block is device specific; TAPI passes its contents between the application and the service provider.
@@ -236,7 +266,7 @@ class ITAddress2 extends ITAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-devicespecificvariant
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-devicespecificvariant
      */
     DeviceSpecificVariant(pCall, varDevSpecificByteArray) {
         result := ComCall(30, this, "ptr", pCall, "ptr", varDevSpecificByteArray, "HRESULT")
@@ -250,7 +280,7 @@ class ITAddress2 extends ITAddress{
      * @param {Integer} lHighVersion Most recent extension version of the extension identifier returned by 
      * <b>NegotiateExtVersion</b> that the application is compliant with. The high-order word is the major version number; the low-order word is the minor version number.
      * @returns {Integer} Pointer to a <b>long</b> that contains the extension version number that was negotiated. If negotiation succeeds, this number is in the range between <i>lLowVersion</i> and <i>lHighVersion</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress2-negotiateextversion
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-negotiateextversion
      */
     NegotiateExtVersion(lLowVersion, lHighVersion) {
         result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")

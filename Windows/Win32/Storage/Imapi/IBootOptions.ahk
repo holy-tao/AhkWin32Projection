@@ -8,7 +8,6 @@
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.
  * @remarks
- * 
  * This interface supports the "El Torito" Bootable CD-ROM format specification. 
  * 
  * To add the boot image to a file system image, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_bootimageoptions">IFileSystemImage::put_BootImageOptions</a> method. 
@@ -16,8 +15,7 @@
  * To get the boot image associated with a file system image, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_bootimageoptions">IFileSystemImage::get_BootImageOptions</a> method.
  * 
  * To create the <b>BootOptions</b> object in a script, use IMAPI2.BootOptions as the program identifier when calling <b>CreateObject</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ibootoptions
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ibootoptions
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -89,7 +87,7 @@ class IBootOptions extends IDispatch{
     /**
      * Retrieves a pointer to the boot image data stream.
      * @returns {IStream} Pointer to the <b>IStream</b> interface associated with the boot image data stream.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-get_bootimage
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_bootimage
      */
     get_BootImage() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -99,7 +97,7 @@ class IBootOptions extends IDispatch{
     /**
      * Retrieves the identifier of the manufacturer of the CD.
      * @returns {BSTR} Identifier of the manufacturer of the CD.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-get_manufacturer
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_manufacturer
      */
     get_Manufacturer() {
         pVal := BSTR()
@@ -144,7 +142,7 @@ class IBootOptions extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-put_manufacturer
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_manufacturer
      */
     put_Manufacturer(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
@@ -156,7 +154,7 @@ class IBootOptions extends IDispatch{
     /**
      * Retrieves the platform identifier that identifies the operating system architecture that the boot image supports.
      * @returns {Integer} Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-get_platformid
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_platformid
      */
     get_PlatformId() {
         result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
@@ -167,7 +165,7 @@ class IBootOptions extends IDispatch{
      * Sets the platform identifier that identifies the operating system architecture that the boot image supports.
      * @param {Integer} newVal Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type. The default value is  <b>PlatformX86</b> for Intel x86–based platforms.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-put_platformid
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_platformid
      */
     put_PlatformId(newVal) {
         result := ComCall(11, this, "int", newVal, "HRESULT")
@@ -177,7 +175,7 @@ class IBootOptions extends IDispatch{
     /**
      * Retrieves the media type that the boot image is intended to emulate.
      * @returns {Integer} Media type that the boot image is intended to emulate. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-get_emulation
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_emulation
      */
     get_Emulation() {
         result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
@@ -208,7 +206,7 @@ class IBootOptions extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-put_emulation
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_emulation
      */
     put_Emulation(newVal) {
         result := ComCall(13, this, "int", newVal, "HRESULT")
@@ -218,7 +216,7 @@ class IBootOptions extends IDispatch{
     /**
      * Retrieves the size of the boot image.
      * @returns {Integer} Size, in bytes, of the boot image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-get_imagesize
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_imagesize
      */
     get_ImageSize() {
         result := ComCall(14, this, "uint*", &pVal := 0, "HRESULT")
@@ -227,6 +225,12 @@ class IBootOptions extends IDispatch{
 
     /**
      * Sets the data stream that contains the boot image.
+     * @remarks
+     * If the size of the newly assigned boot image is either 1.2, 1.44. or 2.88 MB, this method will automatically adjust the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> value to the respective "floppy" type value.   It is, however, possible to  override the default or previously assigned <b>EmulationType</b> value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ibootoptions-put_emulation">IBootOptions::put_Emulation</a> method.
+     * 
+     * The additional specification of the platform on which to use the boot image requires the call to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ibootoptions-put_platformid">IBootOptions::put_PlatformId</a> method.
+     * 
+     * IMAPI does not include any boot images; developers must provide their own boot images.
      * @param {IStream} newVal An <b>IStream</b> interface of the data stream that contains the boot image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -263,7 +267,7 @@ class IBootOptions extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ibootoptions-assignbootimage
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-assignbootimage
      */
     AssignBootImage(newVal) {
         result := ComCall(15, this, "ptr", newVal, "HRESULT")

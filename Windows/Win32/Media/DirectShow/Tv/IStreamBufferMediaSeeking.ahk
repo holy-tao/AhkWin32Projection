@@ -6,7 +6,6 @@
 /**
  * The IStreamBufferMediaSeeking interface controls seeking in a stream buffer source graph. The Stream Buffer Source filter exposes this interface.
  * @remarks
- * 
  * When the Stream Buffer Source plays a recording created by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/recording-object">Recording</a> object or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/reccomp-object">RecComp</a> object, it can seek anywhere within the file. When it plays a live stream from the Stream Buffer Sink, it can seek anywhere within the sink filter's buffer. This might include recorded content or temporary backing files. Transitions across files are seamless.
  * 
  * Live content from the Stream Buffer Sink grows on one end, as new content is recorded, and shrinks on the other end, as stale backing files are deleted. Therefore, the positioning information for this interface differs somewhat from the regular <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediaseeking">IMediaSeeking</a> interface. The following definitions are used.
@@ -80,9 +79,7 @@
  * The <b>IStreamBufferMediaSeeking</b> version of <b>SetRate</b> may also fail if the decoder does not support rates other than 1x speed.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferMediaSeeking)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambuffermediaseeking
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambuffermediaseeking
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents a generic name-value pair.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509namevaluepair
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509namevaluepair
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -47,12 +47,14 @@ class IX509NameValuePair extends IDispatch{
 
     /**
      * Initializes the object from strings that contain the name and associated value.
+     * @remarks
+     * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-get_name">Name</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-get_value">Value</a> properties to retrieve the values initialized by calling this method.
      * @param {BSTR} strName A <b>BSTR</b> variable that contains the name.
      * @param {BSTR} strValue A <b>BSTR</b> variable that contains the value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-initialize
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-initialize
      */
     Initialize(strName, strValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -65,12 +67,9 @@ class IX509NameValuePair extends IDispatch{
     /**
      * Retrieves the value portion of the name-value pair.
      * @remarks
-     * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-initialize">Initialize</a> method before calling this property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_value
      */
     get_Value() {
         pValue := BSTR()
@@ -81,12 +80,9 @@ class IX509NameValuePair extends IDispatch{
     /**
      * Retrieves the name portion of the name-value pair.
      * @remarks
-     * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-initialize">Initialize</a> method before calling this property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_name
      */
     get_Name() {
         pValue := BSTR()

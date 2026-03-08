@@ -6,12 +6,8 @@
 /**
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.
  * @remarks
- * 
- * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue</a> to create a command queue object. 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12commandqueue
+ * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue</a> to create a command queue object.
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -39,7 +35,6 @@ class ID3D12CommandQueue extends ID3D12Pageable{
     /**
      * Updates mappings of tile locations in reserved resources to memory locations in a resource heap.
      * @remarks
-     * 
      * Use <b>UpdateTileMappings</b> to map the virtual pages of a reserved resource to the physical pages of a heap. The mapping does not have to be in order. The operation is similar to  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-updatetilemappings">ID3D11DeviceContext2::UpdateTileMappings</a> with the one key difference that D3D12 allows a reserved resource to have tiles from multiple heaps.
      * 
      * In a single call to <b>UpdateTileMappings</b>, you can map one or more ranges of resource tiles to one or more ranges of heap tiles. 
@@ -85,10 +80,6 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * Reserved resources must follow the same rules for tile aliasing, initialization, and data inheritance as placed resources. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
      * 
      * Here are some examples of common <b>UpdateTileMappings</b> cases:
-     *       
-     * 
-     * 
-     * 
      * @param {ID3D12Resource} pResource A pointer to the reserved resource.
      * @param {Integer} NumResourceRegions The number of reserved resource regions.
      * @param {Pointer<D3D12_TILED_RESOURCE_COORDINATE>} pResourceRegionStartCoordinates An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate">D3D12_TILED_RESOURCE_COORDINATE</a> structures that describe the starting coordinates of the reserved resource regions. The <i>NumResourceRegions</i> parameter specifies the number of <b>D3D12_TILED_RESOURCE_COORDINATE</b> structures in the array.
@@ -101,7 +92,7 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      *             An array of values that specify the number of tiles in each tile range. The <i>NumRanges</i> parameter specifies the number of values in the array.
      * @param {Integer} Flags A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a> values that are combined by using a bitwise OR operation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
      */
     UpdateTileMappings(pResource, NumResourceRegions, pResourceRegionStartCoordinates, pResourceRegionSizes, pHeap, NumRanges, pRangeFlags, pHeapRangeStartOffsets, pRangeTileCounts, Flags) {
         pRangeFlagsMarshal := pRangeFlags is VarRef ? "int*" : "ptr"
@@ -114,7 +105,6 @@ class ID3D12CommandQueue extends ID3D12Pageable{
     /**
      * Copies mappings from a source reserved resource to a destination reserved resource.
      * @remarks
-     * 
      * Use <b>CopyTileMappings</b> to copy the tile mappings from one reserved resource to another, either to duplicate a resource mapping, or to initialize a new mapping before modifying it using <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings">UpdateTileMappings</a>.
      * 
      * <b>CopyTileMappings</b> helps with tasks such as shifting mappings around within and across reserved resources, for example, scrolling tiles. 
@@ -123,8 +113,6 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      *       
      * 
      * The destination and the source regions must each entirely fit in their resource or behavior is undefined and the debug layer will emit an error.
-     * 
-     * 
      * @param {ID3D12Resource} pDstResource A pointer to the destination reserved resource.
      * @param {Pointer<D3D12_TILED_RESOURCE_COORDINATE>} pDstRegionStartCoordinate A pointer to a
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate">D3D12_TILED_RESOURCE_COORDINATE</a> structure that describes the starting coordinates of the destination reserved resource.
@@ -133,7 +121,7 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Pointer<D3D12_TILE_REGION_SIZE>} pRegionSize A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size">D3D12_TILE_REGION_SIZE</a> structure that describes the size of the reserved region.
      * @param {Integer} Flags One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-copytilemappings
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings
      */
     CopyTileMappings(pDstResource, pDstRegionStartCoordinate, pSrcResource, pSrcRegionStartCoordinate, pRegionSize, Flags) {
         ComCall(9, this, "ptr", pDstResource, "ptr", pDstRegionStartCoordinate, "ptr", pSrcResource, "ptr", pSrcRegionStartCoordinate, "ptr", pRegionSize, "int", Flags)
@@ -142,32 +130,26 @@ class ID3D12CommandQueue extends ID3D12Pageable{
     /**
      * Submits an array of command lists for execution.
      * @remarks
-     * 
      * Calling **ExecuteCommandLists** twice in succession (from the same thread, or different threads) guarantees that the first workload (A) finishes before the second workload (B). Calling **ExecuteCommandLists** with *two* command lists allows the driver to merge the two command lists such that the second command list (D) may begin executing work before all work from the first (C) has finished. Specifically, your application is allowed to insert a fence signal or wait between A and B, and the driver has no visibility into this, so the driver must ensure that everything in A is complete before the fence operation. There is no such opportunity in a single call to the API, so the driver is able to optimize that scenario.
      * 
      * The driver is free to patch the submitted command lists. It is the calling application’s responsibility to ensure that the graphics processing unit (GPU) is not currently reading the any of the submitted command lists from a previous execution.
      * 
      * Applications are encouraged to batch together command list executions to reduce fixed costs associated with submitted commands to the GPU.
-     * 
-     * 
      * @param {Integer} NumCommandLists The number of command lists to be executed.
      * @param {Pointer<ID3D12CommandList>} ppCommandLists The array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandlist">ID3D12CommandList</a> command lists to be executed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-executecommandlists
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists
      */
     ExecuteCommandLists(NumCommandLists, ppCommandLists) {
         ComCall(10, this, "uint", NumCommandLists, "ptr*", ppCommandLists)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue. (ID3D12CommandQueue.SetMarker)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To insert instrumentation markers at the current location within a D3D12 command queue, use the <b>PIXSetMarker</b> function.  This is provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @param {Integer} Metadata Type: <b>UINT</b>
      * 
      * Internal.
@@ -178,21 +160,18 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * 
      * Internal.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-setmarker
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
      */
     SetMarker(Metadata, pData, Size) {
         ComCall(11, this, "uint", Metadata, "ptr", pData, "uint", Size)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue. (ID3D12CommandQueue.BeginEvent)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To mark the start of an instrumentation region at the current location within a D3D12 command queue, use the <b>PIXBeginEvent</b> function or <b>PIXScopedEvent</b> macro.  These are provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @param {Integer} Metadata Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Internal.
@@ -203,23 +182,20 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * 
      * Internal.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-beginevent
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-beginevent
      */
     BeginEvent(Metadata, pData, Size) {
         ComCall(12, this, "uint", Metadata, "ptr", pData, "uint", Size)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command queue. (ID3D12CommandQueue.EndEvent)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To mark the end of an instrumentation region at the current location within a D3D12 command queue, use the <b>PIXEndEvent</b> function or <b>PIXScopedEvent</b> macro.  These are provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-endevent
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-endevent
      */
     EndEvent() {
         ComCall(13, this)
@@ -227,16 +203,18 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * Updates a fence to a specified value.
+     * @remarks
+     * Use this method to set a fence value from the GPU side. Use <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12fence-signal">ID3D12Fence::Signal</a> to set a fence from the CPU side.
      * @param {ID3D12Fence} pFence Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a> object.
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The value to set the fence to.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-signal
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal
      */
     Signal(pFence, Value) {
         result := ComCall(14, this, "ptr", pFence, "uint", Value, "HRESULT")
@@ -245,16 +223,20 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * Queues a GPU-side wait, and returns immediately. A GPU-side wait is where the GPU waits until the specified fence reaches or exceeds the specified value.
+     * @remarks
+     * Because a wait is being queued, the API returns immediately. It's the command queue that waits (during which time no work is executed) until the fence specified reaches the requested value.
+     * 	
+     * If you want to perform a CPU-side wait (where the calling thread blocks until a fence reaches a particular value), then you should use the [**ID3D12Fence::SetEventOnCompletion**](./nf-d3d12-id3d12fence-seteventoncompletion.md) API in conjunction with [**WaitForSingleObject**](../synchapi/nf-synchapi-waitforsingleobject.md) (or a similar API).
      * @param {ID3D12Fence} pFence Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a> object.
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The value that the command queue is waiting for the fence to reach or exceed.  So when  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue">ID3D12Fence::GetCompletedValue</a> is greater than or equal to <i>Value</i>, the wait is terminated.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-wait
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait
      */
     Wait(pFence, Value) {
         result := ComCall(15, this, "ptr", pFence, "uint", Value, "HRESULT")
@@ -263,10 +245,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * This method is used to determine the rate at which the GPU timestamp counter increments.
+     * @remarks
+     * For more information, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/timing">Timing</a>.
      * @returns {Integer} Type: <b>UINT64*</b>
      * 
      * The GPU timestamp counter frequency (in ticks/second).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency
      */
     GetTimestampFrequency() {
         result := ComCall(16, this, "uint*", &pFrequency := 0, "HRESULT")
@@ -275,16 +259,18 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * This method samples the CPU and GPU timestamp counters at the same moment in time.
+     * @remarks
+     * For more information, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/timing">Timing</a>.
      * @param {Pointer<Integer>} pGpuTimestamp Type: <b>UINT64*</b>
      * 
      * The value of the GPU timestamp counter.
      * @param {Pointer<Integer>} pCpuTimestamp Type: <b>UINT64*</b>
      * 
      * The value of the CPU timestamp counter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration
      */
     GetClockCalibration(pGpuTimestamp, pCpuTimestamp) {
         pGpuTimestampMarshal := pGpuTimestamp is VarRef ? "uint*" : "ptr"
@@ -296,10 +282,10 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * Gets the description of the command queue.
-     * @returns {D3D12_COMMAND_QUEUE_DESC} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a></b>
+     * @returns {D3D12_COMMAND_QUEUE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a></b>
      * 
-     * The description of the command queue, as a <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandqueue-getdesc
+     * The description of the command queue, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getdesc
      */
     GetDesc() {
         result := ComCall(18, this, "ptr")

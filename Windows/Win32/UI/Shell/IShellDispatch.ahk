@@ -6,7 +6,7 @@
 #Include .\Folder.ahk
 
 /**
- * 
+ * Represents an object in the Shell.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -65,8 +65,12 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * IShellDispatch.NameSpace method - Creates and returns a Folder object for the specified folder.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.NameSpace**](shell-namespace.md) method.
+     * @param {VARIANT} vDir Type: **Variant**
      * 
-     * @param {VARIANT} vDir 
+     * The folder for which to create the [**Folder**](folder.md) object. This can be a string that specifies the path of the folder or one of the [**ShellSpecialFolderConstants**](/windows/desktop/api/Shldisp/ne-shldisp-shellspecialfolderconstants) values. Note that the constant names found in **ShellSpecialFolderConstants** are available in Visual Basic, but not in VBScript or JScript. In those cases, the numeric values must be used in their place.
      * @returns {Folder} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-namespace
      */
@@ -76,8 +80,12 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * IShellDispatch.BrowseForFolder method - Creates a dialog box that enables the user to select a folder and then returns the selected folder's Folder object.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.BrowseForFolder**](shell-browseforfolder.md) method.
+     * @param {Integer} Hwnd Type: **Integer**
      * 
-     * @param {Integer} Hwnd 
+     * The handle to the parent window of the dialog box. This value can be zero.
      * @param {BSTR} Title 
      * @param {Integer} Options 
      * @param {VARIANT} RootFolder 
@@ -92,7 +100,9 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
+     * IShellDispatch.Windows method - Creates and returns a ShellWindows object. This object represents a collection of all of the open windows that belong to the Shell.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.Windows**](shell-windows.md) method.
      * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-windows
      */
@@ -102,8 +112,14 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * IShellDispatch.Open method - Opens the specified folder.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.Open**](shell-open.md) method.
+     * @param {VARIANT} vDir Type: **Variant**
      * 
-     * @param {VARIANT} vDir 
+     * A string that specifies the path of the folder or one of the [**ShellSpecialFolderConstants**](/windows/desktop/api/Shldisp/ne-shldisp-shellspecialfolderconstants) values. Note that the constant names found in **ShellSpecialFolderConstants** are available in Visual Basic, but not in VBScript or JScript. In those cases, the numeric values must be used in their place.
+     * 
+     * If *vDir* is set to one of the [**ShellSpecialFolderConstants**](/windows/desktop/api/Shldisp/ne-shldisp-shellspecialfolderconstants) and the special folder does not exist, this function will create the folder.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-open
      */
@@ -113,8 +129,12 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * IShellDispatch.Explore method - Opens a specified folder in a Windows Explorer window.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.Explore**](shell-explore.md) method.
+     * @param {VARIANT} vDir Type: **Variant**
      * 
-     * @param {VARIANT} vDir 
+     * The folder to be displayed. This can be a string that specifies the path of the folder or one of the [**ShellSpecialFolderConstants**](/windows/desktop/api/Shldisp/ne-shldisp-shellspecialfolderconstants) values. Note that the constant names found in **ShellSpecialFolderConstants** are available in Visual Basic, but not in VBScript or JScript. In those cases, the numeric values must be used in their place.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-explore
      */
@@ -124,8 +144,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Minimizes all of the windows on the desktop. This method has the same effect as right-clicking the taskbar and selecting Minimize All Windows on older systems or clicking the Show Desktop icon on the taskbar.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.MinimizeAll**](shell-minimizeall.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-minimizeall
      */
     MinimizeAll() {
@@ -134,8 +156,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Restores all desktop windows to the state they were in before the last MinimizeAll command.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.UndoMinimizeAll**](./shell-undominimizeall.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-undominimizeall
      */
     UndoMinimizeALL() {
@@ -144,8 +168,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Displays the Run dialog to the user.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.FileRun**](shell-filerun.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-filerun
      */
     FileRun() {
@@ -154,8 +180,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Cascades all of the windows on the desktop. This method has the same effect as right-clicking the taskbar and selecting Cascade windows.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.CascadeWindows**](shell-cascadewindows.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-cascadewindows
      */
     CascadeWindows() {
@@ -164,8 +192,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Tiles all of the windows on the desktop vertically. This method has the same effect as right-clicking the taskbar and selecting Show windows side by side.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.TileVertically**](shell-tilevertically.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-tilevertically
      */
     TileVertically() {
@@ -174,8 +204,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Tiles all of the windows on the desktop horizontally. This method has the same effect as right-clicking the taskbar and selecting Show windows stacked.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.TileHorizontally**](shell-tilehorizontally.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-tilehorizontally
      */
     TileHorizontally() {
@@ -184,8 +216,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * IShellDispatch.ShutdownWindows method - Displays the Shut Down Windows dialog box. This is the same as clicking the Start menu and selecting Shut Down.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.ShutdownWindows**](shell-shutdownwindows.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-shutdownwindows
      */
     ShutdownWindows() {
@@ -194,7 +228,7 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
+     * IShellDispatch.Suspend method
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-suspend
      */
@@ -204,8 +238,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * IShellDispatch.EjectPC method - Ejects the computer from its docking station. This is the same as clicking the Start menu and selecting Eject PC, if your computer supports this command.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.EjectPC**](shell-ejectpc.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-ejectpc
      */
     EjectPC() {
@@ -214,8 +250,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Displays the Date and Time dialog box. This method has the same effect as right-clicking the clock in the taskbar status area and selecting Adjust date/time.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.SetTime**](shell-settime.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-settime
      */
     SetTime() {
@@ -224,8 +262,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * IShellDispatch.TrayProperties method - Displays the Taskbar and Start Menu Properties dialog box. This method has the same effect as right-clicking the taskbar and selecting Properties.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.TrayProperties**](shell-trayproperties.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-trayproperties
      */
     TrayProperties() {
@@ -234,8 +274,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Displays the Windows Help and Support window. This method has the same effect as clicking the Start menu and selecting Help and Support.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.Help**](shell-help.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-help
      */
     Help() {
@@ -244,8 +286,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Displays the Find: All Files dialog box. This is the same as clicking the Start menu and then selecting Search.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.FindFiles**](shell-findfiles.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-findfiles
      */
     FindFiles() {
@@ -254,8 +298,10 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * IShellDispatch.FindComputer method Displays the Search Results Computers dialog box. The dialog box shows the result of the search for a specified computer.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.FindComputer**](shell-findcomputer.md) method.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-findcomputer
      */
     FindComputer() {
@@ -264,8 +310,12 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * Learn about the IShellDispatch.RefreshMenu method, which refreshes the contents of the Start menu. Used only with systems preceding Windows XP.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.TrayProperties**](shell-trayproperties.md) method.
      * 
-     * @returns {HRESULT} 
+     * The functionality that **RefreshMenu** provides is handled automatically under Windows XP or later. Do not call this method on Windows XP or later.
+     * @returns {HRESULT} This method has no parameters.
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-refreshmenu
      */
     RefreshMenu() {
@@ -274,8 +324,12 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
+     * Runs the specified Control Panel application.
+     * @remarks
+     * This method is implemented and accessed through the [**Shell.ControlPanelItem**](shell-controlpanelitem.md) method.
+     * @param {BSTR} bstrDir Type: **[**BSTR**](/previous-versions/windows/desktop/automat/bstr)**
      * 
-     * @param {BSTR} bstrDir 
+     * The Control Panel application's file name.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-controlpanelitem
      */

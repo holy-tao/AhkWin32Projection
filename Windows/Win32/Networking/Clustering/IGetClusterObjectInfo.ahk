@@ -7,7 +7,6 @@
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a cluster object.
  * @remarks
- * 
  * You can use the <b>IGetClusterObjectInfo</b> interface 
  *      when Failover Cluster Administrator calls your implementations of the following methods:
  * 
@@ -40,9 +39,7 @@
  *      the operation is not valid in the context of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>, 
  *      and the result is an interface that represents no real cluster object. For an illustration, see 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-igetclusterobjectinfo
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusterobjectinfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -69,6 +66,10 @@ class IGetClusterObjectInfo extends IUnknown{
 
     /**
      * Returns the name of a cluster object.
+     * @remarks
+     * If the <i>lpszName</i> parameter is specified as <b>NULL</b>, the 
+     *      <b>GetObjectName</b> method returns 
+     *      <b>NOERROR</b>.
      * @param {Integer} lObjIndex A number representing the zero-based index of the target object. <i>lObjIndex</i> is 
      *        restricted to the number that can be retrieved by calling 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
@@ -122,13 +123,13 @@ class IGetClusterObjectInfo extends IUnknown{
      * </td>
      * <td width="60%">
      * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
-     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname">GetObjectName</a> returns the 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname">GetObjectName</a> returns the 
      *          required number of characters in the content of <i>pcchName</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname
      */
     GetObjectName(lObjIndex, lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
@@ -141,10 +142,14 @@ class IGetClusterObjectInfo extends IUnknown{
 
     /**
      * Returns the type of a cluster object.
+     * @remarks
+     * <b>CLUADMEX_OT_NONE</b> is returned when 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> does not recognize 
+     *      the object type.
      * @param {Integer} lObjIndex A number representing the zero-based index of the target object. This parameter is restricted to the number 
      *        that can be retrieved by calling 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
-     * @returns {Integer} If <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype">GetObjectType</a> is 
+     * @returns {Integer} If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype">GetObjectType</a> is 
      *         successful, it returns one of the following values enumerated by the 
      *         <b>CLUADMEX_OBJECT_TYPE</b> enumeration representing the object types:
      * 
@@ -152,8 +157,8 @@ class IGetClusterObjectInfo extends IUnknown{
      * 
      * If <b>GetObjectType</b> is not 
      *        successful, it returns –1. For more information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype
      */
     GetObjectType(lObjIndex) {
         result := ComCall(4, this, "int", lObjIndex, "int")

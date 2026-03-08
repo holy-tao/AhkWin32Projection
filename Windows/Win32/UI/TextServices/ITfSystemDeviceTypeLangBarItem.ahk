@@ -6,11 +6,8 @@
 /**
  * The ITfSystemDeviceTypeLangBarItem interface is implemented by a system language bar item and used by an application or text service to control how the system item displays its icon.
  * @remarks
- * 
  * Support for this interface is optional and must not be assumed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itfsystemdevicetypelangbaritem
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfsystemdevicetypelangbaritem
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -68,7 +65,7 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode
      */
     SetIconMode(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -78,7 +75,7 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
     /**
      * ITfSystemDeviceTypeLangBarItem::GetIconMode method
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the current icon display mode for a system language bar item. For more information about possible values, see the dwFlags parameter in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode">ITfSystemDeviceTypeLangBarItem::SetIconMode</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-geticonmode
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-geticonmode
      */
     GetIconMode() {
         result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")

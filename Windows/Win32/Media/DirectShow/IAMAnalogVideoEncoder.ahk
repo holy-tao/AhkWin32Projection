@@ -5,7 +5,7 @@
 
 /**
  * Note  This interface has been deprecated. Note  Microsoft does not provide an implementation of this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamanalogvideoencoder
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamanalogvideoencoder
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IAMAnalogVideoEncoder extends IUnknown{
     /**
      * Note  The IAMAnalogVideoEncoder interface is deprecated. The get_AvailableTVFormats method retrieves the analog video standards (NTSC/M, PAL/B, SECAM/K1, and so on) supported by the encoder.
      * @returns {Integer} Specifies a pointer to a [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration and the available formats have been combined in this integer with a bitwise OR.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-get_availabletvformats
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_availabletvformats
      */
     get_AvailableTVFormats() {
         result := ComCall(3, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
@@ -75,7 +75,7 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * Note  The IAMAnalogVideoEncoder interface is deprecated. The put_TVFormat method sets the encoder to a particular analog video standard (NTSC/M, PAL/B, SECAM/K1, and so on).
      * @param {Integer} lAnalogVideoStandard Specifies the video standard to set in the encoder as a [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
      * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-put_tvformat
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_tvformat
      */
     put_TVFormat(lAnalogVideoStandard) {
         result := ComCall(4, this, "int", lAnalogVideoStandard, "HRESULT")
@@ -84,8 +84,10 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * Note  The IAMAnalogVideoEncoder interface is deprecated. The get_TVFormat method retrieves the analog video standard that the encoder is currently set to (NTSC/M, PAL/B, SECAM/K1, and so on).
+     * @remarks
+     * Possible values and their meaning are defined in the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
      * @returns {Integer} Specifies a pointer to a <b>long</b> integer to receive the encoder's current video standard.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-get_tvformat
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_tvformat
      */
     get_TVFormat() {
         result := ComCall(5, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
@@ -94,9 +96,9 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * Note  The IAMAnalogVideoEncoder interface is deprecated. The put_CopyProtection method sets the level of copy protection for the encoder.
-     * @param {Integer} lVideoCopyProtection Specifies the level of copy protection as a <b>long</b> integer with a value as defined in the <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ne-dvdmedia-am_copy_macrovision_level">AM_COPY_MACROVISION_LEVEL</a> enumeration.
+     * @param {Integer} lVideoCopyProtection Specifies the level of copy protection as a <b>long</b> integer with a value as defined in the <a href="https://docs.microsoft.com/previous-versions/ms778997(v=vs.85)">AM_COPY_MACROVISION_LEVEL</a> enumeration.
      * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-put_copyprotection
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_copyprotection
      */
     put_CopyProtection(lVideoCopyProtection) {
         result := ComCall(6, this, "int", lVideoCopyProtection, "HRESULT")
@@ -106,7 +108,7 @@ class IAMAnalogVideoEncoder extends IUnknown{
     /**
      * Note  The IAMAnalogVideoEncoder interface is deprecated. The get_CopyProtection method determines whether copy protection is currently enabled on the encoder.
      * @returns {Integer} Specifies a pointer to a <b>long</b> integer to receive the current copy protection level, as defined in the <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ne-dvdmedia-am_copy_macrovision_level">AM_COPY_MACROVISION_LEVEL</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-get_copyprotection
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_copyprotection
      */
     get_CopyProtection() {
         result := ComCall(7, this, "int*", &lVideoCopyProtection := 0, "HRESULT")
@@ -134,7 +136,7 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-put_ccenable
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_ccenable
      */
     put_CCEnable(lCCEnable) {
         result := ComCall(8, this, "int", lCCEnable, "HRESULT")
@@ -161,7 +163,7 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * <td>Closed captioning disabled.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideoencoder-get_ccenable
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_ccenable
      */
     get_CCEnable() {
         result := ComCall(9, this, "int*", &lCCEnable := 0, "HRESULT")

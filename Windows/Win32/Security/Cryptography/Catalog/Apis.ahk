@@ -229,8 +229,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPersistStore", "ptr", hCatalog, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -389,7 +389,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATPutCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, pbDataMarshal, pbData, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -512,7 +512,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATGetAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -576,7 +576,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", "ptr", hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, "ptr", pgSubjectType, "uint", dwCertVersion, "uint", cbSIPIndirectData, pbSIPIndirectDataMarshal, pbSIPIndirectData, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -722,7 +722,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATPutAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, pbDataMarshal, pbData, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -909,11 +909,14 @@ class Catalog {
     }
 
     /**
-     * 
-     * @param {Pointer<CRYPTCATCDF>} pCDF 
+     * Enumerates the individual file members in the CatalogFiles section of a catalog definition file (CDF).
+     * @remarks
+     * You typically call this function in a loop to enumerate all of the catalog file members in a CDF. Before entering the loop, set *pwszPrevCDFTag* to **NULL**. The function returns a pointer to the first member. Set *pwszPrevCDFTag* to the return value of the function for subsequent iterations of the loop.
+     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer<CRYPTCATMEMBER>} 
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
+     * @returns {Pointer<CRYPTCATMEMBER>} Upon success, this function returns a pointer to a **null**-terminated string that identifies a file member in the **CatalogFiles** section of a CDF. The **CryptCATCDFEnumMembersByCDFTagEx** function returns a **NULL** pointer if it fails.
+     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenummembersbycdftagex
      */
     static CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", "ptr", pCDF, "ptr", pPrevMember, "ptr", pfnParseError, "ptr")
@@ -921,12 +924,15 @@ class Catalog {
     }
 
     /**
-     * 
-     * @param {Pointer<CRYPTCATCDF>} pCDF 
-     * @param {Pointer<CRYPTCATMEMBER>} pMember 
-     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer<CRYPTCATATTRIBUTE>} 
+     * Enumerates the attributes of member files in the CatalogFiles section of a catalog definition file (CDF).
+     * @remarks
+     * You typically call this function in a loop to enumerate all of the catalog file member attributes in a CDF. Before entering the loop, set *pPrevAttr* to **NULL**. The function returns a pointer to the first attribute. Set *pPrevAttr* to the return value of the function for subsequent iterations of the loop.
+     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
+     * @param {Pointer<CRYPTCATMEMBER>} pMember A pointer to a [**CRYPTCATMEMBER**](/windows/win32/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information.
+     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure for a file member attribute in the CDF pointed to by *pCDF*.
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
+     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", "ptr", pCDF, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")
@@ -967,8 +973,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1043,8 +1049,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "ptr", pwszHashAlgorithm, "ptr", pStrongHashPolicy, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1109,7 +1115,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATAdminEnumCatalogFromHash", "ptr", hCatAdmin, "ptr", pbHash, "uint", cbHash, "uint", dwFlags, phPrevCatInfoMarshal, phPrevCatInfo, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1208,8 +1214,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", "ptr", hCatAdmin, "ptr", hFile, pcbHashMarshal, pcbHash, "ptr", pbHash, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1235,7 +1241,7 @@ class Catalog {
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAddCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", pwszSelectBaseName, "uint", dwFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1258,8 +1264,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1280,8 +1286,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATCatalogInfoFromContext", "ptr", hCatInfo, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1305,8 +1311,8 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

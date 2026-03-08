@@ -6,7 +6,7 @@
 
 /**
  * The ITfFnConfigureRegisterWord interface is implemented by a text service to enable the Active Input Method Editor (IME) to cause the text service to display a word registration dialog box.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnconfigureregisterword
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnconfigureregisterword
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -67,7 +67,7 @@ class ITfFnConfigureRegisterWord extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnconfigureregisterword-show
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnconfigureregisterword-show
      */
     Show(hwndParent, langid, rguidProfile, bstrRegistered) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

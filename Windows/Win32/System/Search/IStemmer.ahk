@@ -6,13 +6,11 @@
 /**
  * Provides methods for creating a language-specific stemmer. The stemmer generates inflected forms of a specified word.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Implement this interface to create a custom stemmer for a language. Windows Search calls the methods of this interface to generate inflected forms for words identified when building an index.
  * 
  * Stemmer components for Windows Search run in the Local Security context. They should be written to manage buffers and the stack correctly. All string copies must have explicit checks to guard against buffer overruns. You should always verify the allocated size of the buffer and test the size of the data against the size of the buffer.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-istemmer
+ * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-istemmer
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -39,6 +37,8 @@ class IStemmer extends IUnknown{
 
     /**
      * Initializes the stemmer.
+     * @remarks
+     * You must initialize the stemmer. The <b>IStemmer::Init</b> method must be called before any other method of <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-istemmer">IStemmer</a>. If <i>pfLicense</i> is <b>TRUE</b>, and you want more information about possible license restrictions, call the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-istemmer-getlicensetouse">IStemmer::GetLicenseToUse</a> method.
      * @param {Integer} ulMaxTokenSize Type: <b>ULONG</b>
      * 
      * Maximum number of characters for words that are added to the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordformsink">IWordFormSink</a> object. Words that exceed this limit may be truncated.
@@ -99,7 +99,7 @@ class IStemmer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-istemmer-init
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-init
      */
     Init(ulMaxTokenSize, pfLicense) {
         pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
@@ -151,7 +151,7 @@ class IStemmer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-istemmer-generatewordforms
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-generatewordforms
      */
     GenerateWordForms(pwcInBuf, cwc, pStemSink) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
@@ -162,13 +162,15 @@ class IStemmer extends IUnknown{
 
     /**
      * Gets the license information for this IStemmer implementation.
+     * @remarks
+     * Windows Search does not enforce license restrictions. The implementation determines the storage method for the license information.
      * @param {Pointer<Pointer<Integer>>} ppwcsLicense Type: <b>const WCHAR**</b>
      * 
      * Pointer to a variable that receives a pointer to the license information for this <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-istemmer">IStemmer</a> implementation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-istemmer-getlicensetouse
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-getlicensetouse
      */
     GetLicenseToUse(ppwcsLicense) {
         ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : "ptr"

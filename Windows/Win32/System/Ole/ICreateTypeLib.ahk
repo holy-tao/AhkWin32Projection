@@ -5,8 +5,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Provides the methods for creating and managing the component or file that contains type information.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-icreatetypelib
+ * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib)
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,10 +33,12 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Creates a new type description instance within the type library.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> to create a new type description instance within the library. An error is returned if the specified name already appears in the library. Valid <i>tkind</i> values are described in TYPEKIND. To get the type information of the type description that is being created, call <c>IUnknown::QueryInterface(IID_ITypeInfo, ...)</c> on the returned <b>ICreateTypeLib</b>. This type information can be used by other type descriptions that reference it by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-icreatetypeinfo-addreftypeinfo">ICreateTypeInfo::AddRefTypeInfo</a>.
      * @param {PWSTR} szName The name of the new type.
      * @param {Integer} tkind TYPEKIND of the type description to be created.
      * @returns {ICreateTypeInfo} The type description.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-createtypeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-createtypeinfo
      */
     CreateTypeInfo(szName, tkind) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -111,7 +113,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setname
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setname
      */
     SetName(szName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -154,7 +156,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setversion
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setversion
      */
     SetVersion(wMajorVerNum, wMinorVerNum) {
         result := ComCall(5, this, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "HRESULT")
@@ -227,7 +229,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setguid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setguid
      */
     SetGuid(guid) {
         result := ComCall(6, this, "ptr", guid, "HRESULT")
@@ -236,6 +238,8 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Sets the documentation string associated with the library.
+     * @remarks
+     * The documentation string is a brief description of the library intended for use by type information browsing tools.
      * @param {PWSTR} szDoc A brief description of the type library.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -289,7 +293,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setdocstring
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setdocstring
      */
     SetDocString(szDoc) {
         szDoc := szDoc is String ? StrPtr(szDoc) : szDoc
@@ -300,6 +304,16 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Sets the name of the Help file.
+     * @remarks
+     * Each type library can reference a single Help file.
+     * 
+     * 
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-itypelib-getdocumentation">GetDocumentation</a> method of the created <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypelib">ITypeLib</a> returns a fully qualified path for the Help file, which is formed by appending the name passed into <i>szHelpFileName</i> to the registered Help directory for the type library. The Help directory is registered under:
+     * 
+     * 
+     * 
+     * \TYPELIB\&lt;guid of library&gt;\&lt;Major.Minor version &gt;\HELPDIR
      * @param {PWSTR} szHelpFileName The name of the Help file for the library.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -364,7 +378,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-sethelpfilename
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-sethelpfilename
      */
     SetHelpFileName(szHelpFileName) {
         szHelpFileName := szHelpFileName is String ? StrPtr(szHelpFileName) : szHelpFileName
@@ -375,6 +389,8 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Sets the Help context ID for retrieving general Help information for the type library.
+     * @remarks
+     * Calling <b>SetHelpContext</b> with a Help context of zero is equivalent to not calling it at all, because zero indicates a null Help context.
      * @param {Integer} dwHelpContext The Help context ID.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -439,7 +455,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-sethelpcontext
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-sethelpcontext
      */
     SetHelpContext(dwHelpContext) {
         result := ComCall(9, this, "uint", dwHelpContext, "HRESULT")
@@ -448,6 +464,8 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Sets the binary Microsoft national language ID associated with the library.
+     * @remarks
+     * For more information on national language IDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/supporting-multiple-national-languages">Supporting Multiple National Languages</a> and the National Language Support (NLS) API.
      * @param {Integer} lcid The locale ID for the type library.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -512,7 +530,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setlcid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlcid
      */
     SetLcid(lcid) {
         result := ComCall(10, this, "uint", lcid, "HRESULT")
@@ -521,6 +539,8 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Sets library flags.
+     * @remarks
+     * Valid <i>uLibFlags</i> values are listed in <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-libflags">LIBFLAGS</a>.
      * @param {Integer} uLibFlags The flags to set.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -585,7 +605,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setlibflags
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlibflags
      */
     SetLibFlags(uLibFlags) {
         result := ComCall(11, this, "uint", uLibFlags, "HRESULT")
@@ -594,6 +614,8 @@ class ICreateTypeLib extends IUnknown{
 
     /**
      * Saves the ICreateTypeLib instance following the layout of type information.
+     * @remarks
+     * You should not call any other <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> methods after calling <b>SaveAllChanges</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -668,7 +690,7 @@ class ICreateTypeLib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-saveallchanges
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-saveallchanges
      */
     SaveAllChanges() {
         result := ComCall(12, this, "HRESULT")

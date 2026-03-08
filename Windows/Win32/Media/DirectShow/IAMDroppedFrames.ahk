@@ -6,15 +6,12 @@
 /**
  * The IAMDroppedFrames interface retrieves performance information from a video capture filter, including how many frames were dropped and how many were delivered. Applications can use this interface to determine capture performance at run-time.
  * @remarks
- * 
  * Some filters that expose this interface do not implement the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamdroppedframes-getdroppedinfo">GetDroppedInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamdroppedframes-getaverageframesize">GetAverageFrameSize</a> method.
  * 
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-droppedframes">PROPSETID_VIDCAP_DROPPEDFRAMES</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * 
  * The number of dropped frames is reported by the capture driver. This information is not directly correlated with any particular media sample, so it is not accurate on a per-frame basis, although it should be accurate over time.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamdroppedframes
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdroppedframes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -41,8 +38,12 @@ class IAMDroppedFrames extends IUnknown{
 
     /**
      * The GetNumDropped method retrieves the total number of frames that the filter has dropped since it started streaming.
+     * @remarks
+     * The filter resets the count to zero when it transitions from stopped to paused.
+     * 
+     * If your application uses the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamstreamcontrol">IAMStreamControl</a> interface to control a pin, the driver might continue to count dropped and non-dropped frames while the pin is off. To get an accurate count, call this method once when you turn on the pin, and again when you turn off the pin. The difference is the total number of dropped frames. (If the start time occurs later than the call to <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamstreamcontrol-startat">IAMStreamControl::StartAt</a>, the application should listen for the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-stream-control-started">EC_STREAM_CONTROL_STARTED</a> event.) These remarks also apply if your application uses the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-icapturegraphbuilder2-controlstream">ICaptureGraphBuilder2::ControlStream</a> method.
      * @returns {Integer} Pointer to a variable that receives the number of dropped frames.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdroppedframes-getnumdropped
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumdropped
      */
     GetNumDropped() {
         result := ComCall(3, this, "int*", &plDropped := 0, "HRESULT")
@@ -51,8 +52,12 @@ class IAMDroppedFrames extends IUnknown{
 
     /**
      * The GetNumNotDropped method retrieves the total number of frames that the filter has delivered since it started streaming.
+     * @remarks
+     * The filter resets the count to zero when it transitions from stopped to paused.
+     * 
+     * If your application uses the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamstreamcontrol">IAMStreamControl</a> interface to control a pin, the driver might continue to count dropped and non-dropped frames while the pin is off. To get an accurate count, call this method once when you turn on the pin, and again when you turn off the pin. The difference is the total number of dropped frames. (If the start time occurs later than the call to <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamstreamcontrol-startat">IAMStreamControl::StartAt</a>, the application should listen for the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-stream-control-started">EC_STREAM_CONTROL_STARTED</a> event.) These remarks also apply if your application uses the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-icapturegraphbuilder2-controlstream">ICaptureGraphBuilder2::ControlStream</a> method.
      * @returns {Integer} Pointer to a variable that receives the number of delivered frames.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdroppedframes-getnumnotdropped
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumnotdropped
      */
     GetNumNotDropped() {
         result := ComCall(4, this, "int*", &plNotDropped := 0, "HRESULT")
@@ -62,7 +67,7 @@ class IAMDroppedFrames extends IUnknown{
     /**
      * The GetDroppedInfo method retrieves an array of frame numbers that were dropped.
      * @param {Integer} lSize Specifies the size of the array.
-     * @param {Pointer<Integer>} plArray Pointer to an array of size <i>lSize</i>, allocated by the caller. The method fills the array with the frame numbers of the first <i>lSize</i> frames that were dropped, up to a maximum number that is device-depedent.
+     * @param {Pointer<Integer>} plArray Pointer to an array of size <i>lSize</i>, allocated by the caller. The method fills the array with the frame numbers of the first <i>lSize</i> frames that were dropped, up to a maximum number that is device-dependent.
      * @param {Pointer<Integer>} plNumCopied Pointer to a variable that receives the number of items returned in <i>plArray</i>. This number might be less than the value of <i>lSize</i>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -127,7 +132,7 @@ class IAMDroppedFrames extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdroppedframes-getdroppedinfo
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getdroppedinfo
      */
     GetDroppedInfo(lSize, plArray, plNumCopied) {
         plArrayMarshal := plArray is VarRef ? "int*" : "ptr"
@@ -139,8 +144,10 @@ class IAMDroppedFrames extends IUnknown{
 
     /**
      * The GetAverageFrameSize method retrieves the average size of the frames that the filter has captured.
+     * @remarks
+     * If the device does not report a value, the method might succeed but return zero in the <i>plAverageSize</i> parameter.
      * @returns {Integer} Pointer to a variable that receives the average frame size, in bytes, since the filter began streaming.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdroppedframes-getaverageframesize
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getaverageframesize
      */
     GetAverageFrameSize() {
         result := ComCall(6, this, "int*", &plAverageSize := 0, "HRESULT")

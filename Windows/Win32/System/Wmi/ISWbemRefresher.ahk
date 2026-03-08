@@ -69,9 +69,15 @@ class ISWbemRefresher extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} iIndex 
      * @returns {ISWbemRefreshableItem} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(iIndex) {
         result := ComCall(8, this, "int", iIndex, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
@@ -88,12 +94,20 @@ class ISWbemRefresher extends IDispatch{
     }
 
     /**
+     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
+     * @remarks
+     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
+     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsInstancePath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemRefreshableItem} 
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(objWbemServices, bsInstancePath, iFlags, objWbemNamedValueSet) {
         bsInstancePath := bsInstancePath is String ? BSTR.Alloc(bsInstancePath).Value : bsInstancePath
@@ -118,10 +132,23 @@ class ISWbemRefresher extends IDispatch{
     }
 
     /**
-     * 
+     * Removes a TPM command from the local list of commands blocked from running on the computer.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {Integer} iIndex 
      * @param {Integer} iFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * Common return codes are listed below.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                 | Description                           |
+     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
     Remove(iIndex, iFlags) {
         result := ComCall(12, this, "int", iIndex, "int", iFlags, "HRESULT")
@@ -129,9 +156,13 @@ class ISWbemRefresher extends IDispatch{
     }
 
     /**
-     * 
+     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} iFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      */
     Refresh(iFlags) {
         result := ComCall(13, this, "int", iFlags, "HRESULT")
@@ -158,8 +189,9 @@ class ISWbemRefresher extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deleteallgpolinks
      */
     DeleteAll() {
         result := ComCall(16, this, "HRESULT")

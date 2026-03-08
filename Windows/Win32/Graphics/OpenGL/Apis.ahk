@@ -3657,7 +3657,7 @@ class OpenGL {
 
         result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", hdc, "ptr", ppfd, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3682,7 +3682,7 @@ class OpenGL {
 
         result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3704,7 +3704,7 @@ class OpenGL {
 
         result := DllCall("GDI32.dll\GetPixelFormat", "ptr", hdc, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3733,8 +3733,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\SetPixelFormat", "ptr", hdc, "int", format, "ptr", ppfd, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3764,7 +3764,7 @@ class OpenGL {
 
         result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", "ptr", hemf, "uint", cbBuffer, "ptr", ppfd, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3790,8 +3790,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglCopyContext", "ptr", param0, "ptr", param1, "uint", param2, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3841,7 +3841,7 @@ class OpenGL {
 
         result := DllCall("OPENGL32.dll\wglCreateContext", "ptr", param0, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLRC({Value: result}, True)
@@ -3871,7 +3871,7 @@ class OpenGL {
 
         result := DllCall("OPENGL32.dll\wglCreateLayerContext", "ptr", param0, "int", param1, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLRC({Value: result}, True)
@@ -3897,8 +3897,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglDeleteContext", "ptr", param0, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3954,7 +3954,7 @@ class OpenGL {
 
         result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3987,8 +3987,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglMakeCurrent", "ptr", param0, "ptr", param1, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4020,8 +4020,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglShareLists", "ptr", param0, "ptr", param1, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4088,8 +4088,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4156,8 +4156,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4182,8 +4182,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\SwapBuffers", "ptr", param0, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4229,8 +4229,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4276,8 +4276,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4333,7 +4333,7 @@ class OpenGL {
 
         result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4367,7 +4367,7 @@ class OpenGL {
 
         result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4396,8 +4396,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", "ptr", param0, "int", param1, "int", param2, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4423,8 +4423,8 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", "ptr", param0, "uint", param1, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -15088,10 +15088,15 @@ class OpenGL {
     }
 
     /**
+     * Sets the current texture coordinates. | glTexCoord2fv function (Gl.h)
+     * @remarks
+     * The [**glTexCoord**](gltexcoord-functions.md) function sets the current texture coordinates that are part of the data associated with polygon vertices. The **glTexCoord** function specifies texture coordinates in one, two, three, or four dimensions. The glTexCoord1 function sets the current texture coordinates to (s, 0, 0, 1); a call to glTexCoord2 sets them to (s, t, 0, 1). Similarly, glTexCoord3 specifies the texture coordinates as (s, t, r, 1), and glTexCoord4 defines all four components explicitly as (s, t, r, q). You can update the current texture coordinates at any time. In particular, you can call glTexCoord between a call to [**glBegin**](glbegin.md) and the corresponding call to [**glEnd**](glend.md). The following function retrieves information related to **glTexCoord**:
      * 
+     * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s 
      * @param {Float} t 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2fv
      */
     static glTexCoord2f(s, t) {
         DllCall("OPENGL32.dll\glTexCoord2f", "float", s, "float", t)
@@ -15208,11 +15213,16 @@ class OpenGL {
     }
 
     /**
+     * Sets the current texture coordinates. | glTexCoord3fv function (Gl.h)
+     * @remarks
+     * The [**glTexCoord**](gltexcoord-functions.md) function sets the current texture coordinates that are part of the data associated with polygon vertices. The **glTexCoord** function specifies texture coordinates in one, two, three, or four dimensions. The glTexCoord1 function sets the current texture coordinates to (s, 0, 0, 1); a call to glTexCoord2 sets them to (s, t, 0, 1). Similarly, glTexCoord3 specifies the texture coordinates as (s, t, r, 1), and glTexCoord4 defines all four components explicitly as (s, t, r, q). You can update the current texture coordinates at any time. In particular, you can call glTexCoord between a call to [**glBegin**](glbegin.md) and the corresponding call to [**glEnd**](glend.md). The following function retrieves information related to **glTexCoord**:
      * 
+     * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s 
      * @param {Float} t 
      * @param {Float} r 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3fv
      */
     static glTexCoord3f(s, t, r) {
         DllCall("OPENGL32.dll\glTexCoord3f", "float", s, "float", t, "float", r)

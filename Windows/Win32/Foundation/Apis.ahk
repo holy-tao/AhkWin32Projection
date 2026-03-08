@@ -35279,11 +35279,7 @@ class Foundation {
     static SysAddRefString(bstrString) {
         bstrString := bstrString is Win32Handle ? NumGet(bstrString, "ptr") : bstrString
 
-        result := DllCall("OLEAUT32.dll\SysAddRefString", "ptr", bstrString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLEAUT32.dll\SysAddRefString", "ptr", bstrString, "HRESULT")
         return result
     }
 
@@ -35423,8 +35419,8 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -35666,8 +35662,8 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwOptions, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -35748,8 +35744,8 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, lpdwFlagsMarshal, lpdwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -35780,8 +35776,8 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -35824,8 +35820,8 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -35948,7 +35944,7 @@ class Foundation {
 
         result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HGLOBAL({Value: result}, True)
@@ -35989,7 +35985,7 @@ class Foundation {
 
         result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HLOCAL({Value: result}, True)

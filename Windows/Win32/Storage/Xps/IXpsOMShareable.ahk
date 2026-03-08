@@ -5,7 +5,7 @@
 
 /**
  * The base interface for sharable interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IXpsOMShareable extends IUnknown{
     /**
      * Gets the IUnknown interface of the parent.
      * @returns {IUnknown} A pointer to the <b>IUnknown</b> interface of the parent.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-getowner
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-getowner
      */
     GetOwner() {
         result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IXpsOMShareable extends IUnknown{
     /**
      * Gets the object type of the interface.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type">XPS_OBJECT_TYPE</a> value that describes the interface that is derived from <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
      */
     GetType() {
         result := ComCall(4, this, "int*", &type := 0, "HRESULT")

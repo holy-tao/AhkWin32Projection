@@ -5,7 +5,7 @@
 
 /**
  * The IAMVfwCaptureDialogs interface displays a dialog box provided by a Video for Windows (VFW) capture driver.The VFW Capture filter implements this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamvfwcapturedialogs
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvfwcapturedialogs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IAMVfwCaptureDialogs extends IUnknown{
 
     /**
      * The HasDialog method determines if the specified dialog box exists in the driver.
+     * @remarks
+     * This method calls the Video for Windows <b>videoDialog</b> function to query for the existence of the appropriate dialog box.
      * @param {Integer} iDialog Desired dialog box. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcapturedialogs">VfwCaptureDialogs</a> enumeration.
      * @returns {HRESULT} Returns S_OK if the driver contains the dialog box or S_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcapturedialogs-hasdialog
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-hasdialog
      */
     HasDialog(iDialog) {
         result := ComCall(3, this, "int", iDialog, "HRESULT")
@@ -43,6 +45,10 @@ class IAMVfwCaptureDialogs extends IUnknown{
 
     /**
      * The ShowDialog method displays the specified VFW dialog box.
+     * @remarks
+     * Stop the filter graph before calling this method. Otherwise, the method fails and returns VFW_E_NOT_STOPPED.
+     * 
+     * The Video Format dialog (VfwCaptureDialog_Format) may change the video format. If so, the method tries to reconnect the capture filter. If the downstream filter rejects the new format, the method returns VFW_E_CANNOT_CONNECT.
      * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcapturedialogs">VfwCaptureDialogs</a> enumeration.
      * @param {HWND} hwnd Handle of the dialog box's parent window.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -97,7 +103,7 @@ class IAMVfwCaptureDialogs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcapturedialogs-showdialog
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-showdialog
      */
     ShowDialog(iDialog, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -107,13 +113,17 @@ class IAMVfwCaptureDialogs extends IUnknown{
     }
 
     /**
-     * The SendDriverMessage method sends a driver-specific message.
+     * The SendDriverMessage method sends a driver-specific message. (IAMVfwCaptureDialogs.SendDriverMessage)
+     * @remarks
+     * You should never need to use this method. This method can send any private message to the capture driver. Behavior might be undetermined in response to arbitrary messages; use this method at your own risk.
+     * 
+     * This method calls the Video for Windows <b>videoMessage</b> function to send the driver message.
      * @param {Integer} iDialog Handle of the driver dialog box. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcapturedialogs">VfwCaptureDialogs</a> enumeration.
      * @param {Integer} uMsg Message to send to the driver.
      * @param {Integer} dw1 Message data.
      * @param {Integer} dw2 Message data.
      * @returns {HRESULT} Return value varies depending on the implementation within each driver.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcapturedialogs-senddrivermessage
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-senddrivermessage
      */
     SendDriverMessage(iDialog, uMsg, dw1, dw2) {
         result := ComCall(5, this, "int", iDialog, "int", uMsg, "int", dw1, "int", dw2, "HRESULT")

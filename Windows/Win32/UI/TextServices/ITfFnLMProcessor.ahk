@@ -6,7 +6,7 @@
 
 /**
  * The ITfFnLMProcessor interface is implemented by the language model text service and is used by an application or text service to enable alternate language model processing.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnlmprocessor
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnlmprocessor
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class ITfFnLMProcessor extends ITfFunction{
 
     /**
      * ITfFnLMProcessor::QueryRange method
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange">ITfFnReconversion::QueryRange</a>. When <b>ITfFnReconversion::QueryRange</b> is called in the text service, the text service should forward the call to this method if a language model processor is installed. If no language model processor is installed, the text service should perform its default processing.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers all or part of the text to be reconverted.
      * @param {Pointer<ITfRange>} ppNewRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> pointer that receives a range object that covers all of the text that can be reconverted. If none of the text covered by <i>pRange</i> can be reconverted, this parameters receives <b>NULL</b>. In this case, the method will return S_OK; the caller must verify that this parameter is not <b>NULL</b> before using the pointer.
      * 
@@ -79,7 +81,7 @@ class ITfFnLMProcessor extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-queryrange
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-queryrange
      */
     QueryRange(pRange, ppNewRange, pfAccepted) {
         pfAcceptedMarshal := pfAccepted is VarRef ? "int*" : "ptr"
@@ -90,9 +92,11 @@ class ITfFnLMProcessor extends ITfFunction{
 
     /**
      * ITfFnLMProcessor::QueryLangID method
+     * @remarks
+     * If a client can possibly generate more than one language identifier of text, it should query all with this method.
      * @param {Integer} langid Contains a <b>LANGID</b> that specifies the identifier of the language that the query applies to.
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives nonzero if the language model text service supports the language identified by <i>langid</i> or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-querylangid
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querylangid
      */
     QueryLangID(langid) {
         result := ComCall(5, this, "ushort", langid, "int*", &pfAccepted := 0, "HRESULT")
@@ -101,9 +105,11 @@ class ITfFnLMProcessor extends ITfFunction{
 
     /**
      * ITfFnLMProcessor::GetReconversion method
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-getreconversion">ITfFnReconversion::GetReconversion</a>. When <b>ITfFnReconversion::GetReconversion</b> is called in the text service, the text service should forward the call to this method if a language model processor is installed. If no language model processor is installed, the text service should perform its default processing.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to be reconverted. To obtain this range object, call <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange">ITfFnReconversion::QueryRange</a>.
      * @returns {ITfCandidateList} Pointer to an <b>ITfCandidateList</b> pointer that receives the candidate list object.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-getreconversion
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-getreconversion
      */
     GetReconversion(pRange) {
         result := ComCall(6, this, "ptr", pRange, "ptr*", &ppCandList := 0, "HRESULT")
@@ -112,6 +118,8 @@ class ITfFnLMProcessor extends ITfFunction{
 
     /**
      * ITfFnLMProcessor::Reconvert method
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-reconvert">ITfFnReconversion::Reconvert</a>. When <b>ITfFnReconversion::Reconvert</b> is called in the text service, the text service should forward the call to this method if a language model processor is installed. If no language model processor is installed, the text service should perform its default processing.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to reconvert.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -154,7 +162,7 @@ class ITfFnLMProcessor extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-reconvert
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-reconvert
      */
     Reconvert(pRange) {
         result := ComCall(7, this, "ptr", pRange, "HRESULT")
@@ -167,7 +175,7 @@ class ITfFnLMProcessor extends ITfFunction{
      * @param {WPARAM} vKey Contains the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @param {LPARAM} lparamKeydata Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} Pointer to a <b>BOOL</b> that receives nonzero if the language model text service will handle the key event or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-querykey
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querykey
      */
     QueryKey(fUp, vKey, lparamKeydata) {
         result := ComCall(8, this, "int", fUp, "ptr", vKey, "ptr", lparamKeydata, "int*", &pfInterested := 0, "HRESULT")
@@ -198,7 +206,7 @@ class ITfFnLMProcessor extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-invokekey
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-invokekey
      */
     InvokeKey(fUp, vKey, lparamKeyData) {
         result := ComCall(9, this, "int", fUp, "ptr", vKey, "ptr", lparamKeyData, "HRESULT")
@@ -228,7 +236,7 @@ class ITfFnLMProcessor extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlmprocessor-invokefunc
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-invokefunc
      */
     InvokeFunc(pic, refguidFunc) {
         result := ComCall(10, this, "ptr", pic, "ptr", refguidFunc, "HRESULT")

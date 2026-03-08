@@ -30,8 +30,11 @@ class IAppxManifestQualifiedResourcesEnumerator extends IUnknown{
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
-     * 
+     * The GetCurrentActCtx function returns the handle to the active activation context of the calling thread.
+     * @remarks
+     * The calling thread is responsible for releasing the handle of the returned activation context. This function can return a null handle if no activation contexts have been activated by this thread. This is not an error.
      * @returns {IAppxManifestQualifiedResource} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentactctx
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &resource := 0, "HRESULT")

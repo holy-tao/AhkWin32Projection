@@ -5,7 +5,7 @@
 
 /**
  * The ITfThreadMgrEx interface is used by the application to activate the textservices with some flags. ITfThreadMgrEx can be obtained by QI from ITfThreadMgr.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfthreadmgrex
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgrex
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -89,7 +89,7 @@ class ITfThreadMgrEx extends ITfThreadMgr{
      * </tr>
      * </table>
      * @returns {Integer} [out] Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives a client identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgrex-activateex
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-activateex
      */
     ActivateEx(dwFlags) {
         result := ComCall(14, this, "uint*", &ptid := 0, "uint", dwFlags, "HRESULT")
@@ -176,7 +176,7 @@ class ITfThreadMgrEx extends ITfThreadMgr{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgrex-getactiveflags
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-getactiveflags
      */
     GetActiveFlags() {
         result := ComCall(15, this, "uint*", &lpdwFlags := 0, "HRESULT")

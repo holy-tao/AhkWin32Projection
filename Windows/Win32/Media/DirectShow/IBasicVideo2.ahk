@@ -5,7 +5,7 @@
 
 /**
  * The IBasicVideo2 interface extends the IBasicVideo interface.
- * @see https://docs.microsoft.com/windows/win32/api//control/nn-control-ibasicvideo2
+ * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicvideo2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class IBasicVideo2 extends IBasicVideo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ibasicvideo2-getpreferredaspectratio
+     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo2-getpreferredaspectratio
      */
     GetPreferredAspectRatio(plAspectX, plAspectY) {
         plAspectXMarshal := plAspectX is VarRef ? "int*" : "ptr"

@@ -4,15 +4,12 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents an virtualized item, which is an item that is represented by a placeholder automation element in the Microsoft UI Automation tree.
+ * Represents a virtualized item, which is an item that is represented by a placeholder automation element in the Microsoft UI Automation tree.
  * @remarks
- * 
  * A virtualized item can be an item retrieved from a control that supports the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingitemcontainer">ItemContainer</a> control pattern, or a virtualized embedded object retrieved from a control that supports the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-about-text-and-textrange-patterns">Text</a> control pattern.
  * 
  * The placeholder automation element for a virtualized item might not have loaded data for all UI Automation properties, and may return <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-error-codes">UIA_E_ELEMENTNOTAVAILABLE</a> in response to queries for properties that are not available.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationvirtualizeditempattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationvirtualizeditempattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -39,10 +36,12 @@ class IUIAutomationVirtualizedItemPattern extends IUnknown{
 
     /**
      * Creates a full UI Automation element for a virtualized item.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * A virtualized item is represented by a placeholder automation element in the UI Automation tree. The <b>Realize</b> method causes the provider to make full information available for the item so that a full UI Automation element can be created for the item.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvirtualizeditempattern-realize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvirtualizeditempattern-realize
      */
     Realize() {
         result := ComCall(3, this, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Can be used to define custom properties as appropriate.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbpropertyset
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

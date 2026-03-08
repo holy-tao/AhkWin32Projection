@@ -7,7 +7,6 @@
 /**
  * The IWiaVideo interface provides methods that allow an application that uses Windows Image Acquisition (WIA) services to acquire still images from a streaming video device.Note  WIA does not support video devices in Windows Server 2003, Windows Vista, and later. For those versions of the Windows, use DirectShow to acquire images from video.
  * @remarks
- * 
  * The <b>IWiaVideo</b> interface, like all Component Object Model (COM) interfaces, inherits the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface methods. 
  * 
  * <table class="clsStd">
@@ -34,8 +33,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nn-wiavideo-iwiavideo
+ * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nn-wiavideo-iwiavideo
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -83,9 +81,9 @@ class IWiaVideo extends IUnknown{
     }
 
     /**
-     * The IWiaVideo::PreviewVisible property specifies whether the video playback is visible in its parent window. This does not affect the WIAVIDEO_STATE of the video.
+     * The IWiaVideo::PreviewVisible property specifies whether the video playback is visible in its parent window. This does not affect the WIAVIDEO_STATE of the video. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-get_previewvisible
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-get_previewvisible
      */
     get_PreviewVisible() {
         result := ComCall(3, this, "int*", &pbPreviewVisible := 0, "HRESULT")
@@ -93,10 +91,10 @@ class IWiaVideo extends IUnknown{
     }
 
     /**
-     * The IWiaVideo::PreviewVisible property specifies whether the video playback is visible in its parent window. This does not affect the WIAVIDEO_STATE of the video.
+     * The IWiaVideo::PreviewVisible property specifies whether the video playback is visible in its parent window. This does not affect the WIAVIDEO_STATE of the video. (Put)
      * @param {BOOL} bPreviewVisible 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-put_previewvisible
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-put_previewvisible
      */
     put_PreviewVisible(bPreviewVisible) {
         result := ComCall(4, this, "int", bPreviewVisible, "HRESULT")
@@ -104,13 +102,11 @@ class IWiaVideo extends IUnknown{
     }
 
     /**
-     * The IWiaVideo::ImagesDirectory property specifies the full path and directory where images are stored when calling the IWiaVideo::TakePicture method.
+     * The IWiaVideo::ImagesDirectory property specifies the full path and directory where images are stored when calling the IWiaVideo::TakePicture method. (Get)
      * @remarks
-     * 
      * This property should be set to the value of the video device's WIA_DPV_IMAGES_DIRECTORY property.
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-get_imagesdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-get_imagesdirectory
      */
     get_ImagesDirectory() {
         pbstrImageDirectory := BSTR()
@@ -119,14 +115,12 @@ class IWiaVideo extends IUnknown{
     }
 
     /**
-     * The IWiaVideo::ImagesDirectory property specifies the full path and directory where images are stored when calling the IWiaVideo::TakePicture method.
+     * The IWiaVideo::ImagesDirectory property specifies the full path and directory where images are stored when calling the IWiaVideo::TakePicture method. (Put)
      * @remarks
-     * 
      * This property should be set to the value of the video device's WIA_DPV_IMAGES_DIRECTORY property.
-     * 
      * @param {BSTR} bstrImageDirectory 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-put_imagesdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-put_imagesdirectory
      */
     put_ImagesDirectory(bstrImageDirectory) {
         bstrImageDirectory := bstrImageDirectory is String ? BSTR.Alloc(bstrImageDirectory).Value : bstrImageDirectory
@@ -137,6 +131,10 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::CreateVideoByWiaDevID method creates a connection to a streaming video device from its WIA_DIP_DEV_ID property.
+     * @remarks
+     * By default, the video is displayed in the video device's default resolution. If <i>bStretchToFitParent</i> is set to <b>TRUE</b>, the video display fills the window.
+     * 
+     * In order for the function to succeed, the <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-get_imagesdirectory">IWiaVideo::ImagesDirectory</a> property must be specified first.  Thus, the caller must first call "put_ImagesDirectory" to specify the full path of the directory in which the captured still images will be stored.
      * @param {BSTR} bstrWiaDeviceID Type: <b>BSTR</b>
      * 
      * Specifies the value of the video device's WIA_DIP_DEV_ID property.
@@ -151,8 +149,8 @@ class IWiaVideo extends IUnknown{
      * Specifies whether the streaming video begins playback as soon as this method returns. Set this parameter to <b>TRUE</b> to cause immediate playback; set it to <b>FALSE</b> to require a call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-play">IWiaVideo::Play</a> before video playback begins.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid
      */
     CreateVideoByWiaDevID(bstrWiaDeviceID, hwndParent, bStretchToFitParent, bAutoBeginPlayback) {
         bstrWiaDeviceID := bstrWiaDeviceID is String ? BSTR.Alloc(bstrWiaDeviceID).Value : bstrWiaDeviceID
@@ -164,6 +162,8 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::CreateVideoByDevNum method creates a connection to a streaming video device with the device number obtained from a Directshow enumeration.
+     * @remarks
+     * By default, the video is displayed in the video device's default resolution. If <i>bStretchToFitParent</i> is set to <b>TRUE</b>, the video display fills the window.
      * @param {Integer} uiDeviceNumber Type: <b>UINT</b>
      * 
      * Specifies the video device's Directshow device number.
@@ -178,8 +178,8 @@ class IWiaVideo extends IUnknown{
      * Specifies whether the streaming video begins playback as soon as this method returns. Set this parameter to <b>TRUE</b> to cause immediate playback; set it to <b>FALSE</b> to require a call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-play">IWiaVideo::Play</a> before video playback begins.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum
      */
     CreateVideoByDevNum(uiDeviceNumber, hwndParent, bStretchToFitParent, bAutoBeginPlayback) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -190,6 +190,8 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::CreateVideoByName method creates a connection to a streaming video device with the friendly device name obtained from a Directshow enumeration.
+     * @remarks
+     * By default, the video is displayed in the video device's default resolution. If <i>bStretchToFitParent</i> is set to <b>TRUE</b>, the video display fills the window.
      * @param {BSTR} bstrFriendlyName Type: <b>BSTR</b>
      * 
      * Specifies the video device's friendly name obtained from a Directshow device enumeration.
@@ -204,8 +206,8 @@ class IWiaVideo extends IUnknown{
      * Specifies whether the streaming video begins playback as soon as this method returns. Set this parameter to <b>TRUE</b> to cause immediate playback; set it to <b>FALSE</b> to require a call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-play">IWiaVideo::Play</a> before video playback begins.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-createvideobyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-createvideobyname
      */
     CreateVideoByName(bstrFriendlyName, hwndParent, bStretchToFitParent, bAutoBeginPlayback) {
         bstrFriendlyName := bstrFriendlyName is String ? BSTR.Alloc(bstrFriendlyName).Value : bstrFriendlyName
@@ -217,10 +219,12 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::DestroyVideo method shuts down the streaming video. To restart video playback, the application must call one of the IWiaVideo CreateVideo methods again.
+     * @remarks
+     * Call this method only after a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid">IWiaVideo::CreateVideoByWiaDevID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum">IWiaVideo::CreateVideoByDevNum</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobyname">IWiaVideo::CreateVideoByName</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-destroyvideo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-destroyvideo
      */
     DestroyVideo() {
         result := ComCall(10, this, "HRESULT")
@@ -229,10 +233,12 @@ class IWiaVideo extends IUnknown{
 
     /**
      * Begins playback of streaming video.
+     * @remarks
+     * Call this method only after a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid">IWiaVideo::CreateVideoByWiaDevID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum">IWiaVideo::CreateVideoByDevNum</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobyname">IWiaVideo::CreateVideoByName</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds or the video is already playing, this method returns S_OK. If the method fails, it returns a standard COM error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-play
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-play
      */
     Play() {
         result := ComCall(11, this, "HRESULT")
@@ -241,10 +247,12 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::Pause method pauses video playback.
+     * @remarks
+     * Call this method only after a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid">IWiaVideo::CreateVideoByWiaDevID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum">IWiaVideo::CreateVideoByDevNum</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobyname">IWiaVideo::CreateVideoByName</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-pause
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-pause
      */
     Pause() {
         result := ComCall(12, this, "HRESULT")
@@ -253,10 +261,12 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::TakePicture method extracts a still image from the video stream, and saves the image as a JPEG file.
+     * @remarks
+     * The path and directory where the image file is saved are specified by the <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-get_imagesdirectory">IWiaVideo::ImagesDirectory</a> property.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives the full path and filename of the JPEG file that this method creates.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-takepicture
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-takepicture
      */
     TakePicture() {
         pbstrNewImageFilename := BSTR()
@@ -266,13 +276,15 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::ResizeVideo method resizes the video playback to the largest supported resolution that fits inside the parent window. Call this method whenever the parent window is moved or resized.
+     * @remarks
+     * By default, the video is displayed in a supported resolution smaller than the parent window. If <i>bStretchToFitParent</i> is set to <b>TRUE</b>, the video display fills the window.
      * @param {BOOL} bStretchToFitParent Type: <b>BOOL</b>
      * 
      * Specifies whether the video playback is stretched to fill the parent window.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-resizevideo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-resizevideo
      */
     ResizeVideo(bStretchToFitParent) {
         result := ComCall(14, this, "int", bStretchToFitParent, "HRESULT")
@@ -284,7 +296,7 @@ class IWiaVideo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state">WIAVIDEO_STATE</a>*</b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state">WIAVIDEO_STATE</a> enumeration that specifies the current state of the video stream.
-     * @see https://docs.microsoft.com/windows/win32/api//wiavideo/nf-wiavideo-iwiavideo-getcurrentstate
+     * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-getcurrentstate
      */
     GetCurrentState() {
         result := ComCall(15, this, "int*", &pState := 0, "HRESULT")

@@ -9,7 +9,6 @@
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
  * @remarks
- * 
  * As with any other ADSI object, the container object creates a Windows user account object. First, bind to a container object. Then, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method and specify mandatory or optional attributes.
  * 
  * With WinNT, you do not have to specify any additional attributes when creating a user. You may call the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method to create the user object directly.
@@ -158,9 +157,7 @@
  * 
  * 
  * The newly created local user will have the same default properties as the domain user. The group membership, however, will be "users", instead of "domain user".
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsuser
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsuser
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -1456,7 +1453,7 @@ class IADsUser extends IADs{
     /**
      * Obtains a collection of the ADSI group objects to which this user belongs.
      * @returns {IADsMembers} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsmembers">IADsMembers</a> interface on a members object that can be enumerated using  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> to determine the groups to which this end-user belongs.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-groups
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-groups
      */
     Groups() {
         result := ComCall(108, this, "ptr*", &ppGroups := 0, "HRESULT")
@@ -1465,9 +1462,18 @@ class IADsUser extends IADs{
 
     /**
      * Sets the user password to a specified value.
+     * @remarks
+     * The LDAP provider for Active Directory uses one of three processes to set the password; third-party LDAP directories such as iPlanet do not use this password authentication process. The method may vary according to the network configuration. Attempts to set the password occur in the following order:
+     * 
+     * <ul>
+     * <li>First, the LDAP provider attempts to use LDAP over a 128-bit SSL connection. For LDAP SSL to operate successfully, the LDAP server must have the appropriate server authentication certificate installed and the clients running the ADSI code must trust the authority that issued those certificates. Both the server and the client must support 128-bit encryption.</li>
+     * <li>Second, if the SSL connection is unsuccessful, the LDAP provider attempts to use Kerberos.</li>
+     * <li>Third, if Kerberos is unsuccessful, the LDAP provider attempts a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> API call. In previous releases, ADSI called <b>NetUserSetInfo</b> in the security context in which the thread was running, and not the security context specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsopendsobject-opendsobject">IADsOpenDSObject::OpenDSObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsopenobject">ADsOpenObject</a>. In later releases, this was changed so that the ADSI LDAP provider would impersonate the user specified in the <b>OpenDSObject</b> call when it calls NetUserSetInfo.</li>
+     * </ul>
+     * In Active Directory, the caller must have the <a href="https://docs.microsoft.com/windows/desktop/ADSchema/r-user-force-change-password">Reset Password</a> extended control access right to set the password with this method.
      * @param {BSTR} NewPassword A <b>BSTR</b> that contains the new password.
-     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-setpassword
+     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-setpassword
      */
     SetPassword(NewPassword) {
         NewPassword := NewPassword is String ? BSTR.Alloc(NewPassword).Value : NewPassword
@@ -1478,10 +1484,14 @@ class IADsUser extends IADs{
 
     /**
      * Changes the user password from the specified old value to a new value.
+     * @remarks
+     * <b>IADsUser::ChangePassword</b> functions similarly to <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsuser-setpassword">IADsUser::SetPassword</a> in that it will use one of three methods to try to change the password. Initially, the LDAP provider will attempt an LDAP change password operation, if a secure SSL connection to the server is established.  If this attempt fails, the LDAP provider will next try to use Kerberos (see <b>IADsUser::SetPassword</b> for some problems that may result on  Windows with cross-forest authentication), and if this also fails, it will finally call the Active Directory specific network management API, <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserchangepassword">NetUserChangePassword</a>.
+     * 
+     * In Active Directory, the caller must have the <a href="https://docs.microsoft.com/windows/desktop/ADSchema/r-user-change-password">Change Password</a> extended control access right to change the password with this method.
      * @param {BSTR} bstrOldPassword A <b>BSTR</b> that contains the current password.
      * @param {BSTR} bstrNewPassword A <b>BSTR</b> that contains the new password.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-changepassword
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-changepassword
      */
     ChangePassword(bstrOldPassword, bstrNewPassword) {
         bstrOldPassword := bstrOldPassword is String ? BSTR.Alloc(bstrOldPassword).Value : bstrOldPassword

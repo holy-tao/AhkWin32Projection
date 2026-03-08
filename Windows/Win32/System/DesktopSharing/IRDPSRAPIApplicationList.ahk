@@ -7,7 +7,7 @@
 
 /**
  * Manages the application list.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiapplicationlist
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiapplicationlist
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -48,12 +48,9 @@ class IRDPSRAPIApplicationList extends IDispatch{
     /**
      * An enumerator interface for the application collection.
      * @remarks
-     * 
      * The enumerator provides a snapshot of the collection. If an application is destroyed during enumeration, the API still has access to all the elements that were present when the snapshot was taken.
-     * 
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -64,7 +61,7 @@ class IRDPSRAPIApplicationList extends IDispatch{
      * An item in the application collection.
      * @param {Integer} item 
      * @returns {IRDPSRAPIApplication} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "int", item, "ptr*", &pApplication := 0, "HRESULT")

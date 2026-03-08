@@ -6,13 +6,10 @@
 /**
  * The IVMRWindowlessControl9 interface controls how the Video Mixing Renderer Filter 9 (VMR-9) renders a video stream within a container window.
  * @remarks
- * 
  * The VMR-9 supports this interface in windowless and renderless modes only. In windowed mode, <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> returns <b>E_NOINTERFACE</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/vmr-modes-of-operation">VMR Modes of Operation</a>.
  * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrwindowlesscontrol9
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrwindowlesscontrol9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -39,6 +36,12 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetNativeVideoSize method retrieves the un-stretched video size and aspect ratio of the video.
+     * @remarks
+     * If the VMR is not connected to an upstream filter, this method will succeed but all parameters will be set to zero.
+     * 
+     * If <i>lpWidth</i> is 640 and <i>lpHeight</i> is 480, then <i>lpARWidth</i> will be 4 and <i>lpARHeight</i> will be 3.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<Integer>} lpWidth Pointer that receives the width of the native video rectangle.
      * @param {Pointer<Integer>} lpHeight Pointer that receives the height of the native video rectangle.
      * @param {Pointer<Integer>} lpARWidth Pointer that receives the aspect ratio width of the native video rectangle.
@@ -73,7 +76,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getnativevideosize
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getnativevideosize
      */
     GetNativeVideoSize(lpWidth, lpHeight, lpARWidth, lpARHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -87,6 +90,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetMinIdealVideoSize method retrieves the minimum video size that the VMR can display without incurring significant performance or image quality degradation.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<Integer>} lpWidth Pointer that receives the minimum ideal width.
      * @param {Pointer<Integer>} lpHeight Pointer that receives the minimum ideal height.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -119,7 +124,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getminidealvideosize
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getminidealvideosize
      */
     GetMinIdealVideoSize(lpWidth, lpHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -131,6 +136,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetMaxIdealVideoSize method retrieves the maximum video size that the VMR can display without incurring significant performance or image quality degradation.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<Integer>} lpWidth Pointer that receives the maximum ideal width.
      * @param {Pointer<Integer>} lpHeight Pointer that receives the maximum ideal height.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -163,7 +170,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getmaxidealvideosize
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getmaxidealvideosize
      */
     GetMaxIdealVideoSize(lpWidth, lpHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -175,6 +182,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The SetVideoPosition method sets the source and destination rectangles for the video.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<RECT>} lpSRCRect Pointer to a <b>RECT</b> structure that specifies the source rectangle. If <b>NULL</b>, the source rectangle does not change. The default source rectangle is the entire video image.
      * @param {Pointer<RECT>} lpDSTRect Pointer to a <b>RECT</b> structure that specifies the destination rectangle. If <b>NULL</b>, the destination rectangle does not change. The default destination rectangle is {0, 0, 0, 0}.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -207,7 +216,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoposition
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoposition
      */
     SetVideoPosition(lpSRCRect, lpDSTRect) {
         result := ComCall(6, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
@@ -216,6 +225,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetVideoPosition method retrieves the current source and destination rectangles used to display the video.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<RECT>} lpSRCRect Pointer that receives the current source rectangle.
      * @param {Pointer<RECT>} lpDSTRect Pointer that receives the current destination rectangle.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -248,7 +259,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getvideoposition
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getvideoposition
      */
     GetVideoPosition(lpSRCRect, lpDSTRect) {
         result := ComCall(7, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
@@ -257,8 +268,10 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetAspectRatioMode method retrieves the current aspect ratio display mode.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {Integer} Pointer to a DWORD that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9aspectratiomode">VMR9AspectRatioMode</a> value that indicates the current aspect ratio mode.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getaspectratiomode
      */
     GetAspectRatioMode() {
         result := ComCall(8, this, "uint*", &lpAspectRatioMode := 0, "HRESULT")
@@ -267,6 +280,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The SetAspectRatioMode method sets the current aspect ratio display mode.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Integer} AspectRatioMode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9aspectratiomode">VMR9AspectRatioMode</a> value that specifies the aspect ratio mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -298,7 +313,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-setaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setaspectratiomode
      */
     SetAspectRatioMode(AspectRatioMode) {
         result := ComCall(9, this, "uint", AspectRatioMode, "HRESULT")
@@ -307,6 +322,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The SetVideoClippingWindow method specifies the container window that video should be clipped to.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {HWND} hwnd Specifies the window to which the video should be clipped.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -349,7 +366,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoclippingwindow
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoclippingwindow
      */
     SetVideoClippingWindow(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -360,6 +377,8 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The RepaintVideo method repaints the current video frame.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {HWND} hwnd Specifies the handle of the window in which the repainting should occur.
      * @param {HDC} hdc Specifies the handle to the device context for the window.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -392,7 +411,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-repaintvideo
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-repaintvideo
      */
     RepaintVideo(hwnd, hdc) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -404,6 +423,10 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The DisplayModeChanged method informs the VMR that a WM_DISPLAYCHANGE message has been received by the application.
+     * @remarks
+     * An application must call this method whenever it receives a WM_DISPLAYCHANGE window message, but only if the VMR is currently in windowless mode.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -423,7 +446,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-displaymodechanged
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-displaymodechanged
      */
     DisplayModeChanged() {
         result := ComCall(12, this, "HRESULT")
@@ -432,8 +455,16 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetCurrentImage method retrieves a copy of the current image being displayed by the VMR.
+     * @remarks
+     * This method returns the current image being displayed. The image is returned in the form of packed Windows DIB. The image starts with a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure, possibly including palette entries and/or color masks, followed by the image data.
+     * 
+     * The VMR allocates the memory for the image and returns a pointer to it in the <i>lpDib</i> variable. The caller must free the memory by calling <b>CoTaskMemFree</b>.
+     * 
+     * This method can be called at any time, no matter what state the filter is in, whether running, stopped or paused. However, frequent calls to this method will degrade video playback performance.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {Pointer<Integer>} Address of a pointer to a BYTE that will receive the DIB.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getcurrentimage
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getcurrentimage
      */
     GetCurrentImage() {
         result := ComCall(13, this, "ptr*", &lpDib := 0, "HRESULT")
@@ -442,6 +473,14 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The SetBorderColor method sets the border color to be used by the VMR.
+     * @remarks
+     * The border color is used to fill any area of the destination rectangle that does not contain video. It is typically used in two situations:
+     * 
+     * <ul>
+     * <li>When the video straddles two monitors</li>
+     * <li>When the VMR is trying to maintain the aspect ratio of the movies by letter-boxing the video to fit within the specified destination rectangle. See <b>SetAspectRatioMode</b>.</li>
+     * </ul>
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {COLORREF} Clr Specifies the color as a <b>COLORREF</b> value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -462,7 +501,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-setbordercolor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setbordercolor
      */
     SetBorderColor(Clr) {
         result := ComCall(14, this, "uint", Clr, "HRESULT")
@@ -471,8 +510,10 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * The GetBorderColor method retrieves the current border color used by the VMR.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {COLORREF} Pointer to a <b>COLORREF</b> variable that receives the current border color.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrwindowlesscontrol9-getbordercolor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getbordercolor
      */
     GetBorderColor() {
         result := ComCall(15, this, "uint*", &lpClr := 0, "HRESULT")

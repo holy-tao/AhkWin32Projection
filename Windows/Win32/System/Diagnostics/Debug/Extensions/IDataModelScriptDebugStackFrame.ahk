@@ -32,8 +32,9 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
     static VTableNames => ["GetName", "GetPosition", "IsTransitionPoint", "GetTransition", "Evaluate", "EnumerateLocals", "EnumerateArguments"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         name := BSTR()
@@ -42,11 +43,12 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getpositioninformationoperation
      */
     GetPosition(position, positionSpanEnd, lineText) {
         result := ComCall(4, this, "ptr", position, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
@@ -76,9 +78,12 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
     }
 
     /**
-     * 
+     * Evaluates at the indexed sample location.
+     * @remarks
+     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
      * @param {PWSTR} pwszExpression 
      * @returns {IModelObject} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pwszExpression) {
         pwszExpression := pwszExpression is String ? StrPtr(pwszExpression) : pwszExpression

@@ -5,7 +5,7 @@
 
 /**
  * The IAMTVAudio interface controls audio from a television source. The TV Audio filter implements this interface. Applications can use it to control television audio settings, including secondary audio program (SAP) and stereo or mono selection.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtvaudio
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvaudio
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IAMTVAudio extends IUnknown{
     /**
      * The GetHardwareSupportedTVAudioModes method retrieves a bitmask of the formats available in the hardware.
      * @returns {Integer} Pointer to a [TVAudioMode](/windows/desktop/api/strmif/ne-strmif-tvaudiomode) enumeration value that identifies the audio mode.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-gethardwaresupportedtvaudiomodes
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-gethardwaresupportedtvaudiomodes
      */
     GetHardwareSupportedTVAudioModes() {
         result := ComCall(3, this, "int*", &plModes := 0, "HRESULT")
@@ -51,7 +51,7 @@ class IAMTVAudio extends IUnknown{
     /**
      * The GetAvailableTVAudioModes method retrieves a bitmask of the possible modes.
      * @returns {Integer} Pointer to a [TVAudioMode](/windows/desktop/api/strmif/ne-strmif-tvaudiomode) enumeration type, identifying the audio mode.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-getavailabletvaudiomodes
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-getavailabletvaudiomodes
      */
     GetAvailableTVAudioModes() {
         result := ComCall(4, this, "int*", &plModes := 0, "HRESULT")
@@ -61,7 +61,7 @@ class IAMTVAudio extends IUnknown{
     /**
      * The get_TVAudioMode method retrieves the current TV audio mode.
      * @returns {Integer} Pointer to a [TVAudioMode](/windows/desktop/api/strmif/ne-strmif-tvaudiomode) enumeration type, identifying the audio mode.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-get_tvaudiomode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-get_tvaudiomode
      */
     get_TVAudioMode() {
         result := ComCall(5, this, "int*", &plMode := 0, "HRESULT")
@@ -134,7 +134,7 @@ class IAMTVAudio extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-put_tvaudiomode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-put_tvaudiomode
      */
     put_TVAudioMode(lMode) {
         result := ComCall(6, this, "int", lMode, "HRESULT")
@@ -146,7 +146,7 @@ class IAMTVAudio extends IUnknown{
      * @param {IAMTunerNotification} pNotify Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamtunernotification">IAMTunerNotification</a> interface that will receive the event notifications.
      * @param {Integer} lEvents Flag indicating that an event has occurred.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-registernotificationcallback
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-registernotificationcallback
      */
     RegisterNotificationCallBack(pNotify, lEvents) {
         result := ComCall(7, this, "ptr", pNotify, "int", lEvents, "HRESULT")
@@ -154,10 +154,10 @@ class IAMTVAudio extends IUnknown{
     }
 
     /**
-     * The UnRegisterNotificationCallBack method unregisters an object for event notifications.
+     * The UnRegisterNotificationCallBack method unregisters an object for event notifications. (IAMTVAudio.UnRegisterNotificationCallBack)
      * @param {IAMTunerNotification} pNotify Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamtunernotification">IAMTunerNotification</a> interface that was specified in a previous call to <b>RegisterNotificationCallBack</b>.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudio-unregisternotificationcallback
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-unregisternotificationcallback
      */
     UnRegisterNotificationCallBack(pNotify) {
         result := ComCall(8, this, "ptr", pNotify, "HRESULT")

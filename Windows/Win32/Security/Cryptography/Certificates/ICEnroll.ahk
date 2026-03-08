@@ -6,7 +6,7 @@
 
 /**
  * The ICEnroll interface is one of several interfaces that represent the Certificate Enrollment Control.
- * @see https://docs.microsoft.com/windows/win32/api//xenroll/nn-xenroll-icenroll
+ * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -230,7 +230,11 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Creates a base64-encoded PKCS
+     * Creates a base64-encoded PKCS (ICEnroll.createFilePKCS10)
+     * @remarks
+     * By default, the Microsoft Base Cryptographic Provider is used, and a unique signature key is created.
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request and whether the user will allow a write operation to the file system.
      * @param {BSTR} DNName The distinguished name (DN) of the entity for which the request is being made. <i>DNName</i> must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention. For example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) may be provided instead.
      * @param {BSTR} Usage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">OID</a> that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * 
@@ -240,8 +244,8 @@ class ICEnroll extends IDispatch{
      * The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * 
      * If the method fails, the return value is an <b>HRESULT</b> indicating the error. For a list of common error codes, see 
-     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-createfilepkcs10
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-createfilepkcs10
      */
     createFilePKCS10(DNName, Usage, wszPKCS10FileName) {
         DNName := DNName is String ? BSTR.Alloc(DNName).Value : DNName
@@ -254,10 +258,31 @@ class ICEnroll extends IDispatch{
 
     /**
      * Accepts and processes a file that contains a PKCS
+     * @remarks
+     * By default, the My, Ca, Root, and Request system stores are used to store the certificates. However, you can specify other stores by assigning the following properties before calling this method:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_mystorename">MyStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_castorename">CAStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_rootstorename">RootStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_requeststorename">RequestStoreName</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * The <b>acceptFilePKCS7</b> method differs from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptpkcs7">acceptPKCS7</a> only in that a file supplies the certificate.
      * @param {BSTR} wszPKCS7FileName Specifies the name of the file that contains the PKCS #7 message.
      * @returns {HRESULT} <h3>VB</h3>
      * The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Upon successful completion of this function, the PKCS #7 message in the file will be accepted.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-acceptfilepkcs7
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7
      */
     acceptFilePKCS7(wszPKCS7FileName) {
         wszPKCS7FileName := wszPKCS7FileName is String ? BSTR.Alloc(wszPKCS7FileName).Value : wszPKCS7FileName
@@ -267,13 +292,17 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Creates a base64-encoded PKCS
+     * Creates a base64-encoded PKCS (ICEnroll.createPKCS10)
+     * @remarks
+     * By default, the Microsoft Base Cryptographic Provider is used, PROV_RSA_FULL is the provider type, a signature key is created, and a unique new key set is created.
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request.
      * @param {BSTR} DNName The distinguished name (DN) of the entity for which the request is being made. In this parameter, the DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention. For example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">OID</a> may be provided instead.
      * @param {BSTR} Usage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that describes the purpose of the certificate being generated. For example, Individual or Commercial Authenticode certificate, or Client Authentication. You can also specify multiple OIDs separated by a comma.
      * 
      * The  OID is passed through to the PKCS #10 request. For general extensibility and ease of understanding, the control does not attempt to understand specific-purpose OIDs. Therefore if you specify a Client Authentication OID, the generated key will still be a signature key, not an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange key</a>.
      * @returns {BSTR} The returned base64-encoded PKCS10 certificate request.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-createpkcs10
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-createpkcs10
      */
     createPKCS10(DNName, Usage) {
         DNName := DNName is String ? BSTR.Alloc(DNName).Value : DNName
@@ -285,11 +314,34 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Accepts and processes a PKCS
+     * Accepts and processes a PKCS (ICEnroll.acceptPKCS7)
+     * @remarks
+     * The PKCS #7 input as a parameter for <b>acceptPKCS7</b> contains the request certificate and the chain of certificates identifying the issuer of the certificate. Typically, but not always, the chain of certificates does not include the root. The PKCS #7 can be in base64-encoded, binary, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.509</a> certificate format (with or without the begin cert / end cert tags). The certificate and the associated keys generated for it are put in the MY store. A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificate</a> is placed in the ROOT store and the rest of the chain of certificates are placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) store. If any ROOT certificates found in the PKCS #7 are accepted, Crypt32 will notify the user that a ROOT certificate is being added to his store. The user has the option of declining the ROOT certificate. This option is provided so that the user can decline to place an untrusted root in the ROOT store. Declining to place the ROOT in the ROOT store will not cause Certificate Enrollment Control to fail acceptance.
+     * 
+     * 
+     * By default, the system stores MY, CA, ROOT, and REQUEST are used to store the certificates. However, you can specify other stores by assigning the following properties before calling this method:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_mystorename">MyStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_castorename">CAStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_rootstorename">RootStoreName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_requeststorename">RequestStoreName</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * When this method is called from script, the method displays a user interface that asks whether the user will allow installation of a  certificate.
      * @param {BSTR} PKCS7 Represents the base64-encoded PKCS #7 that contains the certificate and the chain of certificates that identifies the issuer.
      * @returns {HRESULT} <h3>VB</h3>
      * The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Upon successful completion of this function, the PKCS #7 will be accepted.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-acceptpkcs7
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-acceptpkcs7
      */
     acceptPKCS7(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
@@ -302,7 +354,7 @@ class ICEnroll extends IDispatch{
      * Retrieves the certificate, contained in a PKCS
      * @param {BSTR} wszPKCS7 Specifies the PKCS #7 from which the issued certificate is being retrieved.
      * @returns {BSTR} A pointer to a <b>BSTR</b> variable to receive the issued certificate. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-getcertfrompkcs7
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-getcertfrompkcs7
      */
     getCertFromPKCS7(wszPKCS7) {
         wszPKCS7 := wszPKCS7 is String ? BSTR.Alloc(wszPKCS7).Value : wszPKCS7
@@ -314,10 +366,16 @@ class ICEnroll extends IDispatch{
 
     /**
      * Retrieves the names of the available cryptographic service providers (CSPs) specified by the ProviderType property. This method was first defined in the ICEnroll interface.
+     * @remarks
+     * If the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_providertype">ProviderType</a> property value has not been set, the default value (usually PROV_RSA_FULL) of <b>ProviderType</b> as set in the registry, is used.
+     * 
+     * The <b>enumProviders</b> method  calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptenumprovidersa">CryptEnumProviders</a> function.
      * @param {Integer} dwIndex Specifies the ordinal position of the CSP whose name will be retrieved. Specify zero for the first CSP.
      * @param {Integer} dwFlags Specifies flags that are passed through to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptenumprovidersa">CryptEnumProviders</a> function. This parameter is not currently used; specify zero.
      * @returns {BSTR} A pointer to a <b>BSTR</b> variable that receives the name of a CSP with the specified property type. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-enumproviders
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumproviders
      */
     enumProviders(dwIndex, dwFlags) {
         pbstrProvName := BSTR()
@@ -327,9 +385,14 @@ class ICEnroll extends IDispatch{
 
     /**
      * Retrieves the names of containers for the cryptographic service provider (CSP) specified by the ProviderName property. This method was first defined in the ICEnroll interface.
+     * @remarks
+     * If the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_providername">ProviderName</a> property value has not been set, the default value (usually Microsoft Base Cryptographic Provider) of <b>ProviderName</b> as set in the registry, is used.
+     * 
+     * This method is disabled when  the Certificate Enrollment Control is executed as a scripted control.
      * @param {Integer} dwIndex Specifies the ordinal position of the container whose name will be retrieved. Specify zero for the first container.
      * @returns {BSTR} A pointer to a <b>BSTR</b> variable that receives the name of the container. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-enumcontainers
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumcontainers
      */
     enumContainers(dwIndex) {
         pbstr := BSTR()
@@ -341,7 +404,7 @@ class ICEnroll extends IDispatch{
      * Releases session identifiers when they are no longer needed.
      * @param {BSTR} PKCS7OrPKCS10 Specifies the session identifier that represents the data.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-freerequestinfo
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-freerequestinfo
      */
     freeRequestInfo(PKCS7OrPKCS10) {
         PKCS7OrPKCS10 := PKCS7OrPKCS10 is String ? BSTR.Alloc(PKCS7OrPKCS10).Value : PKCS7OrPKCS10
@@ -351,9 +414,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the store where certificates with linked private keys are kept.
+     * Sets or retrieves the name of the store where certificates with linked private keys are kept. (Get)
      * @remarks
-     * 
      * The <b>MyStoreName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -367,11 +429,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_mystorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystorename
      */
     get_MyStoreName() {
         pbstrName := BSTR()
@@ -380,9 +439,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the store where certificates with linked private keys are kept.
+     * Sets or retrieves the name of the store where certificates with linked private keys are kept. (Put)
      * @remarks
-     * 
      * The <b>MyStoreName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -396,12 +454,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_mystorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_mystorename
      */
     put_MyStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -411,9 +466,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store specified by the MyStoreName property.
+     * Sets or retrieves the type of store specified by the MyStoreName property. (Get)
      * @remarks
-     * 
      * The <b>MyStoreType</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -427,11 +481,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_mystoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoretype
      */
     get_MyStoreType() {
         pbstrType := BSTR()
@@ -440,9 +491,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store specified by the MyStoreName property.
+     * Sets or retrieves the type of store specified by the MyStoreName property. (Put)
      * @remarks
-     * 
      * The <b>MyStoreType</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -456,12 +506,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_mystoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_mystoretype
      */
     put_MyStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
@@ -471,9 +518,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the registry location used for MY store.
+     * Sets or retrieves the registry location used for MY store. (Get)
      * @remarks
-     * 
      * The <b>MyStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using its <i>dwFlags</i> parameter.
      * 
@@ -488,12 +534,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_mystoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoreflags
      */
     get_MyStoreFlags() {
         result := ComCall(19, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -501,9 +543,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the registry location used for MY store.
+     * Sets or retrieves the registry location used for MY store. (Put)
      * @remarks
-     * 
      * The <b>MyStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using its <i>dwFlags</i> parameter.
      * 
@@ -518,13 +559,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_mystoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_mystoreflags
      */
     put_MyStoreFlags(dwFlags) {
         result := ComCall(20, this, "int", dwFlags, "HRESULT")
@@ -532,9 +569,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept.
+     * Sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept. (Get)
      * @remarks
-     * 
      * The <b>CAStoreName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -548,11 +584,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_castorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castorename
      */
     get_CAStoreName() {
         pbstrName := BSTR()
@@ -561,9 +594,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept.
+     * Sets or retrieves the name of the store where all non-&quot;ROOT&quot; and non-&quot;MY&quot; certificates are kept. (Put)
      * @remarks
-     * 
      * The <b>CAStoreName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -577,12 +609,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_castorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_castorename
      */
     put_CAStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -592,9 +621,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the CAStoreName property.
+     * Sets or retrieves the type of store to use for the store specified by the CAStoreName property. (Get)
      * @remarks
-     * 
      * The <b>CAStoreType</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -608,11 +636,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_castoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoretype
      */
     get_CAStoreType() {
         pbstrType := BSTR()
@@ -621,9 +646,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the CAStoreName property.
+     * Sets or retrieves the type of store to use for the store specified by the CAStoreName property. (Put)
      * @remarks
-     * 
      * The <b>CAStoreType</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -637,12 +661,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_castoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_castoretype
      */
     put_CAStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
@@ -652,9 +673,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a flag that controls the certification authority (CA) store when the store is opened.
+     * Sets or retrieves a flag that controls the certification authority (CA) store when the store is opened. (Get)
      * @remarks
-     * 
      * The <b>CAStoreFlags</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -665,12 +685,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_castoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoreflags
      */
     get_CAStoreFlags() {
         result := ComCall(25, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -678,9 +694,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a flag that controls the certification authority (CA) store when the store is opened.
+     * Sets or retrieves a flag that controls the certification authority (CA) store when the store is opened. (Put)
      * @remarks
-     * 
      * The <b>CAStoreFlags</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -691,13 +706,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_castoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_castoreflags
      */
     put_CAStoreFlags(dwFlags) {
         result := ComCall(26, this, "int", dwFlags, "HRESULT")
@@ -705,9 +716,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept.
+     * Sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept. (Get)
      * @remarks
-     * 
      * <b>RootStoreName</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -721,11 +731,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_rootstorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstorename
      */
     get_RootStoreName() {
         pbstrName := BSTR()
@@ -734,9 +741,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept.
+     * Sets or retrieves the name of the root store where all intrinsically trusted, self-signed root certificates are kept. (Put)
      * @remarks
-     * 
      * <b>RootStoreName</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -750,12 +756,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_rootstorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_rootstorename
      */
     put_RootStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -765,9 +768,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RootStoreName property.
+     * Sets or retrieves the type of store to use for the store specified by the RootStoreName property. (Get)
      * @remarks
-     * 
      * <b>RootStoreType</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -781,11 +783,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_rootstoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoretype
      */
     get_RootStoreType() {
         pbstrType := BSTR()
@@ -794,9 +793,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RootStoreName property.
+     * Sets or retrieves the type of store to use for the store specified by the RootStoreName property. (Put)
      * @remarks
-     * 
      * <b>RootStoreType</b> affects the behavior of the following methods:
      * 
      * <ul>
@@ -810,12 +808,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_rootstoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_rootstoretype
      */
     put_RootStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
@@ -825,9 +820,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The RootStoreFlags property of ICEnroll4 sets or retrieves the registry location used for the root store.
+     * The RootStoreFlags property of ICEnroll4 sets or retrieves the registry location used for the root store. (Get)
      * @remarks
-     * 
      * The <b>RootStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using  its <i>dwFlags</i> parameter.
      * 
@@ -842,12 +836,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_rootstoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoreflags
      */
     get_RootStoreFlags() {
         result := ComCall(31, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -855,9 +845,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The RootStoreFlags property of ICEnroll4 sets or retrieves the registry location used for the root store.
+     * The RootStoreFlags property of ICEnroll4 sets or retrieves the registry location used for the root store. (Put)
      * @remarks
-     * 
      * The <b>RootStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function by using  its <i>dwFlags</i> parameter.
      * 
@@ -872,13 +861,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_rootstoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_rootstoreflags
      */
     put_RootStoreFlags(dwFlags) {
         result := ComCall(32, this, "int", dwFlags, "HRESULT")
@@ -886,9 +871,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrievesICEnroll the name of the store that contains the dummy certificate.
+     * Sets or retrievesICEnroll the name of the store that contains the dummy certificate. (Get)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreName</b> property is  performed only in advanced applications. Changing this value is not recommended for most applications.
      * 
      * 
@@ -911,11 +895,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_requeststorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststorename
      */
     get_RequestStoreName() {
         pbstrName := BSTR()
@@ -924,9 +905,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrievesICEnroll the name of the store that contains the dummy certificate.
+     * Sets or retrievesICEnroll the name of the store that contains the dummy certificate. (Put)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreName</b> property is  performed only in advanced applications. Changing this value is not recommended for most applications.
      * 
      * 
@@ -949,12 +929,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_requeststorename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_requeststorename
      */
     put_RequestStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -964,9 +941,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RequestStoreName property. This store type is passed directly to the CertOpenStore function.
+     * Sets or retrieves the type of store to use for the store specified by the RequestStoreName property. This store type is passed directly to the CertOpenStore function. (Get)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreType</b> property is  performed only in advanced applications.
      * 
      * 
@@ -989,11 +965,8 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_requeststoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoretype
      */
     get_RequestStoreType() {
         pbstrType := BSTR()
@@ -1002,9 +975,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the type of store to use for the store specified by the RequestStoreName property. This store type is passed directly to the CertOpenStore function.
+     * Sets or retrieves the type of store to use for the store specified by the RequestStoreName property. This store type is passed directly to the CertOpenStore function. (Put)
      * @remarks
-     * 
      * Typically, modification of the <b>RequestStoreType</b> property is  performed only in advanced applications.
      * 
      * 
@@ -1027,12 +999,9 @@ class ICEnroll extends IDispatch{
      * 
      * 
      * The ability to set this property is disabled when  the Certificate Enrollment Control is executed as a scripted control.
-     * 
-     * 
-     * 
      * @param {BSTR} bstrType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_requeststoretype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_requeststoretype
      */
     put_RequestStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
@@ -1042,9 +1011,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the registry location used for the request store.
+     * Sets or retrieves the registry location used for the request store. (Get)
      * @remarks
-     * 
      * The <b>RequestStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function  by using its <i>dwFlags</i> parameter.
      * 
@@ -1067,12 +1035,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_requeststoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoreflags
      */
     get_RequestStoreFlags() {
         result := ComCall(37, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -1080,9 +1044,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the registry location used for the request store.
+     * Sets or retrieves the registry location used for the request store. (Put)
      * @remarks
-     * 
      * The <b>RequestStoreFlags</b> property value is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> CryptoAPI function  by using its <i>dwFlags</i> parameter.
      * 
@@ -1105,13 +1068,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_requeststoreflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_requeststoreflags
      */
     put_RequestStoreFlags(dwFlags) {
         result := ComCall(38, this, "int", dwFlags, "HRESULT")
@@ -1119,9 +1078,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ContainerName property of ICEnroll4 sets or retrieves the name of the key container to use.
+     * The ContainerName property of ICEnroll4 sets or retrieves the name of the key container to use. (Get)
      * @remarks
-     * 
      * The container specified may be an existing container or a new one. It may only be an existing container if the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_useexistingkeyset">UseExistingKeySet</a> property is set, as long as the key set has not been generated yet. For example, if only an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange key</a> set has been generated for a container, it is still possible to perform a certificate enrollment using the signature key set without setting <b>UseExistingKeySet</b>. The <i>exchange key set</i> could be used if <b>UseExistingKeySet</b> is set beforehand.
      * 
@@ -1138,12 +1096,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_containername
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_containername
      */
     get_ContainerName() {
         pbstrContainer := BSTR()
@@ -1152,9 +1106,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ContainerName property of ICEnroll4 sets or retrieves the name of the key container to use.
+     * The ContainerName property of ICEnroll4 sets or retrieves the name of the key container to use. (Put)
      * @remarks
-     * 
      * The container specified may be an existing container or a new one. It may only be an existing container if the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_useexistingkeyset">UseExistingKeySet</a> property is set, as long as the key set has not been generated yet. For example, if only an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange key</a> set has been generated for a container, it is still possible to perform a certificate enrollment using the signature key set without setting <b>UseExistingKeySet</b>. The <i>exchange key set</i> could be used if <b>UseExistingKeySet</b> is set beforehand.
      * 
@@ -1171,13 +1124,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BSTR} bstrContainer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_containername
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_containername
      */
     put_ContainerName(bstrContainer) {
         bstrContainer := bstrContainer is String ? BSTR.Alloc(bstrContainer).Value : bstrContainer
@@ -1187,9 +1136,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ProviderName property of ICEnroll4 sets or retrieves the name of the cryptographic service provider (CSP) to use.
+     * The ProviderName property of ICEnroll4 sets or retrieves the name of the cryptographic service provider (CSP) to use. (Get)
      * @remarks
-     * 
      * The <b>ProviderName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1203,12 +1151,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-enumcontainers">enumContainers</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_providername
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providername
      */
     get_ProviderName() {
         pbstrProvider := BSTR()
@@ -1217,9 +1161,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ProviderName property of ICEnroll4 sets or retrieves the name of the cryptographic service provider (CSP) to use.
+     * The ProviderName property of ICEnroll4 sets or retrieves the name of the cryptographic service provider (CSP) to use. (Put)
      * @remarks
-     * 
      * The <b>ProviderName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1233,13 +1176,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-enumcontainers">enumContainers</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BSTR} bstrProvider 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_providername
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_providername
      */
     put_ProviderName(bstrProvider) {
         bstrProvider := bstrProvider is String ? BSTR.Alloc(bstrProvider).Value : bstrProvider
@@ -1249,9 +1188,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ProviderType property of ICEnroll4 sets or retrieves the type of provider.
+     * The ProviderType property of ICEnroll4 sets or retrieves the type of provider. (Get)
      * @remarks
-     * 
      * For general information about provider types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-types">Cryptographic Provider Types</a>.
      * 
@@ -1276,12 +1214,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-enumproviders">enumProviders</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_providertype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providertype
      */
     get_ProviderType() {
         result := ComCall(43, this, "int*", &pdwType := 0, "HRESULT")
@@ -1289,9 +1223,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The ProviderType property of ICEnroll4 sets or retrieves the type of provider.
+     * The ProviderType property of ICEnroll4 sets or retrieves the type of provider. (Put)
      * @remarks
-     * 
      * For general information about provider types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-types">Cryptographic Provider Types</a>.
      * 
@@ -1316,13 +1249,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-enumproviders">enumProviders</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_providertype
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_providertype
      */
     put_ProviderType(dwType) {
         result := ComCall(44, this, "int", dwType, "HRESULT")
@@ -1330,9 +1259,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The KeySpec property of ICEnroll4 sets or retrieves the type of key generated.
+     * The KeySpec property of ICEnroll4 sets or retrieves the type of key generated. (Get)
      * @remarks
-     * 
      * For the Microsoft Base Cryptographic Provider, the <b>KeySpec</b> property has a value of AT_KEYEXCHANGE for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a>, or AT_SIGNATURE for signature keys. The default is AT_SIGNATURE.
      * 
      * For information about the other Microsoft CSPs, see 
@@ -1351,12 +1279,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_keyspec
      */
     get_KeySpec() {
         result := ComCall(45, this, "int*", &pdw := 0, "HRESULT")
@@ -1364,9 +1288,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The KeySpec property of ICEnroll4 sets or retrieves the type of key generated.
+     * The KeySpec property of ICEnroll4 sets or retrieves the type of key generated. (Put)
      * @remarks
-     * 
      * For the Microsoft Base Cryptographic Provider, the <b>KeySpec</b> property has a value of AT_KEYEXCHANGE for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a>, or AT_SIGNATURE for signature keys. The default is AT_SIGNATURE.
      * 
      * For information about the other Microsoft CSPs, see 
@@ -1385,13 +1308,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_keyspec
      */
     put_KeySpec(dw) {
         result := ComCall(46, this, "int", dw, "HRESULT")
@@ -1399,9 +1318,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the provider type.
+     * Sets or retrieves the provider type. (Get)
      * @remarks
-     * 
      * For  more information about   valid <b>ProviderFlags</b> values for the Microsoft Base Cryptographic Provider, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI function.
      * 
@@ -1420,12 +1338,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_providerflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providerflags
      */
     get_ProviderFlags() {
         result := ComCall(47, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -1433,9 +1347,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the provider type.
+     * Sets or retrieves the provider type. (Put)
      * @remarks
-     * 
      * For  more information about   valid <b>ProviderFlags</b> values for the Microsoft Base Cryptographic Provider, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI function.
      * 
@@ -1454,13 +1367,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_providerflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_providerflags
      */
     put_ProviderFlags(dwFlags) {
         result := ComCall(48, this, "int", dwFlags, "HRESULT")
@@ -1468,10 +1377,9 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether the existing keys should be used.
+     * Sets or retrieves a Boolean value that determines whether the existing keys should be used. (Get)
      * @remarks
-     * 
-     *  If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
+     * If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
      * 
      * 
      * The <b>UseExistingKeySet</b> property affects the behavior of the following methods:
@@ -1484,12 +1392,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_useexistingkeyset
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_useexistingkeyset
      */
     get_UseExistingKeySet() {
         result := ComCall(49, this, "int*", &fUseExistingKeys := 0, "HRESULT")
@@ -1497,10 +1401,9 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether the existing keys should be used.
+     * Sets or retrieves a Boolean value that determines whether the existing keys should be used. (Put)
      * @remarks
-     * 
-     *  If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
+     * If an existing key set is used, the <b>UseExistingKeySet</b> property must be set to true.
      * 
      * 
      * The <b>UseExistingKeySet</b> property affects the behavior of the following methods:
@@ -1513,13 +1416,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createfilepkcs10">createFilePKCS10</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BOOL} fUseExistingKeys 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_useexistingkeyset
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_useexistingkeyset
      */
     put_UseExistingKeySet(fUseExistingKeys) {
         result := ComCall(50, this, "int", fUseExistingKeys, "HRESULT")
@@ -1527,9 +1426,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the values passed to the CryptGenKey function when the certificate request is generated.
+     * Sets or retrieves the values passed to the CryptGenKey function when the certificate request is generated. (Get)
      * @remarks
-     * 
      * By default, private keys are not exportable unless a .pvk file is requested. To make the private key exportable without specifying a .pvk file, set <b>GenKeyFlags</b> to CRYPT_EXPORTABLE.
      * 
      * To specify a .pvk file name,  use the 
@@ -1558,10 +1456,8 @@ class ICEnroll extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The default value for the <b>GenKeyFlags</b> property is zero. If you need to change this value, you must do so before calling these methods. After calling any of these methods, you cannot change the <b>GenKeyFlags</b> property value.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_genkeyflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_genkeyflags
      */
     get_GenKeyFlags() {
         result := ComCall(51, this, "int*", &pdwFlags := 0, "HRESULT")
@@ -1569,9 +1465,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the values passed to the CryptGenKey function when the certificate request is generated.
+     * Sets or retrieves the values passed to the CryptGenKey function when the certificate request is generated. (Put)
      * @remarks
-     * 
      * By default, private keys are not exportable unless a .pvk file is requested. To make the private key exportable without specifying a .pvk file, set <b>GenKeyFlags</b> to CRYPT_EXPORTABLE.
      * 
      * To specify a .pvk file name,  use the 
@@ -1600,11 +1495,9 @@ class ICEnroll extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The default value for the <b>GenKeyFlags</b> property is zero. If you need to change this value, you must do so before calling these methods. After calling any of these methods, you cannot change the <b>GenKeyFlags</b> property value.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_genkeyflags
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_genkeyflags
      */
     put_GenKeyFlags(dwFlags) {
         result := ComCall(52, this, "int", dwFlags, "HRESULT")
@@ -1612,9 +1505,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted.
+     * Sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted. (Get)
      * @remarks
-     * 
      * The <b>DeleteRequestCert</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1625,12 +1517,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_deleterequestcert
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_deleterequestcert
      */
     get_DeleteRequestCert() {
         result := ComCall(53, this, "int*", &fDelete := 0, "HRESULT")
@@ -1638,9 +1526,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted.
+     * Sets or retrieves a Boolean value that determines whether dummy certificates in the request store are deleted. (Put)
      * @remarks
-     * 
      * The <b>DeleteRequestCert</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1651,13 +1538,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BOOL} fDelete 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_deleterequestcert
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_deleterequestcert
      */
     put_DeleteRequestCert(fDelete) {
         result := ComCall(54, this, "int", fDelete, "HRESULT")
@@ -1665,9 +1548,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The WriteCertToCSP property of ICEnroll4 sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP).
+     * The WriteCertToCSP property of ICEnroll4 sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP). (Get)
      * @remarks
-     * 
      * This property is typically used with smart cards, where the certificate is written to the smart card in addition to being written to the "MY" store.
      * 
      * The default value is <b>true</b>, which means that the Certificate Enrollment Control will try to write the certificate to the CSP but will not fail unless a hardware token error is encountered. If this value is <b>true</b>, but no smart card or other hardware-dependent CSP is installed, then hardware token errors will be ignored.
@@ -1685,12 +1567,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_writecerttocsp
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_writecerttocsp
      */
     get_WriteCertToCSP() {
         result := ComCall(55, this, "int*", &fBool := 0, "HRESULT")
@@ -1698,9 +1576,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The WriteCertToCSP property of ICEnroll4 sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP).
+     * The WriteCertToCSP property of ICEnroll4 sets or retrieves a Boolean value that determines whether a certificate should be written to the cryptographic service provider (CSP). (Put)
      * @remarks
-     * 
      * This property is typically used with smart cards, where the certificate is written to the smart card in addition to being written to the "MY" store.
      * 
      * The default value is <b>true</b>, which means that the Certificate Enrollment Control will try to write the certificate to the CSP but will not fail unless a hardware token error is encountered. If this value is <b>true</b>, but no smart card or other hardware-dependent CSP is installed, then hardware token errors will be ignored.
@@ -1718,13 +1595,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BOOL} fBool 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_writecerttocsp
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_writecerttocsp
      */
     put_WriteCertToCSP(fBool) {
         result := ComCall(56, this, "int", fBool, "HRESULT")
@@ -1732,9 +1605,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the file to which to write the base64-encoded PKCS
+     * Sets or retrieves the name of the file to which to write the base64-encoded PKCS (Get)
      * @remarks
-     * 
      * The file is written as a binary PKCS #7. Specifying this file does not affect the acceptance of the certificates into any of the user's stores.
      * 
      * If the file already exists, the user is notified and prompted for permission to overwrite it.
@@ -1750,12 +1622,8 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_spcfilename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_spcfilename
      */
     get_SPCFileName() {
         pbstr := BSTR()
@@ -1764,9 +1632,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the file to which to write the base64-encoded PKCS
+     * Sets or retrieves the name of the file to which to write the base64-encoded PKCS (Put)
      * @remarks
-     * 
      * The file is written as a binary PKCS #7. Specifying this file does not affect the acceptance of the certificates into any of the user's stores.
      * 
      * If the file already exists, the user is notified and prompted for permission to overwrite it.
@@ -1782,13 +1649,9 @@ class ICEnroll extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7">acceptFilePKCS7</a>
      * </li>
      * </ul>
-     * 
-     * 
-     * 
-     * 
      * @param {BSTR} bstr 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_spcfilename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_spcfilename
      */
     put_SPCFileName(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -1798,9 +1661,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The PVKFileName property of ICEnroll4 sets or retrieves the name of the file that will contain exported keys.
+     * The PVKFileName property of ICEnroll4 sets or retrieves the name of the file that will contain exported keys. (Get)
      * @remarks
-     * 
      * The <b>PVKFileName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1832,11 +1694,8 @@ class ICEnroll extends IDispatch{
      * Any keys generated by following the previous steps will be not exportable. Therefore, it is recommended that the user set the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_genkeyflags">GenKeyFlags</a> property before the <b>PVKFileName</b> property when they are used together.
      * 
      * Alternatively, the user could determine the current value of the CRYPT_EXPORTABLE bit in the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_genkeyflags">GenKeyFlags</a> property and then perform a bitwise-<b>OR</b> operation between this value and any changes that are made to the <b>GenKeyFlags</b> property to ensure that the bit is not wiped out. The user could also specifically set the CRYPT_EXPORTABLE bit when updating the <b>GenKeyFlags</b> property.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_pvkfilename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_pvkfilename
      */
     get_PVKFileName() {
         pbstr := BSTR()
@@ -1845,9 +1704,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * The PVKFileName property of ICEnroll4 sets or retrieves the name of the file that will contain exported keys.
+     * The PVKFileName property of ICEnroll4 sets or retrieves the name of the file that will contain exported keys. (Put)
      * @remarks
-     * 
      * The <b>PVKFileName</b> property affects the behavior of the following methods:
      * 
      * <ul>
@@ -1879,12 +1737,9 @@ class ICEnroll extends IDispatch{
      * Any keys generated by following the previous steps will be not exportable. Therefore, it is recommended that the user set the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_genkeyflags">GenKeyFlags</a> property before the <b>PVKFileName</b> property when they are used together.
      * 
      * Alternatively, the user could determine the current value of the CRYPT_EXPORTABLE bit in the <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-get_genkeyflags">GenKeyFlags</a> property and then perform a bitwise-<b>OR</b> operation between this value and any changes that are made to the <b>GenKeyFlags</b> property to ensure that the bit is not wiped out. The user could also specifically set the CRYPT_EXPORTABLE bit when updating the <b>GenKeyFlags</b> property.
-     * 
-     * 
-     * 
      * @param {BSTR} bstr 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_pvkfilename
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_pvkfilename
      */
     put_PVKFileName(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
@@ -1894,9 +1749,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS
+     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS (ICEnroll.get_HashAlgorithm)
      * @remarks
-     * 
      * This  signature <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> is not to be confused with the <i>hashing algorithm</i> used to sign the certificate. The enrollment control currently supports any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">OID</a> for <i>hashing algorithms</i>, plus the following display name values: SHA1 (the default), MD2, and MD5. When retrieving this property, the retrieved value is in OID format (that is, SHA1 appears as 1.3.14.3.2.29). When setting this property, the corresponding OID format can be used as an alternative to the text shown for the defined friendly values.
      * 
      * The Certificate Enrollment Control considers the value of the <b>HashAlgorithm</b> property  as a hint to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> to use for signing the PKCS #10 certification request. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) supports the algorithm specified in the <b>HashAlgorithm</b> property, the algorithm will be used. Otherwise, the Certificate Enrollment Control will try to use SHA1. If SHA1 is not supported by the CSP, then MD5 will be tried. If neither SHA1 nor MD5 is supported, the Certificate Enrollment Control will try to use the first <i>hashing algorithm</i> returned from the CSP.
@@ -1916,11 +1770,8 @@ class ICEnroll extends IDispatch{
      * 
      * If both the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll3-get_hashalgid">HashAlgID</a> and <b>HashAlgorithm</b> properties are set, whichever is last updated will specify which <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> will be used to sign the PKCS #10 certification request.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-get_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_hashalgorithm
      */
     get_HashAlgorithm() {
         pbstr := BSTR()
@@ -1929,9 +1780,8 @@ class ICEnroll extends IDispatch{
     }
 
     /**
-     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS
+     * Sets or retrieves only the signature hashing algorithm used to sign the PKCS (ICEnroll.put_HashAlgorithm)
      * @remarks
-     * 
      * This  signature <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> is not to be confused with the <i>hashing algorithm</i> used to sign the certificate. The enrollment control currently supports any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">OID</a> for <i>hashing algorithms</i>, plus the following display name values: SHA1 (the default), MD2, and MD5. When retrieving this property, the retrieved value is in OID format (that is, SHA1 appears as 1.3.14.3.2.29). When setting this property, the corresponding OID format can be used as an alternative to the text shown for the defined friendly values.
      * 
      * The Certificate Enrollment Control considers the value of the <b>HashAlgorithm</b> property  as a hint to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> to use for signing the PKCS #10 certification request. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) supports the algorithm specified in the <b>HashAlgorithm</b> property, the algorithm will be used. Otherwise, the Certificate Enrollment Control will try to use SHA1. If SHA1 is not supported by the CSP, then MD5 will be tried. If neither SHA1 nor MD5 is supported, the Certificate Enrollment Control will try to use the first <i>hashing algorithm</i> returned from the CSP.
@@ -1951,12 +1801,9 @@ class ICEnroll extends IDispatch{
      * 
      * If both the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll3-get_hashalgid">HashAlgID</a> and <b>HashAlgorithm</b> properties are set, whichever is last updated will specify which <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> will be used to sign the PKCS #10 certification request.
-     * 
-     * 
-     * 
      * @param {BSTR} bstr 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xenroll/nf-xenroll-icenroll-put_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_hashalgorithm
      */
     put_HashAlgorithm(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr

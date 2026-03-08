@@ -7,7 +7,7 @@
 
 /**
  * Do not use. Used for retrieving a contact, based on a contact ID string.
- * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactmanager
+ * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactmanager
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */
@@ -40,6 +40,9 @@ class IContactManager extends IUnknown{
 
     /**
      * Initializes the contact manager with the unique application name and application version being used to manipulate contacts.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method MUST be called before other <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactmanager">IContactManager</a> methods.</div>
+     * <div> </div>
      * @param {PWSTR} pszAppName Type: <b>LPWSTR</b>
      * 
      * Specifies the application name.
@@ -63,12 +66,12 @@ class IContactManager extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactmanager">IContactManager</a> is initialized. 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactmanager">IContactManager</a> is initialized. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-initialize
      */
     Initialize(pszAppName, pszAppVersion) {
         pszAppName := pszAppName is String ? StrPtr(pszAppName) : pszAppName
@@ -86,7 +89,7 @@ class IContactManager extends IUnknown{
      * @returns {IContact} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>**</b>
      * 
      * Specifies the destination <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-load
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-load
      */
     Load(pszContactID) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
@@ -124,7 +127,7 @@ class IContactManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-mergecontactids
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-mergecontactids
      */
     MergeContactIDs(pszNewContactID, pszOldContactID) {
         pszNewContactID := pszNewContactID is String ? StrPtr(pszNewContactID) : pszNewContactID
@@ -139,7 +142,7 @@ class IContactManager extends IUnknown{
      * @returns {IContact} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>**</b>
      * 
      * Specifies where to store a pointer to the 'me' contact.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-getmecontact
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getmecontact
      */
     GetMeContact() {
         result := ComCall(6, this, "ptr*", &ppMeContact := 0, "HRESULT")
@@ -172,7 +175,7 @@ class IContactManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-setmecontact
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-setmecontact
      */
     SetMeContact(pMeContact) {
         result := ComCall(7, this, "ptr", pMeContact, "HRESULT")
@@ -181,10 +184,12 @@ class IContactManager extends IUnknown{
 
     /**
      * Returns an IContactCollection object that contains all known contacts.
+     * @remarks
+     * The enumerator of the new collection is set before the first contact. You must first call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactcollection-next">Next</a> before querying the collection with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactcollection-getcurrent">GetCurrent</a>.
      * @returns {IContactCollection} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactcollection">IContactCollection</a>**</b>
      * 
      * On success, contains an enumeration of the contact collection.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-getcontactcollection
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getcontactcollection
      */
     GetContactCollection() {
         result := ComCall(8, this, "ptr*", &ppContactCollection := 0, "HRESULT")

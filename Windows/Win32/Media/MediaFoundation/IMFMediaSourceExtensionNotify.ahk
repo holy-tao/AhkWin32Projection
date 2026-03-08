@@ -5,7 +5,7 @@
 
 /**
  * Provides functionality for raising events associated with IMFMediaSourceExtension.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediasourceextensionnotify
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextensionnotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFMediaSourceExtensionNotify extends IUnknown{
     /**
      * Used to indicate that the media source has opened.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceopen
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceopen
      */
     OnSourceOpen() {
         ComCall(3, this)
@@ -42,7 +42,7 @@ class IMFMediaSourceExtensionNotify extends IUnknown{
     /**
      * Used to indicate that the media source has ended.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceended
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceended
      */
     OnSourceEnded() {
         ComCall(4, this)
@@ -51,7 +51,7 @@ class IMFMediaSourceExtensionNotify extends IUnknown{
     /**
      * Used to indicate that the media source has closed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceclose
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceclose
      */
     OnSourceClose() {
         ComCall(5, this)

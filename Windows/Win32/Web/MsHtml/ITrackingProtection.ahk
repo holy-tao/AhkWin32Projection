@@ -42,8 +42,11 @@ class ITrackingProtection extends IUnknown{
     }
 
     /**
-     * 
+     * The GetEnabledProtocols function returns a table of all protocols that are marked Enabled.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetEnabledProtocols** function.
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getenabledprotocols
      */
     GetEnabled() {
         result := ComCall(4, this, "int*", &pfEnabled := 0, "HRESULT")

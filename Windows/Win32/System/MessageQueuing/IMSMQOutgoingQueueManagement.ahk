@@ -79,8 +79,9 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume() {
         result := ComCall(19, this, "HRESULT")
@@ -88,8 +89,11 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause() {
         result := ComCall(20, this, "HRESULT")

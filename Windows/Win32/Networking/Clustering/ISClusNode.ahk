@@ -185,8 +185,11 @@ class ISClusNode extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause() {
         result := ComCall(15, this, "HRESULT")
@@ -194,8 +197,9 @@ class ISClusNode extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume() {
         result := ComCall(16, this, "HRESULT")
@@ -203,8 +207,14 @@ class ISClusNode extends IDispatch{
     }
 
     /**
+     * Deletes a node from the cluster database.
+     * @remarks
+     * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
+     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
-     * @returns {HRESULT} 
+     * If the operation fails, 
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternode
      */
     Evict() {
         result := ComCall(17, this, "HRESULT")

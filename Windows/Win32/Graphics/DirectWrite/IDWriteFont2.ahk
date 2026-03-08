@@ -5,7 +5,7 @@
 
 /**
  * Represents a physical font in a font collection.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefont2
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefont2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,10 +32,13 @@ class IDWriteFont2 extends IDWriteFont1{
 
     /**
      * Enables determining if a color rendering path is potentially necessary.
-     * @returns {BOOL} Type: <b>BOOL</b>
+     * @returns {BOOL} This method has no parameters.
      * 
-     * Returns <b>TRUE</b> if the font has color information (COLR and CPAL tables); otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefont2-iscolorfont
+     * 
+     * Type: **BOOL**
+     * 
+     * Returns **TRUE** if the font has color information (COLR and CPAL tables); otherwise **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefont2-iscolorfont
      */
     IsColorFont() {
         result := ComCall(18, this, "int")

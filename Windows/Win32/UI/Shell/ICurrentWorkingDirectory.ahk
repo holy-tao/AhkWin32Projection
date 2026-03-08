@@ -6,12 +6,10 @@
 /**
  * Exposes methods that enable a client to retrieve or set an object's current working directory.
  * @remarks
- * 
  * Implement this interface if your object allows clients to retrieve or set the current working directory.
  * 
  * Use this interface to retrieve or set the working directory of the object that exports it.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-icurrentworkingdirectory
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-icurrentworkingdirectory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,8 +44,8 @@ class ICurrentWorkingDirectory extends IUnknown{
      * The size of the buffer in Unicode characters, including the terminating <b>NULL</b> character.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icurrentworkingdirectory-getdirectory
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icurrentworkingdirectory-getdirectory
      */
     GetDirectory(pwzPath, cchSize) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
@@ -63,8 +61,8 @@ class ICurrentWorkingDirectory extends IUnknown{
      * A pointer to the fully qualified path of the new working directory, as a null-terminated Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icurrentworkingdirectory-setdirectory
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icurrentworkingdirectory-setdirectory
      */
     SetDirectory(pwzPath) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath

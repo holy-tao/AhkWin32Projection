@@ -6,7 +6,6 @@
 /**
  * Represents a specialized object whose purpose is to initialize compiled operators. To create an instance of this object, call IDMLDevice::CreateOperatorInitializer.
  * @remarks
- * 
  * Operator initializers are reusable: once an instance has been used to initialize a set of operators, you can reset it with a different set of compiled operators as targets.
  * 
  * When executing an initializer, the expected bindings are as follows:
@@ -17,9 +16,7 @@
  * - Operator initializers don't ever require persistent resources. Therefore, calling [IDMLDispatchable::GetBindingProperties](/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties) on an operator initializer always returns a <b>PersistentResourceSize</b> of 0.
  * 
  * The operator initializer itself doesn't need to be initialized—GPU initialization only applies to compiled operators.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmloperatorinitializer
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmloperatorinitializer
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -55,7 +52,7 @@ class IDMLOperatorInitializer extends IDMLDispatchable{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmloperatorinitializer-reset
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmloperatorinitializer-reset
      */
     Reset(operatorCount, operators) {
         result := ComCall(9, this, "uint", operatorCount, "ptr*", operators, "HRESULT")

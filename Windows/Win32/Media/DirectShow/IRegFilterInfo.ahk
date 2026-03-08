@@ -47,8 +47,9 @@ class IRegFilterInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Identifiers for the filter contexts that are built in to the Windows Filtering Platform.
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/FWP/filter-context-identifiers
      */
     Filter() {
         result := ComCall(8, this, "ptr*", &ppUnk := 0, "HRESULT")

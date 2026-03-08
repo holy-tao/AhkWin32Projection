@@ -10,10 +10,8 @@
 /**
  * The IFaxFolders interface defines a configuration object used by a fax client application to access the folders, queued jobs, and archived messages on a fax server.
  * @remarks
- * 
  * A default implementation of <b>IFaxFolders</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxfolders">FaxFolders</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxfolders
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxfolders
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -75,7 +73,7 @@ class IFaxFolders extends IDispatch{
     /**
      * The IFaxFolders::get_OutgoingQueue property represents the queue of outgoing faxes.
      * @returns {IFaxOutgoingQueue} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue
      */
     get_OutgoingQueue() {
         result := ComCall(7, this, "ptr*", &pFaxOutgoingQueue := 0, "HRESULT")
@@ -85,7 +83,7 @@ class IFaxFolders extends IDispatch{
     /**
      * The IFaxFolders::get_IncomingQueue property represents the queue of incoming faxes.
      * @returns {IFaxIncomingQueue} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_incomingqueue
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingqueue
      */
     get_IncomingQueue() {
         result := ComCall(8, this, "ptr*", &pFaxIncomingQueue := 0, "HRESULT")
@@ -95,7 +93,7 @@ class IFaxFolders extends IDispatch{
     /**
      * The IFaxFolders::get_IncomingArchive property represents the archive of incoming faxes.
      * @returns {IFaxIncomingArchive} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_incomingarchive
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingarchive
      */
     get_IncomingArchive() {
         result := ComCall(9, this, "ptr*", &pFaxIncomingArchive := 0, "HRESULT")
@@ -105,7 +103,7 @@ class IFaxFolders extends IDispatch{
     /**
      * The IFaxFolders::get_OutgoingArchive property represents the archive of outgoing faxes.
      * @returns {IFaxOutgoingArchive} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_outgoingarchive
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingarchive
      */
     get_OutgoingArchive() {
         result := ComCall(10, this, "ptr*", &pFaxOutgoingArchive := 0, "HRESULT")

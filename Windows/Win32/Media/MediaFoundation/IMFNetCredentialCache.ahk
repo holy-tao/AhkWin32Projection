@@ -5,7 +5,7 @@
 
 /**
  * Gets credentials from the credential cache.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetcredentialcache
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcredentialcache
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -56,7 +56,7 @@ class IMFNetCredentialCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialcache-getcredential
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredentialcache-getcredential
      */
     GetCredential(pszUrl, pszRealm, dwAuthenticationFlags, ppCred, pdwRequirementsFlags) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
@@ -70,6 +70,8 @@ class IMFNetCredentialCache extends IUnknown{
 
     /**
      * Reports whether the credential object provided successfully passed the authentication challenge.
+     * @remarks
+     * This method is called by the network source into the credential manager.
      * @param {IMFNetCredential} pCred Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredential">IMFNetCredential</a> interface.
      * @param {BOOL} fGood <b>TRUE</b> if the credential object succeeded in the authentication challenge; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -91,7 +93,7 @@ class IMFNetCredentialCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialcache-setgood
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredentialcache-setgood
      */
     SetGood(pCred, fGood) {
         result := ComCall(4, this, "ptr", pCred, "int", fGood, "HRESULT")
@@ -100,6 +102,8 @@ class IMFNetCredentialCache extends IUnknown{
 
     /**
      * Specifies how user credentials are stored.
+     * @remarks
+     * If no flags are specified, the credentials are cached in memory. This method can be implemented by the credential manager and called by the network source.
      * @param {IMFNetCredential} pCred Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredential">IMFNetCredential</a> interface. Obtain this pointer by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredentialcache-getcredential">IMFNetCredentialCache::GetCredential</a>.
      * @param {Integer} dwOptionsFlags Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfnetcredentialoptions">MFNetCredentialOptions</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -121,7 +125,7 @@ class IMFNetCredentialCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialcache-setuseroptions
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredentialcache-setuseroptions
      */
     SetUserOptions(pCred, dwOptionsFlags) {
         result := ComCall(5, this, "ptr", pCred, "uint", dwOptionsFlags, "HRESULT")

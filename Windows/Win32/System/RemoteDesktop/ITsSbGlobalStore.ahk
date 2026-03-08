@@ -8,7 +8,7 @@
 
 /**
  * Exposes methods that query for target computers, sessions, environments, and farms that have been added to the Remote Desktop Connection Broker (RD Connection Broker) store.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbglobalstore
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbglobalstore
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,11 +35,14 @@ class ITsSbGlobalStore extends IUnknown{
 
     /**
      * Retrieves the ITsSbTarget object for the given parameters.
+     * @remarks
+     * Any changes made to the target object returned by this method do not affect the target object stored 
+     * in Remote Desktop Connection Broker (RD Connection Broker). The target object returned is a copy of the target object in RD Connection Broker.
      * @param {BSTR} ProviderName The name of the resource plug-in provider.
      * @param {BSTR} TargetName The target name.
      * @param {BSTR} FarmName The farm name to which the target belongs. If <b>NULL</b>, the first target found is returned.
      * @returns {ITsSbTarget} A pointer to a pointer to a target <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-querytarget
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querytarget
      */
     QueryTarget(ProviderName, TargetName, FarmName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -52,11 +55,14 @@ class ITsSbGlobalStore extends IUnknown{
 
     /**
      * Retrieves the ITsSbSession object associated with the given session ID.
+     * @remarks
+     * Any changes made to the target objects returned by this method do not affect the target objects stored 
+     * in Remote Desktop Connection Broker (RD Connection Broker). The target objects returned are copies of the target objects in RD Connection Broker.
      * @param {BSTR} ProviderName The resource plug-in provider name that owns the target.
      * @param {Integer} dwSessionId The session ID.
      * @param {BSTR} TargetName The name of the target computer on which this session is present.
      * @returns {ITsSbSession} A pointer to a pointer to a session object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-querysessionbysessionid
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querysessionbysessionid
      */
     QuerySessionBySessionId(ProviderName, dwSessionId, TargetName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -71,8 +77,8 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} ProviderName The provider name of the resource plug-in.
      * @param {Pointer<Integer>} pdwCount The count of farms retrieved.
      * @param {Pointer<Pointer<SAFEARRAY>>} pVal A pointer to an array of farm names. The number of elements in this array is specified by the <i>pdwCount</i> parameter. When you have finished using the array, free the allocated memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a> function.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratefarms
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratefarms
      */
     EnumerateFarms(ProviderName, pdwCount, pVal) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -90,8 +96,8 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} FarmName The farm name.
      * @param {BSTR} EnvName The environment name.
      * @param {Pointer<Integer>} pdwCount The number of targets retrieved.
-     * @returns {Pointer<ITsSbTarget>} Pointer to the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a>objects.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratetargets
+     * @returns {Pointer<ITsSbTarget>} Pointer to the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> objects.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratetargets
      */
     EnumerateTargets(ProviderName, FarmName, EnvName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -109,7 +115,7 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} ProviderName The name of the provider.
      * @param {Pointer<Integer>} pdwCount A pointer to the number of environments retrieved.
      * @returns {Pointer<ITsSbEnvironment>} A pointer to an array that contains references to the environments present. When you have finished using the array, release each element and free the array by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumerateenvironmentsbyprovider
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumerateenvironmentsbyprovider
      */
     EnumerateEnvironmentsByProvider(ProviderName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -131,7 +137,7 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {Pointer<Integer>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
      * @param {Pointer<Integer>} pdwCount Returns a pointer to the number of sessions returned.
      * @returns {Pointer<ITsSbSession>} Returns the list of sessions requested.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions
      */
     EnumerateSessions(ProviderName, targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -149,12 +155,12 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * Retrieves a property of a farm.
+     * Retrieves a property of a farm. (ITsSbGlobalStore.GetFarmProperty)
      * @param {BSTR} farmName The name of the farm.
      * @param {BSTR} propertyName The name of the property to retrieve.
      * @param {Pointer<VARIANT>} pVarValue Returns a pointer to the value of the property.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-getfarmproperty
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-getfarmproperty
      */
     GetFarmProperty(farmName, propertyName, pVarValue) {
         farmName := farmName is String ? BSTR.Alloc(farmName).Value : farmName

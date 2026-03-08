@@ -6,7 +6,7 @@
 
 /**
  * The IEnumITfCompositionView interface is implemented by the TSF manager to provide an enumeration of composition view objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumitfcompositionview
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumitfcompositionview
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IEnumITfCompositionView extends IUnknown{
     /**
      * IEnumITfCompositionView::Clone method
      * @returns {IEnumITfCompositionView} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumitfcompositionview">IEnumITfCompositionView</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumitfcompositionview-clone
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -87,7 +87,7 @@ class IEnumITfCompositionView extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumitfcompositionview-next
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-next
      */
     Next(ulCount, rgCompositionView, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -117,7 +117,7 @@ class IEnumITfCompositionView extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumitfcompositionview-reset
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -157,7 +157,7 @@ class IEnumITfCompositionView extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumitfcompositionview-skip
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

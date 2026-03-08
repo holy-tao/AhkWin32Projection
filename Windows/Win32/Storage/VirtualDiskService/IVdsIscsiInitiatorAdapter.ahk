@@ -8,7 +8,7 @@
 
 /**
  * Provides methods to query and interact with iSCSI initiator adapters on the local system.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsiscsiinitiatoradapter
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiinitiatoradapter
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
      *       structure allocated by the caller. VDS allocates memory for the <b>pwszName</b> member 
      *       string. Callers must free this string by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiinitiatoradapter-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-getproperties
      */
     GetProperties() {
         pInitiatorAdapterProp := VDS_ISCSI_INITIATOR_ADAPTER_PROP()
@@ -51,7 +51,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
     /**
      * Returns an object that enumerates the iSCSI initiator portals of the initiator adapter.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the  initiator portals  as <a href="https://docs.microsoft.com/windows/desktop/VDS/startup-and-service-objects">initiator portal objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the initiator portal objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiinitiatoradapter-queryinitiatorportals
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-queryinitiatorportals
      */
     QueryInitiatorPortals() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -80,7 +80,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called on this interface and a success HRESULT value is returned, the 
      *       interfaces returned in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> 
      *       structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiinitiatoradapter-logintotarget
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logintotarget
      */
     LoginToTarget(loginType, targetId, targetPortalId, initiatorPortalId, ulLoginFlags, bHeaderDigest, bDataDigest, authType) {
         result := ComCall(5, this, "int", loginType, "ptr", targetId, "ptr", targetPortalId, "ptr", initiatorPortalId, "uint", ulLoginFlags, "int", bHeaderDigest, "int", bDataDigest, "int", authType, "ptr*", &ppAsync := 0, "HRESULT")
@@ -96,7 +96,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called on this interface and a success HRESULT value is returned, the 
      *       interfaces returned in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> 
      *       structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiinitiatoradapter-logoutfromtarget
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logoutfromtarget
      */
     LogoutFromTarget(targetId) {
         result := ComCall(6, this, "ptr", targetId, "ptr*", &ppAsync := 0, "HRESULT")

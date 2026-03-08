@@ -5,7 +5,7 @@
 
 /**
  * The IWMLicenseBackup interface manages the backing up of licenses, typically so that they can be restored onto another computer.This interface is obtained by using the WMCreateBackupRestorer function.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmlicensebackup
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlicensebackup
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMLicenseBackup extends IUnknown{
 
     /**
      * The BackupLicenses method saves copies of the licenses.
+     * @remarks
+     * For more information on how to specify the location of the backup file (there are predefined properties for the backup path and restore path for this purpose), see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbackuprestoreprops">IWMBackupRestoreProps Interface</a>.
+     * 
+     * This method operates asynchronously, and an <b>IWMStatusCallback</b> object can be used to track progress.
      * @param {Integer} dwFlags <b>DWORD</b> containing the flags.
      * 
      * <table>
@@ -88,7 +92,7 @@ class IWMLicenseBackup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicensebackup-backuplicenses
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicensebackup-backuplicenses
      */
     BackupLicenses(dwFlags, pCallback) {
         result := ComCall(3, this, "uint", dwFlags, "ptr", pCallback, "HRESULT")
@@ -97,8 +101,10 @@ class IWMLicenseBackup extends IUnknown{
 
     /**
      * The CancelLicenseBackup method cancels a current backup operation.
+     * @remarks
+     * A backup operation is asynchronous, and a call to this method cancels a backup that is in progress.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicensebackup-cancellicensebackup
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicensebackup-cancellicensebackup
      */
     CancelLicenseBackup() {
         result := ComCall(4, this, "HRESULT")

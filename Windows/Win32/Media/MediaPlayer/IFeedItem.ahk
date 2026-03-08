@@ -129,9 +129,10 @@ class IFeedItem extends IDispatch{
     }
 
     /**
-     * 
+     * Resource string ids set by caller to be returned in xml data for visualizing objects.
      * @param {Integer} includeFlags 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
     Xml(includeFlags) {
         xml := BSTR()
@@ -255,8 +256,17 @@ class IFeedItem extends IDispatch{
     }
 
     /**
+     * Deletes an access control entry (ACE) from an access control list (ACL).
+     * @remarks
+     * An application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
+     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * @returns {HRESULT} 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
      */
     Delete() {
         result := ComCall(20, this, "HRESULT")

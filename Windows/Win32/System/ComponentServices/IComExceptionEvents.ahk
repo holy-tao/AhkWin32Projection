@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber when an unhandled exception occurs in the user's code.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomexceptionevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomexceptionevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IComExceptionEvents extends IUnknown{
      * @param {Integer} address The address of the exception.
      * @param {PWSTR} pszStackTrace The stack trace.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomexceptionevents-onexceptionuser
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomexceptionevents-onexceptionuser
      */
     OnExceptionUser(pInfo, code, address, pszStackTrace) {
         pszStackTrace := pszStackTrace is String ? StrPtr(pszStackTrace) : pszStackTrace

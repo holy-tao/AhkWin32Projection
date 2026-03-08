@@ -5,7 +5,7 @@
 
 /**
  * The IDecimateVideoImage interface specifies decimation on a decoder filter.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idecimatevideoimage
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idecimatevideoimage
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IDecimateVideoImage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idecimatevideoimage-setdecimationimagesize
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idecimatevideoimage-setdecimationimagesize
      */
     SetDecimationImageSize(lWidth, lHeight) {
         result := ComCall(3, this, "int", lWidth, "int", lHeight, "HRESULT")
@@ -74,7 +74,7 @@ class IDecimateVideoImage extends IUnknown{
     /**
      * The ResetDecimationImageSize method specifies that the decoder should no longer decimate its output image.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value indicating the success or failure of the call.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idecimatevideoimage-resetdecimationimagesize
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idecimatevideoimage-resetdecimationimagesize
      */
     ResetDecimationImageSize() {
         result := ComCall(4, this, "HRESULT")

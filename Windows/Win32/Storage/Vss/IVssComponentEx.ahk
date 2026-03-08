@@ -6,7 +6,7 @@
 
 /**
  * Defines additional methods for examining and modifying information about components contained in a requester's Backup Components Document.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsscomponentex
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponentex
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -33,6 +33,9 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Sets a PrepareForBackup failure message string for a component.
+     * @remarks
+     * The failure message that is set by 
+     * <b>SetPrepareForBackupFailureMsg</b> applies to all files in the component and any subcomponents.
      * @param {PWSTR} wszFailureMsg The address of a caller-allocated <b>NULL</b>-terminated wide character string containing the failure message that describes an error that occurred 
      *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PrepareForBackup</a> 
      *       event.
@@ -83,12 +86,12 @@ class IVssComponentEx extends IVssComponent{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was not called by a writer's <a href="/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpreparebackup">CVssWriter::OnPrepareBackup</a> method.
+     * This method was not called by a writer's <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpreparebackup">CVssWriter::OnPrepareBackup</a> method.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-setprepareforbackupfailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-setprepareforbackupfailuremsg
      */
     SetPrepareForBackupFailureMsg(wszFailureMsg) {
         wszFailureMsg := wszFailureMsg is String ? StrPtr(wszFailureMsg) : wszFailureMsg
@@ -99,6 +102,9 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Sets a PostSnapshot failure message string for a component.
+     * @remarks
+     * The failure message that is set by 
+     * <b>SetPostSnapshotFailureMsg</b> applies to all files in the component and any subcomponents.
      * @param {PWSTR} wszFailureMsg The address of a caller-allocated <b>NULL</b>-terminated wide character string containing the failure message that describes an error that occurred 
      *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> 
      *       event.
@@ -149,12 +155,12 @@ class IVssComponentEx extends IVssComponent{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was not called by a writer's <a href="/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a> method.
+     * This method was not called by a writer's <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a> method.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-setpostsnapshotfailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-setpostsnapshotfailuremsg
      */
     SetPostSnapshotFailureMsg(wszFailureMsg) {
         wszFailureMsg := wszFailureMsg is String ? StrPtr(wszFailureMsg) : wszFailureMsg
@@ -165,10 +171,12 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Returns the PrepareForBackup failure message string that a writer has set for a given component.
+     * @remarks
+     * The caller is responsible for freeing the string that  the <i>pbstrFailureMsg</i> parameter points to by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @returns {BSTR} A pointer to a null-terminated wide character string containing the failure message that describes an error that occurred 
      *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PrepareForBackup</a> 
      *       event.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
      */
     GetPrepareForBackupFailureMsg() {
         pbstrFailureMsg := BSTR()
@@ -178,10 +186,12 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Returns the PostSnapshot failure message string that a writer has set for a given component.
+     * @remarks
+     * The caller is responsible for freeing the string that  the <i>pbstrFailureMsg</i> parameter points to by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @returns {BSTR} A pointer to a null-terminated wide character string containing the failure message that describes an error that occurred 
      *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> 
      *       event.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
      */
     GetPostSnapshotFailureMsg() {
         pbstrFailureMsg := BSTR()
@@ -191,8 +201,14 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Determines whether a requester has marked the restore of a component as authoritative for a replicated data store.
+     * @remarks
+     * A writer indicates that it supports authoritative restore by setting the <b>VSS_BS_AUTHORITATIVE_RESTORE</b> flag in its backup schema mask.
+     * 
+     * For more 
+     *       information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-options">Setting VSS Restore 
+     *       Options</a>.
      * @returns {Boolean} The address of a caller-allocated variable that receives <b>true</b> if the restore is authoritative, or <b>false</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
      */
     GetAuthoritativeRestore() {
         result := ComCall(45, this, "int*", &pbAuth := 0, "HRESULT")
@@ -201,6 +217,16 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Obtains the roll-forward operation type for a component and obtains the restore point for a partial roll-forward operation.
+     * @remarks
+     * The <b>GetRollForward</b> method can be called only during a restore operation.
+     * 
+     * If the call to <b>GetRollForward</b> is successful, the caller is responsible for freeing the string that  is returned in the <i>pRollType</i> parameter by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * A writer indicates that it supports this method by setting the <b>VSS_BS_ROLLFORWARD_RESTORE</b> flag in its backup schema mask.
+     * 
+     * For more 
+     *       information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-options">Setting VSS Restore 
+     *       Options</a>.
      * @param {Pointer<Integer>} pRollType A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_rollforward_type">VSS_ROLLFORWARD_TYPE</a> enumeration value indicating the type of roll-forward operation to be performed.
      * @param {Pointer<BSTR>} pbstrPoint The address of a caller-allocated variable that receives a null-terminated wide character string specifying the roll-forward restore point.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -244,7 +270,7 @@ class IVssComponentEx extends IVssComponent{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getrollforward
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrollforward
      */
     GetRollForward(pRollType, pbstrPoint) {
         pRollTypeMarshal := pRollType is VarRef ? "int*" : "ptr"
@@ -255,8 +281,18 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * Obtains the logical name assigned to a component that is being restored.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrestorename">GetRestoreName</a> method can only be called during a restore operation.
+     * 
+     * If the call to <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrestorename">GetRestoreName</a> is successful, the caller is responsible for freeing the string that  is returned in the <i>pbstrName</i> parameter by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * A writer indicates that it supports this method by setting the <b>VSS_BS_RESTORE_RENAME</b> flag in its backup schema mask.
+     * 
+     * For more 
+     *       information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-options">Setting VSS Restore 
+     *       Options</a>.
      * @returns {BSTR} The address of a caller-allocated variable that receives a null-terminated wide character string containing the restore name for the component.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getrestorename
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrestorename
      */
     GetRestoreName() {
         pbstrName := BSTR()

@@ -9,10 +9,8 @@
 /**
  * The IFaxOutboundRoutingRules interface describes a configuration collection that is used by a fax client application to manage the fax outbound routing rules.
  * @remarks
- * 
  * A default implementation of <b>IFaxOutboundRoutingRules</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutingrules">FaxOutboundRoutingRules</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxoutboundroutingrules
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -62,7 +60,7 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      *  Receives an indirect pointer to the enumerator object <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for this collection.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -77,7 +75,7 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * @returns {IFaxOutboundRoutingRule} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule">IFaxOutboundRoutingRule</a>**</b>
      * 
      * An address of a pointer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule">IFaxOutboundRoutingRule</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_item
      */
     get_Item(lIndex) {
         result := ComCall(8, this, "int", lIndex, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
@@ -87,7 +85,7 @@ class IFaxOutboundRoutingRules extends IDispatch{
     /**
      * The IFaxOutboundRoutingRules::get_Count property represents the number of objects in the FaxOutboundRoutingRules collection. This is the total number of outbound routing rules associated with the fax server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
@@ -105,7 +103,7 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * @returns {IFaxOutboundRoutingRule} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutingrule">FaxOutboundRoutingRule</a>**</b>
      * 
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutingrule">FaxOutboundRoutingRule</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-itembycountryandarea
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-itembycountryandarea
      */
     ItemByCountryAndArea(lCountryCode, lAreaCode) {
         result := ComCall(10, this, "int", lCountryCode, "int", lAreaCode, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
@@ -114,6 +112,8 @@ class IFaxOutboundRoutingRules extends IDispatch{
 
     /**
      * The IFaxOutboundRoutingRules::RemoveByCountryAndArea method removes an outbound routing rule (FaxOutboundRoutingRule object) from the collection using the routing rule's country/region code and area code.
+     * @remarks
+     * You cannot set both <i>lCountryCode</i> and <i>lAreaCode</i> to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_routing_rule_code_enum">frrcANY_CODE</a> because this is equivalent to specifying the default outbound routing rule, which cannot be removed.
      * @param {Integer} lCountryCode Type: <b>long</b>
      * 
      * A <b>long</b> value that specifies the country/region code of the outbound routing rule to remove from the collection. Specifying <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_routing_rule_code_enum">frrcANY_CODE</a> will remove a rule that applies to all country/region codes.
@@ -122,8 +122,8 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * A <b>long</b> value that specifies the area code of the outbound routing rule to remove from the collection. Specifying <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_routing_rule_code_enum">frrcANY_CODE</a> will remove a rule that applies to all area codes within the specified country/region code.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-removebycountryandarea
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-removebycountryandarea
      */
     RemoveByCountryAndArea(lCountryCode, lAreaCode) {
         result := ComCall(11, this, "int", lCountryCode, "int", lAreaCode, "HRESULT")
@@ -132,13 +132,17 @@ class IFaxOutboundRoutingRules extends IDispatch{
 
     /**
      * The IFaxOutboundRoutingRules::Remove method removes an outbound routing rule (FaxOutboundRoutingRule object) from the FaxOutboundRoutingRules collection using the routing rule's index.
+     * @remarks
+     * The default outbound routing rule cannot be removed.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {Integer} lIndex Type: <b>long</b>
      * 
      * A <b>long</b> value that specifies the index of the outbound routing rule to remove from the collection. Valid values for this parameter are in the range from 1 to n, where n is the number of rules returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutingrules-count-vb">IFaxOutboundRoutingRules::get_Count</a> method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-remove
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-remove
      */
     Remove(lIndex) {
         result := ComCall(12, this, "int", lIndex, "HRESULT")
@@ -147,6 +151,10 @@ class IFaxOutboundRoutingRules extends IDispatch{
 
     /**
      * The IFaxOutboundRoutingRules::Add method adds an outbound routing rule (IFaxOutboundRoutingRule interface) to the collection defined by the IFaxOutboundRoutingRules interface.
+     * @remarks
+     * This method can also return remote procedure call (RPC) return values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> access right.
      * @param {Integer} lCountryCode Type: <b>long</b>
      * 
      * A <b>long</b> value that specifies the country/region code to associate with the outbound routing rule. Specifying <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_routing_rule_code_enum">frrcANY_CODE</a> will add a rule that applies to any country/region code.
@@ -165,7 +173,7 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * @returns {IFaxOutboundRoutingRule} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule">IFaxOutboundRoutingRule</a>**</b>
      * 
      * An address of a pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule">IFaxOutboundRoutingRule</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutingrules-add
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-add
      */
     Add(lCountryCode, lAreaCode, bUseDevice, bstrGroupName, lDeviceId) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName

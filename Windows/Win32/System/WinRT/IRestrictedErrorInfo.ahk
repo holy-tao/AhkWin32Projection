@@ -6,7 +6,7 @@
 
 /**
  * Represents the details of an error, including restricted error information.
- * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo
+ * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -45,8 +45,8 @@ class IRestrictedErrorInfo extends IUnknown{
      * @param {Pointer<BSTR>} capabilitySid TBD
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
      */
     GetErrorDetails(description, error, restrictedDescription, capabilitySid) {
         errorMarshal := error is VarRef ? "int*" : "ptr"
@@ -60,7 +60,7 @@ class IRestrictedErrorInfo extends IUnknown{
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * A reference to the error information.
-     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
+     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
      */
     GetReference() {
         reference := BSTR()

@@ -4,7 +4,7 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
+ * This interface allows for the creation of alljoyn_busattachment without taking ownership of the reference.
  * @see https://learn.microsoft.com/windows/win32/api/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentfactoryinterop
  * @namespace Windows.Win32.System.WinRT.AllJoyn
  * @version v4.0.30319

@@ -6,11 +6,8 @@
 /**
  * Exposes a general mechanism for objects to offer services to other objects on the same host.
  * @remarks
- * 
  * Objects that expose a service first call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on their host for this interface, then execute <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice">IProfferService::ProfferService</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iprofferservice
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iprofferservice
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -40,7 +37,7 @@ class IProfferService extends IUnknown{
      * @param {Pointer<Guid>} serviceId 
      * @param {IServiceProvider} serviceProvider 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice
      */
     ProfferService(serviceId, serviceProvider) {
         result := ComCall(3, this, "ptr", serviceId, "ptr", serviceProvider, "uint*", &cookie := 0, "HRESULT")
@@ -52,8 +49,8 @@ class IProfferService extends IUnknown{
      * @param {Integer} cookie 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iprofferservice-revokeservice
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-revokeservice
      */
     RevokeService(cookie) {
         result := ComCall(4, this, "uint", cookie, "HRESULT")

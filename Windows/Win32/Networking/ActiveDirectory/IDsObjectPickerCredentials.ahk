@@ -5,7 +5,7 @@
 
 /**
  * The IDsObjectPickerCredentials interface allows you to override credentials for the IDsObjectPicker object implementing this interface.
- * @see https://docs.microsoft.com/windows/win32/api//objsel/nn-objsel-idsobjectpickercredentials
+ * @see https://learn.microsoft.com/windows/win32/api/objsel/nn-objsel-idsobjectpickercredentials
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IDsObjectPickerCredentials extends IDsObjectPicker{
      * @param {PWSTR} szUserName User account.
      * @param {PWSTR} szPassword Password.
      * @returns {HRESULT} S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//objsel/nf-objsel-idsobjectpickercredentials-setcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpickercredentials-setcredentials
      */
     SetCredentials(szUserName, szPassword) {
         szUserName := szUserName is String ? StrPtr(szUserName) : szUserName

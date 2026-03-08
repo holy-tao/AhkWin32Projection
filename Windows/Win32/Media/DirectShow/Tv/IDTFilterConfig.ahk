@@ -6,11 +6,8 @@
 /**
  * The IDTFilterConfig interface configures the Decrypter/Detagger filter. Most applications will not have to use this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilterConfig)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-idtfilterconfig
+ * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilterconfig
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,8 +34,10 @@ class IDTFilterConfig extends IUnknown{
 
     /**
      * The GetSecureChannelObject method retrieves the secure channel object used to decrypt the stream.
+     * @remarks
+     * If the method succeeds, the caller must release the <b>IUnknown</b> interface.
      * @returns {IUnknown} Receives a pointer to the secure channel object's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilterconfig-getsecurechannelobject
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilterconfig-getsecurechannelobject
      */
     GetSecureChannelObject() {
         result := ComCall(3, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")

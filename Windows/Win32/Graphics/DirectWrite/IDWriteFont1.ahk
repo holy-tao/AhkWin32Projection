@@ -4,8 +4,8 @@
 #Include .\IDWriteFont.ahk
 
 /**
- * Represents a physical font in a font collection.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritefont1
+ * Represents a physical font in a font collection. (IDWriteFont1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefont1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -31,12 +31,12 @@ class IDWriteFont1 extends IDWriteFont{
     static VTableNames => ["GetMetrics", "GetPanose", "GetUnicodeRanges", "IsMonospacedFont"]
 
     /**
-     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations.
+     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations. (IDWriteFont1.GetMetrics)
      * @param {Pointer<DWRITE_FONT_METRICS1>} fontMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a>*</b>
      * 
      *  A filled  <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a> structure that has font metrics for the current font face. The metrics returned by this method are in font design units.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefont1-getmetrics
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getmetrics
      */
     GetMetrics(fontMetrics) {
         ComCall(14, this, "ptr", fontMetrics)
@@ -45,16 +45,13 @@ class IDWriteFont1 extends IDWriteFont{
     /**
      * Gets the PANOSE values from the font and is used for font selection and matching.
      * @remarks
-     * 
      * If the font has no PANOSE values,
      *     they are set to 'any' (0) and <a href="https://docs.microsoft.com/windows/win32/DirectWrite/direct-write-portal">DirectWrite</a> doesn't simulate those values.
-     * 
-     * 
      * @param {Pointer<DWRITE_PANOSE>} panose Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a> structure to fill in.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefont1-getpanose
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getpanose
      */
     GetPanose(panose) {
         ComCall(15, this, "ptr", panose)
@@ -62,6 +59,18 @@ class IDWriteFont1 extends IDWriteFont{
 
     /**
      * Retrieves the list of character ranges supported by a font.
+     * @remarks
+     * The list of character ranges supported by a font, is
+     *     useful for scenarios like character picking, glyph display, and
+     *     efficient font selection lookup. GetUnicodeRanges is similar to GDI's
+     *     GetFontUnicodeRanges, except that it returns the full Unicode range,
+     *     not just 16-bit UCS-2.
+     * 
+     * These ranges are from the cmap, not the OS/2::ulCodePageRange1.
+     * 
+     * If this method is unavailable, you can use the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphindices">IDWriteFontFace::GetGlyphIndices</a> method to check for missing glyphs.  The method returns the 0 index for glyphs that aren't present in the font.
+     * 
+     *  The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-hascharacter">IDWriteFont::HasCharacter</a> method is often simpler in cases where you need to check a single character or a series of single characters in succession, such as in font fallback.
      * @param {Integer} maxRangeCount Type: <b>UINT32</b>
      * 
      * The maximum number of character ranges passed
@@ -105,7 +114,7 @@ class IDWriteFont1 extends IDWriteFont{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefont1-getunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
@@ -119,7 +128,7 @@ class IDWriteFont1 extends IDWriteFont{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns true if the font is monospaced, else it returns false.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefont1-ismonospacedfont
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-ismonospacedfont
      */
     IsMonospacedFont() {
         result := ComCall(17, this, "int")

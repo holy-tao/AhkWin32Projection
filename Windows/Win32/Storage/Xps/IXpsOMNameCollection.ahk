@@ -6,11 +6,8 @@
 /**
  * A collection of name strings.
  * @remarks
- * 
  * For more information about the collection methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomnamecollection
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomnamecollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -37,8 +34,10 @@ class IXpsOMNameCollection extends IUnknown{
 
     /**
      * Gets the number of name strings in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @returns {Integer} The number of name strings in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -47,9 +46,13 @@ class IXpsOMNameCollection extends IUnknown{
 
     /**
      * Gets the name string that is stored at a specified location in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>name</i>.  If <i>name</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @param {Integer} index The zero-based index of the collection that contains the name string to be obtained.
      * @returns {PWSTR} The name string at the location specified by <i>index</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &name := 0, "HRESULT")

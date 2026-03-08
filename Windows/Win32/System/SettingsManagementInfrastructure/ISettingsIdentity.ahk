@@ -6,7 +6,7 @@
 
 /**
  * Identifies a namespace to open or use.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-isettingsidentity
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsidentity
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ISettingsIdentity extends IUnknown{
      * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
      * @param {PWSTR} Name The name of the attribute.
      * @returns {BSTR} The value of the attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-getattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getattribute
      */
     GetAttribute(Reserved, Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -54,7 +54,7 @@ class ISettingsIdentity extends IUnknown{
      * @param {PWSTR} Name The name of the attribute.
      * @param {PWSTR} Value The value of the attribute.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. It returns <b>WCM_E_ATTRIBUTENOTALLOWED</b> if the attribute specified by Name is not recognized.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-setattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-setattribute
      */
     SetAttribute(Reserved, Name, Value) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -69,7 +69,7 @@ class ISettingsIdentity extends IUnknown{
     /**
      * Returns the flags for a namespace identity.
      * @returns {Integer} The identity flags for the namespace identity.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getflags
      */
     GetFlags() {
         result := ComCall(5, this, "uint*", &Flags := 0, "HRESULT")
@@ -80,7 +80,7 @@ class ISettingsIdentity extends IUnknown{
      * Sets the identity flags for a namespace identity.
      * @param {Integer} Flags The identity flags.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-setflags
      */
     SetFlags(Flags) {
         result := ComCall(6, this, "uint", Flags, "HRESULT")

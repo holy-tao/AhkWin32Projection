@@ -6,8 +6,8 @@
 #Include .\IDWriteFontFace2.ahk
 
 /**
- * Contains font face type, appropriate file references, and face identification data.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontface3
+ * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace3)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,11 +33,11 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
     static VTableNames => ["GetFontFaceReference", "GetPanose", "GetWeight", "GetStretch", "GetStyle", "GetFamilyNames", "GetFaceNames", "GetInformationalStrings", "HasCharacter", "GetRecommendedRenderingMode", "IsCharacterLocal", "IsGlyphLocal", "AreCharactersLocal", "AreGlyphsLocal"]
 
     /**
-     * Gets a font face reference that identifies this font.
+     * Gets a font face reference that identifies this font. (IDWriteFontFace3.GetFontFaceReference)
      * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a> interface for the newly created font face reference object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getfontfacereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfontfacereference
      */
     GetFontFaceReference() {
         result := ComCall(35, this, "ptr*", &fontFaceReference := 0, "HRESULT")
@@ -47,15 +47,12 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
     /**
      * Gets the PANOSE values from the font, used for font selection and matching.
      * @remarks
-     * 
      * This method doesn't simulate these values, such as substituting a weight or proportion inferred on other values. If the font doesn't specify them, they are all set to 'any' (0).
-     * 
-     * 
      * @param {Pointer<DWRITE_PANOSE>} panose Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a> structure that receives the PANOSE values from the font.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getpanose
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getpanose
      */
     GetPanose(panose) {
         ComCall(36, this, "ptr", panose)
@@ -63,10 +60,10 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
 
     /**
      * Gets the weight of this font.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a>-typed value that specifies the density of a typeface, in terms of the lightness or heaviness of the strokes.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getweight
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a>-typed value that specifies the density of a typeface, in terms of the lightness or heaviness of the strokes.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getweight
      */
     GetWeight() {
         result := ComCall(37, this, "int")
@@ -75,10 +72,10 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
 
     /**
      * Gets the stretch (also known as width) of this font.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a>-typed value that specifies the degree to which a font has been stretched compared to a font's normal aspect ratio.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getstretch
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a>-typed value that specifies the degree to which a font has been stretched compared to a font's normal aspect ratio.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getstretch
      */
     GetStretch() {
         result := ComCall(38, this, "int")
@@ -87,10 +84,10 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
 
     /**
      * Gets the style (also known as slope) of this font.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>-typed value that specifies the style of the font.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getstyle
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>-typed value that specifies the style of the font.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getstyle
      */
     GetStyle() {
         result := ComCall(39, this, "int")
@@ -98,11 +95,11 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
     }
 
     /**
-     * Creates a localized strings object that contains the family names for the font family, indexed by locale name.
+     * Creates a localized strings object that contains the family names for the font family, indexed by locale name. (IDWriteFontFace3.GetFamilyNames)
      * @returns {IDWriteLocalizedStrings} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a> interface for the newly created localized strings object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getfamilynames
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfamilynames
      */
     GetFamilyNames() {
         result := ComCall(40, this, "ptr*", &names := 0, "HRESULT")
@@ -114,7 +111,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @returns {IDWriteLocalizedStrings} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a> interface for the newly created localized strings object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getfacenames
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfacenames
      */
     GetFaceNames() {
         result := ComCall(41, this, "ptr*", &names := 0, "HRESULT")
@@ -135,7 +132,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the font doesn't contain the specified string, the return value is S_OK, but <i>informationalStrings</i> receives a <b>NULL</b> pointer and <i>exists</i> receives the value <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getinformationalstrings
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
@@ -152,7 +149,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the font supports the specified character. Returns <b>TRUE</b> if the font has the specified character; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-hascharacter
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-hascharacter
      */
     HasCharacter(unicodeValue) {
         result := ComCall(43, this, "uint", unicodeValue, "int")
@@ -160,7 +157,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
     }
 
     /**
-     * Determines the recommended text rendering and grid-fit mode to be used based on the font, size, world transform, and measuring mode.
+     * Determines the recommended text rendering and grid-fit mode to be used based on the font, size, world transform, and measuring mode. (IDWriteFontFace3.GetRecommendedRenderingMode)
      * @param {Float} fontEmSize Type: <b>FLOAT</b>
      * 
      * Logical font size in DIPs.
@@ -193,8 +190,8 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value for the recommended grid-fit mode.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-getrecommendedrenderingmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
@@ -213,7 +210,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * 
      * Returns <b>TRUE</b> if the font has the specified character locally available,    
      *   <b>FALSE</b> if not or if the font does not support that character.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-ischaracterlocal
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-ischaracterlocal
      */
     IsCharacterLocal(unicodeValue) {
         result := ComCall(45, this, "uint", unicodeValue, "int")
@@ -228,7 +225,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns TRUE if the font has the specified glyph locally available.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-isglyphlocal
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-isglyphlocal
      */
     IsGlyphLocal(glyphId) {
         result := ComCall(46, this, "ushort", glyphId, "int")
@@ -251,7 +248,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * 
      * Receives TRUE if all of the specified characters are local,    
      *        FALSE if any of the specified characters are remote.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-arecharacterslocal
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-arecharacterslocal
      */
     AreCharactersLocal(characters, characterCount, enqueueIfNotLocal) {
         characters := characters is String ? StrPtr(characters) : characters
@@ -276,7 +273,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * 
      * Receives TRUE if all of the specified glyphs are local,    
      *        FALSE if any of the specified glyphs are remote.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface3-areglyphslocal
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-areglyphslocal
      */
     AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"

@@ -54,8 +54,11 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the information about the raw input devices for the current application.
+     * @remarks
+     * To receive raw input from a device, an application must register it by using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerrawinputdevices">RegisterRawInputDevices</a>.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getregisteredrawinputdevices
      */
     GetRegister() {
         result := ComCall(5, this, "uint*", &registerId := 0, "HRESULT")

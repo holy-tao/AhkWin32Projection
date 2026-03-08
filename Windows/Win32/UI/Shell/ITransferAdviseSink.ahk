@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods supporting status collection and failure information.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-itransferadvisesink
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,13 @@ class ITransferAdviseSink extends IUnknown{
 
     /**
      * Updates the transfer progress status in the UI.
+     * @remarks
+     * Set <i>ullSizeTotal</i>, <i>nFilesTotal</i>, and <i>nFoldersTotal</i> all to 0 to indicate that the totals have not changed since the last call to this method.
+     * 
+     * Set all six parameters to 0 to indicate that progress has not changed since the last call to this method.
+     * 
+     * <h3><a id="Note_to_Implementers"></a><a id="note_to_implementers"></a><a id="NOTE_TO_IMPLEMENTERS"></a>Note to Implementers</h3>
+     * Implementers of this function should return an error code when the operation needs to terminate before it is complete, such as when the user clicks the <b>Cancel</b> button.
      * @param {Integer} ullSizeCurrent Type: <b>ULONGLONG</b>
      * 
      * The number of bytes processed in the current operation.
@@ -52,8 +59,8 @@ class ITransferAdviseSink extends IUnknown{
      * The total number of folders in the operation. Set to 0 to indicate that the value has not changed since the last call to this method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-updateprogress
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-updateprogress
      */
     UpdateProgress(ullSizeCurrent, ullSizeTotal, nFilesCurrent, nFilesTotal, nFoldersCurrent, nFoldersTotal) {
         result := ComCall(3, this, "uint", ullSizeCurrent, "uint", ullSizeTotal, "int", nFilesCurrent, "int", nFilesTotal, "int", nFoldersCurrent, "int", nFoldersTotal, "HRESULT")
@@ -65,8 +72,8 @@ class ITransferAdviseSink extends IUnknown{
      * @param {Integer} ts Type: <b>TRANSFER_ADVISE_STATE</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-updatetransferstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-updatetransferstate
      */
     UpdateTransferState(ts) {
         result := ComCall(4, this, "uint", ts, "HRESULT")
@@ -116,7 +123,7 @@ class ITransferAdviseSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-confirmoverwrite
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-confirmoverwrite
      */
     ConfirmOverwrite(psiSource, psiDestParent, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -173,7 +180,7 @@ class ITransferAdviseSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-confirmencryptionloss
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-confirmencryptionloss
      */
     ConfirmEncryptionLoss(psiSource) {
         result := ComCall(6, this, "ptr", psiSource, "HRESULT")
@@ -196,7 +203,7 @@ class ITransferAdviseSink extends IUnknown{
      * Optional. When this method returns, contains a pointer to a null-terminated buffer that contains a new name for the file. The name cannot exceed length <i>cchRename</i>. If this parameter is <b>NULL</b>, no option to rename will be available.
      * @param {Integer} cchRename Type: <b>ULONG</b>
      * 
-     * The size of the <i>pszRename</i>buffer, in characters.
+     * The size of the <i>pszRename</i> buffer, in characters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Any other <b>HRESULT</b> should be returned to the calling process. If the failure is not handled, the return value should be <i>hrError</i>.
@@ -240,7 +247,7 @@ class ITransferAdviseSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-filefailure
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-filefailure
      */
     FileFailure(psi, pszItem, hrError, pszRename, cchRename) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
@@ -326,7 +333,7 @@ class ITransferAdviseSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-substreamfailure
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-substreamfailure
      */
     SubStreamFailure(psi, pszStreamName, hrError) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
@@ -411,7 +418,7 @@ class ITransferAdviseSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferadvisesink-propertyfailure
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-propertyfailure
      */
     PropertyFailure(psi, pkey, hrError) {
         result := ComCall(9, this, "ptr", psi, "ptr", pkey, "int", hrError, "HRESULT")

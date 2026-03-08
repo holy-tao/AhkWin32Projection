@@ -8,7 +8,7 @@
 
 /**
  * Exposes properties that store information about a user session.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbsession
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbsession
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -113,7 +113,7 @@ class ITsSbSession extends IUnknown{
     /**
      * Retrieves the session ID.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_sessionid
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_sessionid
      */
     get_SessionId() {
         result := ComCall(3, this, "uint*", &pVal := 0, "HRESULT")
@@ -123,7 +123,7 @@ class ITsSbSession extends IUnknown{
     /**
      * Retrieves the name of the target on which this session was created.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_targetname
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_targetname
      */
     get_TargetName() {
         targetName := BSTR()
@@ -146,7 +146,7 @@ class ITsSbSession extends IUnknown{
     /**
      * Retrieves the user name for this session.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_username
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_username
      */
     get_Username() {
         userName := BSTR()
@@ -157,7 +157,7 @@ class ITsSbSession extends IUnknown{
     /**
      * Retrieves the domain name of the user.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_domain
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_domain
      */
     get_Domain() {
         domain := BSTR()
@@ -166,9 +166,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the session state.
+     * Retrieves or specifies the session state. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_state
      */
     get_State() {
         result := ComCall(8, this, "int*", &pState := 0, "HRESULT")
@@ -176,10 +176,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the session state.
+     * Retrieves or specifies the session state. (Put)
      * @param {Integer} State 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_state
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_state
      */
     put_State(State) {
         result := ComCall(9, this, "int", State, "HRESULT")
@@ -187,9 +187,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the time the session was created.
+     * Retrieves or specifies the time the session was created. (Get)
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_createtime
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_createtime
      */
     get_CreateTime() {
         pTime := FILETIME()
@@ -198,10 +198,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the time the session was created.
+     * Retrieves or specifies the time the session was created. (Put)
      * @param {FILETIME} Time 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_createtime
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_createtime
      */
     put_CreateTime(Time) {
         result := ComCall(11, this, "ptr", Time, "HRESULT")
@@ -209,9 +209,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the time the session was disconnected.
+     * Retrieves or specifies the time the session was disconnected. (Get)
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_disconnecttime
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_disconnecttime
      */
     get_DisconnectTime() {
         pTime := FILETIME()
@@ -220,10 +220,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the time the session was disconnected.
+     * Retrieves or specifies the time the session was disconnected. (Put)
      * @param {FILETIME} Time 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_disconnecttime
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_disconnecttime
      */
     put_DisconnectTime(Time) {
         result := ComCall(13, this, "ptr", Time, "HRESULT")
@@ -231,9 +231,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the initial program for this session.
+     * Retrieves or specifies the initial program for this session. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_initialprogram
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_initialprogram
      */
     get_InitialProgram() {
         app := BSTR()
@@ -242,10 +242,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the initial program for this session.
+     * Retrieves or specifies the initial program for this session. (Put)
      * @param {BSTR} Application 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_initialprogram
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_initialprogram
      */
     put_InitialProgram(Application) {
         Application := Application is String ? BSTR.Alloc(Application).Value : Application
@@ -255,9 +255,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies information about the display device of the client computer.
+     * Retrieves or specifies information about the display device of the client computer. (Get)
      * @returns {CLIENT_DISPLAY} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_clientdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_clientdisplay
      */
     get_ClientDisplay() {
         pClientDisplay := CLIENT_DISPLAY()
@@ -266,10 +266,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies information about the display device of the client computer.
+     * Retrieves or specifies information about the display device of the client computer. (Put)
      * @param {CLIENT_DISPLAY} pClientDisplay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_clientdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_clientdisplay
      */
     put_ClientDisplay(pClientDisplay) {
         result := ComCall(17, this, "ptr", pClientDisplay, "HRESULT")
@@ -277,9 +277,9 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the protocol type for the session.
+     * Retrieves or specifies the protocol type for the session. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_protocoltype
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_protocoltype
      */
     get_ProtocolType() {
         result := ComCall(18, this, "uint*", &pVal := 0, "HRESULT")
@@ -287,10 +287,10 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * Retrieves or specifies the protocol type for the session.
+     * Retrieves or specifies the protocol type for the session. (Put)
      * @param {Integer} Val 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_protocoltype
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_protocoltype
      */
     put_ProtocolType(Val) {
         result := ComCall(19, this, "uint", Val, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods for client applications to retrieve documents.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-iaccclientdocmgr
+ * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccclientdocmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -39,10 +39,12 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * Clients call IAccClientDocMgr::GetDocuments to get a list of all documents that have been registered with the Microsoft Active Accessibility run time.
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @returns {IEnumUnknown} Type: <b>IEnumUnknown*</b>
      * 
      * A list of document interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-getdocuments
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-getdocuments
      */
     GetDocuments() {
         result := ComCall(3, this, "ptr*", &enumUnknown := 0, "HRESULT")
@@ -51,6 +53,8 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * Clients call IAccClientDocMgr::LookupByHWND to get a document by providing the HWND for the document.
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The <b>HWND</b> of the document to be returned.
@@ -60,7 +64,7 @@ class IAccClientDocMgr extends IUnknown{
      * @returns {IUnknown} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
      */
     LookupByHWND(hWnd, riid) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -71,6 +75,8 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * Clients call IAccClientDocMgr::LookupByPoint to get a document object from a point within the document.
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @param {POINT} pt Type: <b>POINT</b>
      * 
      * A point inside the bounding rectangle of the document to be returned.
@@ -80,7 +86,7 @@ class IAccClientDocMgr extends IUnknown{
      * @returns {IUnknown} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-lookupbypoint
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-lookupbypoint
      */
     LookupByPoint(pt, riid) {
         result := ComCall(5, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
@@ -89,13 +95,17 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * Clients call the IAccClientDocMgr::GetFocused method to access a pointer for the document that has focus.
+     * @remarks
+     * If the window that has focus is not a document that implements the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> interface, <i>ppunk</i> will be <b>NULL</b>.
+     * 
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.
      * @returns {IUnknown} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-getfocused
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-getfocused
      */
     GetFocused(riid) {
         result := ComCall(6, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")

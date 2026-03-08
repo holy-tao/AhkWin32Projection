@@ -6,7 +6,7 @@
 
 /**
  * The IWMPPlayer2 interface provides additional methods for modifying the basic behavior of the Windows Media Player control user interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplayer2
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -163,6 +163,12 @@ class IWMPPlayer2 extends IWMPCore{
 
     /**
      * The get_stretchToFit method retrieves a value indicating whether video displayed by the Windows Media Player control automatically sizes to fit the video window when the video window is larger than the dimensions of the video image.
+     * @remarks
+     * When the <b>VARIANT_BOOL</b> retrieved by <b>get_stretchToFit</b> equals <b>TRUE</b>, the Windows Media Player control maintains the original aspect ratio of the video. If the aspect ratio of the video does not match the aspect ratio of the video window, black mask areas may appear on either the top and bottom or left and right of the video image.
+     * 
+     * This method applies to the Windows Media Player control only when embedded in a webpage.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT_BOOL</b> set to <b>FALSE</b>.
      * @param {Pointer<VARIANT_BOOL>} pbEnabled Pointer to a <b>VARIANT_BOOL</b> indicating whether video displayed by the Windows Media Player control automatically resizes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -183,7 +189,7 @@ class IWMPPlayer2 extends IWMPCore{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-get_stretchtofit
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_stretchtofit
      */
     get_stretchToFit(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
@@ -194,6 +200,12 @@ class IWMPPlayer2 extends IWMPCore{
 
     /**
      * The put_stretchToFit method specifies a value indicating whether video displayed by the Windows Media Player control automatically sizes to fit the video window when the video window is larger than the dimensions of the video image.
+     * @remarks
+     * When the <b>VARIANT_BOOL</b> specified in <b>put_stretchToFit</b> is set to <b>TRUE</b>, the Windows Media Player control maintains the original aspect ratio of the video. If the aspect ratio of the video does not match the aspect ratio of the video window, black mask areas may appear on either the top and bottom or left and right of the video image.
+     * 
+     * This method applies to the Windows Media Player control only when embedded in a webpage.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always returns E_INVALIDARG.
      * @param {VARIANT_BOOL} bEnabled <b>VARIANT_BOOL</b> indicating whether video displayed by the Windows Media Player control automatically resizes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -214,7 +226,7 @@ class IWMPPlayer2 extends IWMPCore{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-put_stretchtofit
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-put_stretchtofit
      */
     put_stretchToFit(bEnabled) {
         result := ComCall(37, this, "short", bEnabled, "HRESULT")
@@ -223,6 +235,14 @@ class IWMPPlayer2 extends IWMPCore{
 
     /**
      * The get_windowlessVideo method retrieves a value indicating whether the Windows Media Player control renders video in windowless mode.
+     * @remarks
+     * By default, an embedded Windows Media Player control renders video in its own window within the client area. When the <b>VARIANT_BOOL</b> retrieved by <b>get_windowlessVideo</b> equals <b>TRUE</b>, the Windows Media Player object renders video directly in the client area, so you can apply special effects or layer the video with text.
+     * 
+     * In Windows Vista, rendering video in windowless mode can degrade performance.
+     * 
+     * The <b>get_windowlessVideo</b> method is not supported for Netscape Navigator. Setting a value for this property in Navigator may yield unexpected results.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT_BOOL</b> set to <b>FALSE</b>.
      * @param {Pointer<VARIANT_BOOL>} pbEnabled Pointer to a <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control renders video in windowless mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -243,7 +263,7 @@ class IWMPPlayer2 extends IWMPCore{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-get_windowlessvideo
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_windowlessvideo
      */
     get_windowlessVideo(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
@@ -254,6 +274,14 @@ class IWMPPlayer2 extends IWMPCore{
 
     /**
      * The put_windowlessVideo method specifies a value indicating whether the Windows Media Player control renders video in windowless mode.
+     * @remarks
+     * By default, an embedded Windows Media Player control renders video in its own window within the client area. When the <b>VARIANT_BOOL</b> specified in <b>put_windowlessVideo</b> is set to <b>TRUE</b>, the Windows Media Player object renders video directly in the client area, so you can apply special effects or layer the video with text.
+     * 
+     * In Windows Vista, rendering video in windowless mode can degrade performance.
+     * 
+     * The <b>put_windowlessVideo</b> method is not supported for Netscape Navigator. Setting a value for this property in Navigator may yield unexpected results.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always returns E_INVALIDARG.
      * @param {VARIANT_BOOL} bEnabled <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control renders video in windowless mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -274,7 +302,7 @@ class IWMPPlayer2 extends IWMPCore{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-put_windowlessvideo
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-put_windowlessvideo
      */
     put_windowlessVideo(bEnabled) {
         result := ComCall(39, this, "short", bEnabled, "HRESULT")

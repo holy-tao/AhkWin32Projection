@@ -337,8 +337,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, InfoBufferRetSizeMarshal, InfoBufferRetSize, "ptr", lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -462,8 +462,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferSetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "ptr", lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -597,8 +597,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferCreateLevel", "uint", dwScopeId, "uint", dwLevelId, "uint", OpenFlags, "ptr", pLevelHandle, "ptr", lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -618,8 +618,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferCloseLevel", "ptr", hLevelHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -645,8 +645,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, "ptr", pCodeProperties, "ptr", pLevelHandle, lpReservedMarshal, lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -674,8 +674,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", "ptr", LevelHandle, "ptr", InAccessToken, "ptr", OutAccessToken, "uint", dwFlags, lpReservedMarshal, lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -760,8 +760,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -843,8 +843,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferSetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -870,8 +870,8 @@ class AppLocker {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferRecordEventLogEntry", "ptr", hLevel, "ptr", szTargetPath, "ptr", lpReserved, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

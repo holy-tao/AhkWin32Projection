@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that create and maintain virtual machines.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbprovisioning
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbprovisioning
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -36,8 +36,8 @@ class ITsSbProvisioning extends ITsSbPlugin{
      * @param {BSTR} JobXmlString Defines the job.
      * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
      * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-createvirtualmachines
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-createvirtualmachines
      */
     CreateVirtualMachines(JobXmlString, JobGuid, pSink) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -53,8 +53,8 @@ class ITsSbProvisioning extends ITsSbPlugin{
      * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
      * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
      * @param {Pointer<VM_PATCH_INFO>} pVMPatchInfo Patch information.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-patchvirtualmachines
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-patchvirtualmachines
      */
     PatchVirtualMachines(JobXmlString, JobGuid, pSink, pVMPatchInfo) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -69,8 +69,8 @@ class ITsSbProvisioning extends ITsSbPlugin{
      * @param {BSTR} JobXmlString Defines the job.
      * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
      * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-deletevirtualmachines
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-deletevirtualmachines
      */
     DeleteVirtualMachines(JobXmlString, JobGuid, pSink) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -83,8 +83,8 @@ class ITsSbProvisioning extends ITsSbPlugin{
     /**
      * Cancels a provisioning job.
      * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-canceljob
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-canceljob
      */
     CancelJob(JobGuid) {
         JobGuid := JobGuid is String ? BSTR.Alloc(JobGuid).Value : JobGuid

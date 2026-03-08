@@ -8,7 +8,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//amstream/nn-amstream-iammediatypestream
+ * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammediatypestream
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IAMMediaTypeStream extends IMediaStream{
      * Note  This interface is deprecated. New applications should not use it. The GetFormat method retrieves the format of the stream.
      * @param {Integer} dwFlags Reserved.
      * @returns {AM_MEDIA_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that receives the stream format.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediatypestream-getformat
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-getformat
      */
     GetFormat(dwFlags) {
         pMediaType := AM_MEDIA_TYPE()
@@ -79,7 +79,7 @@ class IAMMediaTypeStream extends IMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediatypestream-setformat
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-setformat
      */
     SetFormat(pMediaType, dwFlags) {
         result := ComCall(10, this, "ptr", pMediaType, "uint", dwFlags, "HRESULT")
@@ -88,12 +88,14 @@ class IAMMediaTypeStream extends IMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The CreateSample method creates a stream sample and optionally specifies the sample buffer.
+     * @remarks
+     * If <i>pUnkOuter</i> is non-<b>NULL</b>, the new stream sample is aggregated into the specified object. Filters that receive the sample can then query it for interfaces supported by the aggregating object.
      * @param {Integer} lSampleSize Size of the sample.
      * @param {Pointer<Integer>} pbBuffer [optional] Pointer to an array of bytes that contains the sample data, or <b>NULL</b>.
      * @param {Integer} dwFlags Reserved.
      * @param {IUnknown} pUnkOuter [optional] Pointer to the interface of an object that aggregates the stream sample.
      * @returns {IAMMediaTypeSample} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/amstream/nn-amstream-iammediatypesample">IAMMediaTypeSample</a> interface pointer that receives a pointer to the created sample.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediatypestream-createsample
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-createsample
      */
     CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -104,8 +106,8 @@ class IAMMediaTypeStream extends IMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetStreamAllocatorRequirements retrieves the allocator requirements for the stream. This method is not currently implemented.
-     * @returns {ALLOCATOR_PROPERTIES} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-allocator_properties">ALLOCATOR_PROPERTIES</a> structure that receives the stream allocator requirements.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediatypestream-getstreamallocatorrequirements
+     * @returns {ALLOCATOR_PROPERTIES} Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-allocator_properties">ALLOCATOR_PROPERTIES</a> structure that receives the stream allocator requirements.
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-getstreamallocatorrequirements
      */
     GetStreamAllocatorRequirements() {
         pProps := ALLOCATOR_PROPERTIES()
@@ -115,9 +117,9 @@ class IAMMediaTypeStream extends IMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The SetStreamAllocatorRequirements sets the allocator requirements for the stream. This method is not currently implemented.
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-allocator_properties">ALLOCATOR_PROPERTIES</a> structure that contains the stream allocator requirements.
+     * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-allocator_properties">ALLOCATOR_PROPERTIES</a> structure that contains the stream allocator requirements.
      * @returns {HRESULT} Returns E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediatypestream-setstreamallocatorrequirements
+     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-setstreamallocatorrequirements
      */
     SetStreamAllocatorRequirements(pProps) {
         result := ComCall(13, this, "ptr", pProps, "HRESULT")

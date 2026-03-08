@@ -5,7 +5,7 @@
 
 /**
  * The optional, application-implemented IWMDMOperation3 interface extends IWMDMOperation by providing a new method for transferring data unencrypted for added efficiency.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmoperation3
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IWMDMOperation3 extends IWMDMOperation{
 
     /**
      * The TransferObjectDataOnClearChannel method is a more efficient implementation of IWMDMOperation::TransferObjectData.
+     * @remarks
+     * If the application supports this method, it is called in preference to the <b>TransferObjectData</b>.
+     * 
+     * See <b>TransferObjectData</b> to learn about the basics of this function. The difference between this method and <b>TransferObjectData</b> is that this method does not require the sender or receiver to encrypt or decrypt data, which requires extra processing time. Licensed content can still be sent using this method, since the content is always encrypted during transport anyway.
+     * 
+     * If the application supports this method, it is called in preference to the <b>TransferObjectData</b>.
      * @param {Pointer<Integer>} pData Pointer to an unencrypted byte buffer.
      * @param {Pointer<Integer>} pdwSize Pointer to a variable specifying the buffer size.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -75,7 +81,7 @@ class IWMDMOperation3 extends IWMDMOperation{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
      */
     TransferObjectDataOnClearChannel(pData, pdwSize) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

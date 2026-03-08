@@ -6,12 +6,10 @@
 /**
  * Exposes methods that allow a client to append or remove an object from a collection of objects managed by a server object.
  * @remarks
- * 
  * This interface is implemented by objects that manage a collection of other objects. It is exported to allow clients of the object to request that objects be added to or removed from the collection.
  * 
  * Use this interface to add or delete an object from the server object's collection of managed objects.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-iobjmgr
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iobjmgr
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,7 +42,7 @@ class IObjMgr extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iobjmgr-append
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iobjmgr-append
      */
     Append(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
@@ -59,7 +57,7 @@ class IObjMgr extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iobjmgr-remove
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iobjmgr-remove
      */
     Remove(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")

@@ -45,8 +45,9 @@ class IJsDebugFrame extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         pName := BSTR()
@@ -104,11 +105,14 @@ class IJsDebugFrame extends IUnknown{
     }
 
     /**
-     * 
+     * Evaluates at the indexed sample location.
+     * @remarks
+     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pExpressionText, ppDebugProperty, pError) {
         pExpressionText := pExpressionText is String ? StrPtr(pExpressionText) : pExpressionText

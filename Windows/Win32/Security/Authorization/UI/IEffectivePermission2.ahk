@@ -6,15 +6,12 @@
 /**
  * Provides a way to determine effective permission for a security principal on an object.
  * @remarks
- * 
  * The <b>IEffectivePermission2</b> interface should be implemented by resource managers that support dynamic access control or by resource managers where the effective access to an object is determined by more than one security check, for example, a security descriptor and a firewall. 
  * 
  * The resource manager typically implements <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation4">ISecurityInformation4</a> before implementing <b>IEffectivePermission2</b> because <b>IEffectivePermission2</b> interprets the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-security_object">SECURITY_OBJECT</a> returned by the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation4-getsecondarysecurity">GetSecondarySecurity</a> method.
  * 
  * If the <b>IEffectivePermission2</b> interface is implemented, then the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-ieffectivepermission">IEffectivePermission</a> interface is not used.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//aclui/nn-aclui-ieffectivepermission2
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-ieffectivepermission2
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
@@ -41,6 +38,12 @@ class IEffectivePermission2 extends IUnknown{
 
     /**
      * Computes the effective permissions by using the secondary security for an object.
+     * @remarks
+     * When the <b>Id</b> member the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-security_object">SECURITY_OBJECT</a> structure is set to SECURITY_OBJECT_ID_CENTRAL_ACCESS_RULE, the <b>ComputeEffectivePermissionWithSecondarySecurity</b> method should use the <b>pData2</b> member first and only then evaluate access  by using the  <b>pData</b> member.
+     * 
+     * It is expected that the caller will use <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> to determine the effective permissions.  When possible, the implementation should initialize a remote resource manager on the supplied <b>pszServerName</b> member, using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializeremoteresourcemanager">AuthzInitializeRemoteResourceManager</a> function to ensure that the groups and claims are initialized in the same manner as when the principal really accesses the object.  If <b>AuthzInitializeRemoteResourceManager</b> fails, the implementation may fall back to using the  <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializeresourcemanager">AuthzInitializeResourceManager</a> function and return S_FALSE to indicate that approximate results are returned.
+     * 
+     * For each of the secondary security objects whose <b>fEvaluated</b> member is set to <b>TRUE</b>, the access control editor will display which permissions and properties were limited by that object using the <b>pwszName</b> member.
      * @param {PSID} pSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the security principal whose effective permission is being determined.
      * @param {PSID} pDeviceSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the device from which the principal is accessing the object. If this is not <b>NULL</b> and you are using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> function to compute the effective permissions, then the device SID may be compounded with the <i>pSid</i> parameter by using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializecompoundcontext">AuthzInitializeCompoundContext</a> function.
      * @param {PWSTR} pszServerName The name of the server on which the object resides. This is the same name that was returned from the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getobjectinformation">ISecurityInformation::GetObjectInformation</a> method.
@@ -61,8 +64,8 @@ class IEffectivePermission2 extends IUnknown{
      * 
      * If the function is successful but returned an approximate result, the return value is S_FALSE.
      * 
-     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-ieffectivepermission2-computeeffectivepermissionwithsecondarysecurity
+     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-ieffectivepermission2-computeeffectivepermissionwithsecondarysecurity
      */
     ComputeEffectivePermissionWithSecondarySecurity(pSid, pDeviceSid, pszServerName, pSecurityObjects, dwSecurityObjectCount, pUserGroups, pAuthzUserGroupsOperations, pDeviceGroups, pAuthzDeviceGroupsOperations, pAuthzUserClaims, pAuthzUserClaimsOperations, pAuthzDeviceClaims, pAuthzDeviceClaimsOperations, pEffpermResultLists) {
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName

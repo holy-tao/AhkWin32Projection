@@ -6,12 +6,10 @@
 /**
  * Exposes methods that support the Lock method.
  * @remarks
- * 
  * The bitmap lock is simply an abstraction for a rectangular memory window into the bitmap. For the simplest case, a system memory bitmap, this is simply a pointer to the top left corner of the rectangle and a stride value.
  * 
  * To release the exclusive lock set by <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmap-lock">Lock</a> method and the associated <b>IWICBitmapLock</b> object, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the <b>IWICBitmapLock</b> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmaplock
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmaplock
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -46,8 +44,8 @@ class IWICBitmapLock extends IUnknown{
      * A pointer that receives the height of the locked rectangle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getsize
      */
     GetSize(puiWidth, puiHeight) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
@@ -59,8 +57,11 @@ class IWICBitmapLock extends IUnknown{
 
     /**
      * Provides access to the stride value for the memory.
+     * @remarks
+     * Note the stride value is specific to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmaplock">IWICBitmapLock</a>, not the bitmap. 
+     *             For example, two consecutive locks on the same rectangle of a bitmap may return different pointers and stride values, depending on internal implementation.
      * @returns {Integer} Type: <b>UINT*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getstride
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getstride
      */
     GetStride() {
         result := ComCall(4, this, "uint*", &pcbStride := 0, "HRESULT")
@@ -69,6 +70,10 @@ class IWICBitmapLock extends IUnknown{
 
     /**
      * Gets the pointer to the top left pixel in the locked rectangle.
+     * @remarks
+     * The pointer provided by this method should not be used outside of the lifetime of the lock itself.
+     * 
+     * <b>GetDataPointer</b> is not available in multi-threaded apartment applications.
      * @param {Pointer<Integer>} pcbBufferSize Type: <b>UINT*</b>
      * 
      * A pointer that receives the size of the buffer.
@@ -77,8 +82,8 @@ class IWICBitmapLock extends IUnknown{
      * A pointer that receives a pointer to the top left pixel in the locked rectangle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
      */
     GetDataPointer(pcbBufferSize, ppbData) {
         pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : "ptr"
@@ -93,7 +98,7 @@ class IWICBitmapLock extends IUnknown{
      * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
      * 
      * A pointer that receives the pixel format GUID of the locked area.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getpixelformat
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getpixelformat
      */
     GetPixelFormat() {
         pPixelFormat := Guid()

@@ -44,8 +44,9 @@ class IActiveScriptSiteDebug32 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
      * @returns {IDebugApplication32} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrecoverycallback
      */
     GetApplication() {
         result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")

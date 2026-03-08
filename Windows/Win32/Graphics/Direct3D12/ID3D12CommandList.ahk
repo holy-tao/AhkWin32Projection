@@ -6,7 +6,6 @@
 /**
  * An interface from which ID3D12GraphicsCommandList inherits from. It represents an ordered set of commands that the GPU executes, while allowing for extension to support other command lists than just those for graphics (such as compute and copy).
  * @remarks
- * 
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist">ID3D12Device::CreateCommandList</a> to create a command list object.
  *       
  * 
@@ -24,9 +23,7 @@
  * <li>A bundle can be executed only directly via a direct command list.
  *           </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12commandlist
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -53,12 +50,12 @@ class ID3D12CommandList extends ID3D12DeviceChild{
 
     /**
      * Gets the type of the command list, such as direct, bundle, compute, or copy.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
      * 
      * This method returns the type of the command list, 
-     *             as a <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a> enumeration constant, 
+     *             as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a> enumeration constant, 
      *             such as direct, bundle, compute, or copy.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandlist-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandlist-gettype
      */
     GetType() {
         result := ComCall(8, this, "int")

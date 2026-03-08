@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that define a IMILBitmapEffectRenderContext.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectrendercontextimpl
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectrendercontextimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * A pointer that receives a value that indicates whether to use software rendering.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getusesoftwarerenderer
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getusesoftwarerenderer
      */
     GetUseSoftwareRenderer() {
         result := ComCall(3, this, "short*", &pfSoftware := 0, "HRESULT")
@@ -49,8 +49,8 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
      * The matrix transform of the render context.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-gettransform
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-gettransform
      */
     GetTransform(pMatrix) {
         result := ComCall(4, this, "ptr", pMatrix, "HRESULT")
@@ -64,8 +64,8 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
      * The new transform to use.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updatetransform
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updatetransform
      */
     UpdateTransform(pMatrix) {
         result := ComCall(5, this, "ptr", pMatrix, "HRESULT")
@@ -79,8 +79,8 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
      * The output bounds.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getoutputbounds
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getoutputbounds
      */
     GetOutputBounds(pRect) {
         result := ComCall(6, this, "ptr", pRect, "HRESULT")
@@ -94,8 +94,8 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
      * The new output bounds to use.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updateoutputbounds
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updateoutputbounds
      */
     UpdateOutputBounds(pRect) {
         result := ComCall(7, this, "ptr", pRect, "HRESULT")

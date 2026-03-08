@@ -1409,8 +1409,8 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustAddActionID", "ptr", pgActionID, "uint", fdwFlags, "ptr", psProvInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1541,8 +1541,8 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustAddDefaultForUsage", "ptr", pszUsageOID, "ptr", psDefUsage, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1567,8 +1567,8 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustGetDefaultForUsage", "uint", dwAction, "ptr", pszUsageOID, "ptr", psUsage, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1662,11 +1662,7 @@ class WinTrust {
      * @since windows6.0.6000
      */
     static WTHelperCertCheckValidSignature(pProvData) {
-        result := DllCall("WINTRUST.dll\WTHelperCertCheckValidSignature", "ptr", pProvData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WINTRUST.dll\WTHelperCertCheckValidSignature", "ptr", pProvData, "HRESULT")
         return result
     }
 

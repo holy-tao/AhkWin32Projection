@@ -6,12 +6,10 @@
 /**
  * Exposes a single method used to abort IShellImageData processes.
  * @remarks
- * 
  * This interface is not expected to be available in later versions of Windows. It is recommended that Windows GDI+ APIs be used in place of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> methods.
  * 
  * This interface was not included in a public header file prior to Windows Vista.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nn-shimgdata-ishellimagedataabort
+ * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nn-shimgdata-ishellimagedataabort
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -40,8 +38,8 @@ class IShellImageDataAbort extends IUnknown{
      * Aborts an IShellImageData process such as Decode, Draw, or Scale. This is a callback method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if the <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> process should continue, or S_FALSE if it should be aborted.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedataabort-queryabort
+     * Returns S_OK if the <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> process should continue, or S_FALSE if it should be aborted.
+     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedataabort-queryabort
      */
     QueryAbort() {
         result := ComCall(3, this, "HRESULT")

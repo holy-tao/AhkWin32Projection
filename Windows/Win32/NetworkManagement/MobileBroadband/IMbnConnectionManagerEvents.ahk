@@ -6,7 +6,6 @@
 /**
  * This notification interface signals an application about the arrival and removal of IMbnConnection interfaces in the system.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectionmanagerevents
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectionmanagerevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -47,7 +45,7 @@ class IMbnConnectionManagerEvents extends IUnknown{
      * Notification method that indicates a new connection was added to the system.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device added to the system.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionarrival
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionarrival
      */
     OnConnectionArrival(newConnection) {
         result := ComCall(3, this, "ptr", newConnection, "HRESULT")
@@ -58,7 +56,7 @@ class IMbnConnectionManagerEvents extends IUnknown{
      * Notification method that indicates a connection was removed from the system.
      * @param {IMbnConnection} oldConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device removed from the system.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionremoval
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionremoval
      */
     OnConnectionRemoval(oldConnection) {
         result := ComCall(4, this, "ptr", oldConnection, "HRESULT")

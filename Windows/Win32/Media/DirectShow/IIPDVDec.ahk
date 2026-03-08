@@ -5,7 +5,7 @@
 
 /**
  * The IIPDVDec interface provides methods for setting and retrieving properties on the DV Video Decoder filter.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iipdvdec
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iipdvdec
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IIPDVDec extends IUnknown{
     /**
      * The get_IPDisplay method gets the decoding resolution.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_dvresolution">DVDECODERRESOLUTION</a> enumerated type, specifying the decoding resolution.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iipdvdec-get_ipdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-get_ipdisplay
      */
     get_IPDisplay() {
         result := ComCall(3, this, "int*", &displayPix := 0, "HRESULT")
@@ -50,9 +50,11 @@ class IIPDVDec extends IUnknown{
 
     /**
      * The put_IPDisplay method sets the decoding resolution.
+     * @remarks
+     * This method will fail if the filter is already streaming media data.
      * @param {Integer} displayPix Member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_dvresolution">DVDECODERRESOLUTION</a> enumerated type, specifying the decoding resolution. The meaning of this value depends on whether the current format is NTSC or PAL. The filter determines at run time which format applies, based on the media type.
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns E_FAIL or another error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iipdvdec-put_ipdisplay
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-put_ipdisplay
      */
     put_IPDisplay(displayPix) {
         result := ComCall(4, this, "int", displayPix, "HRESULT")

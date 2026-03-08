@@ -6,13 +6,10 @@
 /**
  * Represents a description of a video format.
  * @remarks
- * 
  * If the major type of a media type is MFMediaType_Video, you can query the media type object for the <b>IMFVideoMediaType</b> interface.
  * 
  * Applications should avoid using this interface except when a method or function requires an <b>IMFVideoMediaType</b> pointer as a parameter. You can get all of the format information from a video media type through the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface, which <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> inherits.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfvideomediatype
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfvideomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,8 +36,12 @@ class IMFVideoMediaType extends IMFMediaType{
 
     /**
      * GetVideoFormat is no longer available for use as of Windows 7.
-     * @returns {Pointer<MFVIDEOFORMAT>} This method returns a pointer to an <a href="/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfvideomediatype-getvideoformat
+     * @remarks
+     * If you need to convert the media type into an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemfvideoformatfrommfmediatype">MFCreateMFVideoFormatFromMFMediaType</a>.
+     * 
+     * There are no guarantees about how long the returned pointer is valid.
+     * @returns {Pointer<MFVIDEOFORMAT>} This method returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideoformat
      */
     GetVideoFormat() {
         result := ComCall(38, this, "ptr")
@@ -49,10 +50,14 @@ class IMFVideoMediaType extends IMFMediaType{
 
     /**
      * Retrieves an alternative representation of the media type.
+     * @remarks
+     * This method is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">IMFMediaType::GetRepresentation</a> but includes the <i>lStride</i> parameter.
+     * 
+     * Instead of calling this method, applications should set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-default-stride-attribute">MF_MT_DEFAULT_STRIDE</a> attribute on the media type to specify the surface stride and then call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">IMFMediaType::GetRepresentation</a>.
      * @param {Guid} guidRepresentation GUID that specifies the representation to retrieve. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">IMFMediaType::GetRepresentation</a>.
      * @param {Integer} lStride Stride of the video surface, in bytes. If the stride is unknown, set this value to 0. If the value is 0, the method computes the stride from the image width and assumes that there is no padding.
      * @returns {Pointer<Void>} Receives a pointer to a structure that contains the representation. The method allocates the memory for the structure. The caller must release the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation">IMFMediaType::FreeRepresentation</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
      */
     GetVideoRepresentation(guidRepresentation, lStride) {
         result := ComCall(39, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")

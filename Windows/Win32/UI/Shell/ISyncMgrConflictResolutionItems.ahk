@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that get item info and item count.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrconflictresolutionitems
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictresolutionitems
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ISyncMgrConflictResolutionItems extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to an item count.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
@@ -51,7 +51,7 @@ class ISyncMgrConflictResolutionItems extends IUnknown{
      * @returns {CONFIRM_CONFLICT_RESULT_INFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-confirm_conflict_result_info">CONFIRM_CONFLICT_RESULT_INFO</a>*</b>
      * 
      * On success, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-confirm_conflict_result_info">CONFIRM_CONFLICT_RESULT_INFO</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getitem
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getitem
      */
     GetItem(iIndex) {
         pItemInfo := CONFIRM_CONFLICT_RESULT_INFO()

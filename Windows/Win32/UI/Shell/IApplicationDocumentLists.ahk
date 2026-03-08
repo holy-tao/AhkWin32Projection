@@ -6,7 +6,6 @@
 /**
  * Exposes methods that allow an application to retrieve the contents of the Recent or Frequent categories in a Jump List.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * An implementation of this interface is provided in Windows as CLSID_ApplicationDocumentLists. This interface is not implemented by third parties.
  * 
@@ -16,9 +15,7 @@
  * 
  * 
  * <b>IApplicationDocumentLists</b> is used only with the automatically generated <b>Recent</b> or <b>Frequent</b> categories. It cannot retrieve a list of items that the user has pinned to the Jump List. That list cannot be retrieved programmatically because it cannot be manipulated programmatically; it is strictly under the user's control. <b>IApplicationDocumentLists</b> also cannot access custom categories or the task list.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iapplicationdocumentlists
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdocumentlists
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -51,13 +48,19 @@ class IApplicationDocumentLists extends IUnknown{
 
     /**
      * Specifies a unique Application User Model ID (AppUserModelID) for the application whose destination lists are being retrieved. This method is optional.
+     * @remarks
+     * If the application has an explicit AppUserModelID, this method must be called before you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist">GetList</a>.
+     * 
+     * After an AppUserModelID is specified through an object's <b>SetAppID</b> method, the AppUserModelID is saved in the object for that object's lifetime, providing that it is not overwritten by another call to <b>SetAppID</b>.
+     * 
+     * Some applications will not declare an explicit AppUserModelID and should not call this method. In that case, the application's identity is deduced when <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist">IApplicationDocumentLists::GetList</a> is called. However, there is a performance benefit in avoiding those calculations, so applications that provide custom Jump Lists are encouraged to use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-setcurrentprocessexplicitappusermodelid">explicit AppUserModelIDs</a>.
      * @param {PWSTR} pszAppID Type: <b>LPCWSTR</b>
      * 
      * A pointer to the AppUserModelID of the process whose taskbar button representation receives the Jump List.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-setappid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-setappid
      */
     SetAppID(pszAppID) {
         pszAppID := pszAppID is String ? StrPtr(pszAppID) : pszAppID
@@ -68,6 +71,10 @@ class IApplicationDocumentLists extends IUnknown{
 
     /**
      * Retrieves an object that represents the collection of destinations listed in the Recent or Frequent category in a Jump List.
+     * @remarks
+     * An item can appear in both the <b>Recent</b> and <b>Frequent</b> lists.
+     * 
+     * If a user pins an item in the <b>Recent</b> or <b>Frequent</b> categories, the item is no longer shown in its original category to avoid duplication in the Jump List. However, the item will still be returned by this method.
      * @param {Integer} listtype Type: <b>APPDOCLISTTYPE</b>
      * @param {Integer} cItemsDesired Type: <b>UINT</b>
      * 
@@ -78,7 +85,7 @@ class IApplicationDocumentLists extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/windows/desktop/api/objectarray/nn-objectarray-iobjectarray">IObjectArray</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumobjects">IEnumObjects</a> which represents a collection of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> objects (or a mix of the two) that represent the retrieved items from the list.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist
      */
     GetList(listtype, cItemsDesired, riid) {
         result := ComCall(4, this, "int", listtype, "uint", cItemsDesired, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

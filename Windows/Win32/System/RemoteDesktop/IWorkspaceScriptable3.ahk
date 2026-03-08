@@ -5,8 +5,8 @@
 #Include .\IWorkspaceScriptable2.ahk
 
 /**
- * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nn-workspaceruntime-iworkspacescriptable3
+ * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable3)
+ * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspacescriptable3
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

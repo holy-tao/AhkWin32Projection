@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Not supported.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ishellrundll
+ * Not supported. (IShellRunDll)
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ishellrundll
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,12 +31,12 @@ class IShellRunDll extends IUnknown{
     static VTableNames => ["Run"]
 
     /**
-     * Not supported.
+     * Not supported. (IShellRunDll.Run)
      * @param {PWSTR} pszArgs Type: <b>LPCWSTR</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ishellrundll-run
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ishellrundll-run
      */
     Run(pszArgs) {
         pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs

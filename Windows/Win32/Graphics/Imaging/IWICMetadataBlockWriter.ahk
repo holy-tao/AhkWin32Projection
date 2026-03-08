@@ -7,12 +7,9 @@
 /**
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.
  * @remarks
- * 
  * When the encoder is told to commit, it goes through each metadata writer and serializes the metadata content into the encoding stream.
  *             If the metadata block contains metadata important to the integrity of the file, such as the image width or height or other intrinsic information about the image, the encoder must set the critical metadata items prior to serializing the metadata.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicmetadatablockwriter
+ * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockwriter
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -44,8 +41,8 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockreader">IWICMetadataBlockReader</a> used to initialize the block writer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-initializefromblockreader
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-initializefromblockreader
      */
     InitializeFromBlockReader(pIMDBlockReader) {
         result := ComCall(7, this, "ptr", pIMDBlockReader, "HRESULT")
@@ -60,7 +57,7 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
      * @returns {IWICMetadataWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>**</b>
      * 
      * When this method returns, contains a pointer to the metadata writer that resides at the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-getwriterbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-getwriterbyindex
      */
     GetWriterByIndex(nIndex) {
         result := ComCall(8, this, "uint", nIndex, "ptr*", &ppIMetadataWriter := 0, "HRESULT")
@@ -74,8 +71,8 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
      * A pointer to the metadata writer to add to the image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-addwriter
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-addwriter
      */
     AddWriter(pIMetadataWriter) {
         result := ComCall(9, this, "ptr", pIMetadataWriter, "HRESULT")
@@ -84,6 +81,10 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
 
     /**
      * Replaces the metadata writer at the specified index location.
+     * @remarks
+     * Typically, the current metadata writer at the specified index will be replaced with the new writer. However, the App0 metadata writer cannot be replaced within a JPEG stream. 
+     * 
+     * This function cannot be used to add metadata writers. If no metadata writer exists at the specified index, the function will fail.
      * @param {Integer} nIndex Type: <b>UINT</b>
      * 
      * The index position at which to place the metadata writer. This index is zero-based.
@@ -92,8 +93,8 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-setwriterbyindex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-setwriterbyindex
      */
     SetWriterByIndex(nIndex, pIMetadataWriter) {
         result := ComCall(10, this, "uint", nIndex, "ptr", pIMetadataWriter, "HRESULT")
@@ -102,13 +103,15 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
 
     /**
      * Removes the metadata writer from the specified index location.
+     * @remarks
+     * After removing a metadata writer, remaining metadata writers can be expected to move up to occupy the vacated location. Indexes for remaining metadata items as well as the count will change.
      * @param {Integer} nIndex Type: <b>UINT</b>
      * 
      * The index of the metadata writer to remove.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-removewriterbyindex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-removewriterbyindex
      */
     RemoveWriterByIndex(nIndex) {
         result := ComCall(11, this, "uint", nIndex, "HRESULT")

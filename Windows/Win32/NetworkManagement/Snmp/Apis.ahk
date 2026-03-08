@@ -548,7 +548,7 @@ class Snmp {
 
         result := DllCall("snmpapi.dll\SnmpUtilOidAppend", "ptr", pOidDst, "ptr", pOidSrc, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1056,7 +1056,7 @@ class Snmp {
 
         result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, "int", nTimeOut, "int", nRetries, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1142,8 +1142,8 @@ class Snmp {
         A_LastError := 0
 
         result := DllCall("mgmtapi.dll\SnmpMgrCtl", sessionMarshal, session, "uint", dwCtlCode, lpvInBufferMarshal, lpvInBuffer, "uint", cbInBuffer, lpvOUTBufferMarshal, lpvOUTBuffer, "uint", cbOUTBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1250,7 +1250,7 @@ class Snmp {
 
         result := DllCall("mgmtapi.dll\SnmpMgrRequest", sessionMarshal, session, "char", requestType, "ptr", variableBindings, errorStatusMarshal, errorStatus, errorIndexMarshal, errorIndex, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1378,8 +1378,8 @@ class Snmp {
         A_LastError := 0
 
         result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

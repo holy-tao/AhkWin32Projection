@@ -8,7 +8,7 @@
 
 /**
  * Extends the IUIAutomationElement6 interface.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement7
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement7
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptions
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptions
      */
     FindFirstWithOptions(scope, condition, traversalOptions, root) {
         result := ComCall(110, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElementArray} Receives a pointer to an array of matching elements. Returns an empty array if no matching element is found.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptions
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptions
      */
     FindAllWithOptions(scope, condition, traversalOptions, root) {
         result := ComCall(111, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
@@ -69,7 +69,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptionsbuildcache
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptionsbuildcache
      */
     FindFirstWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root) {
         result := ComCall(112, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
@@ -96,7 +96,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * 
      * A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElementArray} Receives a pointer to an array of matching elements. Returns an empty array if no matching element is found.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptionsbuildcache
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptionsbuildcache
      */
     FindAllWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root) {
         result := ComCall(113, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
@@ -104,11 +104,11 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
     }
 
     /**
-     * Gets metadata from the UI Automation element that indicates how the information should be interpreted.
+     * Gets metadata from the UI Automation element that indicates how the information should be interpreted. (IUIAutomationElement7.GetCurrentMetadataValue)
      * @param {Integer} targetId The ID of the property to retrieve.
      * @param {Integer} metadataId Specifies the type of metadata to retrieve.
      * @returns {VARIANT} The metadata.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement7-getcurrentmetadatavalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-getcurrentmetadatavalue
      */
     GetCurrentMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()

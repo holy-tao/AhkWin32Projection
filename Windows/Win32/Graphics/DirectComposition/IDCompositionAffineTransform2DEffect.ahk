@@ -4,8 +4,8 @@
 #Include .\IDCompositionFilterEffect.ahk
 
 /**
- * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionaffinetransform2deffect
+ * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionAffineTransform2DEffect)
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionaffinetransform2deffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -35,10 +35,10 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a></b>
      * 
      * Specifies the interpolation mode of the effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
      */
     SetInterpolationMode(interpolationMode) {
         result := ComCall(4, this, "int", interpolationMode, "HRESULT")
@@ -50,10 +50,10 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_BORDER_MODE</a></b>
      * 
      * Specifies the border mode to use with the effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
      */
     SetBorderMode(borderMode) {
         result := ComCall(5, this, "int", borderMode, "HRESULT")
@@ -65,10 +65,10 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Pointer<D2D_MATRIX_3X2_F>} transformMatrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
      * Specifies the transform matrix for the effect to use.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
      */
     SetTransformMatrix(transformMatrix) {
         result := ComCall(6, this, "ptr", transformMatrix, "HRESULT")
@@ -76,11 +76,19 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets an element of the transform matrix of the effect. (overload 2/2)
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * The row of the element.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The column of the element.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the element value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
     SetTransformMatrixElement(row, column, animation) {
@@ -89,11 +97,17 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets an element of the transform matrix of the effect. (overload 2/2)
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
+     * The row of the element.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {Float} value 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
     SetTransformMatrixElement1(row, column, value) {
@@ -102,9 +116,11 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
-     * 
+     * Sets the sharpness of the effect. (overload 2/2)
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(float)
      */
     SetSharpness(animation) {
@@ -113,9 +129,13 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the sharpness of the effect. (overload 2/2)
+     * @param {Float} sharpness Type: <b>float</b>
      * 
-     * @param {Float} sharpness 
-     * @returns {HRESULT} 
+     * Specifies the sharpness of the effect.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(float)
      */
     SetSharpness1(sharpness) {

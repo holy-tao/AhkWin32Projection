@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Used to call the batch work that is submitted through the activity created by CoCreateActivity.
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iserviceactivity
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

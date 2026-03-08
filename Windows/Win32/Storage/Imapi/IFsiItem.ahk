@@ -6,7 +6,7 @@
 
 /**
  * Base interface containing properties common to both file and directory items.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsiitem
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsiitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -79,8 +79,10 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the name of the directory or file item in the file system image.
+     * @remarks
+     * To get the full path to the item, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath">IFsiItem::get_FullPath</a> method.
      * @returns {BSTR} String that contains the name of the file or directory item in the file system image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name
      */
     get_Name() {
         pVal := BSTR()
@@ -91,7 +93,7 @@ class IFsiItem extends IDispatch{
     /**
      * Retrieves the full path of the file or directory item in the file system image.
      * @returns {BSTR} String that contains the absolute path of the file or directory item in the file system image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath
      */
     get_FullPath() {
         pVal := BSTR()
@@ -101,8 +103,12 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the date and time that the directory or file item was created and added to the file system image.
+     * @remarks
+     * The creation date and time are propagated to the attributes that users see when listing the contents of a directory.
+     * 
+     * IMAPI does not support the extended attribute for <i>CreationTime</i>, and as a result, UDFS populates the <i>CreationTime</i> with the value expressed by the <i>LastAccessed</i> property from the file entry.
      * @returns {Float} Date and time that the  directory or file item was created and added to the file system image, according to UTC time.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_creationtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_creationtime
      */
     get_CreationTime() {
         result := ComCall(9, this, "double*", &pVal := 0, "HRESULT")
@@ -111,6 +117,8 @@ class IFsiItem extends IDispatch{
 
     /**
      * Sets the date and time that the directory or file item was created and added to the file system image.
+     * @remarks
+     * IMAPI does not support the extended attribute for <i>CreationTime</i>, and as a result, UDFS populates the <i>CreationTime</i> with the value expressed by the <i>LastAccessed</i> property from the file entry.
      * @param {Float} newVal Date and time that the directory or file item was created and added to the file system image, according to UTC time. Defaults to the time the item was added to the image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -146,7 +154,7 @@ class IFsiItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-put_creationtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_creationtime
      */
     put_CreationTime(newVal) {
         result := ComCall(10, this, "double", newVal, "HRESULT")
@@ -155,8 +163,12 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the date and time the directory or file item was last accessed in the file system image.
+     * @remarks
+     * UDFS (UDF) uses the <i>LastAccessedTime</i> value for the <i>CreationTime</i>, as IMAPI does not currently support the <i>CreationTime</i> extended attribute.
+     * 
+     * CDFS (ISO 9660) sets the <i>LastAccessedTime</i> value retrieved by this method to 0, as only the recording time is stored within the File/Directory descriptor.
      * @returns {Float} Date and time that the item directory or file was last accessed in the file system image, according to UTC time.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_lastaccessedtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastaccessedtime
      */
     get_LastAccessedTime() {
         result := ComCall(11, this, "double*", &pVal := 0, "HRESULT")
@@ -165,6 +177,10 @@ class IFsiItem extends IDispatch{
 
     /**
      * Sets the date and time that the directory or file item was last accessed in the file system image.
+     * @remarks
+     * UDFS (UDF) uses the <i>LastAccessedTime</i> value for the <i>CreationTime</i>, as IMAPI does not currently support the <i>CreationTime</i> extended attribute.
+     * 
+     * CDFS (ISO 9660) sets the <i>LastAccessedTime</i> value to 0, as only the recording time is stored within the File/Directory descriptor.
      * @param {Float} newVal Date and time that the directory or file  item was last accessed in the file system image, according to UTC time. Defaults to the time the item was added to the image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -200,7 +216,7 @@ class IFsiItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-put_lastaccessedtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_lastaccessedtime
      */
     put_LastAccessedTime(newVal) {
         result := ComCall(12, this, "double", newVal, "HRESULT")
@@ -209,8 +225,14 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the date and time that the directory or file item was last modified in the file system image.
+     * @remarks
+     * When implementing this method, a few things should be taken into consideration:
+     * 
+     * UDFS (UDF) will use the value provided by <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-put_lastmodifiedtime">IFsiItem::put_LastModifiedTime</a> as both the <i>CreationTime</i> and <i>LastModifiedTime</i>.
+     * 
+     * CDFS (ISO 9660) uses the date/time of recording as the <i>CreationTime</i> and <i>LastModifiedTime</i>. As a result, CDFS sets the value of <i>LastModifiedTime</i> to 0.
      * @returns {Float} Date and time that the directory or file  item was last modified in the file system image, according to UTC time.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_lastmodifiedtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastmodifiedtime
      */
     get_LastModifiedTime() {
         result := ComCall(13, this, "double*", &pVal := 0, "HRESULT")
@@ -219,6 +241,14 @@ class IFsiItem extends IDispatch{
 
     /**
      * Sets the date and time that the item was last modified in the file system image.
+     * @remarks
+     * The last modified time is propagated to the attribute  that users see when viewing the properties of a directory or a file.
+     * 
+     * When implementing this method, a few things should be taken into consideration:
+     * 
+     * UDFS (UDF) will use the value provided by <b>IFsiItem::put_LastModifiedTime</b> as both the <i>CreationTime</i> and <i>LastModifiedTime</i>.
+     * 
+     * CDFS (ISO 9660) uses the date/time of recording as the <i>CreationTime</i> and <i>LastModifiedTime</i>. As a result, CDFS sets the value of <i>LastModifiedTime</i> to 0.
      * @param {Float} newVal Date and time that the directory or file item was last modified in the file system image, according to UTC time.  Defaults to the time the item was added to the image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -254,7 +284,7 @@ class IFsiItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-put_lastmodifiedtime
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_lastmodifiedtime
      */
     put_LastModifiedTime(newVal) {
         result := ComCall(14, this, "double", newVal, "HRESULT")
@@ -262,9 +292,9 @@ class IFsiItem extends IDispatch{
     }
 
     /**
-     * Determines if the item's hidden attribute is set in the file system image.
+     * Determines if the item's hidden attribute is set in the file system image. (Get)
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the hidden attribute of the item is marked in the file system image; otherwise, VARIANT_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-get_ishidden
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_ishidden
      */
     get_IsHidden() {
         result := ComCall(15, this, "short*", &pVal := 0, "HRESULT")
@@ -272,7 +302,7 @@ class IFsiItem extends IDispatch{
     }
 
     /**
-     * Determines if the item's hidden attribute is set in the file system image.
+     * Determines if the item's hidden attribute is set in the file system image. (Put)
      * @param {VARIANT_BOOL} newVal Set to VARIANT_TRUE to set the hidden attribute of the item in the file system image; otherwise, VARIANT_FALSE. The default is VARIANT_FALSE.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -308,7 +338,7 @@ class IFsiItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-put_ishidden
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_ishidden
      */
     put_IsHidden(newVal) {
         result := ComCall(16, this, "short", newVal, "HRESULT")
@@ -319,7 +349,7 @@ class IFsiItem extends IDispatch{
      * Retrieves the name of the item as modified to conform to the specified file system.
      * @param {Integer} fileSystem File system to which the name should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {BSTR} String that contains the name of the item as it conforms to the specified file system. The name in the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name">IFsiItem::get_Name</a> property is modified if the characters used and its length do not meet the requirements of the specified file system type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-filesystemname
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystemname
      */
     FileSystemName(fileSystem) {
         pVal := BSTR()
@@ -331,7 +361,7 @@ class IFsiItem extends IDispatch{
      * Retrieves the full path of the item as modified to conform to the specified file system.
      * @param {Integer} fileSystem File system to which the path should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {BSTR} String that contains the full path of the item as it conforms to the specified file system. The path in the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath">IFsiItem::get_FullPath</a> property is modified if the characters used and its length do not meet the requirements of the specified file system type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsiitem-filesystempath
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystempath
      */
     FileSystemPath(fileSystem) {
         pVal := BSTR()

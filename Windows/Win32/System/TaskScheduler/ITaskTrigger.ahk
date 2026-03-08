@@ -6,7 +6,7 @@
 
 /**
  * Provides the methods for accessing and setting triggers for a task. Triggers specify task start times, repetition criteria, and other parameters that control when a task is run.
- * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-itasktrigger
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itasktrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -33,6 +33,15 @@ class ITaskTrigger extends IUnknown{
 
     /**
      * The SetTrigger method sets the trigger criteria for a task trigger.
+     * @remarks
+     * The <b>wBeginDay</b>, <b>wBeginMonth</b>, and <b>wBeginYear</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure must be set to a valid day, month, and year respectively.
+     * 
+     * A task can have any number of triggers associated with it. The times that the task will run are the union of all the triggers defined for that task.
+     * 
+     * To update the task with these new trigger settings, applications must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> method after calling 
+     * <b>SetTrigger</b>.
      * @param {Pointer<TASK_TRIGGER>} pTrigger A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure that contains the values that define the new task trigger.
      * @returns {HRESULT} The 
@@ -77,7 +86,7 @@ class ITaskTrigger extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itasktrigger-settrigger
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-settrigger
      */
     SetTrigger(pTrigger) {
         result := ComCall(3, this, "ptr", pTrigger, "HRESULT")
@@ -86,10 +95,12 @@ class ITaskTrigger extends IUnknown{
 
     /**
      * The GetTrigger method retrieves the current task trigger.
+     * @remarks
+     * A scheduled work item can have one or more triggers defined. The times that the work item will run are the union of all the triggers defined for that item.
      * @returns {TASK_TRIGGER} A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure that contains the current task trigger. You must set the <b>cbTriggerSize</b> member of the 
      * <b>TASK_TRIGGER</b> structure to the size of the task trigger structure before passing the structure to this method.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itasktrigger-gettrigger
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-gettrigger
      */
     GetTrigger() {
         pTrigger := TASK_TRIGGER()
@@ -101,7 +112,7 @@ class ITaskTrigger extends IUnknown{
      * The GetTriggerString method retrieves the current task trigger in the form of a string. This string appears in the Task Scheduler user interface in a form similar to &quot;At 2PM every day, starting 5/11/97.&quot;.
      * @returns {PWSTR} A pointer to a pointer to a null-terminated string that describes the current task trigger. The method that invokes 
      * <b>GetTriggerString</b> is responsible for freeing this string using the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itasktrigger-gettriggerstring
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-gettriggerstring
      */
     GetTriggerString() {
         result := ComCall(5, this, "ptr*", &ppwszTrigger := 0, "HRESULT")

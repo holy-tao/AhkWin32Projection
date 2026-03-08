@@ -8622,7 +8622,7 @@ class WiFi {
 
         result := DllCall("wlanapi.dll\WlanAllocateMemory", "uint", dwMemorySize, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result

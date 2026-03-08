@@ -7,7 +7,7 @@
 
 /**
  * Represents a stream on a media sink object.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfstreamsink
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamsink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
     /**
      * Retrieves the media sink that owns this stream sink.
      * @returns {IMFMediaSink} Receives a pointer to the media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-getmediasink
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getmediasink
      */
     GetMediaSink() {
         result := ComCall(7, this, "ptr*", &ppMediaSink := 0, "HRESULT")
@@ -45,7 +45,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
     /**
      * Retrieves the stream identifier for this stream sink.
      * @returns {Integer} Receives the stream identifier. If this stream sink was added by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a>, the stream identifier is in the <i>dwStreamSinkIdentifier</i> parameter of that method. Otherwise, the media sink defines the identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-getidentifier
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getidentifier
      */
     GetIdentifier() {
         result := ComCall(8, this, "uint*", &pdwIdentifier := 0, "HRESULT")
@@ -54,8 +54,10 @@ class IMFStreamSink extends IMFMediaEventGenerator{
 
     /**
      * Retrieves the media type handler for the stream sink. You can use the media type handler to find which formats the stream supports, and to set the media type on the stream.
+     * @remarks
+     * If the stream sink currently does not support any media types, this method returns a media type handler that fails any calls to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediatypehandler-getcurrentmediatype">IMFMediaTypeHandler::GetCurrentMediaType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediatypehandler-ismediatypesupported">IMFMediaTypeHandler::IsMediaTypeSupported</a>.
      * @returns {IMFMediaTypeHandler} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediatypehandler">IMFMediaTypeHandler</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-getmediatypehandler
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getmediatypehandler
      */
     GetMediaTypeHandler() {
         result := ComCall(9, this, "ptr*", &ppHandler := 0, "HRESULT")
@@ -64,6 +66,26 @@ class IMFStreamSink extends IMFMediaEventGenerator{
 
     /**
      * Delivers a sample to the stream. The media sink processes the sample.
+     * @remarks
+     * Call this method when the stream sink sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamsinkrequestsample">MEStreamSinkRequestSample</a> event.
+     * 
+     * This method can return MF_E_INVALID_TIMESTAMP for various reasons, depending on the implementation of the media sink:
+     * 
+     * <ul>
+     * <li>
+     * Negative time stamps.
+     * 
+     * </li>
+     * <li>
+     * Time stamps that jump backward (within the same stream).
+     * 
+     * </li>
+     * <li>
+     * The time stamps for one stream have drifted too far from the time stamps on another stream within the same media sink (for example, an archive sink that multiplexes the streams).
+     * 
+     * </li>
+     * </ul>
+     * Not every media sink returns an error code in these situations.
      * @param {IMFSample} pSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of a sample that contains valid data for the stream.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -90,7 +112,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </dl>
      * </td>
      * <td width="60%">
-     * The media sink is in the wrong state to receive a sample. For example, preroll is complete but the presenation clock has not started yet.
+     * The media sink is in the wrong state to receive a sample. For example, preroll is complete but the presentation clock has not started yet.
      * 
      * </td>
      * </tr>
@@ -123,7 +145,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </dl>
      * </td>
      * <td width="60%">
-     * The presentation clock was not set. Call <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-setpresentationclock">IMFMediaSink::SetPresentationClock</a>.
+     * The presentation clock was not set. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-setpresentationclock">IMFMediaSink::SetPresentationClock</a>.
      * 
      * </td>
      * </tr>
@@ -156,7 +178,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </dl>
      * </td>
      * <td width="60%">
-     * The media sink's <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
+     * The media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
      * 
      * </td>
      * </tr>
@@ -172,7 +194,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-processsample
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-processsample
      */
     ProcessSample(pSample) {
         result := ComCall(10, this, "ptr", pSample, "HRESULT")
@@ -181,6 +203,8 @@ class IMFStreamSink extends IMFMediaEventGenerator{
 
     /**
      * Places a marker in the stream.
+     * @remarks
+     * This method causes the stream sink to send an <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamsinkmarker">MEStreamSinkMarker</a> event after the stream sink consumes all of the samples that were delivered up to this point (before the call to <b>PlaceMarker</b>).
      * @param {Integer} eMarkerType Specifies the marker type, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfstreamsink_marker_type">MFSTREAMSINK_MARKER_TYPE</a> enumeration.
      * @param {Pointer<PROPVARIANT>} pvarMarkerValue Optional pointer to a <b>PROPVARIANT</b> that contains additional information related to the marker. The meaning of this value depends on the marker type. This parameter can be <b>NULL</b>.
      * @param {Pointer<PROPVARIANT>} pvarContextValue Optional pointer to a <b>PROPVARIANT</b> that is attached to the <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamsinkmarker">MEStreamSinkMarker</a> event. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getvalue">IMFMediaEvent::GetValue</a> to get this value from the event. The caller can use this information for any purpose. This parameter can be <b>NULL</b>.
@@ -211,7 +235,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </dl>
      * </td>
      * <td width="60%">
-     * The media sink's <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
+     * The media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
      *               
      * 
      * </td>
@@ -229,7 +253,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-placemarker
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-placemarker
      */
     PlaceMarker(eMarkerType, pvarMarkerValue, pvarContextValue) {
         result := ComCall(11, this, "int", eMarkerType, "ptr", pvarMarkerValue, "ptr", pvarContextValue, "HRESULT")
@@ -238,6 +262,12 @@ class IMFStreamSink extends IMFMediaEventGenerator{
 
     /**
      * Causes the stream sink to drop any samples that it has received and has not rendered yet.
+     * @remarks
+     * If any samples are still queued from previous calls to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamsink-processsample">IMFStreamSink::ProcessSample</a> method, the media sink immediately discards them, without processing them. This can cause a glitch in the rendered output. The running state of the sink (running, paused, or stopped) does not change.
+     * 
+     * Any pending marker events from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamsink-placemarker">IMFStreamSink::PlaceMarker</a> method are dispatched immediately, with the status code E_ABORT.
+     * 
+     * This method is synchronous. It does not return until the sink has discarded all pending samples.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -274,7 +304,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </dl>
      * </td>
      * <td width="60%">
-     * The media sink's <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
+     * The media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">Shutdown</a> method has been called.
      * 
      * </td>
      * </tr>
@@ -290,7 +320,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamsink-flush
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-flush
      */
     Flush() {
         result := ComCall(12, this, "HRESULT")

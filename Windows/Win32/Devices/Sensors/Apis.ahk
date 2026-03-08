@@ -2678,11 +2678,7 @@ class Sensors {
      * @returns {HRESULT} 
      */
     static InitPropVariantFromFloat(fltVal, ppropvar) {
-        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromFloat", "float", fltVal, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromFloat", "float", fltVal, "ptr", ppropvar, "HRESULT")
         return result
     }
 
@@ -3130,11 +3126,7 @@ class Sensors {
      * @returns {HRESULT} 
      */
     static InitPropVariantFromCLSIDArray(members, size, ppropvar) {
-        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", "ptr", members, "uint", size, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", "ptr", members, "uint", size, "ptr", ppropvar, "HRESULT")
         return result
     }
 

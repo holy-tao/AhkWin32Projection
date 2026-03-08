@@ -40,12 +40,15 @@ class IRowsetView extends IUnknown{
     }
 
     /**
-     * 
+     * The GetViewportExtEx function retrieves the x-extent and y-extent of the current viewport for the specified device context.
      * @param {Pointer} hChapter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} phChapterSource 
      * @param {Pointer<IUnknown>} ppView 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportextex
      */
     GetView(hChapter, riid, phChapterSource, ppView) {
         phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"

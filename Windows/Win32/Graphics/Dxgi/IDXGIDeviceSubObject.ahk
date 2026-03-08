@@ -6,12 +6,9 @@
 /**
  * Inherited from objects that are tied to the device so that they can retrieve a pointer to it.
  * @remarks
- * 
  * <b>Windows Phone 8:
  *         </b> This API is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgidevicesubobject
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgidevicesubobject
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -38,13 +35,15 @@ class IDXGIDeviceSubObject extends IDXGIObject{
 
     /**
      * Retrieves the device.
+     * @remarks
+     * The type of interface that is returned can be any interface published by the device. For example, it could be an IDXGIDevice * called pDevice, and therefore the REFIID would be obtained by calling __uuidof(pDevice).
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The reference id for the device.
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of a pointer to the device.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevicesubobject-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevicesubobject-getdevice
      */
     GetDevice(riid) {
         result := ComCall(7, this, "ptr", riid, "ptr*", &ppDevice := 0, "HRESULT")

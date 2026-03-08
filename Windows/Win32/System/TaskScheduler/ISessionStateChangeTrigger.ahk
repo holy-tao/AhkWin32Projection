@@ -7,11 +7,8 @@
 /**
  * Triggers tasks for console connect or disconnect, remote connect or disconnect, or workstation lock or unlock notifications.
  * @remarks
- * 
  * When reading or writing your own XML for a task, a session state change trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-sessionstatechangetrigger-triggergroup-element">SessionStateChangeTrigger</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-isessionstatechangetrigger
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-isessionstatechangetrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -58,10 +55,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected.
+     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected. (ISessionStateChangeTrigger.get_Delay)
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_delay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_delay
      */
     get_Delay(pDelay) {
         result := ComCall(20, this, "ptr", pDelay, "HRESULT")
@@ -69,10 +66,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected.
+     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected. (ISessionStateChangeTrigger.put_Delay)
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_delay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_delay
      */
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
@@ -82,10 +79,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started.
+     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started. (Get)
      * @param {Pointer<BSTR>} pUser 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_userid
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_userid
      */
     get_UserId(pUser) {
         result := ComCall(22, this, "ptr", pUser, "HRESULT")
@@ -93,10 +90,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started.
+     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started. (Put)
      * @param {BSTR} user 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_userid
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_userid
      */
     put_UserId(user) {
         user := user is String ? BSTR.Alloc(user).Value : user
@@ -106,10 +103,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the kind of Terminal Server session change that would trigger a task launch.
+     * Gets or sets the kind of Terminal Server session change that would trigger a task launch. (Get)
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
      */
     get_StateChange(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
@@ -119,10 +116,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the kind of Terminal Server session change that would trigger a task launch.
+     * Gets or sets the kind of Terminal Server session change that would trigger a task launch. (Put)
      * @param {Integer} type 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_statechange
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_statechange
      */
     put_StateChange(type) {
         result := ComCall(25, this, "int", type, "HRESULT")

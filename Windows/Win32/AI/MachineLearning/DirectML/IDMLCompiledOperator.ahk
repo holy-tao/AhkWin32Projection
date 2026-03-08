@@ -5,7 +5,7 @@
 
 /**
  * Represents a compiled, efficient form of an operator suitable for execution on the GPU. To create this object, call IDMLDevice::CompileOperator.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmlcompiledoperator
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlcompiledoperator
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Defines a method for handling status updates to an animation manager.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationmanagereventhandler
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationmanagereventhandler
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -31,11 +31,13 @@ class IUIAnimationManagerEventHandler extends IUnknown{
     static VTableNames => ["OnManagerStatusChanged"]
 
     /**
-     * Handles status changes to an animation manager.
+     * Handles status changes to an animation manager. (IUIAnimationManagerEventHandler.OnManagerStatusChanged)
+     * @remarks
+     * A call made in this callback method to any other animation method results in the call failing and returning <b>UI_E_ILLEGAL_REENTRANCY</b>.
      * @param {Integer} newStatus The new status.
      * @param {Integer} previousStatus The previous status.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationmanagereventhandler-onmanagerstatuschanged
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanagereventhandler-onmanagerstatuschanged
      */
     OnManagerStatusChanged(newStatus, previousStatus) {
         result := ComCall(3, this, "int", newStatus, "int", previousStatus, "HRESULT")

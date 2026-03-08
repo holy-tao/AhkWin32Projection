@@ -10,12 +10,10 @@
 /**
  * Provides a read-only object model for bundle packages.
  * @remarks
- * 
  * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlereader">CreateBundleReader</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxbundlefactory">IAppxBundleFactory</a> interface to retrieve the <b>IAppxBundleReader</b> object. 
  * 
  * Through <b>IAppxBundleReader</b>, you can retrieve both footprint files, such as the bundle’s manifest, block map, and signature, and app packages that are contained in the bundle.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlereader
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlereader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -48,7 +46,7 @@ class IAppxBundleReader extends IUnknown{
      * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>
      * 
      * The file object that corresponds to the footprint file of <i>fileType</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlereader-getfootprintfile
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getfootprintfile
      */
     GetFootprintFile(fileType) {
         result := ComCall(3, this, "int", fileType, "ptr*", &footprintFile := 0, "HRESULT")
@@ -60,7 +58,7 @@ class IAppxBundleReader extends IUnknown{
      * @returns {IAppxBlockMapReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapreader">IAppxBlockMapReader</a>**</b>
      * 
      * The object model of the block map of a package in the bundle.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlereader-getblockmap
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getblockmap
      */
     GetBlockMap() {
         result := ComCall(4, this, "ptr*", &blockMapReader := 0, "HRESULT")
@@ -72,7 +70,7 @@ class IAppxBundleReader extends IUnknown{
      * @returns {IAppxBundleManifestReader} Type: <b>IAppxBundleManifestReader**</b>
      * 
      * The object model of the bundle manifest.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlereader-getmanifest
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getmanifest
      */
     GetManifest() {
         result := ComCall(5, this, "ptr*", &manifestReader := 0, "HRESULT")
@@ -84,7 +82,7 @@ class IAppxBundleReader extends IUnknown{
      * @returns {IAppxFilesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfilesenumerator">IAppxFilesEnumerator</a>**</b>
      * 
      *  An enumerator over all payload packages in the bundle.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackages
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackages
      */
     GetPayloadPackages() {
         result := ComCall(6, this, "ptr*", &payloadPackages := 0, "HRESULT")
@@ -93,13 +91,15 @@ class IAppxBundleReader extends IUnknown{
 
     /**
      * Retrieves an appx file object for the payload package with the specified file name.
+     * @remarks
+     * You can pass the file object’s stream into <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagereader">IAppxFactory::CreatePackageReader</a> to get a package reader object over the appx file.
      * @param {PWSTR} fileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the payload file to be retrieved.
      * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>
      * 
      * The payload file object the that corresponds to <i>fileName</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackage
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackage
      */
     GetPayloadPackage(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName

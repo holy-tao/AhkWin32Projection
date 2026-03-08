@@ -8,7 +8,7 @@
 
 /**
  * The IUPnPNAT interface is the primary interface for managing Network Address Translation (NAT) with UPnP. The IUPnPNAT interface provides access directly or indirectly to all the other interfaces in the NAT API with UPnP technology.
- * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-iupnpnat
+ * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-iupnpnat
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IUPnPNAT extends IDispatch{
      * The get_StaticPortMappingCollection method retrieves an interface for the collection of static port mappings on the NAT used by the local computer.
      * @returns {IStaticPortMappingCollection} Pointer to an interface pointer that points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-istaticportmappingcollection">IStaticPortMappingCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection
      */
     get_StaticPortMappingCollection() {
         result := ComCall(7, this, "ptr*", &ppSPMs := 0, "HRESULT")
@@ -72,7 +72,7 @@ class IUPnPNAT extends IDispatch{
     }
 
     /**
-     * 
+     * The IUPnPNAT interface is the primary interface for managing Network Address Translation (NAT) with UPnP. The IUPnPNAT interface provides access directly or indirectly to all the other interfaces in the NAT API with UPnP technology.
      * @returns {IDynamicPortMappingCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-iupnpnat
      */
@@ -85,7 +85,7 @@ class IUPnPNAT extends IDispatch{
      * The get_NATEventManager method retrieves an INATEventManager interface for the NAT used by the local computer.
      * @returns {INATEventManager} Pointer to an interface pointer that points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-inateventmanager">INATEventManager</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-iupnpnat-get_nateventmanager
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_nateventmanager
      */
     get_NATEventManager() {
         result := ComCall(9, this, "ptr*", &ppNEM := 0, "HRESULT")

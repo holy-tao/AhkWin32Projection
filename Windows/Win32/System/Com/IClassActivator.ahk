@@ -5,7 +5,7 @@
 
 /**
  * Specifies a method that retrieves a class object.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iclassactivator
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iclassactivator
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IClassActivator extends IUnknown{
      * @param {Integer} locale An LCID constant as defined in WinNls.h.
      * @param {Pointer<Guid>} riid The IID of the interface on the object to which a pointer is desired.
      * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iclassactivator-getclassobject
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iclassactivator-getclassobject
      */
     GetClassObject(rclsid, dwClassContext, locale, riid) {
         result := ComCall(3, this, "ptr", rclsid, "uint", dwClassContext, "uint", locale, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

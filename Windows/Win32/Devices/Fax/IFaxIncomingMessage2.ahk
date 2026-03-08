@@ -5,15 +5,12 @@
 #Include .\IFaxIncomingMessage.ahk
 
 /**
- * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes.
+ * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes. (IFaxIncomingMessage2)
  * @remarks
- * 
  * To create a <b>FaxIncomingMessage2</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccountincomingarchive-getmessage-vb">IFaxAccountIncomingArchive::GetMessage</a> method or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessageiterator-message-vb">IFaxIncomingMessageIterator::get_Message</a> method.
  * 
  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage">FaxIncomingMessage</a> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxincomingmessage2
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingmessage2
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -94,14 +91,11 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * The Subject property contains the subject associated with the inbound fax message. This property is a null-terminated string.
+     * The Subject property contains the subject associated with the inbound fax message. This property is a null-terminated string. (Get)
      * @remarks
-     * 
      * A received message starts with a null value for the subject when it arrives. It can be given a subject by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is reassigned.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_subject
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_subject
      */
     get_Subject() {
         pbstrSubject := BSTR()
@@ -110,15 +104,12 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * The Subject property contains the subject associated with the inbound fax message. This property is a null-terminated string.
+     * The Subject property contains the subject associated with the inbound fax message. This property is a null-terminated string. (Put)
      * @remarks
-     * 
      * A received message starts with a null value for the subject when it arrives. It can be given a subject by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is reassigned.
-     * 
-     * 
      * @param {BSTR} bstrSubject 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_subject
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_subject
      */
     put_Subject(bstrSubject) {
         bstrSubject := bstrSubject is String ? BSTR.Alloc(bstrSubject).Value : bstrSubject
@@ -128,14 +119,11 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the name of the sender that is associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the name of the sender that is associated with the inbound fax message. This property is a null-terminated string. (Get)
      * @remarks
-     * 
-     * A received message starts with a null value for the sender when it arrives. A sender can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a>when it is re-assigned.
-     * 
-     * 
+     * A received message starts with a null value for the sender when it arrives. A sender can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is re-assigned.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_sendername
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_sendername
      */
     get_SenderName() {
         pbstrSenderName := BSTR()
@@ -144,15 +132,12 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the name of the sender that is associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the name of the sender that is associated with the inbound fax message. This property is a null-terminated string. (Put)
      * @remarks
-     * 
-     * A received message starts with a null value for the sender when it arrives. A sender can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a>when it is re-assigned.
-     * 
-     * 
+     * A received message starts with a null value for the sender when it arrives. A sender can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is re-assigned.
      * @param {BSTR} bstrSenderName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_sendername
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_sendername
      */
     put_SenderName(bstrSenderName) {
         bstrSenderName := bstrSenderName is String ? BSTR.Alloc(bstrSenderName).Value : bstrSenderName
@@ -162,14 +147,11 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the sender's fax number associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the sender's fax number associated with the inbound fax message. This property is a null-terminated string. (Get)
      * @remarks
-     * 
      * A received message starts with a null value for the sender's fax number when it arrives. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> can specify the sender's fax number when the fax is reassigned.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_senderfaxnumber
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_senderfaxnumber
      */
     get_SenderFaxNumber() {
         pbstrSenderFaxNumber := BSTR()
@@ -178,15 +160,12 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the sender's fax number associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the sender's fax number associated with the inbound fax message. This property is a null-terminated string. (Put)
      * @remarks
-     * 
      * A received message starts with a null value for the sender's fax number when it arrives. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> can specify the sender's fax number when the fax is reassigned.
-     * 
-     * 
      * @param {BSTR} bstrSenderFaxNumber 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_senderfaxnumber
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_senderfaxnumber
      */
     put_SenderFaxNumber(bstrSenderFaxNumber) {
         bstrSenderFaxNumber := bstrSenderFaxNumber is String ? BSTR.Alloc(bstrSenderFaxNumber).Value : bstrSenderFaxNumber
@@ -196,16 +175,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * A flag that indicates whether the fax has a cover page.
+     * A flag that indicates whether the fax has a cover page. (Get)
      * @remarks
-     * 
      * A received message has a VARIANT_FALSE value when it arrives. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> application can set this to VARIANT_TRUE when it is reassigned. 
      * 
      * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-save-vb">IFaxIncomingMessage2::Save</a> is called.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_hascoverpage
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_hascoverpage
      */
     get_HasCoverPage() {
         result := ComCall(26, this, "short*", &pbHasCoverPage := 0, "HRESULT")
@@ -213,17 +189,14 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * A flag that indicates whether the fax has a cover page.
+     * A flag that indicates whether the fax has a cover page. (Put)
      * @remarks
-     * 
      * A received message has a VARIANT_FALSE value when it arrives. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> application can set this to VARIANT_TRUE when it is reassigned. 
      * 
      * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-save-vb">IFaxIncomingMessage2::Save</a> is called.
-     * 
-     * 
      * @param {VARIANT_BOOL} bHasCoverPage 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_hascoverpage
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_hascoverpage
      */
     put_HasCoverPage(bHasCoverPage) {
         result := ComCall(27, this, "short", bHasCoverPage, "HRESULT")
@@ -231,16 +204,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the recipients associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the recipients associated with the inbound fax message. This property is a null-terminated string. (Get)
      * @remarks
-     * 
      * A received message starts with a null value for the recipients when it arrives. A list of recipients can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is reassigned.
      * 
      * Each recipient is identified on the pattern of &lt;DomainName&gt;\&lt;UserName&gt;. A colon ":" separates each recipient. For local users, &lt;DomainName&gt; is the local computer name.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_recipients
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_recipients
      */
     get_Recipients() {
         pbstrRecipients := BSTR()
@@ -249,17 +219,14 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * Contains the recipients associated with the inbound fax message. This property is a null-terminated string.
+     * Contains the recipients associated with the inbound fax message. This property is a null-terminated string. (Put)
      * @remarks
-     * 
      * A received message starts with a null value for the recipients when it arrives. A list of recipients can be specified by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> when it is reassigned.
      * 
      * Each recipient is identified on the pattern of &lt;DomainName&gt;\&lt;UserName&gt;. A colon ":" separates each recipient. For local users, &lt;DomainName&gt; is the local computer name.
-     * 
-     * 
      * @param {BSTR} bstrRecipients 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_recipients
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_recipients
      */
     put_Recipients(bstrRecipients) {
         bstrRecipients := bstrRecipients is String ? BSTR.Alloc(bstrRecipients).Value : bstrRecipients
@@ -271,12 +238,9 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     /**
      * Indicates if the fax has been reassigned.
      * @remarks
-     * 
      * This property is always VARIANT_FALSE when the fax arrives at the server. If it is reassigned by a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a>, the fax service sets it to VARIANT_TRUE.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_wasreassigned
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_wasreassigned
      */
     get_WasReAssigned() {
         result := ComCall(30, this, "short*", &pbWasReAssigned := 0, "HRESULT")
@@ -284,16 +248,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * A flag that indicates if the fax has been read.
+     * A flag that indicates if the fax has been read. (Get)
      * @remarks
-     * 
      * Possible values are VARIANT_TRUE and VARIANT_FALSE.
      * 
      * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-save-vb">IFaxIncomingMessage2::Save</a> is called.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-get_read
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_read
      */
     get_Read() {
         result := ComCall(31, this, "short*", &pbRead := 0, "HRESULT")
@@ -301,17 +262,14 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
-     * A flag that indicates if the fax has been read.
+     * A flag that indicates if the fax has been read. (Put)
      * @remarks
-     * 
      * Possible values are VARIANT_TRUE and VARIANT_FALSE.
      * 
      * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-save-vb">IFaxIncomingMessage2::Save</a> is called.
-     * 
-     * 
      * @param {VARIANT_BOOL} bRead 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-put_read
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-put_read
      */
     put_Read(bRead) {
         result := ComCall(32, this, "short", bRead, "HRESULT")
@@ -319,8 +277,14 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     }
 
     /**
+     * Reassign the fax to one or more recipients. It also commits changes to the IFaxIncomingMessage2::Subject, IFaxIncomingMessage2::SenderName, IFaxIncomingMessage2::SenderFaxNumber, and IFaxIncomingMessage2::HasCoverPage properties.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2MANAGE_RECEIVE_FOLDER</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2QUERY_CONFIG</a> access rights. Also, IFaxConfiguration::IncomingFaxesArePublic must be set to false.
      * 
-     * @returns {HRESULT} 
+     * If the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-glossary">routing assistant</a> application is going to set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-subject-vb">IFaxIncomingMessage2::Subject</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-sendername-vb">IFaxIncomingMessage2::SenderName</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-senderfaxnumber-vb">IFaxIncomingMessage2::SenderFaxNumber</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-hascoverpage-vb">IFaxIncomingMessage2::HasCoverPage</a> properties, it should do this before calling <b>IFaxIncomingMessage2::Reassign</b>. <b>Reassign</b> will commit those changes, so it is not necessary to call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-save-vb">IFaxIncomingMessage2::Save</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-reassign
      */
     ReAssign() {
@@ -330,10 +294,14 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * Saves the FaxIncomingMessage object's data.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2MANAGE_CONFIG</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2QUERY_CONFIG</a> access rights.
+     * 
+     * It is not necessary to call this method to commit changes to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-subject-vb">IFaxIncomingMessage2::Subject</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-sendername-vb">IFaxIncomingMessage2::SenderName</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-senderfaxnumber-vb">IFaxIncomingMessage2::SenderFaxNumber</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-hascoverpage-vb">IFaxIncomingMessage2::HasCoverPage</a> properties. They are committed with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage-reassign-vb">IFaxIncomingMessage2::Reassign</a> method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-save
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-save
      */
     Save() {
         result := ComCall(34, this, "HRESULT")
@@ -342,10 +310,12 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * Refreshes FaxIncomingMessage object information from the fax server.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2QUERY_CONFIG</a> access rights.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage2-refresh
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-refresh
      */
     Refresh() {
         result := ComCall(35, this, "HRESULT")

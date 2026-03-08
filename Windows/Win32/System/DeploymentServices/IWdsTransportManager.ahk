@@ -7,7 +7,7 @@
 
 /**
  * Manages a WDS transport server. This is the top-level interface into the Windows Deployment Services (WDS) Transport Management API and the only interface that can be created using the CoCreateInstance function.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportmanager
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportmanager
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class IWdsTransportManager extends IDispatch{
      * Creates an object of the IWdsTransportServer interface that can be used to manage a WDS transport server. The method confirms that the system can reach a WDS transport server with the specified name.
      * @param {BSTR} bszServerName The name of the WDS transport server to be represented by this object. This can be a NetBIOS name or a fully qualified DNS name. If the value is an empty string, the object represents the local computer.
      * @returns {IWdsTransportServer} A pointer to the object of the  <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportserver">IWdsTransportServer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportmanager-getwdstransportserver
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmanager-getwdstransportserver
      */
     GetWdsTransportServer(bszServerName) {
         bszServerName := bszServerName is String ? BSTR.Alloc(bszServerName).Value : bszServerName

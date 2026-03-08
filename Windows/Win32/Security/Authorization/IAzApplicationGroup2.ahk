@@ -7,7 +7,7 @@
 
 /**
  * Extends the IAzApplicationGroup interface by adding support for the BizRule group type.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazapplicationgroup2
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplicationgroup2
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -57,9 +57,9 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the script that determines membership for this application group.
+     * Gets or sets the script that determines membership for this application group. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-get_bizrule
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrule
      */
     get_BizRule() {
         pbstrProp := BSTR()
@@ -68,10 +68,10 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the script that determines membership for this application group.
+     * Gets or sets the script that determines membership for this application group. (Put)
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-put_bizrule
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-put_bizrule
      */
     put_BizRule(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -81,9 +81,9 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the programming language of the business rule script associated with this application group.
+     * Gets or sets the programming language of the business rule script associated with this application group. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-get_bizrulelanguage
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrulelanguage
      */
     get_BizRuleLanguage() {
         pbstrProp := BSTR()
@@ -92,10 +92,10 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the programming language of the business rule script associated with this application group.
+     * Gets or sets the programming language of the business rule script associated with this application group. (Put)
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-put_bizrulelanguage
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-put_bizrulelanguage
      */
     put_BizRuleLanguage(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -105,9 +105,9 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the path of the file that contains the business rule script associated with this application group.
+     * Gets or sets the path of the file that contains the business rule script associated with this application group. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-get_bizruleimportedpath
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizruleimportedpath
      */
     get_BizRuleImportedPath() {
         pbstrProp := BSTR()
@@ -116,10 +116,10 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     }
 
     /**
-     * Gets or sets the path of the file that contains the business rule script associated with this application group.
+     * Gets or sets the path of the file that contains the business rule script associated with this application group. (Put)
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-put_bizruleimportedpath
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-put_bizruleimportedpath
      */
     put_BizRuleImportedPath(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -130,10 +130,10 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
 
     /**
      * Gets a collection of IAzRoleAssignment objects associated with this application group.
-     * @param {BSTR} bstrScopeName 
-     * @param {VARIANT_BOOL} bRecursive 
-     * @returns {IAzRoleAssignments} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplicationgroup2-roleassignments
+     * @param {BSTR} bstrScopeName Provides a scope name to include in the search for **IAzRoleAssignment** objects. If this parameter is **NULL**, the search is performed in the global scope.
+     * @param {VARIANT_BOOL} bRecursive Indicates if the search for **IAzRoleAssignment** objects should be performed recursively.
+     * @returns {IAzRoleAssignments} The list of [IAzRoleAssignment](nn-azroles-iazroleassignment.md) objects associated with the specified application group.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-roleassignments
      */
     RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName

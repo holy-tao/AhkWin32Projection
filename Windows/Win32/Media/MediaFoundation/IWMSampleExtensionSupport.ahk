@@ -5,7 +5,7 @@
 
 /**
  * Configures codec support for sample extensions.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmsampleextensionsupport
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmsampleextensionsupport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class IWMSampleExtensionSupport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmsampleextensionsupport-setusesampleextensions
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmsampleextensionsupport-setusesampleextensions
      */
     SetUseSampleExtensions(fUseExtensions) {
         result := ComCall(3, this, "int", fUseExtensions, "HRESULT")

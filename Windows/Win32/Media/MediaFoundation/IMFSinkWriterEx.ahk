@@ -5,7 +5,7 @@
 
 /**
  * Extends the IMFSinkWriter interface.
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfsinkwriterex
+ * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwriterex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,13 +31,13 @@ class IMFSinkWriterEx extends IMFSinkWriter{
     static VTableNames => ["GetTransformForStream"]
 
     /**
-     * Gets a pointer to a Media Foundation transform (MFT) for a specified stream.
+     * Gets a pointer to a Media Foundation transform (MFT) for a specified stream. (IMFSinkWriterEx.GetTransformForStream)
      * @param {Integer} dwStreamIndex The zero-based index of a stream.
-     * @param {Integer} dwTransformIndex The zero-based index of the MFT to retreive.
+     * @param {Integer} dwTransformIndex The zero-based index of the MFT to retrieve.
      * @param {Pointer<Guid>} pGuidCategory Receives a pointer to a GUID that specifies the category of the MFT. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-category">MFT_CATEGORY</a>.
      * @param {Pointer<IMFTransform>} ppTransform Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface of the MFT. The caller must release the interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwriterex-gettransformforstream
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
         result := ComCall(14, this, "uint", dwStreamIndex, "uint", dwTransformIndex, "ptr", pGuidCategory, "ptr*", ppTransform, "HRESULT")

@@ -69,9 +69,15 @@ class IBlockFormats extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Pointer<VARIANT>} pvarIndex 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(pvarIndex) {
         pbstrBlockFormat := BSTR()

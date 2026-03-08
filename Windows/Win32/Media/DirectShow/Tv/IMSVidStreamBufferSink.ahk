@@ -9,11 +9,8 @@
 /**
  * The IMSVidStreamBufferSink interface represents the Stream Buffer Sink filter within the Video Control.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSink)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersink
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersink
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -61,9 +58,11 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * The get_ContentRecorder method creates a new content recording object.
+     * @remarks
+     * The caller must release the returned <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsvidstreambufferrecordingcontrol">IMSVidStreamBufferRecordingControl</a> interface.
      * @param {BSTR} pszFilename Specifies the name of the file to hold the recording.
      * @returns {IMSVidStreamBufferRecordingControl} Receives a pointer to the recording object's <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsvidstreambufferrecordingcontrol">IMSVidStreamBufferRecordingControl</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-get_contentrecorder
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_contentrecorder
      */
     get_ContentRecorder(pszFilename) {
         pszFilename := pszFilename is String ? BSTR.Alloc(pszFilename).Value : pszFilename
@@ -74,9 +73,11 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * The get_ReferenceRecorder method creates a new reference recording object.
+     * @remarks
+     * The caller must release the <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsvidstreambufferrecordingcontrol">IMSVidStreamBufferRecordingControl</a> interface.
      * @param {BSTR} pszFilename Specifies the name of the file to hold the recording.
      * @returns {IMSVidStreamBufferRecordingControl} Receives a pointer to the recording object's <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsvidstreambufferrecordingcontrol">IMSVidStreamBufferRecordingControl</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-get_referencerecorder
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_referencerecorder
      */
     get_ReferenceRecorder(pszFilename) {
         pszFilename := pszFilename is String ? BSTR.Alloc(pszFilename).Value : pszFilename
@@ -87,8 +88,10 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * The get_SinkName method retrieves the name of the stub file that points to the backing files.
+     * @remarks
+     * The caller must release the returned string, using the <b>SysFreeString</b> function.
      * @returns {BSTR} Pointer to a variable that receives the file name.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-get_sinkname
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_sinkname
      */
     get_SinkName() {
         pName := BSTR()
@@ -98,6 +101,8 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * The put_SinkName method sets the name of the stub file that points to the backing files.
+     * @remarks
+     * Call this method before calling <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidstreambuffersink-namesetlock">NameSetLock</a>, while the graph is stopped. Otherwise, the method fails and returns E_FAIL.
      * @param {BSTR} Name Specifies the file name.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
@@ -140,7 +145,7 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-put_sinkname
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-put_sinkname
      */
     put_SinkName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -170,7 +175,7 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-namesetlock
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-namesetlock
      */
     NameSetLock() {
         result := ComCall(20, this, "HRESULT")
@@ -179,8 +184,10 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * The get_SBESink method retrieves a pointer to the Stream Buffer Sink filter.
+     * @remarks
+     * The caller must release the <b>IUnknown</b> interface.
      * @returns {IUnknown} Receives a pointer to the filter's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink-get_sbesink
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_sbesink
      */
     get_SBESink() {
         result := ComCall(21, this, "ptr*", &sbeConfig := 0, "HRESULT")

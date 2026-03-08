@@ -4,8 +4,8 @@
 #Include .\IMFVideoSampleAllocatorNotify.ahk
 
 /**
- * The callback for the IMFVideoSampleAllocatorCallback interface.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideosampleallocatornotifyex
+ * The callback for the IMFVideoSampleAllocatorCallback interface. (IMFVideoSampleAllocatorNotifyEx)
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocatornotifyex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,8 +33,8 @@ class IMFVideoSampleAllocatorNotifyEx extends IMFVideoSampleAllocatorNotify{
     /**
      * Called when allocator samples are released for pruning by the allocator, or when the allocator is removed.
      * @param {IMFSample} __MIDL__IMFVideoSampleAllocatorNotifyEx0000 The sample to be pruned.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatornotifyex-notifyprune
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatornotifyex-notifyprune
      */
     NotifyPrune(__MIDL__IMFVideoSampleAllocatorNotifyEx0000) {
         result := ComCall(4, this, "ptr", __MIDL__IMFVideoSampleAllocatorNotifyEx0000, "HRESULT")

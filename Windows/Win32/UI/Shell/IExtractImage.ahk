@@ -7,7 +7,6 @@
 /**
  * Exposes methods that request a thumbnail image from a Shell folder.
  * @remarks
- * 
  * There are two steps in the process: First, use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iextractimage-getlocation">GetLocation</a> to request the path description of an image and specify how the image should be rendered. Then, call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iextractimage-extract">Extract</a> to extract the image.
  * 
  * If the object is free-threaded it must also expose an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irunnabletask">IRunnableTask</a> interface so it can be stopped and started as needed. This feature can be particularly useful when extraction may be slow.
@@ -15,8 +14,7 @@
  * Implement <b>IExtractImage</b> if your namespace extension needs to provide thumbnail images to be displayed in a Shellview.
  * 
  * Use <b>IExtractImage</b> if you are implementing a view of namespace objects, and want to display thumbnail images. You can use a Shell folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> method to bind to its <b>IExtractImage</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iextractimage
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iextractimage
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,6 +41,10 @@ class IExtractImage extends IUnknown{
 
     /**
      * Gets a path to the image that is to be extracted.
+     * @remarks
+     * <b>Microsoft Windows XP and earlier:</b> This method returns the path to an image and specifies how the image should be rendered. <b>IExtractImage::GetLocation</b> is free-threaded—that is, supports the Multithreaded Apartment Model (MTA)— therefore it can be placed in a background thread. The object must also expose an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irunnabletask">IRunnableTask</a> interface, so the calling application can start and stop the extraction process as needed.
+     * 
+     * You should return images that fit within the boundaries defined by <i>prgSize</i>. With Windows 2000 and later systems, you can set <b>IEIFLAG_ORIGSIZE</b> to use objects that do not have a standard aspect ratio, and they will be displayed properly. You do not need to fill in the unused part of the rectangle. If you try to use a nonstandard aspect ratio image with earlier versions of the Shell, it will be stretched to fit the <i>prgSize</i> rectangle. Depending on how much the aspect ratio differs from what is specified, the image may be badly distorted.
      * @param {PWSTR} pszPathBuffer Type: <b>LPWSTR</b>
      * 
      * The buffer used to return the path description. This value identifies the image so you can avoid loading the same one more than once.
@@ -56,9 +58,9 @@ class IExtractImage extends IUnknown{
      * <b>Microsoft Windows XP and earlier:</b> The pointer used to return the priority of the item when the <b>IEIFLAG_ASYNC</b> flag is set in <i>pdwFlags</i>. This parameter must not be <b>NULL</b>.  The function fails if this parameter is <b>NULL</b>, whether  <b>IEIFLAG_ASYNC</b> flag is set or not. 
      * 
      * This parameter is typically used to indicate the amount of time needed to extract the image. If you want more control over the order in which thumbnails are extracted, you can define multiple priority levels, up to 32 bits. As long as the integer values assigned to the different priority levels increase from low to high priority, the actual numbers you use aren't important. They are only used to determine the order in which the images will be extracted. There are three standard priority levels:
-     * @param {Pointer<SIZE>} prgSize Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
+     * @param {Pointer<SIZE>} prgSize Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure with the desired width and height of the image. Must not be <b>NULL</b>.
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure with the desired width and height of the image. Must not be <b>NULL</b>.
      * @param {Integer} dwRecClrDepth Type: <b>DWORD</b>
      * 
      * The recommended color depth in units of bits per pixel. Must not be <b>NULL</b>.
@@ -97,7 +99,7 @@ class IExtractImage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iextractimage-getlocation
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage-getlocation
      */
     GetLocation(pszPathBuffer, cch, pdwPriority, prgSize, dwRecClrDepth, pdwFlags) {
         pszPathBuffer := pszPathBuffer is String ? StrPtr(pszPathBuffer) : pszPathBuffer
@@ -111,10 +113,12 @@ class IExtractImage extends IUnknown{
 
     /**
      * Requests an image from an object, such as an item in a Shell folder.
+     * @remarks
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iextractimage-getlocation">IExtractImage::GetLocation</a> prior to calling <b>Extract</b>.
      * @returns {HBITMAP} Type: <b>HBITMAP*</b>
      * 
      * The buffer to hold the bitmapped image.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iextractimage-extract
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage-extract
      */
     Extract() {
         phBmpThumbnail := HBITMAP()

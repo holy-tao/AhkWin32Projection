@@ -6,7 +6,7 @@
 
 /**
  * Extends the IUIAutomationElement interface.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement2
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -76,12 +76,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Indicates whether the provider exposes only elements that are visible.
      * @remarks
-     * 
      * A value of TRUE indicates that the provider optimizes for visual content, while FALSE indicates that the provider optimizes for virtual content. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithvirtualizeditems">Working with Virtualized Items</a>.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentoptimizeforvisualcontent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentoptimizeforvisualcontent
      */
     get_CurrentOptimizeForVisualContent() {
         result := ComCall(85, this, "int*", &retVal := 0, "HRESULT")
@@ -91,12 +88,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Retrieves a cached value that indicates whether the provider exposes only elements that are visible.
      * @remarks
-     * 
      * A value of TRUE indicates that the provider optimizes for visual content, while FALSE indicates that the provider optimizes for virtual content. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithvirtualizeditems">Working with Virtualized Items</a>.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedoptimizeforvisualcontent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedoptimizeforvisualcontent
      */
     get_CachedOptimizeForVisualContent() {
         result := ComCall(86, this, "int*", &retVal := 0, "HRESULT")
@@ -106,14 +100,11 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Indicates the type of notifications, if any, that the element sends when the content of the element changes.
      * @remarks
-     * 
      * This property maps to the Accessible Rich Internet Applications (ARIA)<b> live</b> property.
      * 
      * The LiveSetting property is supported by provider elements that are part of a live region. When the content of a live region changes, the provider element can raise a notification. A client application determines whether to notify the user of the changes based on the value of the LiveSetting property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentlivesetting
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentlivesetting
      */
     get_CurrentLiveSetting() {
         result := ComCall(87, this, "int*", &retVal := 0, "HRESULT")
@@ -123,14 +114,11 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Retrieves a cached value that indicates the type of notifications, if any, that the element sends when the content of the element changes.
      * @remarks
-     * 
      * This property maps to the Accessible Rich Internet Applications (ARIA)<b> live</b> property.
      * 
      * The LiveSetting property is supported by provider elements that are part of a live region. When the content of a live region changes, the provider element can raise a notification. A client application determines whether to notify the user of the changes based on the value of the LiveSetting property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedlivesetting
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedlivesetting
      */
     get_CachedLiveSetting() {
         result := ComCall(88, this, "int*", &retVal := 0, "HRESULT")
@@ -140,12 +128,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Retrieves an array of elements that indicates the reading order before the current element.
      * @remarks
-     * 
      * This property maps to the Microsoft Accessible Rich Internet Applications (ARIA) <a href="https://docs.microsoft.com/previous-versions/hh969192(v=vs.85)">x-ms-aria-flowfrom</a> property.
-     * 
-     * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentflowsfrom
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentflowsfrom
      */
     get_CurrentFlowsFrom() {
         result := ComCall(89, this, "ptr*", &retVal := 0, "HRESULT")
@@ -155,12 +140,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     /**
      * Retrieves a cached array of elements that indicate the reading order before the current element.
      * @remarks
-     * 
      * This property maps to the Microsoft Accessible Rich Internet Applications (ARIA) <a href="https://docs.microsoft.com/previous-versions/hh969192(v=vs.85)">x-ms-aria-flowfrom</a> property.
-     * 
-     * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedflowsfrom
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedflowsfrom
      */
     get_CachedFlowsFrom() {
         result := ComCall(90, this, "ptr*", &retVal := 0, "HRESULT")

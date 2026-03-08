@@ -34,18 +34,19 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberRegisters() {
-        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(3, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @param {Integer} Register 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
      * @param {Pointer<Integer>} NameSize 
      * @param {Pointer<DEBUG_REGISTER_DESCRIPTION>} Desc 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
@@ -69,9 +70,10 @@ class IDebugRegisters2 extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Register) {
         Value := DEBUG_VALUE()
@@ -193,8 +195,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberPseudoRegisters() {
-        result := ComCall(16, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(16, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**

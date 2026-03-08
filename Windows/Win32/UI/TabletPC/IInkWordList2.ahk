@@ -6,7 +6,7 @@
 
 /**
  * Adds members to the InkWordList Class.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkwordlist2
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkwordlist2
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IInkWordList2 extends IDispatch{
 
     /**
      * Adds more than one word to an InkWordList in a single operation.
+     * @remarks
+     * To access this method, first create and instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">InkWordList Class</a>, then call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to get a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkwordlist2">IInkWordList2 Interface</a>. Use this pointer to call the <b>AddWords Method</b>.
      * @param {BSTR} NewWords A <b>BSTR</b> of <b>NULL</b> separated words terminated by a double <b>NULL</b> containing the words to add to the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">InkWordList</a>.
      * 
      * For more information about the <b>BSTR</b> data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -110,7 +112,7 @@ class IInkWordList2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkwordlist2-addwords
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkwordlist2-addwords
      */
     AddWords(NewWords) {
         NewWords := NewWords is String ? BSTR.Alloc(NewWords).Value : NewWords

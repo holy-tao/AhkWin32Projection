@@ -29,9 +29,17 @@ class IGuideDataLoader extends IUnknown{
     static VTableNames => ["Init", "Terminate"]
 
     /**
+     * Initializes the trace.
+     * @remarks
+     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IGuideData} pGuideStore 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
      */
     Init(pGuideStore) {
         result := ComCall(3, this, "ptr", pGuideStore, "HRESULT")
@@ -39,8 +47,9 @@ class IGuideDataLoader extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Eliminates the cache and ends asynchronous I/O with the DLL.
+     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
      */
     Terminate() {
         result := ComCall(4, this, "HRESULT")

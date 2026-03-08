@@ -6,11 +6,8 @@
 /**
  * Supports a private communication mechanism between the Overlay Mixer filter and a VPE decoder filter that represents a hardware decoder.Only the Overlay Mixer filter implements this interface. Applications should never use it.
  * @remarks
- * 
  * Include Vptype.h before Vpnotify.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpnotify
+ * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nn-vpnotify-ivpnotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,9 +34,11 @@ class IVPNotify extends IVPBaseNotify{
 
     /**
      * Sets the mode (such as bob or weave).
+     * @remarks
+     * Include Vptype.h before Vpnotify.h.
      * @param {Integer} mode Specified mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
      */
     SetDeinterlaceMode(mode) {
         result := ComCall(4, this, "int", mode, "HRESULT")
@@ -48,9 +47,11 @@ class IVPNotify extends IVPBaseNotify{
 
     /**
      * The GetDeinterlaceMode method retrieves the mode (such as bob or weave).
+     * @remarks
+     * Include Vptype.h before Vpnotify.h.
      * @param {Pointer<Integer>} pMode Pointer to the retrieved mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
+     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
      */
     GetDeinterlaceMode(pMode) {
         pModeMarshal := pMode is VarRef ? "int*" : "ptr"

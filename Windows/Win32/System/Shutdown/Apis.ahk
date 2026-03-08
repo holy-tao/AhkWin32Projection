@@ -127,8 +127,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -185,8 +185,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -221,8 +221,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AbortSystemShutdownA", "ptr", lpMachineName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -257,8 +257,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AbortSystemShutdownW", "ptr", lpMachineName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -335,8 +335,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "uint", dwReason, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -413,8 +413,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "uint", dwReason, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -970,8 +970,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ExitWindowsEx", "uint", uFlags, "uint", dwReason, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -997,8 +997,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("USER32.dll\LockWorkStation", "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1028,8 +1028,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", hWnd, "ptr", pwszReason, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1058,8 +1058,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1085,8 +1085,8 @@ class Shutdown {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", hWnd, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

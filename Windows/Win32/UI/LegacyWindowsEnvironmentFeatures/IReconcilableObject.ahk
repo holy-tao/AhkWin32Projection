@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that reconcile a given document. The briefcase reconciler is responsible for implementing this interface.
- * @see https://docs.microsoft.com/windows/win32/api//reconcil/nn-reconcil-ireconcilableobject
+ * @see https://learn.microsoft.com/windows/win32/api/reconcil/nn-reconcil-ireconcilableobject
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -61,7 +61,7 @@ class IReconcilableObject extends IUnknown{
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * The address of the variable that receives an index value indicating whether the result of the reconciliation is identical to one of the initial versions. The variable is set to -1L if the reconciliation result is a combination of two or more versions. Otherwise, it is a zero-based index, with 0 indicating this object, 1 indicating the first version, 2 indicating the second version, and so on.
-     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcilableobject-reconcile
+     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcilableobject-reconcile
      */
     Reconcile(pInitiator, dwFlags, hwndOwner, hwndProgressFeedback, ulcInput, rgpmkOtherInput, pstgNewResidues) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -78,7 +78,7 @@ class IReconcilableObject extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * The address of the variable to receive the work estimate value.
-     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcilableobject-getprogressfeedbackmaxestimate
+     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcilableobject-getprogressfeedbackmaxestimate
      */
     GetProgressFeedbackMaxEstimate() {
         result := ComCall(4, this, "uint*", &pulProgressMax := 0, "HRESULT")

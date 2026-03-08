@@ -7,8 +7,7 @@
  * 
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//useractivityinterop/nn-useractivityinterop-iuseractivitysourcehostinterop
+ * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nn-useractivityinterop-iuseractivitysourcehostinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,9 +33,11 @@ class IUserActivitySourceHostInterop extends IInspectable{
     static VTableNames => ["SetActivitySourceHost"]
 
     /**
-     * 
-     * @param {HSTRING} activitySourceHost 
-     * @returns {HRESULT} 
+     * Associates host information with either a [UserActivityChannel](/uwp/api/windows.applicationmodel.useractivities.useractivitychannel) or the [UserActivity](/uwp/api/windows.applicationmodel.useractivities.useractivity) object.
+     * @remarks
+     * The host information for a **UserActivity** object only needs to set with this method if the **UserActivity** object was constructed from a source other than a **UserActivityChannel**, such as by using the **UserActivity** constructor.
+     * @param {HSTRING} activitySourceHost An **HSTRING** containing the host to be associated with the user activity.
+     * @returns {HRESULT} If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nf-useractivityinterop-iuseractivitysourcehostinterop-setactivitysourcehost
      */
     SetActivitySourceHost(activitySourceHost) {

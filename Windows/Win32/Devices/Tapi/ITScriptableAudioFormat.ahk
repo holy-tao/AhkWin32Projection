@@ -5,7 +5,7 @@
 
 /**
  * The ITScriptableAudioFormat interface is used by scriptable clients to get the audio format from, or set the audio format for, the track. The interface provides properties for each member from the WAVEFORMATEX structure.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itscriptableaudioformat
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itscriptableaudioformat
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -82,7 +82,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_Channels method returns the value for the nChannels member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value of the <b>nChannels</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels
      */
     get_Channels() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -112,7 +112,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_channels
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_channels
      */
     put_Channels(nNewVal) {
         result := ComCall(8, this, "int", nNewVal, "HRESULT")
@@ -123,7 +123,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_SamplesPerSec method returns the value for the nSamplesPerSec member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value of the <b>nSamplesPerSec</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_samplespersec
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_samplespersec
      */
     get_SamplesPerSec() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -153,7 +153,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_samplespersec
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_samplespersec
      */
     put_SamplesPerSec(nNewVal) {
         result := ComCall(10, this, "int", nNewVal, "HRESULT")
@@ -164,7 +164,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_AvgBytesPerSec method returns the value for the nAvgBytesPerSec member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value for the <b>nAvgBytesPerSec</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_avgbytespersec
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_avgbytespersec
      */
     get_AvgBytesPerSec() {
         result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
@@ -194,7 +194,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_avgbytespersec
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_avgbytespersec
      */
     put_AvgBytesPerSec(nNewVal) {
         result := ComCall(12, this, "int", nNewVal, "HRESULT")
@@ -205,7 +205,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_BlockAlign method returns the value for the nBlockAlign member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value of the <b>nBlockAlign</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_blockalign
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_blockalign
      */
     get_BlockAlign() {
         result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
@@ -235,7 +235,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_blockalign
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_blockalign
      */
     put_BlockAlign(nNewVal) {
         result := ComCall(14, this, "int", nNewVal, "HRESULT")
@@ -246,7 +246,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_BitsPerSample method returns the value for the wBitsPerSample member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value of the <b>wBitsPerSample</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_bitspersample
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_bitspersample
      */
     get_BitsPerSample() {
         result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
@@ -276,7 +276,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_bitspersample
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_bitspersample
      */
     put_BitsPerSample(nNewVal) {
         result := ComCall(16, this, "int", nNewVal, "HRESULT")
@@ -287,7 +287,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * The get_FormatTag method returns the value for the wFormatTag member in the WAVEFORMATEX structure.
      * @returns {Integer} Pointer to the value of the <b>wFormatTag</b> member in the 
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_formattag
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_formattag
      */
     get_FormatTag() {
         result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
@@ -317,7 +317,7 @@ class ITScriptableAudioFormat extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_formattag
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_formattag
      */
     put_FormatTag(nNewVal) {
         result := ComCall(18, this, "int", nNewVal, "HRESULT")

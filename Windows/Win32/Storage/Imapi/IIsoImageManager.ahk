@@ -8,13 +8,11 @@
 /**
  * Use this interface to verify if an existing .iso file contains a valid file system for burning.
  * @remarks
- * 
  * If a valid path is provided via <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setpath">SetPath</a>, an <b>IStream</b> object will be created from the supplied image file and the <b>Stream</b> property will be populated.
  * If a valid <b>IStream</b> is provided via <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setstream">SetStream</a>, it will be used directly for image validation and the <b>Path</b> property will not be populated.
  * 
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-iisoimagemanager
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-iisoimagemanager
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -54,14 +52,11 @@ class IIsoImageManager extends IDispatch{
     }
 
     /**
-     * Retrives the logical path to an .iso image.
+     * Retrieves the logical path to an .iso image.
      * @remarks
-     * 
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * 
-     * 
      * @returns {BSTR} Pointer to the logical path to an .iso image. For example, "c:\\path\\file.iso".
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iisoimagemanager-get_path
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-get_path
      */
     get_Path() {
         pVal := BSTR()
@@ -71,8 +66,10 @@ class IIsoImageManager extends IDispatch{
 
     /**
      * Retrieves the IStream object associated with the .iso image.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {IStream} The <b>IStream</b> object associated with the .iso image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iisoimagemanager-get_stream
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-get_stream
      */
     get_Stream() {
         result := ComCall(8, this, "ptr*", &data := 0, "HRESULT")
@@ -81,6 +78,8 @@ class IIsoImageManager extends IDispatch{
 
     /**
      * Sets the Path property value with a logical path to an .iso image.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {BSTR} Val The logical path to the .iso image. For example, "c:\\path\\file.iso".
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * 
@@ -103,7 +102,7 @@ class IIsoImageManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iisoimagemanager-setpath
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setpath
      */
     SetPath(Val) {
         Val := Val is String ? BSTR.Alloc(Val).Value : Val
@@ -114,9 +113,11 @@ class IIsoImageManager extends IDispatch{
 
     /**
      * Sets the Stream property with the IStream object associated with the .iso image.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {IStream} data The <b>IStream</b> object associated with the .iso image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iisoimagemanager-setstream
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setstream
      */
     SetStream(data) {
         result := ComCall(10, this, "ptr", data, "HRESULT")
@@ -125,6 +126,16 @@ class IIsoImageManager extends IDispatch{
 
     /**
      * Determines if the provided .iso image is valid.
+     * @remarks
+     * For this method to succeed, the disc image, which may be a file or a stream, must meet the following criteria:<ul>
+     * <li>The disc image size must be a multiple of the sector user data size, 2048 bytes.</li>
+     * <li>The disc image must contain user data only and no sector header or file header.</li>
+     * <li>The disc image must contain a valid Volume Recognition Sequence with at least one Volume Descriptor such as described in ECMA <a href="https://www.ecma-international.org/publications/standards/Ecma-119.htm">119</a>, <a href="https://www.ecma-international.org/publications/standards/Ecma-167.htm">167</a>, <a href="https://www.ecma-international.org/publications/standards/Ecma-168.htm">168</a> standards.</li>
+     * </ul> 
+     *  
+     * If the disc image does not fit these criteria, this method will return the relevant failure code. More importantly, a failure to validate will affect the probability of operation success when the image is mounted by Windows after recording.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -161,7 +172,7 @@ class IIsoImageManager extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The image has not been set using the <a href="/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setpath">SetPath</a> or <a href="/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setstream">SetStream</a> method prior to calling this method.
+     * The image has not been set using the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setpath">SetPath</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setstream">SetStream</a> method prior to calling this method.
      * 
      * </td>
      * </tr>
@@ -177,7 +188,7 @@ class IIsoImageManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iisoimagemanager-validate
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-validate
      */
     Validate() {
         result := ComCall(11, this, "HRESULT")

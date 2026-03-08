@@ -7,11 +7,8 @@
 /**
  * A collection of IXpsOMGradientStop interface pointers.
  * @remarks
- * 
  * For more information about the collection methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstopcollection
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstopcollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -38,8 +35,10 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Gets the number of IXpsOMGradientStop interface pointers in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointers in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -48,9 +47,11 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Gets an IXpsOMGradientStop interface pointer from a specified location in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer to be obtained.
      * @returns {IXpsOMGradientStop} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer at the location specified by <i>index</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &stop := 0, "HRESULT")
@@ -59,10 +60,14 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Inserts an IXpsOMGradientStop interface pointer at a specified location in the collection.
+     * @remarks
+     * At the location specified by <i>index</i>, this method inserts the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer that is passed in <i>stop</i>.  Prior to the insertion, the pointer in this and all subsequent locations  is moved up by one index.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection where the interface pointer that is passed in <i>stop</i>  is to be inserted.
      * @param {IXpsOMGradientStop} stop The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer to be inserted at the location specified by <i>index</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-insertat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-insertat
      */
     InsertAt(index, stop) {
         result := ComCall(5, this, "uint", index, "ptr", stop, "HRESULT")
@@ -71,8 +76,12 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Removes and releases an IXpsOMGradientStop interface pointer from a specified location in the collection.
+     * @remarks
+     * This method releases the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface  referenced by the pointer at  the location specified by <i>index</i>. After releasing the interface, this method compacts the collection by   reducing by 1 the index of each pointer subsequent to <i>index</i>.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer is to be removed and released.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -102,7 +111,7 @@ class IXpsOMGradientStopCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-removeat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(6, this, "uint", index, "HRESULT")
@@ -111,10 +120,14 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Replaces an IXpsOMGradientStop interface pointer at a specified location in the collection.
+     * @remarks
+     * At the location specified by <i>index</i>, this method releases the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface referenced by the existing pointer, then writes the pointer that is passed in <i>stop</i>.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer is to be replaced.
      * @param {IXpsOMGradientStop} stop The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-setat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-setat
      */
     SetAt(index, stop) {
         result := ComCall(7, this, "uint", index, "ptr", stop, "HRESULT")
@@ -123,9 +136,11 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * Appends an IXpsOMGradientStop interface to the end of the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {IXpsOMGradientStop} stop A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface that is to be appended to the collection.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-append
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-append
      */
     Append(stop) {
         result := ComCall(8, this, "ptr", stop, "HRESULT")

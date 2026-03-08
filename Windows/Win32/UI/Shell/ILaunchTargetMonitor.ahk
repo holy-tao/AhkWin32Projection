@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ilaunchtargetmonitor
+ * . (ILaunchTargetMonitor)
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ilaunchtargetmonitor
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ILaunchTargetMonitor extends IUnknown{
      * @returns {HMONITOR} Type: <b>HMONITOR*</b>
      * 
      * Contains the address of a pointer to the target  monitor's handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
     GetMonitor() {
         monitor := HMONITOR()

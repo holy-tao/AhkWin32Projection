@@ -9,12 +9,8 @@
 /**
  * The IADsClass interface is designed for managing schema class objects that provide class definitions for any ADSI object. Other schema management interfaces include IADsProperty for attribute definitions and IADsSyntax for attribute syntax.
  * @remarks
- * 
  * Schema objects are organized in the schema container of a given directory. To access an object's schema class, use the object's <b>Schema</b> property (namely, call the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs::get_Schema</a> property method) to obtain the ADsPath string and use that string to bind to its schema class object.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsclass
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsclass
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -452,8 +448,12 @@ class IADsClass extends IADs{
 
     /**
      * Returns a collection of ADSI objects that describe additional qualifiers for this schema class.
+     * @remarks
+     * The qualifier objects are provider-specific. When supported, this method can be used to obtain extended schema data.
+     * 
+     * This method is not currently supported by any of Microsoft providers.
      * @returns {IADsCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> pointer variable that receives the interface pointer to the ADSI collection object that represents additional limits for this schema class.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsclass-qualifiers
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsclass-qualifiers
      */
     Qualifiers() {
         result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "HRESULT")

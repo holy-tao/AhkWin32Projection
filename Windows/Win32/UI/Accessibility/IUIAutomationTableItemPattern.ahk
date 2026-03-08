@@ -7,11 +7,8 @@
 /**
  * Provides access to a child element in a container that supports IUIAutomationTablePattern.
  * @remarks
- * 
  * Elements that support this interface must also support <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern">IUIAutomationGridItemPattern</a>, to provide properties that are not specific to tables.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtableitempattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtableitempattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -41,7 +38,7 @@ class IUIAutomationTableItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of row headers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentrowheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentrowheaderitems
      */
     GetCurrentRowHeaderItems() {
         result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
@@ -53,7 +50,7 @@ class IUIAutomationTableItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of column headers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentcolumnheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentcolumnheaderitems
      */
     GetCurrentColumnHeaderItems() {
         result := ComCall(4, this, "ptr*", &retVal := 0, "HRESULT")
@@ -65,7 +62,7 @@ class IUIAutomationTableItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of cached row headers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedrowheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedrowheaderitems
      */
     GetCachedRowHeaderItems() {
         result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
@@ -77,7 +74,7 @@ class IUIAutomationTableItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of cached column headers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedcolumnheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedcolumnheaderitems
      */
     GetCachedColumnHeaderItems() {
         result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")

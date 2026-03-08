@@ -5,7 +5,7 @@
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput3 interface exposes a method to check for overlay support.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nn-dxgi1_3-idxgioutput3
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgioutput3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IDXGIOutput3 extends IDXGIOutput2{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to a variable that receives a combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_overlay_support_flag">DXGI_OVERLAY_SUPPORT_FLAG</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies options for overlay support.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgioutput3-checkoverlaysupport
+     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgioutput3-checkoverlaysupport
      */
     CheckOverlaySupport(EnumFormat, pConcernedDevice) {
         result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")

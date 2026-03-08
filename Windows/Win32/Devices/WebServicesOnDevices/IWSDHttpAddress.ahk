@@ -5,7 +5,7 @@
 
 /**
  * Provides access to the individual components of an HTTP address.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdhttpaddress
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -67,7 +67,7 @@ class IWSDHttpAddress extends IWSDTransportAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-getsecure
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-getsecure
      */
     GetSecure() {
         result := ComCall(10, this, "HRESULT")
@@ -101,7 +101,7 @@ class IWSDHttpAddress extends IWSDTransportAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-setsecure
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-setsecure
      */
     SetSecure(fSecure) {
         result := ComCall(11, this, "int", fSecure, "HRESULT")
@@ -111,7 +111,7 @@ class IWSDHttpAddress extends IWSDTransportAddress{
     /**
      * Gets the URI path for this address.
      * @returns {PWSTR} Pointer to the URI path for this address. Do not release this object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-getpath
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-getpath
      */
     GetPath() {
         result := ComCall(12, this, "ptr*", &ppszPath := 0, "HRESULT")
@@ -167,7 +167,7 @@ class IWSDHttpAddress extends IWSDTransportAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-setpath
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-setpath
      */
     SetPath(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide information about an encoder.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapencoderinfo
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapencoderinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo{
      * @returns {IWICBitmapEncoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a> instance.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoderinfo-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoderinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(23, this, "ptr*", &ppIBitmapEncoder := 0, "HRESULT")

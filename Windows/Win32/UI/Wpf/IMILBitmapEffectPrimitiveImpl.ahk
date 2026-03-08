@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that report the state of a bitmap effect. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectprimitiveimpl
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectprimitiveimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IMILBitmapEffectPrimitiveImpl extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * When this method returns, contains a value indicating whether the effect needs to be updated.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
      */
     IsDirty(uiOutputIndex) {
         result := ComCall(3, this, "uint", uiOutputIndex, "short*", &pfDirty := 0, "int")
@@ -53,7 +53,7 @@ class IMILBitmapEffectPrimitiveImpl extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * When this method returns, contains a value indicating whether the effect is considered volatile.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
      */
     IsVolatile(uiOutputIndex) {
         result := ComCall(4, this, "uint", uiOutputIndex, "short*", &pfVolatile := 0, "HRESULT")

@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The IEnumAgentSession interface provides COM-standard enumeration methods for the ITAgentSession interface. The ITAgent::EnumerateAgentSessions method returns a pointer to IEnumAgentSession.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-ienumagentsession
+ * The IEnumAgentSession interface (tapi3cc.h) provides COM-standard enumeration methods for the ITAgentSession interface.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ienumagentsession
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -32,7 +32,11 @@ class IEnumAgentSession extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The IEnumAgentSession::Next method (tapi3cc.h) gets the next specified number of elements in the enumeration sequence.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface returned by <b>IEnumAgentSession::Next</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgentSession</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<ITAgentSession>} ppElements Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface.
@@ -89,7 +93,7 @@ class IEnumAgentSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagentsession-next
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagentsession-next
      */
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -99,7 +103,7 @@ class IEnumAgentSession extends IUnknown{
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning.
+     * The IEnumAgentSession::Reset method (tapi3cc.h) resets the enumeration sequence to the beginning.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -130,7 +134,7 @@ class IEnumAgentSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagentsession-reset
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagentsession-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -138,7 +142,7 @@ class IEnumAgentSession extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The IEnumAgentSession interface (tapi3cc.h) skips over the next specified number of elements in the enumeration sequence.
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -181,7 +185,7 @@ class IEnumAgentSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagentsession-skip
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagentsession-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -189,10 +193,14 @@ class IEnumAgentSession extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The IEnumAgentSession::Clone method (tapi3cc.h) creates another enumerator that contains the same enumeration state as the current one.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagentsession">IEnumAgentSession</a> interface returned by <b>IEnumAgentSession::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumAgentSession</b> interface to free resources associated with it.
      * @returns {IEnumAgentSession} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagentsession">IEnumAgentSession</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagentsession-clone
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagentsession-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

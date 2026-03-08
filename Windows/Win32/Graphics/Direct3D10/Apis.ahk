@@ -1576,11 +1576,7 @@ class Direct3D10 {
     static D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr*", &ppDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
         return ID3D10Device(ppDevice)
     }
 
@@ -1623,11 +1619,7 @@ class Direct3D10 {
     static D3D10CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10.dll\D3D10CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "HRESULT")
         return result
     }
 
@@ -1642,11 +1634,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10misc/nf-d3d10misc-d3d10createblob
      */
     static D3D10CreateBlob(NumBytes) {
-        result := DllCall("d3d10.dll\D3D10CreateBlob", "ptr", NumBytes, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateBlob", "ptr", NumBytes, "ptr*", &ppBuffer := 0, "HRESULT")
         return ID3DBlob(ppBuffer)
     }
 
@@ -1702,11 +1690,7 @@ class Direct3D10 {
         pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
         pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
 
-        result := DllCall("d3d10.dll\D3D10CompileShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, "uint", Flags, "ptr*", ppShader, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CompileShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, "uint", Flags, "ptr*", ppShader, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -1732,11 +1716,7 @@ class Direct3D10 {
     static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments) {
         pComments := pComments is String ? StrPtr(pComments) : pComments
 
-        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr*", &ppDisassembly := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr*", &ppDisassembly := 0, "HRESULT")
         return ID3DBlob(ppDisassembly)
     }
 
@@ -1799,11 +1779,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10reflectshader
      */
     static D3D10ReflectShader(pShaderBytecode, BytecodeLength) {
-        result := DllCall("d3d10.dll\D3D10ReflectShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppReflector := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10ReflectShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppReflector := 0, "HRESULT")
         return ID3D10ShaderReflection(ppReflector)
     }
 
@@ -1842,11 +1818,7 @@ class Direct3D10 {
     static D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppShaderText, ppErrorMsgs) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr*", ppShaderText, "ptr*", ppErrorMsgs, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr*", ppShaderText, "ptr*", ppErrorMsgs, "HRESULT")
         return result
     }
 
@@ -1864,11 +1836,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getinputsignatureblob
      */
     static D3D10GetInputSignatureBlob(pShaderBytecode, BytecodeLength) {
-        result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -1886,11 +1854,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getoutputsignatureblob
      */
     static D3D10GetOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
-        result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -1908,11 +1872,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getinputandoutputsignatureblob
      */
     static D3D10GetInputAndOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
-        result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
         return ID3DBlob(ppSignatureBlob)
     }
 
@@ -1930,11 +1890,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getshaderdebuginfo
      */
     static D3D10GetShaderDebugInfo(pShaderBytecode, BytecodeLength) {
-        result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppDebugInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppDebugInfo := 0, "HRESULT")
         return ID3DBlob(ppDebugInfo)
     }
 
@@ -1955,11 +1911,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskunion
      */
     static D3D10StateBlockMaskUnion(pA, pB, pResult) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskUnion", "ptr", pA, "ptr", pB, "ptr", pResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskUnion", "ptr", pA, "ptr", pB, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -1980,11 +1932,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskintersect
      */
     static D3D10StateBlockMaskIntersect(pA, pB, pResult) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskIntersect", "ptr", pA, "ptr", pB, "ptr", pResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskIntersect", "ptr", pA, "ptr", pB, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -2005,11 +1953,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskdifference
      */
     static D3D10StateBlockMaskDifference(pA, pB, pResult) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskDifference", "ptr", pA, "ptr", pB, "ptr", pResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskDifference", "ptr", pA, "ptr", pB, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -2045,11 +1989,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenablecapture
      */
     static D3D10StateBlockMaskEnableCapture(pMask, StateType, RangeStart, RangeLength) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableCapture", "ptr", pMask, "int", StateType, "uint", RangeStart, "uint", RangeLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableCapture", "ptr", pMask, "int", StateType, "uint", RangeStart, "uint", RangeLength, "HRESULT")
         return result
     }
 
@@ -2085,11 +2025,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskdisablecapture
      */
     static D3D10StateBlockMaskDisableCapture(pMask, StateType, RangeStart, RangeLength) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableCapture", "ptr", pMask, "int", StateType, "uint", RangeStart, "uint", RangeLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableCapture", "ptr", pMask, "int", StateType, "uint", RangeStart, "uint", RangeLength, "HRESULT")
         return result
     }
 
@@ -2104,11 +2040,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenableall
      */
     static D3D10StateBlockMaskEnableAll(pMask) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableAll", "ptr", pMask, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableAll", "ptr", pMask, "HRESULT")
         return result
     }
 
@@ -2123,11 +2055,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskdisableall
      */
     static D3D10StateBlockMaskDisableAll(pMask) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableAll", "ptr", pMask, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableAll", "ptr", pMask, "HRESULT")
         return result
     }
 
@@ -2181,11 +2109,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10createstateblock
      */
     static D3D10CreateStateBlock(pDevice, pStateBlockMask) {
-        result := DllCall("d3d10.dll\D3D10CreateStateBlock", "ptr", pDevice, "ptr", pStateBlockMask, "ptr*", &ppStateBlock := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateStateBlock", "ptr", pDevice, "ptr", pStateBlockMask, "ptr*", &ppStateBlock := 0, "HRESULT")
         return ID3D10StateBlock(ppStateBlock)
     }
 
@@ -2230,11 +2154,7 @@ class Direct3D10 {
     static D3D10CompileEffectFromMemory(pData, DataLength, pSrcFileName, pDefines, pInclude, HLSLFlags, FXFlags, ppCompiledEffect, ppErrors) {
         pSrcFileName := pSrcFileName is String ? StrPtr(pSrcFileName) : pSrcFileName
 
-        result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", "ptr", pData, "ptr", DataLength, "ptr", pSrcFileName, "ptr", pDefines, "ptr", pInclude, "uint", HLSLFlags, "uint", FXFlags, "ptr*", ppCompiledEffect, "ptr*", ppErrors, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", "ptr", pData, "ptr", DataLength, "ptr", pSrcFileName, "ptr", pDefines, "ptr", pInclude, "uint", HLSLFlags, "uint", FXFlags, "ptr*", ppCompiledEffect, "ptr*", ppErrors, "HRESULT")
         return result
     }
 
@@ -2265,11 +2185,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10createeffectfrommemory
      */
     static D3D10CreateEffectFromMemory(pData, DataLength, FXFlags, pDevice, pEffectPool) {
-        result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", &ppEffect := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", &ppEffect := 0, "HRESULT")
         return ID3D10Effect(ppEffect)
     }
 
@@ -2297,11 +2213,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10createeffectpoolfrommemory
      */
     static D3D10CreateEffectPoolFromMemory(pData, DataLength, FXFlags, pDevice) {
-        result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr*", &ppEffectPool := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr*", &ppEffectPool := 0, "HRESULT")
         return ID3D10EffectPool(ppEffectPool)
     }
 
@@ -2346,11 +2258,7 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10disassembleeffect
      */
     static D3D10DisassembleEffect(pEffect, EnableColorCode) {
-        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr*", &ppDisassembly := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr*", &ppDisassembly := 0, "HRESULT")
         return ID3DBlob(ppDisassembly)
     }
 
@@ -2401,11 +2309,7 @@ class Direct3D10 {
     static D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr*", &ppDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
         return ID3D10Device1(ppDevice)
     }
 
@@ -2457,11 +2361,7 @@ class Direct3D10 {
     static D3D10CreateDeviceAndSwapChain1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10_1.dll\D3D10CreateDeviceAndSwapChain1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d10_1.dll\D3D10CreateDeviceAndSwapChain1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "HRESULT")
         return result
     }
 

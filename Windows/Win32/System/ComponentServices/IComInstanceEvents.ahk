@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber of an object's creation or release.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icominstanceevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icominstanceevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IComInstanceEvents extends IUnknown{
      * @param {Integer} CtxtID The context identifier for this object.
      * @param {Integer} ObjectID The initial just-in-time (JIT) activated object.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstanceevents-onobjectcreate
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstanceevents-onobjectcreate
      */
     OnObjectCreate(pInfo, guidActivity, clsid, tsid, CtxtID, ObjectID) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", ObjectID, "HRESULT")
@@ -51,7 +51,7 @@ class IComInstanceEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The context identifier of the object.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstanceevents-onobjectdestroy
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstanceevents-onobjectdestroy
      */
     OnObjectDestroy(pInfo, CtxtID) {
         result := ComCall(4, this, "ptr", pInfo, "uint", CtxtID, "HRESULT")

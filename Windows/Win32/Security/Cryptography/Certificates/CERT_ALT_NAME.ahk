@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * The name is a directory name.
+ * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-setnameentry
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

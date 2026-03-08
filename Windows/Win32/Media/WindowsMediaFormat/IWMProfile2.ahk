@@ -5,7 +5,7 @@
 
 /**
  * The IWMProfile2 interface exposes the globally unique identifier for a system profile.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmprofile2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IWMProfile2 extends IWMProfile{
 
     /**
      * The GetProfileID method retrieves the globally unique identifier of a system profile.
+     * @remarks
+     * System profiles have associated identifiers, but custom profiles do not, therefore this method cannot be used to identify any profile that uses the Windows Media® 9 Series codecs. For more information, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/reusing-stream-configurations">Reusing Stream Configurations</a>.
      * @returns {Guid} Pointer to a GUID specifying the ID of the profile. It the profile is not a system profile, this is set to GUID_NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile2-getprofileid
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile2-getprofileid
      */
     GetProfileID() {
         pguidID := Guid()

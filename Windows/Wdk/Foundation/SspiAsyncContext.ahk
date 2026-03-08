@@ -2,6 +2,10 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
+ * Determines whether a given async context requires notification on completion of the call.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiasynccontextrequiresnotify
  * @namespace Windows.Wdk.Foundation
  * @version v4.0.30319
  */

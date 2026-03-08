@@ -6,7 +6,6 @@
 /**
  * Applications use the methods of the IDirectDrawColorControl interface to get and set color controls.
  * @remarks
- * 
  * You can use the LPDIRECTDRAWCOLORCONTROL data type to declare a variable that contains a pointer to an <b>IDirectDrawColorControl</b> interface. The Ddraw.h header file declares this data type with the following code:
  * 
  * 
@@ -17,8 +16,7 @@
  * typedef struct IDirectDrawColorControl    FAR *LPDIRECTDRAWCOLORCONTROL;
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawcolorcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawcolorcontrol
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -45,6 +43,8 @@ class IDirectDrawColorControl extends IUnknown{
 
     /**
      * Retrieves the current color-control settings that are associated with an overlay or a primary surface.
+     * @remarks
+     * The <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549237(v=vs.85)">DDCOLORCONTROL</a> structure indicates which of the color-control options are supported.
      * @param {Pointer<DDCOLORCONTROL>} param0 
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
@@ -57,7 +57,7 @@ class IDirectDrawColorControl extends IUnknown{
      * <li>DDERR_INVALIDPARAMS</li>
      * <li>DDERR_UNSUPPORTED</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawcolorcontrol-getcolorcontrols
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawcolorcontrol-getcolorcontrols
      */
     GetColorControls(param0) {
         result := ComCall(3, this, "ptr", param0, "HRESULT")
@@ -76,7 +76,7 @@ class IDirectDrawColorControl extends IUnknown{
      * <li>DDERR_INVALIDPARAMS</li>
      * <li>DDERR_UNSUPPORTED</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawcolorcontrol-setcolorcontrols
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawcolorcontrol-setcolorcontrols
      */
     SetColorControls(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")

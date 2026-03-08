@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The IFaxServerNotify2 interface is used for fax notifications.
+ * The IFaxServerNotify2 interface is used for fax notifications. (IIFaxServerNotify2)
  * @remarks
- * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_Visual_Basic"></a><a id="to_use_fax_notification_events_with_visual_basic"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_VISUAL_BASIC"></a>To Use Fax Notification Events with Visual Basic</h3>
  * Use the following syntax when creating the root FaxServer2 object:
  * 
@@ -27,8 +26,7 @@
  * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_C__"></a><a id="to_use_fax_notification_events_with_c__"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_C__"></a>To Use Fax Notification Events with C++</h3>
  * A fax client application must implement <b>IFaxServerNotify2</b> and pass the fax service the pointer to an <b>IFaxServerNotify2</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxservernotify2
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxservernotify2
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

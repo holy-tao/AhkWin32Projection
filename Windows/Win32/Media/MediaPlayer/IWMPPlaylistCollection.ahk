@@ -8,7 +8,7 @@
 
 /**
  * The IWMPPlaylistCollection interface provides methods for manipulating the IWMPPlaylist and IWMPPlaylistArray interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplaylistcollection
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylistcollection
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -35,9 +35,17 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The newPlaylist method creates a new, empty playlist in the library.
+     * @remarks
+     * This method creates an empty playlist in the library. To fill the playlist with media items, use <b>IWMPPlaylist::appendItem</b> or <b>IWMPPlaylist::insertItem</b>.
+     * 
+     * Multiple playlists having the same name are permitted in the library. To avoid creating a duplicate playlist name with this method, use the <b>getByName</b> method and <b>IWMPPlaylistArray::count</b> to determine whether a playlist with a particular name already exists.
+     * 
+     * Leading and trailing spaces are not permitted in playlist names, and are automatically removed from the value specified for the bstrName parameter.
+     * 
+     * Before calling this method, you must have full access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {BSTR} bstrName String containing the name of the new playlist.
      * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the new playlist.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-newplaylist
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-newplaylist
      */
     newPlaylist(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -48,8 +56,10 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The getAll method retrieves a pointer to an IWMPPlaylistArray interface representing all of the playlists in the library.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @returns {IWMPPlaylistArray} Pointer to a pointer to an <b>IWMPPlaylistArray</b> interface for the retrieved array of playlists.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-getall
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-getall
      */
     getAll() {
         result := ComCall(8, this, "ptr*", &ppPlaylistArray := 0, "HRESULT")
@@ -58,9 +68,13 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The getByName method retrieves a pointer to an IWMPPlaylistArray interface on an object containing playlists with the specified name, if any exist.
+     * @remarks
+     * Use <b>IWMPPlaylistArray::count</b> to determine whether a playlist exists. If <b>count</b> is zero, the array is empty.
+     * 
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {BSTR} bstrName String containing the name.
      * @returns {IWMPPlaylistArray} Pointer to a pointer to an <b>IWMPPlaylistArray</b> interface for the retrieved array of playlists.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-getbyname
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-getbyname
      */
     getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -71,6 +85,8 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The remove method removes a playlist from the library.
+     * @remarks
+     * Before calling this method, you must have full access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {IWMPPlaylist} pItem Pointer to an <b>IWMPPlaylist</b> interface for the playlist that this method will remove.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -91,7 +107,7 @@ class IWMPPlaylistCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-remove
      */
     remove(pItem) {
         result := ComCall(10, this, "ptr", pItem, "HRESULT")
@@ -99,7 +115,7 @@ class IWMPPlaylistCollection extends IDispatch{
     }
 
     /**
-     * 
+     * The IWMPPlaylistCollection interface provides methods for manipulating the IWMPPlaylist and IWMPPlaylistArray interfaces.
      * @param {IWMPPlaylist} pItem 
      * @param {VARIANT_BOOL} varfIsDeleted 
      * @returns {HRESULT} 
@@ -112,6 +128,8 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The isDeleted method retrieves a value indicating whether the specified playlist is in the deleted items folder.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT_BOOL</b> set to <b>FALSE</b>.
      * @param {IWMPPlaylist} pItem Pointer to an <b>IWMPPlaylist</b> interface for the queried playlist.
      * @param {Pointer<VARIANT_BOOL>} pvarfIsDeleted Pointer to a <b>VARIANT_BOOL</b> that specifies whether the given playlist was deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -133,7 +151,7 @@ class IWMPPlaylistCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-isdeleted
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-isdeleted
      */
     isDeleted(pItem, pvarfIsDeleted) {
         pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : "ptr"
@@ -144,9 +162,15 @@ class IWMPPlaylistCollection extends IDispatch{
 
     /**
      * The importPlaylist method adds a static playlist to the library.
+     * @remarks
+     * Playlists that do not contain any media items cannot be added to the library by using this method. To create an empty playlist in the library, use the <b>newPlaylist</b> method. You can then fill the resulting playlist with media items by using <b>IWMPPlaylist::appendItem</b> or <b>IWMPPlaylist::insertItem</b>.
+     * 
+     * If you pass this method an auto playlist, the query is executed once and the result is added to the library as a static playlist. To add an auto playlist to the library and preserve its automatic behavior, use <b>IWMPMediaCollection::add</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/static-and-auto-playlists">Static and Auto Playlists</a>.
+     * 
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {IWMPPlaylist} pItem Pointer to an <b>IWMPPlaylist</b> interface for the playlist that this method will add.
      * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the added playlist.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistcollection-importplaylist
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-importplaylist
      */
     importPlaylist(pItem) {
         result := ComCall(13, this, "ptr", pItem, "ptr*", &ppImportedItem := 0, "HRESULT")

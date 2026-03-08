@@ -5,7 +5,7 @@
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink4 interface, plus it enables access to the BlendImage method.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1commandsink5
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1commandsink5
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class ID2D1CommandSink5 extends ID2D1CommandSink4{
     static VTableNames => ["BlendImage"]
 
     /**
-     * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect.
+     * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect. (ID2D1CommandSink5.BlendImage)
      * @param {ID2D1Image} image Type: <b>ID2D1Image*</b>
      * 
      * The image to be drawn to the device context.
@@ -50,10 +50,10 @@ class ID2D1CommandSink5 extends ID2D1CommandSink4{
      * @param {Integer} interpolationMode Type: <b>D2D1_INTERPOLATION_MODE</b>
      * 
      * The interpolation mode that will be used to scale the image if necessary. The default value is D2D1_INTERPOLATION_MODE_LINEAR.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1commandsink5-blendimage
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink5-blendimage
      */
     BlendImage(image, blendMode, targetOffset, imageRectangle, interpolationMode) {
         result := ComCall(34, this, "ptr", image, "int", blendMode, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode, "HRESULT")

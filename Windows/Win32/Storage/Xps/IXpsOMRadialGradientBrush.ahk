@@ -9,8 +9,7 @@
 /**
  * Specifies a radial gradient.
  * @remarks
- * 
- *   As shown in the figure that follows, the gradient region of a radial gradient is the area enclosed by the ellipse that is described by the center point and the x and y radii that extend from the center point. The spread area is the area outside of that ellipse. The gradient path (not shown) is a radial line that is drawn between the gradient origin and the ellipse that bounds the gradient region.
+ * As shown in the figure that follows, the gradient region of a radial gradient is the area enclosed by the ellipse that is described by the center point and the x and y radii that extend from the center point. The spread area is the area outside of that ellipse. The gradient path (not shown) is a radial line that is drawn between the gradient origin and the ellipse that bounds the gradient region.
  * 
  * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
  * The code example that follows illustrates how to create an instance of  this interface.
@@ -60,9 +59,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -89,8 +86,14 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Gets the center point of the radial gradient region ellipse.
+     * @remarks
+     * The x and y coordinates that are specified in <i>center</i>  are relative to the page and are expressed in units of the transform that is in effect.
+     * 
+     * The following illustration shows the parts of a radial gradient. <i>center</i> gets the location of the center point of the ellipse that bounds the radial gradient region.  For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @returns {XPS_POINT} The x and y coordinates of the center point of the radial gradient region ellipse.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getcenter
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getcenter
      */
     GetCenter() {
         center := XPS_POINT()
@@ -100,8 +103,14 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Sets the center point of the radial gradient region ellipse.
+     * @remarks
+     * The x and y coordinates that are specified in <i>center</i>  are relative to the page and are expressed in units of the  transform that is in effect.
+     * 
+     * The following illustration shows the parts of a radial gradient. <i>center</i> sets the location of the center point. For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @param {Pointer<XPS_POINT>} center The x and y coordinates to be set for the center point of the radial gradient ellipse.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -126,7 +135,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * The point described by <i>center</i> is not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * The point described by <i>center</i> is not valid. The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
      * 
      * </td>
      * </tr>
@@ -142,7 +151,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setcenter
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setcenter
      */
     SetCenter(center) {
         result := ComCall(18, this, "ptr", center, "HRESULT")
@@ -151,6 +160,10 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Gets the sizes of the radii that define the ellipse of the radial gradient region.
+     * @remarks
+     * The following illustration shows the parts of a radial gradient. <i>radiiSizes.width</i> gets the x-radius, and <i>radiiSizes.height</i> the y-radius.  For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @returns {XPS_SIZE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure that  receives the sizes of the radii.
      * 
      * <table>
@@ -182,7 +195,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      *  
      * 
      * Size is described in XPS units. There are 96 XPS units per inch. For example, a 1" radius is 96 XPS units.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getradiisizes
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getradiisizes
      */
     GetRadiiSizes() {
         radiiSizes := XPS_SIZE()
@@ -192,6 +205,10 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Sets the sizes of the radii that define ellipse of the radial gradient region.
+     * @remarks
+     * The following illustration identifies the parts of a radial gradient.    <i>radiiSizes.width</i> sets the x-radius,  and <i>radiiSizes.height</i> the y-radius. For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @param {Pointer<XPS_SIZE>} radiiSizes The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure that  receives the sizes of the radii.
      * 
      * <table>
@@ -223,7 +240,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      *  
      * 
      * Size is described in XPS units. There are 96 XPS units per inch. For example, a 1" radius is 96 XPS units.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -248,7 +265,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * One of the sizes described by <i>radiiSizes</i> is not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure must contain valid, finite, and non-negative floating-point values.
+     * One of the sizes described by <i>radiiSizes</i> is not valid. The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure must contain valid, finite, and non-negative floating-point values.
      * 
      * </td>
      * </tr>
@@ -264,7 +281,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setradiisizes
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setradiisizes
      */
     SetRadiiSizes(radiiSizes) {
         result := ComCall(20, this, "ptr", radiiSizes, "HRESULT")
@@ -273,8 +290,14 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Gets the origin point of the radial gradient.
+     * @remarks
+     * The x and y coordinates that are specified in <i>origin</i>   are relative to the page and are expressed in units of the  transform  that is in effect.
+     * 
+     * The following illustration shows the parts of a radial gradient. <i>origin</i> gets the location of the gradient origin.   For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @returns {XPS_POINT} The x and y coordinates of the radial gradient's origin point.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getgradientorigin
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getgradientorigin
      */
     GetGradientOrigin() {
         origin := XPS_POINT()
@@ -284,8 +307,14 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Sets the origin point of the radial gradient.
+     * @remarks
+     * The x and y coordinates that are specified in <i>origin</i>  are relative to the page and are expressed in units of the  transform that is in effect.
+     * 
+     * The following illustration shows the parts of a radial gradient. <i>origin</i> sets the location of the radial gradient's origin.    For a more detailed description of this diagram, see <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
      * @param {Pointer<XPS_POINT>} origin The x and y  coordinates to be set for the origin point of the  radial gradient.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -310,7 +339,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * The point described by <i>origin</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * The point described by <i>origin</i> was not valid. The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
      * 
      * </td>
      * </tr>
@@ -326,7 +355,7 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setgradientorigin
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setgradientorigin
      */
     SetGradientOrigin(origin) {
         result := ComCall(22, this, "ptr", origin, "HRESULT")
@@ -334,9 +363,11 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMRadialGradientBrush.Clone)
+     * @remarks
+     * This method does not update any of the resource pointers in the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush">IXpsOMRadialGradientBrush</a>  interface.
      * @returns {IXpsOMRadialGradientBrush} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-clone
      */
     Clone() {
         result := ComCall(23, this, "ptr*", &radialGradientBrush := 0, "HRESULT")

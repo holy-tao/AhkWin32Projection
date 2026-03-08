@@ -44,7 +44,7 @@ class IDCompositionTexture extends IUnknown{
      * @returns {HRESULT} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setcolorspace
      */
     SetColorSpace(colorSpace) {
         result := ComCall(4, this, "int", colorSpace, "HRESULT")

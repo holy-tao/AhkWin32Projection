@@ -6,7 +6,6 @@
 /**
  * A free-threaded interface that can be exposed by an object to allow operations to be performed on a background thread.
  * @remarks
- * 
  * Implement <b>IRunnableTask</b> if your namespace extension is free-threaded, and you want to allow a task such as icon extraction to be managed by a scheduler. Only the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-run">Run</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning">IsRunning</a> methods must be implemented. If you do not want to implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill">Kill</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-resume">Resume</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-suspend">Suspend</a>, simply have them return E_NOTIMPL.
  * 
  * If you are using <b>IRunnableTask</b> to extract an image on a background thread, that is, if the object exposes <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a>, then <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-run">Run</a> is not necessary, as the system will use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iextractimage-extract">IExtractImage::Extract</a> to manage the task. The other methods (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill">Kill</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-resume">Resume</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-suspend">Suspend</a>) are optional in this case, but will be used by the system if they are implemented.
@@ -17,8 +16,7 @@
  * 
  * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-irunnabletask
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-irunnabletask
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -45,6 +43,8 @@ class IRunnableTask extends IUnknown{
 
     /**
      * Requests that a task begin.
+     * @remarks
+     * The return value of this method only tells you whether the execution of the task completed or is suspended. Any other errors that the implementer needs to communicate to the caller must be provided through other channels, such as a callback function.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following two codes.
@@ -77,7 +77,7 @@ class IRunnableTask extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-run
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-run
      */
     Run() {
         result := ComCall(3, this, "HRESULT")
@@ -86,13 +86,15 @@ class IRunnableTask extends IUnknown{
 
     /**
      * Requests that a task be stopped.
+     * @remarks
+     * Implementation of this method is optional. If you do not wish to support this functionality, create a token implementation that simply returns E_NOTIMPL.
      * @param {BOOL} bWait Type: <b>BOOL</b>
      * 
      * Not currently used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-kill
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill
      */
     Kill(bWait) {
         result := ComCall(4, this, "int", bWait, "HRESULT")
@@ -101,10 +103,12 @@ class IRunnableTask extends IUnknown{
 
     /**
      * Requests that a task be suspended.
+     * @remarks
+     * Implementation of this method is optional. If you do not wish to support this functionality, create a token implementation that simply returns E_NOTIMPL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Return S_OK if successful, or standard COM-defined error codes otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-suspend
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-suspend
      */
     Suspend() {
         result := ComCall(5, this, "HRESULT")
@@ -113,10 +117,12 @@ class IRunnableTask extends IUnknown{
 
     /**
      * Requests that a task resume.
+     * @remarks
+     * Implementation of this method is optional. If you do not wish to support this functionality, create a token implementation that simply returns E_NOTIMPL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or standard COM-defined error codes otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-resume
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-resume
      */
     Resume() {
         result := ComCall(6, this, "HRESULT")
@@ -125,6 +131,8 @@ class IRunnableTask extends IUnknown{
 
     /**
      * Requests information on the state of a task, such as thumbnail extraction.
+     * @remarks
+     * This method must be implemented.
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * Returns one of the following values to indicate the current execution state.
@@ -175,7 +183,7 @@ class IRunnableTask extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill">IRunnableTask::Kill</a> has been called on the thread, but the thread has not yet completely shut down.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill">IRunnableTask::Kill</a> has been called on the thread, but the thread has not yet completely shut down.
      * 
      * </td>
      * </tr>
@@ -191,7 +199,7 @@ class IRunnableTask extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning
      */
     IsRunning() {
         result := ComCall(7, this, "uint")

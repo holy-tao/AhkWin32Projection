@@ -41,10 +41,13 @@ class IMetaDataEmit extends IUnknown{
     }
 
     /**
-     * 
+     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
+     * @remarks
+     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
      */
     Save(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
@@ -364,14 +367,53 @@ class IMetaDataEmit extends IUnknown{
 
     /**
      * Changes the parent window of the specified child window.
+     * @remarks
+     * An application can use the <b>SetParent</b> function to set the parent window of a pop-up, overlapped, or child window.
+     * 
+     * If the window identified by the <i>hWndChild</i> parameter is visible, the system performs the appropriate redrawing and repainting. 
+     * 
+     * For compatibility reasons, <b>SetParent</b> does not modify the <b>WS_CHILD</b> or <b>WS_POPUP</b> window styles of the window whose parent is being changed. Therefore, if <i>hWndNewParent</i> is <b>NULL</b>, you should also clear the <b>WS_CHILD</b> bit and set the <b>WS_POPUP</b> style after calling <b>SetParent</b>. Conversely, if <i>hWndNewParent</i> is not <b>NULL</b> and the window was previously a child of the desktop, you should clear the <b>WS_POPUP</b> style and set the <b>WS_CHILD</b> style before calling <b>SetParent</b>. 
+     * 
+     *  When you change the parent of a window, you should synchronize the UISTATE of both windows. For more information, see <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-changeuistate">WM_CHANGEUISTATE</a> and <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-updateuistate">WM_UPDATEUISTATE</a>. 
+     * 
+     * Unexpected behavior or errors may occur if <i>hWndNewParent</i> and <i>hWndChild</i> are running in different DPI awareness modes. The table below outlines this behavior:
+     * 
+     * <table>
+     * <tr>
+     * <th>Operation</th>
+     * <th>Windows 8.1</th>
+     * <th>Windows 10 (1607 and earlier)</th>
+     * <th>Windows 10 (1703 and later)</th>
+     * </tr>
+     * <tr>
+     * <td>SetParent (In-Proc) </td>
+     * <td>N/A </td>
+     * <td><b>Forced reset</b> 
+     * (of current process)</td>
+     * <td><b>Fail</b> 
+     * (ERROR_INVALID_STATE)</td>
+     * </tr>
+     * <tr>
+     * <td>SetParent (Cross-Proc) </td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     *  For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
      * @param {Integer} mr 
      * @param {Integer} tk 
      * @returns {HRESULT} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous parent window.
      * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setparent
+     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setparent
      */
     SetParent(mr, tk) {
         result := ComCall(25, this, "uint", mr, "uint", tk, "HRESULT")
@@ -768,11 +810,14 @@ class IMetaDataEmit extends IUnknown{
     }
 
     /**
-     * 
+     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
+     * @remarks
+     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/Msi/merge-closedatabase
      */
     Merge(pImport, pHostMapToken, pHandler) {
         result := ComCall(50, this, "ptr", pImport, "ptr", pHostMapToken, "ptr", pHandler, "HRESULT")

@@ -1065,11 +1065,7 @@ class Marshal {
     static CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "HRESULT")
         return pulSize
     }
 
@@ -1143,11 +1139,7 @@ class Marshal {
     static CoMarshalInterface(pStm, riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "HRESULT")
         return result
     }
 
@@ -1175,11 +1167,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoUnmarshalInterface(pStm, riid) {
-        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1241,11 +1229,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoMarshalHresult(pstm, hresult) {
-        result := DllCall("OLE32.dll\CoMarshalHresult", "ptr", pstm, "int", hresult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoMarshalHresult", "ptr", pstm, "int", hresult, "HRESULT")
         return result
     }
 
@@ -1271,11 +1255,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoUnmarshalHresult(pstm) {
-        result := DllCall("OLE32.dll\CoUnmarshalHresult", "ptr", pstm, "int*", &phresult := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoUnmarshalHresult", "ptr", pstm, "int*", &phresult := 0, "HRESULT")
         return phresult
     }
 
@@ -1359,11 +1339,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoReleaseMarshalData(pStm) {
-        result := DllCall("OLE32.dll\CoReleaseMarshalData", "ptr", pStm, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoReleaseMarshalData", "ptr", pStm, "HRESULT")
         return result
     }
 
@@ -1398,11 +1374,7 @@ class Marshal {
     static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", &ppMarshal := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", &ppMarshal := 0, "HRESULT")
         return IMarshal(ppMarshal)
     }
 
@@ -1446,11 +1418,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoGetStdMarshalEx(pUnkOuter, smexflags) {
-        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", &ppUnkInner := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", &ppUnkInner := 0, "HRESULT")
         return IUnknown(ppUnkInner)
     }
 
@@ -1482,11 +1450,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoMarshalInterThreadInterfaceInStream(riid, pUnk) {
-        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", &ppStm := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", &ppStm := 0, "HRESULT")
         return IStream(ppStm)
     }
 
@@ -1973,11 +1937,12 @@ class Marshal {
     }
 
     /**
-     * 
+     * The HMENU_UserSize64 function (oleidl.h) calculates the wire size of the HMENU object and gets its handle and data.
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
      */
     static HMENU_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that define an interior input connector.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectinteriorinputconnector
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinteriorinputconnector
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMILBitmapEffectInteriorInputConnector extends IUnknown{
      * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
      * 
      * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinteriorinputconnector-getinputconnector
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinteriorinputconnector-getinputconnector
      */
     GetInputConnector() {
         result := ComCall(3, this, "ptr*", &pInputConnector := 0, "HRESULT")

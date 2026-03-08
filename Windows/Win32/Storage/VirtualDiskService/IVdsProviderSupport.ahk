@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method to indicate what versions of the VDS interfaces are supported by the provider.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsprovidersupport
+ * The IVdsProviderSupport interface (vdshwprv.h) provides a method to indicate what versions of the VDS interfaces are supported by the provider.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsprovidersupport
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,11 +31,11 @@ class IVdsProviderSupport extends IUnknown{
     static VTableNames => ["GetVersionSupport"]
 
     /**
-     * Returns a bitmask of values enumerated by VDS_VERSION_SUPPORT_FLAG indicating the versions of the VDS interfaces supported by this provider.
+     * The IVdsProviderSupport::GetVersionSupport (vdshwprv.h) method returns a bitmask of values enumerated by VDS_VERSION_SUPPORT_FLAG indicating the versions of the VDS interfaces.
      * @returns {Integer} Address of a <b>ULONG</b> that receives a bitmask of one or more of the values enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_version_support_flag">VDS_VERSION_SUPPORT_FLAG</a> indicating the 
      *       versions of the VDS interfaces supported by the provider.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsprovidersupport-getversionsupport
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovidersupport-getversionsupport
      */
     GetVersionSupport() {
         result := ComCall(3, this, "uint*", &ulVersionSupport := 0, "HRESULT")

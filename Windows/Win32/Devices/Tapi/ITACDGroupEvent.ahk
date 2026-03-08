@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The ITACDGroupEvent interface contains methods that retrieve the description of Automatic Call Distribution (ACD) group events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-itacdgroupevent
+ * The ITACDGroupEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) group events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itacdgroupevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -46,10 +46,14 @@ class ITACDGroupEvent extends IDispatch{
     }
 
     /**
-     * The get_Group method gets the ITACDGroup interface pointer for the group on which the event occurred.
+     * The ITACDGroupEvent::get_Group method (tapi3cc.h) gets the ITACDGroup interface pointer for the group on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface returned by <b>ITACDGroupEvent::get_Group</b>. The application must call <b>Release</b> on the 
+     * <b>ITACDGroup</b> interface to free resources associated with it.
      * @returns {ITACDGroup} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface on which the event occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itacdgroupevent-get_group
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroupevent-get_group
      */
     get_Group() {
         result := ComCall(7, this, "ptr*", &ppGroup := 0, "HRESULT")
@@ -57,10 +61,12 @@ class ITACDGroupEvent extends IDispatch{
     }
 
     /**
-     * The get_Event method gets the descriptor of an event which indicates that a new ACD group has been added.
+     * The ITACDGroupEvent::get_Event method (tapi3cc.h) gets the descriptor of an event which indicates that a new ACD group has been added.
+     * @remarks
+     * The ACDGE_NEW_GROUP and ACDGE_REMOVE_GROUP values are not currently supported.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-acdgroup_event">ACDGROUP_EVENT</a> descriptor of event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itacdgroupevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroupevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

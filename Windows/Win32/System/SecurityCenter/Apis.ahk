@@ -27,11 +27,7 @@ class SecurityCenter {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, "ptr", phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, "ptr", phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -45,11 +41,7 @@ class SecurityCenter {
     static WscUnRegisterChanges(hRegistrationHandle) {
         hRegistrationHandle := hRegistrationHandle is Win32Handle ? NumGet(hRegistrationHandle, "ptr") : hRegistrationHandle
 
-        result := DllCall("WSCAPI.dll\WscUnRegisterChanges", "ptr", hRegistrationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscUnRegisterChanges", "ptr", hRegistrationHandle, "HRESULT")
         return result
     }
 
@@ -58,11 +50,7 @@ class SecurityCenter {
      * @returns {HRESULT} 
      */
     static WscRegisterForUserNotifications() {
-        result := DllCall("WSCAPI.dll\WscRegisterForUserNotifications", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscRegisterForUserNotifications", "HRESULT")
         return result
     }
 
@@ -80,11 +68,7 @@ class SecurityCenter {
     static WscGetSecurityProviderHealth(Providers, pHealth) {
         pHealthMarshal := pHealth is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, pHealthMarshal, pHealth, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, pHealthMarshal, pHealth, "HRESULT")
         return result
     }
 
@@ -93,11 +77,7 @@ class SecurityCenter {
      * @returns {HRESULT} 
      */
     static WscQueryAntiMalwareUri() {
-        result := DllCall("WSCAPI.dll\WscQueryAntiMalwareUri", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscQueryAntiMalwareUri", "HRESULT")
         return result
     }
 
@@ -106,11 +86,7 @@ class SecurityCenter {
      * @returns {PWSTR} 
      */
     static WscGetAntiMalwareUri() {
-        result := DllCall("WSCAPI.dll\WscGetAntiMalwareUri", "ptr*", &ppszUri := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSCAPI.dll\WscGetAntiMalwareUri", "ptr*", &ppszUri := 0, "HRESULT")
         return ppszUri
     }
 

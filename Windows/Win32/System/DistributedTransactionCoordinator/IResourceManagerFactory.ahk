@@ -30,11 +30,12 @@ class IResourceManagerFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Pointer<Guid>} pguidRM 
      * @param {PSTR} pszRMName 
      * @param {IResourceManagerSink} pIResMgrSink 
      * @returns {IResourceManager} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pguidRM, pszRMName, pIResMgrSink) {
         pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName

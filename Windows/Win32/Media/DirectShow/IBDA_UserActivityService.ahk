@@ -6,10 +6,8 @@
 /**
  * Defines methods that detect user activity in a Protected Broadcast Driver Architecture (PBDA) media graph.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_UserActivityService)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_useractivityservice
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_useractivityservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,8 +35,8 @@ class IBDA_UserActivityService extends IUnknown{
     /**
      * Specifies the current tuner use reason for a Media Sink Device (MSD) in a Protected Broadcast Driver Architecture (PBDA) media graph.
      * @param {Integer} dwUseReason 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-setcurrenttunerusereason
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-setcurrenttunerusereason
      */
     SetCurrentTunerUseReason(dwUseReason) {
         result := ComCall(3, this, "uint", dwUseReason, "HRESULT")
@@ -48,7 +46,7 @@ class IBDA_UserActivityService extends IUnknown{
     /**
      * Gets the interval that a Media Sink Device (MSD) in a Protected Broadcast Driver Architecture (PBDA) media graph waits before calling the UserActivityDetected method after the MSD detects user activity.
      * @returns {Integer} Gets the user activity interval, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
      */
     GetUserActivityInterval() {
         result := ComCall(4, this, "uint*", &pdwActivityInterval := 0, "HRESULT")
@@ -87,7 +85,7 @@ class IBDA_UserActivityService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-useractivitydetected
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-useractivitydetected
      */
     UserActivityDetected() {
         result := ComCall(5, this, "HRESULT")

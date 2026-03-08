@@ -7,10 +7,8 @@
 /**
  * Represents a group of IFunctionInstance objects returned as the result of a query or get instance request.
  * @remarks
- * 
  * The <b>IFunctionInstanceCollection</b> interface allows a client program to enumerate a collection of  <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> objects.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -43,8 +41,10 @@ class IFunctionInstanceCollection extends IUnknown{
 
     /**
      * Gets the number of function instances in the collection.
+     * @remarks
+     * The <b>GetCount</b> and <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-item">Item</a> methods enables you to enumerate all of the function instances contained in a collection using a simple <b>for</b> or <b>while</b> loop.
      * @returns {Integer} The number of function instances.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -56,7 +56,7 @@ class IFunctionInstanceCollection extends IUnknown{
      * @param {PWSTR} pszInstanceIdentity The identifier of the function instance to be retrieved (see <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid">GetID</a>).
      * @param {Pointer<Integer>} pdwIndex The index number.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that receives the function instance.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-get
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-get
      */
     Get(pszInstanceIdentity, pdwIndex) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
@@ -69,9 +69,11 @@ class IFunctionInstanceCollection extends IUnknown{
 
     /**
      * Gets the specified function instance, by index.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount">GetCount</a> and <b>Item</b> methods enables you to enumerate all of the function instances contained in a collection using a simple <b>for</b> or <b>while</b> loop.
      * @param {Integer} dwIndex The zero-based index of the function instance to be retrieved.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that receives the function instance.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-item
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-item
      */
     Item(dwIndex) {
         result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
@@ -122,7 +124,7 @@ class IFunctionInstanceCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-add
      */
     Add(pIFunctionInstance) {
         result := ComCall(6, this, "ptr", pIFunctionInstance, "HRESULT")
@@ -133,7 +135,7 @@ class IFunctionInstanceCollection extends IUnknown{
      * Deletes the specified function instance and returns a pointer to the function instance being removed.
      * @param {Integer} dwIndex The index number within the collection.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that receives the function instance.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-remove
      */
     Remove(dwIndex) {
         result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
@@ -184,7 +186,7 @@ class IFunctionInstanceCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-delete
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-delete
      */
     Delete(dwIndex) {
         result := ComCall(8, this, "uint", dwIndex, "HRESULT")
@@ -193,8 +195,8 @@ class IFunctionInstanceCollection extends IUnknown{
 
     /**
      * Removes all function instances from the collection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-deleteall
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-deleteall
      */
     DeleteAll() {
         result := ComCall(9, this, "HRESULT")

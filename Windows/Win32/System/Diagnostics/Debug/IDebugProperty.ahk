@@ -33,10 +33,13 @@ class IDebugProperty extends IUnknown{
     static VTableNames => ["GetPropertyInfo", "GetExtendedInfo", "SetValueAsString", "EnumMembers", "GetParent"]
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {DebugPropertyInfo} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(dwFieldSpec, nRadix) {
         pPropertyInfo := DebugPropertyInfo()
@@ -83,8 +86,10 @@ class IDebugProperty extends IUnknown{
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
+     * @remarks
+     * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
      * @returns {IDebugProperty} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getparent
      */
     GetParent() {
         result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")

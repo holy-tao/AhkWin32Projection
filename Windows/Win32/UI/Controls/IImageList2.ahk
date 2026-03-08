@@ -5,7 +5,7 @@
 
 /**
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.
- * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nn-commoncontrols-iimagelist2
+ * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist2
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -38,10 +38,10 @@ class IImageList2 extends IImageList{
      * @param {Integer} cyNewIconSize Type: <b>int</b>
      * 
      * The y-axis count, in pixels, for the new size.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-resize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-resize
      */
     Resize(cxNewIconSize, cyNewIconSize) {
         result := ComCall(32, this, "int", cxNewIconSize, "int", cyNewIconSize, "HRESULT")
@@ -91,10 +91,10 @@ class IImageList2 extends IImageList{
      * @param {Pointer<Integer>} pcy Type: <b>int*</b>
      * 
      * A pointer to the y-axis count.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-getoriginalsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getoriginalsize
      */
     GetOriginalSize(iImage, dwFlags, pcx, pcy) {
         pcxMarshal := pcx is VarRef ? "int*" : "ptr"
@@ -115,10 +115,10 @@ class IImageList2 extends IImageList{
      * @param {Integer} cy Type: <b>int</b>
      * 
      * The y-axis count.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-setoriginalsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-setoriginalsize
      */
     SetOriginalSize(iImage, cx, cy) {
         result := ComCall(34, this, "int", iImage, "int", cx, "int", cy, "HRESULT")
@@ -130,10 +130,10 @@ class IImageList2 extends IImageList{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the callback interface.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-setcallback
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-setcallback
      */
     SetCallback(punk) {
         result := ComCall(35, this, "ptr", punk, "HRESULT")
@@ -148,7 +148,7 @@ class IImageList2 extends IImageList{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Contains the address of a pointer to a callback object.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-getcallback
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getcallback
      */
     GetCallback(riid) {
         result := ComCall(36, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -192,10 +192,10 @@ class IImageList2 extends IImageList{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-forceimagepresent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-forceimagepresent
      */
     ForceImagePresent(iImage, dwFlags) {
         result := ComCall(37, this, "int", iImage, "uint", dwFlags, "HRESULT")
@@ -264,10 +264,10 @@ class IImageList2 extends IImageList{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-discardimages
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-discardimages
      */
     DiscardImages(iFirstImage, iLastImage, dwFlags) {
         result := ComCall(38, this, "int", iFirstImage, "int", iLastImage, "uint", dwFlags, "HRESULT")
@@ -279,10 +279,10 @@ class IImageList2 extends IImageList{
      * @param {Pointer<IMAGELISTDRAWPARAMS>} pimldp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imagelistdrawparams">IMAGELISTDRAWPARAMS</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imagelistdrawparams">IMAGELISTDRAWPARAMS</a> structure containing information about an image list draw operation.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-preloadimages
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-preloadimages
      */
     PreloadImages(pimldp) {
         result := ComCall(39, this, "ptr", pimldp, "HRESULT")
@@ -294,10 +294,10 @@ class IImageList2 extends IImageList{
      * @param {Pointer<IMAGELISTSTATS>} pils Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imageliststats">IMAGELISTSTATS</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imageliststats">IMAGELISTSTATS</a> structure.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-getstatistics
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getstatistics
      */
     GetStatistics(pils) {
         result := ComCall(40, this, "ptr", pils, "HRESULT")
@@ -321,10 +321,10 @@ class IImageList2 extends IImageList{
      * @param {Integer} cGrow Type: <b>int</b>
      * 
      * Number of new images that the image list can contain.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize
      */
     Initialize(cx, cy, flags, cInitial, cGrow) {
         result := ComCall(41, this, "int", cx, "int", cy, "uint", flags, "int", cInitial, "int", cGrow, "HRESULT")
@@ -454,10 +454,10 @@ class IImageList2 extends IImageList{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-replace2
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replace2
      */
     Replace2(i, hbmImage, hbmMask, punk, dwFlags) {
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
@@ -484,10 +484,10 @@ class IImageList2 extends IImageList{
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Not used; must be 0.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-iimagelist2-replacefromimagelist
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replacefromimagelist
      */
     ReplaceFromImageList(i, pil, iSrc, punk, dwFlags) {
         result := ComCall(43, this, "int", i, "ptr", pil, "int", iSrc, "ptr", punk, "uint", dwFlags, "HRESULT")

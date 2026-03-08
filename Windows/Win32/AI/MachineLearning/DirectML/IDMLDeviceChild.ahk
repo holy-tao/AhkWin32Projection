@@ -5,7 +5,7 @@
 
 /**
  * An interface implemented by all objects created from the DirectML device.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmldevicechild
+ * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevicechild
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IDMLDeviceChild extends IDMLObject{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the DirectML device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevicechild-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevicechild-getdevice
      */
     GetDevice(riid) {
         result := ComCall(7, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

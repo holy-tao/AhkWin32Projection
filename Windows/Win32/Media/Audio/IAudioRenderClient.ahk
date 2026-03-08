@@ -5,7 +5,7 @@
 
 /**
  * The IAudioRenderClient interface enables a client to write output data to a rendering endpoint buffer.
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-iaudiorenderclient
+ * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudiorenderclient
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,9 +32,31 @@ class IAudioRenderClient extends IUnknown{
 
     /**
      * Retrieves a pointer to the next available space in the rendering endpoint buffer into which the caller can write a data packet.
+     * @remarks
+     * The caller can request a packet size that is less than or equal to the amount of available space in the buffer (except in the case of an exclusive-mode stream that uses event-driven buffering; for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a>). The available space is simply the buffer size minus the amount of data in the buffer that is already queued up to be played. If the caller specifies a <i>NumFramesRequested</i> value that exceeds the available space in the buffer, the call fails and returns error code AUDCLNT_E_BUFFER_TOO_LARGE.
+     * 
+     * The client is responsible for writing a sufficient amount of data to the buffer to prevent glitches from occurring in the audio stream. For more information about buffering requirements, see <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a>.
+     * 
+     * After obtaining a data packet by calling <b>GetBuffer</b>, the client fills the packet with rendering data and issues the packet to the audio engine by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-releasebuffer">IAudioRenderClient::ReleaseBuffer</a> method.
+     * 
+     * The client must call <b>ReleaseBuffer</b> after a <b>GetBuffer</b> call that successfully obtains a packet of any size other than 0. The client has the option of calling or not calling <b>ReleaseBuffer</b> to release a packet of size 0.
+     * 
+     * For nonzero packet sizes, the client must alternate calls to <b>GetBuffer</b> and <b>ReleaseBuffer</b>. Each <b>GetBuffer</b> call must be followed by a corresponding <b>ReleaseBuffer</b> call. After the client has called <b>GetBuffer</b> to acquire a data packet, the client cannot acquire the next data packet until it has called <b>ReleaseBuffer</b> to release the previous packet. Two or more consecutive calls either to <b>GetBuffer</b> or to <b>ReleaseBuffer</b> are not permitted and will fail with error code AUDCLNT_E_OUT_OF_ORDER.
+     * 
+     * To ensure the correct ordering of calls, a <b>GetBuffer</b> call and its corresponding <b>ReleaseBuffer</b> call must occur in the same thread.
+     * 
+     * The size of an audio frame is specified by the <b>nBlockAlign</b> member of the <b>WAVEFORMATEX</b> structure that the client obtains by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-getmixformat">IAudioClient::GetMixFormat</a> method.
+     * 
+     * If the caller sets <i>NumFramesRequested</i> = 0, the method returns status code S_OK but does not write to the variable that the <i>ppData</i> parameter points to.
+     * 
+     * Clients should avoid excessive delays between the <b>GetBuffer</b> call that acquires a buffer and the <b>ReleaseBuffer</b> call that releases the buffer. The implementation of the audio engine assumes that the <b>GetBuffer</b> call and the corresponding <b>ReleaseBuffer</b> call occur within the same buffer-processing period. Clients that delay releasing a buffer for more than one period risk losing sample data.
+     * 
+     * In Windows 7, <b>GetBuffer</b> can return the <b>AUDCLNT_E_BUFFER_ERROR</b> error code for an audio client that uses the endpoint buffer in the exclusive mode. This error indicates that the data buffer was not retrieved because a data packet was not available (*<i>ppData</i> received <b>NULL</b>).   
+     * 
+     * If <b>GetBuffer</b> returns <b>AUDCLNT_E_BUFFER_ERROR</b>, the thread consuming the audio samples must wait for the next processing pass. The client might benefit from keeping a count of the failed <b>GetBuffer</b> calls. If <b>GetBuffer</b> returns this error repeatedly, the client can start a new processing loop after shutting down the current client by calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-stop">IAudioClient::Stop</a>, <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-reset">IAudioClient::Reset</a>, and releasing the audio client.
      * @param {Integer} NumFramesRequested The number of audio frames in the data packet that the caller plans to write to the requested space in the buffer. If the call succeeds, the size of the buffer area pointed to by <i>*ppData</i> matches the size specified in <i>NumFramesRequested</i>.
      * @returns {Pointer<Integer>} Pointer to a pointer variable into which the method writes the starting address of the buffer area into which the caller will write the data packet.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudiorenderclient-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer
      */
     GetBuffer(NumFramesRequested) {
         result := ComCall(3, this, "uint", NumFramesRequested, "ptr*", &ppData := 0, "HRESULT")
@@ -43,6 +65,25 @@ class IAudioRenderClient extends IUnknown{
 
     /**
      * The ReleaseBuffer method releases the buffer space acquired in the previous call to the IAudioRenderClient::GetBuffer method.
+     * @remarks
+     * The client must release the same number of frames that it requested in the preceding call to the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a> method. The single exception to this rule is that the client can always call <b>ReleaseBuffer</b> to release 0 frames (unless the stream is exclusive mode and uses event-driven buffering).
+     * 
+     * This behavior provides a convenient means for the client to "release" a previously requested packet of length 0. In this case, the call to <b>ReleaseBuffer</b> is optional. After calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">GetBuffer</a> to obtain a packet of length 0, the client has the option of not calling <b>ReleaseBuffer</b> before calling <b>GetBuffer</b> again.
+     * 
+     * In addition, if the preceding <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">GetBuffer</a> call obtained a packet of nonzero size, calling <b>ReleaseBuffer</b> with <i>NumFramesRequested</i> set to 0 will succeed (unless the stream is exclusive mode and uses event-driven buffering). The meaning of the call is that the client wrote no data to the packet before releasing it. Thus, the method treats the portion of the buffer represented by the packet as unused and will make this portion of the buffer available again to the client in the next <b>GetBuffer</b> call.
+     * 
+     * Clients should avoid excessive delays between the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">GetBuffer</a> call that acquires a buffer and the <b>ReleaseBuffer</b> call that releases the buffer. The implementation of the audio engine assumes that the <b>GetBuffer</b> call and the corresponding <b>ReleaseBuffer</b> call occur within the same buffer-processing period. Clients that delay releasing a buffer for more than one period risk losing sample data.
+     * 
+     * For code examples that call the <b>ReleaseBuffer</b> method, see the following topics:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/rendering-a-stream">Rendering a Stream</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/exclusive-mode-streams">Exclusive-Mode Streams</a>
+     * </li>
+     * </ul>
      * @param {Integer} NumFramesWritten The number of audio frames written by the client to the data packet. The value of this parameter must be less than or equal to the size of the data packet, as specified in the <i>NumFramesRequested</i> parameter passed to the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a> method.
      * @param {Integer} dwFlags The buffer-configuration flags. The caller can set this parameter either to 0 or to the following <a href="https://docs.microsoft.com/windows/win32/api/audioclient/ne-audioclient-_audclnt_bufferflags">_AUDCLNT_BUFFERFLAGS</a> enumeration value (a flag bit):
      * 
@@ -63,7 +104,7 @@ class IAudioRenderClient extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>NumFramesWritten</i> value exceeds the <i>NumFramesRequested</i> value specified in the previous <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a> call.
+     * The <i>NumFramesWritten</i> value exceeds the <i>NumFramesRequested</i> value specified in the previous <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a> call.
      * 
      * </td>
      * </tr>
@@ -85,7 +126,7 @@ class IAudioRenderClient extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This call was not preceded by a corresponding call to <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a>.
+     * This call was not preceded by a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer">IAudioRenderClient::GetBuffer</a>.
      * 
      * </td>
      * </tr>
@@ -123,7 +164,7 @@ class IAudioRenderClient extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudiorenderclient-releasebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-releasebuffer
      */
     ReleaseBuffer(NumFramesWritten, dwFlags) {
         result := ComCall(4, this, "uint", NumFramesWritten, "uint", dwFlags, "HRESULT")

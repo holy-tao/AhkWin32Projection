@@ -46,10 +46,39 @@ class IXMLDOMSchemaCollection extends IDispatch{
     }
 
     /**
+     * Component-wise add of 2 vectors.
+     * @remarks
+     * The following table shows the results obtained when executing the instruction with various classes of numbers, assuming that neither overflow or underflow occurs. F means finite real number.
      * 
+     * 
+     * 
+     * | **src0 src1->** | **-inf** | **-F**     | **-denorm** | **-0** | **+0** | **denorm** | **+F**     | **+inf** | **NaN** |
+     * |--------------------|----------|------------|-------------|--------|--------|------------|------------|----------|---------|
+     * | **-inf**           | -inf     | -inf       | -inf        | -inf   | -inf   | -inf       | -inf       | NaN      | NaN     |
+     * | **-F**             | -inf     | -F         | src0        | src0   | src0   | src0       | +-F or +-0 | +inf     | NaN     |
+     * | **-denorm**        | -inf     | src1       | -0          | -0     | +0     | +0         | src1       | +inf     | NaN     |
+     * | **-0**             | -inf     | src1       | -0          | -0     | +0     | +0         | src1       | +inf     | NaN     |
+     * | **+0**             | i-inf    | src1       | +0          | +0     | +0     | +0         | src1       | +inf     | NaN     |
+     * | **+denorm**        | -inf     | src1       | +0          | +0     | +0     | +0         | src1       | +inf     | NaN     |
+     * | **+F**             | -inf     | +-F or +-0 | src0        | src0   | src0   | src0       | +F         | +inf     | NaN     |
+     * | **+inf**           | NaN      | +inf       | +inf        | +inf   | +inf   | +inf       | +inf       | +inf     | NaN     |
+     * | **NaN**            | NaN      | NaN        | NaN         | NaN    | NaN    | NaN        | NaN        | NaN      | NaN     |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * This instruction applies to the following shader stages:
+     * 
+     * 
+     * 
+     * | Vertex Shader | Geometry Shader | Pixel Shader |
+     * |---------------|-----------------|--------------|
+     * | x             | x               | x            |
      * @param {BSTR} namespaceURI 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/add--sm4---asm-
      */
     add(namespaceURI, var) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
@@ -59,9 +88,15 @@ class IXMLDOMSchemaCollection extends IDispatch{
     }
 
     /**
+     * Gets a value that specifies whether ink is currently being drawn on an ink collector (InkCollector, InkOverlay, or InkPicture). (IInkCollector.get_CollectingInk)
+     * @remarks
+     * You can use the <b>CollectingInk</b> property to see if ink is being drawn on an ink collector rather than monitoring the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event.
      * 
+     * <div class="alert"><b>Note</b>  Because ink collection is happening on a different thread than your application code, it is possible that the <b>CollectingInk</b> property can change soon after you have checked it. Thus, your code may be operating under the assumption that the ink collector is not collecting ink, when in fact it is. If this occurs, an error is thrown. To be safe, put such code in a try-catch block.</div>
+     * <div> </div>
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink
      */
     get(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI

@@ -3347,7 +3347,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenCluster", "ptr", lpszClusterName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3413,7 +3413,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, GrantedAccessMarshal, GrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4269,7 +4269,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateClusterNotifyPortV2", "ptr", hChange, "ptr", hCluster, "ptr", Filters, "uint", dwFilterCount, "ptr", dwNotifyKey, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4457,7 +4457,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateClusterNotifyPort", "ptr", hChange, "ptr", hCluster, "uint", dwFilter, "ptr", dwNotifyKey, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4630,7 +4630,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterOpenEnum", "ptr", hCluster, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4774,7 +4774,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", hCluster, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4886,7 +4886,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateClusterGroupSet", "ptr", hCluster, "ptr", groupSetName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4911,7 +4911,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroupSet", "ptr", hCluster, "ptr", lpszGroupSetName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4955,8 +4955,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroupSet", "ptr", hGroupSet, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5453,7 +5453,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterGroupSetOpenEnum", "ptr", hCluster, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5691,7 +5691,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5752,7 +5752,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5807,8 +5807,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNode", "ptr", hNode, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -5919,7 +5919,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6021,7 +6021,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNode", "ptr", hNode, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6101,7 +6101,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6217,7 +6217,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnum", "ptr", hNode, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6238,7 +6238,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", hNode, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6516,7 +6516,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -6546,7 +6546,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6588,7 +6588,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6644,7 +6644,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6862,7 +6862,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7344,8 +7344,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroup", "ptr", hGroup, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7370,7 +7370,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterFromGroup", "ptr", hGroup, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7493,7 +7493,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7825,7 +7825,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnum", "ptr", hGroup, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7979,7 +7979,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateClusterResource", "ptr", hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8043,7 +8043,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterResource", "ptr", hCluster, "ptr", lpszResourceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8104,7 +8104,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8148,8 +8148,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterResource", "ptr", hResource, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8174,7 +8174,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterFromResource", "ptr", hResource, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8392,7 +8392,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -9001,7 +9001,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterSharedVolumeSetSnapshotState", "ptr", guidSnapshotSet, "ptr", lpszVolumeName, "int", state, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10282,8 +10282,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10316,7 +10316,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnum", "ptr", hResource, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10550,7 +10550,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterResourceTypeOpenEnum", "ptr", hCluster, "ptr", lpszResourceTypeName, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10710,7 +10710,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetwork", "ptr", hCluster, "ptr", lpszNetworkName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10767,7 +10767,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10811,8 +10811,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetwork", "ptr", hNetwork, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10837,7 +10837,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNetwork", "ptr", hNetwork, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10872,7 +10872,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterNetworkOpenEnum", "ptr", hNetwork, "uint", dwType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11087,7 +11087,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11374,7 +11374,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetInterface", "ptr", hCluster, "ptr", lpszInterfaceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11431,7 +11431,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11520,8 +11520,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetInterface", "ptr", hNetInterface, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11546,7 +11546,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNetInterface", "ptr", hNetInterface, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11635,7 +11635,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11840,7 +11840,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -11865,7 +11865,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -11890,7 +11890,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -11915,7 +11915,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -11940,7 +11940,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -11965,7 +11965,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKEY({Value: result}, True)
@@ -12331,7 +12331,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -13682,7 +13682,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\CreateCluster", "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -13849,7 +13849,7 @@ class Clustering {
 
         result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -15486,7 +15486,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -15560,7 +15560,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16249,7 +16249,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16286,7 +16286,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17232,7 +17232,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependency", "ptr", hSelf, "ptr", lpszResourceType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17334,7 +17334,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByName", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17362,7 +17362,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClass", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17420,7 +17420,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceNameDependency", "ptr", lpszResourceName, "ptr", lpszResourceType, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17600,7 +17600,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17777,7 +17777,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17904,8 +17904,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumePathName", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -18016,8 +18016,8 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumeNameForVolumeMountPoint", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -18195,7 +18195,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyEx", "ptr", hSelf, "ptr", lpszResourceType, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -18248,7 +18248,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByNameEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -18275,7 +18275,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClassEx", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -18302,7 +18302,7 @@ class Clustering {
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceNameDependencyEx", "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result

@@ -31,13 +31,32 @@ class IDedupDataPortManager extends IUnknown{
     static VTableNames => ["GetConfiguration", "GetVolumeStatus", "GetVolumeDataPort"]
 
     /**
-     * 
+     * Read the active configuration of the collector.
      * @param {Pointer<Integer>} pMinChunkSize 
      * @param {Pointer<Integer>} pMaxChunkSize 
      * @param {Pointer<Integer>} pChunkingAlgorithm 
      * @param {Pointer<Integer>} pHashingAlgorithm 
      * @param {Pointer<Integer>} pCompressionAlgorithm 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <dl> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 0
+     * 
+     * Failure
+     * 
+     * </dd> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 1
+     * 
+     * Success
+     * 
+     * </dd> </dl>
+     * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-getconfiguration
      */
     GetConfiguration(pMinChunkSize, pMaxChunkSize, pChunkingAlgorithm, pHashingAlgorithm, pCompressionAlgorithm) {
         pMinChunkSizeMarshal := pMinChunkSize is VarRef ? "uint*" : "ptr"

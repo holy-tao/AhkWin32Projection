@@ -5,7 +5,7 @@
 
 /**
  * The IMediaBuffer interface provides methods for manipulating a data buffer. Buffers passed to the IMediaObject::ProcessInput and ProcessOutput methods must implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nn-mediaobj-imediabuffer
+ * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediabuffer
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IMediaBuffer extends IUnknown{
 
     /**
      * The SetLength method specifies the length of the data currently in the buffer.
+     * @remarks
+     * This method sets the size of the valid data currently in the buffer, not the buffer's allocated size.
      * @param {Integer} cbLength Size of the data, in bytes. The value must not exceed the buffer's maximum size. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nf-mediaobj-imediabuffer-getmaxlength">IMediaBuffer::GetMaxLength</a> method to obtain the maximum size.
      * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the error.
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediabuffer-setlength
+     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-setlength
      */
     SetLength(cbLength) {
         result := ComCall(3, this, "uint", cbLength, "HRESULT")
@@ -44,7 +46,7 @@ class IMediaBuffer extends IUnknown{
     /**
      * The GetMaxLength method retrieves the maximum number of bytes this buffer can hold.
      * @returns {Integer} Pointer to a variable that receives the buffer's maximum size, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediabuffer-getmaxlength
+     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getmaxlength
      */
     GetMaxLength() {
         result := ComCall(4, this, "uint*", &pcbMaxLength := 0, "HRESULT")
@@ -53,6 +55,10 @@ class IMediaBuffer extends IUnknown{
 
     /**
      * The GetBufferAndLength method retrieves the buffer and the size of the valid data in the buffer.
+     * @remarks
+     * Either parameter can be <b>NULL</b>, in which case it does not receive a value. At least one parameter must be non-<b>NULL</b>. If both parameters are <b>NULL</b>, the method returns E_POINTER.
+     * 
+     * The value returned in the <i>pcbLength</i> parameter is the size of the valid data in the buffer, not the buffer's allocated size. To obtain the buffer's allocated size, call the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nf-mediaobj-imediabuffer-getmaxlength">IMediaBuffer::GetMaxLength</a> method.
      * @param {Pointer<Pointer<Integer>>} ppBuffer Address of a pointer that receives the buffer array. Can be <b>NULL</b> if <i>pcbLength</i> is not <b>NULL</b>.
      * @param {Pointer<Integer>} pcbLength Pointer to a variable that receives the size of the valid data, in bytes. Can be <b>NULL</b> if <i>ppBuffer</i> is not <b>NULL</b>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
@@ -85,7 +91,7 @@ class IMediaBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediabuffer-getbufferandlength
+     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getbufferandlength
      */
     GetBufferAndLength(ppBuffer, pcbLength) {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"

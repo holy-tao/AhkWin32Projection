@@ -8,13 +8,9 @@
 /**
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.
  * @remarks
- * 
  * You retrieve a pointer to this interface by calling the COM <b>CoCreateInstance</b> method. If group policy does not allow creation of this object, <b>CoCreateInstance</b> will return <b>HRESULT_FROM_WIN32
  * (ERROR_ACCESS_DISABLED_BY_POLICY)</b>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-isensormanager
+ * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensormanager
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
@@ -49,7 +45,7 @@ class ISensorManager extends IUnknown{
      * Retrieves a collection containing all sensors associated with the specified category.
      * @param {Pointer<Guid>} sensorCategory ID of the sensor category to retrieve.
      * @returns {ISensorCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensorcollection">ISensorCollection</a> interface pointer that receives a pointer to the sensor collection requested.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanager-getsensorsbycategory
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbycategory
      */
     GetSensorsByCategory(sensorCategory) {
         result := ComCall(3, this, "ptr", sensorCategory, "ptr*", &ppSensorsFound := 0, "HRESULT")
@@ -60,7 +56,7 @@ class ISensorManager extends IUnknown{
      * Retrieves a collection containing all sensors associated with the specified type.
      * @param {Pointer<Guid>} sensorType ID of the type of sensors to retrieve.
      * @returns {ISensorCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensorcollection">ISensorCollection</a> interface pointer that receives the pointer to the sensor collection requested.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanager-getsensorsbytype
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbytype
      */
     GetSensorsByType(sensorType) {
         result := ComCall(4, this, "ptr", sensorType, "ptr*", &ppSensorsFound := 0, "HRESULT")
@@ -71,7 +67,7 @@ class ISensorManager extends IUnknown{
      * Retrieves a pointer to the specified sensor.
      * @param {Pointer<Guid>} sensorID The ID of the sensor to retrieve.
      * @returns {ISensor} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface pointer that receives a pointer to the requested sensor. Will be <b>NULL</b> if the requested sensor cannot be found.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanager-getsensorbyid
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorbyid
      */
     GetSensorByID(sensorID) {
         result := ComCall(5, this, "ptr", sensorID, "ptr*", &ppSensor := 0, "HRESULT")
@@ -100,7 +96,7 @@ class ISensorManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanager-seteventsink
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-seteventsink
      */
     SetEventSink(pEvents) {
         result := ComCall(6, this, "ptr", pEvents, "HRESULT")
@@ -109,6 +105,13 @@ class ISensorManager extends IUnknown{
 
     /**
      * Opens a system dialog box to request user permission to access sensor data.
+     * @remarks
+     * Making a synchronous call from the user interface (UI) thread of a Windows application can block the UI thread and make the application less responsive. To prevent this, do not call this method from the UI thread with <i>fModal</i> set to <b>TRUE</b>.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">If an application or plugin that is running in protected mode, such as a Browser Helper Object (BHO) for Internet Explorer when Internet Explorer is running in protected mode, calls <b>RequestPermissions</b>, and the user chooses the <b>Don't enable this location sensor</b> option in the dialog box, Windows will display the dialog box again if <b>RequestPermissions</b> is called again by the same user. Applications that run in protected mode may choose to avoid calling <b>RequestPermissions</b> on startup so that the user will not be subjected to a possible unwanted dialog box each time the application starts.
+     * 
+     * </div>
+     * <div> </div>
      * @param {HWND} hParent For Windows 8, if <i>hParent</i> is provided a value, then the dialog will be modal to the parent window. If <i>hParent</i> is <b>NULL</b>, then the dialog will not be modal.  The dialog is always synchronous.
      * 
      * For Windows 7, <b>HWND</b> is handle to a window that can act as a parent to the permissions dialog box. Must be <b>NULL</b> if <i>fModal</i> is <b>TRUE</b>.
@@ -255,7 +258,7 @@ class ISensorManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanager-requestpermissions
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-requestpermissions
      */
     RequestPermissions(hParent, pSensors, fModal) {
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent

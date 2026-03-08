@@ -6,6 +6,10 @@
 #Include .\IWebBrowser.ahk
 
 /**
+ * Gets the handle of the Windows Internet Explorer main window.
+ * @remarks
+ * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
+ * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -143,9 +147,14 @@ class IWebBrowserApp extends IWebBrowser{
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {BSTR} Property 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(Property) {
         Property := Property is String ? BSTR.Alloc(Property).Value : Property
@@ -168,12 +177,9 @@ class IWebBrowserApp extends IWebBrowser{
     /**
      * Gets the handle of the Windows Internet Explorer main window.
      * @remarks
-     * 
      * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
-     * 
-     * 
      * @returns {SHANDLE_PTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
      */
     get_HWND() {
         result := ComCall(37, this, "ptr*", &pHWND := 0, "HRESULT")
@@ -263,14 +269,11 @@ class IWebBrowserApp extends IWebBrowser{
     /**
      * Sets or gets whether toolbars for the object are visible.
      * @remarks
-     * 
      * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
      */
     get_ToolBar() {
         result := ComCall(46, this, "int*", &Value := 0, "HRESULT")
@@ -280,15 +283,12 @@ class IWebBrowserApp extends IWebBrowser{
     /**
      * Sets or gets whether toolbars for the object are visible.
      * @remarks
-     * 
      * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
      */
     put_ToolBar(Value) {
         result := ComCall(47, this, "int", Value, "HRESULT")

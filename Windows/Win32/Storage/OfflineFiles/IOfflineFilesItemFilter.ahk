@@ -5,7 +5,7 @@
 
 /**
  * Represents an instance of a filter to be applied to an enumeration.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesitemfilter
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesitemfilter
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,6 +32,16 @@ class IOfflineFilesItemFilter extends IUnknown{
 
     /**
      * Provides flags to control flag-based filtering of items.
+     * @remarks
+     * The combination of bit value and bitmask produces a relatively flexible mechanism for including and excluding 
+     *     items from enumeration. For example, if the <b>OFFLINEFILES_ITEM_FILTER_FLAG_DIRECTORY</b> flag 
+     *     is set in both the <i>pullFlags</i> and <i>pullMask</i> parameters, the 
+     *     matching item must be a directory. If the <b>OFFLINEFILES_ITEM_FILTER_FLAG_DIRECTORY</b> flag 
+     *     is set in the <i>pullMask</i> parameter but is not set in the 
+     *     <i>pullFlags</i> parameter, the matching item must not be a directory.
+     * 
+     * This method can be implemented in any filter type (inclusion or exclusion) or filter target (file or 
+     *     container).
      * @param {Pointer<Integer>} pullFlags Receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/offlinefiles/offline-files-filter-flags">Offline Files Filter Flags</a> 
      *        bit values to be used in the filter evaluation.
      * 
@@ -49,7 +59,7 @@ class IOfflineFilesItemFilter extends IUnknown{
      * Returns <b>E_NOTIMPL</b> if flag filtering is not supported.
      * 
      * Any other error value causes the creation of the enumerator to fail.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesitemfilter-getfilterflags
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-getfilterflags
      */
     GetFilterFlags(pullFlags, pullMask) {
         pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
@@ -61,6 +71,12 @@ class IOfflineFilesItemFilter extends IUnknown{
 
     /**
      * Provides time-value-comparison semantics to control filtering of items based on time.
+     * @remarks
+     * In these expressions, the item time is placed on the left side of the expression.  For example:
+     * 
+     * match = item_time &gt;= filter_time
+     * 
+     * This method may be implemented in any filter type (inclusion, exclusion) or filter target (file, container).
      * @param {Pointer<FILETIME>} pftTime Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the UTC time value that the item is to be compared with.
      * @param {Pointer<BOOL>} pbEvalTimeOfDay Receives a Boolean value indicating whether the time-of-day part of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> value is to be considered in the item evaluation.  If the flag value is <b>TRUE</b>, the time-of-day is considered.  If the flag value is <b>FALSE</b>, the time-of-day information is stripped from all time values involved in the evaluation; leaving only the year, month, and day.
      * 
@@ -74,7 +90,7 @@ class IOfflineFilesItemFilter extends IUnknown{
      * Returns <b>E_NOTIMPL</b> if time filtering is not supported.
      * 
      * Any other error value causes the creation of the enumerator to fail.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesitemfilter-gettimefilter
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-gettimefilter
      */
     GetTimeFilter(pftTime, pbEvalTimeOfDay, pTimeType, pCompare) {
         pbEvalTimeOfDayMarshal := pbEvalTimeOfDay is VarRef ? "int*" : "ptr"
@@ -87,6 +103,8 @@ class IOfflineFilesItemFilter extends IUnknown{
 
     /**
      * Provides a filter pattern string to limit enumerated items based on item name patterns.
+     * @remarks
+     * While this method can be implemented in any filter type (inclusion, exclusion) or filter target (file, container), it is called only for inclusion filters and file targets.  This method will never be called for any other filter type/target combination.
      * @param {PWSTR} pszPattern Receives the filter pattern string. Pattern strings can contain the * and ? wildcard characters.
      * 
      * Examples:
@@ -102,7 +120,7 @@ class IOfflineFilesItemFilter extends IUnknown{
      * Returns <b>E_NOTIMPL</b> if pattern filtering is not supported.
      * 
      * Any other error value causes the creation of the enumerator to fail.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesitemfilter-getpatternfilter
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-getpatternfilter
      */
     GetPatternFilter(pszPattern, cchPattern) {
         pszPattern := pszPattern is String ? StrPtr(pszPattern) : pszPattern

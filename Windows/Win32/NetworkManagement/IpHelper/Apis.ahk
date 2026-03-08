@@ -2406,7 +2406,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\IcmpCreateFile", "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2436,7 +2436,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\Icmp6CreateFile", "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2462,8 +2462,8 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpCloseHandle", "ptr", IcmpHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2588,7 +2588,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho", "ptr", IcmpHandle, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2687,7 +2687,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2902,7 +2902,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3174,7 +3174,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", SourceAddress, "ptr", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3208,7 +3208,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\IcmpParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3273,7 +3273,7 @@ class IpHelper {
 
         result := DllCall("IPHLPAPI.dll\Icmp6ParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -9502,8 +9502,8 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, HopCountMarshal, HopCount, "uint", MaxHops, RTTMarshal, RTT, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

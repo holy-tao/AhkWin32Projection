@@ -5,7 +5,7 @@
 
 /**
  * Represents methods that an IAsynchronousDataRetriever object can call to indicate that processing has been completed on an IAsynchronousDataRetriever method.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-idataretrievercallback
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-idataretrievercallback
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class IDataRetrieverCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-idataretrievercallback-loadchangedatacomplete
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-idataretrievercallback-loadchangedatacomplete
      */
     LoadChangeDataComplete(pUnkData) {
         result := ComCall(3, this, "ptr", pUnkData, "HRESULT")
@@ -81,7 +81,7 @@ class IDataRetrieverCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-idataretrievercallback-loadchangedataerror
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-idataretrievercallback-loadchangedataerror
      */
     LoadChangeDataError(hrError) {
         result := ComCall(4, this, "int", hrError, "HRESULT")

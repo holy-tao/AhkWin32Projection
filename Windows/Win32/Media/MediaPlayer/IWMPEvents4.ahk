@@ -5,7 +5,7 @@
 
 /**
  * The IWMPEvents4 interface provides access to an event originating from the Windows Media Player 12 control so that an application that has this control embedded in it can respond to the event.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpevents4
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents4
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

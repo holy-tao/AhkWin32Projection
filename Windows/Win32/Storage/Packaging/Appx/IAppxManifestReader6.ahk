@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents an object model of the package manifest that provides methods to access manifest elements and attributes.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestreader6
+ * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader6)
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestreader6
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAppxManifestReader6 extends IUnknown{
     /**
      * Queries whether an app package is a non-qualified resource package.
      * @returns {BOOL} True if the package is a non-qualified resource package, False otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader6-getisnonqualifiedresourcepackage
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader6-getisnonqualifiedresourcepackage
      */
     GetIsNonQualifiedResourcePackage() {
         result := ComCall(3, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")

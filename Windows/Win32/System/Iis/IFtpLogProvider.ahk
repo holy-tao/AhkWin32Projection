@@ -29,9 +29,10 @@ class IFtpLogProvider extends IUnknown{
     static VTableNames => ["Log"]
 
     /**
-     * 
+     * Use this class to retrieve the path of a log file accessed by the System Monitor control. To retrieve this object, call LogFiles.Item.
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/SysMon/logfileitem
      */
     Log(pLoggingParameters) {
         result := ComCall(3, this, "ptr", pLoggingParameters, "HRESULT")

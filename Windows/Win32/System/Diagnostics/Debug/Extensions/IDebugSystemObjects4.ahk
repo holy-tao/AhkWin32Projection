@@ -40,6 +40,7 @@ class IDebugSystemObjects4 extends IUnknown{
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntcons/nf-evntcons-geteventprocessorindex
      */
     GetEventProcess() {
         result := ComCall(4, this, "uint*", &Id := 0, "HRESULT")
@@ -48,8 +49,10 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * Retrieves the thread identifier of the calling thread.
+     * @remarks
+     * Until the thread terminates, the thread identifier uniquely identifies the thread throughout the system.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadid
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid
      */
     GetCurrentThreadId() {
         result := ComCall(5, this, "uint*", &Id := 0, "HRESULT")
@@ -68,8 +71,10 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * Retrieves the process identifier of the calling process.
+     * @remarks
+     * Until the process terminates, the process identifier uniquely identifies the process throughout the system.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocessid
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessid
      */
     GetCurrentProcessId() {
         result := ComCall(7, this, "uint*", &Id := 0, "HRESULT")
@@ -91,8 +96,8 @@ class IDebugSystemObjects4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberThreads() {
-        result := ComCall(9, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(9, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
@@ -216,8 +221,8 @@ class IDebugSystemObjects4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberProcesses() {
-        result := ComCall(21, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(21, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
@@ -314,14 +319,14 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentProcessExecutableName(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentProcessExecutableName(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
         return ExeSize
     }
 
@@ -405,8 +410,8 @@ class IDebugSystemObjects4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSystems() {
-        result := ComCall(40, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(40, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
@@ -461,40 +466,40 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentSystemServerName(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentSystemServerName(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(45, this, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentProcessExecutableNameWide(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentProcessExecutableNameWide(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(46, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
         return ExeSize
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentSystemServerNameWide(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentSystemServerNameWide(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(47, this, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 }

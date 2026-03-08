@@ -6,11 +6,8 @@
 /**
  * This interface is not implemented.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidVideoRendererEvent2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidvideorendererevent2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvideorendererevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,8 +34,8 @@ class IMSVidVideoRendererEvent2 extends IMSVidOutputDeviceEvent{
 
     /**
      * This method is not implemented.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererevent2-overlayunavailable
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererevent2-overlayunavailable
      */
     OverlayUnavailable() {
         result := ComCall(8, this, "HRESULT")

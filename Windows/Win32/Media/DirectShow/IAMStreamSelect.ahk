@@ -6,7 +6,6 @@
 /**
  * The IAMStreamSelect interface selects from the available streams on a parser filter.
  * @remarks
- * 
  * The following filters implement this interface:
  * 
  * <ul>
@@ -17,8 +16,7 @@
  * <li>
  * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/sami--cc--parser-filter">SAMI (CC) Parser</a> filter</li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamstreamselect
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamstreamselect
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -46,7 +44,7 @@ class IAMStreamSelect extends IUnknown{
     /**
      * The Count method retrieves the number of available streams.
      * @returns {Integer} Receives the number of streams.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamselect-count
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-count
      */
     Count() {
         result := ComCall(3, this, "uint*", &pcStreams := 0, "HRESULT")
@@ -123,7 +121,7 @@ class IAMStreamSelect extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamselect-info
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-info
      */
     Info(lIndex, ppmt, pdwFlags, plcid, pdwGroup, ppszName, ppObject, ppUnk) {
         ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
@@ -203,7 +201,7 @@ class IAMStreamSelect extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamselect-enable
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-enable
      */
     Enable(lIndex, dwFlags) {
         result := ComCall(5, this, "int", lIndex, "uint", dwFlags, "HRESULT")

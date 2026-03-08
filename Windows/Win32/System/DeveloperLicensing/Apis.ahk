@@ -60,11 +60,7 @@ class DeveloperLicensing {
      * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-checkdeveloperlicense
      */
     static CheckDeveloperLicense(pExpiration) {
-        result := DllCall("WSClient.dll\CheckDeveloperLicense", "ptr", pExpiration, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSClient.dll\CheckDeveloperLicense", "ptr", pExpiration, "HRESULT")
         return result
     }
 
@@ -115,11 +111,7 @@ class DeveloperLicensing {
     static AcquireDeveloperLicense(hwndParent, pExpiration) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WSClient.dll\AcquireDeveloperLicense", "ptr", hwndParent, "ptr", pExpiration, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSClient.dll\AcquireDeveloperLicense", "ptr", hwndParent, "ptr", pExpiration, "HRESULT")
         return result
     }
 
@@ -169,11 +161,7 @@ class DeveloperLicensing {
     static RemoveDeveloperLicense(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WSClient.dll\RemoveDeveloperLicense", "ptr", hwndParent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WSClient.dll\RemoveDeveloperLicense", "ptr", hwndParent, "HRESULT")
         return result
     }
 

@@ -6,12 +6,8 @@
 /**
  * Allows projections to provide custom stack trace for that exception.
  * @remarks
- * 
  * It is recommended that language projections implement this interface when the stack trace is not captured by the relevant Global Error Handler API.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionstackbacktrace
+ * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionstackbacktrace
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -38,10 +34,12 @@ class ILanguageExceptionStackBackTrace extends IUnknown{
 
     /**
      * Retrieves the back stack trace.
+     * @remarks
+     * You should implement <b>GetStackBackTrace</b> in your language projections when the Global Error Handler surface is unable to capture a backtrace. <b>GetStackBackTrace</b> is called by the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginatelanguageexception">RoOriginateLanguageException</a> export and by <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-capturepropagationcontext">CapturePropagationContext</a> when those functions detect, through querying for interface (QI), that the language exception provided to them implements it.
      * @param {Integer} maxFramesToCapture The maximum number of frames to capture.
      * @param {Pointer<Pointer>} stackBackTrace An array containing the stack back trace; the maximum size is the <i>maxFramesToCapture</i>.
      * @returns {Integer} On success, contains a pointer to the number of frames actually captured.
-     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
+     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
      */
     GetStackBackTrace(maxFramesToCapture, stackBackTrace) {
         stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : "ptr"

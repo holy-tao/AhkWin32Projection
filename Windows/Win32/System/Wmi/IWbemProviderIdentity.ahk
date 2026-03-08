@@ -5,7 +5,7 @@
 
 /**
  * The IWbemProviderIdentity interface is implemented by an event provider if the provider registers itself using more than one Name (multiple instances of __Win32Provider) with the same CLSID value.
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemprovideridentity
+ * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemprovideridentity
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -32,11 +32,13 @@ class IWbemProviderIdentity extends IUnknown{
 
     /**
      * The IWbemProviderIdentity::SetRegistrationObject method is called by the Windows Management service prior to initializing an event provider (if the provider implements IWbemProviderIdentity).
+     * @remarks
+     * Any <b>HRESULT</b> return code other than <b>WBEM_S_NO_ERROR</b> indicates a provider failure.
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @param {IWbemClassObject} pProvReg Instance of 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/--win32provider">__Win32Provider</a> that announces the provider's name and <b>CLSID</b>.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> with one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemprovideridentity-setregistrationobject
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemprovideridentity-setregistrationobject
      */
     SetRegistrationObject(lFlags, pProvReg) {
         result := ComCall(3, this, "int", lFlags, "ptr", pProvReg, "HRESULT")

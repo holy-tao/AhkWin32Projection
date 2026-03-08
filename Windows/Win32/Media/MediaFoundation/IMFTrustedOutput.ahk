@@ -7,11 +7,8 @@
 /**
  * Implemented by components that provide output trust authorities (OTAs).
  * @remarks
- * 
  * If an MFT supports <b>IMFTrustedOutput</b>, it must expose the interface through <b>QueryInterface</b>. The interface applies to all of the input streams on the MFT. (There is no mechanism to return a separate <b>IMFTrustedOutput</b> pointer for each stream.) The MFT must apply the  output policies to all of its input streams. If the MFT sends different streams to separate connectors, it must report all of the connector attributes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftrustedoutput
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftrustedoutput
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,7 +36,7 @@ class IMFTrustedOutput extends IUnknown{
     /**
      * Gets the number of output trust authorities (OTAs) provided by this trusted output. Each OTA reports a single action.
      * @returns {Integer} Receives the number of OTAs.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
      */
     GetOutputTrustAuthorityCount() {
         result := ComCall(3, this, "uint*", &pcOutputTrustAuthorities := 0, "HRESULT")
@@ -50,7 +47,7 @@ class IMFTrustedOutput extends IUnknown{
      * Gets an output trust authority (OTA), specified by index.
      * @param {Integer} dwIndex Zero-based index of the OTA to retrieve. To get the number of OTAs provided by this object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount">IMFTrustedOutput::GetOutputTrustAuthorityCount</a>.
      * @returns {IMFOutputTrustAuthority} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfoutputtrustauthority">IMFOutputTrustAuthority</a> interface of the OTA. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
      */
     GetOutputTrustAuthorityByIndex(dwIndex) {
         result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppauthority := 0, "HRESULT")
@@ -59,8 +56,10 @@ class IMFTrustedOutput extends IUnknown{
 
     /**
      * Queries whether this output is a policy sink, meaning it handles the rights and restrictions required by the input trust authority (ITA).
+     * @remarks
+     * A trusted output is generally considered to be a policy sink if it does not pass the media content that it receives anywhere else; or, if it does pass the media content elsewhere, either it protects the content using some proprietary method such as encryption, or it sufficiently devalues the content so as not to require protection.
      * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, this object is a policy sink. If <b>FALSE</b>, the policy must be enforced further downstream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-isfinal
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-isfinal
      */
     IsFinal() {
         result := ComCall(5, this, "int*", &pfIsFinal := 0, "HRESULT")

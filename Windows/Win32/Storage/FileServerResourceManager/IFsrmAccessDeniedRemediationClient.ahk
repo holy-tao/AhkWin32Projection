@@ -6,7 +6,7 @@
 
 /**
  * Used to show the Access Denied Remediation (ADR) client user interface.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
+ * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
      * @param {BSTR} windowMessage Optional text to display above the instructions in the dialog window that is opened.
      * @returns {Integer} Address of a value that will receive a <b>HRESULT</b> containing the result of the 
      *       operation.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
      */
     Show(parentWnd, accessPath, errorType, flags, windowTitle, windowMessage) {
         accessPath := accessPath is String ? BSTR.Alloc(accessPath).Value : accessPath

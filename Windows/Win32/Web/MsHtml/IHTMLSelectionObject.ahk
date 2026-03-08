@@ -46,8 +46,9 @@ class IHTMLSelectionObject extends IDispatch{
     }
 
     /**
-     * 
+     * Learn about the emptyString simple type, which is not in use. See requirements and view additional available resources.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/eaphost/eaptlsconnectionpropertiesv1schema-emptystring-simpletype
      */
     empty() {
         result := ComCall(8, this, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Retrieves the code and description for errors and warnings returned by various operations.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-isettingsresult
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsresult
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the description of the error.
      * @returns {BSTR} The text that describes the error.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getdescription
      */
     GetDescription() {
         description := BSTR()
@@ -45,7 +45,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the HRESULT error code value.
      * @returns {HRESULT} The error code value.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-geterrorcode
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-geterrorcode
      */
     GetErrorCode() {
         result := ComCall(4, this, "int*", &hrOut := 0, "HRESULT")
@@ -55,7 +55,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the description of the context that surrounds the error.
      * @returns {BSTR} The text that describes the context.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-getcontextdescription
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcontextdescription
      */
     GetContextDescription() {
         description := BSTR()
@@ -66,7 +66,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the line number where the error has occurred.
      * @returns {Integer} The line number where the error has occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-getline
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getline
      */
     GetLine() {
         result := ComCall(6, this, "uint*", &dwLine := 0, "HRESULT")
@@ -76,7 +76,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the column number where the error occurred.
      * @returns {Integer} The column which is the source of the error.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-getcolumn
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcolumn
      */
     GetColumn() {
         result := ComCall(7, this, "uint*", &dwColumn := 0, "HRESULT")
@@ -86,7 +86,7 @@ class ISettingsResult extends IUnknown{
     /**
      * Returns the file or path where the error has occurred.
      * @returns {BSTR} The file or path where the error has occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsresult-getsource
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
     GetSource() {
         file := BSTR()

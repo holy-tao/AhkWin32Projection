@@ -30,8 +30,15 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown{
     static VTableNames => ["Enable", "WaitForEnlistment", "Phase0Done", "Unenlist", "GetTransaction"]
 
     /**
+     * Enables monitoring on a particular drive.
+     * @remarks
+     * The **Enable** method does not wait for monitoring to be enabled completely before it returns, because this could take a while. Instead, it returns immediately after starting the System Restore service and filter driver.
      * 
-     * @returns {HRESULT} 
+     * To enable System Restore on a non-system drive, you must first enable System Restore on the system drive.
+     * 
+     * This method fails in safe mode.
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/sr/enable-systemrestore
      */
     Enable() {
         result := ComCall(3, this, "HRESULT")
@@ -66,8 +73,9 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown{
     }
 
     /**
-     * 
+     * Obtains the identifier (ID) for the specified transaction.
      * @returns {ITransaction} 
+     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactionid
      */
     GetTransaction() {
         result := ComCall(7, this, "ptr*", &ppITransaction := 0, "HRESULT")

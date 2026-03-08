@@ -8,16 +8,13 @@
 /**
  * A read-only enumerator of IOpcPart interface pointers.
  * @remarks
- * 
  * To get a pointer to this interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartset-getenumerator">IOpcPartSet::GetEnumerator</a> method.
  * 
- * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartenumerator-movenext">MoveNext</a> method after creating the enumerator.
  * 
  * <div class="alert"><b>Note</b>  Changes to the enumerator's underlying set will invalidate the enumerator, and all subsequent calls will fail.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcpartenumerator
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpartenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -44,6 +41,8 @@ class IOpcPartEnumerator extends IUnknown{
 
     /**
      * Moves the current position of the enumerator to the next IOpcPart interface pointer.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <b>MoveNext</b> method after creating the enumerator.
      * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface pointer at the current position.
      * 
      * The value of <i>hasNext</i> is only valid when the method succeeds.
@@ -76,7 +75,7 @@ class IOpcPartEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpartenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
@@ -85,6 +84,8 @@ class IOpcPartEnumerator extends IUnknown{
 
     /**
      * Moves the current position of the enumerator to the previous IOpcPart interface pointer.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface  pointer at the current position.
      * 
      * The value of <i>hasPrevious</i> is only valid when the method succeeds.
@@ -117,7 +118,7 @@ class IOpcPartEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpartenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartenumerator-moveprevious
      */
     MovePrevious() {
         result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
@@ -126,8 +127,10 @@ class IOpcPartEnumerator extends IUnknown{
 
     /**
      * Gets the IOpcPart interface pointer at the current position of the enumerator.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {IOpcPart} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpartenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(5, this, "ptr*", &part := 0, "HRESULT")
@@ -135,9 +138,11 @@ class IOpcPartEnumerator extends IUnknown{
     }
 
     /**
-     * Creates a copy of the current enumerator and all its descendants.
+     * Creates a copy of the current enumerator and all its descendants. (IOpcPartEnumerator.Clone)
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcpartenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {IOpcPartEnumerator} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpartenumerator">IOpcPartEnumerator</a> interface of the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpartenumerator-clone
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartenumerator-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")

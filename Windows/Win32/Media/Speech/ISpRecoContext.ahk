@@ -121,11 +121,14 @@ class ISpRecoContext extends ISpEventSource{
     }
 
     /**
-     * 
+     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
+     * @remarks
+     * This property is read/write with a default value of true.
      * @param {Integer} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
      */
     Bookmark(Options, ullStreamPosition, lparamEvent) {
         result := ComCall(21, this, "int", Options, "uint", ullStreamPosition, "ptr", lparamEvent, "HRESULT")
@@ -146,9 +149,12 @@ class ISpRecoContext extends ISpEventSource{
     }
 
     /**
-     * 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause(dwReserved) {
         result := ComCall(23, this, "uint", dwReserved, "HRESULT")
@@ -156,9 +162,10 @@ class ISpRecoContext extends ISpEventSource{
     }
 
     /**
-     * 
+     * The Resume method resumes playback after a menu has been displayed.
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume(dwReserved) {
         result := ComCall(24, this, "uint", dwReserved, "HRESULT")

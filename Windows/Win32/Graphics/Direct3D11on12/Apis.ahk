@@ -70,11 +70,7 @@ class Direct3D11on12 {
         pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
         pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
 
-        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "ptr*", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr*", ppDevice, "ptr*", ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "ptr*", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr*", ppDevice, "ptr*", ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "HRESULT")
         return result
     }
 

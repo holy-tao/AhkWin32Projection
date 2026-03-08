@@ -5,7 +5,7 @@
 
 /**
  * Is used by generated stub code to send faults or responses to incoming messages.
- * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nn-wsdhost-iwsdservicemessaging
+ * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsdservicemessaging
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -98,7 +98,7 @@ class IWSDServiceMessaging extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsdservicemessaging-sendresponse
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsdservicemessaging-sendresponse
      */
     SendResponse(pBody, pOperation, pMessageParameters) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
@@ -175,7 +175,7 @@ class IWSDServiceMessaging extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsdservicemessaging-faultrequest
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsdservicemessaging-faultrequest
      */
     FaultRequest(pRequestHeader, pMessageParameters, pFault) {
         result := ComCall(4, this, "ptr", pRequestHeader, "ptr", pMessageParameters, "ptr", pFault, "HRESULT")

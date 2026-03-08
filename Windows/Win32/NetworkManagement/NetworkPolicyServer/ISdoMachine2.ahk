@@ -80,8 +80,12 @@ class ISdoMachine2 extends ISdoMachine{
     }
 
     /**
+     * The ReloadZone method reloads the DNS Zone from its database.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-zone-reloadzone
      */
     Reload() {
         result := ComCall(20, this, "HRESULT")

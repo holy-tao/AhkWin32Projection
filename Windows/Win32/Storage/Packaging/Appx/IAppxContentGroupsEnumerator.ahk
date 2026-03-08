@@ -6,7 +6,7 @@
 
 /**
  * Enumerates the content groups from a content group map.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroupsenumerator
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupsenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAppxContentGroupsEnumerator extends IUnknown{
     /**
      * Gets the content group at the current position of the enumerator.
      * @returns {IAppxContentGroup} The current content group.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &stream := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IAppxContentGroupsEnumerator extends IUnknown{
     /**
      * Determines whether there is a content group at the current position of the enumerator.
      * @returns {BOOL} <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -58,7 +58,7 @@ class IAppxContentGroupsEnumerator extends IUnknown{
      * <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupsenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

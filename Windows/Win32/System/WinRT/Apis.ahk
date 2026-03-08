@@ -92,11 +92,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy
      */
     static CoDecodeProxy(dwClientPid, ui64ProxyAddress, pServerInformation) {
-        result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, "ptr", pServerInformation, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, "ptr", pServerInformation, "HRESULT")
         return result
     }
 
@@ -118,11 +114,7 @@ class WinRT {
      * @since windows8.1
      */
     static RoGetAgileReference(options, riid, pUnk) {
-        result := DllCall("OLE32.dll\RoGetAgileReference", "int", options, "ptr", riid, "ptr", pUnk, "ptr*", &ppAgileReference := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\RoGetAgileReference", "int", options, "ptr", riid, "ptr", pUnk, "ptr*", &ppAgileReference := 0, "HRESULT")
         return IAgileReference(ppAgileReference)
     }
 
@@ -336,11 +328,7 @@ class WinRT {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
         string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string_R, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string_R, "HRESULT")
         return string_R
     }
 
@@ -373,11 +361,7 @@ class WinRT {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
         string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string_R, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string_R, "HRESULT")
         return string_R
     }
 
@@ -395,11 +379,7 @@ class WinRT {
     static WindowsDeleteString(string_R) {
         string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", "ptr", string_R, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", "ptr", string_R, "HRESULT")
         return result
     }
 
@@ -420,11 +400,7 @@ class WinRT {
         string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string_R, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string_R, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -497,11 +473,7 @@ class WinRT {
     static WindowsStringHasEmbeddedNull(string_R) {
         string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string_R, "int*", &hasEmbedNull := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string_R, "int*", &hasEmbedNull := 0, "HRESULT")
         return hasEmbedNull
     }
 
@@ -544,11 +516,7 @@ class WinRT {
         string1 := string1 is Win32Handle ? NumGet(string1, "ptr") : string1
         string2 := string2 is Win32Handle ? NumGet(string2, "ptr") : string2
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", &result := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -570,11 +538,7 @@ class WinRT {
         string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string_R, "uint", startIndex, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string_R, "uint", startIndex, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -599,11 +563,7 @@ class WinRT {
         string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string_R, "uint", startIndex, "uint", length, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string_R, "uint", startIndex, "uint", length, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -628,11 +588,7 @@ class WinRT {
         string2 := string2 is Win32Handle ? NumGet(string2, "ptr") : string2
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", "ptr", string1, "ptr", string2, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", "ptr", string1, "ptr", string2, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -660,11 +616,7 @@ class WinRT {
         stringReplaceWith := stringReplaceWith is Win32Handle ? NumGet(stringReplaceWith, "ptr") : stringReplaceWith
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string_R, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string_R, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -687,11 +639,7 @@ class WinRT {
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string_R, "ptr", trimString, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string_R, "ptr", trimString, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -714,11 +662,7 @@ class WinRT {
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string_R, "ptr", trimString, "ptr", newString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string_R, "ptr", trimString, "ptr", newString, "HRESULT")
         return newString
     }
 
@@ -798,11 +742,7 @@ class WinRT {
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
         charBufferMarshal := charBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, charBufferMarshal, charBuffer, "ptr", bufferHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, charBufferMarshal, charBuffer, "ptr", bufferHandle, "HRESULT")
         return result
     }
 
@@ -825,11 +765,7 @@ class WinRT {
         bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
 
         string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string_R, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string_R, "HRESULT")
         return string_R
     }
 
@@ -881,11 +817,7 @@ class WinRT {
     static WindowsDeleteStringBuffer(bufferHandle) {
         bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteStringBuffer", "ptr", bufferHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteStringBuffer", "ptr", bufferHandle, "HRESULT")
         return result
     }
 
@@ -939,11 +871,7 @@ class WinRT {
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
         targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
         return result
     }
 
@@ -1000,11 +928,7 @@ class WinRT {
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
         targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
         return result
     }
 
@@ -1034,11 +958,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     static CreateDispatcherQueueController(options, dispatcherQueueController) {
-        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "HRESULT")
         return result
     }
 
@@ -1098,11 +1018,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoInitialize(initType) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoInitialize", "int", initType, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoInitialize", "int", initType, "HRESULT")
         return result
     }
 
@@ -1136,11 +1052,7 @@ class WinRT {
     static RoActivateInstance(activatableClassId) {
         activatableClassId := activatableClassId is Win32Handle ? NumGet(activatableClassId, "ptr") : activatableClassId
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoActivateInstance", "ptr", activatableClassId, "ptr*", &instance := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoActivateInstance", "ptr", activatableClassId, "ptr*", &instance := 0, "HRESULT")
         return IInspectable(instance)
     }
 
@@ -1166,11 +1078,7 @@ class WinRT {
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count) {
         activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr*", &cookie := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr*", &cookie := 0, "HRESULT")
         return cookie
     }
 
@@ -1204,11 +1112,7 @@ class WinRT {
     static RoGetActivationFactory(activatableClassId, iid) {
         activatableClassId := activatableClassId is Win32Handle ? NumGet(activatableClassId, "ptr") : activatableClassId
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr*", &factory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr*", &factory := 0, "HRESULT")
         return factory
     }
 
@@ -1230,11 +1134,7 @@ class WinRT {
     static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
         apartmentIdentifierMarshal := apartmentIdentifier is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, apartmentIdentifierMarshal, apartmentIdentifier, "ptr", regCookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, apartmentIdentifierMarshal, apartmentIdentifier, "ptr", regCookie, "HRESULT")
         return result
     }
 
@@ -1254,11 +1154,7 @@ class WinRT {
     static RoUnregisterForApartmentShutdown(regCookie) {
         regCookie := regCookie is Win32Handle ? NumGet(regCookie, "ptr") : regCookie
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUnregisterForApartmentShutdown", "ptr", regCookie, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUnregisterForApartmentShutdown", "ptr", regCookie, "HRESULT")
         return result
     }
 
@@ -1269,11 +1165,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetApartmentIdentifier() {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetApartmentIdentifier", "uint*", &apartmentIdentifier := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetApartmentIdentifier", "uint*", &apartmentIdentifier := 0, "HRESULT")
         return apartmentIdentifier
     }
 
@@ -1290,11 +1182,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetBufferMarshaler() {
-        result := DllCall("api-ms-win-core-winrt-robuffer-l1-1-0.dll\RoGetBufferMarshaler", "ptr*", &bufferMarshaler := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-robuffer-l1-1-0.dll\RoGetBufferMarshaler", "ptr*", &bufferMarshaler := 0, "HRESULT")
         return IMarshal(bufferMarshaler)
     }
 
@@ -1309,11 +1197,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetErrorReportingFlags() {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoGetErrorReportingFlags", "uint*", &pflags := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoGetErrorReportingFlags", "uint*", &pflags := 0, "HRESULT")
         return pflags
     }
 
@@ -1360,11 +1244,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoSetErrorReportingFlags(flags) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoSetErrorReportingFlags", "uint", flags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoSetErrorReportingFlags", "uint", flags, "HRESULT")
         return result
     }
 
@@ -1384,11 +1264,7 @@ class WinRT {
     static RoResolveRestrictedErrorInfoReference(reference) {
         reference := reference is String ? StrPtr(reference) : reference
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr*", &ppRestrictedErrorInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr*", &ppRestrictedErrorInfo := 0, "HRESULT")
         return IRestrictedErrorInfo(ppRestrictedErrorInfo)
     }
 
@@ -1406,11 +1282,7 @@ class WinRT {
      * @since windows8.0
      */
     static SetRestrictedErrorInfo(pRestrictedErrorInfo) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\SetRestrictedErrorInfo", "ptr", pRestrictedErrorInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\SetRestrictedErrorInfo", "ptr", pRestrictedErrorInfo, "HRESULT")
         return result
     }
 
@@ -1431,11 +1303,7 @@ class WinRT {
      * @since windows8.0
      */
     static GetRestrictedErrorInfo() {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\GetRestrictedErrorInfo", "ptr*", &ppRestrictedErrorInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\GetRestrictedErrorInfo", "ptr*", &ppRestrictedErrorInfo := 0, "HRESULT")
         return IRestrictedErrorInfo(ppRestrictedErrorInfo)
     }
 
@@ -1718,11 +1586,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoCaptureErrorContext(hr) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoCaptureErrorContext", "int", hr, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoCaptureErrorContext", "int", hr, "HRESULT")
         return result
     }
 
@@ -1821,11 +1685,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportunhandlederror
      */
     static RoReportUnhandledError(pRestrictedErrorInfo) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportUnhandledError", "ptr", pRestrictedErrorInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportUnhandledError", "ptr", pRestrictedErrorInfo, "HRESULT")
         return result
     }
 
@@ -1844,11 +1704,7 @@ class WinRT {
     static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, "ptr*", &targetErrorInfoAddress := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
         return targetErrorInfoAddress
     }
 
@@ -1873,11 +1729,7 @@ class WinRT {
         frameCountMarshal := frameCount is VarRef ? "uint*" : "ptr"
         targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
         return result
     }
 
@@ -1890,11 +1742,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr*", &ppRestrictedErrorInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr*", &ppRestrictedErrorInfo := 0, "HRESULT")
         return IRestrictedErrorInfo(ppRestrictedErrorInfo)
     }
 
@@ -1906,11 +1754,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportfaileddelegate
      */
     static RoReportFailedDelegate(punkDelegate, pRestrictedErrorInfo) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportFailedDelegate", "ptr", punkDelegate, "ptr", pRestrictedErrorInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportFailedDelegate", "ptr", punkDelegate, "ptr", pRestrictedErrorInfo, "HRESULT")
         return result
     }
 
@@ -2011,11 +1855,7 @@ class WinRT {
         activatableClassIdsMarshal := activatableClassIds is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, activatableClassIdsMarshal, activatableClassIds, countMarshal, count, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, activatableClassIdsMarshal, activatableClassIds, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -2035,11 +1875,7 @@ class WinRT {
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2059,11 +1895,7 @@ class WinRT {
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2078,11 +1910,7 @@ class WinRT {
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2097,11 +1925,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid) {
-        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr*", &ppv := 0, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr*", &ppv := 0, "CDecl HRESULT")
         return ppv
     }
 
@@ -2124,11 +1948,7 @@ class WinRT {
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid) {
-        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr*", &ppv := 0, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr*", &ppv := 0, "CDecl HRESULT")
         return ppv
     }
 

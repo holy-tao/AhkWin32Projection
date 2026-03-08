@@ -6,7 +6,7 @@
 
 /**
  * The IVMRMixerBitmap interface enables an application to blend a static image from a bitmap or DirectDraw surface onto the video stream, when using the Video Mixing Renderer Filter 7 (VMR-7).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrmixerbitmap
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmixerbitmap
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,7 +33,17 @@ class IVMRMixerBitmap extends IUnknown{
 
     /**
      * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
-     * @param {Pointer<VMRALPHABITMAP>} pBmpParms A oointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure that contains information about the bitmap.
+     * @remarks
+     * To remove the bitmap, set the [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure and call <b>SetAlphaBitmap</b> again.
+     * 
+     * The method might return <b>E_INVALIDARG</b> for several reasons:
+     * 
+     * <ul>
+     * [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure contains an invalid combination of flags.</li>
+     * [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure does not specify a valid HDC or DirectDraw surface.</li>
+     * <li>The value of <b>fAlpha</b> is invalid.</li>
+     * </ul>
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms A pointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure that contains information about the bitmap.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>
@@ -86,7 +96,7 @@ class IVMRMixerBitmap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-setalphabitmap
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
         result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
@@ -95,9 +105,11 @@ class IVMRMixerBitmap extends IUnknown{
 
     /**
      * The UpdateAlphaBitmapParameters method changes the bitmap location, size and blending value.
+     * @remarks
+     * The filter graph must be running for the changes to take effect. This method does not change the bitmap image. If you specify a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure with no destination or color key set, the bitmap disappears. This behavior is by design for backward compatibility and cannot be changed.
      * @param {Pointer<VMRALPHABITMAP>} pBmpParms A pointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-updatealphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
         result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
@@ -107,7 +119,7 @@ class IVMRMixerBitmap extends IUnknown{
     /**
      * The GetAlphaBitmapParameters method retrieves a copy of the current image and related blending parameters.
      * @returns {VMRALPHABITMAP} A pointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure that receives the bitmap, information about the blending values, and the location to blend it.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-getalphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-getalphabitmapparameters
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMRALPHABITMAP()

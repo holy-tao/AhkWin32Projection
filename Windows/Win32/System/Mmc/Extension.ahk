@@ -6,7 +6,16 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents a single certificate extension.
+ * @remarks
+ * The **Extension** object has these types of members:
  * 
+ * -   [Properties](#properties)
+ * 
+ * 
+ * The **Extension** object cannot be created.
+ * 
+ * The **Extension** object is used by the [**Extensions**](extensions.md) collection object.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/extension
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
@@ -133,9 +142,16 @@ class Extension extends IDispatch{
     }
 
     /**
+     * Enables monitoring on a particular drive.
+     * @remarks
+     * The **Enable** method does not wait for monitoring to be enabled completely before it returns, because this could take a while. Instead, it returns immediately after starting the System Restore service and filter driver.
      * 
+     * To enable System Restore on a non-system drive, you must first enable System Restore on the system drive.
+     * 
+     * This method fails in safe mode.
      * @param {BOOL} Enable 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/sr/enable-systemrestore
      */
     Enable(Enable) {
         result := ComCall(13, this, "int", Enable, "HRESULT")

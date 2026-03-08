@@ -6,7 +6,7 @@
 
 /**
  * Enables the caller to control an object pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-ipoolmanager
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ipoolmanager
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IPoolManager extends IDispatch{
      * Shuts down the object pool.
      * @param {BSTR} CLSIDOrProgID A string containing the CLSID or ProgID of the pool to be shut down.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ipoolmanager-shutdownpool
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ipoolmanager-shutdownpool
      */
     ShutdownPool(CLSIDOrProgID) {
         CLSIDOrProgID := CLSIDOrProgID is String ? BSTR.Alloc(CLSIDOrProgID).Value : CLSIDOrProgID

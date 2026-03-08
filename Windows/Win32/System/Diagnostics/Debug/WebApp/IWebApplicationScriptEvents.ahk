@@ -5,7 +5,7 @@
 
 /**
  * Enables a debugging or authoring app to receive notification of scripting engine events.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationscriptevents
+ * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationscriptevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -56,8 +56,8 @@ class IWebApplicationScriptEvents extends IUnknown{
      * <b>TRUE</b> if the app handled the error; otherwise <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationscriptevents-scripterror
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationscriptevents-scripterror
      */
     ScriptError(htmlWindow, scriptError, url, errorHandled) {
         url := url is String ? StrPtr(url) : url

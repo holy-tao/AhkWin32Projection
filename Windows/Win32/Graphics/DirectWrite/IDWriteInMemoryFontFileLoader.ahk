@@ -6,7 +6,7 @@
 
 /**
  * Represents a font file loader that can access in-memory fonts.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteinmemoryfontfileloader
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteinmemoryfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader{
      * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
      * Receives a pointer to the newly-created font file reference.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-createinmemoryfontfilereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-createinmemoryfontfilereference
      */
     CreateInMemoryFontFileReference(factory, fontData, fontDataSize, ownerObject) {
         result := ComCall(4, this, "ptr", factory, "ptr", fontData, "uint", fontDataSize, "ptr", ownerObject, "ptr*", &fontFile := 0, "HRESULT")
@@ -62,7 +62,7 @@ class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of font file references that have been created using this loader instance.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-getfilecount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-getfilecount
      */
     GetFileCount() {
         result := ComCall(5, this, "uint")

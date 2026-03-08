@@ -6,11 +6,8 @@
 /**
  * The IDVBTuningSpace2 interface is implemented on the DVBTuningSpace object. It provides methods for working with tuning spaces with a network type of DVB.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTuningSpace2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idvbtuningspace2
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtuningspace2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
     /**
      * The get_NetworkID method retrieves the Network ID of the DVB system.
      * @returns {Integer} Receive the network ID.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace2-get_networkid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-get_networkid
      */
     get_NetworkID() {
         result := ComCall(28, this, "int*", &NetworkID := 0, "HRESULT")
@@ -57,7 +54,7 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
      * The put_NetworkID method sets the Network ID of the DVB system.
      * @param {Integer} NetworkID Specifies the <i>NetworkID</i> as a <b>long</b> integer.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace2-put_networkid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-put_networkid
      */
     put_NetworkID(NetworkID) {
         result := ComCall(29, this, "int", NetworkID, "HRESULT")

@@ -11,13 +11,10 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * .
+ * . (IInkCollector)
  * @remarks
- * 
  * Creating the InkCollector control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkCollector from collecting ink.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcollector
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcollector
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -173,18 +170,15 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the handle value of the window on which ink is drawn.
+     * Gets or sets the handle value of the window on which ink is drawn. (IInkCollector.get_hWnd)
      * @remarks
-     * 
      * If two or more windows exist, this property allows you to specify which window collects ink.
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> objects, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. You can then set the <b>hWnd</b> property and re-enable the object by setting the <b>Enabled</b> property to <b>TRUE</b>.</div>
      * <div> </div>
      * In Automation, this property is called <b>hWnd Property</b>.
-     * 
-     * 
      * @returns {Pointer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_hwnd
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd
      */
     get_hWnd() {
         result := ComCall(7, this, "ptr*", &CurrentWindow := 0, "HRESULT")
@@ -192,19 +186,16 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the handle value of the window on which ink is drawn.
+     * Gets or sets the handle value of the window on which ink is drawn. (IInkCollector.put_hWnd)
      * @remarks
-     * 
      * If two or more windows exist, this property allows you to specify which window collects ink.
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> objects, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. You can then set the <b>hWnd</b> property and re-enable the object by setting the <b>Enabled</b> property to <b>TRUE</b>.</div>
      * <div> </div>
      * In Automation, this property is called <b>hWnd Property</b>.
-     * 
-     * 
      * @param {Pointer} NewWindow 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_hwnd
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_hwnd
      */
     put_hWnd(NewWindow) {
         result := ComCall(8, this, "ptr", NewWindow, "HRESULT")
@@ -212,9 +203,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether the InkCollector object collects pen input (in-air packets, cursor in range events, and so on).
+     * Gets or sets a value that specifies whether the InkCollector object collects pen input (in-air packets, cursor in range events, and so on). (Get)
      * @remarks
-     * 
      * If an enabled object's window input rectangle (set in the constructor or with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle">SetWindowInputRectangle</a> method) of an enabled object overlaps the window input rectangle of another enabled object, the E_INK_OVERLAPPING_INPUT_RECT error is returned. Overlap can occur without an error as long as only one of the input rectangles is enabled at any known time.
      * 
      * While an object is not enabled, you receive no events.
@@ -258,10 +248,8 @@ class IInkCollector extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode">SetSingleTabletIntegratedMode</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled
      */
     get_Enabled() {
         result := ComCall(9, this, "short*", &Collecting := 0, "HRESULT")
@@ -269,9 +257,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether the InkCollector object collects pen input (in-air packets, cursor in range events, and so on).
+     * Gets or sets a value that specifies whether the InkCollector object collects pen input (in-air packets, cursor in range events, and so on). (Put)
      * @remarks
-     * 
      * If an enabled object's window input rectangle (set in the constructor or with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle">SetWindowInputRectangle</a> method) of an enabled object overlaps the window input rectangle of another enabled object, the E_INK_OVERLAPPING_INPUT_RECT error is returned. Overlap can occur without an error as long as only one of the input rectangles is enabled at any known time.
      * 
      * While an object is not enabled, you receive no events.
@@ -315,11 +302,9 @@ class IInkCollector extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode">SetSingleTabletIntegratedMode</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {VARIANT_BOOL} Collecting 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_enabled
      */
     put_Enabled(Collecting) {
         result := ComCall(10, this, "short", Collecting, "HRESULT")
@@ -327,9 +312,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the default drawing attributes to use when drawing and displaying ink.
+     * Gets or sets the default drawing attributes to use when drawing and displaying ink. (IInkCollector.get_DefaultDrawingAttributes)
      * @remarks
-     * 
      * The drawing attributes specified with this property are the attributes that are assigned to a new cursor.
      * 
      * The default drawing attributes are as follows:
@@ -367,10 +351,8 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <b>DefaultDrawingAttributes</b> property contains the drawing attributes that all cursors use unless they set their own <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. For example, a new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object uses <b>DefaultDrawingAttributes</b>, and an old <b>IInkCursor</b> object on which the <b>DrawingAttributes</b> is set to <b>NULL</b> also uses <b>DefaultDrawingAttributes</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {IInkDrawingAttributes} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes
      */
     get_DefaultDrawingAttributes() {
         result := ComCall(11, this, "ptr*", &CurrentAttributes := 0, "HRESULT")
@@ -378,9 +360,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the default drawing attributes to use when drawing and displaying ink.
+     * Gets or sets the default drawing attributes to use when drawing and displaying ink. (IInkCollector.putref_DefaultDrawingAttributes)
      * @remarks
-     * 
      * The drawing attributes specified with this property are the attributes that are assigned to a new cursor.
      * 
      * The default drawing attributes are as follows:
@@ -418,11 +399,9 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <b>DefaultDrawingAttributes</b> property contains the drawing attributes that all cursors use unless they set their own <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. For example, a new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object uses <b>DefaultDrawingAttributes</b>, and an old <b>IInkCursor</b> object on which the <b>DrawingAttributes</b> is set to <b>NULL</b> also uses <b>DefaultDrawingAttributes</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @param {IInkDrawingAttributes} NewAttributes 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-putref_defaultdrawingattributes
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_defaultdrawingattributes
      */
     putref_DefaultDrawingAttributes(NewAttributes) {
         result := ComCall(12, this, "ptr", NewAttributes, "HRESULT")
@@ -430,14 +409,11 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the InkRenderer object that is used to draw ink.
+     * Gets or sets the InkRenderer object that is used to draw ink. (IInkCollector.get_Renderer)
      * @remarks
-     * 
      * When handling certain window messages, changing the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">Renderer</a> associated with the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> can cause a reentrant function call, generating unexpected results. For example, changing to a different <i>Renderer</i> or modifying its transforms within a message handler can result in a reentrant call. This affects the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). It is an issue with single-threaded apartment model applications.
-     * 
-     * 
      * @returns {IInkRenderer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_renderer
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_renderer
      */
     get_Renderer() {
         result := ComCall(13, this, "ptr*", &CurrentInkRenderer := 0, "HRESULT")
@@ -445,7 +421,9 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the InkRenderer object that is used to draw ink.
+     * @remarks
+     * When handling certain window messages, changing the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">Renderer</a> associated with the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> can cause a reentrant function call, generating unexpected results. For example, changing to a different <i>Renderer</i> or modifying its transforms within a message handler can result in a reentrant call. This affects the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). It is an issue with single-threaded apartment model applications.
      * @param {IInkRenderer} NewInkRenderer 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_renderer
@@ -456,16 +434,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the InkDisp object that is associated with an InkCollector object or an InkOverlay object.
+     * Gets or sets the InkDisp object that is associated with an InkCollector object or an InkOverlay object. (IInkCollector.get_Ink)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object must be disabled before setting this property. To disable the <b>InkCollector</b> object or the <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. You can then set the <b>Ink</b> property, and re-enable the object by setting the <b>Enabled</b> property to <b>TRUE</b>.</div>
      * <div> </div>
      * An <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> creates an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object by default. If two or more <b>InkDisp</b> objects exist on a known application window, they can be switched out to enable collection into any of them (such as after deserializing one of the <b>InkDisp</b> objects).
-     * 
-     * 
      * @returns {IInkDisp} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_ink
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_ink
      */
     get_Ink() {
         result := ComCall(15, this, "ptr*", &Ink := 0, "HRESULT")
@@ -473,7 +448,11 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the InkDisp object that is associated with an InkCollector object or an InkOverlay object.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object must be disabled before setting this property. To disable the <b>InkCollector</b> object or the <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. You can then set the <b>Ink</b> property, and re-enable the object by setting the <b>Enabled</b> property to <b>TRUE</b>.</div>
+     * <div> </div>
+     * An <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> creates an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object by default. If two or more <b>InkDisp</b> objects exist on a known application window, they can be switched out to enable collection into any of them (such as after deserializing one of the <b>InkDisp</b> objects).
      * @param {IInkDisp} NewInk 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_ink
@@ -484,9 +463,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether an ink collector repaints the ink when the window is invalidated.
+     * Gets or sets a value that specifies whether an ink collector repaints the ink when the window is invalidated. (IInkCollector.get_AutoRedraw)
      * @remarks
-     * 
      * If <b>VARIANT_TRUE</b>, the ink collector repaints the ink when the window is invalidated. For example, if you minimize the window and then restore it, the ink is automatically redrawn. If <b>VARIANT_FALSE</b>, the ink collector does not repaint the ink when the window is invalidated. For example, if you minimize the window and then restore it, the ink disappears from the screen.
      * 
      * When <b>AutoRedraw</b> is <b>VARIANT_FALSE</b>, the ink appears while inking unless the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> property is false.
@@ -529,10 +507,8 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_autoredraw
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_autoredraw
      */
     get_AutoRedraw() {
         result := ComCall(17, this, "short*", &AutoRedraw := 0, "HRESULT")
@@ -540,9 +516,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether an ink collector repaints the ink when the window is invalidated.
+     * Gets or sets a value that specifies whether an ink collector repaints the ink when the window is invalidated. (IInkCollector.put_AutoRedraw)
      * @remarks
-     * 
      * If <b>VARIANT_TRUE</b>, the ink collector repaints the ink when the window is invalidated. For example, if you minimize the window and then restore it, the ink is automatically redrawn. If <b>VARIANT_FALSE</b>, the ink collector does not repaint the ink when the window is invalidated. For example, if you minimize the window and then restore it, the ink disappears from the screen.
      * 
      * When <b>AutoRedraw</b> is <b>VARIANT_FALSE</b>, the ink appears while inking unless the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> property is false.
@@ -585,11 +560,9 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {VARIANT_BOOL} AutoRedraw 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_autoredraw
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_autoredraw
      */
     put_AutoRedraw(AutoRedraw) {
         result := ComCall(18, this, "short", AutoRedraw, "HRESULT")
@@ -597,17 +570,14 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets a value that specifies whether ink is currently being drawn on an ink collector (InkCollector, InkOverlay, or InkPicture).
+     * Gets a value that specifies whether ink is currently being drawn on an ink collector (InkCollector, InkOverlay, or InkPicture). (IInkCollector.get_CollectingInk)
      * @remarks
-     * 
      * You can use the <b>CollectingInk</b> property to see if ink is being drawn on an ink collector rather than monitoring the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event.
      * 
      * <div class="alert"><b>Note</b>  Because ink collection is happening on a different thread than your application code, it is possible that the <b>CollectingInk</b> property can change soon after you have checked it. Thus, your code may be operating under the assumption that the ink collector is not collecting ink, when in fact it is. If this occurs, an error is thrown. To be safe, put such code in a try-catch block.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_collectingink
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink
      */
     get_CollectingInk() {
         result := ComCall(19, this, "short*", &Collecting := 0, "HRESULT")
@@ -615,9 +585,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the collection mode that determines whether ink, gesture, or both are recognized as the user writes.
+     * Gets or sets the collection mode that determines whether ink, gesture, or both are recognized as the user writes. (IInkCollector.get_CollectionMode)
      * @remarks
-     * 
      * For a list of the modes that you can use, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcollectionmode">InkCollectionMode</a> enumeration type. However, when using the <b>CollectionMode</b> property on a system that has the Microsoft Windows XP Tablet PC Edition Software Development Kit (SDK) installed but that doesn't have recognizer installed, the mode cannot be set to <b>GestureOnly</b> or <b>InkAndGesture</b>.
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control generates an error if you try to change the <b>CollectionMode</b> property while ink is being collected. To avoid this conflict, check the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink">CollectingInk</a> property before changing the <b>CollectionMode</b> property.</div>
@@ -662,10 +631,8 @@ class IInkCollector extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_collectionmode
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode
      */
     get_CollectionMode() {
         result := ComCall(20, this, "int*", &Mode := 0, "HRESULT")
@@ -673,9 +640,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the collection mode that determines whether ink, gesture, or both are recognized as the user writes.
+     * Gets or sets the collection mode that determines whether ink, gesture, or both are recognized as the user writes. (IInkCollector.put_CollectionMode)
      * @remarks
-     * 
      * For a list of the modes that you can use, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcollectionmode">InkCollectionMode</a> enumeration type. However, when using the <b>CollectionMode</b> property on a system that has the Microsoft Windows XP Tablet PC Edition Software Development Kit (SDK) installed but that doesn't have recognizer installed, the mode cannot be set to <b>GestureOnly</b> or <b>InkAndGesture</b>.
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control generates an error if you try to change the <b>CollectionMode</b> property while ink is being collected. To avoid this conflict, check the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink">CollectingInk</a> property before changing the <b>CollectionMode</b> property.</div>
@@ -720,11 +686,9 @@ class IInkCollector extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * 
-     * 
      * @param {Integer} Mode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_collectionmode
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_collectionmode
      */
     put_CollectionMode(Mode) {
         result := ComCall(21, this, "int", Mode, "HRESULT")
@@ -732,9 +696,9 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the value that specifies whether ink is rendered as it is drawn.
+     * Gets or sets the value that specifies whether ink is rendered as it is drawn. (IInkCollector.get_DynamicRendering)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_dynamicrendering
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_dynamicrendering
      */
     get_DynamicRendering() {
         result := ComCall(22, this, "short*", &Enabled := 0, "HRESULT")
@@ -742,10 +706,10 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the value that specifies whether ink is rendered as it is drawn.
+     * Gets or sets the value that specifies whether ink is rendered as it is drawn. (IInkCollector.put_DynamicRendering)
      * @param {VARIANT_BOOL} Enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_dynamicrendering
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_dynamicrendering
      */
     put_DynamicRendering(Enabled) {
         result := ComCall(23, this, "short", Enabled, "HRESULT")
@@ -753,9 +717,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the desired packet description of the InkCollector.
+     * Gets or sets the desired packet description of the InkCollector. (IInkCollector.get_DesiredPacketDescription)
      * @remarks
-     * 
      * The description is an array of globally unique identifiers (GUIDs) from the <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> object.
      * 
      * In multitablet mode, this is the packet description for all of the tablet devices. If any of the devices don't support a known packet description property, the property data is not returned.
@@ -765,10 +728,8 @@ class IInkCollector extends IDispatch{
      * When <b>DesiredPacketDescription</b> is set to something that includes <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">STR_GUID_PAKETSTATUS</a>, the packet status is added in the third position. For example, if you set <b>DesiredPacketDescription</b> to (a, b, c, d, PacketStatus, e, f), when you get <b>DesiredPacketDescription</b> the result is (X, Y, PacketStatus, a, b, c, d, e, f).
      * 
      * Changes to this property do not affect incoming packet data until the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property changes from <b>FALSE</b> to <b>TRUE</b>.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_desiredpacketdescription
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_desiredpacketdescription
      */
     get_DesiredPacketDescription() {
         PacketGuids := VARIANT()
@@ -777,9 +738,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the desired packet description of the InkCollector.
+     * Gets or sets the desired packet description of the InkCollector. (IInkCollector.put_DesiredPacketDescription)
      * @remarks
-     * 
      * The description is an array of globally unique identifiers (GUIDs) from the <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> object.
      * 
      * In multitablet mode, this is the packet description for all of the tablet devices. If any of the devices don't support a known packet description property, the property data is not returned.
@@ -789,11 +749,9 @@ class IInkCollector extends IDispatch{
      * When <b>DesiredPacketDescription</b> is set to something that includes <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">STR_GUID_PAKETSTATUS</a>, the packet status is added in the third position. For example, if you set <b>DesiredPacketDescription</b> to (a, b, c, d, PacketStatus, e, f), when you get <b>DesiredPacketDescription</b> the result is (X, Y, PacketStatus, a, b, c, d, e, f).
      * 
      * Changes to this property do not affect incoming packet data until the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property changes from <b>FALSE</b> to <b>TRUE</b>.
-     * 
-     * 
      * @param {VARIANT} PacketGuids 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_desiredpacketdescription
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_desiredpacketdescription
      */
     put_DesiredPacketDescription(PacketGuids) {
         result := ComCall(25, this, "ptr", PacketGuids, "HRESULT")
@@ -801,18 +759,15 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the custom mouse icon.
+     * Gets or sets the custom mouse icon. (IInkCollector.get_MouseIcon)
      * @remarks
-     * 
      * The [propputref] function can accept a <b>NULL</b> reference, in which case S_OK is returned.
      * 
      * This property provides a custom icon that is used when the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer">MousePointer</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Custom</a>.
      * 
      * You can use the <b>MouseIcon</b> property to load either cursor or icon files. The <b>MouseIcon</b> property provides your application with access to custom cursors of any size with any desired hot spot location.
-     * 
-     * 
      * @returns {IPictureDisp} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_mouseicon
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon
      */
     get_MouseIcon() {
         result := ComCall(26, this, "ptr*", &MouseIcon := 0, "HRESULT")
@@ -830,7 +785,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
+     * Gets or sets the custom mouse icon.
+     * @remarks
+     * The [propputref] function can accept a <b>NULL</b> reference, in which case S_OK is returned.
      * 
+     * This property provides a custom icon that is used when the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer">MousePointer</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Custom</a>.
+     * 
+     * You can use the <b>MouseIcon</b> property to load either cursor or icon files. The <b>MouseIcon</b> property provides your application with access to custom cursors of any size with any desired hot spot location.
      * @param {IPictureDisp} MouseIcon 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_mouseicon
@@ -841,16 +802,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that indicates the type of mouse pointer that appears.
+     * Gets or sets a value that indicates the type of mouse pointer that appears. (IInkCollector.get_MousePointer)
      * @remarks
-     * 
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_mousepointer
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer
      */
     get_MousePointer() {
         result := ComCall(29, this, "int*", &MousePointer := 0, "HRESULT")
@@ -858,17 +816,14 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that indicates the type of mouse pointer that appears.
+     * Gets or sets a value that indicates the type of mouse pointer that appears. (IInkCollector.put_MousePointer)
      * @remarks
-     * 
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * 
-     * 
      * @param {Integer} MousePointer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_mousepointer
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_mousepointer
      */
     put_MousePointer(MousePointer) {
         result := ComCall(30, this, "int", MousePointer, "HRESULT")
@@ -876,9 +831,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets the collection of cursors that are available for use in the inking region. Each cursor corresponds to the tip of a pen or other ink input device.
+     * Gets the collection of cursors that are available for use in the inking region. Each cursor corresponds to the tip of a pen or other ink input device. (IInkCollector.get_Cursors)
      * @remarks
-     * 
      * Cursors are local to an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object.
      * 
      * Any new cursors that the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> encounters are added to the returned collection of cursors, although the returned cursors are not necessarily returned in the order in which the <b>InkCollector</b> encounters them.
@@ -893,10 +847,8 @@ class IInkCollector extends IDispatch{
      * <li>The tablet mode is changed (for example, from <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode">SetSingleTabletIntegratedMode</a> to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setalltabletsmode">SetAllTabletsMode</a>).</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode">SetSingleTabletIntegratedMode</a> method is called.</li>
      * </ul>
-     * 
-     * 
      * @returns {IInkCursors} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_cursors
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors
      */
     get_Cursors() {
         result := ComCall(31, this, "ptr*", &Cursors := 0, "HRESULT")
@@ -904,9 +856,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the x-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window.
+     * Gets or sets the x-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window. (IInkCollector.get_MarginX)
      * @remarks
-     * 
      * This property is most commonly used with nonintegrated tablet devices-the buffer gives users a margin of error when writing on a device that may not map 1 to 1 with the screen.
      * 
      * The margin is specified in screen coordinates. A positive margin extends outside the context, a negative margin extends inside the context, and a value of zero produces no margin. Ink is collected if the stroke starts within the margin. This behavior does not clip the ink. The context of the object or control is either the window input rectangle from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle">GetWindowInputRectangle</a> method or the client rectangle for the window.
@@ -915,10 +866,8 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable inking in the <b>InkOverlay</b> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. You can then set the <b>MarginX</b> property, and re-enable the object or control by setting the <b>Enabled</b> property (or <b>InkEnabled</b> property) to <b>TRUE</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_marginx
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_marginx
      */
     get_MarginX() {
         result := ComCall(32, this, "int*", &MarginX := 0, "HRESULT")
@@ -926,9 +875,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the x-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window.
+     * Gets or sets the x-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window. (IInkCollector.put_MarginX)
      * @remarks
-     * 
      * This property is most commonly used with nonintegrated tablet devices-the buffer gives users a margin of error when writing on a device that may not map 1 to 1 with the screen.
      * 
      * The margin is specified in screen coordinates. A positive margin extends outside the context, a negative margin extends inside the context, and a value of zero produces no margin. Ink is collected if the stroke starts within the margin. This behavior does not clip the ink. The context of the object or control is either the window input rectangle from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle">GetWindowInputRectangle</a> method or the client rectangle for the window.
@@ -937,11 +885,9 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable inking in the <b>InkOverlay</b> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. You can then set the <b>MarginX</b> property, and re-enable the object or control by setting the <b>Enabled</b> property (or <b>InkEnabled</b> property) to <b>TRUE</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} MarginX 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_marginx
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_marginx
      */
     put_MarginX(MarginX) {
         result := ComCall(33, this, "int", MarginX, "HRESULT")
@@ -949,9 +895,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the y-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window.
+     * Gets or sets the y-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window. (IInkCollector.get_MarginY)
      * @remarks
-     * 
      * This property is most commonly used with nonintegrated tablet devices-the buffer gives users a margin of error when writing on a device that may not map 1 to 1 with the screen.
      * 
      * The margin is specified in screen coordinates. A positive margin extends outside the context, a negative margin extends inside the context, and a value of zero produces no margin. Ink is collected if the stroke starts within the margin. This behavior does not clip the ink. The context of the object or control is either the window input rectangle from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle">GetWindowInputRectangle</a> method or the client rectangle for the window.
@@ -960,10 +905,8 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable inking in the <b>InkOverlay</b> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. You can then set the <b>MarginY</b> property, and re-enable the object or control by setting the <b>Enabled</b> property (or <b>InkEnabled</b> property) to <b>TRUE</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_marginy
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_marginy
      */
     get_MarginY() {
         result := ComCall(34, this, "int*", &MarginY := 0, "HRESULT")
@@ -971,9 +914,8 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets the y-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window.
+     * Gets or sets the y-axis margin around the window rectangle, in screen coordinates.This margin provides a buffer around the edge of the ink window. (IInkCollector.put_MarginY)
      * @remarks
-     * 
      * This property is most commonly used with nonintegrated tablet devices-the buffer gives users a margin of error when writing on a device that may not map 1 to 1 with the screen.
      * 
      * The margin is specified in screen coordinates. A positive margin extends outside the context, a negative margin extends inside the context, and a value of zero produces no margin. Ink is collected if the stroke starts within the margin. This behavior does not clip the ink. The context of the object or control is either the window input rectangle from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle">GetWindowInputRectangle</a> method or the client rectangle for the window.
@@ -982,11 +924,9 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control must be disabled before setting this property. To disable the <b>InkCollector</b> or <b>InkOverlay</b> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable inking in the <b>InkOverlay</b> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. You can then set the <b>MarginY</b> property, and re-enable the object or control by setting the <b>Enabled</b> property (or <b>InkEnabled</b> property) to <b>TRUE</b>.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} MarginY 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_marginy
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_marginy
      */
     put_MarginY(MarginY) {
         result := ComCall(35, this, "int", MarginY, "HRESULT")
@@ -994,16 +934,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets either the IInkTablet object to which a cursor belongs or the IInkTablet object that an object or control is currently using to collect input.
+     * Gets either the IInkTablet object to which a cursor belongs or the IInkTablet object that an object or control is currently using to collect input. (IInkCollector.get_Tablet)
      * @remarks
-     * 
      * For an object or control that collects ink, this property is valid only when the object or control is collecting ink from just one tablet. Accessing this property for an object or control that is collecting ink from all tablets generates an exception.
      * 
      * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
-     * 
-     * 
      * @returns {IInkTablet} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_tablet
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_tablet
      */
     get_Tablet() {
         result := ComCall(36, this, "ptr*", &SingleTablet := 0, "HRESULT")
@@ -1011,16 +948,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether ink is rendered as just one color when the system is in High Contrast mode.
+     * Gets or sets a value that specifies whether ink is rendered as just one color when the system is in High Contrast mode. (IInkCollector.get_SupportHighContrastInk)
      * @remarks
-     * 
      * This property changes the way ink renders when the system changes to High Contrast mode.
      * 
      * Real-time ink application uses the COLOR_WINDOWTEXT color when the system is in High Contrast mode and the <b>SupportHighContrastInk</b> property is <b>TRUE</b>, but the inherent color of a stroke made under these conditions remains unchanged. For example, if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_color">Color</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB(0,0,255)</a> (blue), the COLOR_WINDOWTEXT color is set to RGB(255,255,255) (white), and the system is in High Contrast mode, then a newly drawn stroke renders in white but the actual stroke color is still blue. For more information about this behavior, see the <b>Color</b> property and the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-get_supporthighcontrastink
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_supporthighcontrastink
      */
     get_SupportHighContrastInk() {
         result := ComCall(37, this, "short*", &Support := 0, "HRESULT")
@@ -1028,17 +962,14 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets or sets a value that specifies whether ink is rendered as just one color when the system is in High Contrast mode.
+     * Gets or sets a value that specifies whether ink is rendered as just one color when the system is in High Contrast mode. (IInkCollector.put_SupportHighContrastInk)
      * @remarks
-     * 
      * This property changes the way ink renders when the system changes to High Contrast mode.
      * 
      * Real-time ink application uses the COLOR_WINDOWTEXT color when the system is in High Contrast mode and the <b>SupportHighContrastInk</b> property is <b>TRUE</b>, but the inherent color of a stroke made under these conditions remains unchanged. For example, if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_color">Color</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB(0,0,255)</a> (blue), the COLOR_WINDOWTEXT color is set to RGB(255,255,255) (white), and the system is in High Contrast mode, then a newly drawn stroke renders in white but the actual stroke color is still blue. For more information about this behavior, see the <b>Color</b> property and the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function.
-     * 
-     * 
      * @param {VARIANT_BOOL} Support 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-put_supporthighcontrastink
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_supporthighcontrastink
      */
     put_SupportHighContrastInk(Support) {
         result := ComCall(38, this, "short", Support, "HRESULT")
@@ -1046,7 +977,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Modifies the interest of the object or control in a known gesture.
+     * Modifies the interest of the object or control in a known gesture. (IInkCollector.SetGestureStatus)
+     * @remarks
+     * To get the interest of the object or control in a known gesture, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getgesturestatus">GetGestureStatus</a> method.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">IAG_AllGestures</a> gesture ID is not supported by the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control and returns an error. Passing invalid Gesture IDs does not return an error for InkEdit, but fails for <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a>.
+     * 
+     * For the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control, this method should only be called if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns <a href="https://docs.microsoft.com/windows/desktop/api/inked/ne-inked-inkeditstatus">IES_Idle</a>.
      * @param {Integer} Gesture The gesture that you want to set the status of.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> to indicate that the gesture is being used or <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
@@ -1134,7 +1071,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-setgesturestatus
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setgesturestatus
      */
     SetGestureStatus(Gesture, Listen) {
         result := ComCall(39, this, "int", Gesture, "short", Listen, "HRESULT")
@@ -1143,9 +1080,16 @@ class IInkCollector extends IDispatch{
 
     /**
      * Indicates whether the InkCollector or InkOverlay object is interested in a particular application gesture.
+     * @remarks
+     * This method throws an exception if the gesture parameter is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">IAG_AllGestures</a>.
+     * 
+     * To set the interest of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> or <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object in a particular gesture, call the <b>InkCollector</b> or <b>InkOverlay</b> object's <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setgesturestatus">SetGestureStatus</a> method.
+     * 
+     * <div class="alert"><b>Note</b>  By default, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> objects do not have interest in any of the application gestures.</div>
+     * <div> </div>
      * @param {Integer} Gesture Sets the gesture that you want the status of.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the InkCollector control has interest in a particular application gesture; otherwise, <b>VARIANT_VALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-getgesturestatus
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-getgesturestatus
      */
     GetGestureStatus(Gesture) {
         result := ComCall(40, this, "int", Gesture, "short*", &Listening := 0, "HRESULT")
@@ -1153,7 +1097,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Gets the window rectangle, in pixels, within which ink is drawn.
+     * Gets the window rectangle, in pixels, within which ink is drawn. (IInkCollector.GetWindowInputRectangle)
+     * @remarks
+     * You must first allocate the rectangle before passing it on to this method.
+     * 
+     * By default, the window input rectangle is set to {0,0,0,0}. This default rectangle maps to the size of the entire window.
+     * 
+     * If you call <b>GetWindowInputRectangle</b> before you call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle">SetWindowInputRectangle</a> method, this method gets a rectangle with the default coordinates.
      * @param {Pointer<IInkRectangle>} WindowInputRectangle The rectangle, of type <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle</a>, on which ink is drawn.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1207,7 +1157,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-getwindowinputrectangle
      */
     GetWindowInputRectangle(WindowInputRectangle) {
         result := ComCall(41, this, "ptr*", WindowInputRectangle, "HRESULT")
@@ -1215,7 +1165,22 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Sets the window rectangle, in pixels, within which ink is drawn.
+     * Sets the window rectangle, in pixels, within which ink is drawn. (IInkCollector.SetWindowInputRectangle)
+     * @remarks
+     * The E_INK_OVERLAPPING_INPUT_RECT error is returned if the window input rectangle of an enabled ink collector (set with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property) overlaps the window input rectangle of another enabled ink collector.
+     * 
+     * <div class="alert"><b>Note</b>  Overlap can occur without an error as long as only one of the input rectangles is enabled at any known time.</div>
+     * <div> </div>
+     * By default, the window input rectangle is set to {0,0,0,0}. This default rectangle maps to the size of the entire window.
+     * 
+     * To reset the window input rectangle to its default behavior (an empty rectangle with coordinates {0,0,0,0}), pass {0,0,0,0} in the call to <b>SetWindowInputRectangle</b>, and not <b>NULL</b>.
+     * 
+     * You cannot pass in a rectangle where the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_right">Right</a> property is less than the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_left">Left</a> property; or where the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom">Bottom</a> property is less than the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_top">Top</a> property. For example, a rectangle with parameters of {500, 500, 400, 400} is not valid.
+     * 
+     * <div class="alert"><b>Caution</b>  If you set the window input rectangle to overlap a splitter control or the borders of the window, unpredictable results may occur when the window is resized.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  Calling this method within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt+TAB or Alt+ESC key combinations). This is an issue with single-threaded apartment model applications.</div>
+     * <div> </div>
      * @param {IInkRectangle} WindowInputRectangle The rectangle, in window coordinates, on which ink is drawn.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1291,7 +1256,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle
      */
     SetWindowInputRectangle(WindowInputRectangle) {
         result := ComCall(42, this, "ptr", WindowInputRectangle, "HRESULT")
@@ -1299,7 +1264,16 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Allows an ink collector (InkCollector, InkOverlay, or InkPicture) to collect ink from any tablet attached to the Tablet PC.
+     * Allows an ink collector (InkCollector, InkOverlay, or InkPicture) to collect ink from any tablet attached to the Tablet PC. (IInkCollector.SetAllTabletsMode)
+     * @remarks
+     * This is the default mode for an object or control that collects ink. To allow the ink collector to collect ink from only one tablet, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode">SetSingleTabletIntegratedMode</a> method.
+     * 
+     * <div class="alert"><b>Note</b>  The ink collector must be disabled before calling this method. To disable the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. After calling the <b>SetAllTabletsMode</b> method, re-enable the object or control by setting the <b>Enabled</b> (or <b>InkEnabled</b>) property to <b>TRUE</b>.</div>
+     * <div> </div>
+     * When an ink collector switches from ink collection using a single tablet to ink collection using all tablets, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors">Cursors</a> property is set to the empty collection.
+     * 
+     * <div class="alert"><b>Note</b>  If the <b>SetAllTabletsMode</b> method is called with the <i>useMouse</i> parameter set to <b>TRUE</b>, the mouse is used as an input device. If the <b>SetAllTabletsMode</b> method is then called with the <i>useMouse</i> parameter set to <b>VARIANT_FALSE</b>, the mouse is not removed from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors">Cursors</a> property.</div>
+     * <div> </div>
      * @param {VARIANT_BOOL} UseMouseForInput <b>VARIANT_TRUE</b> to use the mouse for input; otherwise, <b>VARIANT_FALSE</b>. The default value is <b>VARIANT_TRUE</b>. This parameter is optional.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1353,7 +1327,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-setalltabletsmode
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setalltabletsmode
      */
     SetAllTabletsMode(UseMouseForInput) {
         result := ComCall(43, this, "short", UseMouseForInput, "HRESULT")
@@ -1361,7 +1335,13 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Allows the ink collector (InkCollector, InkOverlay, or InkPicture) to collect ink from only one tablet. Ink from other tablets is ignored by the ink collector.
+     * Allows the ink collector (InkCollector, InkOverlay, or InkPicture) to collect ink from only one tablet. Ink from other tablets is ignored by the ink collector. (IInkCollector.SetSingleTabletIntegratedMode)
+     * @remarks
+     * To allow the ink collector to collect ink from all tablets, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setalltabletsmode">SetAllTabletsMode</a> method.
+     * 
+     * <div class="alert"><b>Note</b>  The ink collector object or control that collects ink must be disabled before calling this method. To disable the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object or the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> property to <b>FALSE</b>. To disable the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control, set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled">InkEnabled</a> property to <b>FALSE</b>. After calling the <b>SetSingleTabletIntegratedMode</b> method, re-enable the object or control by setting the <b>Enabled</b> (or <b>InkEnabled</b>) property to <b>TRUE</b>.</div>
+     * <div> </div>
+     * When this method is called, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors">Cursors</a> property of the ink collector is set to the empty collection.
      * @param {IInkTablet} Tablet The tablet on which ink is collected, or drawn.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1426,7 +1406,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode
      */
     SetSingleTabletIntegratedMode(Tablet) {
         result := ComCall(44, this, "ptr", Tablet, "HRESULT")
@@ -1434,10 +1414,10 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Retrieves the interest an object has in a particular event for the InkCollector class, InkOverlay class, or InkPicture class.
+     * Retrieves the interest an object has in a particular event for the InkCollector class, InkOverlay class, or InkPicture class. (IInkCollector.GetEventInterest)
      * @param {Integer} EventId The event this method checks the interest of.
      * @returns {VARIANT_BOOL} <b>VARIANT_BOOL</b> if interest in the specified event has been set; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-geteventinterest
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-geteventinterest
      */
     GetEventInterest(EventId) {
         result := ComCall(45, this, "int", EventId, "short*", &Listen := 0, "HRESULT")
@@ -1445,7 +1425,11 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * Modifies a value that indicates whether an object or control has interest in a specified event.
+     * Modifies a value that indicates whether an object or control has interest in a specified event. (IInkCollector.SetEventInterest)
+     * @remarks
+     * All ink collector events can be toggled by using this method. Most of these events are turned off by default for performance reasons. The only events that are on by default are <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursorinrange">CursorInRange</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursoroutofrange">CursorOutOfRange</a>.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newpackets">NewPackets</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newinairpackets">NewInAirPackets</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursordown">CursorDown</a> events carefully, in particular because they may have an adverse effect on ink performance if too much code is executed in the event handlers.
      * @param {Integer} EventId The event to be listened for.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> to indicate that the event is being used; <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
@@ -1500,7 +1484,7 @@ class IInkCollector extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcollector-seteventinterest
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-seteventinterest
      */
     SetEventInterest(EventId, Listen) {
         result := ComCall(46, this, "int", EventId, "short", Listen, "HRESULT")

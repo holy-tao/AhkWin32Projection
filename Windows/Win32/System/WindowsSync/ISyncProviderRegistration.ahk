@@ -12,7 +12,7 @@
 
 /**
  * Represents synchronization provider registration.
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-isyncproviderregistration
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-isyncproviderregistration
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -45,9 +45,11 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Creates an in-memory instance of a synchronization provider configuration UI.
+     * @remarks
+     * The configuration UI is not registered on the system until the <b>ISyncProviderConfigUIInfo::Commit</b> method is called. This method is inherited by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderconfiguiinfo">ISyncProviderConfigUIInfo</a> from <b>IPropertyStore</b>.
      * @param {Pointer<SyncProviderConfigUIConfiguration>} pConfigUIConfig A <a href="https://docs.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration">SyncProviderConfigUIConfiguration</a> structure that contains the configuration UI registration information.
      * @returns {ISyncProviderConfigUIInfo} Returns a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderconfiguiinfo">ISyncProviderConfigUIInfo</a> interface that is used to store the configuration UI’s UX elements and any necessary persisted configuration information.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderconfiguiregistrationinstance
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderconfiguiregistrationinstance
      */
     CreateSyncProviderConfigUIRegistrationInstance(pConfigUIConfig) {
         result := ComCall(3, this, "ptr", pConfigUIConfig, "ptr*", &ppConfigUIInfo := 0, "HRESULT")
@@ -98,7 +100,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-unregistersyncproviderconfigui
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-unregistersyncproviderconfigui
      */
     UnregisterSyncProviderConfigUI(pguidInstanceId) {
         result := ComCall(4, this, "ptr", pguidInstanceId, "HRESULT")
@@ -116,7 +118,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </ul>
      * If this parameter is set to zero, synchronization providers for all architectures will be enumerated.
      * @returns {IEnumSyncProviderConfigUIInfos} A reference to an <b>IEnumSyncProviderConfigUIInfos</b>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviderconfiguis
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviderconfiguis
      */
     EnumerateSyncProviderConfigUIs(pguidContentType, dwSupportedArchitecture) {
         result := ComCall(5, this, "ptr", pguidContentType, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
@@ -125,9 +127,11 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Creates an in-memory instance of a synchronization provider.
+     * @remarks
+     * The synchronization provider is not registered on the system until the <b>ISyncProviderInfo::Commit</b> method is called. This method is inherited by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderinfo">ISyncProviderInfo</a> from <b>IPropertyStore</b>. For an example of this, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/overview-of-registering-a-synchronization-provider">Overview of Registering a Synchronization Provider</a>.
      * @param {Pointer<SyncProviderConfiguration>} pProviderConfiguration A <a href="https://docs.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguration">SyncProviderConfiguration</a> structure that contains the synchronization provider registration information.
      * @returns {ISyncProviderInfo} Returns a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncproviderinfo">ISyncProviderInfo</a> interface that is used to obtain information about the synchronization provider and access the configuration property store in order to store the synchronization provider configuration.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderregistrationinstance
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderregistrationinstance
      */
     CreateSyncProviderRegistrationInstance(pProviderConfiguration) {
         result := ComCall(6, this, "ptr", pProviderConfiguration, "ptr*", &ppProviderInfo := 0, "HRESULT")
@@ -178,7 +182,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-unregistersyncprovider
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-unregistersyncprovider
      */
     UnregisterSyncProvider(pguidInstanceId) {
         result := ComCall(7, this, "ptr", pguidInstanceId, "HRESULT")
@@ -187,9 +191,13 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Returns an ISyncProviderConfigUIInfo object for the specified synchronization provider instance ID.
+     * @remarks
+     * This method is used to get and set the configuration UI properties for the specified  synchronization provider and to obtain the <b>ISyncProviderConfigUI</b> instance.
+     * 
+     * This method is used to obtain an <b>ISyncProviderConfigUIInfo</b> object when the instance ID is not known, but the instance ID of the  synchronization provider is known. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguifrominstanceid">GetSyncProviderConfigUIFromInstanceId</a> method should be used if you want to access an <b>ISyncProviderConfigUIInfo</b> object directly using the instance ID of an <b>ISyncProviderConfigUI</b>.
      * @param {Pointer<Guid>} pguidProviderInstanceId The unique instance ID of the synchronization provider.
      * @returns {ISyncProviderConfigUIInfo} The configuration UI information object.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfoforprovider
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfoforprovider
      */
     GetSyncProviderConfigUIInfoforProvider(pguidProviderInstanceId) {
         result := ComCall(8, this, "ptr", pguidProviderInstanceId, "ptr*", &ppProviderConfigUIInfo := 0, "HRESULT")
@@ -220,7 +228,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </ul>
      * If this parameter is set to zero, synchronization providers for all architectures will be enumerated.
      * @returns {IEnumSyncProviderInfos} The <b>IEnumSyncProviderInfos</b> enumeration interface that will enumerate all <b>ISyncProviderInfo</b> objects that match the specified criteria.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders
      */
     EnumerateSyncProviders(pguidContentType, dwStateFlagsToFilterMask, dwStateFlagsToFilter, refProviderClsId, dwSupportedArchitecture) {
         result := ComCall(9, this, "ptr", pguidContentType, "uint", dwStateFlagsToFilterMask, "uint", dwStateFlagsToFilter, "ptr", refProviderClsId, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
@@ -229,9 +237,11 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Returns an ISyncProviderInfo object for the specific synchronization provider instance ID.
+     * @remarks
+     * By calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderinfo-getsyncprovider">GetSyncProvider</a> method of the <b>ISyncProviderInfo</b> object that is returned by this method,  you can get and set the properties of the synchronization provider, and  obtain the synchronization provider's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-iregisteredsyncprovider">IRegisteredSyncProvider</a> instance.
      * @param {Pointer<Guid>} pguidInstanceId The unique instance ID of the synchronization provider.
      * @returns {ISyncProviderInfo} The synchronization provider information object.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderinfo
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderinfo
      */
     GetSyncProviderInfo(pguidInstanceId) {
         result := ComCall(10, this, "ptr", pguidInstanceId, "ptr*", &ppProviderInfo := 0, "HRESULT")
@@ -240,10 +250,13 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Returns an initialized and instantiated IRegisteredSyncProvider object for the specific unique instance ID.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The caller of this method should not explicitly call <b>IRegisteredSyncProvider::Init</b> on the <b>IRegisteredSyncProvider</b> object that is returned, as this method will do this on the caller's behalf. The caller should call <b>QueryInterface</b> on the <b>IRegisteredSyncProvider</b> object that is returned to obtain an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncprovider">ISyncProvider</a> interface to pass to the synchronization session.</div>
+     * <div> </div>
      * @param {Pointer<Guid>} pguidInstanceId The unique instance ID of the <b>IRegisteredSyncProvider</b> object.
      * @param {Integer} dwClsContext The context in which the code that manages the newly created object will run. The only context supported is <b>CLSCTX_INPROC_SERVER</b>.
      * @returns {IRegisteredSyncProvider} The initialized and instantiated synchronization provider object.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderfrominstanceid
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderfrominstanceid
      */
     GetSyncProviderFromInstanceId(pguidInstanceId, dwClsContext) {
         result := ComCall(11, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
@@ -252,9 +265,11 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Returns an ISyncProviderConfigUIInfo object for the given unique instance ID.
+     * @remarks
+     * This method is used to get and set the configuration UI properties for the specified  configuration UI object.
      * @param {Pointer<Guid>} pguidInstanceId The unique instance ID of the <b>ISyncProviderConfigUIInfo</b> object.
      * @returns {ISyncProviderConfigUIInfo} The configuration UI information object.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfo
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfo
      */
     GetSyncProviderConfigUIInfo(pguidInstanceId) {
         result := ComCall(12, this, "ptr", pguidInstanceId, "ptr*", &ppConfigUIInfo := 0, "HRESULT")
@@ -263,10 +278,12 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Returns an initialized and instantiated ISyncProviderConfigUI object for the given unique instance ID.
+     * @remarks
+     * This method is used to obtain an <b>ISyncProviderConfigUIInfo</b> directly when the instance ID of the <b>ISyncProviderConfigUI</b> is known. The  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfoforprovider">GetSyncProviderConfigUIInfoforProvider</a> method can be used to access an <b>ISyncProviderConfigUIInfo</b> object from the instance ID of a synchronization provider.
      * @param {Pointer<Guid>} pguidInstanceId The unique instance ID of the <b>ISyncProviderConfigUI</b> object.
      * @param {Integer} dwClsContext The context in which the code that manages the newly created object will run. The only context supported is <b>CLSCTX_INPROC_SERVER</b>.
      * @returns {ISyncProviderConfigUI} The initialized and instantiated configuration UI object.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguifrominstanceid
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguifrominstanceid
      */
     GetSyncProviderConfigUIFromInstanceId(pguidInstanceId, dwClsContext) {
         result := ComCall(13, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", &ppConfigUI := 0, "HRESULT")
@@ -286,7 +303,7 @@ class ISyncProviderRegistration extends IUnknown{
      * 
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderstate
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderstate
      */
     GetSyncProviderState(pguidInstanceId) {
         result := ComCall(14, this, "ptr", pguidInstanceId, "uint*", &pdwStateFlags := 0, "HRESULT")
@@ -295,6 +312,8 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Sets the state of the specified synchronization provider.
+     * @remarks
+     * To get the synchronization provider state, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderstate">GetSyncProviderState</a> method.
      * @param {Pointer<Guid>} pguidInstanceId The unique instance ID of the synchronization provider.
      * @param {Integer} dwStateFlagsMask A synchronization provider state flag that can be used to mask (preserve or remove) the existing state. If this parameter is set to zero, all synchronization provider states will be enumerated. See the <i>dwStateFlags</i> parameter description for a list of flags.
      * @param {Integer} dwStateFlags One of the following flags that represent the synchronization provider state.
@@ -349,7 +368,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-setsyncproviderstate
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-setsyncproviderstate
      */
     SetSyncProviderState(pguidInstanceId, dwStateFlagsMask, dwStateFlags) {
         result := ComCall(15, this, "ptr", pguidInstanceId, "uint", dwStateFlagsMask, "uint", dwStateFlags, "HRESULT")
@@ -357,7 +376,11 @@ class ISyncProviderRegistration extends IUnknown{
     }
 
     /**
-     * Registers the user to receive notification of the arrival of new registration events that oocur when changes are made to the registration store.
+     * Registers the user to receive notification of the arrival of new registration events that occur when changes are made to the registration store.
+     * @remarks
+     * The <b>HANDLE</b> returned by this method is used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-getchange">GetChange</a> method. The event will only be set once from the <b>RegisterForEvent</b> call.  Any subsequent notifications will only occur when the user calls the <b>GetChange</b> method.
+     * 
+     * To unregister from this event notification system, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-revokeevent">RevokeEvent</a> method.
      * @param {Pointer<HANDLE>} phEvent A <b>HANDLE</b> to a synchronization event that is used to notify
      * 		the caller about the arrival of new registration
      * 		events.
@@ -395,7 +418,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-registerforevent
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-registerforevent
      */
     RegisterForEvent(phEvent) {
         result := ComCall(16, this, "ptr", phEvent, "HRESULT")
@@ -404,6 +427,8 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Unregisters the user from the notification of the arrival of new registration events.
+     * @remarks
+     * This method closes the specified <b>HANDLE</b> and cleans up any related memory.
      * @param {HANDLE} hEvent The <b>HANDLE</b> returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-registerforevent">RegisterForEvent</a> method.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -435,7 +460,7 @@ class ISyncProviderRegistration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-revokeevent
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-revokeevent
      */
     RevokeEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -446,10 +471,14 @@ class ISyncProviderRegistration extends IUnknown{
 
     /**
      * Gets an ISyncRegistrationChange object that represents a new registration event.
+     * @remarks
+     * This method resets the event that is passed in so that it will be set on a subsequent change in the registration store.  In order to retrieve all events from the store, this method should be called until <b>S_FALSE</b> is returned and <i>ppChange</i> is <b>NULL</b>.
+     * 
+     * This method returns the changes that have occurred since <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-registerforevent">RegisterForEvent</a> or <b>GetChange</b> (whichever happened last) was last called for the given <b>HANDLE</b>.  This means that if multiple changes are made to an item before <b>GetChange</b> can be called, these changes will be represented as a single change object returned from <b>GetChange</b>.  In the case of an item being registered and unregistered between calls, no change will be returned.
      * @param {HANDLE} hEvent A <b>HANDLE</b> returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-registerforevent">RegisterForEvent</a> method.
      * @returns {ISyncRegistrationChange} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nn-syncregistration-isyncregistrationchange">ISyncRegistrationChange</a> object
      *     that contains the event, and the ID of the synchronization provider or synchronization provider configuration UI that has changed.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderregistration-getchange
+     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getchange
      */
     GetChange(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent

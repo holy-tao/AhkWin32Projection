@@ -6,13 +6,11 @@
 /**
  * Deprecated. Exposes methods to identify, invoke, and update an individual item in the browser's travel history.
  * @remarks
- * 
  * Travel entries represented by <b>ITravelEntry</b> are created and maintained internally by the travel log (<a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>). Calling applications rarely use <b>ITravelEntry</b> directly.
  * 
  * <div class="alert"><b>Note</b>  <b>ITravelEntry</b> may not be supported in versions of Windows later than Windows XP.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-itravelentry
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itravelentry
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,8 +42,8 @@ class ITravelEntry extends IUnknown{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> representing the browser or frame within which the travel operation generating the entry is taking place.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravelentry-invoke
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-invoke
      */
     Invoke(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
@@ -62,8 +60,8 @@ class ITravelEntry extends IUnknown{
      * The value specifying whether the new entry is a local anchor.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravelentry-update
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-update
      */
     Update(punk, fIsLocalAnchor) {
         result := ComCall(4, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
@@ -75,7 +73,7 @@ class ITravelEntry extends IUnknown{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
      * 
      * The travel entry's PIDL.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravelentry-getpidl
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-getpidl
      */
     GetPidl() {
         result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")

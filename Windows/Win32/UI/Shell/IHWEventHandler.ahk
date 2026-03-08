@@ -6,12 +6,10 @@
 /**
  * Called by AutoPlay to implement the handling of registered media types.
  * @remarks
- * 
  * Developers supporting this interface must expose it in a Component Object Model (COM) server.
  * 
  * All applications registered as AutoPlay media handlers must implement this interface. Handlers that implement this interface should return quickly from calls to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent">IHWEventHandler::HandleEvent</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd">IHWEventHandler2::HandleEventWithHWND</a> so they won't block the AutoPlay dialog from closing. Additionally, if a local server must be launched for the creation of this handler, it should not block the CreateInstance call; it should return as soon as possible.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ihweventhandler
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ihweventhandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,13 +36,17 @@ class IHWEventHandler extends IUnknown{
 
     /**
      * Initializes an object that contains an implementation of the IHWEventHandler interface.
+     * @remarks
+     * This method receives the registry string stored in the InitCmdLine value under the
+     *         
+     * <b>AutoPlayHandlers</b>&#92;<b>Handlers</b>&#92;<i>HandlerName</i> key. Applications that have registered with AutoPlay as event handlers place this string into the registry as part of the registration process.
      * @param {PWSTR} pszParams Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string buffer that contains the string from the following registry value.
      *           
      * 
      * 
-     * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+     * <pre><b>HKEY_LOCAL_MACHINE</b>
      *    <b>Software</b>
      *       <b>Microsoft</b>
      *          <b>Windows</b>
@@ -56,8 +58,8 @@ class IHWEventHandler extends IUnknown{
      *                            <b>InitCmdLine</b> = string</pre>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-initialize
      */
     Initialize(pszParams) {
         pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
@@ -68,6 +70,8 @@ class IHWEventHandler extends IUnknown{
 
     /**
      * Handles AutoPlay device events for which there is no content of the type the application is registered to handle.
+     * @remarks
+     * The event types are not C/C++ language constants; they are literal text strings.
      * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string buffer that contains the device ID.
@@ -79,8 +83,8 @@ class IHWEventHandler extends IUnknown{
      * A pointer to a string buffer that contains the event type. The event types include DeviceArrival, DeviceRemoval, MediaArrival, and MediaRemoval.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-handleevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent
      */
     HandleEvent(pszDeviceID, pszAltDeviceID, pszEventType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
@@ -92,14 +96,14 @@ class IHWEventHandler extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (IHWEventHandler.HandleEventWithContent)
      * @param {PWSTR} pszDeviceID This parameter is unused.
      * @param {PWSTR} pszAltDeviceID This parameter is unused.
      * @param {PWSTR} pszEventType This parameter is unused.
      * @param {PWSTR} pszContentTypeHandler This parameter is unused.
      * @param {IDataObject} pdataobject This parameter is unused.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-handleeventwithcontent
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-handleeventwithcontent
      */
     HandleEventWithContent(pszDeviceID, pszAltDeviceID, pszEventType, pszContentTypeHandler, pdataobject) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID

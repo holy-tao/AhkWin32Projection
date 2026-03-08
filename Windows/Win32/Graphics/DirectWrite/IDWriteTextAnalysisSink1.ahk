@@ -5,7 +5,7 @@
 
 /**
  * The interface you implement to receive the output of the text analyzers.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritetextanalysissink1
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalysissink1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a successful code or an error code to abort analysis.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation
      */
     SetGlyphOrientation(textPosition, textLength, glyphOrientationAngle, adjustedBidiLevel, isSideways, isRightToLeft) {
         result := ComCall(7, this, "uint", textPosition, "uint", textLength, "int", glyphOrientationAngle, "char", adjustedBidiLevel, "int", isSideways, "int", isRightToLeft, "HRESULT")

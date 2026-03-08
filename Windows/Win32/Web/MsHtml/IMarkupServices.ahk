@@ -96,10 +96,23 @@ class IMarkupServices extends IUnknown{
     }
 
     /**
-     * 
+     * Removes a TPM command from the local list of commands blocked from running on the computer.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * Common return codes are listed below.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                 | Description                           |
+     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
     Remove(pPointerStart, pPointerFinish) {
         result := ComCall(9, this, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
@@ -107,11 +120,18 @@ class IMarkupServices extends IUnknown{
     }
 
     /**
-     * 
+     * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winuser.h header defines CopyAcceleratorTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>int</b>
+     * 
+     * If 
+     *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyacceleratortablew
      */
     Copy(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
         result := ComCall(10, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")
@@ -119,11 +139,47 @@ class IMarkupServices extends IUnknown{
     }
 
     /**
+     * Moves a group and all of its resources from one node to another.
+     * @remarks
+     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
      * 
+     * If you want your application to ensure a particular state for a resource or a group after a move:
+     * 
+     * <ol>
+     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
+     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
+     * </ol>
+     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
+     * 
+     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
+     * 
+     * If the operation fails, 
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_IO_PENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The reassignment of ownership of the group is in progress.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
      */
     Move(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
         result := ComCall(11, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")

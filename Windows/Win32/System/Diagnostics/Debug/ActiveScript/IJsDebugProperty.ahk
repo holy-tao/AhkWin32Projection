@@ -31,9 +31,12 @@ class IJsDebugProperty extends IUnknown{
     static VTableNames => ["GetPropertyInfo", "GetMembers"]
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} nRadix 
      * @returns {JsDebugPropertyInfo} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(nRadix) {
         pPropertyInfo := JsDebugPropertyInfo()

@@ -9,7 +9,7 @@
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskservice
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskservice
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -76,7 +76,7 @@ class ITaskService extends IDispatch{
      * @returns {ITaskFolder} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface for the requested folder.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-getfolder
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getfolder
      */
     GetFolder(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -91,7 +91,7 @@ class ITaskService extends IDispatch{
      * @returns {IRunningTaskCollection} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-irunningtaskcollection">IRunningTaskCollection</a> interface that contains the currently running tasks.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-irunningtaskcollection">IRunningTaskCollection</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-getrunningtasks
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getrunningtasks
      */
     GetRunningTasks(flags) {
         result := ComCall(8, this, "int", flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
@@ -106,7 +106,7 @@ class ITaskService extends IDispatch{
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskdefinition">ITaskDefinition</a> interface pointer. Referencing a non-NULL pointer can cause a memory leak because the pointer will be overwritten.
      * 
      * The returned <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskdefinition">ITaskDefinition</a> pointer must be released after it is used.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-newtask
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-newtask
      */
     NewTask(flags) {
         result := ComCall(9, this, "uint", flags, "ptr*", &ppDefinition := 0, "HRESULT")
@@ -115,6 +115,16 @@ class ITaskService extends IDispatch{
 
     /**
      * Connects to a remote computer and associates all subsequent calls on this interface with a remote session.
+     * @remarks
+     * The <b>ITaskService::Connect</b> method should be called before calling any of the other <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskservice">ITaskService</a> methods.
+     * 
+     * If you are to connecting to a remote Windows Vista computer from a Windows Vista, you need to allow the Remote Scheduled Tasks Management firewall exception on the remote computer. To allow this exception click <b>Start</b>, <b>Control Panel</b>, <b>Security</b>, <b>Allow a program through Windows Firewall</b>, and then select the <b>Remote Scheduled Tasks Management</b> check box. Then click the <b>Ok</b> button in the Windows Firewall Settings dialog box.
+     * 
+     * If you are connecting to a remote Windows XP or Windows Server 2003 computer from a Windows Vista computer, you need to allow the File and Printer Sharing firewall exception on the remote computer. To allow this exception click <b>Start</b>, <b>Control Panel</b>, double-click <b>Windows Firewall</b>, select the <b>Exceptions</b> tab, and then select the <b>File and Printer Sharing</b> firewall exception. Then click the <b>OK</b> button in the Windows Firewall dialog box. The Remote Registry service must also be running on the remote computer.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  The <b>ITaskService::Connect</b> may return an  error <b>SCHED_E_INVALIDVALUE</b> while reading the task definition if the schema of the remote task is not supported by the current machine. To verify the highest schema version supported by the current machine, check the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskservice-highestversion"> ITaskService::HighestVersion</a> property.</div>
+     * <div> </div>
      * @param {VARIANT} serverName The name of the computer that you want to connect to. If the <i>serverName</i> parameter is empty, then this method will execute on the local computer.
      * @param {VARIANT} user The user name that is used during the connection to the computer. If the <i>user</i> is not specified, then the current token is used.
      * @param {VARIANT} domain The domain of the user specified in the <i>user</i> parameter.
@@ -206,7 +216,7 @@ class ITaskService extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-connect
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-connect
      */
     Connect(serverName, user, domain, password) {
         result := ComCall(10, this, "ptr", serverName, "ptr", user, "ptr", domain, "ptr", password, "HRESULT")
@@ -216,7 +226,7 @@ class ITaskService extends IDispatch{
     /**
      * Gets a Boolean value that indicates if you are connected to the Task Scheduler service.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-get_connected
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connected
      */
     get_Connected() {
         result := ComCall(11, this, "short*", &pConnected := 0, "HRESULT")
@@ -226,12 +236,9 @@ class ITaskService extends IDispatch{
     /**
      * Gets the name of the computer that is running the Task Scheduler service that the user is connected to.
      * @remarks
-     * 
      * This property returns an empty string when the user passes an IP address, Localhost, or  '.' into the <i>pServer</i> parameter, and it returns the name of the computer that is running the Task Scheduler service when the user does not pass any parameter value.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-get_targetserver
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_targetserver
      */
     get_TargetServer() {
         pServer := BSTR()
@@ -242,7 +249,7 @@ class ITaskService extends IDispatch{
     /**
      * Gets the name of the user that is connected to the Task Scheduler service.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-get_connecteduser
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteduser
      */
     get_ConnectedUser() {
         pUser := BSTR()
@@ -253,7 +260,7 @@ class ITaskService extends IDispatch{
     /**
      * Gets the name of the domain to which the TargetServer computer is connected.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-get_connecteddomain
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteddomain
      */
     get_ConnectedDomain() {
         pDomain := BSTR()
@@ -264,7 +271,7 @@ class ITaskService extends IDispatch{
     /**
      * Indicates the highest version of Task Scheduler that a computer supports.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskservice-get_highestversion
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_highestversion
      */
     get_HighestVersion() {
         result := ComCall(15, this, "uint*", &pVersion := 0, "HRESULT")

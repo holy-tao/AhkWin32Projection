@@ -6,7 +6,7 @@
 
 /**
  * Contains information about a localized image that is associated with an update or a category.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iimageinformation
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iimageinformation
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -62,7 +62,7 @@ class IImageInformation extends IDispatch{
     /**
      * Gets the alternate text for the image.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_alttext
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_alttext
      */
     get_AltText() {
         retval := BSTR()
@@ -73,7 +73,7 @@ class IImageInformation extends IDispatch{
     /**
      * Gets the height of the image, in pixels.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_height
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_height
      */
     get_Height() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -83,7 +83,7 @@ class IImageInformation extends IDispatch{
     /**
      * Gets the source location of the image.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_source
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_source
      */
     get_Source() {
         retval := BSTR()
@@ -94,7 +94,7 @@ class IImageInformation extends IDispatch{
     /**
      * Gets the width of the image, in pixels.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_width
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_width
      */
     get_Width() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")

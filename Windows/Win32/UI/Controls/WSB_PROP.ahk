@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollprop">FlatSB_GetScrollProp</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollpropptr">FlatSB_GetScrollPropPtr</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollprop">FlatSB_SetScrollProp</see>.
+ * @see 
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

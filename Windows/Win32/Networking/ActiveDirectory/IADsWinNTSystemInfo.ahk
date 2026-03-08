@@ -6,7 +6,7 @@
 
 /**
  * The IADsWinNTSystemInfo interface retrieves the WinNT system information about a computer. Such system information includes user account name, user domain, host name, and the primary domain controller of the host computer.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadswinntsysteminfo
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadswinntsysteminfo
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

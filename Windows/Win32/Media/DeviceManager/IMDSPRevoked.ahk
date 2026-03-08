@@ -5,7 +5,7 @@
 
 /**
  * The IMDSPRevoked interface retrieves the URL from which updated components can be downloaded. Implementing this interface is optional. For more information, see Mandatory and Optional Interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdsprevoked
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdsprevoked
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class IMDSPRevoked extends IUnknown{
     static VTableNames => ["GetRevocationURL"]
 
     /**
-     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded.
+     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded. (IMDSPRevoked.GetRevocationURL)
+     * @remarks
+     * The <b>IMDSPRevoked</b> interface retrieves the URL from which updated components can be downloaded if the service provider is ever revoked by any digital rights management system. If this method is not implemented, a default Microsoft URL will be used. This location is maintained by Microsoft and contains updates to components revoked by the Microsoft digital rights management system.
      * @param {Pointer<PWSTR>} ppwszRevocationURL Pointer to a Unicode string where the revocation URL should be written.
      * @param {Pointer<Integer>} pdwBufferLen Number of <b>WCHAR</b> characters that the buffer supplied by the client can hold; on return it contains the required number of characters.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -41,8 +43,8 @@ class IMDSPRevoked extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdsprevoked-getrevocationurl
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdsprevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
         ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"

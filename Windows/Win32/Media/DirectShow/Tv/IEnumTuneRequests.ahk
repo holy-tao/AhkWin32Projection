@@ -7,11 +7,8 @@
 /**
  * The IEnumTuneRequests interface provides access to a collection of tune requests returned from a call to IGuideData::GetServices. This collection of tune requests represents all the services available in the tuning space.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumTuneRequests)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-ienumtunerequests
+ * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-ienumtunerequests
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -71,7 +68,7 @@ class IEnumTuneRequests extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-next
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-next
      */
     Next(celt, ppprop, pcelt) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -102,7 +99,7 @@ class IEnumTuneRequests extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-skip
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -130,7 +127,7 @@ class IEnumTuneRequests extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-reset
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -140,7 +137,7 @@ class IEnumTuneRequests extends IUnknown{
     /**
      * The Clone method creates a copy of the collection.
      * @returns {IEnumTuneRequests} Receives the new collection.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-clone
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to query and configure the default VSS import target for the subsystem.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdssubsystemimporttarget
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdssubsystemimporttarget
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IVdsSubSystemImportTarget extends IUnknown{
      * @returns {PWSTR} The address of a pointer to a string. On successful return of this method, the string pointed to will 
      *       contain the import target iSCSI name. This string is initialized by VDS and must be freed by the caller using 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystemimporttarget-getimporttarget
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdssubsystemimporttarget-getimporttarget
      */
     GetImportTarget() {
         result := ComCall(3, this, "ptr*", &ppwszIscsiName := 0, "HRESULT")
@@ -46,7 +46,7 @@ class IVdsSubSystemImportTarget extends IUnknown{
      * Sets the Volume Shadow Copy service (VSS) import target for the computer for this subsystem.
      * @param {PWSTR} pwszIscsiName The <b>VDS_OBJECT_ID</b> of the target to set as the import target. Use 
      *       <b>GUID_NULL</b> to clear the current import target for this subsystem.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -74,8 +74,8 @@ class IVdsSubSystemImportTarget extends IUnknown{
      * <td width="60%">
      * The cache of the provider is corrupted. This indicates a software or communication problem inside a 
      *         provider that caches information about the attached devices. The caller can use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
-     *         followed by the  <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *         followed by the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
      *         method to restore the cache.
      * 
      * </td>
@@ -105,7 +105,7 @@ class IVdsSubSystemImportTarget extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystemimporttarget-setimporttarget
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdssubsystemimporttarget-setimporttarget
      */
     SetImportTarget(pwszIscsiName) {
         pwszIscsiName := pwszIscsiName is String ? StrPtr(pwszIscsiName) : pwszIscsiName

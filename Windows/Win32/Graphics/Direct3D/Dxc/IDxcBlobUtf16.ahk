@@ -33,7 +33,7 @@ class IDxcBlobUtf16 extends IDxcBlobEncoding{
      * @returns {PWSTR} 
      */
     GetStringPointer() {
-        result := ComCall(6, this, "char*")
+        result := ComCall(6, this, "ptr")
         return result
     }
 

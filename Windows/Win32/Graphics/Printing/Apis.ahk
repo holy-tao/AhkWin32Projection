@@ -7248,8 +7248,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumPrintersA", "uint", Flags, "ptr", Name, "uint", Level, "ptr", pPrinterEnum, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7357,8 +7357,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumPrintersW", "uint", Flags, "ptr", Name, "uint", Level, "ptr", pPrinterEnum, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7385,7 +7385,7 @@ class Printing {
 
         result := DllCall("winspool.drv\GetSpoolFileHandle", "ptr", hPrinter, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -7494,8 +7494,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\OpenPrinterA", "ptr", pPrinterName, "ptr", phPrinter, "ptr", pDefault, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7561,8 +7561,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\OpenPrinterW", "ptr", pPrinterName, "ptr", phPrinter, "ptr", pDefault, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7859,8 +7859,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumJobsA", "ptr", hPrinter, "uint", FirstJob, "uint", NoJobs, "uint", Level, "ptr", pJob, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7909,8 +7909,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumJobsW", "ptr", hPrinter, "uint", FirstJob, "uint", NoJobs, "uint", Level, "ptr", pJob, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -7991,7 +7991,7 @@ class Printing {
 
         result := DllCall("winspool.drv\AddPrinterA", "ptr", pName, "uint", Level, pPrinterMarshal, pPrinter, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := PRINTER_HANDLE({Value: result}, True)
@@ -8073,7 +8073,7 @@ class Printing {
 
         result := DllCall("winspool.drv\AddPrinterW", "ptr", pName, "uint", Level, pPrinterMarshal, pPrinter, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := PRINTER_HANDLE({Value: result}, True)
@@ -8105,8 +8105,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeletePrinter", "ptr", hPrinter, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8212,8 +8212,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPrinterA", "ptr", hPrinter, "uint", Level, pPrinterMarshal, pPrinter, "uint", Command, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8319,8 +8319,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPrinterW", "ptr", hPrinter, "uint", Level, pPrinterMarshal, pPrinter, "uint", Command, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8400,8 +8400,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\GetPrinterA", "ptr", hPrinter, "uint", Level, "ptr", pPrinter, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8481,8 +8481,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\GetPrinterW", "ptr", hPrinter, "uint", Level, "ptr", pPrinter, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8537,8 +8537,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddPrinterDriverA", "ptr", pName, "uint", Level, pDriverInfoMarshal, pDriverInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8593,8 +8593,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddPrinterDriverW", "ptr", pName, "uint", Level, pDriverInfoMarshal, pDriverInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8769,8 +8769,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumPrinterDriversA", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8821,8 +8821,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumPrinterDriversW", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, pcReturnedMarshal, pcReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11554,8 +11554,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\ClosePrinter", "ptr", hPrinter, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11914,8 +11914,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddMonitorA", "ptr", pName, "uint", Level, pMonitorsMarshal, pMonitors, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11954,8 +11954,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddMonitorW", "ptr", pName, "uint", Level, pMonitorsMarshal, pMonitors, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11986,8 +11986,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeleteMonitorA", "ptr", pName, "ptr", pEnvironment, "ptr", pMonitorName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12018,8 +12018,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeleteMonitorW", "ptr", pName, "ptr", pEnvironment, "ptr", pMonitorName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12118,8 +12118,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddPortA", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12154,8 +12154,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\AddPortW", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12242,8 +12242,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeletePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12278,8 +12278,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeletePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12441,8 +12441,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPortA", "ptr", pName, "ptr", pPortName, "uint", dwLevel, pPortInfoMarshal, pPortInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12481,8 +12481,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPortW", "ptr", pName, "ptr", pPortName, "uint", dwLevel, pPortInfoMarshal, pPortInfo, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12816,8 +12816,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\OpenPrinter2A", "ptr", pPrinterName, "ptr", phPrinter, "ptr", pDefault, "ptr", pOptions, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12879,8 +12879,8 @@ class Printing {
         A_LastError := 0
 
         result := DllCall("winspool.drv\OpenPrinter2W", "ptr", pPrinterName, "ptr", phPrinter, "ptr", pDefault, "ptr", pOptions, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -12971,11 +12971,7 @@ class Printing {
         pszDriverName := pszDriverName is String ? StrPtr(pszDriverName) : pszDriverName
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\InstallPrinterDriverFromPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\InstallPrinterDriverFromPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -13010,11 +13006,7 @@ class Printing {
         pszDriverName := pszDriverName is String ? StrPtr(pszDriverName) : pszDriverName
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\InstallPrinterDriverFromPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\InstallPrinterDriverFromPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -13060,11 +13052,7 @@ class Printing {
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
         return result
     }
 
@@ -13110,11 +13098,7 @@ class Printing {
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
         return result
     }
 
@@ -13137,11 +13121,7 @@ class Printing {
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
         pszzCoreDriverDependencies := pszzCoreDriverDependencies is String ? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
-        result := DllCall("winspool.drv\GetCorePrinterDriversA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\GetCorePrinterDriversA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "HRESULT")
         return result
     }
 
@@ -13164,11 +13144,7 @@ class Printing {
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
         pszzCoreDriverDependencies := pszzCoreDriverDependencies is String ? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
-        result := DllCall("winspool.drv\GetCorePrinterDriversW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\GetCorePrinterDriversW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "HRESULT")
         return result
     }
 
@@ -13189,11 +13165,7 @@ class Printing {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "HRESULT")
         return pbDriverInstalled
     }
 
@@ -13214,11 +13186,7 @@ class Printing {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "HRESULT")
         return pbDriverInstalled
     }
 
@@ -13249,11 +13217,7 @@ class Printing {
         pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
         pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
-        result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "HRESULT")
         return pcchRequiredSize
     }
 
@@ -13284,11 +13248,7 @@ class Printing {
         pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
         pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
-        result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "HRESULT")
         return pcchRequiredSize
     }
 
@@ -13324,11 +13284,7 @@ class Printing {
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\DeletePrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\DeletePrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "HRESULT")
         return result
     }
 
@@ -13364,11 +13320,7 @@ class Printing {
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\DeletePrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\DeletePrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "HRESULT")
         return result
     }
 
@@ -13394,11 +13346,7 @@ class Printing {
     static ReportJobProcessingProgress(printerHandle, jobId, jobOperation, jobProgress) {
         printerHandle := printerHandle is Win32Handle ? NumGet(printerHandle, "ptr") : printerHandle
 
-        result := DllCall("winspool.drv\ReportJobProcessingProgress", "ptr", printerHandle, "uint", jobId, "int", jobOperation, "int", jobProgress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\ReportJobProcessingProgress", "ptr", printerHandle, "uint", jobId, "int", jobOperation, "int", jobProgress, "HRESULT")
         return result
     }
 
@@ -13582,11 +13530,7 @@ class Printing {
 
         ppszOutputFileMarshal := ppszOutputFile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "HRESULT")
         return result
     }
 
@@ -13628,11 +13572,7 @@ class Printing {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         phNotify := HANDLE()
-        result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "HRESULT")
         return phNotify
     }
 
@@ -13725,11 +13665,7 @@ class Printing {
     static UnRegisterForPrintAsyncNotifications(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("winspool.drv\UnRegisterForPrintAsyncNotifications", "ptr", param0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\UnRegisterForPrintAsyncNotifications", "ptr", param0, "HRESULT")
         return result
     }
 
@@ -13772,11 +13708,7 @@ class Printing {
     static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "HRESULT")
         return IPrintAsyncNotifyChannel(ppIAsynchNotification)
     }
 
@@ -13788,11 +13720,7 @@ class Printing {
     static RouterUnregisterForPrintAsyncNotifications(hNotify) {
         hNotify := hNotify is Win32Handle ? NumGet(hNotify, "ptr") : hNotify
 
-        result := DllCall("SPOOLSS.dll\RouterUnregisterForPrintAsyncNotifications", "ptr", hNotify, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\RouterUnregisterForPrintAsyncNotifications", "ptr", hNotify, "HRESULT")
         return result
     }
 
@@ -13808,11 +13736,7 @@ class Printing {
     static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "HRESULT")
         return IPrintAsyncNotifyChannel(ppIAsynchNotification)
     }
 
@@ -13825,11 +13749,7 @@ class Printing {
     static RouterGetPrintClassObject(pPrinter, riid) {
         pPrinter := pPrinter is String ? StrPtr(pPrinter) : pPrinter
 
-        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -14450,11 +14370,7 @@ class Printing {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         phDeviceObject := HANDLE()
-        result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "HRESULT")
         return phDeviceObject
     }
 
@@ -14468,11 +14384,7 @@ class Printing {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         hDeviceObject := hDeviceObject is Win32Handle ? NumGet(hDeviceObject, "ptr") : hDeviceObject
 
-        result := DllCall("SPOOLSS.dll\UpdatePrintDeviceObject", "ptr", hPrinter, "ptr", hDeviceObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\UpdatePrintDeviceObject", "ptr", hPrinter, "ptr", hDeviceObject, "HRESULT")
         return result
     }
 
@@ -14484,11 +14396,7 @@ class Printing {
     static RemovePrintDeviceObject(hDeviceObject) {
         hDeviceObject := hDeviceObject is Win32Handle ? NumGet(hDeviceObject, "ptr") : hDeviceObject
 
-        result := DllCall("SPOOLSS.dll\RemovePrintDeviceObject", "ptr", hDeviceObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SPOOLSS.dll\RemovePrintDeviceObject", "ptr", hDeviceObject, "HRESULT")
         return result
     }
 

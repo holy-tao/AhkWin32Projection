@@ -5,7 +5,7 @@
 
 /**
  * The IDMOWrapperFilter interface enables an application to use a DirectX Media Object (DMO) inside a filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//dmodshow/nn-dmodshow-idmowrapperfilter
+ * @see https://learn.microsoft.com/windows/win32/api/dmodshow/nn-dmodshow-idmowrapperfilter
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IDMOWrapperFilter extends IUnknown{
 
     /**
      * The Init method initializes the DMO Wrapper filter with the specified DMO.
+     * @remarks
+     * In some cases, the DMO Wrapper filter performs optimizations based on the category.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
      * @param {Pointer<Guid>} catDMO CLSID that specifies the category of the DMO.
      * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the error.
-     * @see https://docs.microsoft.com/windows/win32/api//dmodshow/nf-dmodshow-idmowrapperfilter-init
+     * @see https://learn.microsoft.com/windows/win32/api/dmodshow/nf-dmodshow-idmowrapperfilter-init
      */
     Init(clsidDMO, catDMO) {
         result := ComCall(3, this, "ptr", clsidDMO, "ptr", catDMO, "HRESULT")

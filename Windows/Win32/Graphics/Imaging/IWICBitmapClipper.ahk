@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that produce a clipped version of the input bitmap for a specified rectangular region of interest.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapclipper
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapclipper
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -40,8 +40,8 @@ class IWICBitmapClipper extends IWICBitmapSource{
      * The rectangle of the bitmap source to clip.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapclipper-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapclipper-initialize
      */
     Initialize(pISource, prc) {
         result := ComCall(8, this, "ptr", pISource, "ptr", prc, "HRESULT")

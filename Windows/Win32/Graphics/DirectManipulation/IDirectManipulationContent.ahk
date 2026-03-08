@@ -7,11 +7,8 @@
 /**
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.
  * @remarks
- * 
  * The system provides an implementation of <b>IDirectManipulationContent</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationcontent
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcontent
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -38,8 +35,10 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * Retrieves the bounding rectangle of the content, relative to the bounding rectangle of the viewport (if defined).
+     * @remarks
+     * If the bounding rectangle  has not been set using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-setcontentrect">SetContentRect</a>, then <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">UI_E_VALUE_NOT_SET</a> is returned. However, the actual content rectangle is (-<a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, -<a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, <a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, <a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>).
      * @returns {RECT} The bounding rectangle of the content.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontentrect
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontentrect
      */
     GetContentRect() {
         contentSize := RECT()
@@ -49,9 +48,11 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * Specifies the bounding rectangle of the content, relative to its viewport.
+     * @remarks
+     * The default bounding rectangle is (-<a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, -<a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, <a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>, <a href="https://docs.microsoft.com/previous-versions/ms858507(v=msdn.10)">FLT_MAX</a>).
      * @param {Pointer<RECT>} contentSize The bounding rectangle of the content.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-setcontentrect
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-setcontentrect
      */
     SetContentRect(contentSize) {
         result := ComCall(4, this, "ptr", contentSize, "HRESULT")
@@ -61,47 +62,64 @@ class IDirectManipulationContent extends IUnknown{
     /**
      * Retrieves the viewport that contains the content.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to use.
-     * @returns {Pointer<Void>} The viewport object.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
+     * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
     GetViewport(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &object := 0, "HRESULT")
-        return object
+        result := ComCall(5, this, "ptr", riid, "ptr*", &object_R := 0, "HRESULT")
+        return object_R
     }
 
     /**
      * Retrieves the tag object set on this content.
+     * @remarks
+     * <b>GetTag</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag">SetTag</a> are useful for associating an external COM object with the content without an external mapping between the two. They can also be used to pass information to callbacks generated for the content.
+     * 
+     * <b>GetTag</b> queries the tag value for the specified interface and returns a pointer to that interface.
+     * 
+     * A tag is a pairing of an integer ID (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to identify a motion.
+     * The parameters are optional, so that the method can return both parts of the tag, the identifier portion, or the tag object.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to use. The tag object typically implements this interface.
-     * @param {Pointer<Pointer<Void>>} object The tag object.
+     * @param {Pointer<Pointer<Void>>} object_R 
      * @param {Pointer<Integer>} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
      */
-    GetTag(riid, object, id) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+    GetTag(riid, object_R, id) {
+        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, objectMarshal, object, idMarshal, id, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, object_RMarshal, object_R, idMarshal, id, "HRESULT")
         return result
     }
 
     /**
      * Specifies the tag object for the content.
-     * @param {IUnknown} object The object portion of the tag.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag">GetTag</a> and <b>SetTag</b> are useful for associating an external COM object with the content without an external mapping between the two. They can also be used to pass information to callbacks generated for the content.
+     * 
+     * A tag is a pairing of an integer ID  (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to store and retrieve an arbitrary object associated with the content.
+     * 
+     * The <i>object</i> parameter is optional, so that the method can set just the identifier portion.
+     * @param {IUnknown} object_R 
      * @param {Integer} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
      */
-    SetTag(object, id) {
-        result := ComCall(7, this, "ptr", object, "uint", id, "HRESULT")
+    SetTag(object_R, id) {
+        result := ComCall(7, this, "ptr", object_R, "uint", id, "HRESULT")
         return result
     }
 
     /**
      * Gets the final transform applied to the content.
+     * @remarks
+     * This transform might contain the other custom curves applied during manipulation and inertia.
+     * 
+     * This transform contains both the content transform and the sync transform set with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform">SyncContentTransform</a>.
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {Float} The transform matrix.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
     GetOutputTransform(pointCount) {
         result := ComCall(8, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
@@ -110,9 +128,24 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * Retrieves the transform applied to the content.
+     * @remarks
+     * This transform contains the default overpan and bounce curves during manipulation and inertia.
+     * 
+     * This transform does not contain the sync transform set with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform">SyncContentTransform</a>.
+     * 
+     * 
+     * 
+     * When this method returns, the format of <i>matrix</i> is:
+     * 
+     * <i>matrix</i>
+     * <i>matrix</i>
+     * <i>matrix</i>
+     * <i>matrix</i>
+     * <i>matrix</i>
+     * <i>matrix</i>
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {Float} The transform matrix.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
     GetContentTransform(pointCount) {
         result := ComCall(9, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
@@ -121,10 +154,14 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * Modifies the content transform while maintaining the output transform.
+     * @remarks
+     * This method will fail if the viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a>, <b>DIRECTMANIPULATION_INERTIA</b> or <b>DIRECTMANIPULATION_SUSPENDED</b>.
+     * 
+     * This method is useful when the application wants to apply transforms on top of the content transforms at the end of a manipulation, while preserving the visual output transform of the content.
      * @param {Pointer<Float>} matrix The transform matrix.
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform
      */
     SyncContentTransform(matrix, pointCount) {
         matrixMarshal := matrix is VarRef ? "float*" : "ptr"

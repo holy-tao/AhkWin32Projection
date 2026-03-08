@@ -5,7 +5,7 @@
 
 /**
  * Enables a debugging or authoring app to receive notification of user interface events and respond to events that require user interaction.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationuievents
+ * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationuievents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class IWebApplicationUIEvents extends IUnknown{
      * @param {Pointer<HRESULT>} result Type: <b>HRESULT*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
      */
     SecurityProblem(securityProblem, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"

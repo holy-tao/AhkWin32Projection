@@ -6,7 +6,7 @@
 
 /**
  * Interface describing SVG path data. Path data can be set as the 'd' attribute on a 'path' element.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgpathdata
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpathdata
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,10 +36,10 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @param {Integer} dataCount Type: <b>UINT32</b>
      * 
      * Specifies how much data to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-removesegmentdataatend
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-removesegmentdataatend
      */
     RemoveSegmentDataAtEnd(dataCount) {
         result := ComCall(6, this, "uint", dataCount, "HRESULT")
@@ -47,7 +47,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
     }
 
     /**
-     * Updates the segment data array. Existing segment data not updated by this method are preserved. The array is resized larger if necessary to accomodate the new segment data.
+     * Updates the segment data array. Existing segment data not updated by this method are preserved. The array is resized larger if necessary to accommodate the new segment data.
      * @param {Pointer<Float>} data Type: <b>const FLOAT*</b>
      * 
      * The data array.
@@ -57,10 +57,10 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index at which to begin updating segment data. Must be less than or equal to the size of the segment data array.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatesegmentdata
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatesegmentdata
      */
     UpdateSegmentData(data, dataCount, startIndex) {
         dataMarshal := data is VarRef ? "float*" : "ptr"
@@ -80,7 +80,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @returns {Float} Type: <b>FLOAT*</b>
      * 
      * Buffer to contain the segment data array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdata
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdata
      */
     GetSegmentData(dataCount, startIndex) {
         result := ComCall(8, this, "float*", &data := 0, "uint", dataCount, "uint", startIndex, "HRESULT")
@@ -92,7 +92,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the size of the segment data array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdatacount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdatacount
      */
     GetSegmentDataCount() {
         result := ComCall(9, this, "uint")
@@ -104,10 +104,10 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @param {Integer} commandsCount Type: <b>UINT32</b>
      * 
      * Specifies how many commands to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-removecommandsatend
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-removecommandsatend
      */
     RemoveCommandsAtEnd(commandsCount) {
         result := ComCall(10, this, "uint", commandsCount, "HRESULT")
@@ -115,7 +115,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
     }
 
     /**
-     * Updates the commands array. Existing commands not updated by this method are preserved. The array is resized larger if necessary to accomodate the new commands.
+     * Updates the commands array. Existing commands not updated by this method are preserved. The array is resized larger if necessary to accommodate the new commands.
      * @param {Pointer<Integer>} commands Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
      * 
      * The commands array.
@@ -125,10 +125,10 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index at which to begin updating commands. Must be less than or equal to the size of the commands array.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatecommands
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatecommands
      */
     UpdateCommands(commands, commandsCount, startIndex) {
         commandsMarshal := commands is VarRef ? "int*" : "ptr"
@@ -148,7 +148,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
      * 
      * Buffer to contain the commands.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
      */
     GetCommands(commandsCount, startIndex) {
         result := ComCall(12, this, "int*", &commands := 0, "uint", commandsCount, "uint", startIndex, "HRESULT")
@@ -160,7 +160,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the size of the commands array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommandscount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommandscount
      */
     GetCommandsCount() {
         result := ComCall(13, this, "uint")
@@ -175,7 +175,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @returns {ID2D1PathGeometry1} Type: <b>ID2D1PathGeometry1**</b>
      * 
      * On completion, pathGeometry will contain a point to the created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1pathgeometry1">ID2D1PathGeometry1</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpathdata-createpathgeometry
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-createpathgeometry
      */
     CreatePathGeometry(fillMode) {
         result := ComCall(14, this, "int", fillMode, "ptr*", &pathGeometry := 0, "HRESULT")

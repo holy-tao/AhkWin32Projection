@@ -5,7 +5,7 @@
 
 /**
  * Encapsulates a device- and transform-dependent representation of a filled or stroked geometry.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/nn-d2d1_2-id2d1geometryrealization
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nn-d2d1_2-id2d1geometryrealization
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

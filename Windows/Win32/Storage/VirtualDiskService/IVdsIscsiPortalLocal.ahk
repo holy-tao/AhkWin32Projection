@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for setting local-initiator-specific IPSEC pre-shared keys on an iSCSI portal.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsiscsiportallocal
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiportallocal
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class IVdsIscsiPortalLocal extends IUnknown{
     static VTableNames => ["SetIpsecSecurityLocal"]
 
     /**
-     * Not supported.This method is reserved for future use.
+     * Not supported.This method is reserved for future use. (IVdsIscsiPortalLocal.SetIpsecSecurityLocal)
      * @param {Integer} ullSecurityFlags Reserved for future use.
      * @param {Pointer<VDS_ISCSI_IPSEC_KEY>} pIpsecKey Reserved for future use.
      * @returns {HRESULT} This method can return one of these values.
@@ -53,7 +53,7 @@ class IVdsIscsiPortalLocal extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportallocal-setipsecsecuritylocal
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiportallocal-setipsecsecuritylocal
      */
     SetIpsecSecurityLocal(ullSecurityFlags, pIpsecKey) {
         result := ComCall(3, this, "uint", ullSecurityFlags, "ptr", pIpsecKey, "HRESULT")

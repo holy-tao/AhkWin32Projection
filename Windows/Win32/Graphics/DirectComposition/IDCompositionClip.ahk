@@ -5,7 +5,7 @@
 
 /**
  * Represents a clip object that is used to restrict the rendering of a visual subtree to a rectangular area.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionclip
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionclip
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

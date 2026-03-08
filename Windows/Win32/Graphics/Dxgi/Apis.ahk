@@ -250,11 +250,7 @@ class Dxgi {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory
      */
     static CreateDXGIFactory(riid) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", &ppFactory := 0, "HRESULT")
         return ppFactory
     }
 
@@ -292,11 +288,7 @@ class Dxgi {
      * @since windows6.1
      */
     static CreateDXGIFactory1(riid) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr*", &ppFactory := 0, "HRESULT")
         return ppFactory
     }
 
@@ -325,11 +317,7 @@ class Dxgi {
      * @since windows8.1
      */
     static CreateDXGIFactory2(Flags, riid) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr*", &ppFactory := 0, "HRESULT")
         return ppFactory
     }
 
@@ -344,11 +332,7 @@ class Dxgi {
      * @since windows8.1
      */
     static DXGIGetDebugInterface1(Flags, riid) {
-        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr*", &pDebug := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr*", &pDebug := 0, "HRESULT")
         return pDebug
     }
 
@@ -365,11 +349,7 @@ class Dxgi {
      * @since windows10.0.17134
      */
     static DXGIDeclareAdapterRemovalSupport() {
-        result := DllCall("dxgi.dll\DXGIDeclareAdapterRemovalSupport", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\DXGIDeclareAdapterRemovalSupport", "HRESULT")
         return result
     }
 
@@ -387,11 +367,7 @@ class Dxgi {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-dxgidisablevblankvirtualization
      */
     static DXGIDisableVBlankVirtualization() {
-        result := DllCall("dxgi.dll\DXGIDisableVBlankVirtualization", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dxgi.dll\DXGIDisableVBlankVirtualization", "HRESULT")
         return result
     }
 
