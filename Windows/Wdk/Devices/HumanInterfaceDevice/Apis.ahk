@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice
@@ -21,6 +22,7 @@ class HumanInterfaceDevice {
         VhfHandleMarshal := VhfHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("VhfUm.DLL\VhfCreate", "ptr", VhfConfig, VhfHandleMarshal, VhfHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -33,6 +35,7 @@ class HumanInterfaceDevice {
         VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("VhfUm.DLL\VhfStart", VhfHandleMarshal, VhfHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -58,6 +61,7 @@ class HumanInterfaceDevice {
         VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("VhfUm.DLL\VhfReadReportSubmit", VhfHandleMarshal, VhfHandle, "ptr", HidTransferPacket, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -71,6 +75,7 @@ class HumanInterfaceDevice {
         VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("VhfUm.DLL\VhfAsyncOperationComplete", VhfOperationHandleMarshal, VhfOperationHandle, "int", CompletionStatus, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

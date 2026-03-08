@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
@@ -129,6 +130,7 @@ class EnterpriseData {
         IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : "ptr"
 
         result := DllCall("srpapi.dll\SrpIsTokenService", "ptr", TokenHandle, IsTokenServiceMarshal, IsTokenService, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -153,6 +155,7 @@ class EnterpriseData {
         FileInfoMarshal := FileInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("srpapi.dll\SrpIsAllowed", FileInfoMarshal, FileInfo, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

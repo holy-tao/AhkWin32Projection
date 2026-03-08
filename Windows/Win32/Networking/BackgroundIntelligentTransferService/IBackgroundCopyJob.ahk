@@ -635,7 +635,7 @@ class IBackgroundCopyJob extends IUnknown{
         result := ComCall(16, this, "ptr*", &pVal := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pVal)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pVal
@@ -718,7 +718,7 @@ class IBackgroundCopyJob extends IUnknown{
         result := ComCall(18, this, "ptr*", &pVal := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pVal)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pVal
@@ -798,7 +798,7 @@ class IBackgroundCopyJob extends IUnknown{
         result := ComCall(20, this, "ptr*", &pVal := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pVal)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pVal
@@ -1423,7 +1423,7 @@ class IBackgroundCopyJob extends IUnknown{
         if(result != 0) {
             Com.CoTaskMemFree(pProxyList)
             Com.CoTaskMemFree(pProxyBypassList)
-            throw OSError(result)
+            throw OSError()
         }
 
         return result

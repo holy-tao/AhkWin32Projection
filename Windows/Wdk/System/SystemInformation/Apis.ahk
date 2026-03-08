@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemInformation
@@ -51,6 +52,7 @@ class SystemInformation {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -266,6 +268,7 @@ class SystemInformation {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -281,6 +284,7 @@ class SystemInformation {
         SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -293,6 +297,7 @@ class SystemInformation {
         SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -309,6 +314,7 @@ class SystemInformation {
         CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryTimerResolution", MaximumTimeMarshal, MaximumTime, MinimumTimeMarshal, MinimumTime, CurrentTimeMarshal, CurrentTime, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -325,6 +331,7 @@ class SystemInformation {
         CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryTimerResolution", MaximumTimeMarshal, MaximumTime, MinimumTimeMarshal, MinimumTime, CurrentTimeMarshal, CurrentTime, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

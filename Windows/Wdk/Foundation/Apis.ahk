@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -200,6 +201,7 @@ class Foundation {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryObject", "ptr", Handle, "int", ObjectInformationClass, "ptr", ObjectInformation, "uint", ObjectInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -254,6 +256,7 @@ class Foundation {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
         result := DllCall("ntdll.dll\NtClose", "ptr", Handle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

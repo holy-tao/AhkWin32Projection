@@ -68,7 +68,7 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
         result := ComCall(12, this, "ptr*", &method := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(method)
-            throw OSError(result)
+            throw OSError()
         }
 
         return method

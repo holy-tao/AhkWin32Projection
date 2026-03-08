@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\NCRYPT_PROV_HANDLE.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
 #Include .\NCRYPT_SECRET_HANDLE.ahk
@@ -23404,6 +23405,7 @@ class Cryptography {
         pszImplementation := pszImplementation is String ? StrPtr(pszImplementation) : pszImplementation
 
         result := DllCall("bcrypt.dll\BCryptOpenAlgorithmProvider", "ptr", phAlgorithm, "ptr", pszAlgId, "ptr", pszImplementation, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23469,6 +23471,7 @@ class Cryptography {
         ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, pAlgCountMarshal, pAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23536,6 +23539,7 @@ class Cryptography {
         ppImplListMarshal := ppImplList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, pImplCountMarshal, pImplCount, ppImplListMarshal, ppImplList, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23631,6 +23635,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23710,6 +23715,7 @@ class Cryptography {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall("bcrypt.dll\BCryptSetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23763,6 +23769,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCloseAlgorithmProvider", "ptr", hAlgorithm, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -23869,6 +23876,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenerateSymmetricKey", "ptr", hAlgorithm, "ptr", phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24045,6 +24053,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenerateKeyPair", "ptr", hAlgorithm, "ptr", phKey, "uint", dwLength, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24189,6 +24198,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24340,6 +24350,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24439,6 +24450,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24540,6 +24552,7 @@ class Cryptography {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         result := DllCall("bcrypt.dll\BCryptImportKey", "ptr", hAlgorithm, "ptr", hImportKey, "ptr", pszBlobType, "ptr", phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24639,6 +24652,7 @@ class Cryptography {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         result := DllCall("bcrypt.dll\BCryptImportKeyPair", "ptr", hAlgorithm, "ptr", hImportKey, "ptr", pszBlobType, "ptr", phKey, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24719,6 +24733,7 @@ class Cryptography {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", hKey, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24794,6 +24809,7 @@ class Cryptography {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", hKey, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24846,6 +24862,7 @@ class Cryptography {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", hKey, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -24898,6 +24915,7 @@ class Cryptography {
         hSecret := hSecret is Win32Handle ? NumGet(hSecret, "ptr") : hSecret
 
         result := DllCall("bcrypt.dll\BCryptDestroySecret", "ptr", hSecret, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25001,6 +25019,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25111,6 +25130,7 @@ class Cryptography {
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25189,6 +25209,7 @@ class Cryptography {
         hPubKey := hPubKey is Win32Handle ? NumGet(hPubKey, "ptr") : hPubKey
 
         result := DllCall("bcrypt.dll\BCryptSecretAgreement", "ptr", hPrivKey, "ptr", hPubKey, "ptr", phAgreedSecret, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25330,6 +25351,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25479,6 +25501,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25595,6 +25618,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCreateHash", "ptr", hAlgorithm, "ptr", phHash, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25663,6 +25687,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptHashData", "ptr", hHash, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25731,6 +25756,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptFinishHash", "ptr", hHash, "ptr", pbOutput, "uint", cbOutput, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25784,6 +25810,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCreateMultiHash", "ptr", hAlgorithm, "ptr", phHash, "uint", nHashes, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25816,6 +25843,7 @@ class Cryptography {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
         result := DllCall("bcrypt.dll\BCryptProcessMultiOperations", "ptr", hObject, "int", operationType, "ptr", pOperations, "uint", cbOperations, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25898,6 +25926,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptDuplicateHash", "ptr", hHash, "ptr", phNewHash, "ptr", pbHashObject, "uint", cbHashObject, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25950,6 +25979,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptDestroyHash", "ptr", hHash, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -25972,6 +26002,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptHash", "ptr", hAlgorithm, "ptr", pbSecret, "uint", cbSecret, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26079,6 +26110,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenRandom", "ptr", hAlgorithm, "ptr", pbBuffer, "uint", cbBuffer, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26160,6 +26192,7 @@ class Cryptography {
         hTargetAlg := hTargetAlg is Win32Handle ? NumGet(hTargetAlg, "ptr") : hTargetAlg
 
         result := DllCall("bcrypt.dll\BCryptDeriveKeyCapi", "ptr", hHash, "ptr", hTargetAlg, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26246,6 +26279,7 @@ class Cryptography {
         hPrf := hPrf is Win32Handle ? NumGet(hPrf, "ptr") : hPrf
 
         result := DllCall("bcrypt.dll\BCryptDeriveKeyPBKDF2", "ptr", hPrf, "ptr", pbPassword, "uint", cbPassword, "ptr", pbSalt, "uint", cbSalt, "uint", cIterations, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26335,6 +26369,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26431,6 +26466,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26494,6 +26530,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptCreateContext", "uint", dwTable, "ptr", pszContext, "ptr", pConfig, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26556,6 +26593,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptDeleteContext", "uint", dwTable, "ptr", pszContext, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26637,6 +26675,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26700,6 +26739,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptConfigureContext", "uint", dwTable, "ptr", pszContext, "ptr", pConfig, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26814,6 +26854,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26893,6 +26934,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptAddContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint", dwPosition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -26958,6 +27000,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptRemoveContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27054,6 +27097,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27120,6 +27164,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptConfigureContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pConfig, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27239,6 +27284,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27337,6 +27383,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27428,6 +27475,7 @@ class Cryptography {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall("bcrypt.dll\BCryptSetContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, "uint", cbValue, "ptr", pbValue, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27528,6 +27576,7 @@ class Cryptography {
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27589,6 +27638,7 @@ class Cryptography {
      */
     static BCryptRegisterConfigChangeNotify(phEvent) {
         result := DllCall("bcrypt.dll\BCryptRegisterConfigChangeNotify", "ptr", phEvent, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27650,6 +27700,7 @@ class Cryptography {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("bcrypt.dll\BCryptUnregisterConfigChangeNotify", "ptr", hEvent, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27742,6 +27793,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -27792,6 +27844,7 @@ class Cryptography {
         pfEnabledMarshal := pfEnabled is VarRef ? "char*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", pfEnabledMarshal, pfEnabled, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51322,6 +51375,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetCipherInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51340,6 +51394,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetHashInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51358,6 +51413,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetAsymmetricEncryptionInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51376,6 +51432,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetSecretAgreementInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51394,6 +51451,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetSignatureInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51410,6 +51468,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetRngInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51428,6 +51487,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetKeyDerivationInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51442,6 +51502,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptRegisterProvider", "ptr", pszProvider, "uint", dwFlags, "ptr", pReg, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51454,6 +51515,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptUnregisterProvider", "ptr", pszProvider, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51473,6 +51535,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptAddContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwPosition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51491,6 +51554,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptRemoveContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51512,6 +51576,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ncrypt.dll\GetKeyStorageInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52621,6 +52686,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ncrypt.dll\GetSChannelInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

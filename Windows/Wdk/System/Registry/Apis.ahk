@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Registry
@@ -88,6 +89,7 @@ class Registry {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtNotifyChangeMultipleKeys", "ptr", MasterKeyHandle, "uint", Count, "ptr", SubordinateObjects, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", Buffer_R, "uint", BufferSize, "char", Asynchronous, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -114,6 +116,7 @@ class Registry {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwNotifyChangeMultipleKeys", "ptr", MasterKeyHandle, "uint", Count, "ptr", SubordinateObjects, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", Buffer_R, "uint", BufferSize, "char", Asynchronous, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -141,6 +144,7 @@ class Registry {
         RequiredBufferLengthMarshal := RequiredBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryMultipleValueKey", "ptr", KeyHandle, "ptr", ValueEntries, "uint", EntryCount, "ptr", ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -161,6 +165,7 @@ class Registry {
         RequiredBufferLengthMarshal := RequiredBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryMultipleValueKey", "ptr", KeyHandle, "ptr", ValueEntries, "uint", EntryCount, "ptr", ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -181,6 +186,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtRenameKey", "ptr", KeyHandle, "ptr", NewName, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -212,6 +218,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtSetInformationKey", "ptr", KeyHandle, "int", KeySetInformationClass, "ptr", KeySetInformation, "uint", KeySetInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -231,6 +238,7 @@ class Registry {
         DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateKey", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", TitleIndex, "ptr", Class_R, "uint", CreateOptions, DispositionMarshal, Disposition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -253,6 +261,7 @@ class Registry {
         DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateKeyTransacted", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", TitleIndex, "ptr", Class_R, "uint", CreateOptions, "ptr", TransactionHandle, DispositionMarshal, Disposition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -266,6 +275,7 @@ class Registry {
      */
     static NtCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, CreateOptions) {
         result := DllCall("ntdll.dll\NtCreateRegistryTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", CreateOptions, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -279,6 +289,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtCommitRegistryTransaction", "ptr", TransactionHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -291,6 +302,7 @@ class Registry {
      */
     static NtOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenKey", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -304,6 +316,7 @@ class Registry {
      */
     static NtOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
         result := DllCall("ntdll.dll\NtOpenKeyEx", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", OpenOptions, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -319,6 +332,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtOpenKeyTransacted", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", TransactionHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -335,6 +349,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtOpenKeyTransactedEx", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", OpenOptions, "ptr", TransactionHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -347,6 +362,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtDeleteKey", "ptr", KeyHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -360,6 +376,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtDeleteValueKey", "ptr", KeyHandle, "ptr", ValueName, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -379,6 +396,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtEnumerateKey", "ptr", KeyHandle, "uint", Index, "int", KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -398,6 +416,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtEnumerateValueKey", "ptr", KeyHandle, "uint", Index, "int", KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -410,6 +429,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtFlushKey", "ptr", KeyHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -428,6 +448,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryKey", "ptr", KeyHandle, "int", KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -447,6 +468,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryValueKey", "ptr", KeyHandle, "ptr", ValueName, "int", KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -461,6 +483,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSaveKey", "ptr", KeyHandle, "ptr", FileHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -476,6 +499,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSaveKeyEx", "ptr", KeyHandle, "ptr", FileHandle, "uint", Format, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -491,6 +515,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtRestoreKey", "ptr", KeyHandle, "ptr", FileHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -508,6 +533,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\NtSetValueKey", "ptr", KeyHandle, "ptr", ValueName, "uint", TitleIndex, "uint", Type, "ptr", Data, "uint", DataSize, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -520,6 +546,7 @@ class Registry {
      */
     static ZwOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenRegistryTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -533,6 +560,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwRollbackRegistryTransaction", "ptr", TransactionHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -552,6 +580,7 @@ class Registry {
         DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateKey", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", TitleIndex, "ptr", Class_R, "uint", CreateOptions, DispositionMarshal, Disposition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -574,6 +603,7 @@ class Registry {
         DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateKeyTransacted", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", TitleIndex, "ptr", Class_R, "uint", CreateOptions, "ptr", TransactionHandle, DispositionMarshal, Disposition, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -587,6 +617,7 @@ class Registry {
      */
     static ZwCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, CreateOptions) {
         result := DllCall("ntdll.dll\ZwCreateRegistryTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", CreateOptions, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -599,6 +630,7 @@ class Registry {
      */
     static NtOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenRegistryTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -612,6 +644,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwCommitRegistryTransaction", "ptr", TransactionHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -625,6 +658,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtRollbackRegistryTransaction", "ptr", TransactionHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -637,6 +671,7 @@ class Registry {
      */
     static ZwOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenKey", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -650,6 +685,7 @@ class Registry {
      */
     static ZwOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
         result := DllCall("ntdll.dll\ZwOpenKeyEx", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", OpenOptions, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -665,6 +701,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwOpenKeyTransacted", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", TransactionHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -681,6 +718,7 @@ class Registry {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwOpenKeyTransactedEx", "ptr", KeyHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "uint", OpenOptions, "ptr", TransactionHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -693,6 +731,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwDeleteKey", "ptr", KeyHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -706,6 +745,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwDeleteValueKey", "ptr", KeyHandle, "ptr", ValueName, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -725,6 +765,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwEnumerateKey", "ptr", KeyHandle, "uint", Index, "int", KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -744,6 +785,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwEnumerateValueKey", "ptr", KeyHandle, "uint", Index, "int", KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -756,6 +798,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwFlushKey", "ptr", KeyHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -774,6 +817,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryKey", "ptr", KeyHandle, "int", KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -793,6 +837,7 @@ class Registry {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryValueKey", "ptr", KeyHandle, "ptr", ValueName, "int", KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -806,6 +851,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwRenameKey", "ptr", KeyHandle, "ptr", NewName, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -820,6 +866,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSaveKey", "ptr", KeyHandle, "ptr", FileHandle, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -835,6 +882,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSaveKeyEx", "ptr", KeyHandle, "ptr", FileHandle, "uint", Format, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -850,6 +898,7 @@ class Registry {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwRestoreKey", "ptr", KeyHandle, "ptr", FileHandle, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -865,6 +914,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationKey", "ptr", KeyHandle, "int", KeySetInformationClass, "ptr", KeySetInformation, "uint", KeySetInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -882,6 +932,7 @@ class Registry {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
         result := DllCall("ntdll.dll\ZwSetValueKey", "ptr", KeyHandle, "ptr", ValueName, "uint", TitleIndex, "uint", Type, "ptr", Data, "uint", DataSize, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

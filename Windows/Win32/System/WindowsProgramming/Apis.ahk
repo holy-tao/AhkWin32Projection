@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\HWINWATCH.ahk
 
@@ -6942,6 +6943,7 @@ class WindowsProgramming {
         SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, SystemTimeMarshal, SystemTime, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7053,6 +7055,7 @@ class WindowsProgramming {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7078,6 +7081,7 @@ class WindowsProgramming {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7134,6 +7138,7 @@ class WindowsProgramming {
      */
     static RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7172,6 +7177,7 @@ class WindowsProgramming {
      */
     static RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7208,6 +7214,7 @@ class WindowsProgramming {
      */
     static RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7243,6 +7250,7 @@ class WindowsProgramming {
         BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -7264,6 +7272,7 @@ class WindowsProgramming {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCharToInteger", String_RMarshal, String_R, "uint", Base, ValueMarshal, Value, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -5529,6 +5530,7 @@ class Certificates {
         ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5545,6 +5547,7 @@ class Certificates {
         ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5559,6 +5562,7 @@ class Certificates {
         ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, ppCertChainContextMarshal, ppCertChainContext, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5581,6 +5585,7 @@ class Certificates {
         ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5595,6 +5600,7 @@ class Certificates {
      */
     static PstAcquirePrivateKey(pCert) {
         result := DllCall("certpoleng.dll\PstAcquirePrivateKey", "ptr", pCert, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5614,6 +5620,7 @@ class Certificates {
      */
     static PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
         result := DllCall("certpoleng.dll\PstValidate", "ptr", pTargetName, "int", bIsClient, "ptr", pRequestedIssuancePolicy, "ptr", phAdditionalCertStore, "ptr", pCert, "ptr", pProvGUID, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5633,6 +5640,7 @@ class Certificates {
         ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, pTokenInformationTypeMarshal, pTokenInformationType, ppTokenInformationMarshal, ppTokenInformation, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -5648,6 +5656,7 @@ class Certificates {
      */
     static PstGetUserNameForCertificate(pCertContext, UserName) {
         result := DllCall("certpoleng.dll\PstGetUserNameForCertificate", "ptr", pCertContext, "ptr", UserName, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\Foundation\NTSTATUS.ahk
 #Include .\SID_IDENTIFIER_AUTHORITY.ahk
 
 /**
@@ -6579,6 +6580,7 @@ class Security {
      */
     static RtlConvertSidToUnicodeString(UnicodeString, Sid, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", "ptr", UnicodeString, "ptr", Sid, "char", AllocateDestinationString, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

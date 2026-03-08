@@ -11976,7 +11976,7 @@ class Shell {
         result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", &ppszPath := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(ppszPath)
-            throw OSError(result)
+            throw OSError()
         }
 
         return ppszPath

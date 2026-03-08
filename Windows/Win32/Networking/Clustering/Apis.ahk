@@ -18739,9 +18739,8 @@ class Clustering {
     static QueryAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
         InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : "ptr"
         InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : "ptr"
-        VersionStatusMarshal := VersionStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, VersionStatusMarshal, VersionStatus, "uint")
+        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, "ptr", VersionStatus, "uint")
         return result
     }
 

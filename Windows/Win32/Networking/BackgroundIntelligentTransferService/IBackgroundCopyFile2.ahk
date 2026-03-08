@@ -43,7 +43,7 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile{
         result := ComCall(6, this, RangeCountMarshal, RangeCount, "ptr*", &Ranges := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(Ranges)
-            throw OSError(result)
+            throw OSError()
         }
 
         return Ranges
