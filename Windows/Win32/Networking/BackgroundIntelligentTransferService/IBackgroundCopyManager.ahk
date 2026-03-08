@@ -190,7 +190,7 @@ class IBackgroundCopyManager extends IUnknown{
         result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pErrorDescription)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pErrorDescription

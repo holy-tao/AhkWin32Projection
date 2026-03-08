@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -15137,6 +15138,7 @@ class NetManagement {
         Password := Password is String ? StrPtr(Password) : Password
 
         result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -15174,6 +15176,7 @@ class NetManagement {
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
         result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", Flags, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -15198,6 +15201,7 @@ class NetManagement {
         AccountsMarshal := Accounts is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -15219,6 +15223,7 @@ class NetManagement {
         IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -15238,6 +15243,7 @@ class NetManagement {
         AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -15278,6 +15284,7 @@ class NetManagement {
         Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, Buffer_RMarshal, Buffer_R, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

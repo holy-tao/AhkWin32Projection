@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\HPOWERNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
@@ -1124,6 +1125,7 @@ class Power {
      */
     static CallNtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
         result := DllCall("POWRPROF.dll\CallNtPowerInformation", "int", InformationLevel, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

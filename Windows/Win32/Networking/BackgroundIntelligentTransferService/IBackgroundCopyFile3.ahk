@@ -56,7 +56,7 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
         result := ComCall(8, this, "ptr*", &pFilename := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pFilename)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pFilename

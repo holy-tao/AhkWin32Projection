@@ -100,7 +100,7 @@ class ISpellingError extends IUnknown{
         result := ComCall(6, this, "ptr*", &value := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(value)
-            throw OSError(result)
+            throw OSError()
         }
 
         return value

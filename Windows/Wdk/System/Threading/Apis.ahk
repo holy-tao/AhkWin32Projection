@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Threading
@@ -36,6 +37,7 @@ class Threading {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationProcess", "ptr", ProcessHandle, "int", ProcessInformationClass, ProcessInformationMarshal, ProcessInformation, "uint", ProcessInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -160,6 +162,7 @@ class Threading {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationProcess", "ptr", ProcessHandle, "int", ProcessInformationClass, ProcessInformationMarshal, ProcessInformation, "uint", ProcessInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -198,6 +201,7 @@ class Threading {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationThread", "ptr", ThreadHandle, "int", ThreadInformationClass, ThreadInformationMarshal, ThreadInformation, "uint", ThreadInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -217,6 +221,7 @@ class Threading {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationThread", "ptr", ThreadHandle, "int", ThreadInformationClass, ThreadInformationMarshal, ThreadInformation, "uint", ThreadInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -232,6 +237,7 @@ class Threading {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\NtSetInformationThread", "ptr", ThreadHandle, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -310,6 +316,7 @@ class Threading {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -323,6 +330,7 @@ class Threading {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\NtTerminateProcess", "ptr", ProcessHandle, "int", ExitStatus, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -336,6 +344,7 @@ class Threading {
      */
     static NtCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
         result := DllCall("ntdll.dll\NtCreateTimer", "ptr", TimerHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int", TimerType, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -348,6 +357,7 @@ class Threading {
      */
     static NtOpenTimer(TimerHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenTimer", "ptr", TimerHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -363,6 +373,7 @@ class Threading {
         CurrentStateMarshal := CurrentState is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCancelTimer", "ptr", TimerHandle, CurrentStateMarshal, CurrentState, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -385,6 +396,7 @@ class Threading {
         PreviousStateMarshal := PreviousState is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtSetTimer", "ptr", TimerHandle, DueTimeMarshal, DueTime, "ptr", TimerApcRoutine, TimerContextMarshal, TimerContext, "char", ResumeTimer, "int", Period, PreviousStateMarshal, PreviousState, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -400,6 +412,7 @@ class Threading {
         TimerHandle := TimerHandle is Win32Handle ? NumGet(TimerHandle, "ptr") : TimerHandle
 
         result := DllCall("ntdll.dll\NtSetTimerEx", "ptr", TimerHandle, "int", TimerSetInformationClass, "ptr", TimerSetInformation, "uint", TimerSetInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -412,6 +425,7 @@ class Threading {
      */
     static NtOpenEvent(EventHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenEvent", "ptr", EventHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -428,6 +442,7 @@ class Threading {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -440,6 +455,7 @@ class Threading {
      */
     static ZwOpenEvent(EventHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenEvent", "ptr", EventHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -453,6 +469,7 @@ class Threading {
      */
     static NtOpenProcess(ProcessHandle, DesiredAccess, ObjectAttributes, ClientId) {
         result := DllCall("ntdll.dll\NtOpenProcess", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", ClientId, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -468,6 +485,7 @@ class Threading {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationThread", "ptr", ThreadHandle, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -481,6 +499,7 @@ class Threading {
      */
     static ZwCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
         result := DllCall("ntdll.dll\ZwCreateTimer", "ptr", TimerHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int", TimerType, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -493,6 +512,7 @@ class Threading {
      */
     static ZwOpenTimer(TimerHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenTimer", "ptr", TimerHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -508,6 +528,7 @@ class Threading {
         CurrentStateMarshal := CurrentState is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCancelTimer", "ptr", TimerHandle, CurrentStateMarshal, CurrentState, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -530,6 +551,7 @@ class Threading {
         PreviousStateMarshal := PreviousState is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwSetTimer", "ptr", TimerHandle, DueTimeMarshal, DueTime, "ptr", TimerApcRoutine, TimerContextMarshal, TimerContext, "char", ResumeTimer, "int", Period, PreviousStateMarshal, PreviousState, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -545,6 +567,7 @@ class Threading {
         TimerHandle := TimerHandle is Win32Handle ? NumGet(TimerHandle, "ptr") : TimerHandle
 
         result := DllCall("ntdll.dll\ZwSetTimerEx", "ptr", TimerHandle, "int", TimerSetInformationClass, "ptr", TimerSetInformation, "uint", TimerSetInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -558,6 +581,7 @@ class Threading {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\ZwTerminateProcess", "ptr", ProcessHandle, "int", ExitStatus, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -571,6 +595,7 @@ class Threading {
      */
     static ZwOpenProcess(ProcessHandle, DesiredAccess, ObjectAttributes, ClientId) {
         result := DllCall("ntdll.dll\ZwOpenProcess", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", ClientId, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

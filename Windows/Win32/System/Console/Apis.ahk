@@ -4,6 +4,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -3726,6 +3727,7 @@ class Console {
      */
     static ConsoleControl(Command, ConsoleInformation, ConsoleInformationLength) {
         result := DllCall("USER32.dll\ConsoleControl", "int", Command, "ptr", ConsoleInformation, "uint", ConsoleInformationLength, "int")
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 

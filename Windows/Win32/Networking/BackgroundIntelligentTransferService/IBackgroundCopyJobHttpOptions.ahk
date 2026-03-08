@@ -497,7 +497,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
         if(result != 0) {
             Com.CoTaskMemFree(ppCertHashBlob)
             Com.CoTaskMemFree(pSubjectName)
-            throw OSError(result)
+            throw OSError()
         }
 
         return result
@@ -578,7 +578,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
         result := ComCall(8, this, "ptr*", &pRequestHeaders := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pRequestHeaders)
-            throw OSError(result)
+            throw OSError()
         }
 
         return pRequestHeaders
