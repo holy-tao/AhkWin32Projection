@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0 64-bit
-#Include Win32FixedArray.ahk
+
+#Include CStyleArray.ahk
 
 /**
  * A Win32Struct is the base class from which all generated structs are derived. It's a 
@@ -244,6 +245,34 @@ class Win32Struct extends Object{
                 continue
             }
 
+            ; ==------------------ array member ------------------== ;
+            if (Inner is CStyleArrayList) {
+                if (Value is CStyleArrayList) {
+                    Loop (Value.Length) {
+                        Inner[A_Index] := Value[A_Index]
+                    }
+                    continue
+                }
+
+                if (!(Value is Array)) {
+                    Msg := Format('Expected an array-like object for member "{1}"', PropertyName)
+                    throw TypeError(Msg, -2, Type(Value))
+                }
+
+                if (Inner.ElementType == Primitive) {
+                    Loop (Value.Length) {
+                        Inner[A_Index] := Value[A_Index]
+                    }
+                    continue
+                }
+
+                Loop (Value.Length) {
+                    Element := Value[A_Index]
+                    Inner[A_Index] := (Element is Win32Struct) ? Element : Inner.ElementType.Call(Element)
+                }
+                continue
+            }
+
             ; ==-------- nested struct or struct pointer --------== ;
             if (Inner is Win32Struct) {
                 if (!(Value is Win32Struct)) {
@@ -259,31 +288,6 @@ class Win32Struct extends Object{
                 ; copy to our new struct
                 Value.CopyTo(Inner)
                 continue
-            }
-
-            ; ==------------------ fixed array ------------------== ;
-            if (Value is Win32FixedArray) {
-                Loop (Value.Length) {
-                    Inner[A_Index] := Value[A_Index]
-                }
-                continue
-            }
-
-            if (!(Value is Array)) {
-                Msg := Format('Expected a Win32FixedArray or an Array for member "{1}"', PropertyName)
-                throw TypeError(Msg, -2, Type(Value))
-            }
-
-            if (Inner.ElementType == Primitive) {
-                Loop (Value.Length) {
-                    Inner[A_Index] := Value[A_Index]
-                }
-                continue
-            }
-
-            Loop (Value.Length) {
-                Element := Value[A_Index]
-                Inner[A_Index] := (Element is Win32Struct) ? Element : Inner.ElementType.Call(Element)
             }
         }
     }

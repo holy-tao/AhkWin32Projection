@@ -22,9 +22,9 @@ class CStyleArrayList extends Win32Struct {
      * @type {Map<String, Integer>} 
      * @see {@link https://www.autohotkey.com/docs/v2/lib/DllCall.htm#types `DllCall` types}
      */
-    static DllCallTypeWidths := Map(
+    static DllCallTypeWidths := (M := Map(), M.CaseSense := false, M.Set(
         "Int64",    8,
-        "Int",      4,	
+        "Int",      4,
         "Short",    2,
         "Char",     1,
         "Ptr",      A_PtrSize,
@@ -36,7 +36,7 @@ class CStyleArrayList extends Win32Struct {
         "Double",   8,
         "Float",    4,
         "Int64*",   A_PtrSize,
-        "Int*",     A_PtrSize,	
+        "Int*",     A_PtrSize,
         "Short*",   A_PtrSize,
         "Char*",    A_PtrSize,
         "Ptr*",     A_PtrSize,
@@ -47,7 +47,7 @@ class CStyleArrayList extends Win32Struct {
         "UPtr*",    A_PtrSize,
         "Double*",  A_PtrSize,
         "Float*",   A_PtrSize
-    )
+    ), M)
 
 ;@region Static Properties
 
@@ -263,7 +263,7 @@ class CStyleArrayList extends Win32Struct {
      * @returns {Integer|Win32Struct} the removed element
      */
     RemoveAt(index){
-        val := this[index]
+        val := this.elementType == Primitive ? this.Get(index) : this.Get(index).Clone()
 
         shiftSize := (this.length - index) * this._GetElementWidth()
         A_LastError := 0
@@ -292,7 +292,11 @@ class CStyleArrayList extends Win32Struct {
 
     /**
      * Returns the value at a given index. This is equivalent to `ArrayObj[Index]`, 
-     * except that `__Item` is not called.
+     * except that `__Item` is not called. For arrays of structs, the returned proxy
+     * object is a view into the array, and does not own its backing memory. Modifying
+     * this struct modifies the underlying data in the array. Use `Clone` to obtain an
+     * owned copy if you need one
+     * 
      * @param {Integer} index the index of the item to get 
      * @param {Any} default this parameter is always ignored; it is provided for conformance with the native
      *          AutoHotkey `Array` API
@@ -309,7 +313,9 @@ class CStyleArrayList extends Win32Struct {
     }
 
     /**
-     * Sets the value at a given index
+     * Sets the value at a given index by copying the provided value into the
+     * array.
+     * 
      * @param {Integer} index the index of the item to set
      * @param {Integer|Win32Struct} value the value to set 
      */
@@ -320,7 +326,7 @@ class CStyleArrayList extends Win32Struct {
         offset := this._GetOffsetForIndex(index)
 
         if(this.elementType == Primitive){
-            return NumPut(this.dllCallType, value, this, offset)
+            return NumPut(this.dllCallType, value, this.ptr, offset)
         }
         else{
             ;Copy the actual memory
@@ -369,14 +375,9 @@ class CStyleArrayList extends Win32Struct {
     /**
      * @private Get the width in bytes of a single element in the array
      */
-    _GetElementWidth(){
-        if(this.elementType == Primitive){
-            return CStyleArrayList.DllCallTypeWidths[this.dllCallType]
-        }
-        else{
-            return this.elementType.sizeof
-        }
-    }
+    _GetElementWidth() => this.elementType == Primitive ? 
+        CStyleArrayList.DllCallTypeWidths[this.dllCallType] :
+        this.elementType.packedSize
 
     /**
      * @private Get the offset into the array for an item at a given index
@@ -386,8 +387,7 @@ class CStyleArrayList extends Win32Struct {
         if(!IsInteger(index))
             throw TypeError("Expected an Integer but got a(n) " . Type(index))
 
-        offset := (index - 1) * (this._GetElementWidth())
-        return offset
+        return (index - 1) * (this._GetElementWidth())
     }
 
     /**
