@@ -188,7 +188,7 @@ class Win32StructTest {
         test.right := 0
         test.bottom := 0x1A2B3C4D
 
-        expected := "40 00 00 00 FF FF FF FF  00 00 00 00 4D 3C 2B 1A  |@...........M<+.|`n"
+        expected := "0000	40 00 00 00 ff ff ff ff  00 00 00 00 4d 3c 2b 1a   @...........M<+.`r`n"
         actual := test.HexDump()
         Yunit.Assert(actual == expected, "HexDump is incorect. Expected `n'" . expected . "'but got `n'" . actual . "'")
     }
