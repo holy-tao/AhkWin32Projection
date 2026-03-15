@@ -194,15 +194,7 @@ class Win32Struct extends Object{
      * less useful for human debugging but may be preferred in some cases over `HexDump` for compactness
      * @returns {String}
      */
-    ToHexString(){
-        hex := "", VarSetStrCapacity(&hex, this.size * 2)
-        Loop(this.size){
-            byte := NumGet(this, A_Index - 1, "char") & 0xFF
-            hex .= Format("{1:02X}", byte)
-        }
-        
-        return hex
-    }
+    ToHexString() => this._CryptToString(0x0000000c | 0x40000000) ; CRYPT_STRING_HEXRAW | CRYPT_STRING_NOCRLF
 
     /**
      * Returns a formatted string representing the contents of the struct in hex, with the bytes' ASCII
@@ -210,37 +202,18 @@ class Win32Struct extends Object{
      * possible
      * @returns {String} A hex string representing the memory block of the struct, formatted for humans
      */
-    HexDump(){
-        dump := "", asciiBuffer := ""
-        dumpLength := this.size + Mod(16 - Mod(this.size, 16), 16)     ;Pad to 8 byte boundary
-        VarSetStrCapacity(&dump, 70 * (dumpLength / 16))             ;Every row is 69 chars + newline (nice)
+    HexDump() => this._CryptToString(0x0000000b)    ; CRYPT_STRING_HEXASCIIADDR
 
-        Loop(dumpLength){
-            if(A_Index > 1){
-                if(Mod(A_Index - 1, 16) == 0){
-                    ;Newline, unless we're on the first line
-                    dump .= Format(" |{1}|`n", asciiBuffer)
-                    asciiBuffer := ""
-                }
-                else if(Mod(A_Index - 1, 8) == 0){
-                    dump .= " "
-                }
-            }
-            
-            if(A_Index <= this.size){
-                byte := NumGet(this, A_Index - 1, "char") & 0xFF
-                dump .= Format("{1:02X} ", byte)
-                
-                asciiBuffer .= (byte >= 32 && byte <= 126)? Chr(byte) : "."
-            }
-            else{
-                asciiBuffer .= " "
-                dump .= "-- "
-            }
-        }
+    _CryptToString(flags) {
+        ; Query for length
+        if(!DllCall("Crypt32.dll\CryptBinaryToStringW", "ptr", this, "int", this.size, "int", flags, "ptr", 0, "int*", &pcchString := 0))
+            throw OSError()
 
-        dump .= Format(" |{1}|`n", asciiBuffer)
-        return dump
+        strBuf := Buffer((pcchString + 1) * 2 , 0)
+        if(!DllCall("Crypt32.dll\CryptBinaryToStringW", "ptr", this, "int", this.size, "int", flags, "ptr", strBuf, "int*", &pcchString))
+            throw OSError()
+
+        return StrGet(strBuf, pcchString, "UTF-16")
     }
 
     /**
