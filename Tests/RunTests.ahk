@@ -24,12 +24,13 @@
 #Include ./generator-extensions/NTSTATUSExtensions.test.ahk
 
 tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
-    Win32StructTest, 
-    GeneratedStructSmokeTests, 
+    Win32StructTest,
+    GeneratedStructSmokeTests,
     GeneratedApiSmokeTests,
     GeneratedComInterfaceTests,
     GeneratedConstantSmokeTests,
-    CStyleArrayListTests, 
+    CStyleArrayListTests,
+    Win32FixedArrayTests,
     Win32HandleTests,
     Win32ComInterfaceTests,
     RectExtensionTests,
