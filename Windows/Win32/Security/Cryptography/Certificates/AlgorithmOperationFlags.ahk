@@ -58,6 +58,11 @@ class AlgorithmOperationFlags extends Win32Enum{
     static XCN_NCRYPT_KEY_DERIVATION_OPERATION => 64
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static XCN_NCRYPT_KEY_ENCAPSULATION_OPERATION => 128
+
+    /**
      * The algorithm can be used for public key encryption, key exchange, and signing. This is a bitwise-<b>OR</b> combination of the following constants:
      * 
      * <ul>
@@ -67,7 +72,7 @@ class AlgorithmOperationFlags extends Win32Enum{
      * </ul>
      * @type {Integer (Int32)}
      */
-    static XCN_NCRYPT_ANY_ASYMMETRIC_OPERATION => 28
+    static XCN_NCRYPT_ANY_ASYMMETRIC_OPERATION => 156
 
     /**
      * Signature algorithms are preferred but not required. An encryption algorithm may be chosen instead. This is used when searching for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) status information based on supported operational capability.

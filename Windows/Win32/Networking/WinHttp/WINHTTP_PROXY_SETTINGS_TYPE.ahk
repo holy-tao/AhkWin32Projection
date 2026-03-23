@@ -28,4 +28,9 @@ class WINHTTP_PROXY_SETTINGS_TYPE extends Win32Enum{
      * @type {Integer (Int32)}
      */
     static WinHttpProxySettingsTypeWsa => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WinHttpProxySettingsTypeXBox => 3
 }

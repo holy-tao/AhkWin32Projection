@@ -91,4 +91,9 @@ class SHUTDOWN_FLAGS extends Win32BitflagEnum{
      * @type {Integer (UInt32)}
      */
     static SHUTDOWN_SYSTEM_INITIATED => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SHUTDOWN_UPDATE_POWEROFF => 131072
 }

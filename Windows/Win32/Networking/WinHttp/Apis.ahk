@@ -2983,6 +2983,11 @@ class WinHttp {
      * @type {Integer (UInt32)}
      */
     static WINHTTP_FEATURE_SESSION_ERROR_LOG_GUID => 94
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_GET_PROXY_SETTINGS_EX_XBOX => 95
 ;@endregion Constants
 
 ;@region Methods

@@ -2467,6 +2467,23 @@ class SystemInformation {
     }
 
     /**
+     * 
+     * @param {Pointer<Integer>} Nonce 
+     * @param {Integer} PackageVersion 
+     * @param {Integer} ReportTypesBitmap 
+     * @param {Pointer} ReportBuffer 
+     * @param {Pointer<Integer>} ReportBufferSize 
+     * @returns {BOOL} 
+     */
+    static GetRuntimeAttestationReport(Nonce, PackageVersion, ReportTypesBitmap, ReportBuffer, ReportBufferSize) {
+        NonceMarshal := Nonce is VarRef ? "char*" : "ptr"
+        ReportBufferSizeMarshal := ReportBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetRuntimeAttestationReport", NonceMarshal, Nonce, "ushort", PackageVersion, "uint", ReportTypesBitmap, "ptr", ReportBuffer, ReportBufferSizeMarshal, ReportBufferSize, "int")
+        return result
+    }
+
+    /**
      * Allows an application to query the available CPU Sets on the system, and their current state.
      * @param {Pointer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
      * @param {Integer} BufferLength The length, in bytes, of the output buffer passed as the Information argument.

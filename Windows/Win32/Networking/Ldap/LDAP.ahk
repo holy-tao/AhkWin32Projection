@@ -204,7 +204,7 @@ class LDAP extends Win32Struct
     /**
      * @type {Integer}
      */
-    ld_maxvalrange {
+    ld_anonymousmaxvalrange {
         get => NumGet(this, 184, "uint")
         set => NumPut("uint", value, this, 184)
     }

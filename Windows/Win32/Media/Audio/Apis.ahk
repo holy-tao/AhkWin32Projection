@@ -677,6 +677,32 @@ class Audio {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_AudioEndpoint_Max_VolumeInDb {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_Min_VolumeInDb {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_AudioEngine_DeviceFormat {
         get {
             value := PROPERTYKEY()

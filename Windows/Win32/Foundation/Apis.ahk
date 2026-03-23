@@ -7132,6 +7132,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_SYSTEM_FILE_NOT_SUPPORTED => -1073739498
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_VRF_VOLATILE_CFG_AND_IO_ENABLED => -1073738744
 
     /**
@@ -7483,6 +7488,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_APISET_COMPOSE_FAILURE => -1073700511
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_APISET_SCHEMA_VERSION_NOT_SUPPORTED => -1073700510
 
     /**
      * @type {Integer (Int32)}
@@ -11538,6 +11548,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_FVE_HARDWARE_CRYPTO_KEY_MANAGER_NOT_FIPS_COMPLIANT => -1071579040
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TPM_PCRS_DO_NOT_MATCH_LOG => -1071579039
 
     /**
      * @type {Integer (Int32)}
@@ -27583,6 +27598,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static FVE_E_HARDWARE_CRYPTO_KEY_MANAGER_NOT_FIPS_COMPLIANT => -1070530283
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TPM_PCRS_DO_NOT_MATCH_LOG => -1070530282
 
     /**
      * @type {Integer (Int32)}

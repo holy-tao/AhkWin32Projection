@@ -378,6 +378,21 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static BCRYPT_KEM_SHARED_SECRET_LENGTH => "KEMSharedSecretLength"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_KEM_CIPHERTEXT_LENGTH => "KEMCiphertextLength"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_PARAMETER_SET_NAME => "ParameterSetName"
+
+    /**
+     * @type {String}
+     */
     static BCRYPT_INITIALIZATION_VECTOR => "IV"
 
     /**
@@ -409,11 +424,6 @@ class Cryptography {
      * @type {String}
      */
     static BCRYPT_CHAIN_MODE_GCM => "ChainingModeGCM"
-
-    /**
-     * @type {String}
-     */
-    static BCRYPT_CHAIN_MODE_KWP => "ChainingModeKWP"
 
     /**
      * @type {Integer (UInt32)}
@@ -449,6 +459,16 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static BCRYPT_PAD_PKCS1_OPTIONAL_HASH_OID => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_PAD_PQDSA => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLDSA_EXTERNAL_MU => 64
 
     /**
      * @type {Integer (UInt32)}
@@ -694,6 +714,96 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static BCRYPT_KEY_DATA_BLOB_VERSION1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLDSA_PUBLIC_MAGIC => 1263555396
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLDSA_PRIVATE_MAGIC => 1263752004
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLDSA_PRIVATE_SEED_MAGIC => 1397969732
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_SLHDSA_PUBLIC_MAGIC => 1263552595
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_SLHDSA_PRIVATE_MAGIC => 1263749203
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_LMS_PUBLIC_MAGIC => 1263553868
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_XMSS_PUBLIC_MAGIC => 1263553880
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_PQDSA_PUBLIC_BLOB => "PQDSAPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_PQDSA_PRIVATE_BLOB => "PQDSAPRIVATEBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_PQDSA_PRIVATE_SEED_BLOB => "PQDSAPRIVATESEEDBLOB"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLKEM_PUBLIC_MAGIC => 1347112013
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLKEM_PRIVATE_MAGIC => 1380666445
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_MLKEM_PRIVATE_SEED_MAGIC => 1397443661
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PUBLIC_BLOB => "MLKEMPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PRIVATE_BLOB => "MLKEMPRIVATEBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PRIVATE_SEED_BLOB => "MLKEMPRIVATESEEDBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_ENCAPSULATION_BLOB => "MLKEMPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_DECAPSULATION_BLOB => "MLKEMPRIVATEBLOB"
 
     /**
      * @type {String}
@@ -958,6 +1068,96 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static BCRYPT_MLDSA_PARAMETER_SET_44 => "44"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLDSA_PARAMETER_SET_65 => "65"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLDSA_PARAMETER_SET_87 => "87"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_128S => "SHA2-128s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_128S => "SHAKE-128s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_128F => "SHA2-128f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_128F => "SHAKE-128f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_192S => "SHA2-192s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_192S => "SHAKE-192s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_192F => "SHA2-192f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_192F => "SHAKE-192f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_256S => "SHA2-256s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_256S => "SHAKE-256s"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHA2_256F => "SHA2-256f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_PARAMETER_SET_SHAKE_256F => "SHAKE-256f"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PARAMETER_SET_512 => "512"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PARAMETER_SET_768 => "768"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_PARAMETER_SET_1024 => "1024"
+
+    /**
+     * @type {String}
+     */
     static MS_PRIMITIVE_PROVIDER => "Microsoft Primitive Provider"
 
     /**
@@ -1201,9 +1401,49 @@ class Cryptography {
     static BCRYPT_KMAC256_ALGORITHM => "KMAC256"
 
     /**
+     * @type {String}
+     */
+    static BCRYPT_SHAKE128_ALGORITHM => "SHAKE128"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SHAKE256_ALGORITHM => "SHAKE256"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLDSA_ALGORITHM => "ML-DSA"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SLHDSA_ALGORITHM => "SLH-DSA"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_LMS_ALGORITHM => "LMS"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_XMSS_ALGORITHM => "XMSS"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_MLKEM_ALGORITHM => "ML-KEM"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static BCRYPT_KEY_DERIVATION_INTERFACE => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_KEY_ENCAPSULATION_INTERFACE => 8
 
     /**
      * @type {BCRYPT_ALG_HANDLE}
@@ -1553,7 +1793,22 @@ class Cryptography {
     /**
      * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_KWP_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1105}, false)
+    static BCRYPT_SHAKE128_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1105}, false)
+
+    /**
+     * @type {BCRYPT_ALG_HANDLE}
+     */
+    static BCRYPT_SHAKE256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1121}, false)
+
+    /**
+     * @type {BCRYPT_ALG_HANDLE}
+     */
+    static BCRYPT_MLDSA_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1137}, false)
+
+    /**
+     * @type {BCRYPT_ALG_HANDLE}
+     */
+    static BCRYPT_MLKEM_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1153}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -1594,6 +1849,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static BCRYPT_KEY_DERIVATION_OPERATION => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_KEY_ENCAPSULATION_OPERATION => 128
 
     /**
      * @type {Integer (UInt32)}
@@ -2301,9 +2561,39 @@ class Cryptography {
     static NCRYPT_HMAC_SHA256_ALGORITHM => "HMAC-SHA256"
 
     /**
+     * @type {String}
+     */
+    static NCRYPT_MLKEM_ALGORITHM => "ML-KEM"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_MLDSA_ALGORITHM => "ML-DSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_SLHDSA_ALGORITHM => "SLH-DSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_LMS_ALGORITHM => "LMS"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_XMSS_ALGORITHM => "XMSS"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static NCRYPT_KEY_DERIVATION_INTERFACE => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_KEY_ENCAPSULATION_INTERFACE => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -2354,6 +2644,31 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_KEY_DERIVATION_GROUP => "KEY_DERIVATION"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_MLKEM_ALGORITHM_GROUP => "MLKEM"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_MLDSA_ALGORITHM_GROUP => "MLDSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_SLHDSA_ALGORITHM_GROUP => "SLHDSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_LMS_ALGORITHM_GROUP => "LMS"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_XMSS_ALGORITHM_GROUP => "XMSS"
 
     /**
      * @type {Integer (UInt32)}
@@ -2568,6 +2883,21 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPTBUFFER_PKCS_AES_KEY_BITS => 96
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_PKCS_PADDING_ALGO => 97
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_PKCS_PADDING_LABEL => 98
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_CIPHER_NO_PADDING_FLAG => 0
 
     /**
@@ -2778,6 +3108,11 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_PAD_PQDSA_FLAG => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_ATTESTATION_FLAG => 32
 
     /**
@@ -2859,6 +3194,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_KEY_DERIVATION_OPERATION => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_KEY_ENCAPSULATION_OPERATION => 128
 
     /**
      * @type {Integer (UInt32)}
@@ -3118,17 +3458,17 @@ class Cryptography {
     /**
      * @type {String}
      */
-    static NCRYPT_PKCS11_KWP_AES_KEY_BITS_PROPERTY => "Pkcs11AesKeyBits"
+    static NCRYPT_PARAMETER_SET_NAME_PROPERTY => "ParameterSetName"
 
     /**
      * @type {String}
      */
-    static NCRYPT_PKCS11_KWP_OAEP_HASH_ALGO_PROPERTY => "Pkcs11OaepHashAlgorithm"
+    static NCRYPT_KEM_SHARED_SECRET_LENGTH_PROPERTY => "KEMSharedSecretLength"
 
     /**
      * @type {String}
      */
-    static NCRYPT_PKCS11_KWP_OAEP_LABEL_PROPERTY => "Pkcs11OaepLabel"
+    static NCRYPT_KEM_CIPHERTEXT_LENGTH_PROPERTY => "KEMCiphertextLength"
 
     /**
      * @type {String}
@@ -3789,6 +4129,21 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB => "ISOLATED_KEY_ENVELOPE"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_PQ_PRIVATE_BLOB_MAGIC => 1380995408
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PQ_PRIVATE_KEY_BLOB => "PQPrivateKeyBlob"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PQ_PUBLIC_KEY_BLOB => "PUBLICBLOB"
 
     /**
      * @type {String}
@@ -6309,6 +6664,181 @@ class Cryptography {
      * @type {String}
      */
     static szOID_NIST_sha512 => "2.16.840.1.101.3.4.2.3"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_shake128 => "2.16.840.1.101.3.4.2.11"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_shake256 => "2.16.840.1.101.3.4.2.12"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_dsa_44 => "2.16.840.1.101.3.4.3.17"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_dsa_65 => "2.16.840.1.101.3.4.3.18"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_dsa_87 => "2.16.840.1.101.3.4.3.19"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_ml_dsa_44_with_sha512 => "2.16.840.1.101.3.4.3.32"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_ml_dsa_65_with_sha512 => "2.16.840.1.101.3.4.3.33"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_ml_dsa_87_with_sha512 => "2.16.840.1.101.3.4.3.34"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_kem_512 => "2.16.840.1.101.3.4.4.1"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_kem_768 => "2.16.840.1.101.3.4.4.2"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_ml_kem_1024 => "2.16.840.1.101.3.4.4.3"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_128s => "2.16.840.1.101.3.4.3.20"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_128f => "2.16.840.1.101.3.4.3.21"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_192s => "2.16.840.1.101.3.4.3.22"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_192f => "2.16.840.1.101.3.4.3.23"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_256s => "2.16.840.1.101.3.4.3.24"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_sha2_256f => "2.16.840.1.101.3.4.3.25"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_128s => "2.16.840.1.101.3.4.3.26"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_128f => "2.16.840.1.101.3.4.3.27"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_192s => "2.16.840.1.101.3.4.3.28"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_192f => "2.16.840.1.101.3.4.3.29"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_256s => "2.16.840.1.101.3.4.3.30"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_slh_dsa_shake_256f => "2.16.840.1.101.3.4.3.31"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_128s_with_sha256 => "2.16.840.1.101.3.4.3.35"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_128f_with_sha256 => "2.16.840.1.101.3.4.3.36"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_192s_with_sha512 => "2.16.840.1.101.3.4.3.37"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_192f_with_sha512 => "2.16.840.1.101.3.4.3.38"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_256s_with_sha512 => "2.16.840.1.101.3.4.3.39"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_sha2_256f_with_sha512 => "2.16.840.1.101.3.4.3.40"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_128s_with_shake128 => "2.16.840.1.101.3.4.3.41"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_128f_with_shake128 => "2.16.840.1.101.3.4.3.42"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_192s_with_shake256 => "2.16.840.1.101.3.4.3.43"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_192f_with_shake256 => "2.16.840.1.101.3.4.3.44"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_256s_with_shake256 => "2.16.840.1.101.3.4.3.45"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NIST_hash_slh_dsa_shake_256f_with_shake256 => "2.16.840.1.101.3.4.3.46"
 
     /**
      * @type {String}
@@ -9276,6 +9806,11 @@ class Cryptography {
     static CALG_OID_INFO_PARAMETERS => 4294967294
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static CALG_OID_INFO_PQ => 4294967293
+
+    /**
      * @type {String}
      */
     static CRYPT_OID_INFO_HASH_PARAMETERS_ALGORITHM => "CryptOIDInfoHashParameters"
@@ -9309,6 +9844,16 @@ class Cryptography {
      * @type {String}
      */
     static CRYPT_OID_INFO_NO_PARAMETERS_ALGORITHM => "CryptOIDInfoNoParameters"
+
+    /**
+     * @type {String}
+     */
+    static CRYPT_OID_INFO_NO_HASH_ALGORITHM => "NoHash"
+
+    /**
+     * @type {String}
+     */
+    static CRYPT_OID_INFO_PREHASH_ALGORITHM => "PreHash"
 
     /**
      * @type {Integer (UInt32)}
@@ -9378,6 +9923,41 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static CRYPT_OID_PQ_EXTRA_INFO_FLAGS_INDEX => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_PUBLIC_MAGIC_INDEX => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_PRIVATE_MAGIC_INDEX => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_PUBLIC_KEY_LENGTH_INDEX => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_PRIVATE_KEY_LENGTH_INDEX => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_SIGNATURE_LENGTH_INDEX => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PQ_EXTRA_INFO_MAX_LENGTH => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CRYPT_OID_INHIBIT_SIGNATURE_FORMAT_FLAG => 1
 
     /**
@@ -9413,6 +9993,16 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static CRYPT_OID_PUBKEY_PURE_ONLY_FLAG => 134217728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_PUBKEY_PREHASH_ONLY_FLAG => 67108864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CRYPT_OID_INFO_OID_KEY => 1
 
     /**
@@ -9444,6 +10034,16 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static CRYPT_OID_INFO_OID_KEY_FLAGS_MASK => 4294901760
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_INFO_PUBKEY_PURE_KEY_FLAG => 134217728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRYPT_OID_INFO_PUBKEY_PREHASH_KEY_FLAG => 67108864
 
     /**
      * @type {Integer (UInt32)}
@@ -9524,6 +10124,11 @@ class Cryptography {
      * @type {String}
      */
     static szOID_CERT_STRONG_KEY_OS_CURRENT => "1.3.6.1.4.1.311.72.2.1"
+
+    /**
+     * @type {String}
+     */
+    static szOID_NO_HASH => "1.3.6.1.4.1.311.73.1"
 
     /**
      * @type {String}
@@ -26284,6 +26889,50 @@ class Cryptography {
     }
 
     /**
+     * 
+     * @param {BCRYPT_KEY_HANDLE} hKey 
+     * @param {Pointer} pbSecretKey 
+     * @param {Integer} cbSecretKey 
+     * @param {Pointer<Integer>} pcbSecretKey 
+     * @param {Pointer} pbCipherText 
+     * @param {Integer} cbCipherText 
+     * @param {Pointer<Integer>} pcbCipherText 
+     * @param {Integer} dwFlags 
+     * @returns {NTSTATUS} 
+     */
+    static BCryptEncapsulate(hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
+        pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
+        pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEncapsulate", "ptr", hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
+        return result
+    }
+
+    /**
+     * 
+     * @param {BCRYPT_KEY_HANDLE} hKey 
+     * @param {Pointer} pbCipherText 
+     * @param {Integer} cbCipherText 
+     * @param {Pointer} pbSecretKey 
+     * @param {Integer} cbSecretKey 
+     * @param {Pointer<Integer>} pcbSecretKey 
+     * @param {Integer} dwFlags 
+     * @returns {NTSTATUS} 
+     */
+    static BCryptDecapsulate(hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, pcbSecretKey, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
+        pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptDecapsulate", "ptr", hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "uint", dwFlags, "int")
+        NTSTATUS.ThrowIfError(result)
+        return result
+    }
+
+    /**
      * Retrieves information about a CNG provider.
      * @remarks
      * <b>BCryptQueryProviderRegistration</b> can be called only in user mode.
@@ -28605,6 +29254,45 @@ class Cryptography {
 
         result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
+    }
+
+    /**
+     * 
+     * @param {NCRYPT_KEY_HANDLE} hKey 
+     * @param {Pointer} pbSecretKey 
+     * @param {Integer} cbSecretKey 
+     * @param {Pointer<Integer>} pcbSecretKey 
+     * @param {Pointer} pbCipherText 
+     * @param {Integer} cbCipherText 
+     * @param {Pointer<Integer>} pcbCipherText 
+     * @param {Integer} dwFlags 
+     * @returns {HRESULT} 
+     */
+    static NCryptEncapsulate(hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
+        pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
+        pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptEncapsulate", "ptr", hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {NCRYPT_KEY_HANDLE} hKey 
+     * @param {Pointer} pbCipherText 
+     * @param {Integer} cbCipherText 
+     * @param {Pointer} pbSecretKey 
+     * @param {Integer} cbSecretKey 
+     * @param {Integer} dwFlags 
+     * @returns {Integer} 
+     */
+    static NCryptDecapsulate(hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
+        result := DllCall("ncrypt.dll\NCryptDecapsulate", "ptr", hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, "uint*", &pcbSecretKey := 0, "uint", dwFlags, "HRESULT")
+        return pcbSecretKey
     }
 
     /**

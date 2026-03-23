@@ -843,6 +843,11 @@ class WindowsFilteringPlatform {
     /**
      * @type {Integer (UInt32)}
      */
+    static IKEEXT_POLICY_FLAG_POINT_TO_SITE => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IKEEXT_CERT_CREDENTIAL_FLAG_NAP_CERT => 1
 
     /**
@@ -939,6 +944,11 @@ class WindowsFilteringPlatform {
      * @type {Integer (UInt32)}
      */
     static IPSEC_POLICY_FLAG_SITE_TO_SITE_TUNNEL => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IPSEC_POLICY_FLAG_POINT_TO_SITE_TUNNEL => 131072
 
     /**
      * @type {Integer (UInt32)}
@@ -3550,7 +3560,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SESSION_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_SESSION_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_session_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_SESSION_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for filter enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3622,7 +3632,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_SESSION_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a session enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0">FwpmSessionCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -3699,7 +3709,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_SESSION_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a session enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0">FwpmSessionCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4226,7 +4236,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_PROVIDER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_PROVIDER_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for provider enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4298,7 +4308,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider  enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0">FwpmProviderCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -4375,7 +4385,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a provider enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0">FwpmProviderCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5759,7 +5769,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0">FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for provider context enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5829,7 +5839,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -5912,7 +5922,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -5995,7 +6005,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -6068,7 +6078,7 @@ class WindowsFilteringPlatform {
     /**
      * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
-     * @param {HANDLE} enumHandle 
+     * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>>} entries 
      * @param {Pointer<Integer>} numEntriesReturned 
@@ -6092,7 +6102,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6798,7 +6808,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SUBLAYER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_SUBLAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_SUBLAYER_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for sublayer enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6870,7 +6880,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_SUBLAYER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a sublayer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0">FwpmSubLayerCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -6947,7 +6957,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_SUBLAYER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a sublayer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0">FwpmSubLayerCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7580,7 +7590,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_LAYER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_LAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_LAYER_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for the layer enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7650,7 +7660,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_LAYER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a layer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0">FwpmLayerCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -7727,7 +7737,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_LAYER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a layer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0">FwpmLayerCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8379,7 +8389,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CALLOUT_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_CALLOUT_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_CALLOUT_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8451,7 +8461,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_CALLOUT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a callout enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0">FwpmCalloutCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -8528,7 +8538,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_CALLOUT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a callout enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0">FwpmCalloutCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9375,7 +9385,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_FILTER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_FILTER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_FILTER_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * The handle for filter enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9447,7 +9457,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_FILTER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a filter enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0">FwpmFilterCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -9524,7 +9534,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_FILTER_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a filter enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0">FwpmFilterCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11723,7 +11733,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_SA_CONTEXT_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_context_enum_template0">IPSEC_SA_CONTEXT_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<IPSEC_SA_CONTEXT_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for SA context enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11789,7 +11799,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an SA context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -11868,7 +11878,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an SA context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -11945,7 +11955,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_CONTEXT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of an IPsec security association (SA) context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12239,7 +12249,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_SA_ENUM_TEMPLATE0>} enumTemplate Type: [IPSEC_SA_ENUM_TEMPLATE0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<IPSEC_SA_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12309,7 +12319,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12392,7 +12402,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12469,7 +12479,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12778,7 +12788,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_DOSP_STATE_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_state_enum_template0">IPSEC_DOSP_STATE_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<IPSEC_DOSP_STATE_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12848,7 +12858,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_DOSP_STATE_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec DoS Protection enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0">IPsecDospStateCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12925,7 +12935,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IPSEC_DOSP_STATE_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0">IPsecDospStateCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13978,7 +13988,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IKEEXT_SA_ENUM_TEMPLATE0>} enumTemplate Type: [IKEEXT_SA_ENUM_TEMPLATE0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_sa_enum_template0)*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<IKEEXT_SA_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14048,7 +14058,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IKEEXT_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14131,7 +14141,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IKEEXT_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14214,7 +14224,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IKEEXT_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14291,7 +14301,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {IKEEXT_SA_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14534,7 +14544,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_NET_EVENT_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_NET_EVENT_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_enum_template0)*</b>
      * 
      *   Template to selectively restrict the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_NET_EVENT_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * The handle for network event enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14604,7 +14614,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14700,7 +14710,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14796,7 +14806,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14890,7 +14900,7 @@ class WindowsFilteringPlatform {
      * 
      * <b>FwpmNetEventEnum3</b> returns only events that were logged prior to the creation of the  <i>enumHandle</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/logging">Logging</a> for more information.
      * @param {FWPM_ENGINE_HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested The number of enumeration entries requested.
      * @param {Pointer<Pointer<Pointer<FWPM_NET_EVENT3>>>} entries Addresses of enumeration entries.
      * @param {Pointer<Integer>} numEntriesReturned The number of enumeration entries returned.
@@ -14966,7 +14976,7 @@ class WindowsFilteringPlatform {
     /**
      * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
-     * @param {HANDLE} enumHandle 
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<Pointer<Pointer<FWPM_NET_EVENT4>>>} entries 
      * @param {Pointer<Integer>} numEntriesReturned 
@@ -14986,7 +14996,7 @@ class WindowsFilteringPlatform {
     /**
      * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
-     * @param {HANDLE} enumHandle 
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<Pointer<Pointer<FWPM_NET_EVENT5>>>} entries 
      * @param {Pointer<Integer>} numEntriesReturned 
@@ -15010,7 +15020,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -16016,7 +16026,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_CONNECTION_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0">FwpmConnectionCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -16098,7 +16108,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CONNECTION_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_CONNECTION_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_enum_template0)*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<FWPM_CONNECTION_ENUM_HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for the enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -16160,7 +16170,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
+     * @param {FWPM_CONNECTION_ENUM_HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a connection object enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>

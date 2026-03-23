@@ -232,4 +232,9 @@ class WTS_INFO_CLASS extends Win32Enum{
      * @type {Integer (Int32)}
      */
     static WTSSessionActivityId => 30
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WTSCapabilityCheck => 31
 }

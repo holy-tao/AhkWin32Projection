@@ -7,6 +7,7 @@
 #Include .\PTP_TIMER.ahk
 #Include .\PTP_WAIT.ahk
 #Include .\PTP_IO.ahk
+#Include .\AVRT_TASK_HANDLE.ahk
 #Include .\IRtwqAsyncResult.ahk
 #Include .\CONDITION_VARIABLE.ahk
 #Include .\SRWLOCK.ahk
@@ -997,6 +998,11 @@ class Threading {
      * @type {Integer (UInt32)}
      */
     static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_DESKTOP_APP_TRUSTED_LAUNCH_ALLOW_WINDOWS_HOST => 8
 
     /**
      * @type {Integer (UInt64)}
@@ -10903,7 +10909,7 @@ class Threading {
      * > The avrt.h header defines AvSetMmThreadCharacteristics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
+     * @returns {AVRT_TASK_HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -10966,7 +10972,7 @@ class Threading {
             throw OSError(A_LastError)
         }
 
-        resultHandle := HANDLE({Value: result}, True)
+        resultHandle := AVRT_TASK_HANDLE({Value: result}, True)
         return resultHandle
     }
 
@@ -10983,7 +10989,7 @@ class Threading {
      * > The avrt.h header defines AvSetMmThreadCharacteristics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
+     * @returns {AVRT_TASK_HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -11046,7 +11052,7 @@ class Threading {
             throw OSError(A_LastError)
         }
 
-        resultHandle := HANDLE({Value: result}, True)
+        resultHandle := AVRT_TASK_HANDLE({Value: result}, True)
         return resultHandle
     }
 
@@ -11066,7 +11072,7 @@ class Threading {
      * @param {PSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {PSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
+     * @returns {AVRT_TASK_HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -11130,7 +11136,7 @@ class Threading {
             throw OSError(A_LastError)
         }
 
-        resultHandle := HANDLE({Value: result}, True)
+        resultHandle := AVRT_TASK_HANDLE({Value: result}, True)
         return resultHandle
     }
 
@@ -11150,7 +11156,7 @@ class Threading {
      * @param {PWSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {PWSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
+     * @returns {AVRT_TASK_HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -11214,7 +11220,7 @@ class Threading {
             throw OSError(A_LastError)
         }
 
-        resultHandle := HANDLE({Value: result}, True)
+        resultHandle := AVRT_TASK_HANDLE({Value: result}, True)
         return resultHandle
     }
 
@@ -11222,7 +11228,7 @@ class Threading {
      * Indicates that a thread is no longer performing work associated with the specified task.
      * @remarks
      * This function must be called from the same thread that called the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function to create the handle. Otherwise, the function will fail.
-     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @param {AVRT_TASK_HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11245,7 +11251,7 @@ class Threading {
 
     /**
      * Adjusts the thread priority of the calling thread relative to other threads performing the same task.
-     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @param {AVRT_TASK_HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
      * @param {Integer} Priority 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -11277,7 +11283,7 @@ class Threading {
      * To delete the thread ordering group, call the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtdeletethreadorderinggroup">AvRtDeleteThreadOrderingGroup</a> function.
      * 
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
-     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11328,7 +11334,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11382,7 +11388,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11432,7 +11438,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The number of threads that can join a group is limited only by available system resources.
-     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group.
      * @param {BOOL} Before The thread order. If this parameter is <b>TRUE</b>, the thread is a predecessor thread that is scheduled to run before the parent thread. If this parameter is <b>FALSE</b>, the thread is a successor thread that is scheduled to run after the parent thread.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11461,7 +11467,7 @@ class Threading {
      * If the thread fails to complete its processing during the time-out interval specified by the parent thread when creating the group, it is deleted from the thread ordering group. Therefore, when the thread finishes its processing loop, the next call to <b>AvRtWaitOnThreadOrderingGroup</b> fails and the last error code is set to ERROR_ACCESS_DENIED.
      * 
      * If the thread ordering group is deleted during the wait, this function eventually times out and return ERROR_ACCESS_DENIED.
-     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11488,7 +11494,7 @@ class Threading {
      * The parent thread for a thread ordering group should not remove itself from the group.
      * 
      * If a thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11515,7 +11521,7 @@ class Threading {
      * This function can only be called successfully by the parent thread for the thread ordering group. If a thread other than the parent thread calls this function, the function fails with a last error code of ERROR_INVALID_FUNCTION.
      * 
      * If the parent thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11538,7 +11544,7 @@ class Threading {
 
     /**
      * Retrieves the system responsiveness setting used by the multimedia class scheduler service.
-     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @param {AVRT_TASK_HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
      * @param {Pointer<Integer>} SystemResponsivenessValue The system responsiveness value. This value can range from 10 to 100 percent.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 

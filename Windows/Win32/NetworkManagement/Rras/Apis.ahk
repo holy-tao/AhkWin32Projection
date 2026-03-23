@@ -3803,7 +3803,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer<RASCONNA>} param0 
+     * @param {Pointer} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -3847,7 +3847,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer<RASCONNW>} param0 
+     * @param {Pointer} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.

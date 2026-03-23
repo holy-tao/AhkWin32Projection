@@ -782,7 +782,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.  This parameter must contain a valid pointer; it cannot be <b>NULL</b>.
+     * @param {Pointer<HTTP_REQUEST_QUEUE_HANDLE>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.  This parameter must contain a valid pointer; it cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
      * If the function fails, it returns one of the following error codes.
@@ -872,7 +872,7 @@ class HttpServer {
      * Closes the handle to the specified request queue created by HttpCreateRequestQueue.
      * @remarks
      * Applications  should not call <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> on the request queue handle; instead, they should call <b>HttpCloseRequestQueue</b> to ensure that all the resources are released.
-     * @param {HANDLE} RequestQueueHandle The handle to the request queue that is closed. A request queue is created and its handle returned by a call to the 
+     * @param {HTTP_REQUEST_QUEUE_HANDLE} RequestQueueHandle The handle to the request queue that is closed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 

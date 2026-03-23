@@ -3010,6 +3010,16 @@ class MediaFoundation {
     /**
      * @type {Guid}
      */
+    static MFSampleExtension_VideoEncodeInputDeltaQPMap => Guid("{dab419c3-bf21-4b46-8692-9a7bf0a71769}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFSampleExtension_VideoEncodeInputAbsoluteQPMap => Guid("{432a6e9a-f1ed-456e-8dc3-6f8985649eb9}")
+
+    /**
+     * @type {Guid}
+     */
     static MFSampleExtension_PhotoThumbnail => Guid("{74bbc85c-c8bb-42dc-b586-da17ffd35dcc}")
 
     /**
@@ -3866,6 +3876,11 @@ class MediaFoundation {
      * @type {Guid}
      */
     static MFAudioFormat_DTS_UHDY => Guid("{9b9cca00-91b9-4ccc-883a-8f787ac3cc86}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFAudioFormat_IAMF => Guid("{78a8eba0-f446-4851-a55d-5372280e6b0b}")
 
     /**
      * @type {Guid}
@@ -10590,6 +10605,21 @@ class MediaFoundation {
      * @type {Guid}
      */
     static MF_CONTENTDECRYPTIONMODULE_SERVICE => Guid("{15320c45-ff80-484a-9dcb-0df894e69a01}")
+
+    /**
+     * @type {Guid}
+     */
+    static MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATE => Guid("{2df7b51e-797b-4d06-be71-d14a52cf8421}")
+
+    /**
+     * @type {Guid}
+     */
+    static MF_ENCRYPTEDMEDIAEXTENSIONS_ACTIVATABLE_CLASS_ID => Guid("{77631a31-e5e7-4785-bf17-20f57b224802}")
+
+    /**
+     * @type {Guid}
+     */
+    static MF_ENCRYPTEDMEDIAEXTENSIONS_INITIALIZATION_DATA => Guid("{3e73735c-e6c0-481d-8260-ee5db1343b5f}")
 
     /**
      * @type {Guid}
