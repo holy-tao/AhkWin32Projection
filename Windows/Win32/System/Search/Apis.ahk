@@ -5629,6 +5629,16 @@ class Search {
     /**
      * @type {Integer (UInt32)}
      */
+    static GENERATE_METHOD_WITH_BM25 => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static GENERATE_METHOD_WITH_TFDOCLEN => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static PRRE => 6
 
     /**

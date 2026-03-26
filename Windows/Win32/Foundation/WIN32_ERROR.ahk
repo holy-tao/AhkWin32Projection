@@ -2505,6 +2505,11 @@ class WIN32_ERROR extends Win32Enum{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_SYSTEM_FILE_NOT_SUPPORTED => 525
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_ARITHMETIC_OVERFLOW => 534
 
     /**
@@ -14690,6 +14695,11 @@ class WIN32_ERROR extends Win32Enum{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_APISET_SCHEMA_VERSION_NOT_SUPPORTED => 15381
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_CANNOT_SWITCH_RUNLEVEL => 15400
 
     /**
@@ -15121,6 +15131,16 @@ class WIN32_ERROR extends Win32Enum{
      * @type {Integer (UInt32)}
      */
     static ERROR_DEPLOYMENT_BLOCKED_BY_REMOVEDEFAULTPACKAGES_POLICY => 15679
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_URI_BLOCKED_BY_POLICY_MSIXALLOWEDZONES => 15680
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_URI_RECOMMENDED_BLOCK_BY_SMARTSCREEN => 15681
 
     /**
      * @type {Integer (UInt32)}

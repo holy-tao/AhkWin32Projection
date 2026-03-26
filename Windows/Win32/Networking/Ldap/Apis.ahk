@@ -587,7 +587,7 @@ class Ldap {
     /**
      * @type {Integer (UInt32)}
      */
-    static LDAP_OPT_MAX_VAL_RANGE => 71
+    static LDAP_OPT_ANONYMOUS_MAX_VAL_RANGE => 71
 
     /**
      * @type {Integer (UInt32)}

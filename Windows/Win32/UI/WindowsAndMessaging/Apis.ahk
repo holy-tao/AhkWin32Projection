@@ -6899,12 +6899,12 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
-    static TOUCHPAD_PARAMETERS_LATEST_VERSION => 1
+    static TOUCHPAD_PARAMETERS_VERSION_1 => 1
 
     /**
      * @type {Integer (UInt32)}
      */
-    static TOUCHPAD_PARAMETERS_VERSION_1 => 1
+    static TOUCHPAD_PARAMETERS_VERSION_2 => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -31482,6 +31482,15 @@ class WindowsAndMessaging {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\RegisterForTooltipDismissNotification", "ptr", hWnd, "int", tdFlags, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @returns {BOOL} 
+     */
+    static ConvertPrimaryPointerToMouseDrag() {
+        result := DllCall("USER32.dll\ConvertPrimaryPointerToMouseDrag", "int")
         return result
     }
 

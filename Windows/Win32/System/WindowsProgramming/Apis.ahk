@@ -3043,6 +3043,21 @@ class WindowsProgramming {
     }
 
     /**
+     * 
+     * @param {PSTR} contractName 
+     * @param {Integer} bufferLength 
+     * @param {PWSTR} moduleBaseName 
+     * @returns {Integer} 
+     */
+    static GetApiSetModuleBaseName(contractName, bufferLength, moduleBaseName) {
+        contractName := contractName is String ? StrPtr(contractName) : contractName
+        moduleBaseName := moduleBaseName is String ? StrPtr(moduleBaseName) : moduleBaseName
+
+        result := DllCall("api-ms-win-core-apiquery-l2-1-1.dll\GetApiSetModuleBaseName", "ptr", contractName, "uint", bufferLength, "ptr", moduleBaseName, "uint*", &actualNameLength := 0, "HRESULT")
+        return actualNameLength
+    }
+
+    /**
      * Retrieves the cycle time for the specified thread.
      * @remarks
      * To enumerate the threads of the process, use the <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32first">Thread32First</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32next">Thread32Next</a> functions. To get the thread handle for a thread identifier, use the 

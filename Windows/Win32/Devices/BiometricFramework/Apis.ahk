@@ -4428,14 +4428,5 @@ class BiometricFramework {
         return result
     }
 
-    /**
-     * 
-     * @returns {Integer} 
-     */
-    static EXPERIMENTAL_WinBioGetEssState() {
-        result := DllCall("winbio.dll\EXPERIMENTAL_WinBioGetEssState", "uint*", &EssState := 0, "HRESULT")
-        return EssState
-    }
-
 ;@endregion Methods
 }

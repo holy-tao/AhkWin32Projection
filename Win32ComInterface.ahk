@@ -3,6 +3,7 @@
 #Include Guid.ahk
 
 #Include ./Windows/Win32/System/Com/Apis.ahk
+#Include ./Win32FixedArray.ahk
 
 /**
  * Win32ComInterface is the base class from which all generated COM Interfaces

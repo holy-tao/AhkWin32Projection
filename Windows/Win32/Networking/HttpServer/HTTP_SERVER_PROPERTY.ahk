@@ -110,4 +110,9 @@ class HTTP_SERVER_PROPERTY extends Win32Enum{
      * @type {Integer (Int32)}
      */
     static HttpServerFastForwardingProperty => 18
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpServerRequestInfoProperty => 19
 }

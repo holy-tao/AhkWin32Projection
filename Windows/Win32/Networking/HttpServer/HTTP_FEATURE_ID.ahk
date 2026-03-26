@@ -103,7 +103,12 @@ class HTTP_FEATURE_ID extends Win32Enum{
     /**
      * @type {Integer (Int32)}
      */
-    static HttpFeatureLast => 17
+    static HttpFeatureTlsHandshakePerformanceCounters => 17
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureLast => 18
 
     /**
      * Specifies the maximum number of supported features.

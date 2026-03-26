@@ -1533,6 +1533,81 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEV_ARM_BASE => 36864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_PCR_SCHEMA => 36865
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DCE => 36866
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DCE_PUBKEY => 36867
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DLME => 36868
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DLME_ENTRY_POINT => 36869
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DEBUG_CONFIG => 36870
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_NONSECURE_CONFIG => 36871
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DCE_SECONDARY => 36872
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_TZFW => 36873
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_SEPARATOR => 36874
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DLME_PUBKEY => 36875
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_DLME_SVN => 36876
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_NO_ACTION => 36877
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_ARM_SECURE_INT_DISABLE => 36878
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENTTYPE_NONMEASURED => 2147483648
 
     /**
@@ -1664,6 +1739,11 @@ class QoS {
      * @type {Integer (UInt32)}
      */
     static SIPAEVENT_SVN_CHAIN_STATUS => 131082
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_IDK_GENERATION_STATUS => 131084
 
     /**
      * @type {Integer (UInt32)}
@@ -1964,6 +2044,21 @@ class QoS {
      * @type {Integer (UInt32)}
      */
     static SIPAEVENT_MODULE_PLUTON => 458764
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_MODULE_ORIGINAL_FILENAME => 458765
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_MODULE_VERSION => 458766
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_PUBLISHER_OEMNAME => 458767
 
     /**
      * @type {Integer (UInt32)}

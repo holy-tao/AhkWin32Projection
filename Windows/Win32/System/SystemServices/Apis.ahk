@@ -3476,6 +3476,11 @@ class SystemServices {
     static SECURITY_MANDATORY_PROTECTED_PROCESS_RID => 20480
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static SECURITY_MANDATORY_MEDIUM_PLUS_CREDUI_RID => 8202
+
+    /**
      * @type {Integer (Int32)}
      */
     static SECURITY_MANDATORY_MAXIMUM_USER_RID => 16384
@@ -4659,6 +4664,41 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static XSTATE_CONTROLFLAG_XFD_MASK => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RUNTIME_REPORT_PACKAGE_MAGIC => 1381257808
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RUNTIME_REPORT_PACKAGE_VERSION_CURRENT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RUNTIME_REPORT_NONCE_SIZE => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RUNTIME_REPORT_DIGEST_MAX_SIZE => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RUNTIME_REPORT_SIGNATURE_SCHEME_SHA512_RSA_PSS_SHA512 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DRIVER_REPORT_DIGEST_MAX_SIZE => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DRIVER_REPORT_NAME_MAX_LENGTH => 32
 
     /**
      * @type {Integer (UInt32)}

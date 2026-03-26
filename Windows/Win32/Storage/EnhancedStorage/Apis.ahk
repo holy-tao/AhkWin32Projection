@@ -6318,6 +6318,34 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_StorageProviderUserAccountKind {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGEPROVIDERUSERACCOUNTKIND_UNKNOWN => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGEPROVIDERUSERACCOUNTKIND_CONSUMER => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGEPROVIDERUSERACCOUNTKIND_BUSINESS => 2
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_StorageProviderUserId {
         get {
             value := PROPERTYKEY()
