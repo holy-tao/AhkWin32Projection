@@ -33,79 +33,79 @@ class ISpeechDataKey extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
      */
-    SetBinaryValue(ValueName, Value) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    SetBinaryValue(_ValueName, Value) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(7, this, "ptr", ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @returns {VARIANT} 
      */
-    GetBinaryValue(ValueName) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    GetBinaryValue(_ValueName) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
         Value := VARIANT()
-        result := ComCall(8, this, "ptr", ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(8, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
         return Value
     }
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
-    SetStringValue(ValueName, Value) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    SetStringValue(_ValueName, Value) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(9, this, "ptr", ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(9, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @returns {BSTR} 
      */
-    GetStringValue(ValueName) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    GetStringValue(_ValueName) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
         Value := BSTR()
-        result := ComCall(10, this, "ptr", ValueName, "ptr", Value, "HRESULT")
+        result := ComCall(10, this, "ptr", _ValueName, "ptr", Value, "HRESULT")
         return Value
     }
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @param {Integer} Value 
      * @returns {HRESULT} 
      */
-    SetLongValue(ValueName, Value) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    SetLongValue(_ValueName, Value) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(11, this, "ptr", ValueName, "int", Value, "HRESULT")
+        result := ComCall(11, this, "ptr", _ValueName, "int", Value, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @returns {Integer} 
      */
-    GetLongValue(ValueName) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    GetLongValue(_ValueName) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(12, this, "ptr", ValueName, "int*", &Value := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", _ValueName, "int*", &Value := 0, "HRESULT")
         return Value
     }
 
@@ -163,13 +163,13 @@ class ISpeechDataKey extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} ValueName 
+     * @param {BSTR} _ValueName 
      * @returns {HRESULT} 
      */
-    DeleteValue(ValueName) {
-        ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
+    DeleteValue(_ValueName) {
+        _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(16, this, "ptr", ValueName, "HRESULT")
+        result := ComCall(16, this, "ptr", _ValueName, "HRESULT")
         return result
     }
 
@@ -190,8 +190,8 @@ class ISpeechDataKey extends IDispatch{
      * @returns {BSTR} 
      */
     EnumValues(Index) {
-        ValueName := BSTR()
-        result := ComCall(18, this, "int", Index, "ptr", ValueName, "HRESULT")
-        return ValueName
+        _ValueName := BSTR()
+        result := ComCall(18, this, "int", Index, "ptr", _ValueName, "HRESULT")
+        return _ValueName
     }
 }

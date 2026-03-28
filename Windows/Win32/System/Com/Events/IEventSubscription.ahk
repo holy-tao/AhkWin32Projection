@@ -442,15 +442,15 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * Publisher filters should call this method to obtain filter properties stored by the subscription builder.
      * @param {BSTR} bstrPropertyName The name of the requested property.
-     * @returns {VARIANT} The value of the requested property.
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherproperty
      */
     GetPublisherProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        propertyValue := VARIANT()
-        result := ComCall(31, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return propertyValue
+        _propertyValue := VARIANT()
+        result := ComCall(31, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        return _propertyValue
     }
 
     /**
@@ -458,14 +458,14 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * A property bag is used to store information about the events the subscriber needs to be notified about. For example, if a subscriber to a sports ticker is to obtain only baseball scores, it could use the property bag in the subscription object to specify this restriction.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
-     * @param {Pointer<VARIANT>} propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
+     * @param {Pointer<VARIANT>} _propertyValue 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty
      */
-    PutPublisherProperty(bstrPropertyName, propertyValue) {
+    PutPublisherProperty(bstrPropertyName, _propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
         return result
     }
 
@@ -499,15 +499,15 @@ class IEventSubscription extends IDispatch{
     /**
      * Retrieves the value of a property stored in the property bag to define subscriber context.
      * @param {BSTR} bstrPropertyName The name of the requested property.
-     * @returns {VARIANT} The value of the requested property.
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberproperty
      */
     GetSubscriberProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        propertyValue := VARIANT()
-        result := ComCall(35, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return propertyValue
+        _propertyValue := VARIANT()
+        result := ComCall(35, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        return _propertyValue
     }
 
     /**
@@ -515,14 +515,14 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * A property bag is used to store information about the events the subscriber needs to be notified about. For example, if a subscriber to a sports ticker is to obtain only baseball scores, it could use the property bag in the subscription object to specify this restriction.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
-     * @param {Pointer<VARIANT>} propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
+     * @param {Pointer<VARIANT>} _propertyValue 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putsubscriberproperty
      */
-    PutSubscriberProperty(bstrPropertyName, propertyValue) {
+    PutSubscriberProperty(bstrPropertyName, _propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(36, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
+        result := ComCall(36, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
         return result
     }
 

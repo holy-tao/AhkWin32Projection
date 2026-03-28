@@ -47,7 +47,7 @@ class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {Integer} textEditChangeType 
+     * @param {Integer} _textEditChangeType 
      * @param {Pointer<SAFEARRAY>} eventStrings Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * Event data passed by the event.
@@ -56,8 +56,8 @@ class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextedittextchangedeventhandler-handletextedittextchangedevent
      */
-    HandleTextEditTextChangedEvent(sender, textEditChangeType, eventStrings) {
-        result := ComCall(3, this, "ptr", sender, "int", textEditChangeType, "ptr", eventStrings, "HRESULT")
+    HandleTextEditTextChangedEvent(sender, _textEditChangeType, eventStrings) {
+        result := ComCall(3, this, "ptr", sender, "int", _textEditChangeType, "ptr", eventStrings, "HRESULT")
         return result
     }
 }

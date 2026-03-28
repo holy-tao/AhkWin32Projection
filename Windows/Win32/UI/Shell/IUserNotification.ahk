@@ -84,9 +84,7 @@ class IUserNotification extends IUnknown{
 
     /**
      * Sets the notification area icon associated with specific user information. (IUserNotification.SetIconInfo)
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * A handle to the icon.
+     * @param {HICON} _hIcon 
      * @param {PWSTR} pszToolTip Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the tooltip text to display for the specified icon. This value can be <b>NULL</b>, although it is not recommended.
@@ -95,11 +93,11 @@ class IUserNotification extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iusernotification-seticoninfo
      */
-    SetIconInfo(hIcon, pszToolTip) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    SetIconInfo(_hIcon, pszToolTip) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         pszToolTip := pszToolTip is String ? StrPtr(pszToolTip) : pszToolTip
 
-        result := ComCall(5, this, "ptr", hIcon, "ptr", pszToolTip, "HRESULT")
+        result := ComCall(5, this, "ptr", _hIcon, "ptr", pszToolTip, "HRESULT")
         return result
     }
 

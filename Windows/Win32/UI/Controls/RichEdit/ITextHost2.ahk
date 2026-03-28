@@ -219,9 +219,7 @@ class ITextHost2 extends ITextHost{
      * @param {BOOL} fShow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Show or hide flag. <b>TRUE</b> shows the drop caret, and <b>FALSE</b> hides it.
-     * @param {HDC} hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
-     * 
-     * The HDC.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPCRECT</a></b>
      * 
      * The drop caret rectangle.
@@ -230,10 +228,10 @@ class ITextHost2 extends ITextHost{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txshowdropcaret
      */
-    TxShowDropCaret(fShow, hdc, prc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    TxShowDropCaret(fShow, _hdc, prc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(51, this, "int", fShow, "ptr", hdc, "ptr", prc, "HRESULT")
+        result := ComCall(51, this, "int", fShow, "ptr", _hdc, "ptr", prc, "HRESULT")
         return result
     }
 

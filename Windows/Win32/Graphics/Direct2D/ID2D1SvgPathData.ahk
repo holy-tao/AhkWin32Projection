@@ -169,16 +169,14 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
 
     /**
      * Creates a path geometry object representing the path data.
-     * @param {Integer} fillMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
-     * 
-     * Fill mode for the path geometry object.
+     * @param {Integer} _fillMode 
      * @returns {ID2D1PathGeometry1} Type: <b>ID2D1PathGeometry1**</b>
      * 
      * On completion, pathGeometry will contain a point to the created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1pathgeometry1">ID2D1PathGeometry1</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-createpathgeometry
      */
-    CreatePathGeometry(fillMode) {
-        result := ComCall(14, this, "int", fillMode, "ptr*", &pathGeometry := 0, "HRESULT")
+    CreatePathGeometry(_fillMode) {
+        result := ComCall(14, this, "int", _fillMode, "ptr*", &pathGeometry := 0, "HRESULT")
         return ID2D1PathGeometry1(pathGeometry)
     }
 }

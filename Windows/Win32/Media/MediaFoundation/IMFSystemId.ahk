@@ -32,7 +32,7 @@ class IMFSystemId extends IUnknown{
 
     /**
      * Retrieves system id data.
-     * @param {Pointer<Integer>} size The size in bytes of the returned data.
+     * @param {Pointer<Integer>} _size 
      * @param {Pointer<Pointer<Integer>>} data Receives the returned data.  The caller must free this buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -55,11 +55,11 @@ class IMFSystemId extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-getdata
      */
-    GetData(size, data) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    GetData(_size, data) {
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, sizeMarshal, size, dataMarshal, data, "HRESULT")
+        result := ComCall(3, this, _sizeMarshal, _size, dataMarshal, data, "HRESULT")
         return result
     }
 

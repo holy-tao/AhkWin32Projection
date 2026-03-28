@@ -41,12 +41,12 @@ class ID2D1SolidColorBrush extends ID2D1Brush{
      * Specifies the color of this solid color brush.
      * @remarks
      * To help create colors, Direct2D provides the [**ColorF**](/windows/win32/api/d2d1helper/nl-d2d1helper-colorf) class. It offers several helper methods for creating colors and provides a set or predefined colors.
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1solidcolorbrush-setcolor
      */
-    SetColor(color) {
-        ComCall(8, this, "ptr", color)
+    SetColor(_color) {
+        ComCall(8, this, "ptr", _color)
     }
 
     /**

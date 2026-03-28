@@ -78,16 +78,8 @@ class IPrintDialogCallback extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The identifier of the message being received.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional information about the message. The exact meaning depends on the value of the <i>uMsg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional information about the message. The exact meaning depends on the value of the <i>uMsg</i> parameter.
-     * 
-     * 					
-     * 
-     * If the <i>uMsg</i> parameter indicates the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printdlgexa">PRINTDLGEX</a> structure containing the values specified when the property sheet was created.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<LRESULT>} pResult Type: <b>LRESULT*</b>
      * 
      * Indicates the result to be returned by the dialog box procedure for the message. The value pointed to should be <b>TRUE</b> if you process the message, otherwise it should be <b>FALSE</b> or whatever is an appropriate value according to the message type.
@@ -98,12 +90,12 @@ class IPrintDialogCallback extends IUnknown{
      * Return <b>S_FALSE</b> if you want <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> to perform its default message handling.
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-iprintdialogcallback-handlemessage
      */
-    HandleMessage(hDlg, uMsg, wParam, lParam, pResult) {
+    HandleMessage(hDlg, uMsg, _wParam, _lParam, pResult) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hDlg, "uint", uMsg, "ptr", wParam, "ptr", lParam, pResultMarshal, pResult, "HRESULT")
+        result := ComCall(5, this, "ptr", hDlg, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, pResultMarshal, pResult, "HRESULT")
         return result
     }
 }

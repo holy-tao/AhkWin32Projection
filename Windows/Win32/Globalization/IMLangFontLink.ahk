@@ -31,43 +31,43 @@ class IMLangFontLink extends IMLangCodePages{
 
     /**
      * 
-     * @param {HDC} hDC 
-     * @param {HFONT} hFont 
+     * @param {HDC} _hDC 
+     * @param {HFONT} _hFont 
      * @returns {Integer} 
      */
-    GetFontCodePages(hDC, hFont) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    GetFontCodePages(_hDC, _hFont) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _hDC, "ptr", _hFont, "uint*", &pdwCodePages := 0, "HRESULT")
         return pdwCodePages
     }
 
     /**
      * 
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {HFONT} hSrcFont 
      * @returns {HFONT} 
      */
-    MapFont(hDC, dwCodePages, hSrcFont) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    MapFont(_hDC, dwCodePages, hSrcFont) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
         hSrcFont := hSrcFont is Win32Handle ? NumGet(hSrcFont, "ptr") : hSrcFont
 
         phDestFont := HFONT()
-        result := ComCall(8, this, "ptr", hDC, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "HRESULT")
+        result := ComCall(8, this, "ptr", _hDC, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "HRESULT")
         return phDestFont
     }
 
     /**
      * 
-     * @param {HFONT} hFont 
+     * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
-    ReleaseFont(hFont) {
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    ReleaseFont(_hFont) {
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(9, this, "ptr", hFont, "HRESULT")
+        result := ComCall(9, this, "ptr", _hFont, "HRESULT")
         return result
     }
 

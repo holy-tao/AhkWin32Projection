@@ -5191,7 +5191,7 @@ class Bluetooth {
      * The BluetoothRegisterForAuthentication function registers a callback function that is called when a particular Bluetooth device requests authentication.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure. The Address member is used for comparison.
      * @param {Pointer<Pointer>} phRegHandle Pointer to a structure in which the registration HANDLE is stored. Call the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close the handle.
-     * @param {Pointer<PFN_AUTHENTICATION_CALLBACK>} pfnCallback Function to be called when the authentication event occurs. The function should match the prototype described in PFN_AUTHENTICATION_CALLBACK.
+     * @param {Pointer<PFN_AUTHENTICATION_CALLBACK>} _pfnCallback 
      * @param {Pointer<Void>} pvParam Optional parameter to be passed through the callback function.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion, and a valid registration handle was returned in <i>phRegHandle</i>. Any other return value indicates failure.
      * 
@@ -5217,13 +5217,13 @@ class Bluetooth {
      * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication
      * @since windows6.0.6000
      */
-    static BluetoothRegisterForAuthentication(pbtdi, phRegHandle, pfnCallback, pvParam) {
+    static BluetoothRegisterForAuthentication(pbtdi, phRegHandle, _pfnCallback, pvParam) {
         phRegHandleMarshal := phRegHandle is VarRef ? "ptr*" : "ptr"
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", "ptr", pbtdi, phRegHandleMarshal, phRegHandle, "ptr", pfnCallback, pvParamMarshal, pvParam, "uint")
+        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", "ptr", pbtdi, phRegHandleMarshal, phRegHandle, "ptr", _pfnCallback, pvParamMarshal, pvParam, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5621,7 +5621,7 @@ class Bluetooth {
      * containing attribute ID (UINT16) plus attribute value (any SDP element type) pairs.
      * @param {Pointer} pSDPStream Pointer to a valid record stream that is formatted as a single SDP record.
      * @param {Integer} cbStreamSize Size of the stream pointed to by <i>pSDPStream</i>, in bytes.
-     * @param {Pointer<PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK>} pfnCallback Pointer to the callback routine. See <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_bluetooth_enum_attributes_callback">PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK</a> for more information about the callback.
+     * @param {Pointer<PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK>} _pfnCallback 
      * @param {Pointer<Void>} pvParam Optional parameter to be passed to the callback routine.
      * @returns {BOOL} Returns <b>TRUE</b> if an enumeration occurred. Returns <b>FALSE</b> upon failure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information. The following table describes common error codes associated with the <b>BluetoothSdpEnumAttributes</b> function:
      * 
@@ -5656,12 +5656,12 @@ class Bluetooth {
      * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpenumattributes
      * @since windows6.0.6000
      */
-    static BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, pfnCallback, pvParam) {
+    static BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, _pfnCallback, pvParam) {
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, pvParamMarshal, pvParam, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", _pfnCallback, pvParamMarshal, pvParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

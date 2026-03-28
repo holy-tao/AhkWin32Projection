@@ -48,15 +48,9 @@ class ITextServices extends IUnknown{
      * <li>Any keystroke that tries to move the insertion point to or past the next line when it is already on the last line; or to or before the previous line when it is already on the first line. </li>
      * <li>Any insertion of the character from <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-char">WM_CHAR</a> that would move the insertion point past the maximum length of the control. </li>
      * </ul>
-     * @param {Integer} msg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * The message identifier.
-     * @param {WPARAM} wparam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
-     * 
-     * The <b>WPARAM</b> from the window's message.
-     * @param {LPARAM} lparam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
-     * 
-     * The <b>LPARAM</b> from the window's message.
+     * @param {Integer} _msg 
+     * @param {WPARAM} _wparam 
+     * @param {LPARAM} _lparam 
      * @param {Pointer<LRESULT>} plresult Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LRESULT</a>*</b>
      * 
      * The message's return <b>LRESULT</b>.
@@ -107,10 +101,10 @@ class ITextServices extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txsendmessage
      */
-    TxSendMessage(msg, wparam, lparam, plresult) {
+    TxSendMessage(_msg, _wparam, _lparam, plresult) {
         plresultMarshal := plresult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", msg, "ptr", wparam, "ptr", lparam, plresultMarshal, plresult, "HRESULT")
+        result := ComCall(3, this, "uint", _msg, "ptr", _wparam, "ptr", _lparam, plresultMarshal, plresult, "HRESULT")
         return result
     }
 

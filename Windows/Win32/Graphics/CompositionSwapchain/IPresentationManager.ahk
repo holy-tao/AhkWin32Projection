@@ -225,9 +225,7 @@ class IPresentationManager extends IUnknown{
      * Enables or disables the specified present statistics kind.
      * @remarks
      * The requested change takes place as soon as possible, however effects can be delayed. We suggest that you register all desired present statistics before you issue presents, and not change during use. This is also how statistics can be extended and changed in the future without breaking backwards compatibility.
-     * @param {Integer} presentStatisticsKind Type: **[PresentStatisticsKind](../presentationtypes/ne-presentationtypes-presentstatisticskind.md)**
-     * 
-     * The present statistics kind to enable or disable.
+     * @param {Integer} _presentStatisticsKind 
      * @param {Integer} enabled Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` to enable the present statistics kind; otherwise, `FALSE`.
@@ -236,8 +234,8 @@ class IPresentationManager extends IUnknown{
      * If the function succeeds, it returns `S_OK`; otherwise, it returns an `HRESULT` value that indicates the error.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-enablepresentstatisticskind
      */
-    EnablePresentStatisticsKind(presentStatisticsKind, enabled) {
-        result := ComCall(14, this, "int", presentStatisticsKind, "char", enabled, "HRESULT")
+    EnablePresentStatisticsKind(_presentStatisticsKind, enabled) {
+        result := ComCall(14, this, "int", _presentStatisticsKind, "char", enabled, "HRESULT")
         return result
     }
 

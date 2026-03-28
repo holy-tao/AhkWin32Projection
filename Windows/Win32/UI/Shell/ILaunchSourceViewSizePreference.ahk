@@ -36,15 +36,13 @@ class ILaunchSourceViewSizePreference extends IUnknown{
 
     /**
      * Retrieves the position of the source application window.
-     * @returns {HWND} Type: <b>HWND*</b>
-     * 
-     * Contains the address of a pointer to a window handle.
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
      */
     GetSourceViewToPosition() {
-        hwnd := HWND()
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
-        return hwnd
+        _hwnd := HWND()
+        result := ComCall(3, this, "ptr", _hwnd, "HRESULT")
+        return _hwnd
     }
 
     /**

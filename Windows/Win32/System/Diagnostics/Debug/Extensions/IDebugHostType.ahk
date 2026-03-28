@@ -44,8 +44,8 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetSize() {
-        result := ComCall(11, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(11, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
@@ -68,15 +68,15 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} intrinsicKind 
+     * @param {Pointer<Integer>} _intrinsicKind 
      * @param {Pointer<Integer>} carrierType 
      * @returns {HRESULT} 
      */
-    GetIntrinsicType(intrinsicKind, carrierType) {
-        intrinsicKindMarshal := intrinsicKind is VarRef ? "int*" : "ptr"
+    GetIntrinsicType(_intrinsicKind, carrierType) {
+        _intrinsicKindMarshal := _intrinsicKind is VarRef ? "int*" : "ptr"
         carrierTypeMarshal := carrierType is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(14, this, intrinsicKindMarshal, intrinsicKind, carrierTypeMarshal, carrierType, "HRESULT")
+        result := ComCall(14, this, _intrinsicKindMarshal, _intrinsicKind, carrierTypeMarshal, carrierType, "HRESULT")
         return result
     }
 
@@ -99,8 +99,8 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetPointerKind() {
-        result := ComCall(16, this, "int*", &pointerKind := 0, "HRESULT")
-        return pointerKind
+        result := ComCall(16, this, "int*", &_pointerKind := 0, "HRESULT")
+        return _pointerKind
     }
 
     /**

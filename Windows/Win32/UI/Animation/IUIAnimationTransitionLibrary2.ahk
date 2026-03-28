@@ -107,12 +107,12 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * <img alt="Diagram showing a discrete transition" src="Images/DiscreteTransition.png"/>
      * @param {Float} delay The amount of time by which to delay the instantaneous switch to the final value.
      * @param {Float} finalValue The value of the animation variable at the end of the transition.
-     * @param {Float} hold The amount of time by which to hold the variable at its final value.
+     * @param {Float} _hold 
      * @returns {IUIAnimationTransition2} The new discrete transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretetransition
      */
-    CreateDiscreteTransition(delay, finalValue, hold) {
-        result := ComCall(6, this, "double", delay, "double", finalValue, "double", hold, "ptr*", &transition := 0, "HRESULT")
+    CreateDiscreteTransition(delay, finalValue, _hold) {
+        result := ComCall(6, this, "double", delay, "double", finalValue, "double", _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -127,14 +127,14 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @param {Float} delay The amount of time by which to delay the instantaneous switch to the final value.
      * @param {Pointer<Float>} finalValue A vector (of size <i>cDimension</i>) that contains  the final values of the animation variable at the end of the transition.
      * @param {Integer} cDimension The number of dimensions to apply the transition. This parameter specifies the number of values listed in <i>finalValue</i>.
-     * @param {Float} hold The amount of time by which to hold the variable at its final value.
+     * @param {Float} _hold 
      * @returns {IUIAnimationTransition2} The new discrete transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretevectortransition
      */
-    CreateDiscreteVectorTransition(delay, finalValue, cDimension, hold) {
+    CreateDiscreteVectorTransition(delay, finalValue, cDimension, _hold) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(7, this, "double", delay, finalValueMarshal, finalValue, "uint", cDimension, "double", hold, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(7, this, "double", delay, finalValueMarshal, finalValue, "uint", cDimension, "double", _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 

@@ -145,18 +145,15 @@ class IDWriteFontFace extends IUnknown{
      * 
      * Indicates whether the font is being used in a sideways run. This can affect the glyph metrics if the font has oblique simulation
      *     because sideways oblique simulation differs from non-sideways oblique simulation
-     * @returns {DWRITE_GLYPH_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics">DWRITE_GLYPH_METRICS</a>*</b>
-     * 
-     * When this method returns, contains an array of DWRITE_GLYPH_METRICS structures.  <i>glyphMetrics</i> must be initialized with an empty buffer that contains at least as many elements as <i>glyphCount</i>.
-     *      The metrics returned by this function are in font design units.
+     * @returns {DWRITE_GLYPH_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
      */
     GetDesignGlyphMetrics(glyphIndices, glyphCount, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        glyphMetrics := DWRITE_GLYPH_METRICS()
-        result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
-        return glyphMetrics
+        _glyphMetrics := DWRITE_GLYPH_METRICS()
+        result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", _glyphMetrics, "int", isSideways, "HRESULT")
+        return _glyphMetrics
     }
 
     /**
@@ -373,16 +370,14 @@ class IDWriteFontFace extends IUnknown{
      * @param {BOOL} isSideways Type: **BOOL**
      * 
      * A BOOL value that indicates whether the font is being used in a sideways run. This can affect the glyph metrics if the font has oblique simulation because sideways oblique simulation differs from non-sideways oblique simulation.
-     * @returns {DWRITE_GLYPH_METRICS} Type: **[**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics)\***
-     * 
-     * An array of [**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics) structures filled by this function. The metrics are in font design units.
+     * @returns {DWRITE_GLYPH_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatibleglyphmetrics
      */
     GetGdiCompatibleGlyphMetrics(emSize, pixelsPerDip, transform, useGdiNatural, glyphIndices, glyphCount, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        glyphMetrics := DWRITE_GLYPH_METRICS()
-        result := ComCall(17, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
-        return glyphMetrics
+        _glyphMetrics := DWRITE_GLYPH_METRICS()
+        result := ComCall(17, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", _glyphMetrics, "int", isSideways, "HRESULT")
+        return _glyphMetrics
     }
 }

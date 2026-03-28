@@ -205,8 +205,8 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {ISpeechPhraseProperties} 
      */
     get_Properties() {
-        result := ComCall(15, this, "ptr*", &Properties := 0, "HRESULT")
-        return ISpeechPhraseProperties(Properties)
+        result := ComCall(15, this, "ptr*", &_Properties := 0, "HRESULT")
+        return ISpeechPhraseProperties(_Properties)
     }
 
     /**
@@ -242,9 +242,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {VARIANT} 
      */
     get_EnginePrivateData() {
-        PrivateData := VARIANT()
-        result := ComCall(19, this, "ptr", PrivateData, "HRESULT")
-        return PrivateData
+        _PrivateData := VARIANT()
+        result := ComCall(19, this, "ptr", _PrivateData, "HRESULT")
+        return _PrivateData
     }
 
     /**

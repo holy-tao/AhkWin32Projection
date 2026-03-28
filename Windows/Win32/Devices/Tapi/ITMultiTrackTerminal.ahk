@@ -92,16 +92,15 @@ class ITMultiTrackTerminal extends IDispatch{
      * TAPI calls the <b>AddRef</b> method on the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITMultiTrackTerminal::CreateTrackTerminal</b>. The application must call <b>Release</b> on the 
      * <b>ITTerminal</b> interface to free resources associated with it.
-     * @param {Integer} MediaType Bitwise ORed list of 
-     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the terminal.
+     * @param {Integer} _MediaType 
      * @param {Integer} TerminalDirection The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
      */
-    CreateTrackTerminal(MediaType, TerminalDirection) {
-        result := ComCall(9, this, "int", MediaType, "int", TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
+    CreateTrackTerminal(_MediaType, TerminalDirection) {
+        result := ComCall(9, this, "int", _MediaType, "int", TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 

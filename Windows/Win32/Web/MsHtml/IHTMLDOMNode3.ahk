@@ -169,8 +169,8 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     appendChild(newChild) {
-        result := ComCall(17, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(17, this, "ptr", newChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -180,8 +180,8 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -190,8 +190,8 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     removeChild(oldChild) {
-        result := ComCall(19, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(19, this, "ptr", oldChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -201,8 +201,8 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceChild(newChild, oldChild) {
-        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -228,13 +228,13 @@ class IHTMLDOMNode3 extends IDispatch{
     /**
      * 
      * @param {BSTR} feature 
-     * @param {VARIANT} version 
+     * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 
      */
-    isSupported(feature, version) {
+    isSupported(feature, _version) {
         feature := feature is String ? BSTR.Alloc(feature).Value : feature
 
-        result := ComCall(23, this, "ptr", feature, "ptr", version, "short*", &pfisSupported := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", feature, "ptr", _version, "short*", &pfisSupported := 0, "HRESULT")
         return pfisSupported
     }
 }

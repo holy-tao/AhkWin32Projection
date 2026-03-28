@@ -118,12 +118,12 @@ class IX509SCEPEnrollment extends IDispatch{
 
     /**
      * Initialize the instance to prepare to generate a message to either retrieve an issued certificate, or install a response for a previous request by the issuer.
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending
      */
-    InitializeForPending(Context) {
-        result := ComCall(8, this, "int", Context, "HRESULT")
+    InitializeForPending(_Context) {
+        result := ComCall(8, this, "int", _Context, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ class IX509SCEPEnrollment extends IDispatch{
      * Retrieve a previously issued certificate.
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending">InitializeForPending</a> method before calling this method.
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @param {BSTR} strIssuer ASN.1 encoded issuer name.
      * @param {Integer} IssuerEncoding 
      * @param {BSTR} strSerialNumber 
@@ -168,12 +168,12 @@ class IX509SCEPEnrollment extends IDispatch{
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievecertificatemessage
      */
-    CreateRetrieveCertificateMessage(Context, strIssuer, IssuerEncoding, strSerialNumber, SerialNumberEncoding, Encoding) {
+    CreateRetrieveCertificateMessage(_Context, strIssuer, IssuerEncoding, strSerialNumber, SerialNumberEncoding, Encoding) {
         strIssuer := strIssuer is String ? BSTR.Alloc(strIssuer).Value : strIssuer
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
         pValue := BSTR()
-        result := ComCall(11, this, "int", Context, "ptr", strIssuer, "int", IssuerEncoding, "ptr", strSerialNumber, "int", SerialNumberEncoding, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(11, this, "int", _Context, "ptr", strIssuer, "int", IssuerEncoding, "ptr", strSerialNumber, "int", SerialNumberEncoding, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
 

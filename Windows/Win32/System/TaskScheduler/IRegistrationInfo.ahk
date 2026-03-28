@@ -179,14 +179,14 @@ class IRegistrationInfo extends IDispatch{
      * Gets or sets the version number of the task. (Put)
      * @remarks
      * When reading or writing XML for a task, the version number of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-version-registrationinfotype-element">Version</a> element of the Task Scheduler schema.
-     * @param {BSTR} version 
+     * @param {BSTR} _version 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_version
      */
-    put_Version(version) {
-        version := version is String ? BSTR.Alloc(version).Value : version
+    put_Version(_version) {
+        _version := _version is String ? BSTR.Alloc(_version).Value : _version
 
-        result := ComCall(12, this, "ptr", version, "HRESULT")
+        result := ComCall(12, this, "ptr", _version, "HRESULT")
         return result
     }
 

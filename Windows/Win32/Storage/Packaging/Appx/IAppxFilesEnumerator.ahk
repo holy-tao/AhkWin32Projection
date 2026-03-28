@@ -37,14 +37,12 @@ class IAppxFilesEnumerator extends IUnknown{
      * Gets the payload file at the current position of the enumerator.
      * @remarks
      * The enumerator returned can be empty. In this case, a call to  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfilesenumerator-gethascurrent">GetHasCurrent</a> returns <b>false</b>. If the enumerator is not empty, it points to the first element, and this method returns the first item. Subsequently, the user should use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfilesenumerator-movenext">MoveNext</a> to move through the items, and call <b>GetHasCurrent</b> before using <b>GetCurrent</b> to access the item.
-     * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>
-     * 
-     * The current payload file.
+     * @returns {IAppxFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfilesenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &file := 0, "HRESULT")
-        return IAppxFile(file)
+        result := ComCall(3, this, "ptr*", &_file := 0, "HRESULT")
+        return IAppxFile(_file)
     }
 
     /**

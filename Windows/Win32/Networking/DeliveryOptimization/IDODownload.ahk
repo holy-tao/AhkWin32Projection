@@ -77,13 +77,13 @@ class IDODownload extends IUnknown{
 
     /**
      * IDODownload::GetStatus retrieves a pointer to a DO_DOWNLOAD_STATUS structure that reflects the current status of the download.
-     * @returns {DO_DOWNLOAD_STATUS} A pointer to a **DO_DOWNLOAD_STATUS** structure.
+     * @returns {DO_DOWNLOAD_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownload-getstatus
      */
     GetStatus() {
-        status := DO_DOWNLOAD_STATUS()
-        result := ComCall(7, this, "ptr", status, "HRESULT")
-        return status
+        _status := DO_DOWNLOAD_STATUS()
+        result := ComCall(7, this, "ptr", _status, "HRESULT")
+        return _status
     }
 
     /**

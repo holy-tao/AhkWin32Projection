@@ -58,15 +58,15 @@ class IWinHttpRequestEvents extends IUnknown{
      * 
      * > [!Note]  
      * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
-     * @param {Integer} Status Receives the standard status code returned with the response data. Status codes are defined in [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt).
+     * @param {Integer} _Status 
      * @param {BSTR} ContentType Specifies the type of content received, such as "text/html" or "image/gif".
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-onresponsestart
      */
-    OnResponseStart(Status, ContentType) {
+    OnResponseStart(_Status, ContentType) {
         ContentType := ContentType is String ? BSTR.Alloc(ContentType).Value : ContentType
 
-        ComCall(3, this, "int", Status, "ptr", ContentType)
+        ComCall(3, this, "int", _Status, "ptr", ContentType)
     }
 
     /**

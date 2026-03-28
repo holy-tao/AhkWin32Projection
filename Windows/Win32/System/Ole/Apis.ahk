@@ -3347,14 +3347,14 @@ class Ole {
 
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
-     * @param {BSTR} bstr The BSTR to be converted to a vector.
+     * @param {BSTR} _bstr 
      * @returns {Pointer<SAFEARRAY>} A one-dimensional safearray containing the characters in the BSTR.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vectorfrombstr
      */
-    static VectorFromBstr(bstr) {
-        bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
+    static VectorFromBstr(_bstr) {
+        _bstr := _bstr is Win32Handle ? NumGet(_bstr, "ptr") : _bstr
 
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr*", &ppsa := 0, "HRESULT")
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", _bstr, "ptr*", &ppsa := 0, "HRESULT")
         return ppsa
     }
 
@@ -13398,31 +13398,31 @@ class Ole {
 
     /**
      * Computes a hash value for the specified name.
-     * @param {Integer} syskind The SYSKIND of the target operating system.
+     * @param {Integer} _syskind 
      * @param {Integer} lcid The LCID for the string.
      * @param {PSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the specified name.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesysa
      */
-    static LHashValOfNameSysA(syskind, lcid, szName) {
+    static LHashValOfNameSysA(_syskind, lcid, szName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", "int", syskind, "uint", lcid, "ptr", szName, "uint")
+        result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", "int", _syskind, "uint", lcid, "ptr", szName, "uint")
         return result
     }
 
     /**
      * Computes a hash value for a name. (LHashValOfNameSys)
-     * @param {Integer} syskind The SYSKIND of the target operating system.
+     * @param {Integer} _syskind 
      * @param {Integer} lcid The LCID for the string.
      * @param {PWSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the passed-in name.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesys
      */
-    static LHashValOfNameSys(syskind, lcid, szName) {
+    static LHashValOfNameSys(_syskind, lcid, szName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("OLEAUT32.dll\LHashValOfNameSys", "int", syskind, "uint", lcid, "ptr", szName, "uint")
+        result := DllCall("OLEAUT32.dll\LHashValOfNameSys", "int", _syskind, "uint", lcid, "ptr", szName, "uint")
         return result
     }
 
@@ -13479,14 +13479,14 @@ class Ole {
      * @remarks
      * Enables programmers to specify whether or not the type library should be loaded.
      * @param {PWSTR} szFile The type library file.
-     * @param {Integer} regkind Identifies the kind of registration to perform for the type library based on the following flags: DEFAULT, REGISTER and NONE. REGKIND_DEFAULT simply calls LoadTypeLib and registration occurs based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-loadtypelib">LoadTypeLib</a> registration rules. REGKIND_NONE calls <b>LoadTypeLib</b> without the registration process enabled. REGKIND_REGISTER calls <b>LoadTypeLib</b> followed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a>, which registers the type library. To unregister the type library, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-unregistertypelib">UnRegisterTypeLib</a>.
+     * @param {Integer} _regkind 
      * @returns {ITypeLib} The type library.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-loadtypelibex
      */
-    static LoadTypeLibEx(szFile, regkind) {
+    static LoadTypeLibEx(szFile, _regkind) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr*", &pptlib := 0, "HRESULT")
+        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", _regkind, "ptr*", &pptlib := 0, "HRESULT")
         return ITypeLib(pptlib)
     }
 
@@ -13661,7 +13661,7 @@ class Ole {
      * @param {Integer} wVerMajor The major version of the type library.
      * @param {Integer} wVerMinor The minor version of the type library.
      * @param {Integer} lcid The locale identifier.
-     * @param {Integer} syskind The target operating system.
+     * @param {Integer} _syskind 
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13747,8 +13747,8 @@ class Ole {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-unregistertypelib
      */
-    static UnRegisterTypeLib(libID, wVerMajor, wVerMinor, lcid, syskind) {
-        result := DllCall("OLEAUT32.dll\UnRegisterTypeLib", "ptr", libID, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "int", syskind, "HRESULT")
+    static UnRegisterTypeLib(libID, wVerMajor, wVerMinor, lcid, _syskind) {
+        result := DllCall("OLEAUT32.dll\UnRegisterTypeLib", "ptr", libID, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "int", _syskind, "HRESULT")
         return result
     }
 
@@ -13860,7 +13860,7 @@ class Ole {
      * @param {Integer} wMajorVerNum The major version of the type library.
      * @param {Integer} wMinorVerNum The minor version of the type library.
      * @param {Integer} lcid The locale identifier.
-     * @param {Integer} syskind The target operating system.
+     * @param {Integer} _syskind 
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13946,8 +13946,8 @@ class Ole {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-unregistertypelibforuser
      */
-    static UnRegisterTypeLibForUser(libID, wMajorVerNum, wMinorVerNum, lcid, syskind) {
-        result := DllCall("OLEAUT32.dll\UnRegisterTypeLibForUser", "ptr", libID, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "uint", lcid, "int", syskind, "HRESULT")
+    static UnRegisterTypeLibForUser(libID, wMajorVerNum, wMinorVerNum, lcid, _syskind) {
+        result := DllCall("OLEAUT32.dll\UnRegisterTypeLibForUser", "ptr", libID, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "uint", lcid, "int", _syskind, "HRESULT")
         return result
     }
 
@@ -13955,29 +13955,29 @@ class Ole {
      * Provides access to a new object instance that supports the ICreateTypeLib interface.
      * @remarks
      * <b>CreateTypeLib</b> sets its output parameter (ppctlib) to point to a newly created object that supports the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
-     * @param {Integer} syskind The target operating system for which to create a type library.
+     * @param {Integer} _syskind 
      * @param {PWSTR} szFile The name of the file to create.
      * @returns {ICreateTypeLib} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib
      */
-    static CreateTypeLib(syskind, szFile) {
+    static CreateTypeLib(_syskind, szFile) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "HRESULT")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", _syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "HRESULT")
         return ICreateTypeLib(ppctlib)
     }
 
     /**
      * Creates a type library in the current file format.
-     * @param {Integer} syskind The target operating system for which to create a type library.
+     * @param {Integer} _syskind 
      * @param {PWSTR} szFile The name of the file to create.
      * @returns {ICreateTypeLib2} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib2
      */
-    static CreateTypeLib2(syskind, szFile) {
+    static CreateTypeLib2(_syskind, szFile) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "HRESULT")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", _syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "HRESULT")
         return ICreateTypeLib2(ppctlib)
     }
 
@@ -15738,7 +15738,7 @@ class Ole {
      * As the mouse passes over unobscured portions of the target window during an OLE drag-and-drop operation, the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function calls the specified <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method for the current window. When a drop operation actually occurs in a given window, the <b>DoDragDrop</b> function calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a>.
      * 
      * The <b>RegisterDragDrop</b> function also calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> pointer.
-     * @param {HWND} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
+     * @param {HWND} _hwnd 
      * @param {IDropTarget} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -15788,10 +15788,10 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-registerdragdrop
      * @since windows5.0
      */
-    static RegisterDragDrop(hwnd, pDropTarget) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RegisterDragDrop(_hwnd, pDropTarget) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("OLE32.dll\RegisterDragDrop", "ptr", hwnd, "ptr", pDropTarget, "HRESULT")
+        result := DllCall("OLE32.dll\RegisterDragDrop", "ptr", _hwnd, "ptr", pDropTarget, "HRESULT")
         return result
     }
 
@@ -15801,7 +15801,7 @@ class Ole {
      * When your application window is no longer available as a potential target for an OLE drag-and-drop operation, you must call <b>RevokeDragDrop</b>.
      * 
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method for your drop target interface.
-     * @param {HWND} hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -15846,10 +15846,10 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-revokedragdrop
      * @since windows5.0
      */
-    static RevokeDragDrop(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RevokeDragDrop(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("OLE32.dll\RevokeDragDrop", "ptr", hwnd, "HRESULT")
+        result := DllCall("OLE32.dll\RevokeDragDrop", "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -16811,7 +16811,7 @@ class Ole {
      * If the keystroke is not one of the object's accelerators, then the object must call <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oletranslateaccelerator">OleTranslateAccelerator</a> to let the container try its accelerator translation.
      * 
      * The object's server can call <b>IsAccelerator</b> to determine if the accelerator message belongs to it. Some servers do accelerator translation on their own and do not call <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cbasepropertypage-translateaccelerator">TranslateAccelerator</a>. Those applications will not call <b>IsAccelerator</b>, because they already have the information.
-     * @param {HACCEL} hAccel A handle to the accelerator table.
+     * @param {HACCEL} _hAccel 
      * @param {Integer} cAccelEntries The number of entries in the accelerator table.
      * @param {Pointer<MSG>} lpMsg A pointer to the keystroke message to be translated.
      * @param {Pointer<Integer>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
@@ -16819,12 +16819,12 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-isaccelerator
      * @since windows5.0
      */
-    static IsAccelerator(hAccel, cAccelEntries, lpMsg, lpwCmd) {
-        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+    static IsAccelerator(_hAccel, cAccelEntries, lpMsg, lpwCmd) {
+        _hAccel := _hAccel is Win32Handle ? NumGet(_hAccel, "ptr") : _hAccel
 
         lpwCmdMarshal := lpwCmd is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, lpwCmdMarshal, lpwCmd, "int")
+        result := DllCall("OLE32.dll\IsAccelerator", "ptr", _hAccel, "int", cAccelEntries, "ptr", lpMsg, lpwCmdMarshal, lpwCmd, "int")
         return result
     }
 
@@ -16867,7 +16867,7 @@ class Ole {
      * This function is called by <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonoffile">OleGetIconOfFile</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonofclass">OleGetIconOfClass</a>.
      * 
      * If <i>lpszSourceFile</i> is not <b>NULL</b> and <i>iIconIndex</i> is not 0, the name of the source file passed in <i>lpszSourceFile</i> and the index passed by <i>iIconIndex</i> are added to the created metafile as a comment record.
-     * @param {HICON} hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
+     * @param {HICON} _hIcon 
      * @param {PWSTR} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
      * @param {PWSTR} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
      * @param {Integer} iIconIndex The location of the icon within the file named by <i>lpszSourceFile</i>, expressed as an offset in bytes from the beginning of file.
@@ -16877,14 +16877,14 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-olemetafilepictfromiconandlabel
      * @since windows5.0
      */
-    static OleMetafilePictFromIconAndLabel(hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static OleMetafilePictFromIconAndLabel(_hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
 
         A_LastError := 0
 
-        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
+        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", _hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17791,16 +17791,16 @@ class Ole {
      * @remarks
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copycursor">CopyCursor</a> function.
      * @param {HINSTANCE} hinstExe This parameter is ignored.
-     * @param {HICON} hIcon A handle to the icon to be converted.
+     * @param {HICON} _hIcon 
      * @returns {HCURSOR} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-oleicontocursor
      * @since windows5.0
      */
-    static OleIconToCursor(hinstExe, hIcon) {
+    static OleIconToCursor(hinstExe, _hIcon) {
         hinstExe := hinstExe is Win32Handle ? NumGet(hinstExe, "ptr") : hinstExe
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon, "ptr")
+        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", _hIcon, "ptr")
         resultHandle := HCURSOR({Value: result}, True)
         return resultHandle
     }
@@ -17818,7 +17818,7 @@ class Ole {
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PWSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {HMENU} hMenu Handle to the menu in which to make modifications.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
@@ -17829,11 +17829,11 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiaddverbmenuw
      * @since windows5.0
      */
-    static OleUIAddVerbMenuW(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
+    static OleUIAddVerbMenuW(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
         lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
+        result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", _hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
     }
 
@@ -17850,7 +17850,7 @@ class Ole {
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {HMENU} hMenu Handle to the menu in which to make modifications.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
@@ -17861,11 +17861,11 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiaddverbmenua
      * @since windows5.0
      */
-    static OleUIAddVerbMenuA(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
+    static OleUIAddVerbMenuA(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
         lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
+        result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", _hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
     }
 

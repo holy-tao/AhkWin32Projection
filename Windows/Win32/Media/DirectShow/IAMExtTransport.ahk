@@ -1083,7 +1083,7 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * The put_Mode method sets the transport mode; for example, play, stop, or record.
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} Returns an HRESULT. Possible errors include the following.
      * 
      * <table>
@@ -1116,8 +1116,8 @@ class IAMExtTransport extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_mode
      */
-    put_Mode(Mode) {
-        result := ComCall(15, this, "int", Mode, "HRESULT")
+    put_Mode(_Mode) {
+        result := ComCall(15, this, "int", _Mode, "HRESULT")
         return result
     }
 

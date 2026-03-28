@@ -156,14 +156,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b>UINT</b>
-     * 
-     * Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
      */
-    SetMarker(Metadata, pData, Size) {
-        ComCall(11, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    SetMarker(Metadata, pData, _Size) {
+        ComCall(11, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**
@@ -178,14 +176,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-beginevent
      */
-    BeginEvent(Metadata, pData, Size) {
-        ComCall(12, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    BeginEvent(Metadata, pData, _Size) {
+        ComCall(12, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**

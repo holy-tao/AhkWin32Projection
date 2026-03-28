@@ -999,29 +999,27 @@ class DeploymentServices {
 ;@region Methods
     /**
      * Closes a handle to a WDS session or image, and releases resources.
-     * @param {HANDLE} Handle A handle to a WDS session or image. This function can close handles opened with the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> or 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> functions.
+     * @param {HANDLE} _Handle 
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliclose
      * @since windows6.0.6000
      */
-    static WdsCliClose(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static WdsCliClose(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliClose", "ptr", Handle, "HRESULT")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliClose", "ptr", _Handle, "HRESULT")
         return result
     }
 
     /**
      * Registers a callback function that will receive debugging messages.
-     * @param {Pointer<PFN_WdsCliTraceFunction>} pfn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nc-wdsclientapi-pfn_wdsclitracefunction">PFN_WdsCliTraceFunction</a> callback function that receives debugging messages.
+     * @param {Pointer<PFN_WdsCliTraceFunction>} _pfn 
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliregistertrace
      * @since windows6.0.6000
      */
-    static WdsCliRegisterTrace(pfn) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", pfn, "HRESULT")
+    static WdsCliRegisterTrace(_pfn) {
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", _pfn, "HRESULT")
         return result
     }
 
@@ -1068,24 +1066,23 @@ class DeploymentServices {
      * Advances the reference of a find handle to the next image stored on a WDS server.
      * @remarks
      * To enumerate all the images on a WDS Server, first get the WDS image find handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function, and then make repeated calls to <b>WdsCliFindNextImage</b> until the function returns <b>HRESULT_FROM_WIN32(ERROR_NO_MORE_FILES)</b>.
-     * @param {HANDLE} Handle The find handle returned by 
-     *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. If the <b>WdsCliFindNextImage</b> function is successful, the reference of the find handle is advanced to the next image stored on the WDS server.
+     * @param {HANDLE} _Handle 
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * 
      * If the function succeeds, and the end of the enumeration has been reached, the return is  <b>HRESULT_FROM_WIN32(ERROR_NO_MORE_FILES)</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage
      * @since windows6.0.6000
      */
-    static WdsCliFindNextImage(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static WdsCliFindNextImage(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindNextImage", "ptr", Handle, "HRESULT")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindNextImage", "ptr", _Handle, "HRESULT")
         return result
     }
 
     /**
      * Returns the image enumeration flag for the current image handle.
-     * @param {HANDLE} Handle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {HANDLE} _Handle 
      * @returns {Integer} A pointer to a value that receives the enumeration flag value.
      * 
      * 
@@ -1113,10 +1110,10 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetenumerationflags
      * @since windows6.0.6000
      */
-    static WdsCliGetEnumerationFlags(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static WdsCliGetEnumerationFlags(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", &pdwFlags := 0, "HRESULT")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", _Handle, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -2027,8 +2024,7 @@ class DeploymentServices {
 
     /**
      * Registers callback functions for different notification events.
-     * @param {HANDLE} hProvider <b>HANDLE</b> passed to the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} CallbackType Specifies the callback that is being registered.
      * 
      * <table>
@@ -2096,13 +2092,13 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxeregistercallback
      * @since windowsserver2008
      */
-    static PxeRegisterCallback(hProvider, CallbackType, pCallbackFunction, pContext) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxeRegisterCallback(_hProvider, CallbackType, pCallbackFunction, pContext) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pCallbackFunctionMarshal := pCallbackFunction is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeRegisterCallback", "ptr", hProvider, "uint", CallbackType, pCallbackFunctionMarshal, pCallbackFunction, pContextMarshal, pContext, "uint")
+        result := DllCall("WDSPXE.dll\PxeRegisterCallback", "ptr", _hProvider, "uint", CallbackType, pCallbackFunctionMarshal, pCallbackFunction, pContextMarshal, pContext, "uint")
         return result
     }
 
@@ -2205,8 +2201,7 @@ class DeploymentServices {
 
     /**
      * Adds a trace entry to the PXE log.
-     * @param {HANDLE} hProvider <b>HANDLE</b> passed to the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} Severity Severity of trace entry.
      * 
      * <table>
@@ -2275,36 +2270,35 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxetrace
      * @since windowsserver2008
      */
-    static PxeTrace(hProvider, Severity, pszFormat) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxeTrace(_hProvider, Severity, pszFormat) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
-        result := DllCall("WDSPXE.dll\PxeTrace", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "CDecl uint")
+        result := DllCall("WDSPXE.dll\PxeTrace", "ptr", _hProvider, "uint", Severity, "ptr", pszFormat, "CDecl uint")
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} hProvider 
+     * @param {HANDLE} _hProvider 
      * @param {Integer} Severity 
      * @param {PWSTR} pszFormat 
      * @param {Pointer<Integer>} Params 
      * @returns {Integer} 
      */
-    static PxeTraceV(hProvider, Severity, pszFormat, Params) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxeTraceV(_hProvider, Severity, pszFormat, Params) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
         ParamsMarshal := Params is VarRef ? "char*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, ParamsMarshal, Params, "uint")
+        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", _hProvider, "uint", Severity, "ptr", pszFormat, ParamsMarshal, Params, "uint")
         return result
     }
 
     /**
      * Allocates a packet to be sent with the PxeSendReply function.
-     * @param {HANDLE} hProvider <b>HANDLE</b> passed to the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {HANDLE} hClientRequest Handle to the client request received in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Integer} uSize Size of the buffer to be allocated.
@@ -2313,13 +2307,13 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxepacketallocate
      * @since windowsserver2008
      */
-    static PxePacketAllocate(hProvider, hClientRequest, uSize) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxePacketAllocate(_hProvider, hClientRequest, uSize) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         hClientRequest := hClientRequest is Win32Handle ? NumGet(hClientRequest, "ptr") : hClientRequest
 
         A_LastError := 0
 
-        result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize, "ptr")
+        result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", _hProvider, "ptr", hClientRequest, "uint", uSize, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2329,8 +2323,7 @@ class DeploymentServices {
 
     /**
      * Frees a packet allocated by the PxePacketAllocate function.
-     * @param {HANDLE} hProvider <b>HANDLE</b> passed to the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {HANDLE} hClientRequest Handle to the client request received in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Pointer<Void>} pPacket Pointer to packet allocated by the 
@@ -2339,20 +2332,19 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxepacketfree
      * @since windowsserver2008
      */
-    static PxePacketFree(hProvider, hClientRequest, pPacket) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxePacketFree(_hProvider, hClientRequest, pPacket) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         hClientRequest := hClientRequest is Win32Handle ? NumGet(hClientRequest, "ptr") : hClientRequest
 
         pPacketMarshal := pPacket is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxePacketFree", "ptr", hProvider, "ptr", hClientRequest, pPacketMarshal, pPacket, "uint")
+        result := DllCall("WDSPXE.dll\PxePacketFree", "ptr", _hProvider, "ptr", hClientRequest, pPacketMarshal, pPacket, "uint")
         return result
     }
 
     /**
      * Specifies attributes for the provider.
-     * @param {HANDLE} hProvider <b>HANDLE</b> passed to 
-     *       the <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} Attribute Identifies the attribute to set.
      * 
      * <table>
@@ -2401,10 +2393,10 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxeprovidersetattribute
      * @since windowsserver2008
      */
-    static PxeProviderSetAttribute(hProvider, Attribute, pParameterBuffer, uParamLen) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PxeProviderSetAttribute(_hProvider, Attribute, pParameterBuffer, uParamLen) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        result := DllCall("WDSPXE.dll\PxeProviderSetAttribute", "ptr", hProvider, "uint", Attribute, "ptr", pParameterBuffer, "uint", uParamLen, "uint")
+        result := DllCall("WDSPXE.dll\PxeProviderSetAttribute", "ptr", _hProvider, "uint", Attribute, "ptr", pParameterBuffer, "uint", uParamLen, "uint")
         return result
     }
 
@@ -3146,25 +3138,25 @@ class DeploymentServices {
 
     /**
      * Registers a provider callback with the multicast server.
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} CallbackId The value of this parameter is a <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/ne-wdstpdi-transportprovider_callback_id">TRANSPORTPROVIDER_CALLBACK_ID</a> structure.
-     * @param {Pointer<Void>} pfnCallback Pointer to the function pointer associated with this id.
+     * @param {Pointer<Void>} _pfnCallback 
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverregistercallback
      * @since windowsserver2008
      */
-    static WdsTransportServerRegisterCallback(hProvider, CallbackId, pfnCallback) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerRegisterCallback(_hProvider, CallbackId, _pfnCallback) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr" : "ptr"
+        _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "HRESULT")
+        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", _hProvider, "int", CallbackId, _pfnCallbackMarshal, _pfnCallback, "HRESULT")
         return result
     }
 
     /**
      * Provides status of read operation.
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} ulBytesRead The number of bytes read.
      * @param {Pointer<Void>} pvUserData User data specified by <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderreadcontent">WdsTransportProviderReadContent</a>.
      * @param {HRESULT} hReadResult The status of this read operation.
@@ -3172,35 +3164,35 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservercompleteread
      * @since windowsserver2008
      */
-    static WdsTransportServerCompleteRead(hProvider, ulBytesRead, pvUserData, hReadResult) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerCompleteRead(_hProvider, ulBytesRead, pvUserData, hReadResult) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, pvUserDataMarshal, pvUserData, "int", hReadResult, "HRESULT")
+        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", _hProvider, "uint", ulBytesRead, pvUserDataMarshal, pvUserData, "int", hReadResult, "HRESULT")
         return result
     }
 
     /**
      * Sends a debugging message. (WdsTransportServerTrace)
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} Severity Severity level of the message.
      * @param {PWSTR} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertrace
      * @since windowsserver2008
      */
-    static WdsTransportServerTrace(hProvider, Severity, pwszFormat) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerTrace(_hProvider, Severity, pwszFormat) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl HRESULT")
+        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", _hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl HRESULT")
         return result
     }
 
     /**
      * Sends a debugging message. (WdsTransportServerTraceV)
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} Severity Severity level of the message.
      * @param {PWSTR} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @param {Pointer<Integer>} Params A list of parameters used by the formatted string.
@@ -3208,45 +3200,45 @@ class DeploymentServices {
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertracev
      * @since windowsserver2008
      */
-    static WdsTransportServerTraceV(hProvider, Severity, pwszFormat, Params) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerTraceV(_hProvider, Severity, pwszFormat, Params) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
         ParamsMarshal := Params is VarRef ? "char*" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, ParamsMarshal, Params, "HRESULT")
+        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", _hProvider, "uint", Severity, "ptr", pwszFormat, ParamsMarshal, Params, "HRESULT")
         return result
     }
 
     /**
      * Allocates a buffer in memory.
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Integer} ulBufferSize Size of the buffer to be allocated.
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverallocatebuffer
      * @since windowsserver2008
      */
-    static WdsTransportServerAllocateBuffer(hProvider, ulBufferSize) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerAllocateBuffer(_hProvider, ulBufferSize) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        result := DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", hProvider, "uint", ulBufferSize, "ptr")
+        result := DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", _hProvider, "uint", ulBufferSize, "ptr")
         return result
     }
 
     /**
      * Releases memory used by a buffer.
-     * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {HANDLE} _hProvider 
      * @param {Pointer<Void>} pvBuffer Pointer to location of buffer to be released.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverfreebuffer
      * @since windowsserver2008
      */
-    static WdsTransportServerFreeBuffer(hProvider, pvBuffer) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static WdsTransportServerFreeBuffer(_hProvider, pvBuffer) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, pvBufferMarshal, pvBuffer, "HRESULT")
+        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", _hProvider, pvBufferMarshal, pvBuffer, "HRESULT")
         return result
     }
 
@@ -3336,17 +3328,17 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pfnCallback Pointer to the function pointer associated with this id.
+     * @param {Pointer<Void>} _pfnCallback 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientregistercallback
      * @since windows6.0.6000
      */
-    static WdsTransportClientRegisterCallback(hSessionKey, CallbackId, pfnCallback) {
+    static WdsTransportClientRegisterCallback(hSessionKey, CallbackId, _pfnCallback) {
         hSessionKey := hSessionKey is Win32Handle ? NumGet(hSessionKey, "ptr") : hSessionKey
 
-        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr" : "ptr"
+        _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSTPTC.dll\WdsTransportClientRegisterCallback", "ptr", hSessionKey, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "uint")
+        result := DllCall("WDSTPTC.dll\WdsTransportClientRegisterCallback", "ptr", hSessionKey, "int", CallbackId, _pfnCallbackMarshal, _pfnCallback, "uint")
         return result
     }
 

@@ -34,7 +34,7 @@ class IUIViewSettingsInterop extends IInspectable{
 
     /**
      * Gets an [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object for the window of the active application.
-     * @param {HWND} hwnd Handle to the window of the active application.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
      * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
@@ -43,10 +43,10 @@ class IUIViewSettingsInterop extends IInspectable{
      * @returns {Pointer<Void>} Address of a pointer to a [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object.
      * @see https://learn.microsoft.com/windows/win32/api/uiviewsettingsinterop/nf-uiviewsettingsinterop-iuiviewsettingsinterop-getforwindow
      */
-    GetForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetForWindow(_hwnd, riid) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 }

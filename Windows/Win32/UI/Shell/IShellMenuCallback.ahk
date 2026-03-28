@@ -40,19 +40,15 @@ class IShellMenuCallback extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A message ID. This will be one of the SMC_XXX values. See <a href="https://docs.microsoft.com/windows/desktop/shell/control-panel-applications">Shell Messages and Notifications</a> for a complete list.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * A WPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An LPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
      */
-    CallbackSM(psmd, uMsg, wParam, lParam) {
-        result := ComCall(3, this, "ptr", psmd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    CallbackSM(psmd, uMsg, _wParam, _lParam) {
+        result := ComCall(3, this, "ptr", psmd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

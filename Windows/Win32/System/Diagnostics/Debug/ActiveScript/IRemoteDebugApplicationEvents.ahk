@@ -61,13 +61,13 @@ class IRemoteDebugApplicationEvents extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} pstr 
+     * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
-    OnDebugOutput(pstr) {
-        pstr := pstr is String ? StrPtr(pstr) : pstr
+    OnDebugOutput(_pstr) {
+        _pstr := _pstr is String ? StrPtr(_pstr) : _pstr
 
-        result := ComCall(6, this, "ptr", pstr, "HRESULT")
+        result := ComCall(6, this, "ptr", _pstr, "HRESULT")
         return result
     }
 

@@ -259,18 +259,18 @@ class ITraceDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_buffersize
      */
     get_BufferSize() {
-        result := ComCall(32, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(32, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
      * Retrieves or sets the suggested buffer size for each buffer in the event tracing session. (Put)
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_buffersize
      */
-    put_BufferSize(size) {
-        result := ComCall(33, this, "uint", size, "HRESULT")
+    put_BufferSize(_size) {
+        result := ComCall(33, this, "uint", _size, "HRESULT")
         return result
     }
 
@@ -418,8 +418,8 @@ class ITraceDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_extendedmodes
      */
     get_ExtendedModes() {
-        result := ComCall(42, this, "uint*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(42, this, "uint*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
@@ -481,12 +481,12 @@ class ITraceDataCollector extends IDataCollector{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-itracedatacollector-get_streammode">ITraceDataProvider::StreamMode</a> is set to <b>plaRealTime</b>.</td>
      * </tr>
      * </table>
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_extendedmodes
      */
-    put_ExtendedModes(mode) {
-        result := ComCall(43, this, "uint", mode, "HRESULT")
+    put_ExtendedModes(_mode) {
+        result := ComCall(43, this, "uint", _mode, "HRESULT")
         return result
     }
 
@@ -762,18 +762,18 @@ class ITraceDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_streammode
      */
     get_StreamMode() {
-        result := ComCall(69, this, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(69, this, "int*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
      * Retrieves or sets the logging mode of the trace session. (Put)
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_streammode
      */
-    put_StreamMode(mode) {
-        result := ComCall(70, this, "int", mode, "HRESULT")
+    put_StreamMode(_mode) {
+        result := ComCall(70, this, "int", _mode, "HRESULT")
         return result
     }
 

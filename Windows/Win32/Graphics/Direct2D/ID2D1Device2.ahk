@@ -49,14 +49,12 @@ class ID2D1Device2 extends ID2D1Device1{
 
     /**
      * Flush all device contexts that reference a given bitmap.
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap, created on this device, for which all referencing device contexts will be flushed.
+     * @param {ID2D1Bitmap} _bitmap 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-flushdevicecontexts
      */
-    FlushDeviceContexts(bitmap) {
-        ComCall(13, this, "ptr", bitmap)
+    FlushDeviceContexts(_bitmap) {
+        ComCall(13, this, "ptr", _bitmap)
     }
 
     /**

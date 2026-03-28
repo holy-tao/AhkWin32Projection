@@ -112,7 +112,7 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * Retrieves a subset of fonts, filtered by the given indices.
      * @remarks
      * The indices can come in any order, meaning that **GetFilteredFonts** can produce a new set with items removed, duplicated, or reordered from the original. If you pass zero indices, then an empty font set is returned.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties 
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
      * @param {Integer} propertyCount 
      * @param {BOOL} selectAnyProperty 
      * @returns {IDWriteFontSet1} Type: **[IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md)\*\***
@@ -120,8 +120,8 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * The address of a pointer to an [IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md) interface. On successful completion, the function sets the pointer to an object representing the subset of fonts indicated by the given indices, otherwise it sets the pointer to `nullptr`.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
-    GetFilteredFonts2(properties, propertyCount, selectAnyProperty) {
-        result := ComCall(17, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
+    GetFilteredFonts2(_properties, propertyCount, selectAnyProperty) {
+        result := ComCall(17, this, "ptr", _properties, "uint", propertyCount, "int", selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -158,9 +158,7 @@ class IDWriteFontSet1 extends IDWriteFontSet{
 
     /**
      * Retrieves all the item indices, filtered by the given properties.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties Type: **[DWRITE_FONT_PROPERTY](./ns-dwrite_3-dwrite_font_property.md) const \***
-     * 
-     * List of properties to filter by.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
      * @param {Integer} propertyCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The number of properties to filter.
@@ -185,11 +183,11 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * |E_NOT_SUFFICIENT_BUFFER|The buffer is too small, with *actualIndexCount* set to the needed size. The *actualIndexCount* will always be <= [IDwriteFontSet::GetFontCount](./nf-dwrite_3-idwritefontset-getfontcount.md).|
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfontindices
      */
-    GetFilteredFontIndices1(properties, propertyCount, selectAnyProperty, indices, maxIndexCount, actualIndexCount) {
+    GetFilteredFontIndices1(_properties, propertyCount, selectAnyProperty, indices, maxIndexCount, actualIndexCount) {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
         actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
+        result := ComCall(19, this, "ptr", _properties, "uint", propertyCount, "int", selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 

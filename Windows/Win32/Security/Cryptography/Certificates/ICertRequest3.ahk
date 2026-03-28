@@ -101,13 +101,7 @@ class ICertRequest3 extends ICertRequest2{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} hWnd A handle to the parent window.
-     * 
-     * You must set the <i>hWnd</i> parameter there is a UI presented to obtain the credential. 
-     * 
-     * For certificate based authorization, the handle is used if a UI prompt is needed to obtain the credential, for example, if the credential is on a smart card and a pin prompt is needed.
-     * 
-     * When using Kerberos, anonymous, or user name and password authentication, this parameter is ignored.
+     * @param {Integer} _hWnd 
      * @param {Integer} AuthType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration that specifies the authentication type.
      * 
      * <table>
@@ -185,11 +179,11 @@ class ICertRequest3 extends ICertRequest2{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-setcredential
      */
-    SetCredential(hWnd, AuthType, strCredential, strPassword) {
+    SetCredential(_hWnd, AuthType, strCredential, strPassword) {
         strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(20, this, "int", hWnd, "int", AuthType, "ptr", strCredential, "ptr", strPassword, "HRESULT")
+        result := ComCall(20, this, "int", _hWnd, "int", AuthType, "ptr", strCredential, "ptr", strPassword, "HRESULT")
         return result
     }
 

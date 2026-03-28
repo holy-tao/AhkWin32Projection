@@ -504,60 +504,13 @@ class IDataObject extends IUnknown{
      * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
      * To simplify the implementation of <b>DAdvise</b> and the other notification methods in <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dunadvise">DUnadvise</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-enumdadvise">EnumDAdvise</a>) that supports notification, OLE provides an advise holder object that manages the registration and sending of notifications. To get a pointer to this object, call the helper function <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-createdataadviseholder">CreateDataAdviseHolder</a> on the first invocation of <b>DAdvise</b>. This supplies a pointer to the object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> interface. Then, delegate the call to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a> method in the data advise holder, which creates, and subsequently manages, the requested connection.
      * @param {Pointer<FORMATETC>} pformatetc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure that defines the format, target device, aspect, and medium that will be used for future notifications. For example, one sink may want to know only when the bitmap representation of the data in the data object changes. Another sink may be interested in only the metafile format of the same object. Each advise sink is notified when the data of interest changes. This data is passed back to the advise sink when notification occurs.
-     * @param {Integer} advf A group of flags for controlling the advisory connection. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. However, only some of the possible <b>ADVF</b> values are relevant for this method. The following table briefly describes the relevant values.
-     * 
-     * <table>
-     * <tr>
-     * <th>ADVF Value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>ADVF_NODATA
-     * </td>
-     * <td>
-     * Asks the data object to avoid sending data with the notifications. Typically data is sent. This flag is a way to override the default behavior. When ADVF_NODATA is used, the <b>tymed</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> structure that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">OnDataChange</a> will usually contain TYMED_NULL. The caller can then retrieve the data with a subsequent <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>ADVF_ONLYONCE
-     * </td>
-     * <td>
-     * Causes the advisory connection to be destroyed after the first change notification is sent. An implicit call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dunadvise">IDataObject::DUnadvise</a> is made on behalf of the caller to remove the connection.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>ADVF_PRIMEFIRST
-     * </td>
-     * <td>
-     * Asks for an additional initial notification. The combination of ADVF_ONLYONCE and ADVF_PRIMEFIRST provides, in effect, an asynchronous <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>ADVF_DATAONSTOP
-     * </td>
-     * <td>
-     * When specified with ADVF_NODATA, this flag causes a last notification with the data included to to be sent before the data object is destroyed.
-     * 
-     * If used without ADVF_NODATA, <b>DAdvise</b> can be implemented in one of the following ways:
-     * 
-     * <ul>
-     * <li>The ADVF_DATAONSTOP can be ignored.</li>
-     * <li>The object can behave as if ADVF_NODATA was specified.</li>
-     * </ul>
-     * A change notification is sent only in the shutdown case. Data changes prior to shutdown do not cause a notification to be sent.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {Integer} _advf 
      * @param {IAdviseSink} pAdvSink A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface on the advisory sink that will receive the change notification.
      * @returns {Integer} A token that identifies this connection. You can use this token later to delete the advisory connection (by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dunadvise">IDataObject::DUnadvise</a>). If this value is 0, the connection was not established.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dadvise
      */
-    DAdvise(pformatetc, advf, pAdvSink) {
-        result := ComCall(9, this, "ptr", pformatetc, "uint", advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
+    DAdvise(pformatetc, _advf, pAdvSink) {
+        result := ComCall(9, this, "ptr", pformatetc, "uint", _advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 

@@ -34,12 +34,12 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * The SetPlayMode method specifies the play mode.
      * @remarks
      * The default play mode is WMT_PLAY_MODE_AUTOSELECT, which enables the reader to pick the mode. If the application selects a play mode that is incompatible with the requested URL, an error is returned when the URL is opened. After the asynchronous reply to the <b>Open</b> request is completed, the mode is changed from WMT_PLAY_MODE_AUTOSELECT to the appropriately selected play mode. The play mode cannot be changed after the content has been opened, and returns an error if this is attempted.
-     * @param {Integer} Mode Variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_play_mode">WMT_PLAY_MODE</a> enumeration type.
+     * @param {Integer} _Mode 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-setplaymode
      */
-    SetPlayMode(Mode) {
-        result := ComCall(23, this, "int", Mode, "HRESULT")
+    SetPlayMode(_Mode) {
+        result := ComCall(23, this, "int", _Mode, "HRESULT")
         return result
     }
 

@@ -125,16 +125,14 @@ class ITextRangeProvider extends IUnknown{
      * 
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit should not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text and TextRange Control Patterns</a>.
-     * @param {Integer} unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
-     * 
-     * The type of text units, such as character, word, paragraph, and so on.
+     * @param {Integer} _unit 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-expandtoenclosingunit
      */
-    ExpandToEnclosingUnit(unit) {
-        result := ComCall(6, this, "int", unit, "HRESULT")
+    ExpandToEnclosingUnit(_unit) {
+        result := ComCall(6, this, "int", _unit, "HRESULT")
         return result
     }
 
@@ -142,12 +140,8 @@ class ITextRangeProvider extends IUnknown{
      * Returns a text range subset that has the specified text attribute value.
      * @remarks
      * The <b>FindAttribute</b> method retrieves matching text regardless of whether the text is hidden or visible. Clients can use <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">UIA_IsHiddenAttributeId</a> to check text visibility.
-     * @param {Integer} attributeId Type: <b>TEXTATTRIBUTEID</b>
-     * 
-     * The identifier of the text attribute. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
-     * @param {VARIANT} val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
-     * 
-     * The attribute value to search for. This value must match the type specified for the attribute.
+     * @param {Integer} _attributeId 
+     * @param {VARIANT} _val 
      * @param {BOOL} backward Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the last occurring text range should be returned instead of the first; otherwise <b>FALSE</b>.
@@ -156,8 +150,8 @@ class ITextRangeProvider extends IUnknown{
      * Receives a pointer to the text range having a matching attribute and attribute value; otherwise <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-findattribute
      */
-    FindAttribute(attributeId, val, backward) {
-        result := ComCall(7, this, "int", attributeId, "ptr", val, "int", backward, "ptr*", &pRetVal := 0, "HRESULT")
+    FindAttribute(_attributeId, _val, backward) {
+        result := ComCall(7, this, "int", _attributeId, "ptr", _val, "int", backward, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
     }
 
@@ -192,9 +186,7 @@ class ITextRangeProvider extends IUnknown{
      * Retrieves the value of the specified text attribute across the text range.
      * @remarks
      * The <b>GetAttributeValue</b> method should retrieve the attribute value regardless of whether the text is hidden or visible.
-     * @param {Integer} attributeId Type: <b>TEXTATTRIBUTEID</b>
-     * 
-     * The identifier of the text attribute. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
+     * @param {Integer} _attributeId 
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>
      * 
      * Receives one of the following. 
@@ -211,9 +203,9 @@ class ITextRangeProvider extends IUnknown{
      * This parameter is passed uninitialized.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getattributevalue
      */
-    GetAttributeValue(attributeId) {
+    GetAttributeValue(_attributeId) {
         pRetVal := VARIANT()
-        result := ComCall(9, this, "int", attributeId, "ptr", pRetVal, "HRESULT")
+        result := ComCall(9, this, "int", _attributeId, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -335,7 +327,7 @@ class ITextRangeProvider extends IUnknown{
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit should not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text and TextRange Control Patterns</a>.
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of text units to move. A positive value moves the text range forward. 
@@ -346,8 +338,8 @@ class ITextRangeProvider extends IUnknown{
      * The number of text units actually moved. This can be less than the number requested if either of the new text range endpoints is greater than or less than the endpoints retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_documentrange">ITextProvider::DocumentRange</a> method. This value can be negative if navigation is happening in the backward direction.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-move
      */
-    Move(unit, count) {
-        result := ComCall(13, this, "int", unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+    Move(_unit, count) {
+        result := ComCall(13, this, "int", _unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -377,7 +369,7 @@ class ITextRangeProvider extends IUnknown{
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit should not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text and TextRange Control Patterns</a>.
      * @param {Integer} endpoint 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. A positive value moves the endpoint forward. 
@@ -387,8 +379,8 @@ class ITextRangeProvider extends IUnknown{
      * Receives the number of units actually moved, which can be less than the number requested if moving the endpoint runs into the beginning or end of the document.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-moveendpointbyunit
      */
-    MoveEndpointByUnit(endpoint, unit, count) {
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+    MoveEndpointByUnit(endpoint, _unit, count) {
+        result := ComCall(14, this, "int", endpoint, "int", _unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 

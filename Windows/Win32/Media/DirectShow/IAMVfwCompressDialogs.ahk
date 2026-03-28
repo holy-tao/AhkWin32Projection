@@ -40,14 +40,14 @@ class IAMVfwCompressDialogs extends IUnknown{
      * 
      * The VfwCompressDialog_QueryConfig and VfwCompressDialog_QueryAbout members of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcompressdialogs">VfwCompressDialogs</a> enumeration tell you whether or not the configure dialog or about dialog is available. If passed one of these flags, the filter will return S_OK if the dialog exists, and S_FALSE if it does not. If a dialog is available, you call <c>ShowDialog</c> with the value VfwCompressDialog_Config or VfwCompressDialog_About to bring up the dialog.
      * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcompressdialogs">VfwCompressDialogs</a> enumeration.
-     * @param {HWND} hwnd Handle of the dialog box's parent window.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-showdialog
      */
-    ShowDialog(iDialog, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ShowDialog(iDialog, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "int", iDialog, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "int", iDialog, "ptr", _hwnd, "HRESULT")
         return result
     }
 

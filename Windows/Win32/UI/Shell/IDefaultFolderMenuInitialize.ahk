@@ -32,7 +32,7 @@ class IDefaultFolderMenuInitialize extends IUnknown{
 
     /**
      * . (IDefaultFolderMenuInitialize.Initialize)
-     * @param {HWND} hwnd A handle to the shortcut menu.
+     * @param {HWND} _hwnd 
      * @param {IContextMenuCB} pcmcb Type: <b><a href="nn-shobjidl_core-icontextmenucb.md">IContextMenuCB</a>*</b>
      * 
      * The address of the object that defines the callback for the shortcut menu.
@@ -60,12 +60,12 @@ class IDefaultFolderMenuInitialize extends IUnknown{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-initialize
      */
-    Initialize(hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Initialize(_hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
         return result
     }
 

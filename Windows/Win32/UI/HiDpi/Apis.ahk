@@ -46,18 +46,18 @@ class HiDpi {
      * The behavior of the returned theme handle will be undermined if the requested DPI value does not correspond to a currently connected display. The theming system only loads theme assets for the set of DPI values corresponding to the <i>currently</i> connected displays.
      * 
      * The theme handle will become invalid anytime the system reloads the theme data. Applications are required to monitor <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> and close and reopen all theme handles in response. This behavior is the same regardless of whether the handles were opened via OpenThemeData or OpenThemeDataForDpi.
-     * @param {HWND} hwnd The handle of the window for which theme data is required.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszClassList A pointer to a string that contains a semicolon-separated list of classes.
      * @param {Integer} dpi The specified DPI value with which to associate the theme handle. The function will return an error if this value is outside of those that correspond to the set of connected monitors.
      * @returns {HTHEME} See <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a>.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-openthemedatafordpi
      * @since windows10.0.15063
      */
-    static OpenThemeDataForDpi(hwnd, pszClassList, dpi) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static OpenThemeDataForDpi(_hwnd, pszClassList, dpi) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
-        result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
+        result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", _hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
         resultHandle := HTHEME({Value: result}, True)
         return resultHandle
     }
@@ -70,7 +70,7 @@ class HiDpi {
      * It is valid to set these behaviors on <i>any</i> window. It does not matter if the window is currently a child of a dialog at the point in time that SetDialogControlDpiChangeBehavior is called. The behaviors are retained and will take effect only when the window is an immediate child of a dialog that has per-monitor DPI scaling enabled.
      * 
      * This API influences individual controls within dialogs. The dialog-wide per-monitor DPI scaling behavior is controlled by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdialogdpichangebehavior">SetDialogDpiChangeBehavior</a>.
-     * @param {HWND} hWnd A handle for the window whose behavior will be modified.
+     * @param {HWND} _hWnd 
      * @param {Integer} mask A mask specifying the subset of flags to be changed.
      * @param {Integer} values The desired value to be set for the specified subset of flags.
      * @returns {BOOL} This function returns TRUE if the operation was successful, and FALSE otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -79,12 +79,12 @@ class HiDpi {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdialogcontroldpichangebehavior
      * @since windows10.0.15063
      */
-    static SetDialogControlDpiChangeBehavior(hWnd, mask, values) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetDialogControlDpiChangeBehavior(_hWnd, mask, values) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", hWnd, "int", mask, "int", values, "int")
+        result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", _hWnd, "int", mask, "int", values, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -94,17 +94,17 @@ class HiDpi {
 
     /**
      * Retrieves and per-monitor DPI scaling behavior overrides of a child window in a dialog.
-     * @param {HWND} hWnd The handle for the window to examine.
+     * @param {HWND} _hWnd 
      * @returns {Integer} The flags set on the given window. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdialogcontroldpichangebehavior
      * @since windows10.0.15063
      */
-    static GetDialogControlDpiChangeBehavior(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetDialogControlDpiChangeBehavior(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDialogControlDpiChangeBehavior", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\GetDialogControlDpiChangeBehavior", "ptr", _hWnd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -225,16 +225,16 @@ class HiDpi {
      * 
      * </div>
      * <div> </div>
-     * @param {HWND} hWnd A handle to the window whose transform is used for the conversion.
+     * @param {HWND} _hWnd 
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi
      * @since windows8.1
      */
-    static LogicalToPhysicalPointForPerMonitorDPI(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static LogicalToPhysicalPointForPerMonitorDPI(_hWnd, lpPoint) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", "ptr", _hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -247,16 +247,16 @@ class HiDpi {
      * For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window. By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications. However, the caller might need the information based on the DPI awareness of the application associated with the window. This might be necessary because the two applications send DPI-dependent information between each other directly.  In this case, the application can use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI</a> to get physical coordinates and then use <b>PhysicalToLogicalPointForPerMonitorDPI</b> to convert the physical coordinates into logical coordinates based on the DPI-awareness of the provided <b>HWND</b>.
      * 
      * Consider two applications, one has a <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> value of <b>PROCESS_DPI_UNAWARE</b> and the other has a value of <b>PROCESS_PER_MONITOR_AWARE</b>. The  <b>PROCESS_PER_MONITOR_AWARE</b> app creates a window on a single monitor where the scale factor is 200% (192 DPI). If both apps call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowrect">GetWindowRect</a> on this window, they will receive different values. The <b>PROCESS_DPI_UNAWARE</b> app will receive a rect based on 96 DPI coordinates, while the <b>PROCESS_PER_MONITOR_AWARE</b> app will receive coordinates matching the actual DPI of the monitor. If the <b>PROCESS_DPI_UNAWARE</b> needs the rect that the system returned to the <b>PROCESS_PER_MONITOR_AWARE</b> app, it could call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI</a> for the corners of its rect and pass in a handle to the <b>PROCESS_PER_MONITOR_AWARE</b> app's window. This will return points based on the other app's awareness that can be used to create a rect. This works because since a <b>PROCESS_PER_MONITOR_AWARE</b> uses the actual DPI of the monitor, logical and physical coordinates are identical.
-     * @param {HWND} hWnd A handle to the window whose transform is used for the conversion.
+     * @param {HWND} _hWnd 
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi
      * @since windows8.1
      */
-    static PhysicalToLogicalPointForPerMonitorDPI(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PhysicalToLogicalPointForPerMonitorDPI(_hWnd, lpPoint) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", "ptr", _hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -328,15 +328,15 @@ class HiDpi {
      * 
      * </div>
      * <div> </div>
-     * @param {HWND} hwnd The window to query.
+     * @param {HWND} _hwnd 
      * @returns {DPI_AWARENESS_CONTEXT} The <a href="https://docs.microsoft.com/windows/desktop/hidpi/dpi-awareness-context">DPI_AWARENESS_CONTEXT</a> for the provided window. If the window is not valid, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdpiawarenesscontext
      * @since windows10.0.14393
      */
-    static GetWindowDpiAwarenessContext(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowDpiAwarenessContext(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", hwnd, "ptr")
+        result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", _hwnd, "ptr")
         resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
         return resultHandle
     }
@@ -432,15 +432,15 @@ class HiDpi {
      * <td>The DPI of the monitor where the window is located.</td>
      * </tr>
      * </table>
-     * @param {HWND} hwnd The window that you want to get information about.
+     * @param {HWND} _hwnd 
      * @returns {Integer} The DPI for the window, which depends on the [DPI_AWARENESS](/windows/win32/api/windef/ne-windef-dpi_awareness) of the window. See the **Remarks** section for more information. An invalid *hwnd* value will result in a return value of 0.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdpiforwindow
      * @since windows10.0.14393
      */
-    static GetDpiForWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetDpiForWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\GetDpiForWindow", "ptr", hwnd, "uint")
+        result := DllCall("USER32.dll\GetDpiForWindow", "ptr", _hwnd, "uint")
         return result
     }
 
@@ -496,17 +496,17 @@ class HiDpi {
      *     return (DefWindowProc(hwnd, message, wParam, lParam));
      * }
      * ```
-     * @param {HWND} hwnd The window that should have automatic scaling enabled.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablenonclientdpiscaling
      * @since windows10.0.14393
      */
-    static EnableNonClientDpiScaling(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static EnableNonClientDpiScaling(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", _hwnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -600,15 +600,15 @@ class HiDpi {
      * Returns the DPI_HOSTING_BEHAVIOR of the specified window.
      * @remarks
      * This API allows you to examine the hosting behavior of a window after it has been created. A window's hosting behavior is the hosting behavior of the thread in which the window was created, as set by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a>. This is a permanent value and cannot be changed after the window is created, even if the thread's hosting behavior is changed.
-     * @param {HWND} hwnd The handle for the window to examine.
+     * @param {HWND} _hwnd 
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the specified window.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdpihostingbehavior
      * @since windows10.0.17134
      */
-    static GetWindowDpiHostingBehavior(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowDpiHostingBehavior(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\GetWindowDpiHostingBehavior", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\GetWindowDpiHostingBehavior", "ptr", _hwnd, "int")
         return result
     }
 
@@ -722,7 +722,7 @@ class HiDpi {
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> is <b>MDT_ANGULAR_DPI</b> or <b>MDT_RAW_DPI</b>, the returned DPI value does not include any changes that the user made to the DPI by using the desktop scaling override slider control in Control Panel.
      * 
      * For more information about DPI settings in Control Panel, see the <a href="https://docs.microsoft.com/windows/win32/hidpi/high-dpi-desktop-application-development-on-windows">Writing DPI-Aware Desktop Applications in Windows 8.1 Preview</a> white paper.
-     * @param {HMONITOR} hmonitor Handle of the monitor being queried.
+     * @param {HMONITOR} _hmonitor 
      * @param {Integer} dpiType The type of DPI being queried. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> enumeration.
      * @param {Pointer<Integer>} dpiX The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.
      * @param {Pointer<Integer>} dpiY The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
@@ -759,13 +759,13 @@ class HiDpi {
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiformonitor
      * @since windows8.1
      */
-    static GetDpiForMonitor(hmonitor, dpiType, dpiX, dpiY) {
-        hmonitor := hmonitor is Win32Handle ? NumGet(hmonitor, "ptr") : hmonitor
+    static GetDpiForMonitor(_hmonitor, dpiType, dpiX, dpiY) {
+        _hmonitor := _hmonitor is Win32Handle ? NumGet(_hmonitor, "ptr") : _hmonitor
 
         dpiXMarshal := dpiX is VarRef ? "uint*" : "ptr"
         dpiYMarshal := dpiY is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", hmonitor, "int", dpiType, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "HRESULT")
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", _hmonitor, "int", dpiType, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "HRESULT")
         return result
     }
 

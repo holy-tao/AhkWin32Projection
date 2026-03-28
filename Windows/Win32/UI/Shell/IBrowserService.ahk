@@ -235,16 +235,14 @@ class IBrowserService extends IUnknown{
 
     /**
      * Deprecated. Sets the current navigation state. This method affects the cursor and animation.
-     * @param {Integer} bnstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a></b>
-     * 
-     * The value from the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a> enumeration that indicates the navigation state.
+     * @param {Integer} _bnstate 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setnavigatestate
      */
-    SetNavigateState(bnstate) {
-        result := ComCall(14, this, "int", bnstate, "HRESULT")
+    SetNavigateState(_bnstate) {
+        result := ComCall(14, this, "int", _bnstate, "HRESULT")
         return result
     }
 

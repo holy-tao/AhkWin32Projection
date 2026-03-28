@@ -54,9 +54,7 @@ class IGraphicsCaptureItemInterop extends IUnknown{
 
     /**
      * Targets a monitor(s) for the creation of a graphics capture item.
-     * @param {HMONITOR} monitor Type: **HMONITOR**
-     * 
-     * The monitor handle that represents the monitor to capture.
+     * @param {HMONITOR} _monitor 
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * GUID for the type returned. Supported value: [GraphicsCaptureItem](/uwp/api/windows.graphics.capture.graphicscaptureitem).
@@ -65,10 +63,10 @@ class IGraphicsCaptureItemInterop extends IUnknown{
      * Out pointer for the object to receive.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
      */
-    CreateForMonitor(monitor, riid) {
-        monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
+    CreateForMonitor(_monitor, riid) {
+        _monitor := _monitor is Win32Handle ? NumGet(_monitor, "ptr") : _monitor
 
-        result := ComCall(4, this, "ptr", monitor, "ptr", riid, "ptr*", &result := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _monitor, "ptr", riid, "ptr*", &result := 0, "HRESULT")
         return result
     }
 }

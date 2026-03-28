@@ -33,17 +33,17 @@ class IRouterProtocolConfig extends IUnknown{
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pRouter 
      * @param {Pointer} uReserved1 
      * @returns {HRESULT} 
      */
-    AddProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd, dwFlags, pRouter, uReserved1) {
+    AddProtocol(pszMachineName, dwTransportId, dwProtocolId, _hWnd, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", _hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
         return result
     }
 
@@ -52,17 +52,17 @@ class IRouterProtocolConfig extends IUnknown{
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pRouter 
      * @param {Pointer} uReserved1 
      * @returns {HRESULT} 
      */
-    RemoveProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd, dwFlags, pRouter, uReserved1) {
+    RemoveProtocol(pszMachineName, dwTransportId, dwProtocolId, _hWnd, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(4, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(4, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", _hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
         return result
     }
 }

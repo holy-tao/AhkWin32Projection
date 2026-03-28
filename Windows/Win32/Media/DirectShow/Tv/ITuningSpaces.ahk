@@ -83,12 +83,12 @@ class ITuningSpaces extends IDispatch{
     /**
      * The get_Item method returns the specified item in the collection.
      * @param {VARIANT} varIndex <b>VARIANT</b> type that specifies the ID of the tuning space. The ID uniquely identifies the tuning space within the <b>SystemTuningSpaces</b> object.
-     * @returns {ITuningSpace} Address of a variable that receives a pointer to the tuning space's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface. The caller must release the interface.
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_item
      */
     get_Item(varIndex) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", &TuningSpace := 0, "HRESULT")
-        return ITuningSpace(TuningSpace)
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
+        return ITuningSpace(_TuningSpace)
     }
 
     /**

@@ -88,14 +88,14 @@ class IRepetitionPattern extends IDispatch{
      * If you specify a repetition duration for a task, you must also specify the repetition interval.
      * 
      * When reading or writing XML for a task, the repetition interval is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-interval-repetitiontype-element">Interval</a> element of the Task Scheduler schema.
-     * @param {BSTR} interval 
+     * @param {BSTR} _interval 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-put_interval
      */
-    put_Interval(interval) {
-        interval := interval is String ? BSTR.Alloc(interval).Value : interval
+    put_Interval(_interval) {
+        _interval := _interval is String ? BSTR.Alloc(_interval).Value : _interval
 
-        result := ComCall(8, this, "ptr", interval, "HRESULT")
+        result := ComCall(8, this, "ptr", _interval, "HRESULT")
         return result
     }
 

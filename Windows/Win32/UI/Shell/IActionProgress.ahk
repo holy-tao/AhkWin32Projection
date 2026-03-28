@@ -80,9 +80,7 @@ class IActionProgress extends IUnknown{
      * Called if descriptive text associated with the action will be changed.
      * @remarks
      * The class implementing this method must interpret the value of <i>sptext</i> and <i>fMayCompact</i> in the context of the action being performed and the UI that shows the progress to the user. The value of <i>sptext</i> can be used to differentiate between lines of changeable text. Often, the value of <i>fMayCompact</i> refers to whether the text string can be truncated with an ellipsis (...) in order to conserve screen space.
-     * @param {Integer} sptext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sptext">SPTEXT</a></b>
-     * 
-     * A value that specifies the type of text displayed. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sptext">SPTEXT</a> for acceptable values.
+     * @param {Integer} _sptext 
      * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
      * 
      * A pointer to a wide character string to display.
@@ -94,10 +92,10 @@ class IActionProgress extends IUnknown{
      * Return S_OK if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-updatetext
      */
-    UpdateText(sptext, pszText, fMayCompact) {
+    UpdateText(_sptext, pszText, fMayCompact) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(5, this, "int", sptext, "ptr", pszText, "int", fMayCompact, "HRESULT")
+        result := ComCall(5, this, "int", _sptext, "ptr", pszText, "int", fMayCompact, "HRESULT")
         return result
     }
 

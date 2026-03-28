@@ -119,13 +119,13 @@ class ILocationReportFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} hWnd 
+     * @param {Pointer<Integer>} _hWnd 
      * @returns {HRESULT} 
      */
-    RequestPermissions(hWnd) {
-        hWndMarshal := hWnd is VarRef ? "uint*" : "ptr"
+    RequestPermissions(_hWnd) {
+        _hWndMarshal := _hWnd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, hWndMarshal, hWnd, "HRESULT")
+        result := ComCall(14, this, _hWndMarshal, _hWnd, "HRESULT")
         return result
     }
 }

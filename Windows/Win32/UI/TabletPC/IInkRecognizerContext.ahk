@@ -164,8 +164,8 @@ class IInkRecognizerContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_characterautocompletionmode
      */
     get_CharacterAutoCompletionMode() {
-        result := ComCall(9, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(9, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
@@ -180,12 +180,12 @@ class IInkRecognizerContext extends IDispatch{
      * You must set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_guide">Guide</a> property before using this property.
      * 
      * Some recognizers do not support character Autocomplete. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognizercapabilities">InkRecognizerCapabilities</a> enumeration contains flags for features a recognizer can support. You can determine if the recognizer supports character Autocomplete by checking the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities">Capabilities</a> property.
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-put_characterautocompletionmode
      */
-    put_CharacterAutoCompletionMode(Mode) {
-        result := ComCall(10, this, "int", Mode, "HRESULT")
+    put_CharacterAutoCompletionMode(_Mode) {
+        result := ComCall(10, this, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -799,14 +799,14 @@ class IInkRecognizerContext extends IDispatch{
      * This method does not search the user dictionary if you specify a <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">word list</a> for the context. The recognizer uses the speech dictionary in Microsoft Office XP.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_factoid">Factoid</a> property to limit the search to the system dictionary or the word list that is associated with the context. For example, to limit the search to the system dictionary, specify the <a href="https://docs.microsoft.com/windows/desktop/tablet/factoid-constants">SystemDictionary</a> factoid. To improve the results, you may also need to set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognitionflags">RecognitionFlags</a> property.
-     * @param {BSTR} String_R 
+     * @param {BSTR} _String 
      * @returns {VARIANT_BOOL} When this method returns, contains <b>VARIANT_TRUE</b> if the string is in the dictionary or word list; otherwise <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-isstringsupported
      */
-    IsStringSupported(String_R) {
-        String_R := String_R is String ? BSTR.Alloc(String_R).Value : String_R
+    IsStringSupported(_String) {
+        _String := _String is String ? BSTR.Alloc(_String).Value : _String
 
-        result := ComCall(30, this, "ptr", String_R, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", _String, "short*", &Supported := 0, "HRESULT")
         return Supported
     }
 }

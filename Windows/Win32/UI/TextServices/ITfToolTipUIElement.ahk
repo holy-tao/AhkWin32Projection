@@ -33,12 +33,12 @@ class ITfToolTipUIElement extends ITfUIElement{
 
     /**
      * Returns the string of the tooltip.
-     * @returns {BSTR} [out] A pointer to receive BSTR. This is the string for the tooltip.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftooltipuielement-getstring
      */
     GetString() {
-        pstr := BSTR()
-        result := ComCall(7, this, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(7, this, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 }

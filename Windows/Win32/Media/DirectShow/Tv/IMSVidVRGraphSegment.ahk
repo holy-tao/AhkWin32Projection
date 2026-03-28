@@ -176,17 +176,17 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
      * @returns {Integer} 
      */
     get_ColorKey() {
-        result := ComCall(26, this, "uint*", &ColorKey := 0, "HRESULT")
-        return ColorKey
+        result := ComCall(26, this, "uint*", &_ColorKey := 0, "HRESULT")
+        return _ColorKey
     }
 
     /**
      * 
-     * @param {Integer} ColorKey 
+     * @param {Integer} _ColorKey 
      * @returns {HRESULT} 
      */
-    put_ColorKey(ColorKey) {
-        result := ComCall(27, this, "uint", ColorKey, "HRESULT")
+    put_ColorKey(_ColorKey) {
+        result := ComCall(27, this, "uint", _ColorKey, "HRESULT")
         return result
     }
 
@@ -246,17 +246,17 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
      * @returns {Integer} 
      */
     get_BorderColor() {
-        result := ComCall(33, this, "uint*", &color := 0, "HRESULT")
-        return color
+        result := ComCall(33, this, "uint*", &_color := 0, "HRESULT")
+        return _color
     }
 
     /**
      * 
-     * @param {Integer} color 
+     * @param {Integer} _color 
      * @returns {HRESULT} 
      */
-    put_BorderColor(color) {
-        result := ComCall(34, this, "uint", color, "HRESULT")
+    put_BorderColor(_color) {
+        result := ComCall(34, this, "uint", _color, "HRESULT")
         return result
     }
 
@@ -303,13 +303,13 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @returns {HRESULT} 
      */
-    RePaint(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    RePaint(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(39, this, "ptr", hdc, "HRESULT")
+        result := ComCall(39, this, "ptr", _hdc, "HRESULT")
         return result
     }
 }

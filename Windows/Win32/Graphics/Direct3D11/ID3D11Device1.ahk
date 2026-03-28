@@ -1713,15 +1713,15 @@ class ID3D11Device1 extends ID3D11Device{
      * <li>Query the resource for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgiresource1">IDXGIResource1</a> interface.</li>
      * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsharedhandle">IDXGIResource1::CreateSharedHandle</a> method to obtain the unique handle to the resource.</li>
      * </ol>
-     * @param {HANDLE} hResource A handle to the resource to open. For more info about this parameter, see Remarks.
+     * @param {HANDLE} _hResource 
      * @param {Pointer<Guid>} returnedInterface The globally unique identifier (GUID) for the resource interface. For more info about this parameter, see Remarks.
      * @returns {Pointer<Void>} A pointer to a variable that receives a pointer to the interface for the shared resource object to access.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1
      */
-    OpenSharedResource1(hResource, returnedInterface) {
-        hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
+    OpenSharedResource1(_hResource, returnedInterface) {
+        _hResource := _hResource is Win32Handle ? NumGet(_hResource, "ptr") : _hResource
 
-        result := ComCall(48, this, "ptr", hResource, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(48, this, "ptr", _hResource, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
     }
 

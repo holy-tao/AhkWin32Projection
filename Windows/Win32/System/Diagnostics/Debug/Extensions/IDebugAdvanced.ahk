@@ -36,15 +36,15 @@ class IDebugAdvanced extends IUnknown{
      * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
      * 
      * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
-    GetThreadContext(Context, ContextSize) {
-        result := ComCall(3, this, "ptr", Context, "uint", ContextSize, "HRESULT")
+    GetThreadContext(_Context, ContextSize) {
+        result := ComCall(3, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -58,7 +58,7 @@ class IDebugAdvanced extends IUnknown{
      * Do not try to set the context for a running thread; the results are unpredictable. Use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread">SuspendThread</a> function to suspend the thread before 
      *     calling <b>SetThreadContext</b>.
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the context was set, the return value is nonzero.
      * 
@@ -66,8 +66,8 @@ class IDebugAdvanced extends IUnknown{
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadcontext
      */
-    SetThreadContext(Context, ContextSize) {
-        result := ComCall(4, this, "ptr", Context, "uint", ContextSize, "HRESULT")
+    SetThreadContext(_Context, ContextSize) {
+        result := ComCall(4, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 }

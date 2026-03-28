@@ -58,7 +58,7 @@ class ISharedProperty extends IDispatch{
 
     /**
      * Sets the value of a shared property.
-     * @param {VARIANT} val The new value that is to be set for this shared property.
+     * @param {VARIANT} _val 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -102,8 +102,8 @@ class ISharedProperty extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-put_value
      */
-    put_Value(val) {
-        result := ComCall(8, this, "ptr", val, "HRESULT")
+    put_Value(_val) {
+        result := ComCall(8, this, "ptr", _val, "HRESULT")
         return result
     }
 }

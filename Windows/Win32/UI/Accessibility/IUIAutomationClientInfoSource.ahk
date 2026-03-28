@@ -34,17 +34,17 @@ class IUIAutomationClientInfoSource extends IUnknown{
      * @returns {Integer} 
      */
     RegisterClientConnectionCallback(callback) {
-        result := ComCall(3, this, "ptr", callback, "uint*", &handle := 0, "HRESULT")
-        return handle
+        result := ComCall(3, this, "ptr", callback, "uint*", &_handle := 0, "HRESULT")
+        return _handle
     }
 
     /**
      * 
-     * @param {Integer} handle 
+     * @param {Integer} _handle 
      * @returns {HRESULT} 
      */
-    UnregisterClientConnectionCallback(handle) {
-        result := ComCall(4, this, "uint", handle, "HRESULT")
+    UnregisterClientConnectionCallback(_handle) {
+        result := ComCall(4, this, "uint", _handle, "HRESULT")
         return result
     }
 

@@ -211,16 +211,16 @@ class IKnownFolderManager extends IUnknown{
      * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string of length MAX_PATH that contains a path to a known folder.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fffp_mode">FFFP_MODE</a></b>
+     * @param {Integer} _mode 
      * @returns {IKnownFolder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iknownfolder">IKnownFolder</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iknownfolder">IKnownFolder</a> object that represents the known folder.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-findfolderfrompath
      */
-    FindFolderFromPath(pszPath, mode) {
+    FindFolderFromPath(pszPath, _mode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "int", mode, "ptr*", &ppkf := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, "int", _mode, "ptr*", &ppkf := 0, "HRESULT")
         return IKnownFolder(ppkf)
     }
 
@@ -244,9 +244,7 @@ class IKnownFolderManager extends IUnknown{
      * @param {Pointer<Guid>} rfid Type: <b>REFKNOWNFOLDERID</b>
      * 
      * A reference to the <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> of the folder to be redirected.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window used to display copy engine progress UI dialogs when <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_WITH_UI</a> is passed in the <i>flags</i> parameter. If no progress dialog is needed, this value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_FLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_FLAGS</a> options for redirection.
@@ -264,11 +262,11 @@ class IKnownFolderManager extends IUnknown{
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that contains an error message if one was generated. This value can be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-redirect
      */
-    Redirect(rfid, hwnd, flags, pszTargetPath, cFolders, pExclusion) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Redirect(rfid, _hwnd, flags, pszTargetPath, cFolders, pExclusion) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszTargetPath := pszTargetPath is String ? StrPtr(pszTargetPath) : pszTargetPath
 
-        result := ComCall(12, this, "ptr", rfid, "ptr", hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, "ptr", pExclusion, "ptr*", &ppszError := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", rfid, "ptr", _hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, "ptr", pExclusion, "ptr*", &ppszError := 0, "HRESULT")
         return ppszError
     }
 }

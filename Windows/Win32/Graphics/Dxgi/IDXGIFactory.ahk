@@ -67,16 +67,14 @@ class IDXGIFactory extends IDXGIObject{
      *       adapter interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the reference count before you destroy the pointer.
      * 
      * <b>EnumAdapters</b> first returns the adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. <b>EnumAdapters</b> next returns other adapters with outputs. <b>EnumAdapters</b> finally returns adapters without outputs.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * The index of the adapter to enumerate.
+     * @param {Integer} _Adapter 
      * @returns {IDXGIAdapter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> interface at the position specified by the <i>Adapter</i> parameter.  This parameter must not be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-enumadapters
      */
-    EnumAdapters(Adapter) {
-        result := ComCall(7, this, "uint", Adapter, "ptr*", &ppAdapter := 0, "HRESULT")
+    EnumAdapters(_Adapter) {
+        result := ComCall(7, this, "uint", _Adapter, "ptr*", &ppAdapter := 0, "HRESULT")
         return IDXGIAdapter(ppAdapter)
     }
 

@@ -31,27 +31,27 @@ class IHTMLElementRender extends IUnknown{
 
     /**
      * 
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @returns {HRESULT} 
      */
-    DrawToDC(hDC) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    DrawToDC(_hDC) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(3, this, "ptr", hDC, "HRESULT")
+        result := ComCall(3, this, "ptr", _hDC, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {BSTR} bstrPrinterName 
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @returns {HRESULT} 
      */
-    SetDocumentPrinter(bstrPrinterName, hDC) {
+    SetDocumentPrinter(bstrPrinterName, _hDC) {
         bstrPrinterName := bstrPrinterName is String ? BSTR.Alloc(bstrPrinterName).Value : bstrPrinterName
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(4, this, "ptr", bstrPrinterName, "ptr", hDC, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrPrinterName, "ptr", _hDC, "HRESULT")
         return result
     }
 }

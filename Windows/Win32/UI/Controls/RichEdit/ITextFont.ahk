@@ -1490,9 +1490,7 @@ class ITextFont extends IDispatch{
 
     /**
      * Sets the font name.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The new font name.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -1549,10 +1547,10 @@ class ITextFont extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setname
      */
-    SetName(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetName(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(37, this, "ptr", bstr, "HRESULT")
+        result := ComCall(37, this, "ptr", _bstr, "HRESULT")
         return result
     }
 

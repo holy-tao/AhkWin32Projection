@@ -54,15 +54,7 @@ class IMMDeviceEnumerator extends IUnknown{
      * 
      * 
      * In the preceding code fragment, variable <i>hr</i> is of type <b>HRESULT</b>, <i>pDevEnum</i> is a pointer to an <b>IMMDeviceEnumerator</b> interface, and <i>pEndpoints</i> is a pointer to an <b>IMMDeviceCollection</b> interface.
-     * @param {Integer} dataFlow The data-flow direction for the endpoint devices in the collection. The caller should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration values:
-     * 
-     * eRender
-     * 
-     * eCapture
-     * 
-     * eAll
-     * 
-     * If the caller specifies eAll, the method includes both rendering and capture endpoints in the collection.
+     * @param {Integer} _dataFlow 
      * @param {Integer} dwStateMask The state or states of the endpoints that are to be included in the collection. The caller should set this parameter to the bitwise OR of one or more of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
      * 
      * DEVICE_STATE_ACTIVE
@@ -77,8 +69,8 @@ class IMMDeviceEnumerator extends IUnknown{
      * @returns {IMMDeviceCollection} Pointer to a pointer variable into which the method writes the address of the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevicecollection">IMMDeviceCollection</a> interface of the device-collection object. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method. If the <b>EnumAudioEndpoints</b> call fails,  <i>*ppDevices</i> is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints
      */
-    EnumAudioEndpoints(dataFlow, dwStateMask) {
-        result := ComCall(3, this, "int", dataFlow, "uint", dwStateMask, "ptr*", &ppDevices := 0, "HRESULT")
+    EnumAudioEndpoints(_dataFlow, dwStateMask) {
+        result := ComCall(3, this, "int", _dataFlow, "uint", dwStateMask, "ptr*", &ppDevices := 0, "HRESULT")
         return IMMDeviceCollection(ppDevices)
     }
 
@@ -116,13 +108,7 @@ class IMMDeviceEnumerator extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-events-for-legacy-audio-applications">Audio Events for Legacy Audio Applications</a>
      * </li>
      * </ul>
-     * @param {Integer} dataFlow The data-flow direction for the endpoint device. The caller should set this parameter to one of the following two <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration values:
-     * 
-     * eRender
-     * 
-     * eCapture
-     * 
-     * The data-flow direction for a rendering device is eRender. The data-flow direction for a capture device is eCapture.
+     * @param {Integer} _dataFlow 
      * @param {Integer} role The role of the endpoint device. The caller should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole</a> enumeration values:
      * 
      * eConsole
@@ -135,8 +121,8 @@ class IMMDeviceEnumerator extends IUnknown{
      * @returns {IMMDevice} Pointer to a pointer variable into which the method writes the address of the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevice">IMMDevice</a> interface of the endpoint object for the default audio endpoint device. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method. If the <b>GetDefaultAudioEndpoint</b> call fails,  <i>*ppDevice</i> is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint
      */
-    GetDefaultAudioEndpoint(dataFlow, role) {
-        result := ComCall(4, this, "int", dataFlow, "int", role, "ptr*", &ppEndpoint := 0, "HRESULT")
+    GetDefaultAudioEndpoint(_dataFlow, role) {
+        result := ComCall(4, this, "int", _dataFlow, "int", role, "ptr*", &ppEndpoint := 0, "HRESULT")
         return IMMDevice(ppEndpoint)
     }
 

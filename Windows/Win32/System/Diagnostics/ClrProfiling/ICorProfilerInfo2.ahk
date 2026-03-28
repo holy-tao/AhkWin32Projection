@@ -37,16 +37,16 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Pointer<Pointer<StackSnapshotCallback>>} callback 
      * @param {Integer} infoFlags 
      * @param {Pointer<Void>} clientData 
-     * @param {Pointer<Integer>} context 
+     * @param {Pointer<Integer>} _context 
      * @param {Integer} contextSize 
      * @returns {HRESULT} 
      */
-    DoStackSnapshot(thread, callback, infoFlags, clientData, context, contextSize) {
+    DoStackSnapshot(thread, callback, infoFlags, clientData, _context, contextSize) {
         callbackMarshal := callback is VarRef ? "ptr*" : "ptr"
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
-        contextMarshal := context is VarRef ? "char*" : "ptr"
+        _contextMarshal := _context is VarRef ? "char*" : "ptr"
 
-        result := ComCall(36, this, "ptr", thread, callbackMarshal, callback, "uint", infoFlags, clientDataMarshal, clientData, contextMarshal, context, "uint", contextSize, "HRESULT")
+        result := ComCall(36, this, "ptr", thread, callbackMarshal, callback, "uint", infoFlags, clientDataMarshal, clientData, _contextMarshal, _context, "uint", contextSize, "HRESULT")
         return result
     }
 
@@ -202,19 +202,19 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @param {Integer} cDimensions 
      * @param {Pointer<Integer>} pDimensionSizes 
      * @param {Pointer<Integer>} pDimensionLowerBounds 
      * @param {Pointer<Pointer<Integer>>} ppData 
      * @returns {HRESULT} 
      */
-    GetArrayObjectInfo(objectId, cDimensions, pDimensionSizes, pDimensionLowerBounds, ppData) {
+    GetArrayObjectInfo(_objectId, cDimensions, pDimensionSizes, pDimensionLowerBounds, ppData) {
         pDimensionSizesMarshal := pDimensionSizes is VarRef ? "uint*" : "ptr"
         pDimensionLowerBoundsMarshal := pDimensionLowerBounds is VarRef ? "int*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(46, this, "ptr", objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(46, this, "ptr", _objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -312,12 +312,12 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @returns {COR_PRF_GC_GENERATION_RANGE} 
      */
-    GetObjectGeneration(objectId) {
+    GetObjectGeneration(_objectId) {
         range := COR_PRF_GC_GENERATION_RANGE()
-        result := ComCall(55, this, "ptr", objectId, "ptr", range, "HRESULT")
+        result := ComCall(55, this, "ptr", _objectId, "ptr", range, "HRESULT")
         return range
     }
 

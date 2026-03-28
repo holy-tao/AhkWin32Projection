@@ -32,7 +32,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
 
     /**
      * Attaches caller-provided memory for storage of ISpatialAudioMetadataItems objects.
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} _buffer 
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -90,14 +90,14 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtobuffer
      */
-    AttachToBuffer(buffer_R, bufferLength) {
-        result := ComCall(3, this, "ptr", buffer_R, "uint", bufferLength, "HRESULT")
+    AttachToBuffer(_buffer, bufferLength) {
+        result := ComCall(3, this, "ptr", _buffer, "uint", bufferLength, "HRESULT")
         return result
     }
 
     /**
      * Attaches a previously populated buffer for storage of ISpatialAudioMetadataItems objects. The metadata items already in the buffer are retained.
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} _buffer 
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -166,8 +166,8 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtopopulatedbuffer
      */
-    AttachToPopulatedBuffer(buffer_R, bufferLength) {
-        result := ComCall(4, this, "ptr", buffer_R, "uint", bufferLength, "HRESULT")
+    AttachToPopulatedBuffer(_buffer, bufferLength) {
+        result := ComCall(4, this, "ptr", _buffer, "uint", bufferLength, "HRESULT")
         return result
     }
 

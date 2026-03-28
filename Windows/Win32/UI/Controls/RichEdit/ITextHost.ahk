@@ -52,9 +52,7 @@ class ITextHost extends IUnknown{
      * Releases the device context obtained by the ITextHost::TxGetDC method.
      * @remarks
      * This method is only valid when the control is in-place active; calls while the control is inactive may fail.
-     * @param {HDC} hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
-     * 
-     * Handle to the device context to release.
+     * @param {HDC} _hdc 
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * Returns 1 if <i>hdc</i> was released; otherwise 0.
@@ -63,10 +61,10 @@ class ITextHost extends IUnknown{
      * For more information on COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txreleasedc
      */
-    TxReleaseDC(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    TxReleaseDC(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(4, this, "ptr", hdc, "int")
+        result := ComCall(4, this, "ptr", _hdc, "int")
         return result
     }
 
@@ -1149,16 +1147,14 @@ class ITextHost extends IUnknown{
 
     /**
      * Releases an input context returned by the ITextHost::TxImmGetContext method and unlocks the memory associated with the context. This method is used only in Asian-language versions of the operating system.
-     * @param {HIMC} himc Type: <b>HIMC</b>
-     * 
-     * The input context.
+     * @param {HIMC} _himc 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-tximmreleasecontext
      */
-    TxImmReleaseContext(himc) {
-        himc := himc is Win32Handle ? NumGet(himc, "ptr") : himc
+    TxImmReleaseContext(_himc) {
+        _himc := _himc is Win32Handle ? NumGet(_himc, "ptr") : _himc
 
-        ComCall(40, this, "ptr", himc)
+        ComCall(40, this, "ptr", _himc)
     }
 
     /**

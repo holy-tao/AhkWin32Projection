@@ -538,16 +538,14 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Releases an Input Method Manager (IMM) input context.
-     * @param {Integer} Context Type: <b>int64</b>
-     * 
-     * The IMM input context to release.
+     * @param {Integer} _Context 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-releaseimmcontext
      */
-    ReleaseImmContext(Context) {
-        result := ComCall(56, this, "int64", Context, "HRESULT")
+    ReleaseImmContext(_Context) {
+        result := ComCall(56, this, "int64", _Context, "HRESULT")
         return result
     }
 

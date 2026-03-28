@@ -135,22 +135,22 @@ class IHostSecurityManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eContextType 
+     * @param {Integer} _eContextType 
      * @returns {IHostSecurityContext} 
      */
-    GetSecurityContext(eContextType) {
-        result := ComCall(7, this, "int", eContextType, "ptr*", &ppSecurityContext := 0, "HRESULT")
+    GetSecurityContext(_eContextType) {
+        result := ComCall(7, this, "int", _eContextType, "ptr*", &ppSecurityContext := 0, "HRESULT")
         return IHostSecurityContext(ppSecurityContext)
     }
 
     /**
      * 
-     * @param {Integer} eContextType 
+     * @param {Integer} _eContextType 
      * @param {IHostSecurityContext} pSecurityContext 
      * @returns {HRESULT} 
      */
-    SetSecurityContext(eContextType, pSecurityContext) {
-        result := ComCall(8, this, "int", eContextType, "ptr", pSecurityContext, "HRESULT")
+    SetSecurityContext(_eContextType, pSecurityContext) {
+        result := ComCall(8, this, "int", _eContextType, "ptr", pSecurityContext, "HRESULT")
         return result
     }
 }

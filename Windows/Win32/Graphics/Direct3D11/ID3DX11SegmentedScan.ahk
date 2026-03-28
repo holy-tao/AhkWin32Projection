@@ -34,16 +34,14 @@ class ID3DX11SegmentedScan extends IUnknown{
      * Sets which direction to perform scans in. (ID3DX11SegmentedScan.SetScanDirection)
      * @remarks
      * <b>SetScanDirection</b> sets the direction <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11segmentedscan-segscan">ID3DX11SegmentedScan::SegScan</a> will performed scans in.
-     * @param {Integer} Direction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ne-d3dcsx-d3dx11_scan_direction">D3DX11_SCAN_DIRECTION</a></b>
-     * 
-     * Direction to perform scans in.  See <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ne-d3dcsx-d3dx11_scan_direction">D3DX11_SCAN_DIRECTION</a>.
+     * @param {Integer} _Direction 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns one of the return codes described in the topic <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11segmentedscan-setscandirection
      */
-    SetScanDirection(Direction) {
-        result := ComCall(3, this, "int", Direction, "HRESULT")
+    SetScanDirection(_Direction) {
+        result := ComCall(3, this, "int", _Direction, "HRESULT")
         return result
     }
 

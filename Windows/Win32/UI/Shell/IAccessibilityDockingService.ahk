@@ -40,7 +40,7 @@ class IAccessibilityDockingService extends IUnknown{
      * Gets the dimensions available for docking an accessibility window on a monitor.
      * @remarks
      * Accessibility windows can only be docked to a monitor that has at least 768 vertical screen pixels. This API will not allow such windows to be docked with a height that would cause Windows Store apps to have less than 768 vertical screen pixels.
-     * @param {HMONITOR} hMonitor Specifies the monitor for which the available docking size will be retrieved.
+     * @param {HMONITOR} _hMonitor 
      * @param {Pointer<Integer>} pcxFixed 
      * @param {Pointer<Integer>} pcyMax 
      * @returns {HRESULT} | Return code                                                                                                                          | Description                                                                      |
@@ -55,20 +55,20 @@ class IAccessibilityDockingService extends IUnknown{
      * If either *puMaxHeight* or *puFixedWidth* are null, an access violation will occur.
      * @see https://learn.microsoft.com/windows/win32/com/iaccessibilitydockingservice-getavailablesize
      */
-    GetAvailableSize(hMonitor, pcxFixed, pcyMax) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    GetAvailableSize(_hMonitor, pcxFixed, pcyMax) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pcxFixedMarshal := pcxFixed is VarRef ? "uint*" : "ptr"
         pcyMaxMarshal := pcyMax is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hMonitor, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "HRESULT")
+        result := ComCall(3, this, "ptr", _hMonitor, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "HRESULT")
         return result
     }
 
     /**
      * Docks the specified window handle to the specified monitor handle.
-     * @param {HWND} hwnd The accessibility application window that will be docked on the passed monitor handle.
-     * @param {HMONITOR} hMonitor The monitor on which the accessibility application window will be docked.
+     * @param {HWND} _hwnd 
+     * @param {HMONITOR} _hMonitor 
      * @param {Integer} cyRequested TBD
      * @param {IAccessibilityDockingServiceCallback} pCallback The callback pointer on which the accessibility application will receive the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow">Undock</a> notification.
      * @returns {HRESULT} This method can return one of these values.
@@ -147,11 +147,11 @@ class IAccessibilityDockingService extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-dockwindow
      */
-    DockWindow(hwnd, hMonitor, cyRequested, pCallback) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    DockWindow(_hwnd, _hMonitor, cyRequested, pCallback) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", hMonitor, "uint", cyRequested, "ptr", pCallback, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "ptr", _hMonitor, "uint", cyRequested, "ptr", pCallback, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ class IAccessibilityDockingService extends IUnknown{
      * Undocks the specified window handle if it is currently docked.
      * @remarks
      * This method can only be used to undock windows that belong to the calling process.
-     * @param {HWND} hwnd TBD
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -203,10 +203,10 @@ class IAccessibilityDockingService extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow
      */
-    UndockWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    UndockWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(5, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

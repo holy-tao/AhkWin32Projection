@@ -30,16 +30,16 @@ class IKsControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSIDENTIFIER>} Property 
+     * @param {Pointer<KSIDENTIFIER>} _Property 
      * @param {Integer} PropertyLength 
      * @param {Pointer<Void>} PropertyData 
      * @param {Integer} DataLength 
      * @returns {Integer} 
      */
-    KsProperty(Property, PropertyLength, PropertyData, DataLength) {
+    KsProperty(_Property, PropertyLength, PropertyData, DataLength) {
         PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 
@@ -47,14 +47,14 @@ class IKsControl extends IUnknown{
      * 
      * @param {Pointer<KSIDENTIFIER>} Method 
      * @param {Integer} MethodLength 
-     * @param {Pointer<Void>} MethodData 
+     * @param {Pointer<Void>} _MethodData 
      * @param {Integer} DataLength 
      * @returns {Integer} 
      */
-    KsMethod(Method, MethodLength, MethodData, DataLength) {
-        MethodDataMarshal := MethodData is VarRef ? "ptr" : "ptr"
+    KsMethod(Method, MethodLength, _MethodData, DataLength) {
+        _MethodDataMarshal := _MethodData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodDataMarshal, MethodData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, _MethodDataMarshal, _MethodData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 

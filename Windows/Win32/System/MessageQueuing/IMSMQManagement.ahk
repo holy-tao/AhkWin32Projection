@@ -99,7 +99,7 @@ class IMSMQManagement extends IDispatch{
      * 
      * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {Pointer<VARIANT>} Machine 
-     * @param {Pointer<VARIANT>} Pathname 
+     * @param {Pointer<VARIANT>} _Pathname 
      * @param {Pointer<VARIANT>} FormatName 
      * @returns {HRESULT} This function has no parameters.
      * 
@@ -107,8 +107,8 @@ class IMSMQManagement extends IDispatch{
      * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
      */
-    Init(Machine, Pathname, FormatName) {
-        result := ComCall(7, this, "ptr", Machine, "ptr", Pathname, "ptr", FormatName, "HRESULT")
+    Init(Machine, _Pathname, FormatName) {
+        result := ComCall(7, this, "ptr", Machine, "ptr", _Pathname, "ptr", FormatName, "HRESULT")
         return result
     }
 

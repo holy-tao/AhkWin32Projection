@@ -885,52 +885,52 @@ class Credentials {
 ;@region Methods
     /**
      * Prerequisite API to call to determine if the operation will be successful prior.
-     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
+     * @param {Integer} _keyCredentialManagerOperationType 
      * @param {Pointer<BOOL>} isReady If the operational prerequisite will succeed (True) or (False).
-     * @param {Pointer<Integer>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
+     * @param {Pointer<Integer>} _keyCredentialManagerOperationErrorStates 
      * @returns {HRESULT} Returns an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
-    static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType, isReady, keyCredentialManagerOperationErrorStates) {
+    static KeyCredentialManagerGetOperationErrorStates(_keyCredentialManagerOperationType, isReady, _keyCredentialManagerOperationErrorStates) {
         isReadyMarshal := isReady is VarRef ? "int*" : "ptr"
-        keyCredentialManagerOperationErrorStatesMarshal := keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
+        _keyCredentialManagerOperationErrorStatesMarshal := _keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "HRESULT")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", _keyCredentialManagerOperationType, isReadyMarshal, isReady, _keyCredentialManagerOperationErrorStatesMarshal, _keyCredentialManagerOperationErrorStates, "HRESULT")
         return result
     }
 
     /**
      * API to perform the requested WHFB operation.
      * @param {HWND} hWndOwner Window handle of the calling app.
-     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
+     * @param {Integer} _keyCredentialManagerOperationType 
      * @returns {HRESULT} Returns an HRESULT
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
      */
-    static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType) {
+    static KeyCredentialManagerShowUIOperation(hWndOwner, _keyCredentialManagerOperationType) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "HRESULT")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", _keyCredentialManagerOperationType, "HRESULT")
         return result
     }
 
     /**
      * API to get a unique identifier of the users enrollment.
-     * @returns {Pointer<KeyCredentialManagerInfo>} Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
+     * @returns {Pointer<KeyCredentialManagerInfo>} 
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation() {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo := 0, "HRESULT")
-        return keyCredentialManagerInfo
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &_keyCredentialManagerInfo := 0, "HRESULT")
+        return _keyCredentialManagerInfo
     }
 
     /**
      * API to free the KeyCredentialManagerInfo pointer variable from the KeyCredentialManagerGetInformation call.
-     * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
+     * @param {Pointer<KeyCredentialManagerInfo>} _keyCredentialManagerInfo 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
      */
-    static KeyCredentialManagerFreeInformation(keyCredentialManagerInfo) {
-        DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo)
+    static KeyCredentialManagerFreeInformation(_keyCredentialManagerInfo) {
+        DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", _keyCredentialManagerInfo)
     }
 
     /**
@@ -3381,15 +3381,15 @@ class Credentials {
 
     /**
      * The CredFree function frees a buffer returned by any of the credentials management functions.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfree
      * @since windows5.1.2600
      */
-    static CredFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static CredFree(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("ADVAPI32.dll\CredFree", Buffer_RMarshal, Buffer_R)
+        DllCall("ADVAPI32.dll\CredFree", _BufferMarshal, _Buffer)
     }
 
     /**

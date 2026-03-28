@@ -1536,7 +1536,7 @@ class Communication {
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {HWND} _hWnd 
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1546,13 +1546,13 @@ class Communication {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-commconfigdialoga
      * @since windows5.1.2600
      */
-    static CommConfigDialogA(lpszName, hWnd, lpCC) {
+    static CommConfigDialogA(lpszName, _hWnd, lpCC) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", _hWnd, "ptr", lpCC, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1573,7 +1573,7 @@ class Communication {
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {HWND} _hWnd 
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1583,13 +1583,13 @@ class Communication {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-commconfigdialogw
      * @since windows5.1.2600
      */
-    static CommConfigDialogW(lpszName, hWnd, lpCC) {
+    static CommConfigDialogW(lpszName, _hWnd, lpCC) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", _hWnd, "ptr", lpCC, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

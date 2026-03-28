@@ -64,11 +64,11 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} 
      */
-    StartNewTrail(color) {
-        result := ComCall(6, this, "ptr", color, "HRESULT")
+    StartNewTrail(_color) {
+        result := ComCall(6, this, "ptr", _color, "HRESULT")
         return result
     }
 }

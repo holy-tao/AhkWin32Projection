@@ -135,11 +135,11 @@ class IPicture2 extends IUnknown{
      * The Render method initializes the DVD filter graph.
      * @remarks
      * The `Render` method enables the **MSWebDVD** object to fully initialize the underlying DirectShow filter graph on startup. This eliminates the slight delay that otherwise occurs when the user issues the first command to play a disc or show a menu. There is no case in which `Render` needs to be called before calling any other method. For example, if the application calls [**PlayTitle**](playtitle-method.md) before the filter graph has been initialized, the **MSWebDVD** object calls `Render` automatically before attempting to play the disc.
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} cx 
-     * @param {Integer} cy 
+     * @param {Integer} _cy 
      * @param {Integer} xSrc 
      * @param {Integer} ySrc 
      * @param {Integer} cxSrc 
@@ -165,10 +165,10 @@ class IPicture2 extends IUnknown{
      * No return value.
      * @see https://learn.microsoft.com/windows/win32/DirectShow/render-method
      */
-    Render(hDC, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    Render(_hDC, x, y, cx, _cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(8, this, "ptr", hDC, "int", x, "int", y, "int", cx, "int", cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
+        result := ComCall(8, this, "ptr", _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
         return result
     }
 

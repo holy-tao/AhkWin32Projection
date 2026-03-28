@@ -105,15 +105,15 @@ class JobObjects {
 
     /**
      * Frees memory that a function related to job objects allocated. Functions related to job objects that allocate memory include QueryIoRateControlInformationJobObject.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-freememoryjobobject
      * @since windows10.0.10240
      */
-    static FreeMemoryJobObject(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static FreeMemoryJobObject(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("KERNEL32.dll\FreeMemoryJobObject", Buffer_RMarshal, Buffer_R)
+        DllCall("KERNEL32.dll\FreeMemoryJobObject", _BufferMarshal, _Buffer)
     }
 
     /**

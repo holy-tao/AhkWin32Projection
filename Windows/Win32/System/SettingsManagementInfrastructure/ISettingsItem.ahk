@@ -230,14 +230,14 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets a setting based on the given path.
-     * @param {PWSTR} Path Path of the list element or attribute to retrieve. The path is relative to the current setting.
+     * @param {PWSTR} _Path 
      * @returns {ISettingsItem} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> interface pointer used to access the item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath
      */
-    GetSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    GetSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(13, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", _Path, "ptr*", &Setting := 0, "HRESULT")
         return ISettingsItem(Setting)
     }
 
@@ -246,20 +246,20 @@ class ISettingsItem extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  When creating a scalar list item, you must set a value on the resulting <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> before releasing it, or it will not be persisted.</div>
      * <div> </div>
-     * @param {PWSTR} Path A pointer to the path.
+     * @param {PWSTR} _Path 
      * @returns {ISettingsItem} A pointer to the newly created <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath
      */
-    CreateSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    CreateSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(14, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", _Path, "ptr*", &Setting := 0, "HRESULT")
         return ISettingsItem(Setting)
     }
 
     /**
      * Removes a setting object specified by its path.
-     * @param {PWSTR} Path The path of the item to remove. The path is relative to the current item.
+     * @param {PWSTR} _Path 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -347,10 +347,10 @@ class ISettingsItem extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath
      */
-    RemoveSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    RemoveSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(15, this, "ptr", Path, "HRESULT")
+        result := ComCall(15, this, "ptr", _Path, "HRESULT")
         return result
     }
 
@@ -502,13 +502,13 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the path for the item.
-     * @returns {BSTR} The path to the current setting. This path should be handled as opaque, and should be used only for invocations of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath">CreateSettingByPath</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath">GetSettingByPath</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath">RemoveSettingByPath</a>.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getpath
      */
     GetPath() {
-        Path := BSTR()
-        result := ComCall(21, this, "ptr", Path, "HRESULT")
-        return Path
+        _Path := BSTR()
+        result := ComCall(21, this, "ptr", _Path, "HRESULT")
+        return _Path
     }
 
     /**

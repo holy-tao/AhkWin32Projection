@@ -40,12 +40,12 @@ class IConfigInterleaving extends IUnknown{
 
     /**
      * The put_Mode method sets how audio samples and video frames are to be written to disk, by specifying quality of interleaving.
-     * @param {Integer} mode Interleaving quality setting specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_mode
      */
-    put_Mode(mode) {
-        result := ComCall(3, this, "int", mode, "HRESULT")
+    put_Mode(_mode) {
+        result := ComCall(3, this, "int", _mode, "HRESULT")
         return result
     }
 

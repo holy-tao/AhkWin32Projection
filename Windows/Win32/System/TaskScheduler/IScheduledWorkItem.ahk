@@ -111,7 +111,7 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * To complete the deletion of the trigger, programs must call the <b>IPersistFile::Save</b> method after calling 
      * <b>DeleteTrigger</b>. Calling <b>IPersistFile::Save</b> saves the changes to disk.
-     * @param {Integer} iTrigger A trigger index value that specifies the trigger to be deleted. For more information, see Remarks.
+     * @param {Integer} _iTrigger 
      * @returns {HRESULT} The 
      * <b>DeleteTrigger</b> method returns one of the following values.
      * 
@@ -156,8 +156,8 @@ class IScheduledWorkItem extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-deletetrigger
      */
-    DeleteTrigger(iTrigger) {
-        result := ComCall(4, this, "ushort", iTrigger, "HRESULT")
+    DeleteTrigger(_iTrigger) {
+        result := ComCall(4, this, "ushort", _iTrigger, "HRESULT")
         return result
     }
 
@@ -173,13 +173,13 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves a task trigger.
-     * @param {Integer} iTrigger The index of the trigger to retrieve.
+     * @param {Integer} _iTrigger 
      * @returns {ITaskTrigger} A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itasktrigger">ITaskTrigger</a> interface for the retrieved trigger.
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettrigger
      */
-    GetTrigger(iTrigger) {
-        result := ComCall(6, this, "ushort", iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
+    GetTrigger(_iTrigger) {
+        result := ComCall(6, this, "ushort", _iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
         return ITaskTrigger(ppTrigger)
     }
 
@@ -190,12 +190,12 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * You can retrieve the trigger count using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount">IScheduledWorkItem::GetTriggerCount</a>.
-     * @param {Integer} iTrigger The index of the trigger to be retrieved. The first trigger is always referenced by 0. For more information, see Remarks.
+     * @param {Integer} _iTrigger 
      * @returns {PWSTR} A pointer to a null-terminated string that contains the retrieved trigger description. Note that this string must be release by a call to <b>CoTaskMemFree</b> after the string is no longer needed.
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */
-    GetTriggerString(iTrigger) {
-        result := ComCall(7, this, "ushort", iTrigger, "ptr*", &ppwszTrigger := 0, "HRESULT")
+    GetTriggerString(_iTrigger) {
+        result := ComCall(7, this, "ushort", _iTrigger, "ptr*", &ppwszTrigger := 0, "HRESULT")
         return ppwszTrigger
     }
 

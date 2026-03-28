@@ -78,22 +78,20 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
 
     /**
      * Gets the color value and color profile of the brush.
-     * @param {Pointer<XPS_COLOR>} color The color value of the brush.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @returns {IXpsOMColorProfileResource} The color profile of the brush. 
      * 
      * If no color profile has been specified for the brush, a <b>NULL</b> pointer is returned.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-getcolor
      */
-    GetColor(color) {
-        result := ComCall(7, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
+    GetColor(_color) {
+        result := ComCall(7, this, "ptr", _color, "ptr*", &colorProfile := 0, "HRESULT")
         return IXpsOMColorProfileResource(colorProfile)
     }
 
     /**
      * Sets the color value and color profile of the brush.
-     * @param {Pointer<XPS_COLOR>} color The color value of the brush. 
-     * 
-     * If the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed in this parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, a valid color profile must be provided in the <i>colorProfile</i> parameter.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @param {IXpsOMColorProfileResource} colorProfile The color profile to be used with <i>color</i>.
      * 
      * A color profile is required when the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed  in the <i>color</i> parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>. If the value of the <b>colorType</b> field is not <b>XPS_COLOR_TYPE_CONTEXT</b>, this parameter must be set to <b>NULL</b>.
@@ -162,8 +160,8 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-setcolor
      */
-    SetColor(color, colorProfile) {
-        result := ComCall(8, this, "ptr", color, "ptr", colorProfile, "HRESULT")
+    SetColor(_color, colorProfile) {
+        result := ComCall(8, this, "ptr", _color, "ptr", colorProfile, "HRESULT")
         return result
     }
 

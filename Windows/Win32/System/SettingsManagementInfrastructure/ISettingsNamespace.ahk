@@ -68,34 +68,34 @@ class ISettingsNamespace extends IUnknown{
 
     /**
      * Gets the setting object specified by a path.
-     * @param {PWSTR} Path The path of the object.
+     * @param {PWSTR} _Path 
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents the retrieved object.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getsettingbypath
      */
-    GetSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    GetSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(6, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _Path, "ptr*", &Setting := 0, "HRESULT")
         return ISettingsItem(Setting)
     }
 
     /**
      * Creates a setting object specified by its path.
-     * @param {PWSTR} Path The path of the setting object.
+     * @param {PWSTR} _Path 
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents 
      *       the created setting.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-createsettingbypath
      */
-    CreateSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    CreateSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(7, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _Path, "ptr*", &Setting := 0, "HRESULT")
         return ISettingsItem(Setting)
     }
 
     /**
      * Removes the setting object specified by a path.
-     * @param {PWSTR} Path The path of the setting object.
+     * @param {PWSTR} _Path 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -183,10 +183,10 @@ class ISettingsNamespace extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-removesettingbypath
      */
-    RemoveSettingByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    RemoveSettingByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(8, this, "ptr", Path, "HRESULT")
+        result := ComCall(8, this, "ptr", _Path, "HRESULT")
         return result
     }
 

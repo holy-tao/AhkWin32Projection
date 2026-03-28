@@ -45,9 +45,7 @@ class IDWriteFontFallbackBuilder extends IUnknown{
      * @param {Integer} targetFamilyNamesCount Type: **UINT32**
      * 
      * Number of target family names.
-     * @param {IDWriteFontCollection} fontCollection Type: **[**IDWriteFontCollection**](/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection)**
-     * 
-     * Optional explicit font collection for this mapping.
+     * @param {IDWriteFontCollection} _fontCollection 
      * @param {PWSTR} localeName Type: **const WCHAR\***
      * 
      * Locale of the context.
@@ -62,13 +60,13 @@ class IDWriteFontFallbackBuilder extends IUnknown{
      * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontfallbackbuilder-addmapping
      */
-    AddMapping(ranges, rangesCount, targetFamilyNames, targetFamilyNamesCount, fontCollection, localeName, baseFamilyName, scale) {
+    AddMapping(ranges, rangesCount, targetFamilyNames, targetFamilyNamesCount, _fontCollection, localeName, baseFamilyName, scale) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
         targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
+        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", _fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
         return result
     }
 

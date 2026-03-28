@@ -58,12 +58,12 @@ class IMbnRadioEvents extends IUnknown{
      * Notification that a set software radio state operation has completed.
      * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which a set radio state operation has completed.
      * @param {Integer} requestID The request ID set by the Mobile Broadband service to identify the request.
-     * @param {HRESULT} status A status code that indicates the outcome of the set radio state operation.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
      */
-    OnSetSoftwareRadioStateComplete(newInterface, requestID, status) {
-        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")
+    OnSetSoftwareRadioStateComplete(newInterface, requestID, _status) {
+        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 }

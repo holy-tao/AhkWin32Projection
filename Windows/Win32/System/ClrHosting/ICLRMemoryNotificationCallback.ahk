@@ -30,11 +30,11 @@ class ICLRMemoryNotificationCallback extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eMemoryAvailable 
+     * @param {Integer} _eMemoryAvailable 
      * @returns {HRESULT} 
      */
-    OnMemoryNotification(eMemoryAvailable) {
-        result := ComCall(3, this, "int", eMemoryAvailable, "HRESULT")
+    OnMemoryNotification(_eMemoryAvailable) {
+        result := ComCall(3, this, "int", _eMemoryAvailable, "HRESULT")
         return result
     }
 }

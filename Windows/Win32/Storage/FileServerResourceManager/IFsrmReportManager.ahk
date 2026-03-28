@@ -100,14 +100,14 @@ class IFsrmReportManager extends IDispatch{
 
     /**
      * Retrieves the local directory path where the reports with the specified context are stored.
-     * @param {Integer} context The report context (for example, if the report is scheduled or run on demand). For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
-     * @returns {BSTR} The local directory path where the reports are stored.
+     * @param {Integer} _context 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
-    GetOutputDirectory(context) {
-        path := BSTR()
-        result := ComCall(10, this, "int", context, "ptr", path, "HRESULT")
-        return path
+    GetOutputDirectory(_context) {
+        _path := BSTR()
+        result := ComCall(10, this, "int", _context, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -147,18 +147,15 @@ class IFsrmReportManager extends IDispatch{
      * <li>"%systemdrive%\StorageReports\Incident"</li>
      * <li>"%systemdrive%\StorageReports\Interactive"</li>
      * </ul>
-     * @param {Integer} context The report context (for example, if the report is scheduled or runs on demand). For possible values, see 
-     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
-     *       enumeration.
-     * @param {BSTR} path The full path to the local directory where the reports are stored. The path can contain environment 
-     *       variables. The path is limited to 150 characters.
+     * @param {Integer} _context 
+     * @param {BSTR} _path 
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory
      */
-    SetOutputDirectory(context, path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    SetOutputDirectory(_context, _path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "int", context, "ptr", path, "HRESULT")
+        result := ComCall(11, this, "int", _context, "ptr", _path, "HRESULT")
         return result
     }
 

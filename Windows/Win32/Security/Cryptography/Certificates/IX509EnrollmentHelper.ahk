@@ -239,7 +239,7 @@ class IX509EnrollmentHelper extends IDispatch{
 
     /**
      * Initializes an IX509EnrollmentHelper object.
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -263,8 +263,8 @@ class IX509EnrollmentHelper extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmenthelper-initialize
      */
-    Initialize(Context) {
-        result := ComCall(10, this, "int", Context, "HRESULT")
+    Initialize(_Context) {
+        result := ComCall(10, this, "int", _Context, "HRESULT")
         return result
     }
 }

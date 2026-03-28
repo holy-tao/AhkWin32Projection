@@ -32,9 +32,7 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
 
     /**
      * Renders the given ink object using the given brush and ink style. (ID2D1CommandSink2.DrawInk)
-     * @param {ID2D1Ink} ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
-     * 
-     * The ink object to be rendered.
+     * @param {ID2D1Ink} _ink 
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to render the ink object.
@@ -44,8 +42,8 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
      * @returns {HRESULT} This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawink
      */
-    DrawInk(ink, brush, inkStyle) {
-        result := ComCall(29, this, "ptr", ink, "ptr", brush, "ptr", inkStyle, "HRESULT")
+    DrawInk(_ink, brush, inkStyle) {
+        result := ComCall(29, this, "ptr", _ink, "ptr", brush, "ptr", inkStyle, "HRESULT")
         return result
     }
 

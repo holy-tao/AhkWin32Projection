@@ -458,7 +458,7 @@ class UI {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvContext A pointer to a certificate, CRL, or CTL context to be displayed.
-     * @param {HWND} hwnd Handle of the window for the display. If <b>NULL</b>, the display defaults to the desktop window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pwszTitle Display title string. If <b>NULL</b>, the default context type is used as the title.
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
@@ -466,21 +466,21 @@ class UI {
      * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcontext
      * @since windows5.1.2600
      */
-    static CryptUIDlgViewContext(dwContextType, pvContext, hwnd, pwszTitle, dwFlags, pvReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CryptUIDlgViewContext(dwContextType, pvContext, _hwnd, pwszTitle, dwFlags, pvReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, "ptr", _hwnd, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         return result
     }
 
     /**
      * Displays a dialog box that allows the selection of a certificate from a specified store.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be searched.
-     * @param {HWND} hwnd Handle of the window for the display. If <b>NULL</b>, defaults to the desktop window.
+     * @param {HCERTSTORE} _hCertStore 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pwszTitle String used as the title of the dialog box. If <b>NULL</b>, the default title, "Select Certificate," is used.
      * @param {PWSTR} pwszDisplayString Text statement in the selection dialog box. If <b>NULL</b>, the default phrase, "Select a certificate you want to use," is used.
      * @param {Integer} dwDontUseColumn Flags that can be combined to exclude columns of the display. 
@@ -561,15 +561,15 @@ class UI {
      * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgselectcertificatefromstore
      * @since windows5.1.2600
      */
-    static CryptUIDlgSelectCertificateFromStore(hCertStore, hwnd, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CryptUIDlgSelectCertificateFromStore(_hCertStore, _hwnd, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
         pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore, "ptr", hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", _hCertStore, "ptr", _hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr")
         return result
     }
 

@@ -443,8 +443,8 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_ink
      */
     get_Ink() {
-        result := ComCall(15, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(15, this, "ptr*", &_Ink := 0, "HRESULT")
+        return IInkDisp(_Ink)
     }
 
     /**
@@ -635,8 +635,8 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode
      */
     get_CollectionMode() {
-        result := ComCall(20, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(20, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
@@ -686,12 +686,12 @@ class IInkCollector extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_collectionmode
      */
-    put_CollectionMode(Mode) {
-        result := ComCall(21, this, "int", Mode, "HRESULT")
+    put_CollectionMode(_Mode) {
+        result := ComCall(21, this, "int", _Mode, "HRESULT")
         return result
     }
 

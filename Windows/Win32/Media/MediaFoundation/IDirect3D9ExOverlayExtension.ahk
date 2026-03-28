@@ -32,7 +32,7 @@ class IDirect3D9ExOverlayExtension extends IUnknown{
 
     /**
      * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension.CheckDeviceOverlayType)
-     * @param {Integer} Adapter An ordinal number that denotes the display adapter. <b>D3DADAPTER_DEFAULT</b> is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Integer} DevType Specifies the Direct3D device type as a member of the <b>D3DDEVTYPE</b> enumerated type.
      * @param {Integer} OverlayWidth The width of the overlay to create, in pixels.
      * @param {Integer} OverlayHeight The height of the overlay to create, in pixels.
@@ -83,8 +83,8 @@ class IDirect3D9ExOverlayExtension extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9exoverlayextension-checkdeviceoverlaytype
      */
-    CheckDeviceOverlayType(Adapter, DevType, OverlayWidth, OverlayHeight, OverlayFormat, pDisplayMode, DisplayRotation, pOverlayCaps) {
-        result := ComCall(3, this, "uint", Adapter, "int", DevType, "uint", OverlayWidth, "uint", OverlayHeight, "uint", OverlayFormat, "ptr", pDisplayMode, "int", DisplayRotation, "ptr", pOverlayCaps, "HRESULT")
+    CheckDeviceOverlayType(_Adapter, DevType, OverlayWidth, OverlayHeight, OverlayFormat, pDisplayMode, DisplayRotation, pOverlayCaps) {
+        result := ComCall(3, this, "uint", _Adapter, "int", DevType, "uint", OverlayWidth, "uint", OverlayHeight, "uint", OverlayFormat, "ptr", pDisplayMode, "int", DisplayRotation, "ptr", pOverlayCaps, "HRESULT")
         return result
     }
 }

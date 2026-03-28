@@ -590,19 +590,15 @@ class IFsrmClassificationManager extends IDispatch{
      *     <b>FsrmReportGenerationContext_ScheduledReport</b> reporting context.
      * 
      * FSRM does not apply the classification rule if the rule, file, and cache are valid and have not changed.
-     * @param {Integer} context Specifies the report subdirectory to which the classification report is written. For possible values, see 
-     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration. 
-     *       To set the report directory, call the 
-     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
-     *       method.
+     * @param {Integer} _context 
      * @param {BSTR} reserved Must be <b>NULL</b>.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-runclassification
      */
-    RunClassification(context, reserved) {
+    RunClassification(_context, reserved) {
         reserved := reserved is String ? BSTR.Alloc(reserved).Value : reserved
 
-        result := ComCall(27, this, "int", context, "ptr", reserved, "HRESULT")
+        result := ComCall(27, this, "int", _context, "ptr", reserved, "HRESULT")
         return result
     }
 
@@ -685,16 +681,15 @@ class IFsrmClassificationManager extends IDispatch{
      * @param {BSTR} propertyName The name of the property to retrieve. Must not exceed 100 characters in length.
      * @param {Integer} options The option to use for retrieving the file's property. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions">FsrmGetFilePropertyOptions</a> enumeration.
-     * @returns {IFsrmProperty} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmproperty">IFsrmProperty</a> interface to  the retrieved 
-     *       property.
+     * @returns {IFsrmProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getfileproperty
      */
     GetFileProperty(filePath, propertyName, options) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(31, this, "ptr", filePath, "ptr", propertyName, "int", options, "ptr*", &property := 0, "HRESULT")
-        return IFsrmProperty(property)
+        result := ComCall(31, this, "ptr", filePath, "ptr", propertyName, "int", options, "ptr*", &_property := 0, "HRESULT")
+        return IFsrmProperty(_property)
     }
 
     /**
@@ -712,16 +707,16 @@ class IFsrmClassificationManager extends IDispatch{
      * @param {BSTR} filePath The file that contains the property that you want to set. You must specify an absolute path to the file. You 
      *       cannot specify a file share.
      * @param {BSTR} propertyName The name of the property whose value you want to set.
-     * @param {BSTR} propertyValue The value to set the specified property to.
+     * @param {BSTR} _propertyValue 
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-setfileproperty
      */
-    SetFileProperty(filePath, propertyName, propertyValue) {
+    SetFileProperty(filePath, propertyName, _propertyValue) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
-        propertyValue := propertyValue is String ? BSTR.Alloc(propertyValue).Value : propertyValue
+        _propertyValue := _propertyValue is String ? BSTR.Alloc(_propertyValue).Value : _propertyValue
 
-        result := ComCall(32, this, "ptr", filePath, "ptr", propertyName, "ptr", propertyValue, "HRESULT")
+        result := ComCall(32, this, "ptr", filePath, "ptr", propertyName, "ptr", _propertyValue, "HRESULT")
         return result
     }
 
@@ -775,15 +770,15 @@ class IFsrmClassificationManager extends IDispatch{
      * </table>
      * @param {BSTR} filePath The file that contains the property that you want to remove. You must specify an absolute path to the file. 
      *       You cannot specify a file share.
-     * @param {BSTR} property The name of the property to remove from the file.
+     * @param {BSTR} _property 
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty
      */
-    ClearFileProperty(filePath, property) {
+    ClearFileProperty(filePath, _property) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
-        property := property is String ? BSTR.Alloc(property).Value : property
+        _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        result := ComCall(33, this, "ptr", filePath, "ptr", property, "HRESULT")
+        result := ComCall(33, this, "ptr", filePath, "ptr", _property, "HRESULT")
         return result
     }
 }

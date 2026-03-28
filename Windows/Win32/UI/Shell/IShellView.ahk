@@ -200,19 +200,15 @@ class IShellView extends IOleWindow{
      * @param {Integer} dwReserved Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfn Type: <b>LPFNADDPROPSHEETPAGE</b>
-     * 
-     * The address of the callback function used to add the pages.
-     * @param {LPARAM} lparam Type: <b>LPARAM</b>
-     * 
-     * A value that must be passed as the callback function's <i>lparam</i> parameter.
+     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} _pfn 
+     * @param {LPARAM} _lparam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
      */
-    AddPropertySheetPages(dwReserved, pfn, lparam) {
-        result := ComCall(12, this, "uint", dwReserved, "ptr", pfn, "ptr", lparam, "HRESULT")
+    AddPropertySheetPages(dwReserved, _pfn, _lparam) {
+        result := ComCall(12, this, "uint", dwReserved, "ptr", _pfn, "ptr", _lparam, "HRESULT")
         return result
     }
 

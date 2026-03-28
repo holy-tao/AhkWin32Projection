@@ -39,14 +39,12 @@ class IUIRibbon extends IUnknown{
      * The value returned for <i>cy</i> is based on a number of dependencies that
      * 			include, but are not limited to, the width of the host window and the layout template declared 
      * 			in the Ribbon markup.
-     * @returns {Integer} Type: <b>UINT32*</b>
-     * 
-     * The height of the ribbon, in pixels.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-getheight
      */
     GetHeight() {
-        result := ComCall(3, this, "uint*", &cy := 0, "HRESULT")
-        return cy
+        result := ComCall(3, this, "uint*", &_cy := 0, "HRESULT")
+        return _cy
     }
 
     /**

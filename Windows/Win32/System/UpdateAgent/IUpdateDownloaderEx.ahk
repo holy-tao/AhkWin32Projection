@@ -32,24 +32,24 @@ class IUpdateDownloaderEx extends IUpdateDownloader{
 
     /**
      * 
-     * @param {Integer} downloadType 
+     * @param {Integer} _downloadType 
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
      * @returns {IDownloadJob} 
      */
-    BeginDownload2(downloadType, onProgressChanged, onCompleted, state) {
-        result := ComCall(18, this, "int", downloadType, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+    BeginDownload2(_downloadType, onProgressChanged, onCompleted, state) {
+        result := ComCall(18, this, "int", _downloadType, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
         return IDownloadJob(retval)
     }
 
     /**
      * 
-     * @param {Integer} downloadType 
+     * @param {Integer} _downloadType 
      * @returns {IDownloadResult} 
      */
-    Download2(downloadType) {
-        result := ComCall(19, this, "int", downloadType, "ptr*", &retval := 0, "HRESULT")
+    Download2(_downloadType) {
+        result := ComCall(19, this, "int", _downloadType, "ptr*", &retval := 0, "HRESULT")
         return IDownloadResult(retval)
     }
 }

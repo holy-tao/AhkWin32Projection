@@ -60,13 +60,13 @@ class IDebugApplication64 extends IRemoteDebugApplication{
 
     /**
      * 
-     * @param {PWSTR} pstr 
+     * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
-    DebugOutput(pstr) {
-        pstr := pstr is String ? StrPtr(pstr) : pstr
+    DebugOutput(_pstr) {
+        _pstr := _pstr is String ? StrPtr(_pstr) : _pstr
 
-        result := ComCall(16, this, "ptr", pstr, "HRESULT")
+        result := ComCall(16, this, "ptr", _pstr, "HRESULT")
         return result
     }
 

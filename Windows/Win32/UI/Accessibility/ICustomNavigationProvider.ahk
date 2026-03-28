@@ -31,12 +31,12 @@ class ICustomNavigationProvider extends IUnknown{
 
     /**
      * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
-     * @param {Integer} direction 
+     * @param {Integer} _direction 
      * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
-    Navigate(direction) {
-        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+    Navigate(_direction) {
+        result := ComCall(3, this, "int", _direction, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderSimple(pRetVal)
     }
 }

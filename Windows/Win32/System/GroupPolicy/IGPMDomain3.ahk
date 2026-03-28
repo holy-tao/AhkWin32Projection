@@ -47,13 +47,13 @@ class IGPMDomain3 extends IGPMDomain2{
 
     /**
      * 
-     * @param {Integer} gpmReportType 
+     * @param {Integer} _gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
      * @returns {IGPMResult} 
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(23, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+    GenerateReport(_gpmReportType, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(23, this, "int", _gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 

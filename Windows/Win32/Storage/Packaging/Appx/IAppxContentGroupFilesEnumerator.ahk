@@ -32,12 +32,12 @@ class IAppxContentGroupFilesEnumerator extends IUnknown{
 
     /**
      * Gets the file from the content group at the current position of the enumerator.
-     * @returns {PWSTR} The file at the position of the enumerator.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &file := 0, "HRESULT")
-        return file
+        result := ComCall(3, this, "ptr*", &_file := 0, "HRESULT")
+        return _file
     }
 
     /**

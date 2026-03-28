@@ -146,13 +146,13 @@ class IDirectMusic extends IUnknown{
     /**
      * 
      * @param {IDirectSound} pDirectSound 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @returns {HRESULT} 
      */
-    SetDirectSound(pDirectSound, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    SetDirectSound(pDirectSound, _hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(11, this, "ptr", pDirectSound, "ptr", hWnd, "HRESULT")
+        result := ComCall(11, this, "ptr", pDirectSound, "ptr", _hWnd, "HRESULT")
         return result
     }
 }

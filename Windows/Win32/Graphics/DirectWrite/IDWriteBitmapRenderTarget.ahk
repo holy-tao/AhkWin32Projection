@@ -139,9 +139,7 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method for glyphs in the run, used with the other properties to determine the rendering mode.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The structure containing the properties of the glyph run.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {IDWriteRenderingParams} renderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>*</b>
      * 
      * The object that controls rendering behavior.
@@ -154,9 +152,9 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      *      drawing the glyph run. The black box rectangle may extend beyond the dimensions of the bitmap.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun
      */
-    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor) {
+    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, renderingParams, textColor) {
         blackBoxRect := RECT()
-        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "HRESULT")
+        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", _glyphRun, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 
@@ -250,15 +248,13 @@ class IDWriteBitmapRenderTarget extends IUnknown{
 
     /**
      * Gets the dimensions of the target bitmap.
-     * @returns {SIZE} Type: <b>SIZE*</b>
-     * 
-     * Returns  the width and height of the bitmap in pixels.
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getsize
      */
     GetSize() {
-        size := SIZE()
-        result := ComCall(9, this, "ptr", size, "HRESULT")
-        return size
+        _size := SIZE()
+        result := ComCall(9, this, "ptr", _size, "HRESULT")
+        return _size
     }
 
     /**

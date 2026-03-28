@@ -445,12 +445,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {IDispatch} image 
+     * @param {IDispatch} _image 
      * @param {VARIANT} repetition 
      * @returns {ICanvasPattern} 
      */
-    createPattern(image, repetition) {
-        result := ComCall(25, this, "ptr", image, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
+    createPattern(_image, repetition) {
+        result := ComCall(25, this, "ptr", _image, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
         return ICanvasPattern(ppCanvasPattern)
     }
 

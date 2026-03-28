@@ -218,12 +218,8 @@ class IShellFolderViewCB extends IUnknown{
      * <td>Notifies the callback object that the folder view window is being created.</td>
      * </tr>
      * </table>
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional information. See the individual notification pages for specific requirements.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional information. See the individual notification pages for specific requirements.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method can return one of these values.
@@ -258,8 +254,8 @@ class IShellFolderViewCB extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
      */
-    MessageSFVCB(uMsg, wParam, lParam) {
-        result := ComCall(3, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    MessageSFVCB(uMsg, _wParam, _lParam) {
+        result := ComCall(3, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

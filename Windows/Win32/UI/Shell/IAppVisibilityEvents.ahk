@@ -32,16 +32,16 @@ class IAppVisibilityEvents extends IUnknown{
 
     /**
      * Notifies a client that the mode of a display has changed.
-     * @param {HMONITOR} hMonitor The display that has a changing mode.
+     * @param {HMONITOR} _hMonitor 
      * @param {Integer} previousMode The previous mode of <i>hMonitor</i>, which may be <b>MAV_UNKNOWN</b>  if the client was unaware of the display previously.
      * @param {Integer} currentMode The current mode of <i>hMonitor</i>, which will not be <b>MAV_UNKNOWN</b>.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibilityevents-appvisibilityonmonitorchanged
      */
-    AppVisibilityOnMonitorChanged(hMonitor, previousMode, currentMode) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    AppVisibilityOnMonitorChanged(_hMonitor, previousMode, currentMode) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(3, this, "ptr", hMonitor, "int", previousMode, "int", currentMode, "HRESULT")
+        result := ComCall(3, this, "ptr", _hMonitor, "int", previousMode, "int", currentMode, "HRESULT")
         return result
     }
 

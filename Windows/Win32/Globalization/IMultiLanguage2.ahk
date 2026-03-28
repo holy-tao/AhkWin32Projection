@@ -390,13 +390,13 @@ class IMultiLanguage2 extends IUnknown{
     /**
      * 
      * @param {Integer} uiCodePage 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    ValidateCodePage(uiCodePage, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ValidateCodePage(uiCodePage, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(23, this, "uint", uiCodePage, "ptr", hwnd, "HRESULT")
+        result := ComCall(23, this, "uint", uiCodePage, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -458,14 +458,14 @@ class IMultiLanguage2 extends IUnknown{
     /**
      * 
      * @param {Integer} uiCodePage 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Integer} dwfIODControl 
      * @returns {HRESULT} 
      */
-    ValidateCodePageEx(uiCodePage, hwnd, dwfIODControl) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ValidateCodePageEx(uiCodePage, _hwnd, dwfIODControl) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(29, this, "uint", uiCodePage, "ptr", hwnd, "uint", dwfIODControl, "HRESULT")
+        result := ComCall(29, this, "uint", uiCodePage, "ptr", _hwnd, "uint", dwfIODControl, "HRESULT")
         return result
     }
 }

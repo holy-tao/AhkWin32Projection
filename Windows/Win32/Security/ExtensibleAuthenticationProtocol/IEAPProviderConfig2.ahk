@@ -32,21 +32,21 @@ class IEAPProviderConfig2 extends IEAPProviderConfig{
      * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<Integer>} pConfigDataIn 
      * @param {Integer} dwSizeOfConfigDataIn 
      * @param {Pointer<Pointer<Integer>>} ppConfigDataOut 
      * @param {Pointer<Integer>} pdwSizeOfConfigDataOut 
      * @returns {HRESULT} 
      */
-    ServerInvokeConfigUI2(dwEapTypeId, uConnectionParam, hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    ServerInvokeConfigUI2(dwEapTypeId, uConnectionParam, _hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
         ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
+        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", _hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
         return result
     }
 

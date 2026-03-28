@@ -968,19 +968,19 @@ class IVideoWindow extends IDispatch{
 
     /**
      * The get_BorderColor method retrieves the color that appears around the edges of the destination rectangle.
-     * @returns {Integer} Receives a <b>COLORREF</b> value.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_bordercolor
      */
     get_BorderColor() {
-        result := ComCall(33, this, "int*", &Color := 0, "HRESULT")
-        return Color
+        result := ComCall(33, this, "int*", &_Color := 0, "HRESULT")
+        return _Color
     }
 
     /**
      * The put_BorderColor method sets the color that appears around the edges of the destination rectangle.
      * @remarks
      * If the destination rectangle is smaller than the client area of the video window, a border is exposed around the edges of the video. The default color is black. Use this method to override the default color. If a palette is in use, a nonsystem color is converted to its closest match.
-     * @param {Integer} Color The border color, specified as a <b>COLORREF</b> value.
+     * @param {Integer} _Color 
      * @returns {HRESULT} Possible return values include the following:
      * 
      * <table>
@@ -1013,8 +1013,8 @@ class IVideoWindow extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_bordercolor
      */
-    put_BorderColor(Color) {
-        result := ComCall(34, this, "int", Color, "HRESULT")
+    put_BorderColor(_Color) {
+        result := ComCall(34, this, "int", _Color, "HRESULT")
         return result
     }
 
@@ -1177,10 +1177,10 @@ class IVideoWindow extends IDispatch{
      * <li>WM_QUERYNEWPALETTE</li>
      * <li>WM_SYSCOLORCHANGE</li>
      * </ul>
-     * @param {Pointer} hwnd A handle to the window, as an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/oahwnd">OAHWND</a> value.
+     * @param {Pointer} _hwnd 
      * @param {Integer} uMsg Specifies the message.
-     * @param {Pointer} wParam Message parameter.
-     * @param {Pointer} lParam Message parameter.
+     * @param {Pointer} _wParam 
+     * @param {Pointer} _lParam 
      * @returns {HRESULT} Possible return values include the following:
      * 
      * <table>
@@ -1213,8 +1213,8 @@ class IVideoWindow extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-notifyownermessage
      */
-    NotifyOwnerMessage(hwnd, uMsg, wParam, lParam) {
-        result := ComCall(38, this, "ptr", hwnd, "int", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    NotifyOwnerMessage(_hwnd, uMsg, _wParam, _lParam) {
+        result := ComCall(38, this, "ptr", _hwnd, "int", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 

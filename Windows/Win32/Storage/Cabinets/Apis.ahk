@@ -179,11 +179,11 @@ class Cabinets {
      * @param {Pointer<PFNFCIFILEPLACED>} pfnfcifp Pointer to an application-defined callback function to notify when a file is placed in the cabinet. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcifileplaced">FNFCIFILEPLACED</a> macro.
      * @param {Pointer<PFNFCIALLOC>} pfna Pointer to an application-defined callback function to allocate memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcialloc">FNFCIALLOC</a> macro.
      * @param {Pointer<PFNFCIFREE>} pfnf Pointer to an application-defined callback function to free previously allocated memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcifree">FNFCIFREE</a> macro.
-     * @param {Pointer<PFNFCIOPEN>} pfnopen Pointer to an application-defined callback function to open a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciopen">FNFCIOPEN</a> macro.
-     * @param {Pointer<PFNFCIREAD>} pfnread Pointer to an application-defined callback function to read data from a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciread">FNFCIREAD</a> macro.
-     * @param {Pointer<PFNFCIWRITE>} pfnwrite Pointer to an application-defined callback function to write data to a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciwrite">FNFCIWRITE</a> macro.
-     * @param {Pointer<PFNFCICLOSE>} pfnclose Pointer to an application-defined callback function to close a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciclose">FNFCICLOSE</a> macro.
-     * @param {Pointer<PFNFCISEEK>} pfnseek Pointer to an application-defined callback function to move a file pointer to the specific location. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciseek">FNFCISEEK</a> macro.
+     * @param {Pointer<PFNFCIOPEN>} _pfnopen 
+     * @param {Pointer<PFNFCIREAD>} _pfnread 
+     * @param {Pointer<PFNFCIWRITE>} _pfnwrite 
+     * @param {Pointer<PFNFCICLOSE>} _pfnclose 
+     * @param {Pointer<PFNFCISEEK>} _pfnseek 
      * @param {Pointer<PFNFCIDELETE>} pfndelete Pointer to an application-defined callback function to delete a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcidelete">FNFCIDELETE</a> macro.
      * @param {Pointer<PFNFCIGETTEMPFILE>} pfnfcigtf Pointer to an application-defined callback function to retrieve a temporary file name. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigettempfile">FNFCIGETTEMPFILE</a> macro.
      * @param {Pointer<CCAB>} pccab Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/fci/ns-fci-ccab">CCAB</a> structure that contains the parameters for creating a cabinet.
@@ -193,10 +193,10 @@ class Cabinets {
      * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure.
      * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fcicreate
      */
-    static FCICreate(perf, pfnfcifp, pfna, pfnf, pfnopen, pfnread, pfnwrite, pfnclose, pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
+    static FCICreate(perf, pfnfcifp, pfna, pfnf, _pfnopen, _pfnread, _pfnwrite, _pfnclose, _pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("Cabinet.dll\FCICreate", "ptr", perf, "ptr", pfnfcifp, "ptr", pfna, "ptr", pfnf, "ptr", pfnopen, "ptr", pfnread, "ptr", pfnwrite, "ptr", pfnclose, "ptr", pfnseek, "ptr", pfndelete, "ptr", pfnfcigtf, "ptr", pccab, pvMarshal, pv, "CDecl ptr")
+        result := DllCall("Cabinet.dll\FCICreate", "ptr", perf, "ptr", pfnfcifp, "ptr", pfna, "ptr", pfnf, "ptr", _pfnopen, "ptr", _pfnread, "ptr", _pfnwrite, "ptr", _pfnclose, "ptr", _pfnseek, "ptr", pfndelete, "ptr", pfnfcigtf, "ptr", pccab, pvMarshal, pv, "CDecl ptr")
         return result
     }
 
@@ -320,13 +320,13 @@ class Cabinets {
 
     /**
      * The FDICreate function creates an FDI context.
-     * @param {Pointer<PFNALLOC>} pfnalloc Pointer to an application-defined callback function to allocate memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnalloc">FNALLOC</a> macro.
-     * @param {Pointer<PFNFREE>} pfnfree Pointer to an application-defined callback function to free previously allocated memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnfree">FNFREE</a> macro.
-     * @param {Pointer<PFNOPEN>} pfnopen Pointer to an application-defined callback function to open a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnopen">FNOPEN</a> macro.
-     * @param {Pointer<PFNREAD>} pfnread Pointer to an application-defined callback function to read data from a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnread">FNREAD</a> macro.
-     * @param {Pointer<PFNWRITE>} pfnwrite Pointer to an application-defined callback function to write data to a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnwrite">FNWRITE</a> macro.
-     * @param {Pointer<PFNCLOSE>} pfnclose Pointer to an application-defined callback function to close a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnclose">FNCLOSE</a> macro.
-     * @param {Pointer<PFNSEEK>} pfnseek Pointer to an application-defined callback function to move a file pointer to the specified location. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnseek">FNSEEK</a> macro.
+     * @param {Pointer<PFNALLOC>} _pfnalloc 
+     * @param {Pointer<PFNFREE>} _pfnfree 
+     * @param {Pointer<PFNOPEN>} _pfnopen 
+     * @param {Pointer<PFNREAD>} _pfnread 
+     * @param {Pointer<PFNWRITE>} _pfnwrite 
+     * @param {Pointer<PFNCLOSE>} _pfnclose 
+     * @param {Pointer<PFNSEEK>} _pfnseek 
      * @param {Integer} cpuType 
      * @param {Pointer<ERF>} perf Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure that receives the error information.
      * @returns {Pointer<Void>} If the function succeeds, it returns a non-<b>NULL</b> HFDI context pointer; otherwise, it returns <b>NULL</b>.
@@ -335,8 +335,8 @@ class Cabinets {
      * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fdicreate
      * @since windows5.0
      */
-    static FDICreate(pfnalloc, pfnfree, pfnopen, pfnread, pfnwrite, pfnclose, pfnseek, cpuType, perf) {
-        result := DllCall("Cabinet.dll\FDICreate", "ptr", pfnalloc, "ptr", pfnfree, "ptr", pfnopen, "ptr", pfnread, "ptr", pfnwrite, "ptr", pfnclose, "ptr", pfnseek, "int", cpuType, "ptr", perf, "CDecl ptr")
+    static FDICreate(_pfnalloc, _pfnfree, _pfnopen, _pfnread, _pfnwrite, _pfnclose, _pfnseek, cpuType, perf) {
+        result := DllCall("Cabinet.dll\FDICreate", "ptr", _pfnalloc, "ptr", _pfnfree, "ptr", _pfnopen, "ptr", _pfnread, "ptr", _pfnwrite, "ptr", _pfnclose, "ptr", _pfnseek, "int", cpuType, "ptr", perf, "CDecl ptr")
         return result
     }
 

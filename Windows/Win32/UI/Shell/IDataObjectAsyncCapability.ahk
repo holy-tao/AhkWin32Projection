@@ -106,9 +106,7 @@ class IDataObjectAsyncCapability extends IUnknown{
      * <b>EndOperation</b> retrieves the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-idataobjectasynccapability">IDataObjectAsyncCapability</a> pointer stored by <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nf-shldisp-idataobjectasynccapability-setasyncmode">IDataObjectAsyncCapability::SetAsyncMode</a> and passes its parameter values to that interface's <b>IDataObjectAsyncCapability::EndOperation</b> method. <b>EndOperation</b> then releases the <b>IDataObjectAsyncCapability</b> pointer.
      * 
      * <b>EndOperation</b> is also responsible for any associated clean-up operations. When finished, <b>EndOperation</b> should notify the drop source through a private interface.
-     * @param {HRESULT} hResult Type: <b>HRESULT</b>
-     * 
-     * Indicates the outcome of the data extraction. Set this value to S_OK if successful, or a COM error code otherwise.
+     * @param {HRESULT} _hResult 
      * @param {IBindCtx} pbcReserved Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * Reserved. Set to <b>nullptr</b>.
@@ -120,8 +118,8 @@ class IDataObjectAsyncCapability extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-endoperation
      */
-    EndOperation(hResult, pbcReserved, dwEffects) {
-        result := ComCall(7, this, "int", hResult, "ptr", pbcReserved, "uint", dwEffects, "HRESULT")
+    EndOperation(_hResult, pbcReserved, dwEffects) {
+        result := ComCall(7, this, "int", _hResult, "ptr", pbcReserved, "uint", dwEffects, "HRESULT")
         return result
     }
 }

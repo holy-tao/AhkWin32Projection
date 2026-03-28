@@ -74,7 +74,7 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
      * @param {Pointer<BOOL>} Append 
@@ -87,26 +87,26 @@ class IDebugControl4 extends IUnknown{
      *  The following list identifies the possible error codes:
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogfileinformation
      */
-    GetLogFile(Buffer_R, BufferSize, FileSize, Append) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetLogFile(_Buffer, BufferSize, FileSize, Append) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         AppendMarshal := Append is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", Buffer_R, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
+        result := ComCall(7, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PSTR} File 
+     * @param {PSTR} _File 
      * @param {BOOL} Append 
      * @returns {HRESULT} 
      */
-    OpenLogFile(File, Append) {
-        File := File is String ? StrPtr(File) : File
+    OpenLogFile(_File, Append) {
+        _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(8, this, "ptr", File, "int", Append, "HRESULT")
+        result := ComCall(8, this, "ptr", _File, "int", Append, "HRESULT")
         return result
     }
 
@@ -140,27 +140,27 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * This section provides the reference specifications for Input Feedback Configuration constants.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/input_feedback/constants
      */
-    Input(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    Input(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(12, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
         return InputSize
     }
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {HRESULT} 
      */
-    ReturnInput(Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    ReturnInput(_Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(13, this, "ptr", Buffer_R, "HRESULT")
+        result := ComCall(13, this, "ptr", _Buffer, "HRESULT")
         return result
     }
 
@@ -273,14 +273,14 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetPromptText(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetPromptText(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(20, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -311,17 +311,17 @@ class IDebugControl4 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnotifyeventhandle
      */
     GetNotifyEventHandle() {
-        result := ComCall(23, this, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(23, this, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
-    SetNotifyEventHandle(Handle) {
-        result := ComCall(24, this, "uint", Handle, "HRESULT")
+    SetNotifyEventHandle(_Handle) {
+        result := ComCall(24, this, "uint", _Handle, "HRESULT")
         return result
     }
 
@@ -342,19 +342,19 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} DisassemblySize 
      * @param {Pointer<Integer>} EndOffset 
      * @returns {HRESULT} 
      */
-    Disassemble(Offset, Flags, Buffer_R, BufferSize, DisassemblySize, EndOffset) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    Disassemble(Offset, Flags, _Buffer, BufferSize, DisassemblySize, EndOffset) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : "ptr"
         EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", Offset, "uint", Flags, "ptr", Buffer_R, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
+        result := ComCall(26, this, "uint", Offset, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
         return result
     }
 
@@ -454,15 +454,15 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Class_R 
+     * @param {Pointer<Integer>} _Class 
      * @param {Pointer<Integer>} Qualifier 
      * @returns {HRESULT} 
      */
-    GetDebuggeeType(Class_R, Qualifier) {
-        Class_RMarshal := Class_R is VarRef ? "uint*" : "ptr"
+    GetDebuggeeType(_Class, Qualifier) {
+        _ClassMarshal := _Class is VarRef ? "uint*" : "ptr"
         QualifierMarshal := Qualifier is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, Class_RMarshal, Class_R, QualifierMarshal, Qualifier, "HRESULT")
+        result := ComCall(34, this, _ClassMarshal, _Class, QualifierMarshal, Qualifier, "HRESULT")
         return result
     }
 
@@ -489,8 +489,8 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberPossibleExecutingProcessorTypes() {
-        result := ComCall(37, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(37, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
@@ -509,13 +509,13 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberProcessors() {
-        result := ComCall(39, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(39, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PlatformId 
+     * @param {Pointer<Integer>} _PlatformId 
      * @param {Pointer<Integer>} Major 
      * @param {Pointer<Integer>} Minor 
      * @param {PSTR} ServicePackString 
@@ -527,18 +527,18 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} BuildStringUsed 
      * @returns {HRESULT} 
      */
-    GetSystemVersion(PlatformId, Major, Minor, ServicePackString, ServicePackStringSize, ServicePackStringUsed, ServicePackNumber, BuildString, BuildStringSize, BuildStringUsed) {
+    GetSystemVersion(_PlatformId, Major, Minor, ServicePackString, ServicePackStringSize, ServicePackStringUsed, ServicePackNumber, BuildString, BuildStringSize, BuildStringUsed) {
         ServicePackString := ServicePackString is String ? StrPtr(ServicePackString) : ServicePackString
         BuildString := BuildString is String ? StrPtr(BuildString) : BuildString
 
-        PlatformIdMarshal := PlatformId is VarRef ? "uint*" : "ptr"
+        _PlatformIdMarshal := _PlatformId is VarRef ? "uint*" : "ptr"
         MajorMarshal := Major is VarRef ? "uint*" : "ptr"
         MinorMarshal := Minor is VarRef ? "uint*" : "ptr"
         ServicePackStringUsedMarshal := ServicePackStringUsed is VarRef ? "uint*" : "ptr"
         ServicePackNumberMarshal := ServicePackNumber is VarRef ? "uint*" : "ptr"
         BuildStringUsedMarshal := BuildStringUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, PlatformIdMarshal, PlatformId, MajorMarshal, Major, MinorMarshal, Minor, "ptr", ServicePackString, "uint", ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, "ptr", BuildString, "uint", BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
+        result := ComCall(40, this, _PlatformIdMarshal, _PlatformId, MajorMarshal, Major, MinorMarshal, Minor, "ptr", ServicePackString, "uint", ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, "ptr", BuildString, "uint", BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
         return result
     }
 
@@ -547,8 +547,8 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetPageSize() {
-        result := ComCall(41, this, "uint*", &Size := 0, "HRESULT")
-        return Size
+        result := ComCall(41, this, "uint*", &_Size := 0, "HRESULT")
+        return _Size
     }
 
     /**
@@ -585,8 +585,8 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSupportedProcessorTypes() {
-        result := ComCall(44, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(44, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
@@ -646,17 +646,17 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetExecutionStatus() {
-        result := ComCall(49, this, "uint*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(49, this, "uint*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**
      * 
-     * @param {Integer} Status 
+     * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
-    SetExecutionStatus(Status) {
-        result := ComCall(50, this, "uint", Status, "HRESULT")
+    SetExecutionStatus(_Status) {
+        result := ComCall(50, this, "uint", _Status, "HRESULT")
         return result
     }
 
@@ -746,14 +746,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Slot 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetTextMacro(Slot, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetTextMacro(Slot, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(59, this, "uint", Slot, "ptr", Buffer_R, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
+        result := ComCall(59, this, "uint", Slot, "ptr", _Buffer, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
         return MacroSize
     }
 
@@ -811,28 +811,28 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DEBUG_VALUE>} In_R 
+     * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Integer} OutType 
      * @returns {DEBUG_VALUE} 
      */
-    CoerceValue(In_R, OutType) {
+    CoerceValue(_In, OutType) {
         Out := DEBUG_VALUE()
-        result := ComCall(64, this, "ptr", In_R, "uint", OutType, "ptr", Out, "HRESULT")
+        result := ComCall(64, this, "ptr", _In, "uint", OutType, "ptr", Out, "HRESULT")
         return Out
     }
 
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<DEBUG_VALUE>} In_R 
+     * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Pointer<Integer>} OutTypes 
      * @returns {DEBUG_VALUE} 
      */
-    CoerceValues(Count, In_R, OutTypes) {
+    CoerceValues(Count, _In, OutTypes) {
         OutTypesMarshal := OutTypes is VarRef ? "uint*" : "ptr"
 
         Out := DEBUG_VALUE()
-        result := ComCall(65, this, "uint", Count, "ptr", In_R, OutTypesMarshal, OutTypes, "ptr", Out, "HRESULT")
+        result := ComCall(65, this, "uint", Count, "ptr", _In, OutTypesMarshal, OutTypes, "ptr", Out, "HRESULT")
         return Out
     }
 
@@ -870,8 +870,8 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberBreakpoints() {
-        result := ComCall(68, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(68, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
@@ -932,64 +932,64 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Path 
+     * @param {PSTR} _Path 
      * @param {Integer} Flags 
      * @returns {Integer} 
      */
-    AddExtension(Path, Flags) {
-        Path := Path is String ? StrPtr(Path) : Path
+    AddExtension(_Path, Flags) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(74, this, "ptr", Path, "uint", Flags, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(74, this, "ptr", _Path, "uint", Flags, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
-    RemoveExtension(Handle) {
-        result := ComCall(75, this, "uint", Handle, "HRESULT")
+    RemoveExtension(_Handle) {
+        result := ComCall(75, this, "uint", _Handle, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Path 
+     * @param {PSTR} _Path 
      * @returns {Integer} 
      */
-    GetExtensionByPath(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    GetExtensionByPath(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(76, this, "ptr", Path, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(76, this, "ptr", _Path, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {PSTR} Function 
      * @param {PSTR} Arguments 
      * @returns {HRESULT} 
      */
-    CallExtension(Handle, Function, Arguments) {
+    CallExtension(_Handle, Function, Arguments) {
         Function := Function is String ? StrPtr(Function) : Function
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(77, this, "uint", Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
+        result := ComCall(77, this, "uint", _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {PSTR} FuncName 
      * @returns {Pointer<FARPROC>} 
      */
-    GetExtensionFunction(Handle, FuncName) {
+    GetExtensionFunction(_Handle, FuncName) {
         FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
 
-        result := ComCall(78, this, "uint", Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
+        result := ComCall(78, this, "uint", _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
         return Function
     }
 
@@ -1032,28 +1032,28 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventFilterText(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventFilterText(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(82, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(82, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventFilterCommand(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventFilterCommand(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(83, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(83, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -1097,14 +1097,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSpecificFilterArgument(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetSpecificFilterArgument(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(87, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
+        result := ComCall(87, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
         return ArgumentSize
     }
 
@@ -1150,14 +1150,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetExceptionFilterSecondCommand(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetExceptionFilterSecondCommand(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(91, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(91, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -1380,8 +1380,8 @@ class IDebugControl4 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberExpressionSyntaxes() {
-        result := ComCall(110, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(110, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
@@ -1419,14 +1419,14 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Integer} Index 
      * @param {Integer} Which 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventIndexDescription(Index, Which, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventIndexDescription(Index, Which, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(113, this, "uint", Index, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
+        result := ComCall(113, this, "uint", Index, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
         return DescSize
     }
 
@@ -1452,57 +1452,57 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
      * @param {Pointer<BOOL>} Append 
      * @returns {HRESULT} 
      */
-    GetLogFileWide(Buffer_R, BufferSize, FileSize, Append) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetLogFileWide(_Buffer, BufferSize, FileSize, Append) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         AppendMarshal := Append is VarRef ? "int*" : "ptr"
 
-        result := ComCall(116, this, "ptr", Buffer_R, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
+        result := ComCall(116, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} File 
+     * @param {PWSTR} _File 
      * @param {BOOL} Append 
      * @returns {HRESULT} 
      */
-    OpenLogFileWide(File, Append) {
-        File := File is String ? StrPtr(File) : File
+    OpenLogFileWide(_File, Append) {
+        _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(117, this, "ptr", File, "int", Append, "HRESULT")
+        result := ComCall(117, this, "ptr", _File, "int", Append, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    InputWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    InputWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(118, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
+        result := ComCall(118, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
         return InputSize
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {HRESULT} 
      */
-    ReturnInputWide(Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    ReturnInputWide(_Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(119, this, "ptr", Buffer_R, "HRESULT")
+        result := ComCall(119, this, "ptr", _Buffer, "HRESULT")
         return result
     }
 
@@ -1597,14 +1597,14 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetPromptTextWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetPromptTextWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(126, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(126, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -1625,19 +1625,19 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} DisassemblySize 
      * @param {Pointer<Integer>} EndOffset 
      * @returns {HRESULT} 
      */
-    DisassembleWide(Offset, Flags, Buffer_R, BufferSize, DisassemblySize, EndOffset) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    DisassembleWide(Offset, Flags, _Buffer, BufferSize, DisassemblySize, EndOffset) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : "ptr"
         EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(128, this, "uint", Offset, "uint", Flags, "ptr", Buffer_R, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
+        result := ComCall(128, this, "uint", Offset, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
         return result
     }
 
@@ -1666,14 +1666,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Slot 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetTextMacroWide(Slot, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetTextMacroWide(Slot, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(130, this, "uint", Slot, "ptr", Buffer_R, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
+        result := ComCall(130, this, "uint", Slot, "ptr", _Buffer, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
         return MacroSize
     }
 
@@ -1778,82 +1778,82 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Path 
+     * @param {PWSTR} _Path 
      * @param {Integer} Flags 
      * @returns {Integer} 
      */
-    AddExtensionWide(Path, Flags) {
-        Path := Path is String ? StrPtr(Path) : Path
+    AddExtensionWide(_Path, Flags) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(139, this, "ptr", Path, "uint", Flags, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(139, this, "ptr", _Path, "uint", Flags, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {PWSTR} Path 
+     * @param {PWSTR} _Path 
      * @returns {Integer} 
      */
-    GetExtensionByPathWide(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    GetExtensionByPathWide(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(140, this, "ptr", Path, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(140, this, "ptr", _Path, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {PWSTR} Function 
      * @param {PWSTR} Arguments 
      * @returns {HRESULT} 
      */
-    CallExtensionWide(Handle, Function, Arguments) {
+    CallExtensionWide(_Handle, Function, Arguments) {
         Function := Function is String ? StrPtr(Function) : Function
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(141, this, "uint", Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
+        result := ComCall(141, this, "uint", _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {PWSTR} FuncName 
      * @returns {Pointer<FARPROC>} 
      */
-    GetExtensionFunctionWide(Handle, FuncName) {
+    GetExtensionFunctionWide(_Handle, FuncName) {
         FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
 
-        result := ComCall(142, this, "uint", Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
+        result := ComCall(142, this, "uint", _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
         return Function
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventFilterTextWide(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventFilterTextWide(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(143, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(143, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventFilterCommandWide(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventFilterCommandWide(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(144, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(144, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -1873,14 +1873,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSpecificFilterArgumentWide(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetSpecificFilterArgumentWide(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(146, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
+        result := ComCall(146, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
         return ArgumentSize
     }
 
@@ -1900,14 +1900,14 @@ class IDebugControl4 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetExceptionFilterSecondCommandWide(Index, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetExceptionFilterSecondCommandWide(Index, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(148, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(148, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -2026,124 +2026,124 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Integer} Index 
      * @param {Integer} Which 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetEventIndexDescriptionWide(Index, Which, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetEventIndexDescriptionWide(Index, Which, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(155, this, "uint", Index, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
+        result := ComCall(155, this, "uint", Index, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
         return DescSize
     }
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
      * @param {Pointer<Integer>} Flags 
      * @returns {HRESULT} 
      */
-    GetLogFile2(Buffer_R, BufferSize, FileSize, Flags) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetLogFile2(_Buffer, BufferSize, FileSize, Flags) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(156, this, "ptr", Buffer_R, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(156, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PSTR} File 
+     * @param {PSTR} _File 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
-    OpenLogFile2(File, Flags) {
-        File := File is String ? StrPtr(File) : File
+    OpenLogFile2(_File, Flags) {
+        _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(157, this, "ptr", File, "uint", Flags, "HRESULT")
+        result := ComCall(157, this, "ptr", _File, "uint", Flags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
      * @param {Pointer<Integer>} Flags 
      * @returns {HRESULT} 
      */
-    GetLogFile2Wide(Buffer_R, BufferSize, FileSize, Flags) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetLogFile2Wide(_Buffer, BufferSize, FileSize, Flags) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(158, this, "ptr", Buffer_R, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(158, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} File 
+     * @param {PWSTR} _File 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
-    OpenLogFile2Wide(File, Flags) {
-        File := File is String ? StrPtr(File) : File
+    OpenLogFile2Wide(_File, Flags) {
+        _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(159, this, "ptr", File, "uint", Flags, "HRESULT")
+        result := ComCall(159, this, "ptr", _File, "uint", Flags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PlatformId 
+     * @param {Pointer<Integer>} _PlatformId 
      * @param {Pointer<Integer>} Win32Major 
      * @param {Pointer<Integer>} Win32Minor 
      * @param {Pointer<Integer>} KdMajor 
      * @param {Pointer<Integer>} KdMinor 
      * @returns {HRESULT} 
      */
-    GetSystemVersionValues(PlatformId, Win32Major, Win32Minor, KdMajor, KdMinor) {
-        PlatformIdMarshal := PlatformId is VarRef ? "uint*" : "ptr"
+    GetSystemVersionValues(_PlatformId, Win32Major, Win32Minor, KdMajor, KdMinor) {
+        _PlatformIdMarshal := _PlatformId is VarRef ? "uint*" : "ptr"
         Win32MajorMarshal := Win32Major is VarRef ? "uint*" : "ptr"
         Win32MinorMarshal := Win32Minor is VarRef ? "uint*" : "ptr"
         KdMajorMarshal := KdMajor is VarRef ? "uint*" : "ptr"
         KdMinorMarshal := KdMinor is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(160, this, PlatformIdMarshal, PlatformId, Win32MajorMarshal, Win32Major, Win32MinorMarshal, Win32Minor, KdMajorMarshal, KdMajor, KdMinorMarshal, KdMinor, "HRESULT")
+        result := ComCall(160, this, _PlatformIdMarshal, _PlatformId, Win32MajorMarshal, Win32Major, Win32MinorMarshal, Win32Minor, KdMajorMarshal, KdMajor, KdMinorMarshal, KdMinor, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} Which 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSystemVersionString(Which, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetSystemVersionString(Which, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(161, this, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(161, this, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
      * 
      * @param {Integer} Which 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSystemVersionStringWide(Which, Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetSystemVersionStringWide(Which, _Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(162, this, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(162, this, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -2187,7 +2187,7 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @param {Pointer<Integer>} ContextUsed 
      * @param {Pointer} ExtraInformation 
@@ -2195,14 +2195,14 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} ExtraInformationUsed 
      * @returns {HRESULT} 
      */
-    GetStoredEventInformation(Type, ProcessId, ThreadId, Context, ContextSize, ContextUsed, ExtraInformation, ExtraInformationSize, ExtraInformationUsed) {
+    GetStoredEventInformation(Type, ProcessId, ThreadId, _Context, ContextSize, ContextUsed, ExtraInformation, ExtraInformationSize, ExtraInformationUsed) {
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
         ContextUsedMarshal := ContextUsed is VarRef ? "uint*" : "ptr"
         ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(165, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "ptr", Context, "uint", ContextSize, ContextUsedMarshal, ContextUsed, "ptr", ExtraInformation, "uint", ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "HRESULT")
+        result := ComCall(165, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "ptr", _Context, "uint", ContextSize, ContextUsedMarshal, ContextUsed, "ptr", ExtraInformation, "uint", ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "HRESULT")
         return result
     }
 
@@ -2210,18 +2210,18 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Pointer<Integer>} Flags 
      * @param {Integer} WhichString 
-     * @param {PSTR} String_R 
+     * @param {PSTR} _String 
      * @param {Integer} StringSize 
      * @param {Pointer<Integer>} StringNeeded 
      * @returns {HRESULT} 
      */
-    GetManagedStatus(Flags, WhichString, String_R, StringSize, StringNeeded) {
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    GetManagedStatus(Flags, WhichString, _String, StringSize, StringNeeded) {
+        _String := _String is String ? StrPtr(_String) : _String
 
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
         StringNeededMarshal := StringNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(166, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", String_R, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
+        result := ComCall(166, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", _String, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
         return result
     }
 
@@ -2229,18 +2229,18 @@ class IDebugControl4 extends IUnknown{
      * 
      * @param {Pointer<Integer>} Flags 
      * @param {Integer} WhichString 
-     * @param {PWSTR} String_R 
+     * @param {PWSTR} _String 
      * @param {Integer} StringSize 
      * @param {Pointer<Integer>} StringNeeded 
      * @returns {HRESULT} 
      */
-    GetManagedStatusWide(Flags, WhichString, String_R, StringSize, StringNeeded) {
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    GetManagedStatusWide(Flags, WhichString, _String, StringSize, StringNeeded) {
+        _String := _String is String ? StrPtr(_String) : _String
 
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
         StringNeededMarshal := StringNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(167, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", String_R, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
+        result := ComCall(167, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", _String, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
         return result
     }
 

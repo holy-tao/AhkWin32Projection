@@ -713,9 +713,7 @@ class IVdsLun extends IUnknown{
      * @remarks
      * Implementers must perform whatever operations (for example, flushing the cache) are necessary to bring the 
      *     LUN to the specified state.
-     * @param {Integer} status Values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_status">VDS_LUN_STATUS</a>. Callers can 
-     *       pass in a subset of the possible enumeration values. Passing in <b>VDS_LS_UNKNOWN</b> 
-     *       returns <b>E_INVALIDARG</b>.
+     * @param {Integer} _status 
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
@@ -778,8 +776,8 @@ class IVdsLun extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-setstatus
      */
-    SetStatus(status) {
-        result := ComCall(18, this, "int", status, "HRESULT")
+    SetStatus(_status) {
+        result := ComCall(18, this, "int", _status, "HRESULT")
         return result
     }
 

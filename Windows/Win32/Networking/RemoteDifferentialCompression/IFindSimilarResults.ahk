@@ -38,27 +38,27 @@ class IFindSimilarResults extends IUnknown{
 
     /**
      * Retrieves the number of entries in the file list that was returned by the ISimilarity::FindSimilarFileId method.
-     * @returns {Integer} A pointer to a variable that receives the number of entries in the file list.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getsize
      */
     GetSize() {
-        result := ComCall(3, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(3, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
      * Retrieves the next valid similarity file ID in the file list that was returned by the ISimilarity::FindSimilarFileId method.
      * @param {Pointer<Integer>} numTraitsMatched A pointer to a variable that receives the number of traits that were matched.
-     * @param {Pointer<SimilarityFileId>} similarityFileId A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similarityfileid">SimilarityFileId</a> structure that contains the similarity file ID of the matching file.
+     * @param {Pointer<SimilarityFileId>} _similarityFileId 
      * @returns {HRESULT} Returns <b>S_OK</b> on success, or an error <b>HRESULT</b> on failure.
      * 
      * This method can also return the following error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getnextfileid
      */
-    GetNextFileId(numTraitsMatched, similarityFileId) {
+    GetNextFileId(numTraitsMatched, _similarityFileId) {
         numTraitsMatchedMarshal := numTraitsMatched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, numTraitsMatchedMarshal, numTraitsMatched, "ptr", similarityFileId, "HRESULT")
+        result := ComCall(4, this, numTraitsMatchedMarshal, numTraitsMatched, "ptr", _similarityFileId, "HRESULT")
         return result
     }
 }

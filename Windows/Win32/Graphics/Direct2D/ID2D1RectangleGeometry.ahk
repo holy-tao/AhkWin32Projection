@@ -39,13 +39,11 @@ class ID2D1RectangleGeometry extends ID2D1Geometry{
 
     /**
      * Retrieves the rectangle that describes the rectangle geometry's dimensions.
-     * @param {Pointer<D2D_RECT_F>} rect Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
-     * 
-     * Contains a pointer to a rectangle that describes the rectangle geometry's dimensions when this method returns. You must allocate storage for this parameter.
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rectanglegeometry-getrect
      */
-    GetRect(rect) {
-        ComCall(17, this, "ptr", rect)
+    GetRect(_rect) {
+        ComCall(17, this, "ptr", _rect)
     }
 }

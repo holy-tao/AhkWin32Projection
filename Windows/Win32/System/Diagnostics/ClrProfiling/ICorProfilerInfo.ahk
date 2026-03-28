@@ -32,11 +32,11 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */
-    GetClassFromObject(objectId) {
-        result := ComCall(3, this, "ptr", objectId, "ptr*", &pClassId := 0, "HRESULT")
+    GetClassFromObject(_objectId) {
+        result := ComCall(3, this, "ptr", _objectId, "ptr*", &pClassId := 0, "HRESULT")
         return pClassId
     }
 
@@ -111,11 +111,11 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @returns {Integer} 
      */
-    GetObjectSize(objectId) {
-        result := ComCall(10, this, "ptr", objectId, "uint*", &pcSize := 0, "HRESULT")
+    GetObjectSize(_objectId) {
+        result := ComCall(10, this, "ptr", _objectId, "uint*", &pcSize := 0, "HRESULT")
         return pcSize
     }
 

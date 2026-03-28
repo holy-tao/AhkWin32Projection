@@ -4439,23 +4439,23 @@ class Globalization {
 ;@region Methods
     /**
      * Retrieves a character set identifier for the font that is currently selected into a specified device context.
-     * @param {HDC} hdc Handle to a device context. The function obtains a character set identifier for the font that is selected into this device context.
+     * @param {HDC} _hdc 
      * @returns {Integer} If successful, returns a value identifying the character set of the font that is currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, it returns DEFAULT_CHARSET.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharset
      * @since windows5.0
      */
-    static GetTextCharset(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextCharset(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\GetTextCharset", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetTextCharset", "ptr", _hdc, "int")
         return result
     }
 
     /**
      * Retrieves information about the character set of the font that is currently selected into a specified device context.
-     * @param {HDC} hdc Handle to a device context. The function obtains information about the font that is selected into this device context.
+     * @param {HDC} _hdc 
      * @param {Pointer<FONTSIGNATURE>} lpSig Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> data structure that receives font-signature information.
      * 
      * If a TrueType font is currently selected into the device context, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure receives information that identifies the code page and Unicode subranges for which the font provides glyphs.
@@ -4470,10 +4470,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharsetinfo
      * @since windows5.0
      */
-    static GetTextCharsetInfo(hdc, lpSig, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextCharsetInfo(_hdc, lpSig, dwFlags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\GetTextCharsetInfo", "ptr", hdc, "ptr", lpSig, "uint", dwFlags, "int")
+        result := DllCall("GDI32.dll\GetTextCharsetInfo", "ptr", _hdc, "ptr", lpSig, "uint", dwFlags, "int")
         return result
     }
 
@@ -5333,7 +5333,7 @@ class Globalization {
      * @since windows6.0.6000
      */
     static CompareStringEx(lpLocaleName, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
-        static lpVersionInformation := 0, lpReserved := 0, lParam := 0 ;Reserved parameters must always be NULL
+        static lpVersionInformation := 0, lpReserved := 0, _lParam := 0 ;Reserved parameters must always be NULL
 
         lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
@@ -5341,7 +5341,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CompareStringEx", "ptr", lpLocaleName, "uint", dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\CompareStringEx", "ptr", lpLocaleName, "uint", dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", _lParam, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8775,7 +8775,7 @@ class Globalization {
      * 
      * > [!NOTE]
      * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
+     * @param {Integer} _Location 
      * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
      * <b>Windows XP:</b> When <i>GeoType</i> is set to GEO_LCID, the retrieved string is an 8-digit hexadecimal value.
@@ -8798,12 +8798,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfoa
      * @since windows5.1.2600
      */
-    static GetGeoInfoA(Location, GeoType, lpGeoData, cchData, LangId) {
+    static GetGeoInfoA(_Location, GeoType, lpGeoData, cchData, LangId) {
         lpGeoData := lpGeoData is String ? StrPtr(lpGeoData) : lpGeoData
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoA", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\GetGeoInfoA", "int", _Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8828,7 +8828,7 @@ class Globalization {
      * 
      * > [!NOTE]
      * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
+     * @param {Integer} _Location 
      * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
      * <b>Windows XP:</b> When <i>GeoType</i> is set to GEO_LCID, the retrieved string is an 8-digit hexadecimal value.
@@ -8851,12 +8851,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfow
      * @since windows5.1.2600
      */
-    static GetGeoInfoW(Location, GeoType, lpGeoData, cchData, LangId) {
+    static GetGeoInfoW(_Location, GeoType, lpGeoData, cchData, LangId) {
         lpGeoData := lpGeoData is String ? StrPtr(lpGeoData) : lpGeoData
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoW", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\GetGeoInfoW", "int", _Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8868,7 +8868,7 @@ class Globalization {
      * Retrieves information about a geographic location that you specify by using a two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49 (M.49) code.
      * @remarks
      * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
-     * @param {PWSTR} location The two-letter ISO 3166-1 or numeric UN M.49 code for the geographic location for which to get information.  To get the codes that are available on the operating system, call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeonames">EnumSystemGeoNames</a>.
+     * @param {PWSTR} _location 
      * @param {Integer} geoType The type of information you want to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. The following values of the <b>SYSGEOTYPE</b> enumeration should not be used with <b>GetGeoInfoEx</b>:
      * 
      * <ul>
@@ -8945,13 +8945,13 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfoex
      * @since windows10.0.16299
      */
-    static GetGeoInfoEx(location, geoType, geoData, geoDataCount) {
-        location := location is String ? StrPtr(location) : location
+    static GetGeoInfoEx(_location, geoType, geoData, geoDataCount) {
+        _location := _location is String ? StrPtr(_location) : _location
         geoData := geoData is String ? StrPtr(geoData) : geoData
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", location, "int", geoType, "ptr", geoData, "int", geoDataCount, "int")
+        result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", _location, "int", geoType, "ptr", geoData, "int", geoDataCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11046,7 +11046,7 @@ class Globalization {
      * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCA>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer} lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11057,10 +11057,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlanguagegroupsa
      * @since windows5.0
      */
-    static EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, lParam) {
+    static EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11081,7 +11081,7 @@ class Globalization {
      * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCW>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer} lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11092,10 +11092,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlanguagegroupsw
      * @since windows5.0
      */
-    static EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, lParam) {
+    static EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11117,7 +11117,7 @@ class Globalization {
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCA>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
-     * @param {Pointer} lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11128,10 +11128,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumlanguagegrouplocalesa
      * @since windows5.0
      */
-    static EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
+    static EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11153,7 +11153,7 @@ class Globalization {
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCW>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
-     * @param {Pointer} lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11164,10 +11164,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumlanguagegrouplocalesw
      * @since windows5.0
      */
-    static EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
+    static EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11283,7 +11283,7 @@ class Globalization {
      * <b>Windows Vista and later:</b> The application can set <i>dwFlags</i> to 0, or to one or more of the specified flags. A setting of 0 causes the parameter value to default to MUI_LANGUAGE_ID | MUI_LICENSED_LANGUAGES.
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
-     * @param {Pointer} lParam Application-defined value.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11293,10 +11293,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumuilanguagesa
      * @since windows5.0
      */
-    static EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, lParam) {
+    static EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11412,7 +11412,7 @@ class Globalization {
      * <b>Windows Vista and later:</b> The application can set <i>dwFlags</i> to 0, or to one or more of the specified flags. A setting of 0 causes the parameter value to default to MUI_LANGUAGE_ID | MUI_LICENSED_LANGUAGES.
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
-     * @param {Pointer} lParam Application-defined value.
+     * @param {Pointer} _lParam 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11422,10 +11422,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumuilanguagesw
      * @since windows5.0
      */
-    static EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, lParam) {
+    static EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12999,7 +12999,7 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @param {LPARAM} lParam Application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13009,14 +13009,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoexex
      * @since windows6.0.6000
      */
-    static EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalType, lParam) {
+    static EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalType, _lParam) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
         lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -13047,7 +13047,7 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags 
-     * @param {LPARAM} lParam An application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13058,12 +13058,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsexex
      * @since windows6.0.6000
      */
-    static EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, lParam) {
+    static EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, _lParam) {
         lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -13092,7 +13092,7 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags The time format. Set to 0 to use the current user's long time format, or TIME_NOSECONDS (starting with Windows 7) to use the short time format.
-     * @param {LPARAM} lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13102,12 +13102,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumtimeformatsex
      * @since windows6.0.6000
      */
-    static EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, lParam) {
+    static EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, _lParam) {
         lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -13143,7 +13143,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-windows">LOCALE_WINDOWS</a>
      * </li>
      * </ul>
-     * @param {LPARAM} lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13154,12 +13154,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlocalesex
      * @since windows6.0.6000
      */
-    static EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, lParam) {
+    static EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, _lParam) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, "ptr", lParam, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, "ptr", _lParam, "ptr", lpReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -13542,7 +13542,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {PWSTR} pwcChars Pointer to an array of Unicode characters defining the run.
      * @param {Integer} cChars Number of characters in the Unicode run.
@@ -13564,8 +13564,8 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptshape
      * @since windows5.0
      */
-    static ScriptShape(hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pwLogClust, psva, pcGlyphs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptShape(_hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pwLogClust, psva, pcGlyphs) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
@@ -13573,7 +13573,7 @@ class Globalization {
         pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
         pcGlyphsMarshal := pcGlyphs is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptShape", "ptr", hdc, pscMarshal, psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", psa, pwOutGlyphsMarshal, pwOutGlyphs, pwLogClustMarshal, pwLogClust, "ptr", psva, pcGlyphsMarshal, pcGlyphs, "HRESULT")
+        result := DllCall("USP10.dll\ScriptShape", "ptr", _hdc, pscMarshal, psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", psa, pwOutGlyphsMarshal, pwOutGlyphs, pwLogClustMarshal, pwLogClust, "ptr", psva, pcGlyphsMarshal, pcGlyphs, "HRESULT")
         return result
     }
 
@@ -13588,7 +13588,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Integer>} pwGlyphs Pointer to a glyph buffer obtained from an earlier call to the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> function.
      * @param {Integer} cGlyphs Count of glyphs in the glyph buffer.
@@ -13600,13 +13600,13 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptplace
      * @since windows5.0
      */
-    static ScriptPlace(hdc, psc, pwGlyphs, cGlyphs, psva, psa, pGoffset, pABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptPlace(_hdc, psc, pwGlyphs, cGlyphs, psva, psa, pGoffset, pABC) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pwGlyphsMarshal := pwGlyphs is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptPlace", "ptr", hdc, pscMarshal, psc, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, "ptr", psva, "ptr", psa, "int*", &piAdvance := 0, "ptr", pGoffset, "ptr", pABC, "HRESULT")
+        result := DllCall("USP10.dll\ScriptPlace", "ptr", _hdc, pscMarshal, psc, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, "ptr", psva, "ptr", psa, "int*", &piAdvance := 0, "ptr", pGoffset, "ptr", pABC, "HRESULT")
         return piAdvance
     }
 
@@ -13629,7 +13629,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>. Note that, unlike some other related Uniscribe functions, this function defines the handle as mandatory.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} x Value of the x coordinate of the first glyph.
      * @param {Integer} y Value of the y coordinate of the first glyph.
@@ -13645,17 +13645,17 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scripttextout
      * @since windows5.0
      */
-    static ScriptTextOut(hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, piAdvance, piJustify, pGoffset) {
+    static ScriptTextOut(_hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, piAdvance, piJustify, pGoffset) {
         static pwcReserved := 0, iReserved := 0 ;Reserved parameters must always be NULL
 
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pwGlyphsMarshal := pwGlyphs is VarRef ? "ushort*" : "ptr"
         piAdvanceMarshal := piAdvance is VarRef ? "int*" : "ptr"
         piJustifyMarshal := piJustify is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptTextOut", "ptr", hdc, pscMarshal, psc, "int", x, "int", y, "uint", fuOptions, "ptr", lprc, "ptr", psa, "ptr", pwcReserved, "int", iReserved, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, piAdvanceMarshal, piAdvance, piJustifyMarshal, piJustify, "ptr", pGoffset, "HRESULT")
+        result := DllCall("USP10.dll\ScriptTextOut", "ptr", _hdc, pscMarshal, psc, "int", x, "int", y, "uint", fuOptions, "ptr", lprc, "ptr", psa, "ptr", pwcReserved, "int", iReserved, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, piAdvanceMarshal, piAdvance, piJustifyMarshal, piJustify, "ptr", pGoffset, "HRESULT")
         return result
     }
 
@@ -13887,7 +13887,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {PWSTR} pwcInChars Pointer to a string of Unicode characters.
      * @param {Integer} cChars Number of Unicode characters in the string indicated by <i>pwcInChars</i>.
@@ -13913,13 +13913,13 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetcmap
      * @since windows5.0
      */
-    static ScriptGetCMap(hdc, psc, pwcInChars, cChars, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetCMap(_hdc, psc, pwcInChars, cChars, dwFlags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pwcInChars := pwcInChars is String ? StrPtr(pwcInChars) : pwcInChars
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetCMap", "ptr", hdc, pscMarshal, psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ushort*", &pwOutGlyphs := 0, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetCMap", "ptr", _hdc, pscMarshal, psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ushort*", &pwOutGlyphs := 0, "HRESULT")
         return pwOutGlyphs
     }
 
@@ -13930,7 +13930,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} wGlyph Glyph to analyze.
      * @param {Pointer<ABC>} pABC Pointer to the ABC width of the specified glyph.
@@ -13940,12 +13940,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetglyphabcwidth
      * @since windows5.0
      */
-    static ScriptGetGlyphABCWidth(hdc, psc, wGlyph, pABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetGlyphABCWidth(_hdc, psc, wGlyph, pABC) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetGlyphABCWidth", "ptr", hdc, pscMarshal, psc, "ushort", wGlyph, "ptr", pABC, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetGlyphABCWidth", "ptr", _hdc, pscMarshal, psc, "ushort", wGlyph, "ptr", pABC, "HRESULT")
         return result
     }
 
@@ -13977,19 +13977,19 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_FONTPROPERTIES>} sfp Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_fontproperties">SCRIPT_FONTPROPERTIES</a> structure in which this function retrieves the information from the font cache.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontproperties
      * @since windows5.0
      */
-    static ScriptGetFontProperties(hdc, psc, sfp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetFontProperties(_hdc, psc, sfp) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetFontProperties", "ptr", hdc, pscMarshal, psc, "ptr", sfp, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetFontProperties", "ptr", _hdc, pscMarshal, psc, "ptr", sfp, "HRESULT")
         return result
     }
 
@@ -13998,18 +13998,18 @@ class Globalization {
      * @remarks
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @returns {Integer} Pointer to a buffer in which the function retrieves the font height.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcachegetheight
      * @since windows5.0
      */
-    static ScriptCacheGetHeight(hdc, psc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptCacheGetHeight(_hdc, psc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptCacheGetHeight", "ptr", hdc, pscMarshal, psc, "int*", &tmHeight := 0, "HRESULT")
+        result := DllCall("USP10.dll\ScriptCacheGetHeight", "ptr", _hdc, pscMarshal, psc, "int*", &tmHeight := 0, "HRESULT")
         return tmHeight
     }
 
@@ -14024,9 +14024,9 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. If <i>dwFlags</i> is set to SSA_GLYPHS, the device context handle is required. If <i>dwFlags</i> is set to SSA_BREAK, the device context handle is optional. If the device context handle is provided, the function inspects the current font in the device context. If the current font is a symbolic font, the function treats the character string as a single neutral SCRIPT_UNDEFINED item.
+     * @param {HDC} _hdc 
      * @param {Pointer<Void>} pString Pointer to the string to analyze. The string must have at least one character. It can be a Unicode string or use the character set from a Windows ANSI <a href="https://docs.microsoft.com/windows/desktop/Intl/code-pages">code page</a>, as specified by the <i>iCharset</i> parameter.
-     * @param {Integer} cString Length of the string to analyze. The length is measured in characters for an ANSI string or in wide characters for a Unicode string. The length must be at least 1.
+     * @param {Integer} _cString 
      * @param {Integer} cGlyphs Size of the glyph buffer, in WORD values. This size is required. The recommended size is <c>(1.5 * cString + 16)</c>.
      * @param {Integer} iCharset Character set descriptor. If the input string is an ANSI string, this descriptor is set to the character set identifier. If the string is a Unicode string, this descriptor is set to -1.
      * 
@@ -14199,14 +14199,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringanalyse
      * @since windows5.0
      */
-    static ScriptStringAnalyse(hdc, pString, cString, cGlyphs, iCharset, dwFlags, iReqWidth, psControl, psState, piDx, pTabdef, pbInClass) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptStringAnalyse(_hdc, pString, _cString, cGlyphs, iCharset, dwFlags, iReqWidth, psControl, psState, piDx, pTabdef, pbInClass) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pStringMarshal := pString is VarRef ? "ptr" : "ptr"
         piDxMarshal := piDx is VarRef ? "int*" : "ptr"
         pbInClassMarshal := pbInClass is VarRef ? "char*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptStringAnalyse", "ptr", hdc, pStringMarshal, pString, "int", cString, "int", cGlyphs, "int", iCharset, "uint", dwFlags, "int", iReqWidth, "ptr", psControl, "ptr", psState, piDxMarshal, piDx, "ptr", pTabdef, pbInClassMarshal, pbInClass, "ptr*", &pssa := 0, "HRESULT")
+        result := DllCall("USP10.dll\ScriptStringAnalyse", "ptr", _hdc, pStringMarshal, pString, "int", _cString, "int", cGlyphs, "int", iCharset, "uint", dwFlags, "int", iReqWidth, "ptr", psControl, "ptr", psState, piDxMarshal, piDx, "ptr", pTabdef, pbInClassMarshal, pbInClass, "ptr*", &pssa := 0, "HRESULT")
         return pssa
     }
 
@@ -14562,7 +14562,7 @@ class Globalization {
      * <div> </div>
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. The structure identifies the shaping engine, so that glyphs can be formed correctly.
      * 
@@ -14592,8 +14592,8 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptshapeopentype
      * @since windows6.0.6000
      */
-    static ScriptShapeOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, cChars, cMaxGlyphs, pwLogClust, pCharProps, pwOutGlyphs, pOutGlyphProps, pcGlyphs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptShapeOpenType(_hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, cChars, cMaxGlyphs, pwLogClust, pCharProps, pwOutGlyphs, pOutGlyphProps, pcGlyphs) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
@@ -14603,7 +14603,7 @@ class Globalization {
         pwOutGlyphsMarshal := pwOutGlyphs is VarRef ? "ushort*" : "ptr"
         pcGlyphsMarshal := pcGlyphs is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptShapeOpenType", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, pwLogClustMarshal, pwLogClust, "ptr", pCharProps, pwOutGlyphsMarshal, pwOutGlyphs, "ptr", pOutGlyphProps, pcGlyphsMarshal, pcGlyphs, "HRESULT")
+        result := DllCall("USP10.dll\ScriptShapeOpenType", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, pwLogClustMarshal, pwLogClust, "ptr", pCharProps, pwOutGlyphsMarshal, pwOutGlyphs, "ptr", pOutGlyphProps, pcGlyphsMarshal, pcGlyphs, "HRESULT")
         return result
     }
 
@@ -14622,7 +14622,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structures identifies the shaping engine that governs the generated list of glyphs and their associated widths, and x and y placement offsets.
      * 
@@ -14646,8 +14646,8 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptplaceopentype
      * @since windows6.0.6000
      */
-    static ScriptPlaceOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, pwLogClust, pCharProps, cChars, pwGlyphs, pGlyphProps, cGlyphs, pGoffset, pABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptPlaceOpenType(_hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, pwLogClust, pCharProps, cChars, pwGlyphs, pGlyphProps, cGlyphs, pGoffset, pABC) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
@@ -14656,7 +14656,7 @@ class Globalization {
         pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
         pwGlyphsMarshal := pwGlyphs is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptPlaceOpenType", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, pwLogClustMarshal, pwLogClust, "ptr", pCharProps, "int", cChars, pwGlyphsMarshal, pwGlyphs, "ptr", pGlyphProps, "int", cGlyphs, "int*", &piAdvance := 0, "ptr", pGoffset, "ptr", pABC, "HRESULT")
+        result := DllCall("USP10.dll\ScriptPlaceOpenType", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, pwLogClustMarshal, pwLogClust, "ptr", pCharProps, "int", cChars, pwGlyphsMarshal, pwGlyphs, "ptr", pGlyphProps, "int", cGlyphs, "int*", &piAdvance := 0, "ptr", pGoffset, "ptr", pABC, "HRESULT")
         return piAdvance
     }
 
@@ -14822,7 +14822,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the appropriate font script tags can be retrieved. The application supplies a non-<b>NULL</b> value for this parameter to retrieve script tags appropriate for the current run.
      * 
@@ -14836,14 +14836,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontscripttags
      * @since windows6.0.6000
      */
-    static ScriptGetFontScriptTags(hdc, psc, psa, cMaxTags, pScriptTags, pcTags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetFontScriptTags(_hdc, psc, psa, cMaxTags, pScriptTags, pcTags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pScriptTagsMarshal := pScriptTags is VarRef ? "uint*" : "ptr"
         pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetFontScriptTags", "ptr", hdc, pscMarshal, psc, "ptr", psa, "int", cMaxTags, pScriptTagsMarshal, pScriptTags, pcTagsMarshal, pcTags, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetFontScriptTags", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "int", cMaxTags, pScriptTagsMarshal, pScriptTags, pcTagsMarshal, pcTags, "HRESULT")
         return result
     }
 
@@ -14854,7 +14854,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font language tags for the appropriate font and scripts can be retrieved.
      * 
@@ -14869,14 +14869,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontlanguagetags
      * @since windows6.0.6000
      */
-    static ScriptGetFontLanguageTags(hdc, psc, psa, tagScript, cMaxTags, pLangsysTags, pcTags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetFontLanguageTags(_hdc, psc, psa, tagScript, cMaxTags, pLangsysTags, pcTags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pLangsysTagsMarshal := pLangsysTags is VarRef ? "uint*" : "ptr"
         pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetFontLanguageTags", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "int", cMaxTags, pLangsysTagsMarshal, pLangsysTags, pcTagsMarshal, pcTags, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetFontLanguageTags", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "int", cMaxTags, pLangsysTagsMarshal, pLangsysTags, pcTagsMarshal, pcTags, "HRESULT")
         return result
     }
 
@@ -14889,7 +14889,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font feature tags for the appropriate font and scripts can be retrieved.
      * 
@@ -14905,14 +14905,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontfeaturetags
      * @since windows6.0.6000
      */
-    static ScriptGetFontFeatureTags(hdc, psc, psa, tagScript, tagLangSys, cMaxTags, pFeatureTags, pcTags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetFontFeatureTags(_hdc, psc, psa, tagScript, tagLangSys, cMaxTags, pFeatureTags, pcTags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pFeatureTagsMarshal := pFeatureTags is VarRef ? "uint*" : "ptr"
         pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetFontFeatureTags", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int", cMaxTags, pFeatureTagsMarshal, pFeatureTags, pcTagsMarshal, pcTags, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetFontFeatureTags", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int", cMaxTags, pFeatureTagsMarshal, pFeatureTags, pcTagsMarshal, pcTags, "HRESULT")
         return result
     }
 
@@ -14929,7 +14929,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure defining the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the array of alternate glyphs can be created with the correct scope.
      * 
@@ -14949,14 +14949,14 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontalternateglyphs
      * @since windows6.0.6000
      */
-    static ScriptGetFontAlternateGlyphs(hdc, psc, psa, tagScript, tagLangSys, tagFeature, wGlyphId, cMaxAlternates, pAlternateGlyphs, pcAlternates) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptGetFontAlternateGlyphs(_hdc, psc, psa, tagScript, tagLangSys, tagFeature, wGlyphId, cMaxAlternates, pAlternateGlyphs, pcAlternates) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
         pAlternateGlyphsMarshal := pAlternateGlyphs is VarRef ? "ushort*" : "ptr"
         pcAlternatesMarshal := pcAlternates is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptGetFontAlternateGlyphs", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "ushort", wGlyphId, "int", cMaxAlternates, pAlternateGlyphsMarshal, pAlternateGlyphs, pcAlternatesMarshal, pcAlternates, "HRESULT")
+        result := DllCall("USP10.dll\ScriptGetFontAlternateGlyphs", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "ushort", wGlyphId, "int", cMaxAlternates, pAlternateGlyphsMarshal, pAlternateGlyphs, pcAlternatesMarshal, pcAlternates, "HRESULT")
         return result
     }
 
@@ -14967,7 +14967,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure indicating the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine so that the correct substitute glyph is used.
      * 
@@ -14981,12 +14981,12 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptsubstitutesingleglyph
      * @since windows6.0.6000
      */
-    static ScriptSubstituteSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptSubstituteSingleGlyph(_hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptSubstituteSingleGlyph", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "ushort*", &pwOutGlyphId := 0, "HRESULT")
+        result := DllCall("USP10.dll\ScriptSubstituteSingleGlyph", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "ushort*", &pwOutGlyphId := 0, "HRESULT")
         return pwOutGlyphId
     }
 
@@ -15002,7 +15002,7 @@ class Globalization {
      * <img alt="Illustration showing the same block of text three times, with enlargements of each showing slightly different alignment" border="" src="./images/HAlign.gif"/>
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structure identifies the shaping engine, so that the advance widths can be retrieved.
      * 
@@ -15013,18 +15013,18 @@ class Globalization {
      * @param {Integer} lParameter A flag specifying if single substitution should be applied to the identifier specified in <i>wGlyphId</i>. The application sets this parameter to 1 to apply the single substitution feature to the identifier. The application sets the parameter to 0 if the function should not apply the feature.
      * @param {Integer} wGlyphId The identifier of the original glyph being shaped.
      * @param {Integer} iAdvance The original glyph advance width.
-     * @param {GOFFSET} GOffset The original glyph offset. Typically, this value is an output of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplaceopentype">ScriptPlaceOpenType</a> or <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
+     * @param {GOFFSET} _GOffset 
      * @param {Pointer<GOFFSET>} pOutGoffset Pointer to the location in which this function retrieves the new glyph offset adjusted for the alternate glyph.
      * @returns {Integer} Pointer to the location in which this function retrieves the new advance width adjusted for the alternate glyph.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptpositionsingleglyph
      * @since windows6.0.6000
      */
-    static ScriptPositionSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, iAdvance, GOffset, pOutGoffset) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScriptPositionSingleGlyph(_hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, iAdvance, _GOffset, pOutGoffset) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USP10.dll\ScriptPositionSingleGlyph", "ptr", hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "int", iAdvance, "ptr", GOffset, "int*", &piOutAdvance := 0, "ptr", pOutGoffset, "HRESULT")
+        result := DllCall("USP10.dll\ScriptPositionSingleGlyph", "ptr", _hdc, pscMarshal, psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "int", iAdvance, "ptr", _GOffset, "int*", &piOutAdvance := 0, "ptr", pOutGoffset, "HRESULT")
         return piOutAdvance
     }
 
@@ -15175,33 +15175,33 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UTraceEntry>} e 
      * @param {Pointer<UTraceExit>} x 
      * @param {Pointer<UTraceData>} d 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrace_setFunctions(context, e, x, d) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static utrace_setFunctions(_context, e, x, d) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        DllCall("icuuc.dll\utrace_setFunctions", contextMarshal, context, "ptr", e, "ptr", x, "ptr", d, "CDecl ")
+        DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} context 
+     * @param {Pointer<Pointer<Void>>} _context 
      * @param {Pointer<Pointer<UTraceEntry>>} e 
      * @param {Pointer<Pointer<UTraceExit>>} x 
      * @param {Pointer<Pointer<UTraceData>>} d 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrace_getFunctions(context, e, x, d) {
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+    static utrace_getFunctions(_context, e, x, d) {
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
         eMarshal := e is VarRef ? "ptr*" : "ptr"
         xMarshal := x is VarRef ? "ptr*" : "ptr"
         dMarshal := d is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\utrace_getFunctions", contextMarshal, context, eMarshal, e, xMarshal, x, dMarshal, d, "CDecl ")
+        DllCall("icuuc.dll\utrace_getFunctions", _contextMarshal, _context, eMarshal, e, xMarshal, x, dMarshal, d, "CDecl ")
     }
 
     /**
@@ -15508,14 +15508,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UEnumeration>} en 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uenum_count(en, status) {
+    static uenum_count(en, _status) {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uenum_count", enMarshal, en, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uenum_count", enMarshal, en, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15523,15 +15523,15 @@ class Globalization {
      * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static uenum_unext(en, resultLength, status) {
+    static uenum_unext(en, resultLength, _status) {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
         resultLengthMarshal := resultLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uenum_unext", enMarshal, en, resultLengthMarshal, resultLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uenum_unext", enMarshal, en, resultLengthMarshal, resultLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -15539,29 +15539,29 @@ class Globalization {
      * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static uenum_next(en, resultLength, status) {
+    static uenum_next(en, resultLength, _status) {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
         resultLengthMarshal := resultLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uenum_next", enMarshal, en, resultLengthMarshal, resultLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uenum_next", enMarshal, en, resultLengthMarshal, resultLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UEnumeration>} en 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uenum_reset(en, status) {
+    static uenum_reset(en, _status) {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uenum_reset", enMarshal, en, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\uenum_reset", enMarshal, en, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -15606,15 +15606,15 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uloc_setDefault(localeID, status) {
+    static uloc_setDefault(localeID, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -15674,18 +15674,18 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {PSTR} variant 
+     * @param {PSTR} _variant 
      * @param {Integer} variantCapacity 
      * @param {Pointer<Integer>} err 
      * @returns {Integer} 
      */
-    static uloc_getVariant(localeID, variant, variantCapacity, err) {
+    static uloc_getVariant(localeID, _variant, variantCapacity, err) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
-        variant := variant is String ? StrPtr(variant) : variant
+        _variant := _variant is String ? StrPtr(_variant) : _variant
 
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getVariant", "ptr", localeID, "ptr", variant, "int", variantCapacity, errMarshal, err, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getVariant", "ptr", localeID, "ptr", _variant, "int", variantCapacity, errMarshal, err, "CDecl int")
         return result
     }
 
@@ -15767,17 +15767,17 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} language 
      * @param {Integer} languageCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayLanguage(locale, displayLocale, language, languageCapacity, status) {
+    static uloc_getDisplayLanguage(locale, displayLocale, language, languageCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
         languageMarshal := language is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayLanguage", "ptr", locale, "ptr", displayLocale, languageMarshal, language, "int", languageCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayLanguage", "ptr", locale, "ptr", displayLocale, languageMarshal, language, "int", languageCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15787,17 +15787,17 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} script 
      * @param {Integer} scriptCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayScript(locale, displayLocale, script, scriptCapacity, status) {
+    static uloc_getDisplayScript(locale, displayLocale, script, scriptCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
         scriptMarshal := script is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayScript", "ptr", locale, "ptr", displayLocale, scriptMarshal, script, "int", scriptCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayScript", "ptr", locale, "ptr", displayLocale, scriptMarshal, script, "int", scriptCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15807,17 +15807,17 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} country 
      * @param {Integer} countryCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayCountry(locale, displayLocale, country, countryCapacity, status) {
+    static uloc_getDisplayCountry(locale, displayLocale, country, countryCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
         countryMarshal := country is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayCountry", "ptr", locale, "ptr", displayLocale, countryMarshal, country, "int", countryCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayCountry", "ptr", locale, "ptr", displayLocale, countryMarshal, country, "int", countryCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15825,19 +15825,19 @@ class Globalization {
      * 
      * @param {PSTR} locale 
      * @param {PSTR} displayLocale 
-     * @param {Pointer<Integer>} variant 
+     * @param {Pointer<Integer>} _variant 
      * @param {Integer} variantCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayVariant(locale, displayLocale, variant, variantCapacity, status) {
+    static uloc_getDisplayVariant(locale, displayLocale, _variant, variantCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
-        variantMarshal := variant is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _variantMarshal := _variant is VarRef ? "ushort*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayVariant", "ptr", locale, "ptr", displayLocale, variantMarshal, variant, "int", variantCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayVariant", "ptr", locale, "ptr", displayLocale, _variantMarshal, _variant, "int", variantCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15847,17 +15847,17 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayKeyword(keyword, displayLocale, dest, destCapacity, status) {
+    static uloc_getDisplayKeyword(keyword, displayLocale, dest, destCapacity, _status) {
         keyword := keyword is String ? StrPtr(keyword) : keyword
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayKeyword", "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayKeyword", "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15868,18 +15868,18 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getDisplayKeywordValue(locale, keyword, displayLocale, dest, destCapacity, status) {
+    static uloc_getDisplayKeywordValue(locale, keyword, displayLocale, dest, destCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
         keyword := keyword is String ? StrPtr(keyword) : keyword
         displayLocale := displayLocale is String ? StrPtr(displayLocale) : displayLocale
 
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getDisplayKeywordValue", "ptr", locale, "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getDisplayKeywordValue", "ptr", locale, "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -15925,13 +15925,13 @@ class Globalization {
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uloc_openAvailableByType(type, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uloc_openAvailableByType(type, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\uloc_openAvailableByType", "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icu.dll\uloc_openAvailableByType", "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -15992,15 +15992,15 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uloc_openKeywords(localeID, status) {
+    static uloc_openKeywords(localeID, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_openKeywords", "ptr", localeID, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_openKeywords", "ptr", localeID, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16008,19 +16008,19 @@ class Globalization {
      * 
      * @param {PSTR} localeID 
      * @param {PSTR} keywordName 
-     * @param {PSTR} buffer_R 
+     * @param {PSTR} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getKeywordValue(localeID, keywordName, buffer_R, bufferCapacity, status) {
+    static uloc_getKeywordValue(localeID, keywordName, _buffer, bufferCapacity, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
         keywordName := keywordName is String ? StrPtr(keywordName) : keywordName
-        buffer_R := buffer_R is String ? StrPtr(buffer_R) : buffer_R
+        _buffer := _buffer is String ? StrPtr(_buffer) : _buffer
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getKeywordValue", "ptr", localeID, "ptr", keywordName, "ptr", buffer_R, "int", bufferCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getKeywordValue", "ptr", localeID, "ptr", keywordName, "ptr", _buffer, "int", bufferCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16028,19 +16028,19 @@ class Globalization {
      * 
      * @param {PSTR} keywordName 
      * @param {PSTR} keywordValue 
-     * @param {PSTR} buffer_R 
+     * @param {PSTR} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_setKeywordValue(keywordName, keywordValue, buffer_R, bufferCapacity, status) {
+    static uloc_setKeywordValue(keywordName, keywordValue, _buffer, bufferCapacity, _status) {
         keywordName := keywordName is String ? StrPtr(keywordName) : keywordName
         keywordValue := keywordValue is String ? StrPtr(keywordValue) : keywordValue
-        buffer_R := buffer_R is String ? StrPtr(buffer_R) : buffer_R
+        _buffer := _buffer is String ? StrPtr(_buffer) : _buffer
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_setKeywordValue", "ptr", keywordName, "ptr", keywordValue, "ptr", buffer_R, "int", bufferCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_setKeywordValue", "ptr", keywordName, "ptr", keywordValue, "ptr", _buffer, "int", bufferCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16059,30 +16059,30 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeId 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getCharacterOrientation(localeId, status) {
+    static uloc_getCharacterOrientation(localeId, _status) {
         localeId := localeId is String ? StrPtr(localeId) : localeId
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getCharacterOrientation", "ptr", localeId, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getCharacterOrientation", "ptr", localeId, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {PSTR} localeId 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getLineOrientation(localeId, status) {
+    static uloc_getLineOrientation(localeId, _status) {
         localeId := localeId is String ? StrPtr(localeId) : localeId
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getLineOrientation", "ptr", localeId, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getLineOrientation", "ptr", localeId, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16093,18 +16093,18 @@ class Globalization {
      * @param {Pointer<Integer>} outResult 
      * @param {PSTR} httpAcceptLanguage 
      * @param {Pointer<UEnumeration>} availableLocales 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_acceptLanguageFromHTTP(result, resultAvailable, outResult, httpAcceptLanguage, availableLocales, status) {
+    static uloc_acceptLanguageFromHTTP(result, resultAvailable, outResult, httpAcceptLanguage, availableLocales, _status) {
         result := result is String ? StrPtr(result) : result
         httpAcceptLanguage := httpAcceptLanguage is String ? StrPtr(httpAcceptLanguage) : httpAcceptLanguage
 
         outResultMarshal := outResult is VarRef ? "int*" : "ptr"
         availableLocalesMarshal := availableLocales is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_acceptLanguageFromHTTP", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, "ptr", httpAcceptLanguage, availableLocalesMarshal, availableLocales, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_acceptLanguageFromHTTP", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, "ptr", httpAcceptLanguage, availableLocalesMarshal, availableLocales, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16116,18 +16116,18 @@ class Globalization {
      * @param {Pointer<Pointer<Integer>>} acceptList 
      * @param {Integer} acceptListCount 
      * @param {Pointer<UEnumeration>} availableLocales 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_acceptLanguage(result, resultAvailable, outResult, acceptList, acceptListCount, availableLocales, status) {
+    static uloc_acceptLanguage(result, resultAvailable, outResult, acceptList, acceptListCount, availableLocales, _status) {
         result := result is String ? StrPtr(result) : result
 
         outResultMarshal := outResult is VarRef ? "int*" : "ptr"
         acceptListMarshal := acceptList is VarRef ? "ptr*" : "ptr"
         availableLocalesMarshal := availableLocales is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_acceptLanguage", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, acceptListMarshal, acceptList, "int", acceptListCount, availableLocalesMarshal, availableLocales, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_acceptLanguage", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, acceptListMarshal, acceptList, "int", acceptListCount, availableLocalesMarshal, availableLocales, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16136,15 +16136,15 @@ class Globalization {
      * @param {Integer} hostID 
      * @param {PSTR} locale 
      * @param {Integer} localeCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uloc_getLocaleForLCID(hostID, locale, localeCapacity, status) {
+    static uloc_getLocaleForLCID(hostID, locale, localeCapacity, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uloc_getLocaleForLCID", "uint", hostID, "ptr", locale, "int", localeCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uloc_getLocaleForLCID", "uint", hostID, "ptr", locale, "int", localeCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16279,16 +16279,16 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_open(packageName, locale, status) {
+    static ures_open(packageName, locale, _status) {
         packageName := packageName is String ? StrPtr(packageName) : packageName
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_open", "ptr", packageName, "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_open", "ptr", packageName, "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16296,16 +16296,16 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_openDirect(packageName, locale, status) {
+    static ures_openDirect(packageName, locale, _status) {
         packageName := packageName is String ? StrPtr(packageName) : packageName
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_openDirect", "ptr", packageName, "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openDirect", "ptr", packageName, "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16313,16 +16313,16 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_openU(packageName, locale, status) {
+    static ures_openU(packageName, locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         packageNameMarshal := packageName is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_openU", packageNameMarshal, packageName, "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openU", packageNameMarshal, packageName, "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16354,14 +16354,14 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ures_getLocaleByType(resourceBundle, type, status) {
+    static ures_getLocaleByType(resourceBundle, type, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getLocaleByType", resourceBundleMarshal, resourceBundle, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getLocaleByType", resourceBundleMarshal, resourceBundle, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16369,15 +16369,15 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getString(resourceBundle, len, status) {
+    static ures_getString(resourceBundle, len, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getString", resourceBundleMarshal, resourceBundle, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getString", resourceBundleMarshal, resourceBundle, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16387,17 +16387,17 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} length 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ures_getUTF8String(resB, dest, length, forceCopy, status) {
+    static ures_getUTF8String(resB, dest, length, forceCopy, _status) {
         dest := dest is String ? StrPtr(dest) : dest
 
         resBMarshal := resB is VarRef ? "ptr*" : "ptr"
         lengthMarshal := length is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getUTF8String", resBMarshal, resB, "ptr", dest, lengthMarshal, length, "char", forceCopy, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8String", resBMarshal, resB, "ptr", dest, lengthMarshal, length, "char", forceCopy, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16405,15 +16405,15 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getBinary(resourceBundle, len, status) {
+    static ures_getBinary(resourceBundle, len, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getBinary", resourceBundleMarshal, resourceBundle, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getBinary", resourceBundleMarshal, resourceBundle, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16421,43 +16421,43 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getIntVector(resourceBundle, len, status) {
+    static ures_getIntVector(resourceBundle, len, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getIntVector", resourceBundleMarshal, resourceBundle, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getIntVector", resourceBundleMarshal, resourceBundle, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ures_getUInt(resourceBundle, status) {
+    static ures_getUInt(resourceBundle, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getUInt", resourceBundleMarshal, resourceBundle, statusMarshal, status, "CDecl uint")
+        result := DllCall("icuuc.dll\ures_getUInt", resourceBundleMarshal, resourceBundle, _statusMarshal, _status, "CDecl uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ures_getInt(resourceBundle, status) {
+    static ures_getInt(resourceBundle, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getInt", resourceBundleMarshal, resourceBundle, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ures_getInt", resourceBundleMarshal, resourceBundle, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -16524,15 +16524,15 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_getNextResource(resourceBundle, fillIn, status) {
+    static ures_getNextResource(resourceBundle, fillIn, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getNextResource", resourceBundleMarshal, resourceBundle, fillInMarshal, fillIn, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getNextResource", resourceBundleMarshal, resourceBundle, fillInMarshal, fillIn, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16541,16 +16541,16 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<Pointer<Integer>>} key 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getNextString(resourceBundle, len, key, status) {
+    static ures_getNextString(resourceBundle, len, key, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
         keyMarshal := key is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getNextString", resourceBundleMarshal, resourceBundle, lenMarshal, len, keyMarshal, key, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getNextString", resourceBundleMarshal, resourceBundle, lenMarshal, len, keyMarshal, key, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16559,15 +16559,15 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexR 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_getByIndex(resourceBundle, indexR, fillIn, status) {
+    static ures_getByIndex(resourceBundle, indexR, fillIn, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getByIndex", resourceBundleMarshal, resourceBundle, "int", indexR, fillInMarshal, fillIn, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getByIndex", resourceBundleMarshal, resourceBundle, "int", indexR, fillInMarshal, fillIn, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16576,15 +16576,15 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexS 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getStringByIndex(resourceBundle, indexS, len, status) {
+    static ures_getStringByIndex(resourceBundle, indexS, len, _status) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getStringByIndex", resourceBundleMarshal, resourceBundle, "int", indexS, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getStringByIndex", resourceBundleMarshal, resourceBundle, "int", indexS, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16595,17 +16595,17 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} pLength 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, status) {
+    static ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, _status) {
         dest := dest is String ? StrPtr(dest) : dest
 
         resBMarshal := resB is VarRef ? "ptr*" : "ptr"
         pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", resBMarshal, resB, "int", stringIndex, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", resBMarshal, resB, "int", stringIndex, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16614,17 +16614,17 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {PSTR} key 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
-    static ures_getByKey(resourceBundle, key, fillIn, status) {
+    static ures_getByKey(resourceBundle, key, fillIn, _status) {
         key := key is String ? StrPtr(key) : key
 
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
         fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getByKey", resourceBundleMarshal, resourceBundle, "ptr", key, fillInMarshal, fillIn, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getByKey", resourceBundleMarshal, resourceBundle, "ptr", key, fillInMarshal, fillIn, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16633,17 +16633,17 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resB 
      * @param {PSTR} key 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ures_getStringByKey(resB, key, len, status) {
+    static ures_getStringByKey(resB, key, len, _status) {
         key := key is String ? StrPtr(key) : key
 
         resBMarshal := resB is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getStringByKey", resBMarshal, resB, "ptr", key, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getStringByKey", resBMarshal, resB, "ptr", key, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16654,33 +16654,33 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} pLength 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ures_getUTF8StringByKey(resB, key, dest, pLength, forceCopy, status) {
+    static ures_getUTF8StringByKey(resB, key, dest, pLength, forceCopy, _status) {
         key := key is String ? StrPtr(key) : key
         dest := dest is String ? StrPtr(dest) : dest
 
         resBMarshal := resB is VarRef ? "ptr*" : "ptr"
         pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_getUTF8StringByKey", resBMarshal, resB, "ptr", key, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8StringByKey", resBMarshal, resB, "ptr", key, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {PSTR} packageName 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ures_openAvailableLocales(packageName, status) {
+    static ures_openAvailableLocales(packageName, _status) {
         packageName := packageName is String ? StrPtr(packageName) : packageName
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ures_openAvailableLocales", "ptr", packageName, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openAvailableLocales", "ptr", packageName, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -16816,40 +16816,40 @@ class Globalization {
     /**
      * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
-     * @param {PSTR} region 
+     * @param {PSTR} _region 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Integer} 
      */
-    static uldn_regionDisplayName(ldn, region, result, maxResultSize, pErrorCode) {
-        region := region is String ? StrPtr(region) : region
+    static uldn_regionDisplayName(ldn, _region, result, maxResultSize, pErrorCode) {
+        _region := _region is String ? StrPtr(_region) : _region
 
         ldnMarshal := ldn is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uldn_regionDisplayName", ldnMarshal, ldn, "ptr", region, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, "CDecl int")
+        result := DllCall("icuuc.dll\uldn_regionDisplayName", ldnMarshal, ldn, "ptr", _region, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
-     * @param {PSTR} variant 
+     * @param {PSTR} _variant 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Integer} 
      */
-    static uldn_variantDisplayName(ldn, variant, result, maxResultSize, pErrorCode) {
-        variant := variant is String ? StrPtr(variant) : variant
+    static uldn_variantDisplayName(ldn, _variant, result, maxResultSize, pErrorCode) {
+        _variant := _variant is String ? StrPtr(_variant) : _variant
 
         ldnMarshal := ldn is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uldn_variantDisplayName", ldnMarshal, ldn, "ptr", variant, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, "CDecl int")
+        result := DllCall("icuuc.dll\uldn_variantDisplayName", ldnMarshal, ldn, "ptr", _variant, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, "CDecl int")
         return result
     }
 
@@ -16950,30 +16950,30 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} isoCode 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Void>} 
      */
-    static ucurr_register(isoCode, locale, status) {
+    static ucurr_register(isoCode, locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         isoCodeMarshal := isoCode is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucurr_register", isoCodeMarshal, isoCode, "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_register", isoCodeMarshal, isoCode, "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} key 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucurr_unregister(key, status) {
+    static ucurr_unregister(key, _status) {
         keyMarshal := key is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucurr_unregister", keyMarshal, key, statusMarshal, status, "CDecl char")
+        result := DllCall("icuuc.dll\ucurr_unregister", keyMarshal, key, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -17150,16 +17150,16 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+    static ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
         key := key is String ? StrPtr(key) : key
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -17195,17 +17195,17 @@ class Globalization {
      * @param {Integer} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<Integer>} pValue 
      * @returns {Integer} 
      */
-    static ucpmap_getRange(map, start, option, surrogateValue, filter, context, pValue) {
+    static ucpmap_getRange(map, start, option, surrogateValue, filter, _context, pValue) {
         mapMarshal := map is VarRef ? "ptr*" : "ptr"
         filterMarshal := filter is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("icu.dll\ucpmap_getRange", mapMarshal, map, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, contextMarshal, context, pValueMarshal, pValue, "CDecl int")
+        result := DllCall("icu.dll\ucpmap_getRange", mapMarshal, map, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, "CDecl int")
         return result
     }
 
@@ -17275,16 +17275,16 @@ class Globalization {
      * @param {Integer} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<Integer>} pValue 
      * @returns {Integer} 
      */
-    static ucptrie_getRange(trie, start, option, surrogateValue, filter, context, pValue) {
+    static ucptrie_getRange(trie, start, option, surrogateValue, filter, _context, pValue) {
         filterMarshal := filter is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("icu.dll\ucptrie_getRange", "ptr", trie, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, contextMarshal, context, pValueMarshal, pValue, "CDecl int")
+        result := DllCall("icu.dll\ucptrie_getRange", "ptr", trie, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, "CDecl int")
         return result
     }
 
@@ -17430,17 +17430,17 @@ class Globalization {
      * @param {Integer} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<Integer>} pValue 
      * @returns {Integer} 
      */
-    static umutablecptrie_getRange(trie, start, option, surrogateValue, filter, context, pValue) {
+    static umutablecptrie_getRange(trie, start, option, surrogateValue, filter, _context, pValue) {
         trieMarshal := trie is VarRef ? "ptr*" : "ptr"
         filterMarshal := filter is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("icu.dll\umutablecptrie_getRange", trieMarshal, trie, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, contextMarshal, context, pValueMarshal, pValue, "CDecl int")
+        result := DllCall("icu.dll\umutablecptrie_getRange", trieMarshal, trie, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, "CDecl int")
         return result
     }
 
@@ -17493,7 +17493,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
@@ -17502,17 +17502,17 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_FROM_U_CALLBACK_STOP(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static UCNV_FROM_U_CALLBACK_STOP(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", contextMarshal, context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
@@ -17520,18 +17520,18 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_TO_U_CALLBACK_STOP(context, toUArgs, codeUnits, length, reason, err) {
+    static UCNV_TO_U_CALLBACK_STOP(_context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String ? StrPtr(codeUnits) : codeUnits
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", contextMarshal, context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
@@ -17540,17 +17540,17 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_FROM_U_CALLBACK_SKIP(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static UCNV_FROM_U_CALLBACK_SKIP(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", contextMarshal, context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
@@ -17559,17 +17559,17 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_FROM_U_CALLBACK_SUBSTITUTE(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static UCNV_FROM_U_CALLBACK_SUBSTITUTE(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", contextMarshal, context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
@@ -17578,17 +17578,17 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_FROM_U_CALLBACK_ESCAPE(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static UCNV_FROM_U_CALLBACK_ESCAPE(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", contextMarshal, context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
@@ -17596,18 +17596,18 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_TO_U_CALLBACK_SKIP(context, toUArgs, codeUnits, length, reason, err) {
+    static UCNV_TO_U_CALLBACK_SKIP(_context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String ? StrPtr(codeUnits) : codeUnits
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", contextMarshal, context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
@@ -17615,18 +17615,18 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_TO_U_CALLBACK_SUBSTITUTE(context, toUArgs, codeUnits, length, reason, err) {
+    static UCNV_TO_U_CALLBACK_SUBSTITUTE(_context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String ? StrPtr(codeUnits) : codeUnits
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", contextMarshal, context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
@@ -17634,13 +17634,13 @@ class Globalization {
      * @param {Pointer<Integer>} err 
      * @returns {String} Nothing - always returns an empty string
      */
-    static UCNV_TO_U_CALLBACK_ESCAPE(context, toUArgs, codeUnits, length, reason, err) {
+    static UCNV_TO_U_CALLBACK_ESCAPE(_context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String ? StrPtr(codeUnits) : codeUnits
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", contextMarshal, context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
     }
 
     /**
@@ -17722,30 +17722,30 @@ class Globalization {
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UConverter>} 
      */
-    static ucnv_safeClone(cnv, stackBuffer, pBufferSize, status) {
+    static ucnv_safeClone(cnv, stackBuffer, pBufferSize, _status) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
         stackBufferMarshal := stackBuffer is VarRef ? "ptr" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnv_safeClone", cnvMarshal, cnv, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_safeClone", cnvMarshal, cnv, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UConverter>} 
      */
-    static ucnv_clone(cnv, status) {
+    static ucnv_clone(cnv, _status) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\ucnv_clone", cnvMarshal, cnv, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icu.dll\ucnv_clone", cnvMarshal, cnv, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -18012,30 +18012,30 @@ class Globalization {
      * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<UConverterToUCallback>>} action 
-     * @param {Pointer<Pointer<Void>>} context 
+     * @param {Pointer<Pointer<Void>>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucnv_getToUCallBack(converter, action, context) {
+    static ucnv_getToUCallBack(converter, action, _context) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
         actionMarshal := action is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getToUCallBack", converterMarshal, converter, actionMarshal, action, contextMarshal, context, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getToUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<UConverterFromUCallback>>} action 
-     * @param {Pointer<Pointer<Void>>} context 
+     * @param {Pointer<Pointer<Void>>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucnv_getFromUCallBack(converter, action, context) {
+    static ucnv_getFromUCallBack(converter, action, _context) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
         actionMarshal := action is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getFromUCallBack", converterMarshal, converter, actionMarshal, action, contextMarshal, context, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getFromUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl ")
     }
 
     /**
@@ -18541,42 +18541,42 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucnv_fromUCountPending(cnv, status) {
+    static ucnv_fromUCountPending(cnv, _status) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnv_fromUCountPending", cnvMarshal, cnv, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ucnv_fromUCountPending", cnvMarshal, cnv, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucnv_toUCountPending(cnv, status) {
+    static ucnv_toUCountPending(cnv, _status) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnv_toUCountPending", cnvMarshal, cnv, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ucnv_toUCountPending", cnvMarshal, cnv, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucnv_isFixedWidth(cnv, status) {
+    static ucnv_isFixedWidth(cnv, _status) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnv_isFixedWidth", cnvMarshal, cnv, statusMarshal, status, "CDecl char")
+        result := DllCall("icuuc.dll\ucnv_isFixedWidth", cnvMarshal, cnv, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -18658,13 +18658,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_init(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static u_init(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_init", statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\u_init", _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -18677,21 +18677,21 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<Pointer<UMemAllocFn>>} a 
      * @param {Pointer<Pointer<UMemReallocFn>>} r 
      * @param {Pointer<Pointer<UMemFreeFn>>} f 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_setMemoryFunctions(context, a, r, f, status) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static u_setMemoryFunctions(_context, a, r, f, _status) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         aMarshal := a is VarRef ? "ptr*" : "ptr"
         rMarshal := r is VarRef ? "ptr*" : "ptr"
         fMarshal := f is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_setMemoryFunctions", contextMarshal, context, aMarshal, a, rMarshal, r, fMarshal, f, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\u_setMemoryFunctions", _contextMarshal, _context, aMarshal, a, rMarshal, r, fMarshal, f, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -18769,14 +18769,14 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Pointer<USet>} 
      */
-    static u_getBinaryPropertySet(property, pErrorCode) {
+    static u_getBinaryPropertySet(_property, pErrorCode) {
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\u_getBinaryPropertySet", "int", property, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\u_getBinaryPropertySet", "int", _property, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
         return result
     }
 
@@ -18853,14 +18853,14 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Pointer<UCPMap>} 
      */
-    static u_getIntPropertyMap(property, pErrorCode) {
+    static u_getIntPropertyMap(_property, pErrorCode) {
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\u_getIntPropertyMap", "int", property, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\u_getIntPropertyMap", "int", _property, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
         return result
     }
 
@@ -19107,14 +19107,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<UCharEnumTypeRange>>} enumRange 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_enumCharTypes(enumRange, context) {
+    static u_enumCharTypes(enumRange, _context) {
         enumRangeMarshal := enumRange is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        DllCall("icuuc.dll\u_enumCharTypes", enumRangeMarshal, enumRange, contextMarshal, context, "CDecl ")
+        DllCall("icuuc.dll\u_enumCharTypes", enumRangeMarshal, enumRange, _contextMarshal, _context, "CDecl ")
     }
 
     /**
@@ -19151,17 +19151,17 @@ class Globalization {
      * 
      * @param {Integer} code 
      * @param {Integer} nameChoice 
-     * @param {PSTR} buffer_R 
+     * @param {PSTR} _buffer 
      * @param {Integer} bufferLength 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Integer} 
      */
-    static u_charName(code, nameChoice, buffer_R, bufferLength, pErrorCode) {
-        buffer_R := buffer_R is String ? StrPtr(buffer_R) : buffer_R
+    static u_charName(code, nameChoice, _buffer, bufferLength, pErrorCode) {
+        _buffer := _buffer is String ? StrPtr(_buffer) : _buffer
 
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_charName", "int", code, "int", nameChoice, "ptr", buffer_R, "int", bufferLength, pErrorCodeMarshal, pErrorCode, "CDecl int")
+        result := DllCall("icuuc.dll\u_charName", "int", code, "int", nameChoice, "ptr", _buffer, "int", bufferLength, pErrorCodeMarshal, pErrorCode, "CDecl int")
         return result
     }
 
@@ -19186,27 +19186,27 @@ class Globalization {
      * @param {Integer} start 
      * @param {Integer} limit 
      * @param {Pointer<Pointer<UEnumCharNamesFn>>} fn 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Integer} nameChoice 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_enumCharNames(start, limit, fn, context, nameChoice, pErrorCode) {
+    static u_enumCharNames(start, limit, fn, _context, nameChoice, pErrorCode) {
         fnMarshal := fn is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, fnMarshal, fn, contextMarshal, context, "int", nameChoice, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, fnMarshal, fn, _contextMarshal, _context, "int", nameChoice, pErrorCodeMarshal, pErrorCode, "CDecl ")
     }
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {Integer} nameChoice 
      * @returns {PSTR} 
      */
-    static u_getPropertyName(property, nameChoice) {
-        result := DllCall("icuuc.dll\u_getPropertyName", "int", property, "int", nameChoice, "CDecl ptr")
+    static u_getPropertyName(_property, nameChoice) {
+        result := DllCall("icuuc.dll\u_getPropertyName", "int", _property, "int", nameChoice, "CDecl ptr")
         return result
     }
 
@@ -19224,26 +19224,26 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {Integer} value 
      * @param {Integer} nameChoice 
      * @returns {PSTR} 
      */
-    static u_getPropertyValueName(property, value, nameChoice) {
-        result := DllCall("icuuc.dll\u_getPropertyValueName", "int", property, "int", value, "int", nameChoice, "CDecl ptr")
+    static u_getPropertyValueName(_property, value, nameChoice) {
+        result := DllCall("icuuc.dll\u_getPropertyValueName", "int", _property, "int", value, "int", nameChoice, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {PSTR} alias 
      * @returns {Integer} 
      */
-    static u_getPropertyValueEnum(property, alias) {
+    static u_getPropertyValueEnum(_property, alias) {
         alias := alias is String ? StrPtr(alias) : alias
 
-        result := DllCall("icuuc.dll\u_getPropertyValueEnum", "int", property, "ptr", alias, "CDecl int")
+        result := DllCall("icuuc.dll\u_getPropertyValueEnum", "int", _property, "ptr", alias, "CDecl int")
         return result
     }
 
@@ -19834,30 +19834,30 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} levels 
+     * @param {Pointer<Integer>} _levels 
      * @param {Integer} length 
      * @param {Pointer<Integer>} indexMap 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubidi_reorderLogical(levels, length, indexMap) {
-        levelsMarshal := levels is VarRef ? "char*" : "ptr"
+    static ubidi_reorderLogical(_levels, length, indexMap) {
+        _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_reorderLogical", levelsMarshal, levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
+        DllCall("icuuc.dll\ubidi_reorderLogical", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} levels 
+     * @param {Pointer<Integer>} _levels 
      * @param {Integer} length 
      * @param {Pointer<Integer>} indexMap 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubidi_reorderVisual(levels, length, indexMap) {
-        levelsMarshal := levels is VarRef ? "char*" : "ptr"
+    static ubidi_reorderVisual(_levels, length, indexMap) {
+        _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_reorderVisual", levelsMarshal, levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
+        DllCall("icuuc.dll\ubidi_reorderVisual", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
     }
 
     /**
@@ -19935,15 +19935,15 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Pointer<UBiDiClassCallback>>} fn 
-     * @param {Pointer<Pointer<Void>>} context 
+     * @param {Pointer<Pointer<Void>>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubidi_getClassCallback(pBiDi, fn, context) {
+    static ubidi_getClassCallback(pBiDi, fn, _context) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
         fnMarshal := fn is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getClassCallback", pBiDiMarshal, pBiDi, fnMarshal, fn, contextMarshal, context, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getClassCallback", pBiDiMarshal, pBiDi, fnMarshal, fn, _contextMarshal, _context, "CDecl ")
     }
 
     /**
@@ -20047,15 +20047,15 @@ class Globalization {
      * @param {Pointer<UText>} ut 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static utext_openUTF8(ut, s, length, status) {
+    static utext_openUTF8(ut, s, length, _status) {
         s := s is String ? StrPtr(s) : s
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_openUTF8", "ptr", ut, "ptr", s, "int64", length, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\utext_openUTF8", "ptr", ut, "ptr", s, "int64", length, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -20064,14 +20064,14 @@ class Globalization {
      * @param {Pointer<UText>} ut 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static utext_openUChars(ut, s, length, status) {
+    static utext_openUChars(ut, s, length, _status) {
         sMarshal := s is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_openUChars", "ptr", ut, sMarshal, s, "int64", length, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\utext_openUChars", "ptr", ut, sMarshal, s, "int64", length, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -20081,13 +20081,13 @@ class Globalization {
      * @param {Pointer<UText>} src 
      * @param {Integer} deep 
      * @param {Integer} readOnly 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static utext_clone(dest, src, deep, readOnly, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utext_clone(dest, src, deep, readOnly, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_clone", "ptr", dest, "ptr", src, "char", deep, "char", readOnly, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\utext_clone", "ptr", dest, "ptr", src, "char", deep, "char", readOnly, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -20233,14 +20233,14 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utext_extract(ut, nativeStart, nativeLimit, dest, destCapacity, status) {
+    static utext_extract(ut, nativeStart, nativeLimit, dest, destCapacity, _status) {
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_extract", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, destMarshal, dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\utext_extract", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -20271,14 +20271,14 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Pointer<Integer>} replacementText 
      * @param {Integer} replacementLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utext_replace(ut, nativeStart, nativeLimit, replacementText, replacementLength, status) {
+    static utext_replace(ut, nativeStart, nativeLimit, replacementText, replacementLength, _status) {
         replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_replace", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, replacementTextMarshal, replacementText, "int", replacementLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\utext_replace", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, replacementTextMarshal, replacementText, "int", replacementLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -20289,13 +20289,13 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Integer} destIndex 
      * @param {Integer} move 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utext_copy(ut, nativeStart, nativeLimit, destIndex, move, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utext_copy(ut, nativeStart, nativeLimit, destIndex, move, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -20311,13 +20311,13 @@ class Globalization {
      * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} extraSpace 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static utext_setup(ut, extraSpace, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utext_setup(ut, extraSpace, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\utext_setup", "ptr", ut, "int", extraSpace, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\utext_setup", "ptr", ut, "int", extraSpace, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -20449,15 +20449,15 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uset_applyPattern(set, pattern, patternLength, options, status) {
+    static uset_applyPattern(set, pattern, patternLength, options, _status) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\uset_applyPattern", setMarshal, set, patternMarshal, pattern, "int", patternLength, "uint", options, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\uset_applyPattern", setMarshal, set, patternMarshal, pattern, "int", patternLength, "uint", options, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -21252,17 +21252,17 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} name 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
-    static unorm2_getInstance(packageName, name, mode, pErrorCode) {
+    static unorm2_getInstance(packageName, name, _mode, pErrorCode) {
         packageName := packageName is String ? StrPtr(packageName) : packageName
         name := name is String ? StrPtr(name) : name
 
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\unorm2_getInstance", "ptr", packageName, "ptr", name, "int", mode, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\unorm2_getInstance", "ptr", packageName, "ptr", name, "int", _mode, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
         return result
     }
 
@@ -21533,15 +21533,15 @@ class Globalization {
      * @param {Integer} converterListSize 
      * @param {Pointer<USet>} excludedCodePoints 
      * @param {Integer} whichSet 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UConverterSelector>} 
      */
-    static ucnvsel_open(converterList, converterListSize, excludedCodePoints, whichSet, status) {
+    static ucnvsel_open(converterList, converterListSize, excludedCodePoints, whichSet, _status) {
         converterListMarshal := converterList is VarRef ? "ptr*" : "ptr"
         excludedCodePointsMarshal := excludedCodePoints is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnvsel_open", converterListMarshal, converterList, "int", converterListSize, excludedCodePointsMarshal, excludedCodePoints, "int", whichSet, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_open", converterListMarshal, converterList, "int", converterListSize, excludedCodePointsMarshal, excludedCodePoints, "int", whichSet, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -21558,33 +21558,33 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} _buffer 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UConverterSelector>} 
      */
-    static ucnvsel_openFromSerialized(buffer_R, length, status) {
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucnvsel_openFromSerialized(_buffer, length, _status) {
+        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", buffer_RMarshal, buffer_R, "int", length, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", _bufferMarshal, _buffer, "int", length, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UConverterSelector>} sel 
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucnvsel_serialize(sel, buffer_R, bufferCapacity, status) {
+    static ucnvsel_serialize(sel, _buffer, bufferCapacity, _status) {
         selMarshal := sel is VarRef ? "ptr*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnvsel_serialize", selMarshal, sel, buffer_RMarshal, buffer_R, "int", bufferCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ucnvsel_serialize", selMarshal, sel, _bufferMarshal, _buffer, "int", bufferCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -21593,15 +21593,15 @@ class Globalization {
      * @param {Pointer<UConverterSelector>} sel 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucnvsel_selectForString(sel, s, length, status) {
+    static ucnvsel_selectForString(sel, s, length, _status) {
         selMarshal := sel is VarRef ? "ptr*" : "ptr"
         sMarshal := s is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnvsel_selectForString", selMarshal, sel, sMarshal, s, "int", length, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_selectForString", selMarshal, sel, sMarshal, s, "int", length, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -21610,16 +21610,16 @@ class Globalization {
      * @param {Pointer<UConverterSelector>} sel 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucnvsel_selectForUTF8(sel, s, length, status) {
+    static ucnvsel_selectForUTF8(sel, s, length, _status) {
         s := s is String ? StrPtr(s) : s
 
         selMarshal := sel is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", selMarshal, sel, "ptr", s, "int", length, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", selMarshal, sel, "ptr", s, "int", length, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -21682,13 +21682,13 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Integer} number_R 
+     * @param {Integer} _number 
      * @returns {Integer} 
      */
-    static u_strHasMoreChar32Than(s, length, number_R) {
+    static u_strHasMoreChar32Than(s, length, _number) {
         sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strHasMoreChar32Than", sMarshal, s, "int", length, "int", number_R, "CDecl char")
+        result := DllCall("icuuc.dll\u_strHasMoreChar32Than", sMarshal, s, "int", length, "int", _number, "CDecl char")
         return result
     }
 
@@ -21835,43 +21835,43 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} string_R 
+     * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Pointer<Integer>} 
      */
-    static u_strpbrk(string_R, matchSet) {
-        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
+    static u_strpbrk(_string, matchSet) {
+        _stringMarshal := _string is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strpbrk", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strpbrk", _stringMarshal, _string, matchSetMarshal, matchSet, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} string_R 
+     * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
      */
-    static u_strcspn(string_R, matchSet) {
-        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
+    static u_strcspn(_string, matchSet) {
+        _stringMarshal := _string is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strcspn", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl int")
+        result := DllCall("icuuc.dll\u_strcspn", _stringMarshal, _string, matchSetMarshal, matchSet, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} string_R 
+     * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
      */
-    static u_strspn(string_R, matchSet) {
-        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
+    static u_strspn(_string, matchSet) {
+        _stringMarshal := _string is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strspn", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl int")
+        result := DllCall("icuuc.dll\u_strspn", _stringMarshal, _string, matchSetMarshal, matchSet, "CDecl int")
         return result
     }
 
@@ -22286,14 +22286,14 @@ class Globalization {
      * @param {Pointer<UNESCAPE_CHAR_AT>} charAt 
      * @param {Pointer<Integer>} offset 
      * @param {Integer} length 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @returns {Integer} 
      */
-    static u_unescapeAt(charAt, offset, length, context) {
+    static u_unescapeAt(charAt, offset, length, _context) {
         offsetMarshal := offset is VarRef ? "int*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("icuuc.dll\u_unescapeAt", "ptr", charAt, offsetMarshal, offset, "int", length, contextMarshal, context, "CDecl int")
+        result := DllCall("icuuc.dll\u_unescapeAt", "ptr", charAt, offsetMarshal, offset, "int", length, _contextMarshal, _context, "CDecl int")
         return result
     }
 
@@ -22879,43 +22879,43 @@ class Globalization {
 
     /**
      * 
-     * @param {PSTR} path 
+     * @param {PSTR} _path 
      * @param {PSTR} fileName 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UStringPrepProfile>} 
      */
-    static usprep_open(path, fileName, status) {
-        path := path is String ? StrPtr(path) : path
+    static usprep_open(_path, fileName, _status) {
+        _path := _path is String ? StrPtr(_path) : _path
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\usprep_open", "ptr", path, "ptr", fileName, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\usprep_open", "ptr", _path, "ptr", fileName, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UStringPrepProfile>} 
      */
-    static usprep_openByType(type, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static usprep_openByType(type, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\usprep_openByType", "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\usprep_openByType", "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UStringPrepProfile>} profile 
+     * @param {Pointer<UStringPrepProfile>} _profile 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usprep_close(profile) {
-        profileMarshal := profile is VarRef ? "ptr*" : "ptr"
+    static usprep_close(_profile) {
+        _profileMarshal := _profile is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\usprep_close", profileMarshal, profile, "CDecl ")
+        DllCall("icuuc.dll\usprep_close", _profileMarshal, _profile, "CDecl ")
     }
 
     /**
@@ -22927,16 +22927,16 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {Integer} options 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usprep_prepare(prep, src, srcLength, dest, destCapacity, options, parseError, status) {
+    static usprep_prepare(prep, src, srcLength, dest, destCapacity, options, parseError, _status) {
         prepMarshal := prep is VarRef ? "ptr*" : "ptr"
         srcMarshal := src is VarRef ? "ushort*" : "ptr"
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\usprep_prepare", prepMarshal, prep, srcMarshal, src, "int", srcLength, destMarshal, dest, "int", destCapacity, "int", options, "ptr", parseError, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\usprep_prepare", prepMarshal, prep, srcMarshal, src, "int", srcLength, destMarshal, dest, "int", destCapacity, "int", options, "ptr", parseError, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -23142,16 +23142,16 @@ class Globalization {
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
-    static ubrk_open(type, locale, text, textLength, status) {
+    static ubrk_open(type, locale, text, textLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_open", "int", type, "ptr", locale, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_open", "int", type, "ptr", locale, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23162,15 +23162,15 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<UParseError>} parseErr 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
-    static ubrk_openRules(rules, rulesLength, text, textLength, parseErr, status) {
+    static ubrk_openRules(rules, rulesLength, text, textLength, parseErr, _status) {
         rulesMarshal := rules is VarRef ? "ushort*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_openRules", rulesMarshal, rules, "int", rulesLength, textMarshal, text, "int", textLength, "ptr", parseErr, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_openRules", rulesMarshal, rules, "int", rulesLength, textMarshal, text, "int", textLength, "ptr", parseErr, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23180,15 +23180,15 @@ class Globalization {
      * @param {Integer} rulesLength 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
-    static ubrk_openBinaryRules(binaryRules, rulesLength, text, textLength, status) {
+    static ubrk_openBinaryRules(binaryRules, rulesLength, text, textLength, _status) {
         binaryRulesMarshal := binaryRules is VarRef ? "char*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_openBinaryRules", binaryRulesMarshal, binaryRules, "int", rulesLength, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_openBinaryRules", binaryRulesMarshal, binaryRules, "int", rulesLength, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23197,30 +23197,30 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
-    static ubrk_safeClone(bi, stackBuffer, pBufferSize, status) {
+    static ubrk_safeClone(bi, stackBuffer, pBufferSize, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         stackBufferMarshal := stackBuffer is VarRef ? "ptr" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_safeClone", biMarshal, bi, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_safeClone", biMarshal, bi, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UBreakIterator>} bi 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
-    static ubrk_clone(bi, status) {
+    static ubrk_clone(bi, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\ubrk_clone", biMarshal, bi, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icu.dll\ubrk_clone", biMarshal, bi, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23240,29 +23240,29 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubrk_setText(bi, text, textLength, status) {
+    static ubrk_setText(bi, text, textLength, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubrk_setUText(bi, text, status) {
+    static ubrk_setUText(bi, text, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_setUText", biMarshal, bi, "ptr", text, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_setUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -23400,15 +23400,15 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} fillInVec 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ubrk_getRuleStatusVec(bi, fillInVec, capacity, status) {
+    static ubrk_getRuleStatusVec(bi, fillInVec, capacity, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         fillInVecMarshal := fillInVec is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_getRuleStatusVec", biMarshal, bi, fillInVecMarshal, fillInVec, "int", capacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ubrk_getRuleStatusVec", biMarshal, bi, fillInVecMarshal, fillInVec, "int", capacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -23416,14 +23416,14 @@ class Globalization {
      * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ubrk_getLocaleByType(bi, type, status) {
+    static ubrk_getLocaleByType(bi, type, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_getLocaleByType", biMarshal, bi, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_getLocaleByType", biMarshal, bi, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23431,14 +23431,14 @@ class Globalization {
      * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ubrk_refreshUText(bi, text, status) {
+    static ubrk_refreshUText(bi, text, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_refreshUText", biMarshal, bi, "ptr", text, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_refreshUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -23446,46 +23446,46 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} binaryRules 
      * @param {Integer} rulesCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ubrk_getBinaryRules(bi, binaryRules, rulesCapacity, status) {
+    static ubrk_getBinaryRules(bi, binaryRules, rulesCapacity, _status) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         binaryRulesMarshal := binaryRules is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ubrk_getBinaryRules", biMarshal, bi, binaryRulesMarshal, binaryRules, "int", rulesCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ubrk_getBinaryRules", biMarshal, bi, binaryRulesMarshal, binaryRules, "int", rulesCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} dataVersionFillin 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_getDataVersion(dataVersionFillin, status) {
+    static u_getDataVersion(dataVersionFillin, _status) {
         dataVersionFillinMarshal := dataVersionFillin is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_getDataVersion", dataVersionFillinMarshal, dataVersionFillin, statusMarshal, status, "CDecl ")
+        DllCall("icuuc.dll\u_getDataVersion", dataVersionFillinMarshal, dataVersionFillin, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Integer} zoneType 
-     * @param {PSTR} region 
+     * @param {PSTR} _region 
      * @param {Pointer<Integer>} rawOffset 
      * @param {Pointer<Integer>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucal_openTimeZoneIDEnumeration(zoneType, region, rawOffset, ec) {
-        region := region is String ? StrPtr(region) : region
+    static ucal_openTimeZoneIDEnumeration(zoneType, _region, rawOffset, ec) {
+        _region := _region is String ? StrPtr(_region) : _region
 
         rawOffsetMarshal := rawOffset is VarRef ? "int*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_openTimeZoneIDEnumeration", "int", zoneType, "ptr", region, rawOffsetMarshal, rawOffset, ecMarshal, ec, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_openTimeZoneIDEnumeration", "int", zoneType, "ptr", _region, rawOffsetMarshal, rawOffset, ecMarshal, ec, "CDecl ptr")
         return result
     }
 
@@ -23588,164 +23588,164 @@ class Globalization {
      * @param {Integer} len 
      * @param {PSTR} locale 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static ucal_open(zoneID, len, locale, type, status) {
+    static ucal_open(zoneID, len, locale, type, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_open", zoneIDMarshal, zoneID, "int", len, "ptr", locale, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_open", zoneIDMarshal, zoneID, "int", len, "ptr", locale, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_close(cal) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_close(_cal) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_close", calMarshal, cal, "CDecl ")
+        DllCall("icuin.dll\ucal_close", _calMarshal, _cal, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _cal 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static ucal_clone(cal, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_clone(_cal, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_clone", calMarshal, cal, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_clone", _calMarshal, _cal, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} zoneID 
      * @param {Integer} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setTimeZone(cal, zoneID, len, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_setTimeZone(_cal, zoneID, len, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setTimeZone", calMarshal, cal, zoneIDMarshal, zoneID, "int", len, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_setTimeZone", _calMarshal, _cal, zoneIDMarshal, zoneID, "int", len, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getTimeZoneID(cal, result, resultLength, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_getTimeZoneID(_cal, result, resultLength, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getTimeZoneID", calMarshal, cal, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getTimeZoneID", _calMarshal, _cal, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} type 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getTimeZoneDisplayName(cal, type, locale, result, resultLength, status) {
+    static ucal_getTimeZoneDisplayName(_cal, type, locale, result, resultLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getTimeZoneDisplayName", calMarshal, cal, "int", type, "ptr", locale, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getTimeZoneDisplayName", _calMarshal, _cal, "int", type, "ptr", locale, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _cal 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_inDaylightTime(cal, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_inDaylightTime(_cal, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_inDaylightTime", calMarshal, cal, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\ucal_inDaylightTime", _calMarshal, _cal, _statusMarshal, _status, "CDecl char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setGregorianChange(cal, date, pErrorCode) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_setGregorianChange(_cal, date, pErrorCode) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setGregorianChange", calMarshal, cal, "double", date, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuin.dll\ucal_setGregorianChange", _calMarshal, _cal, "double", date, pErrorCodeMarshal, pErrorCode, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} pErrorCode 
      * @returns {Float} 
      */
-    static ucal_getGregorianChange(cal, pErrorCode) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_getGregorianChange(_cal, pErrorCode) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getGregorianChange", calMarshal, cal, pErrorCodeMarshal, pErrorCode, "CDecl double")
+        result := DllCall("icuin.dll\ucal_getGregorianChange", _calMarshal, _cal, pErrorCodeMarshal, pErrorCode, "CDecl double")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} attr 
      * @returns {Integer} 
      */
-    static ucal_getAttribute(cal, attr) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_getAttribute(_cal, attr) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getAttribute", calMarshal, cal, "int", attr, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getAttribute", _calMarshal, _cal, "int", attr, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} attr 
      * @param {Integer} newValue 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setAttribute(cal, attr, newValue) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_setAttribute(_cal, attr, newValue) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setAttribute", calMarshal, cal, "int", attr, "int", newValue, "CDecl ")
+        DllCall("icuin.dll\ucal_setAttribute", _calMarshal, _cal, "int", attr, "int", newValue, "CDecl ")
     }
 
     /**
@@ -23769,65 +23769,65 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _cal 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static ucal_getMillis(cal, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getMillis(_cal, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getMillis", calMarshal, cal, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\ucal_getMillis", _calMarshal, _cal, _statusMarshal, _status, "CDecl double")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
-     * @param {Float} dateTime 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _cal 
+     * @param {Float} _dateTime 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setMillis(cal, dateTime, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_setMillis(_cal, _dateTime, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setMillis", calMarshal, cal, "double", dateTime, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_setMillis", _calMarshal, _cal, "double", _dateTime, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} year 
      * @param {Integer} month 
      * @param {Integer} date 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setDate(cal, year, month, date, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_setDate(_cal, year, month, date, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setDate", calMarshal, cal, "int", year, "int", month, "int", date, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_setDate", _calMarshal, _cal, "int", year, "int", month, "int", date, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} year 
      * @param {Integer} month 
      * @param {Integer} date 
      * @param {Integer} hour 
      * @param {Integer} minute 
      * @param {Integer} second 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_setDateTime(cal, year, month, date, hour, minute, second, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_setDateTime(_cal, year, month, date, hour, minute, second, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setDateTime", calMarshal, cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_setDateTime", _calMarshal, _cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -23846,85 +23846,85 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @param {Integer} amount 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_add(cal, field, amount, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_add(_cal, field, amount, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_add", calMarshal, cal, "int", field, "int", amount, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_add", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @param {Integer} amount 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_roll(cal, field, amount, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_roll(_cal, field, amount, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_roll", calMarshal, cal, "int", field, "int", amount, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucal_roll", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_get(cal, field, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_get(_cal, field, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_get", calMarshal, cal, "int", field, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_get", _calMarshal, _cal, "int", field, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @param {Integer} value 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_set(cal, field, value) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_set(_cal, field, value) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_set", calMarshal, cal, "int", field, "int", value, "CDecl ")
+        DllCall("icuin.dll\ucal_set", _calMarshal, _cal, "int", field, "int", value, "CDecl ")
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @returns {Integer} 
      */
-    static ucal_isSet(cal, field) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_isSet(_cal, field) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_isSet", calMarshal, cal, "int", field, "CDecl char")
+        result := DllCall("icuin.dll\ucal_isSet", _calMarshal, _cal, "int", field, "CDecl char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_clearField(cal, field) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_clearField(_cal, field) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_clearField", calMarshal, cal, "int", field, "CDecl ")
+        DllCall("icuin.dll\ucal_clearField", _calMarshal, _cal, "int", field, "CDecl ")
     }
 
     /**
@@ -23940,44 +23940,44 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} field 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getLimit(cal, field, type, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getLimit(_cal, field, type, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getLimit", calMarshal, cal, "int", field, "int", type, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getLimit", _calMarshal, _cal, "int", field, "int", type, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucal_getLocaleByType(cal, type, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getLocaleByType(_cal, type, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getLocaleByType", calMarshal, cal, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getLocaleByType", _calMarshal, _cal, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucal_getTZDataVersion(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getTZDataVersion(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getTZDataVersion", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getTZDataVersion", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -23988,30 +23988,30 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<Integer>} isSystemID 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getCanonicalTimeZoneID(id, len, result, resultCapacity, isSystemID, status) {
+    static ucal_getCanonicalTimeZoneID(id, len, result, resultCapacity, isSystemID, _status) {
         idMarshal := id is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         isSystemIDMarshal := isSystemID is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getCanonicalTimeZoneID", idMarshal, id, "int", len, resultMarshal, result, "int", resultCapacity, isSystemIDMarshal, isSystemID, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getCanonicalTimeZoneID", idMarshal, id, "int", len, resultMarshal, result, "int", resultCapacity, isSystemIDMarshal, isSystemID, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _cal 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucal_getType(cal, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getType(_cal, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getType", calMarshal, cal, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getType", _calMarshal, _cal, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24020,94 +24020,94 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+    static ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
         key := key is String ? StrPtr(key) : key
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} dayOfWeek 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getDayOfWeekType(cal, dayOfWeek, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getDayOfWeekType(_cal, dayOfWeek, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getDayOfWeekType", calMarshal, cal, "int", dayOfWeek, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getDayOfWeekType", _calMarshal, _cal, "int", dayOfWeek, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} dayOfWeek 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getWeekendTransition(cal, dayOfWeek, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getWeekendTransition(_cal, dayOfWeek, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getWeekendTransition", calMarshal, cal, "int", dayOfWeek, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getWeekendTransition", _calMarshal, _cal, "int", dayOfWeek, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_isWeekend(cal, date, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_isWeekend(_cal, date, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_isWeekend", calMarshal, cal, "double", date, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\ucal_isWeekend", _calMarshal, _cal, "double", date, _statusMarshal, _status, "CDecl char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} target 
      * @param {Integer} field 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getFieldDifference(cal, target, field, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucal_getFieldDifference(_cal, target, field, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getFieldDifference", calMarshal, cal, "double", target, "int", field, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getFieldDifference", _calMarshal, _cal, "double", target, "int", field, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} type 
      * @param {Pointer<Float>} transition 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getTimeZoneTransitionDate(cal, type, transition, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_getTimeZoneTransitionDate(_cal, type, transition, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         transitionMarshal := transition is VarRef ? "double*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getTimeZoneTransitionDate", calMarshal, cal, "int", type, transitionMarshal, transition, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\ucal_getTimeZoneTransitionDate", _calMarshal, _cal, "int", type, transitionMarshal, transition, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -24117,15 +24117,15 @@ class Globalization {
      * @param {Integer} len 
      * @param {Pointer<Integer>} winid 
      * @param {Integer} winidCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getWindowsTimeZoneID(id, len, winid, winidCapacity, status) {
+    static ucal_getWindowsTimeZoneID(id, len, winid, winidCapacity, _status) {
         idMarshal := id is VarRef ? "ushort*" : "ptr"
         winidMarshal := winid is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getWindowsTimeZoneID", idMarshal, id, "int", len, winidMarshal, winid, "int", winidCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getWindowsTimeZoneID", idMarshal, id, "int", len, winidMarshal, winid, "int", winidCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24133,54 +24133,54 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} winid 
      * @param {Integer} len 
-     * @param {PSTR} region 
+     * @param {PSTR} _region 
      * @param {Pointer<Integer>} id 
      * @param {Integer} idCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucal_getTimeZoneIDForWindowsID(winid, len, region, id, idCapacity, status) {
-        region := region is String ? StrPtr(region) : region
+    static ucal_getTimeZoneIDForWindowsID(winid, len, _region, id, idCapacity, _status) {
+        _region := _region is String ? StrPtr(_region) : _region
 
         winidMarshal := winid is VarRef ? "ushort*" : "ptr"
         idMarshal := id is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucal_getTimeZoneIDForWindowsID", winidMarshal, winid, "int", len, "ptr", region, idMarshal, id, "int", idCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucal_getTimeZoneIDForWindowsID", winidMarshal, winid, "int", len, "ptr", _region, idMarshal, id, "int", idCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} cal 
+     * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} nonExistingTimeOpt 
      * @param {Integer} duplicatedTimeOpt 
      * @param {Pointer<Integer>} rawOffset 
      * @param {Pointer<Integer>} dstOffset 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucal_getTimeZoneOffsetFromLocal(cal, nonExistingTimeOpt, duplicatedTimeOpt, rawOffset, dstOffset, status) {
-        calMarshal := cal is VarRef ? "ptr*" : "ptr"
+    static ucal_getTimeZoneOffsetFromLocal(_cal, nonExistingTimeOpt, duplicatedTimeOpt, rawOffset, dstOffset, _status) {
+        _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         rawOffsetMarshal := rawOffset is VarRef ? "int*" : "ptr"
         dstOffsetMarshal := dstOffset is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucal_getTimeZoneOffsetFromLocal", calMarshal, cal, "int", nonExistingTimeOpt, "int", duplicatedTimeOpt, rawOffsetMarshal, rawOffset, dstOffsetMarshal, dstOffset, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\ucal_getTimeZoneOffsetFromLocal", _calMarshal, _cal, "int", nonExistingTimeOpt, "int", duplicatedTimeOpt, rawOffsetMarshal, rawOffset, dstOffsetMarshal, dstOffset, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {PSTR} loc 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollator>} 
      */
-    static ucol_open(loc, status) {
+    static ucol_open(loc, _status) {
         loc := loc is String ? StrPtr(loc) : loc
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_open", "ptr", loc, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_open", "ptr", loc, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24191,14 +24191,14 @@ class Globalization {
      * @param {Integer} normalizationMode 
      * @param {Integer} strength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollator>} 
      */
-    static ucol_openRules(rules, rulesLength, normalizationMode, strength, parseError, status) {
+    static ucol_openRules(rules, rulesLength, normalizationMode, strength, parseError, _status) {
         rulesMarshal := rules is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_openRules", rulesMarshal, rules, "int", rulesLength, "int", normalizationMode, "int", strength, "ptr", parseError, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openRules", rulesMarshal, rules, "int", rulesLength, "int", normalizationMode, "int", strength, "ptr", parseError, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24208,16 +24208,16 @@ class Globalization {
      * @param {Pointer<USet>} contractions 
      * @param {Pointer<USet>} expansions 
      * @param {Integer} addPrefixes 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucol_getContractionsAndExpansions(coll, contractions, expansions, addPrefixes, status) {
+    static ucol_getContractionsAndExpansions(coll, contractions, expansions, addPrefixes, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         contractionsMarshal := contractions is VarRef ? "ptr*" : "ptr"
         expansionsMarshal := expansions is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, "char", addPrefixes, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, "char", addPrefixes, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -24256,17 +24256,17 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {PSTR} target 
      * @param {Integer} targetLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, status) {
+    static ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, _status) {
         source := source is String ? StrPtr(source) : source
         target := target is String ? StrPtr(target) : target
 
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_strcollUTF8", collMarshal, coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_strcollUTF8", collMarshal, coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24329,14 +24329,14 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UCharIterator>} sIter 
      * @param {Pointer<UCharIterator>} tIter 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_strcollIter(coll, sIter, tIter, status) {
+    static ucol_strcollIter(coll, sIter, tIter, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_strcollIter", collMarshal, coll, "ptr", sIter, "ptr", tIter, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_strcollIter", collMarshal, coll, "ptr", sIter, "ptr", tIter, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24419,17 +24419,17 @@ class Globalization {
      * @param {PSTR} dispLoc 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_getDisplayName(objLoc, dispLoc, result, resultLength, status) {
+    static ucol_getDisplayName(objLoc, dispLoc, result, resultLength, _status) {
         objLoc := objLoc is String ? StrPtr(objLoc) : objLoc
         dispLoc := dispLoc is String ? StrPtr(dispLoc) : dispLoc
 
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getDisplayName", "ptr", objLoc, "ptr", dispLoc, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_getDisplayName", "ptr", objLoc, "ptr", dispLoc, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24454,40 +24454,40 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucol_openAvailableLocales(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucol_openAvailableLocales(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_openAvailableLocales", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openAvailableLocales", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucol_getKeywords(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucol_getKeywords(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getKeywords", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywords", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {PSTR} keyword 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucol_getKeywordValues(keyword, status) {
+    static ucol_getKeywordValues(keyword, _status) {
         keyword := keyword is String ? StrPtr(keyword) : keyword
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getKeywordValues", "ptr", keyword, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywordValues", "ptr", keyword, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24496,16 +24496,16 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+    static ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
         key := key is String ? StrPtr(key) : key
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24516,18 +24516,18 @@ class Globalization {
      * @param {PSTR} keyword 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} isAvailable 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_getFunctionalEquivalent(result, resultCapacity, keyword, locale, isAvailable, status) {
+    static ucol_getFunctionalEquivalent(result, resultCapacity, keyword, locale, isAvailable, _status) {
         result := result is String ? StrPtr(result) : result
         keyword := keyword is String ? StrPtr(keyword) : keyword
         locale := locale is String ? StrPtr(locale) : locale
 
         isAvailableMarshal := isAvailable is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getFunctionalEquivalent", "ptr", result, "int", resultCapacity, "ptr", keyword, "ptr", locale, isAvailableMarshal, isAvailable, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_getFunctionalEquivalent", "ptr", result, "int", resultCapacity, "ptr", keyword, "ptr", locale, isAvailableMarshal, isAvailable, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24570,16 +24570,16 @@ class Globalization {
      * @param {Pointer<Integer>} state 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_nextSortKeyPart(coll, iter, state, dest, count, status) {
+    static ucol_nextSortKeyPart(coll, iter, state, dest, count, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         stateMarshal := state is VarRef ? "uint*" : "ptr"
         destMarshal := dest is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_nextSortKeyPart", collMarshal, coll, "ptr", iter, stateMarshal, state, destMarshal, dest, "int", count, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_nextSortKeyPart", collMarshal, coll, "ptr", iter, stateMarshal, state, destMarshal, dest, "int", count, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24591,15 +24591,15 @@ class Globalization {
      * @param {Integer} noOfLevels 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_getBound(source, sourceLength, boundType, noOfLevels, result, resultLength, status) {
+    static ucol_getBound(source, sourceLength, boundType, noOfLevels, result, resultLength, _status) {
         sourceMarshal := source is VarRef ? "char*" : "ptr"
         resultMarshal := result is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getBound", sourceMarshal, source, "int", sourceLength, "int", boundType, "uint", noOfLevels, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_getBound", sourceMarshal, source, "int", sourceLength, "int", boundType, "uint", noOfLevels, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24653,28 +24653,28 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Integer} attr 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucol_setAttribute(coll, attr, value, status) {
+    static ucol_setAttribute(coll, attr, value, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setAttribute", collMarshal, coll, "int", attr, "int", value, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucol_setAttribute", collMarshal, coll, "int", attr, "int", value, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UCollator>} coll 
      * @param {Integer} attr 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_getAttribute(coll, attr, status) {
+    static ucol_getAttribute(coll, attr, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getAttribute", collMarshal, coll, "int", attr, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_getAttribute", collMarshal, coll, "int", attr, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24707,14 +24707,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_getVariableTop(coll, status) {
+    static ucol_getVariableTop(coll, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getVariableTop", collMarshal, coll, statusMarshal, status, "CDecl uint")
+        result := DllCall("icuin.dll\ucol_getVariableTop", collMarshal, coll, _statusMarshal, _status, "CDecl uint")
         return result
     }
 
@@ -24723,30 +24723,30 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollator>} 
      */
-    static ucol_safeClone(coll, stackBuffer, pBufferSize, status) {
+    static ucol_safeClone(coll, stackBuffer, pBufferSize, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         stackBufferMarshal := stackBuffer is VarRef ? "ptr" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_safeClone", collMarshal, coll, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_safeClone", collMarshal, coll, stackBufferMarshal, stackBuffer, pBufferSizeMarshal, pBufferSize, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollator>} 
      */
-    static ucol_clone(coll, status) {
+    static ucol_clone(coll, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\ucol_clone", collMarshal, coll, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icu.dll\ucol_clone", collMarshal, coll, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24754,15 +24754,15 @@ class Globalization {
      * 
      * @param {Pointer<UCollator>} coll 
      * @param {Integer} delta 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferLen 
      * @returns {Integer} 
      */
-    static ucol_getRulesEx(coll, delta, buffer_R, bufferLen) {
+    static ucol_getRulesEx(coll, delta, _buffer, bufferLen) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "ushort*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getRulesEx", collMarshal, coll, "int", delta, buffer_RMarshal, buffer_R, "int", bufferLen, "CDecl int")
+        result := DllCall("icuin.dll\ucol_getRulesEx", collMarshal, coll, "int", delta, _bufferMarshal, _buffer, "int", bufferLen, "CDecl int")
         return result
     }
 
@@ -24770,45 +24770,45 @@ class Globalization {
      * 
      * @param {Pointer<UCollator>} coll 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucol_getLocaleByType(coll, type, status) {
+    static ucol_getLocaleByType(coll, type, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getLocaleByType", collMarshal, coll, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getLocaleByType", collMarshal, coll, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static ucol_getTailoredSet(coll, status) {
+    static ucol_getTailoredSet(coll, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_getTailoredSet", collMarshal, coll, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getTailoredSet", collMarshal, coll, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_cloneBinary(coll, buffer_R, capacity, status) {
+    static ucol_cloneBinary(coll, _buffer, capacity, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_cloneBinary", collMarshal, coll, buffer_RMarshal, buffer_R, "int", capacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_cloneBinary", collMarshal, coll, _bufferMarshal, _buffer, "int", capacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24817,15 +24817,15 @@ class Globalization {
      * @param {Pointer<Integer>} bin 
      * @param {Integer} length 
      * @param {Pointer<UCollator>} base 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollator>} 
      */
-    static ucol_openBinary(bin, length, base, status) {
+    static ucol_openBinary(bin, length, base, _status) {
         binMarshal := bin is VarRef ? "char*" : "ptr"
         baseMarshal := base is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_openBinary", binMarshal, bin, "int", length, baseMarshal, base, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openBinary", binMarshal, bin, "int", length, baseMarshal, base, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24834,15 +24834,15 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCollationElements>} 
      */
-    static ucol_openElements(coll, text, textLength, status) {
+    static ucol_openElements(coll, text, textLength, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_openElements", collMarshal, coll, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openElements", collMarshal, coll, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -24884,28 +24884,28 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollationElements>} elems 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_next(elems, status) {
+    static ucol_next(elems, _status) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_next", elemsMarshal, elems, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_next", elemsMarshal, elems, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCollationElements>} elems 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucol_previous(elems, status) {
+    static ucol_previous(elems, _status) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucol_previous", elemsMarshal, elems, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucol_previous", elemsMarshal, elems, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -24927,15 +24927,15 @@ class Globalization {
      * @param {Pointer<UCollationElements>} elems 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucol_setText(elems, text, textLength, status) {
+    static ucol_setText(elems, text, textLength, _status) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -24954,14 +24954,14 @@ class Globalization {
      * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Integer} offset 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucol_setOffset(elems, offset, status) {
+    static ucol_setOffset(elems, offset, _status) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, "int", offset, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, "int", offset, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -24996,13 +24996,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCharsetDetector>} 
      */
-    static ucsdet_open(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ucsdet_open(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_open", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_open", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25022,16 +25022,16 @@ class Globalization {
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} textIn 
      * @param {Integer} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucsdet_setText(ucsd, textIn, len, status) {
+    static ucsdet_setText(ucsd, textIn, len, _status) {
         textIn := textIn is String ? StrPtr(textIn) : textIn
 
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, "int", len, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, "int", len, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -25039,29 +25039,29 @@ class Globalization {
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} encoding 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucsdet_setDeclaredEncoding(ucsd, encoding, length, status) {
+    static ucsdet_setDeclaredEncoding(ucsd, encoding, length, _status) {
         encoding := encoding is String ? StrPtr(encoding) : encoding
 
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, "int", length, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, "int", length, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UCharsetMatch>} 
      */
-    static ucsdet_detect(ucsd, status) {
+    static ucsdet_detect(ucsd, _status) {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_detect", ucsdMarshal, ucsd, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_detect", ucsdMarshal, ucsd, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25069,57 +25069,57 @@ class Globalization {
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Pointer<Integer>} matchesFound 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<UCharsetMatch>>} 
      */
-    static ucsdet_detectAll(ucsd, matchesFound, status) {
+    static ucsdet_detectAll(ucsd, matchesFound, _status) {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
         matchesFoundMarshal := matchesFound is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_detectAll", ucsdMarshal, ucsd, matchesFoundMarshal, matchesFound, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_detectAll", ucsdMarshal, ucsd, matchesFoundMarshal, matchesFound, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucsdet_getName(ucsm, status) {
+    static ucsdet_getName(ucsm, _status) {
         ucsmMarshal := ucsm is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_getName", ucsmMarshal, ucsm, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getName", ucsmMarshal, ucsm, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucsdet_getConfidence(ucsm, status) {
+    static ucsdet_getConfidence(ucsm, _status) {
         ucsmMarshal := ucsm is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_getConfidence", ucsmMarshal, ucsm, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucsdet_getConfidence", ucsmMarshal, ucsm, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ucsdet_getLanguage(ucsm, status) {
+    static ucsdet_getLanguage(ucsm, _status) {
         ucsmMarshal := ucsm is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_getLanguage", ucsmMarshal, ucsm, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getLanguage", ucsmMarshal, ucsm, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25128,29 +25128,29 @@ class Globalization {
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<Integer>} buf 
      * @param {Integer} cap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ucsdet_getUChars(ucsm, buf, cap, status) {
+    static ucsdet_getUChars(ucsm, buf, cap, _status) {
         ucsmMarshal := ucsm is VarRef ? "ptr*" : "ptr"
         bufMarshal := buf is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_getUChars", ucsmMarshal, ucsm, bufMarshal, buf, "int", cap, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ucsdet_getUChars", ucsmMarshal, ucsm, bufMarshal, buf, "int", cap, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static ucsdet_getAllDetectableCharsets(ucsd, status) {
+    static ucsdet_getAllDetectableCharsets(ucsd, _status) {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ucsdet_getAllDetectableCharsets", ucsdMarshal, ucsd, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getAllDetectableCharsets", ucsdMarshal, ucsd, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25181,13 +25181,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UFieldPositionIterator>} 
      */
-    static ufieldpositer_open(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ufieldpositer_open(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufieldpositer_open", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufieldpositer_open", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25220,13 +25220,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static ufmt_open(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static ufmt_open(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_open", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_open", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25244,14 +25244,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ufmt_getType(fmt, status) {
+    static ufmt_getType(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getType", fmtMarshal, fmt, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ufmt_getType", fmtMarshal, fmt, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -25270,70 +25270,70 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static ufmt_getDate(fmt, status) {
+    static ufmt_getDate(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getDate", fmtMarshal, fmt, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\ufmt_getDate", fmtMarshal, fmt, _statusMarshal, _status, "CDecl double")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static ufmt_getDouble(fmt, status) {
+    static ufmt_getDouble(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getDouble", fmtMarshal, fmt, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\ufmt_getDouble", fmtMarshal, fmt, _statusMarshal, _status, "CDecl double")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ufmt_getLong(fmt, status) {
+    static ufmt_getLong(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getLong", fmtMarshal, fmt, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ufmt_getLong", fmtMarshal, fmt, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ufmt_getInt64(fmt, status) {
+    static ufmt_getInt64(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getInt64", fmtMarshal, fmt, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\ufmt_getInt64", fmtMarshal, fmt, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Void>} 
      */
-    static ufmt_getObject(fmt, status) {
+    static ufmt_getObject(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getObject", fmtMarshal, fmt, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getObject", fmtMarshal, fmt, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25341,29 +25341,29 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static ufmt_getUChars(fmt, len, status) {
+    static ufmt_getUChars(fmt, len, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getUChars", fmtMarshal, fmt, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getUChars", fmtMarshal, fmt, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ufmt_getArrayLength(fmt, status) {
+    static ufmt_getArrayLength(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getArrayLength", fmtMarshal, fmt, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ufmt_getArrayLength", fmtMarshal, fmt, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -25371,14 +25371,14 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} n 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static ufmt_getArrayItemByIndex(fmt, n, status) {
+    static ufmt_getArrayItemByIndex(fmt, n, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getArrayItemByIndex", fmtMarshal, fmt, "int", n, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getArrayItemByIndex", fmtMarshal, fmt, "int", n, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25386,15 +25386,15 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static ufmt_getDecNumChars(fmt, len, status) {
+    static ufmt_getDecNumChars(fmt, len, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         lenMarshal := len is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ufmt_getDecNumChars", fmtMarshal, fmt, lenMarshal, len, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getDecNumChars", fmtMarshal, fmt, lenMarshal, len, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25525,15 +25525,15 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @param {Pointer<Integer>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ucfpos_setInt64IterationContext(ucfpos, context, ec) {
+    static ucfpos_setInt64IterationContext(ucfpos, _context, ec) {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, "int64", context, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, "int64", _context, ecMarshal, ec, "CDecl ")
     }
 
     /**
@@ -25608,17 +25608,17 @@ class Globalization {
      * @param {Integer} skeletonLength 
      * @param {Pointer<Integer>} tzID 
      * @param {Integer} tzIDLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UDateIntervalFormat>} 
      */
-    static udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, status) {
+    static udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
         tzIDMarshal := tzID is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, skeletonMarshal, skeleton, "int", skeletonLength, tzIDMarshal, tzID, "int", tzIDLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, skeletonMarshal, skeleton, "int", skeletonLength, tzIDMarshal, tzID, "int", tzIDLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25678,15 +25678,15 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udtitvfmt_format(formatter, fromDate, toDate, result, resultCapacity, position, status) {
+    static udtitvfmt_format(formatter, fromDate, toDate, result, resultCapacity, position, _status) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udtitvfmt_format", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, "int", resultCapacity, "ptr", position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udtitvfmt_format", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, "int", resultCapacity, "ptr", position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -25696,58 +25696,58 @@ class Globalization {
      * @param {Float} fromDate 
      * @param {Float} toDate 
      * @param {Pointer<UFormattedDateInterval>} result 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udtitvfmt_formatToResult(formatter, fromDate, toDate, result, status) {
+    static udtitvfmt_formatToResult(formatter, fromDate, toDate, result, _status) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udtitvfmt_setContext(formatter, value, status) {
+    static udtitvfmt_setContext(formatter, value, _status) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\udtitvfmt_setContext", formatterMarshal, formatter, "int", value, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\udtitvfmt_setContext", formatterMarshal, formatter, "int", value, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udtitvfmt_getContext(formatter, type, status) {
+    static udtitvfmt_getContext(formatter, type, _status) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\udtitvfmt_getContext", formatterMarshal, formatter, "int", type, statusMarshal, status, "CDecl int")
+        result := DllCall("icu.dll\udtitvfmt_getContext", formatterMarshal, formatter, "int", type, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UGenderInfo>} 
      */
-    static ugender_getInstance(locale, status) {
+    static ugender_getInstance(locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ugender_getInstance", "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ugender_getInstance", "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25755,31 +25755,31 @@ class Globalization {
      * 
      * @param {Pointer<UGenderInfo>} genderInfo 
      * @param {Pointer<Integer>} genders 
-     * @param {Integer} size 
-     * @param {Pointer<Integer>} status 
+     * @param {Integer} _size 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ugender_getListGender(genderInfo, genders, size, status) {
+    static ugender_getListGender(genderInfo, genders, _size, _status) {
         genderInfoMarshal := genderInfo is VarRef ? "ptr*" : "ptr"
         gendersMarshal := genders is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ugender_getListGender", genderInfoMarshal, genderInfo, gendersMarshal, genders, "int", size, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ugender_getListGender", genderInfoMarshal, genderInfo, gendersMarshal, genders, "int", _size, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UListFormatter>} 
      */
-    static ulistfmt_open(locale, status) {
+    static ulistfmt_open(locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ulistfmt_open", "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ulistfmt_open", "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25788,15 +25788,15 @@ class Globalization {
      * @param {PSTR} locale 
      * @param {Integer} type 
      * @param {Integer} width 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UListFormatter>} 
      */
-    static ulistfmt_openForType(locale, type, width, status) {
+    static ulistfmt_openForType(locale, type, width, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\ulistfmt_openForType", "ptr", locale, "int", type, "int", width, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icu.dll\ulistfmt_openForType", "ptr", locale, "int", type, "int", width, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25856,17 +25856,17 @@ class Globalization {
      * @param {Integer} stringCount 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ulistfmt_format(listfmt, strings, stringLengths, stringCount, result, resultCapacity, status) {
+    static ulistfmt_format(listfmt, strings, stringLengths, stringCount, result, resultCapacity, _status) {
         listfmtMarshal := listfmt is VarRef ? "ptr*" : "ptr"
         stringsMarshal := strings is VarRef ? "ptr*" : "ptr"
         stringLengthsMarshal := stringLengths is VarRef ? "int*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuuc.dll\ulistfmt_format", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, resultMarshal, result, "int", resultCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuuc.dll\ulistfmt_format", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -25877,31 +25877,31 @@ class Globalization {
      * @param {Pointer<Integer>} stringLengths 
      * @param {Integer} stringCount 
      * @param {Pointer<UFormattedList>} uresult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ulistfmt_formatStringsToResult(listfmt, strings, stringLengths, stringCount, uresult, status) {
+    static ulistfmt_formatStringsToResult(listfmt, strings, stringLengths, stringCount, uresult, _status) {
         listfmtMarshal := listfmt is VarRef ? "ptr*" : "ptr"
         stringsMarshal := strings is VarRef ? "ptr*" : "ptr"
         stringLengthsMarshal := stringLengths is VarRef ? "int*" : "ptr"
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, uresultMarshal, uresult, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, uresultMarshal, uresult, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<ULocaleData>} 
      */
-    static ulocdata_open(localeID, status) {
+    static ulocdata_open(localeID, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_open", "ptr", localeID, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ulocdata_open", "ptr", localeID, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25946,15 +25946,15 @@ class Globalization {
      * @param {Pointer<USet>} fillIn 
      * @param {Integer} options 
      * @param {Integer} extype 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static ulocdata_getExemplarSet(uld, fillIn, options, extype, status) {
+    static ulocdata_getExemplarSet(uld, fillIn, options, extype, _status) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
         fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_getExemplarSet", uldMarshal, uld, fillInMarshal, fillIn, "uint", options, "int", extype, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ulocdata_getExemplarSet", uldMarshal, uld, fillInMarshal, fillIn, "uint", options, "int", extype, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -25964,30 +25964,30 @@ class Globalization {
      * @param {Integer} type 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ulocdata_getDelimiter(uld, type, result, resultLength, status) {
+    static ulocdata_getDelimiter(uld, type, result, resultLength, _status) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_getDelimiter", uldMarshal, uld, "int", type, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ulocdata_getDelimiter", uldMarshal, uld, "int", type, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ulocdata_getMeasurementSystem(localeID, status) {
+    static ulocdata_getMeasurementSystem(localeID, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_getMeasurementSystem", "ptr", localeID, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ulocdata_getMeasurementSystem", "ptr", localeID, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -25996,30 +25996,30 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {Pointer<Integer>} height 
      * @param {Pointer<Integer>} width 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ulocdata_getPaperSize(localeID, height, width, status) {
+    static ulocdata_getPaperSize(localeID, height, width, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
         heightMarshal := height is VarRef ? "int*" : "ptr"
         widthMarshal := width is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, heightMarshal, height, widthMarshal, width, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, heightMarshal, height, widthMarshal, width, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Integer>} versionArray 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ulocdata_getCLDRVersion(versionArray, status) {
+    static ulocdata_getCLDRVersion(versionArray, _status) {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_getCLDRVersion", versionArrayMarshal, versionArray, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\ulocdata_getCLDRVersion", versionArrayMarshal, versionArray, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26027,15 +26027,15 @@ class Globalization {
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ulocdata_getLocaleDisplayPattern(uld, pattern, patternCapacity, status) {
+    static ulocdata_getLocaleDisplayPattern(uld, pattern, patternCapacity, _status) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_getLocaleDisplayPattern", uldMarshal, uld, patternMarshal, pattern, "int", patternCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ulocdata_getLocaleDisplayPattern", uldMarshal, uld, patternMarshal, pattern, "int", patternCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26044,15 +26044,15 @@ class Globalization {
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} separator 
      * @param {Integer} separatorCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ulocdata_getLocaleSeparator(uld, separator, separatorCapacity, status) {
+    static ulocdata_getLocaleSeparator(uld, separator, separatorCapacity, _status) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
         separatorMarshal := separator is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ulocdata_getLocaleSeparator", uldMarshal, uld, separatorMarshal, separator, "int", separatorCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ulocdata_getLocaleSeparator", uldMarshal, uld, separatorMarshal, separator, "int", separatorCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26063,17 +26063,17 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static u_formatMessage(locale, pattern, patternLength, result, resultLength, status) {
+    static u_formatMessage(locale, pattern, patternLength, result, resultLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26085,18 +26085,18 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static u_vformatMessage(locale, pattern, patternLength, result, resultLength, ap, status) {
+    static u_vformatMessage(locale, pattern, patternLength, result, resultLength, ap, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_vformatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, apMarshal, ap, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\u_vformatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, apMarshal, ap, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26107,17 +26107,17 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_parseMessage(locale, pattern, patternLength, source, sourceLength, status) {
+    static u_parseMessage(locale, pattern, patternLength, source, sourceLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26128,18 +26128,18 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap, status) {
+    static u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26150,17 +26150,17 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, status) {
+    static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26173,18 +26173,18 @@ class Globalization {
      * @param {Integer} resultLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static u_vformatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, ap, status) {
+    static u_vformatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, ap, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_vformatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, apMarshal, ap, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\u_vformatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, apMarshal, ap, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26196,17 +26196,17 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, status) {
+    static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, "ptr", parseError, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26218,18 +26218,18 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} ap 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLength, ap, parseError, status) {
+    static u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLength, ap, parseError, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, "ptr", parseError, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, "ptr", parseError, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26238,16 +26238,16 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static umsg_open(pattern, patternLength, locale, parseError, status) {
+    static umsg_open(pattern, patternLength, locale, parseError, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_open", patternMarshal, pattern, "int", patternLength, "ptr", locale, "ptr", parseError, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\umsg_open", patternMarshal, pattern, "int", patternLength, "ptr", locale, "ptr", parseError, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -26265,14 +26265,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Void>} 
      */
-    static umsg_clone(fmt, status) {
+    static umsg_clone(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_clone", fmtMarshal, fmt, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\umsg_clone", fmtMarshal, fmt, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -26308,15 +26308,15 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static umsg_applyPattern(fmt, pattern, patternLength, parseError, status) {
+    static umsg_applyPattern(fmt, pattern, patternLength, parseError, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, "int", patternLength, "ptr", parseError, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26324,15 +26324,15 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static umsg_toPattern(fmt, result, resultLength, status) {
+    static umsg_toPattern(fmt, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_toPattern", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\umsg_toPattern", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26341,15 +26341,15 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static umsg_format(fmt, result, resultLength, status) {
+    static umsg_format(fmt, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26359,16 +26359,16 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static umsg_vformat(fmt, result, resultLength, ap, status) {
+    static umsg_vformat(fmt, result, resultLength, ap, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_vformat", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, apMarshal, ap, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\umsg_vformat", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, apMarshal, ap, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26378,16 +26378,16 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static umsg_parse(fmt, source, sourceLength, count, status) {
+    static umsg_parse(fmt, source, sourceLength, count, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         countMarshal := count is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26397,17 +26397,17 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} count 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static umsg_vparse(fmt, source, sourceLength, count, ap, status) {
+    static umsg_vparse(fmt, source, sourceLength, count, ap, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         countMarshal := count is VarRef ? "int*" : "ptr"
         apMarshal := ap is VarRef ? "char*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, apMarshal, ap, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, apMarshal, ap, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26435,16 +26435,16 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} parseErr 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static unum_open(style, pattern, patternLength, locale, parseErr, status) {
+    static unum_open(style, pattern, patternLength, locale, parseErr, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_open", "int", style, patternMarshal, pattern, "int", patternLength, "ptr", locale, "ptr", parseErr, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_open", "int", style, patternMarshal, pattern, "int", patternLength, "ptr", locale, "ptr", parseErr, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -26462,154 +26462,154 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static unum_clone(fmt, status) {
+    static unum_clone(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_clone", fmtMarshal, fmt, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_clone", fmtMarshal, fmt, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} number_R 
+     * @param {Integer} _number 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_format(fmt, number_R, result, resultLength, pos, status) {
+    static unum_format(fmt, _number, result, resultLength, pos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_format", fmtMarshal, fmt, "int", number_R, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_format", fmtMarshal, fmt, "int", _number, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} number_R 
+     * @param {Integer} _number 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatInt64(fmt, number_R, result, resultLength, pos, status) {
+    static unum_formatInt64(fmt, _number, result, resultLength, pos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatInt64", fmtMarshal, fmt, "int64", number_R, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatInt64", fmtMarshal, fmt, "int64", _number, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Float} number_R 
+     * @param {Float} _number 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatDouble(fmt, number_R, result, resultLength, pos, status) {
+    static unum_formatDouble(fmt, _number, result, resultLength, pos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatDouble", fmtMarshal, fmt, "double", number_R, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatDouble", fmtMarshal, fmt, "double", _number, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} format 
-     * @param {Float} number_R 
+     * @param {Float} _number 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatDoubleForFields(format, number_R, result, resultLength, fpositer, status) {
+    static unum_formatDoubleForFields(format, _number, result, resultLength, fpositer, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatDoubleForFields", formatMarshal, format, "double", number_R, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatDoubleForFields", formatMarshal, format, "double", _number, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {PSTR} number_R 
+     * @param {PSTR} _number 
      * @param {Integer} length 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatDecimal(fmt, number_R, length, result, resultLength, pos, status) {
-        number_R := number_R is String ? StrPtr(number_R) : number_R
+    static unum_formatDecimal(fmt, _number, length, result, resultLength, pos, _status) {
+        _number := _number is String ? StrPtr(_number) : _number
 
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatDecimal", fmtMarshal, fmt, "ptr", number_R, "int", length, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatDecimal", fmtMarshal, fmt, "ptr", _number, "int", length, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Float} number_R 
+     * @param {Float} _number 
      * @param {Pointer<Integer>} currency 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatDoubleCurrency(fmt, number_R, currency, result, resultLength, pos, status) {
+    static unum_formatDoubleCurrency(fmt, _number, currency, result, resultLength, pos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         currencyMarshal := currency is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatDoubleCurrency", fmtMarshal, fmt, "double", number_R, currencyMarshal, currency, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatDoubleCurrency", fmtMarshal, fmt, "double", _number, currencyMarshal, currency, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Pointer<Void>>} number_R 
+     * @param {Pointer<Pointer<Void>>} _number 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_formatUFormattable(fmt, number_R, result, resultLength, pos, status) {
+    static unum_formatUFormattable(fmt, _number, result, resultLength, pos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        number_RMarshal := number_R is VarRef ? "ptr*" : "ptr"
+        _numberMarshal := _number is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_formatUFormattable", fmtMarshal, fmt, number_RMarshal, number_R, resultMarshal, result, "int", resultLength, "ptr", pos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_formatUFormattable", fmtMarshal, fmt, _numberMarshal, _number, resultMarshal, result, "int", resultLength, "ptr", pos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26619,16 +26619,16 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_parse(fmt, text, textLength, parsePos, status) {
+    static unum_parse(fmt, text, textLength, parsePos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parse", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_parse", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26638,16 +26638,16 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_parseInt64(fmt, text, textLength, parsePos, status) {
+    static unum_parseInt64(fmt, text, textLength, parsePos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parseInt64", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\unum_parseInt64", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -26657,16 +26657,16 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static unum_parseDouble(fmt, text, textLength, parsePos, status) {
+    static unum_parseDouble(fmt, text, textLength, parsePos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parseDouble", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\unum_parseDouble", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl double")
         return result
     }
 
@@ -26678,18 +26678,18 @@ class Globalization {
      * @param {Pointer<Integer>} parsePos 
      * @param {PSTR} outBuf 
      * @param {Integer} outBufLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_parseDecimal(fmt, text, textLength, parsePos, outBuf, outBufLength, status) {
+    static unum_parseDecimal(fmt, text, textLength, parsePos, outBuf, outBufLength, _status) {
         outBuf := outBuf is String ? StrPtr(outBuf) : outBuf
 
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parseDecimal", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, "ptr", outBuf, "int", outBufLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_parseDecimal", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, "ptr", outBuf, "int", outBufLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26700,17 +26700,17 @@ class Globalization {
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
      * @param {Pointer<Integer>} currency 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static unum_parseDoubleCurrency(fmt, text, textLength, parsePos, currency, status) {
+    static unum_parseDoubleCurrency(fmt, text, textLength, parsePos, currency, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
         currencyMarshal := currency is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parseDoubleCurrency", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, currencyMarshal, currency, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\unum_parseDoubleCurrency", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, currencyMarshal, currency, _statusMarshal, _status, "CDecl double")
         return result
     }
 
@@ -26721,17 +26721,17 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static unum_parseToUFormattable(fmt, result, text, textLength, parsePos, status) {
+    static unum_parseToUFormattable(fmt, result, text, textLength, parsePos, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_parseToUFormattable", fmtMarshal, fmt, resultMarshal, result, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_parseToUFormattable", fmtMarshal, fmt, resultMarshal, result, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -26742,15 +26742,15 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static unum_applyPattern(format, localized, pattern, patternLength, parseError, status) {
+    static unum_applyPattern(format, localized, pattern, patternLength, parseError, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "ptr", parseError, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26830,15 +26830,15 @@ class Globalization {
      * @param {Integer} tag 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_getTextAttribute(fmt, tag, result, resultLength, status) {
+    static unum_getTextAttribute(fmt, tag, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_getTextAttribute", fmtMarshal, fmt, "int", tag, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_getTextAttribute", fmtMarshal, fmt, "int", tag, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26848,15 +26848,15 @@ class Globalization {
      * @param {Integer} tag 
      * @param {Pointer<Integer>} newValue 
      * @param {Integer} newValueLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static unum_setTextAttribute(fmt, tag, newValue, newValueLength, status) {
+    static unum_setTextAttribute(fmt, tag, newValue, newValueLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         newValueMarshal := newValue is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, "int", tag, newValueMarshal, newValue, "int", newValueLength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, "int", tag, newValueMarshal, newValue, "int", newValueLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -26865,15 +26865,15 @@ class Globalization {
      * @param {Integer} isPatternLocalized 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_toPattern(fmt, isPatternLocalized, result, resultLength, status) {
+    static unum_toPattern(fmt, isPatternLocalized, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_toPattern", fmtMarshal, fmt, "char", isPatternLocalized, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_toPattern", fmtMarshal, fmt, "char", isPatternLocalized, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26881,17 +26881,17 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} symbol 
-     * @param {Pointer<Integer>} buffer_R 
-     * @param {Integer} size 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _buffer 
+     * @param {Integer} _size 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_getSymbol(fmt, symbol, buffer_R, size, status) {
+    static unum_getSymbol(fmt, symbol, _buffer, _size, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_getSymbol", fmtMarshal, fmt, "int", symbol, buffer_RMarshal, buffer_R, "int", size, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_getSymbol", fmtMarshal, fmt, "int", symbol, _bufferMarshal, _buffer, "int", _size, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26901,29 +26901,29 @@ class Globalization {
      * @param {Integer} symbol 
      * @param {Pointer<Integer>} value 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static unum_setSymbol(fmt, symbol, value, length, status) {
+    static unum_setSymbol(fmt, symbol, value, length, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, "int", symbol, valueMarshal, value, "int", length, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, "int", symbol, valueMarshal, value, "int", length, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static unum_getLocaleByType(fmt, type, status) {
+    static unum_getLocaleByType(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_getLocaleByType", fmtMarshal, fmt, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_getLocaleByType", fmtMarshal, fmt, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -26931,28 +26931,28 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static unum_setContext(fmt, value, status) {
+    static unum_setContext(fmt, value, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setContext", fmtMarshal, fmt, "int", value, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\unum_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unum_getContext(fmt, type, status) {
+    static unum_getContext(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unum_getContext", fmtMarshal, fmt, "int", type, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unum_getContext", fmtMarshal, fmt, "int", type, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -26975,17 +26975,17 @@ class Globalization {
      * @param {Integer} tzIDLength 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static udat_open(timeStyle, dateStyle, locale, tzID, tzIDLength, pattern, patternLength, status) {
+    static udat_open(timeStyle, dateStyle, locale, tzID, tzIDLength, pattern, patternLength, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         tzIDMarshal := tzID is VarRef ? "ushort*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_open", "int", timeStyle, "int", dateStyle, "ptr", locale, tzIDMarshal, tzID, "int", tzIDLength, patternMarshal, pattern, "int", patternLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_open", "int", timeStyle, "int", dateStyle, "ptr", locale, tzIDMarshal, tzID, "int", tzIDLength, patternMarshal, pattern, "int", patternLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -27004,14 +27004,14 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} attr 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_getBooleanAttribute(fmt, attr, status) {
+    static udat_getBooleanAttribute(fmt, attr, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_getBooleanAttribute", fmtMarshal, fmt, "int", attr, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\udat_getBooleanAttribute", fmtMarshal, fmt, "int", attr, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -27020,27 +27020,27 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} attr 
      * @param {Integer} newValue 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_setBooleanAttribute(fmt, attr, newValue, status) {
+    static udat_setBooleanAttribute(fmt, attr, newValue, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, "int", attr, "char", newValue, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, "int", attr, "char", newValue, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static udat_clone(fmt, status) {
+    static udat_clone(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_clone", fmtMarshal, fmt, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_clone", fmtMarshal, fmt, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -27051,15 +27051,15 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_format(format, dateToFormat, result, resultLength, position, status) {
+    static udat_format(format, dateToFormat, result, resultLength, position, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_format", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, "ptr", position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_format", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, "ptr", position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27070,16 +27070,16 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} capacity 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_formatCalendar(format, calendar, result, capacity, position, status) {
+    static udat_formatCalendar(format, calendar, result, capacity, position, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         calendarMarshal := calendar is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_formatCalendar", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, "ptr", position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_formatCalendar", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, "ptr", position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27090,16 +27090,16 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_formatForFields(format, dateToFormat, result, resultLength, fpositer, status) {
+    static udat_formatForFields(format, dateToFormat, result, resultLength, fpositer, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_formatForFields", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_formatForFields", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27110,17 +27110,17 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} capacity 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_formatCalendarForFields(format, calendar, result, capacity, fpositer, status) {
+    static udat_formatCalendarForFields(format, calendar, result, capacity, fpositer, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         calendarMarshal := calendar is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_formatCalendarForFields", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, fpositerMarshal, fpositer, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_formatCalendarForFields", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, fpositerMarshal, fpositer, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27130,16 +27130,16 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static udat_parse(format, text, textLength, parsePos, status) {
+    static udat_parse(format, text, textLength, parsePos, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_parse", formatMarshal, format, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\udat_parse", formatMarshal, format, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl double")
         return result
     }
 
@@ -27150,17 +27150,17 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_parseCalendar(format, calendar, text, textLength, parsePos, status) {
+    static udat_parseCalendar(format, calendar, text, textLength, parsePos, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         calendarMarshal := calendar is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -27242,16 +27242,16 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} fields 
      * @param {Pointer<Pointer<Void>>} numberFormatToSet 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_adoptNumberFormatForFields(fmt, fields, numberFormatToSet, status) {
+    static udat_adoptNumberFormatForFields(fmt, fields, numberFormatToSet, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         fieldsMarshal := fields is VarRef ? "ushort*" : "ptr"
         numberFormatToSetMarshal := numberFormatToSet is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_adoptNumberFormatForFields", fmtMarshal, fmt, fieldsMarshal, fields, numberFormatToSetMarshal, numberFormatToSet, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_adoptNumberFormatForFields", fmtMarshal, fmt, fieldsMarshal, fields, numberFormatToSetMarshal, numberFormatToSet, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -27302,14 +27302,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Float} 
      */
-    static udat_get2DigitYearStart(fmt, status) {
+    static udat_get2DigitYearStart(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_get2DigitYearStart", fmtMarshal, fmt, statusMarshal, status, "CDecl double")
+        result := DllCall("icuin.dll\udat_get2DigitYearStart", fmtMarshal, fmt, _statusMarshal, _status, "CDecl double")
         return result
     }
 
@@ -27317,14 +27317,14 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Float} d 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_set2DigitYearStart(fmt, d, status) {
+    static udat_set2DigitYearStart(fmt, d, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, "double", d, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, "double", d, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -27333,15 +27333,15 @@ class Globalization {
      * @param {Integer} localized 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_toPattern(fmt, localized, result, resultLength, status) {
+    static udat_toPattern(fmt, localized, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_toPattern", fmtMarshal, fmt, "char", localized, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_toPattern", fmtMarshal, fmt, "char", localized, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27367,15 +27367,15 @@ class Globalization {
      * @param {Integer} symbolIndex 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_getSymbols(fmt, type, symbolIndex, result, resultLength, status) {
+    static udat_getSymbols(fmt, type, symbolIndex, result, resultLength, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_getSymbols", fmtMarshal, fmt, "int", type, "int", symbolIndex, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_getSymbols", fmtMarshal, fmt, "int", type, "int", symbolIndex, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27399,29 +27399,29 @@ class Globalization {
      * @param {Integer} symbolIndex 
      * @param {Pointer<Integer>} value 
      * @param {Integer} valueLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_setSymbols(format, type, symbolIndex, value, valueLength, status) {
+    static udat_setSymbols(format, type, symbolIndex, value, valueLength, _status) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, "int", type, "int", symbolIndex, valueMarshal, value, "int", valueLength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, "int", type, "int", symbolIndex, valueMarshal, value, "int", valueLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static udat_getLocaleByType(fmt, type, status) {
+    static udat_getLocaleByType(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_getLocaleByType", fmtMarshal, fmt, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_getLocaleByType", fmtMarshal, fmt, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -27429,28 +27429,28 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udat_setContext(fmt, value, status) {
+    static udat_setContext(fmt, value, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setContext", fmtMarshal, fmt, "int", value, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\udat_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static udat_getContext(fmt, type, status) {
+    static udat_getContext(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\udat_getContext", fmtMarshal, fmt, "int", type, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\udat_getContext", fmtMarshal, fmt, "int", type, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -27720,15 +27720,15 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Pointer<Integer>} decimal 
+     * @param {Pointer<Integer>} _decimal 
      * @param {Integer} length 
      * @returns {String} Nothing - always returns an empty string
      */
-    static udatpg_setDecimal(dtpg, decimal, length) {
+    static udatpg_setDecimal(dtpg, _decimal, length) {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
-        decimalMarshal := decimal is VarRef ? "ushort*" : "ptr"
+        _decimalMarshal := _decimal is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, decimalMarshal, decimal, "int", length, "CDecl ")
+        DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, _decimalMarshal, _decimal, "int", length, "CDecl ")
     }
 
     /**
@@ -27968,17 +27968,17 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedNumber>} uresult 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCapacity 
      * @param {Pointer<Integer>} ec 
      * @returns {Integer} 
      */
-    static unumf_resultToString(uresult, buffer_R, bufferCapacity, ec) {
+    static unumf_resultToString(uresult, _buffer, bufferCapacity, ec) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "ushort*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\unumf_resultToString", uresultMarshal, uresult, buffer_RMarshal, buffer_R, "int", bufferCapacity, ecMarshal, ec, "CDecl int")
+        result := DllCall("icu.dll\unumf_resultToString", uresultMarshal, uresult, _bufferMarshal, _buffer, "int", bufferCapacity, ecMarshal, ec, "CDecl int")
         return result
     }
 
@@ -28213,30 +28213,30 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UNumberingSystem>} 
      */
-    static unumsys_open(locale, status) {
+    static unumsys_open(locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unumsys_open", "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_open", "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {PSTR} name 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UNumberingSystem>} 
      */
-    static unumsys_openByName(name, status) {
+    static unumsys_openByName(name, _status) {
         name := name is String ? StrPtr(name) : name
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unumsys_openByName", "ptr", name, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_openByName", "ptr", name, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28253,13 +28253,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static unumsys_openAvailableNames(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static unumsys_openAvailableNames(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unumsys_openAvailableNames", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_openAvailableNames", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28304,30 +28304,30 @@ class Globalization {
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static unumsys_getDescription(unumsys, result, resultLength, status) {
+    static unumsys_getDescription(unumsys, result, resultLength, _status) {
         unumsysMarshal := unumsys is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\unumsys_getDescription", unumsysMarshal, unumsys, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\unumsys_getDescription", unumsysMarshal, unumsys, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UPluralRules>} 
      */
-    static uplrules_open(locale, status) {
+    static uplrules_open(locale, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uplrules_open", "ptr", locale, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_open", "ptr", locale, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28335,15 +28335,15 @@ class Globalization {
      * 
      * @param {PSTR} locale 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UPluralRules>} 
      */
-    static uplrules_openForType(locale, type, status) {
+    static uplrules_openForType(locale, type, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uplrules_openForType", "ptr", locale, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_openForType", "ptr", locale, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28361,51 +28361,51 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UPluralRules>} uplrules 
-     * @param {Float} number_R 
+     * @param {Float} _number 
      * @param {Pointer<Integer>} keyword 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uplrules_select(uplrules, number_R, keyword, capacity, status) {
+    static uplrules_select(uplrules, _number, keyword, capacity, _status) {
         uplrulesMarshal := uplrules is VarRef ? "ptr*" : "ptr"
         keywordMarshal := keyword is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uplrules_select", uplrulesMarshal, uplrules, "double", number_R, keywordMarshal, keyword, "int", capacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uplrules_select", uplrulesMarshal, uplrules, "double", _number, keywordMarshal, keyword, "int", capacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UPluralRules>} uplrules 
-     * @param {Pointer<UFormattedNumber>} number_R 
+     * @param {Pointer<UFormattedNumber>} _number 
      * @param {Pointer<Integer>} keyword 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uplrules_selectFormatted(uplrules, number_R, keyword, capacity, status) {
+    static uplrules_selectFormatted(uplrules, _number, keyword, capacity, _status) {
         uplrulesMarshal := uplrules is VarRef ? "ptr*" : "ptr"
-        number_RMarshal := number_R is VarRef ? "ptr*" : "ptr"
+        _numberMarshal := _number is VarRef ? "ptr*" : "ptr"
         keywordMarshal := keyword is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\uplrules_selectFormatted", uplrulesMarshal, uplrules, number_RMarshal, number_R, keywordMarshal, keyword, "int", capacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icu.dll\uplrules_selectFormatted", uplrulesMarshal, uplrules, _numberMarshal, _number, keywordMarshal, keyword, "int", capacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UPluralRules>} uplrules 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uplrules_getKeywords(uplrules, status) {
+    static uplrules_getKeywords(uplrules, _status) {
         uplrulesMarshal := uplrules is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uplrules_getKeywords", uplrulesMarshal, uplrules, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_getKeywords", uplrulesMarshal, uplrules, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28415,14 +28415,14 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
-    static uregex_open(pattern, patternLength, flags, pe, status) {
+    static uregex_open(pattern, patternLength, flags, pe, _status) {
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_open", patternMarshal, pattern, "int", patternLength, "uint", flags, "ptr", pe, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_open", patternMarshal, pattern, "int", patternLength, "uint", flags, "ptr", pe, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28431,13 +28431,13 @@ class Globalization {
      * @param {Pointer<UText>} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
-    static uregex_openUText(pattern, flags, pe, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregex_openUText(pattern, flags, pe, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_openUText", "ptr", pattern, "uint", flags, "ptr", pe, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_openUText", "ptr", pattern, "uint", flags, "ptr", pe, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28446,15 +28446,15 @@ class Globalization {
      * @param {PSTR} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
-    static uregex_openC(pattern, flags, pe, status) {
+    static uregex_openC(pattern, flags, pe, _status) {
         pattern := pattern is String ? StrPtr(pattern) : pattern
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, "ptr", pe, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, "ptr", pe, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28472,14 +28472,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
-    static uregex_clone(regexp, status) {
+    static uregex_clone(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_clone", regexpMarshal, regexp, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_clone", regexpMarshal, regexp, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28487,43 +28487,43 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} patLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static uregex_pattern(regexp, patLength, status) {
+    static uregex_pattern(regexp, patLength, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         patLengthMarshal := patLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_pattern", regexpMarshal, regexp, patLengthMarshal, patLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_pattern", regexpMarshal, regexp, patLengthMarshal, patLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_patternUText(regexp, status) {
+    static uregex_patternUText(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_patternUText", regexpMarshal, regexp, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_patternUText", regexpMarshal, regexp, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_flags(regexp, status) {
+    static uregex_flags(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_flags", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_flags", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28532,44 +28532,44 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setText(regexp, text, textLength, status) {
+    static uregex_setText(regexp, text, textLength, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, "int", textLength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setUText(regexp, text, status) {
+    static uregex_setUText(regexp, text, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setUText", regexpMarshal, regexp, "ptr", text, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} textLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Integer>} 
      */
-    static uregex_getText(regexp, textLength, status) {
+    static uregex_getText(regexp, textLength, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_getText", regexpMarshal, regexp, textLengthMarshal, textLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_getText", regexpMarshal, regexp, textLengthMarshal, textLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28577,14 +28577,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_getUText(regexp, dest, status) {
+    static uregex_getUText(regexp, dest, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_getUText", regexpMarshal, regexp, "ptr", dest, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_getUText", regexpMarshal, regexp, "ptr", dest, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28592,43 +28592,28 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_refreshUText(regexp, text, status) {
+    static uregex_refreshUText(regexp, text, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_refreshUText", regexpMarshal, regexp, "ptr", text, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_refreshUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_matches(regexp, startIndex, status) {
+    static uregex_matches(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_matches", regexpMarshal, regexp, "int", startIndex, statusMarshal, status, "CDecl char")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<URegularExpression>} regexp 
-     * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
-     * @returns {Integer} 
-     */
-    static uregex_matches64(regexp, startIndex, status) {
-        regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := DllCall("icuin.dll\uregex_matches64", regexpMarshal, regexp, "int64", startIndex, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_matches", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -28636,14 +28621,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_lookingAt(regexp, startIndex, status) {
+    static uregex_matches64(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_lookingAt", regexpMarshal, regexp, "int", startIndex, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_matches64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -28651,14 +28636,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_lookingAt64(regexp, startIndex, status) {
+    static uregex_lookingAt(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_lookingAt64", regexpMarshal, regexp, "int64", startIndex, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_lookingAt", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -28666,14 +28651,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_find(regexp, startIndex, status) {
+    static uregex_lookingAt64(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_find", regexpMarshal, regexp, "int", startIndex, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_lookingAt64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -28681,42 +28666,57 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_find64(regexp, startIndex, status) {
+    static uregex_find(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_find64", regexpMarshal, regexp, "int64", startIndex, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_find", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Integer} startIndex 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_findNext(regexp, status) {
+    static uregex_find64(regexp, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_findNext", regexpMarshal, regexp, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_find64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, "CDecl char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_groupCount(regexp, status) {
+    static uregex_findNext(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_groupCount", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_findNext", regexpMarshal, regexp, _statusMarshal, _status, "CDecl char")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<URegularExpression>} regexp 
+     * @param {Pointer<Integer>} _status 
+     * @returns {Integer} 
+     */
+    static uregex_groupCount(regexp, _status) {
+        regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("icuin.dll\uregex_groupCount", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28725,15 +28725,15 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} groupName 
      * @param {Integer} nameLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_groupNumberFromName(regexp, groupName, nameLength, status) {
+    static uregex_groupNumberFromName(regexp, groupName, nameLength, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         groupNameMarshal := groupName is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_groupNumberFromName", regexpMarshal, regexp, groupNameMarshal, groupName, "int", nameLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_groupNumberFromName", regexpMarshal, regexp, groupNameMarshal, groupName, "int", nameLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28742,16 +28742,16 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {PSTR} groupName 
      * @param {Integer} nameLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_groupNumberFromCName(regexp, groupName, nameLength, status) {
+    static uregex_groupNumberFromCName(regexp, groupName, nameLength, _status) {
         groupName := groupName is String ? StrPtr(groupName) : groupName
 
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_groupNumberFromCName", regexpMarshal, regexp, "ptr", groupName, "int", nameLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_groupNumberFromCName", regexpMarshal, regexp, "ptr", groupName, "int", nameLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28761,15 +28761,15 @@ class Globalization {
      * @param {Integer} groupNum 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_group(regexp, groupNum, dest, destCapacity, status) {
+    static uregex_group(regexp, groupNum, dest, destCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_group", regexpMarshal, regexp, "int", groupNum, destMarshal, dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_group", regexpMarshal, regexp, "int", groupNum, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28779,15 +28779,15 @@ class Globalization {
      * @param {Integer} groupNum 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Integer>} groupLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_groupUText(regexp, groupNum, dest, groupLength, status) {
+    static uregex_groupUText(regexp, groupNum, dest, groupLength, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         groupLengthMarshal := groupLength is VarRef ? "int64*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_groupUText", regexpMarshal, regexp, "int", groupNum, "ptr", dest, groupLengthMarshal, groupLength, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_groupUText", regexpMarshal, regexp, "int", groupNum, "ptr", dest, groupLengthMarshal, groupLength, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -28795,14 +28795,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_start(regexp, groupNum, status) {
+    static uregex_start(regexp, groupNum, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_start", regexpMarshal, regexp, "int", groupNum, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_start", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28810,14 +28810,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_start64(regexp, groupNum, status) {
+    static uregex_start64(regexp, groupNum, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_start64", regexpMarshal, regexp, "int", groupNum, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\uregex_start64", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -28825,14 +28825,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_end(regexp, groupNum, status) {
+    static uregex_end(regexp, groupNum, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_end", regexpMarshal, regexp, "int", groupNum, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_end", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -28840,14 +28840,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_end64(regexp, groupNum, status) {
+    static uregex_end64(regexp, groupNum, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_end64", regexpMarshal, regexp, "int", groupNum, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\uregex_end64", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -28855,28 +28855,28 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_reset(regexp, index, status) {
+    static uregex_reset(regexp, index, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, "int", index, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, "int", index, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_reset64(regexp, index, status) {
+    static uregex_reset64(regexp, index, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, "int64", index, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, "int64", index, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -28884,14 +28884,14 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setRegion(regexp, regionStart, regionLimit, status) {
+    static uregex_setRegion(regexp, regionStart, regionLimit, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, "int", regionStart, "int", regionLimit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, "int", regionStart, "int", regionLimit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -28899,14 +28899,14 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setRegion64(regexp, regionStart, regionLimit, status) {
+    static uregex_setRegion64(regexp, regionStart, regionLimit, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -28915,83 +28915,83 @@ class Globalization {
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setRegionAndStart(regexp, regionStart, regionLimit, startIndex, status) {
+    static uregex_setRegionAndStart(regexp, regionStart, regionLimit, startIndex, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_regionStart(regexp, status) {
+    static uregex_regionStart(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_regionStart", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_regionStart", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_regionStart64(regexp, status) {
+    static uregex_regionStart64(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_regionStart64", regexpMarshal, regexp, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\uregex_regionStart64", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_regionEnd(regexp, status) {
+    static uregex_regionEnd(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_regionEnd", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_regionEnd", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_regionEnd64(regexp, status) {
+    static uregex_regionEnd64(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_regionEnd64", regexpMarshal, regexp, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\uregex_regionEnd64", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_hasTransparentBounds(regexp, status) {
+    static uregex_hasTransparentBounds(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_hasTransparentBounds", regexpMarshal, regexp, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_hasTransparentBounds", regexpMarshal, regexp, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -28999,27 +28999,27 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_useTransparentBounds(regexp, b, status) {
+    static uregex_useTransparentBounds(regexp, b, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, "char", b, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_hasAnchoringBounds(regexp, status) {
+    static uregex_hasAnchoringBounds(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_hasAnchoringBounds", regexpMarshal, regexp, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_hasAnchoringBounds", regexpMarshal, regexp, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -29027,41 +29027,41 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_useAnchoringBounds(regexp, b, status) {
+    static uregex_useAnchoringBounds(regexp, b, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, "char", b, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_hitEnd(regexp, status) {
+    static uregex_hitEnd(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_hitEnd", regexpMarshal, regexp, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_hitEnd", regexpMarshal, regexp, _statusMarshal, _status, "CDecl char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_requireEnd(regexp, status) {
+    static uregex_requireEnd(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_requireEnd", regexpMarshal, regexp, statusMarshal, status, "CDecl char")
+        result := DllCall("icuin.dll\uregex_requireEnd", regexpMarshal, regexp, _statusMarshal, _status, "CDecl char")
         return result
     }
 
@@ -29072,16 +29072,16 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Integer>} destBuf 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_replaceAll(regexp, replacementText, replacementLength, destBuf, destCapacity, status) {
+    static uregex_replaceAll(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
         destBufMarshal := destBuf is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_replaceAll", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_replaceAll", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29090,14 +29090,14 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_replaceAllUText(regexp, replacement, dest, status) {
+    static uregex_replaceAllUText(regexp, replacement, dest, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_replaceAllUText", regexpMarshal, regexp, "ptr", replacement, "ptr", dest, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_replaceAllUText", regexpMarshal, regexp, "ptr", replacement, "ptr", dest, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29108,16 +29108,16 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Integer>} destBuf 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_replaceFirst(regexp, replacementText, replacementLength, destBuf, destCapacity, status) {
+    static uregex_replaceFirst(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
         destBufMarshal := destBuf is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_replaceFirst", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_replaceFirst", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29126,14 +29126,14 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_replaceFirstUText(regexp, replacement, dest, status) {
+    static uregex_replaceFirstUText(regexp, replacement, dest, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_replaceFirstUText", regexpMarshal, regexp, "ptr", replacement, "ptr", dest, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_replaceFirstUText", regexpMarshal, regexp, "ptr", replacement, "ptr", dest, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29144,17 +29144,17 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Pointer<Integer>>} destBuf 
      * @param {Pointer<Integer>} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_appendReplacement(regexp, replacementText, replacementLength, destBuf, destCapacity, status) {
+    static uregex_appendReplacement(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
         destBufMarshal := destBuf is VarRef ? "ptr*" : "ptr"
         destCapacityMarshal := destCapacity is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_appendReplacement", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_appendReplacement", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29163,14 +29163,14 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacementText 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_appendReplacementUText(regexp, replacementText, dest, status) {
+    static uregex_appendReplacementUText(regexp, replacementText, dest, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_appendReplacementUText", regexpMarshal, regexp, "ptr", replacementText, "ptr", dest, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_appendReplacementUText", regexpMarshal, regexp, "ptr", replacementText, "ptr", dest, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29178,16 +29178,16 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<Integer>>} destBuf 
      * @param {Pointer<Integer>} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_appendTail(regexp, destBuf, destCapacity, status) {
+    static uregex_appendTail(regexp, destBuf, destCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         destBufMarshal := destBuf is VarRef ? "ptr*" : "ptr"
         destCapacityMarshal := destCapacity is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_appendTail", regexpMarshal, regexp, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_appendTail", regexpMarshal, regexp, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29195,14 +29195,14 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UText>} 
      */
-    static uregex_appendTailUText(regexp, dest, status) {
+    static uregex_appendTailUText(regexp, dest, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_appendTailUText", regexpMarshal, regexp, "ptr", dest, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_appendTailUText", regexpMarshal, regexp, "ptr", dest, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29214,17 +29214,17 @@ class Globalization {
      * @param {Pointer<Integer>} requiredCapacity 
      * @param {Pointer<Pointer<Integer>>} destFields 
      * @param {Integer} destFieldsCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_split(regexp, destBuf, destCapacity, requiredCapacity, destFields, destFieldsCapacity, status) {
+    static uregex_split(regexp, destBuf, destCapacity, requiredCapacity, destFields, destFieldsCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         destBufMarshal := destBuf is VarRef ? "ushort*" : "ptr"
         requiredCapacityMarshal := requiredCapacity is VarRef ? "int*" : "ptr"
         destFieldsMarshal := destFields is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_split", regexpMarshal, regexp, destBufMarshal, destBuf, "int", destCapacity, requiredCapacityMarshal, requiredCapacity, destFieldsMarshal, destFields, "int", destFieldsCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_split", regexpMarshal, regexp, destBufMarshal, destBuf, "int", destCapacity, requiredCapacityMarshal, requiredCapacity, destFieldsMarshal, destFields, "int", destFieldsCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29233,15 +29233,15 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<UText>>} destFields 
      * @param {Integer} destFieldsCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_splitUText(regexp, destFields, destFieldsCapacity, status) {
+    static uregex_splitUText(regexp, destFields, destFieldsCapacity, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         destFieldsMarshal := destFields is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_splitUText", regexpMarshal, regexp, destFieldsMarshal, destFields, "int", destFieldsCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_splitUText", regexpMarshal, regexp, destFieldsMarshal, destFields, "int", destFieldsCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29249,27 +29249,27 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setTimeLimit(regexp, limit, status) {
+    static uregex_setTimeLimit(regexp, limit, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, "int", limit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_getTimeLimit(regexp, status) {
+    static uregex_getTimeLimit(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_getTimeLimit", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_getTimeLimit", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29277,27 +29277,27 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setStackLimit(regexp, limit, status) {
+    static uregex_setStackLimit(regexp, limit, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, "int", limit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uregex_getStackLimit(regexp, status) {
+    static uregex_getStackLimit(regexp, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregex_getStackLimit", regexpMarshal, regexp, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uregex_getStackLimit", regexpMarshal, regexp, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29305,238 +29305,238 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexMatchCallback>} callback 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setMatchCallback(regexp, callback, context, status) {
+    static uregex_setMatchCallback(regexp, callback, _context, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, contextMarshal, context, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexMatchCallback>>} callback 
-     * @param {Pointer<Pointer<Void>>} context 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _context 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_getMatchCallback(regexp, callback, context, status) {
+    static uregex_getMatchCallback(regexp, callback, _context, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         callbackMarshal := callback is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_getMatchCallback", regexpMarshal, regexp, callbackMarshal, callback, contextMarshal, context, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_getMatchCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexFindProgressCallback>} callback 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_setFindProgressCallback(regexp, callback, context, status) {
+    static uregex_setFindProgressCallback(regexp, callback, _context, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, contextMarshal, context, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexFindProgressCallback>>} callback 
-     * @param {Pointer<Pointer<Void>>} context 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Pointer<Void>>} _context 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uregex_getFindProgressCallback(regexp, callback, context, status) {
+    static uregex_getFindProgressCallback(regexp, callback, _context, _status) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         callbackMarshal := callback is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_getFindProgressCallback", regexpMarshal, regexp, callbackMarshal, callback, contextMarshal, context, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uregex_getFindProgressCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {PSTR} regionCode 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegion>} 
      */
-    static uregion_getRegionFromCode(regionCode, status) {
+    static uregion_getRegionFromCode(regionCode, _status) {
         regionCode := regionCode is String ? StrPtr(regionCode) : regionCode
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getRegionFromCode", "ptr", regionCode, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getRegionFromCode", "ptr", regionCode, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} code 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URegion>} 
      */
-    static uregion_getRegionFromNumericCode(code, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregion_getRegionFromNumericCode(code, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getRegionFromNumericCode", "int", code, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getRegionFromNumericCode", "int", code, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uregion_getAvailable(type, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregion_getAvailable(type, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getAvailable", "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getAvailable", "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<URegion>} otherRegion 
      * @returns {Integer} 
      */
-    static uregion_areEqual(uregion, otherRegion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_areEqual(_uregion, otherRegion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
         otherRegionMarshal := otherRegion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_areEqual", uregionMarshal, uregion, otherRegionMarshal, otherRegion, "CDecl char")
+        result := DllCall("icuin.dll\uregion_areEqual", _uregionMarshal, _uregion, otherRegionMarshal, otherRegion, "CDecl char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @returns {Pointer<URegion>} 
      */
-    static uregion_getContainingRegion(uregion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_getContainingRegion(_uregion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getContainingRegion", uregionMarshal, uregion, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainingRegion", _uregionMarshal, _uregion, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @param {Integer} type 
      * @returns {Pointer<URegion>} 
      */
-    static uregion_getContainingRegionOfType(uregion, type) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_getContainingRegionOfType(_uregion, type) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getContainingRegionOfType", uregionMarshal, uregion, "int", type, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainingRegionOfType", _uregionMarshal, _uregion, "int", type, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<URegion>} _uregion 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uregion_getContainedRegions(uregion, status) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregion_getContainedRegions(_uregion, _status) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getContainedRegions", uregionMarshal, uregion, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainedRegions", _uregionMarshal, _uregion, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uregion_getContainedRegionsOfType(uregion, type, status) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregion_getContainedRegionsOfType(_uregion, type, _status) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getContainedRegionsOfType", uregionMarshal, uregion, "int", type, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainedRegionsOfType", _uregionMarshal, _uregion, "int", type, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<URegion>} otherRegion 
      * @returns {Integer} 
      */
-    static uregion_contains(uregion, otherRegion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_contains(_uregion, otherRegion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
         otherRegionMarshal := otherRegion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_contains", uregionMarshal, uregion, otherRegionMarshal, otherRegion, "CDecl char")
+        result := DllCall("icuin.dll\uregion_contains", _uregionMarshal, _uregion, otherRegionMarshal, otherRegion, "CDecl char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<URegion>} _uregion 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
-    static uregion_getPreferredValues(uregion, status) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uregion_getPreferredValues(_uregion, _status) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getPreferredValues", uregionMarshal, uregion, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getPreferredValues", _uregionMarshal, _uregion, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @returns {PSTR} 
      */
-    static uregion_getRegionCode(uregion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_getRegionCode(_uregion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getRegionCode", uregionMarshal, uregion, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getRegionCode", _uregionMarshal, _uregion, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @returns {Integer} 
      */
-    static uregion_getNumericCode(uregion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_getNumericCode(_uregion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getNumericCode", uregionMarshal, uregion, "CDecl int")
+        result := DllCall("icuin.dll\uregion_getNumericCode", _uregionMarshal, _uregion, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<URegion>} uregion 
+     * @param {Pointer<URegion>} _uregion 
      * @returns {Integer} 
      */
-    static uregion_getType(uregion) {
-        uregionMarshal := uregion is VarRef ? "ptr*" : "ptr"
+    static uregion_getType(_uregion) {
+        _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icuin.dll\uregion_getType", uregionMarshal, uregion, "CDecl int")
+        result := DllCall("icuin.dll\uregion_getType", _uregionMarshal, _uregion, "CDecl int")
         return result
     }
 
@@ -29546,16 +29546,16 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} nfToAdopt 
      * @param {Integer} width 
      * @param {Integer} capitalizationContext 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<URelativeDateTimeFormatter>} 
      */
-    static ureldatefmt_open(locale, nfToAdopt, width, capitalizationContext, status) {
+    static ureldatefmt_open(locale, nfToAdopt, width, capitalizationContext, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         nfToAdoptMarshal := nfToAdopt is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ureldatefmt_open", "ptr", locale, nfToAdoptMarshal, nfToAdopt, "int", width, "int", capitalizationContext, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\ureldatefmt_open", "ptr", locale, nfToAdoptMarshal, nfToAdopt, "int", width, "int", capitalizationContext, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29611,18 +29611,18 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ureldatefmt_formatNumeric(reldatefmt, offset, unit, result, resultCapacity, status) {
+    static ureldatefmt_formatNumeric(reldatefmt, offset, _unit, result, resultCapacity, _status) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ureldatefmt_formatNumeric", reldatefmtMarshal, reldatefmt, "double", offset, "int", unit, resultMarshal, result, "int", resultCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ureldatefmt_formatNumeric", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29630,35 +29630,35 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<UFormattedRelativeDateTime>} result 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ureldatefmt_formatNumericToResult(reldatefmt, offset, unit, result, status) {
+    static ureldatefmt_formatNumericToResult(reldatefmt, offset, _unit, result, _status) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", unit, resultMarshal, result, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ureldatefmt_format(reldatefmt, offset, unit, result, resultCapacity, status) {
+    static ureldatefmt_format(reldatefmt, offset, _unit, result, resultCapacity, _status) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ureldatefmt_format", reldatefmtMarshal, reldatefmt, "double", offset, "int", unit, resultMarshal, result, "int", resultCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ureldatefmt_format", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29666,17 +29666,17 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<UFormattedRelativeDateTime>} result 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ureldatefmt_formatToResult(reldatefmt, offset, unit, result, status) {
+    static ureldatefmt_formatToResult(reldatefmt, offset, _unit, result, _status) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", unit, resultMarshal, result, statusMarshal, status, "CDecl ")
+        DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29688,17 +29688,17 @@ class Globalization {
      * @param {Integer} timeStringLen 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static ureldatefmt_combineDateAndTime(reldatefmt, relativeDateString, relativeDateStringLen, timeString, timeStringLen, result, resultCapacity, status) {
+    static ureldatefmt_combineDateAndTime(reldatefmt, relativeDateString, relativeDateStringLen, timeString, timeStringLen, result, resultCapacity, _status) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
         relativeDateStringMarshal := relativeDateString is VarRef ? "ushort*" : "ptr"
         timeStringMarshal := timeString is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\ureldatefmt_combineDateAndTime", reldatefmtMarshal, reldatefmt, relativeDateStringMarshal, relativeDateString, "int", relativeDateStringLen, timeStringMarshal, timeString, "int", timeStringLen, resultMarshal, result, "int", resultCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\ureldatefmt_combineDateAndTime", reldatefmtMarshal, reldatefmt, relativeDateStringMarshal, relativeDateString, "int", relativeDateStringLen, timeStringMarshal, timeString, "int", timeStringLen, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29710,18 +29710,18 @@ class Globalization {
      * @param {Integer} textlength 
      * @param {PSTR} locale 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UStringSearch>} 
      */
-    static usearch_open(pattern, patternlength, text, textlength, locale, breakiter, status) {
+    static usearch_open(pattern, patternlength, text, textlength, locale, breakiter, _status) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_open", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, "ptr", locale, breakiterMarshal, breakiter, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_open", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, "ptr", locale, breakiterMarshal, breakiter, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29733,17 +29733,17 @@ class Globalization {
      * @param {Integer} textlength 
      * @param {Pointer<UCollator>} collator 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<UStringSearch>} 
      */
-    static usearch_openFromCollator(pattern, patternlength, text, textlength, collator, breakiter, status) {
+    static usearch_openFromCollator(pattern, patternlength, text, textlength, collator, breakiter, _status) {
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         collatorMarshal := collator is VarRef ? "ptr*" : "ptr"
         breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_openFromCollator", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, collatorMarshal, collator, breakiterMarshal, breakiter, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_openFromCollator", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, collatorMarshal, collator, breakiterMarshal, breakiter, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -29762,14 +29762,14 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setOffset(strsrch, position, status) {
+    static usearch_setOffset(strsrch, position, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, "int", position, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29789,14 +29789,14 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} attribute 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setAttribute(strsrch, attribute, value, status) {
+    static usearch_setAttribute(strsrch, attribute, value, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setAttribute", strsrchMarshal, strsrch, "int", attribute, "int", value, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setAttribute", strsrchMarshal, strsrch, "int", attribute, "int", value, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29841,15 +29841,15 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_getMatchedText(strsrch, result, resultCapacity, status) {
+    static usearch_getMatchedText(strsrch, result, resultCapacity, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_getMatchedText", strsrchMarshal, strsrch, resultMarshal, result, "int", resultCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_getMatchedText", strsrchMarshal, strsrch, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29857,15 +29857,15 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setBreakIterator(strsrch, breakiter, status) {
+    static usearch_setBreakIterator(strsrch, breakiter, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setBreakIterator", strsrchMarshal, strsrch, breakiterMarshal, breakiter, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setBreakIterator", strsrchMarshal, strsrch, breakiterMarshal, breakiter, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29885,15 +29885,15 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textlength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setText(strsrch, text, textlength, status) {
+    static usearch_setText(strsrch, text, textlength, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, "int", textlength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, "int", textlength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29926,15 +29926,15 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UCollator>} collator 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setCollator(strsrch, collator, status) {
+    static usearch_setCollator(strsrch, collator, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         collatorMarshal := collator is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setCollator", strsrchMarshal, strsrch, collatorMarshal, collator, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setCollator", strsrchMarshal, strsrch, collatorMarshal, collator, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29942,15 +29942,15 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternlength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static usearch_setPattern(strsrch, pattern, patternlength, status) {
+    static usearch_setPattern(strsrch, pattern, patternlength, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, "int", patternlength, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, "int", patternlength, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -29970,14 +29970,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_first(strsrch, status) {
+    static usearch_first(strsrch, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_first", strsrchMarshal, strsrch, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_first", strsrchMarshal, strsrch, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -29985,28 +29985,28 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_following(strsrch, position, status) {
+    static usearch_following(strsrch, position, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_following", strsrchMarshal, strsrch, "int", position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_following", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_last(strsrch, status) {
+    static usearch_last(strsrch, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_last", strsrchMarshal, strsrch, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_last", strsrchMarshal, strsrch, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30014,42 +30014,42 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_preceding(strsrch, position, status) {
+    static usearch_preceding(strsrch, position, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_preceding", strsrchMarshal, strsrch, "int", position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_preceding", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_next(strsrch, status) {
+    static usearch_next(strsrch, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_next", strsrchMarshal, strsrch, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_next", strsrchMarshal, strsrch, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static usearch_previous(strsrch, status) {
+    static usearch_previous(strsrch, _status) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\usearch_previous", strsrchMarshal, strsrch, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\usearch_previous", strsrchMarshal, strsrch, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30066,13 +30066,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
-    static uspoof_open(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uspoof_open(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_open", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_open", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30101,17 +30101,17 @@ class Globalization {
      * @param {Integer} confusablesWholeScriptLen 
      * @param {Pointer<Integer>} errType 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
-    static uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript, confusablesWholeScriptLen, errType, pe, status) {
+    static uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript, confusablesWholeScriptLen, errType, pe, _status) {
         confusables := confusables is String ? StrPtr(confusables) : confusables
         confusablesWholeScript := confusablesWholeScript is String ? StrPtr(confusablesWholeScript) : confusablesWholeScript
 
         errTypeMarshal := errType is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, errTypeMarshal, errType, "ptr", pe, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, errTypeMarshal, errType, "ptr", pe, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30129,14 +30129,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
-    static uspoof_clone(sc, status) {
+    static uspoof_clone(sc, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_clone", scMarshal, sc, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_clone", scMarshal, sc, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30144,27 +30144,27 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Integer} checks 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uspoof_setChecks(sc, checks, status) {
+    static uspoof_setChecks(sc, checks, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, "int", checks, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, "int", checks, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_getChecks(sc, status) {
+    static uspoof_getChecks(sc, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getChecks", scMarshal, sc, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_getChecks", scMarshal, sc, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30196,29 +30196,29 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} localesList 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uspoof_setAllowedLocales(sc, localesList, status) {
+    static uspoof_setAllowedLocales(sc, localesList, _status) {
         localesList := localesList is String ? StrPtr(localesList) : localesList
 
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setAllowedLocales", scMarshal, sc, "ptr", localesList, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setAllowedLocales", scMarshal, sc, "ptr", localesList, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {PSTR} 
      */
-    static uspoof_getAllowedLocales(sc, status) {
+    static uspoof_getAllowedLocales(sc, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getAllowedLocales", scMarshal, sc, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getAllowedLocales", scMarshal, sc, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30226,28 +30226,28 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<USet>} chars 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static uspoof_setAllowedChars(sc, chars, status) {
+    static uspoof_setAllowedChars(sc, chars, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         charsMarshal := chars is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setAllowedChars", scMarshal, sc, charsMarshal, chars, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setAllowedChars", scMarshal, sc, charsMarshal, chars, _statusMarshal, _status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static uspoof_getAllowedChars(sc, status) {
+    static uspoof_getAllowedChars(sc, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getAllowedChars", scMarshal, sc, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getAllowedChars", scMarshal, sc, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30257,16 +30257,16 @@ class Globalization {
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
      * @param {Pointer<Integer>} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_check(sc, id, length, position, status) {
+    static uspoof_check(sc, id, length, position, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "ushort*" : "ptr"
         positionMarshal := position is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_check", scMarshal, sc, idMarshal, id, "int", length, positionMarshal, position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_check", scMarshal, sc, idMarshal, id, "int", length, positionMarshal, position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30276,17 +30276,17 @@ class Globalization {
      * @param {PSTR} id 
      * @param {Integer} length 
      * @param {Pointer<Integer>} position 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_checkUTF8(sc, id, length, position, status) {
+    static uspoof_checkUTF8(sc, id, length, position, _status) {
         id := id is String ? StrPtr(id) : id
 
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         positionMarshal := position is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_checkUTF8", scMarshal, sc, "ptr", id, "int", length, positionMarshal, position, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_checkUTF8", scMarshal, sc, "ptr", id, "int", length, positionMarshal, position, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30296,16 +30296,16 @@ class Globalization {
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_check2(sc, id, length, checkResult, status) {
+    static uspoof_check2(sc, id, length, checkResult, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "ushort*" : "ptr"
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_check2", scMarshal, sc, idMarshal, id, "int", length, checkResultMarshal, checkResult, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_check2", scMarshal, sc, idMarshal, id, "int", length, checkResultMarshal, checkResult, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30315,29 +30315,29 @@ class Globalization {
      * @param {PSTR} id 
      * @param {Integer} length 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_check2UTF8(sc, id, length, checkResult, status) {
+    static uspoof_check2UTF8(sc, id, length, checkResult, _status) {
         id := id is String ? StrPtr(id) : id
 
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_check2UTF8", scMarshal, sc, "ptr", id, "int", length, checkResultMarshal, checkResult, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_check2UTF8", scMarshal, sc, "ptr", id, "int", length, checkResultMarshal, checkResult, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USpoofCheckResult>} 
      */
-    static uspoof_openCheckResult(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uspoof_openCheckResult(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_openCheckResult", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_openCheckResult", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30355,42 +30355,42 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_getCheckResultChecks(checkResult, status) {
+    static uspoof_getCheckResultChecks(checkResult, _status) {
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getCheckResultChecks", checkResultMarshal, checkResult, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_getCheckResultChecks", checkResultMarshal, checkResult, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_getCheckResultRestrictionLevel(checkResult, status) {
+    static uspoof_getCheckResultRestrictionLevel(checkResult, _status) {
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getCheckResultRestrictionLevel", checkResultMarshal, checkResult, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_getCheckResultRestrictionLevel", checkResultMarshal, checkResult, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static uspoof_getCheckResultNumerics(checkResult, status) {
+    static uspoof_getCheckResultNumerics(checkResult, _status) {
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getCheckResultNumerics", checkResultMarshal, checkResult, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getCheckResultNumerics", checkResultMarshal, checkResult, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30401,16 +30401,16 @@ class Globalization {
      * @param {Integer} length1 
      * @param {Pointer<Integer>} id2 
      * @param {Integer} length2 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_areConfusable(sc, id1, length1, id2, length2, status) {
+    static uspoof_areConfusable(sc, id1, length1, id2, length2, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         id1Marshal := id1 is VarRef ? "ushort*" : "ptr"
         id2Marshal := id2 is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_areConfusable", scMarshal, sc, id1Marshal, id1, "int", length1, id2Marshal, id2, "int", length2, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_areConfusable", scMarshal, sc, id1Marshal, id1, "int", length1, id2Marshal, id2, "int", length2, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30421,17 +30421,17 @@ class Globalization {
      * @param {Integer} length1 
      * @param {PSTR} id2 
      * @param {Integer} length2 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_areConfusableUTF8(sc, id1, length1, id2, length2, status) {
+    static uspoof_areConfusableUTF8(sc, id1, length1, id2, length2, _status) {
         id1 := id1 is String ? StrPtr(id1) : id1
         id2 := id2 is String ? StrPtr(id2) : id2
 
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_areConfusableUTF8", scMarshal, sc, "ptr", id1, "int", length1, "ptr", id2, "int", length2, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_areConfusableUTF8", scMarshal, sc, "ptr", id1, "int", length1, "ptr", id2, "int", length2, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30443,16 +30443,16 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_getSkeleton(sc, type, id, length, dest, destCapacity, status) {
+    static uspoof_getSkeleton(sc, type, id, length, dest, destCapacity, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "ushort*" : "ptr"
         destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getSkeleton", scMarshal, sc, "uint", type, idMarshal, id, "int", length, destMarshal, dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_getSkeleton", scMarshal, sc, "uint", type, idMarshal, id, "int", length, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30464,41 +30464,41 @@ class Globalization {
      * @param {Integer} length 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_getSkeletonUTF8(sc, type, id, length, dest, destCapacity, status) {
+    static uspoof_getSkeletonUTF8(sc, type, id, length, dest, destCapacity, _status) {
         id := id is String ? StrPtr(id) : id
         dest := dest is String ? StrPtr(dest) : dest
 
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getSkeletonUTF8", scMarshal, sc, "uint", type, "ptr", id, "int", length, "ptr", dest, "int", destCapacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_getSkeletonUTF8", scMarshal, sc, "uint", type, "ptr", id, "int", length, "ptr", dest, "int", destCapacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static uspoof_getInclusionSet(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uspoof_getInclusionSet(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getInclusionSet", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getInclusionSet", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static uspoof_getRecommendedSet(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static uspoof_getRecommendedSet(_status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_getRecommendedSet", statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getRecommendedSet", _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30507,15 +30507,15 @@ class Globalization {
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Void>} data 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static uspoof_serialize(sc, data, capacity, status) {
+    static uspoof_serialize(sc, data, capacity, _status) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         dataMarshal := data is VarRef ? "ptr" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\uspoof_serialize", scMarshal, sc, dataMarshal, data, "int", capacity, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\uspoof_serialize", scMarshal, sc, dataMarshal, data, "int", capacity, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30523,13 +30523,13 @@ class Globalization {
      * 
      * @param {Integer} timeScale 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utmscale_getTimeScaleValue(timeScale, value, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utmscale_getTimeScaleValue(timeScale, value, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utmscale_getTimeScaleValue", "int", timeScale, "int", value, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\utmscale_getTimeScaleValue", "int", timeScale, "int", value, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -30537,13 +30537,13 @@ class Globalization {
      * 
      * @param {Integer} otherTime 
      * @param {Integer} timeScale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utmscale_fromInt64(otherTime, timeScale, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utmscale_fromInt64(otherTime, timeScale, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utmscale_fromInt64", "int64", otherTime, "int", timeScale, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\utmscale_fromInt64", "int64", otherTime, "int", timeScale, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -30551,13 +30551,13 @@ class Globalization {
      * 
      * @param {Integer} universalTime 
      * @param {Integer} timeScale 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utmscale_toInt64(universalTime, timeScale, status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+    static utmscale_toInt64(universalTime, timeScale, _status) {
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utmscale_toInt64", "int64", universalTime, "int", timeScale, statusMarshal, status, "CDecl int64")
+        result := DllCall("icuin.dll\utmscale_toInt64", "int64", universalTime, "int", timeScale, _statusMarshal, _status, "CDecl int64")
         return result
     }
 
@@ -30584,28 +30584,28 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} trans 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static utrans_openInverse(trans, status) {
+    static utrans_openInverse(trans, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utrans_openInverse", transMarshal, trans, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\utrans_openInverse", transMarshal, trans, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} trans 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    static utrans_clone(trans, status) {
+    static utrans_clone(trans, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utrans_clone", transMarshal, trans, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\utrans_clone", transMarshal, trans, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 
@@ -30637,14 +30637,14 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} adoptedTrans 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_register(adoptedTrans, status) {
+    static utrans_register(adoptedTrans, _status) {
         adoptedTransMarshal := adoptedTrans is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_register", adoptedTransMarshal, adoptedTrans, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_register", adoptedTransMarshal, adoptedTrans, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30664,15 +30664,15 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} filterPattern 
      * @param {Integer} filterPatternLen 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_setFilter(trans, filterPattern, filterPatternLen, status) {
+    static utrans_setFilter(trans, filterPattern, filterPatternLen, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         filterPatternMarshal := filterPattern is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, "int", filterPatternLen, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, "int", filterPatternLen, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30703,16 +30703,16 @@ class Globalization {
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
      * @param {Integer} start 
      * @param {Pointer<Integer>} limit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_trans(trans, rep, repFunc, start, limit, status) {
+    static utrans_trans(trans, rep, repFunc, start, limit, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         repMarshal := rep is VarRef ? "ptr*" : "ptr"
         limitMarshal := limit is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "int", start, limitMarshal, limit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30721,15 +30721,15 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} rep 
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
      * @param {Pointer<UTransPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_transIncremental(trans, rep, repFunc, pos, status) {
+    static utrans_transIncremental(trans, rep, repFunc, pos, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         repMarshal := rep is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transIncremental", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "ptr", pos, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_transIncremental", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "ptr", pos, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30740,17 +30740,17 @@ class Globalization {
      * @param {Integer} textCapacity 
      * @param {Integer} start 
      * @param {Pointer<Integer>} limit 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_transUChars(trans, text, textLength, textCapacity, start, limit, status) {
+    static utrans_transUChars(trans, text, textLength, textCapacity, start, limit, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "int*" : "ptr"
         limitMarshal := limit is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "int", start, limitMarshal, limit, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30760,16 +30760,16 @@ class Globalization {
      * @param {Pointer<Integer>} textLength 
      * @param {Integer} textCapacity 
      * @param {Pointer<UTransPosition>} pos 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static utrans_transIncrementalUChars(trans, text, textLength, textCapacity, pos, status) {
+    static utrans_transIncrementalUChars(trans, text, textLength, textCapacity, pos, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "int*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "ptr", pos, statusMarshal, status, "CDecl ")
+        DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "ptr", pos, _statusMarshal, _status, "CDecl ")
     }
 
     /**
@@ -30778,15 +30778,15 @@ class Globalization {
      * @param {Integer} escapeUnprintable 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Integer} 
      */
-    static utrans_toRules(trans, escapeUnprintable, result, resultLength, status) {
+    static utrans_toRules(trans, escapeUnprintable, result, resultLength, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utrans_toRules", transMarshal, trans, "char", escapeUnprintable, resultMarshal, result, "int", resultLength, statusMarshal, status, "CDecl int")
+        result := DllCall("icuin.dll\utrans_toRules", transMarshal, trans, "char", escapeUnprintable, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
         return result
     }
 
@@ -30795,15 +30795,15 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Integer} ignoreFilter 
      * @param {Pointer<USet>} fillIn 
-     * @param {Pointer<Integer>} status 
+     * @param {Pointer<Integer>} _status 
      * @returns {Pointer<USet>} 
      */
-    static utrans_getSourceSet(trans, ignoreFilter, fillIn, status) {
+    static utrans_getSourceSet(trans, ignoreFilter, fillIn, _status) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
         fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
-        statusMarshal := status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\utrans_getSourceSet", transMarshal, trans, "char", ignoreFilter, fillInMarshal, fillIn, statusMarshal, status, "CDecl ptr")
+        result := DllCall("icuin.dll\utrans_getSourceSet", transMarshal, trans, "char", ignoreFilter, fillInMarshal, fillIn, _statusMarshal, _status, "CDecl ptr")
         return result
     }
 

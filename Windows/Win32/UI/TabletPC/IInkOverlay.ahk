@@ -489,8 +489,8 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_ink
      */
     get_Ink() {
-        result := ComCall(15, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(15, this, "ptr*", &_Ink := 0, "HRESULT")
+        return IInkDisp(_Ink)
     }
 
     /**
@@ -676,8 +676,8 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectionmode
      */
     get_CollectionMode() {
-        result := ComCall(20, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(20, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
@@ -727,12 +727,12 @@ class IInkOverlay extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_collectionmode
      */
-    put_CollectionMode(Mode) {
-        result := ComCall(21, this, "int", Mode, "HRESULT")
+    put_CollectionMode(_Mode) {
+        result := ComCall(21, this, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -1213,12 +1213,12 @@ class IInkOverlay extends IDispatch{
      * Sets a rectangle in which to redraw the ink within the InkOverlay object.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> within the rectangle represented by <i>rDrawRect</i> is drawn when the area is next repainted if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_autoredraw">AutoRedraw</a> property is <b>TRUE</b>.
-     * @param {IInkRectangle} Rect The rectangle on which to draw, in pixel coordinates. When this parameter is <b>NULL</b>, the entire window is redrawn.
+     * @param {IInkRectangle} _Rect 
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-draw
      */
-    Draw(Rect) {
-        result := ComCall(52, this, "ptr", Rect, "HRESULT")
+    Draw(_Rect) {
+        result := ComCall(52, this, "ptr", _Rect, "HRESULT")
         return result
     }
 

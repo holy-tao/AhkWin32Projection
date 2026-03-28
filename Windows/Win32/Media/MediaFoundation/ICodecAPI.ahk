@@ -443,7 +443,7 @@ class ICodecAPI extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} userData Pointer to caller-defined data. The application receives this pointer in the <i>lParam1</i> event parameter.
+     * @param {Pointer} _userData 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -476,8 +476,8 @@ class ICodecAPI extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-registerforevent
      */
-    RegisterForEvent(Api, userData) {
-        result := ComCall(10, this, "ptr", Api, "ptr", userData, "HRESULT")
+    RegisterForEvent(Api, _userData) {
+        result := ComCall(10, this, "ptr", Api, "ptr", _userData, "HRESULT")
         return result
     }
 

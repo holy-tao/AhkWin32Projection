@@ -120,12 +120,12 @@ class ISpatialAudioClient extends IUnknown{
 
     /**
      * Gets an IAudioFormatEnumerator that contains all supported audio formats for spatial audio objects, the first item in the list represents the most preferable format.
-     * @returns {IAudioFormatEnumerator} Pointer to the pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator">IAudioFormatEnumerator</a> interface.
+     * @returns {IAudioFormatEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getsupportedaudioobjectformatenumerator
      */
     GetSupportedAudioObjectFormatEnumerator() {
-        result := ComCall(6, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IAudioFormatEnumerator(enumerator)
+        result := ComCall(6, this, "ptr*", &_enumerator := 0, "HRESULT")
+        return IAudioFormatEnumerator(_enumerator)
     }
 
     /**

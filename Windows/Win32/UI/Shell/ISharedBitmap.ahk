@@ -86,19 +86,17 @@ class ISharedBitmap extends IUnknown{
      * Initializes a new ISharedBitmap object with a given bitmap.
      * @remarks
      * When an <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> object is instantiated by the client (as opposed to being returned by the <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnailbyid">IThumbnailCache::GetThumbnailByID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnail">IThumbnailCache::GetThumbnail</a> methods), the underlying bitmap will not reside in shared memory.
-     * @param {HBITMAP} hbm Type: <b>HBITMAP</b>
-     * 
-     * A handle to the bitmap with which to initialize a new <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> object. The bitmap must be a DIB.
+     * @param {HBITMAP} _hbm 
      * @param {Integer} wtsAT Type: <b>WTS_ALPHATYPE</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-initializebitmap
      */
-    InitializeBitmap(hbm, wtsAT) {
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    InitializeBitmap(_hbm, wtsAT) {
+        _hbm := _hbm is Win32Handle ? NumGet(_hbm, "ptr") : _hbm
 
-        result := ComCall(6, this, "ptr", hbm, "int", wtsAT, "HRESULT")
+        result := ComCall(6, this, "ptr", _hbm, "int", wtsAT, "HRESULT")
         return result
     }
 

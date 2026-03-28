@@ -2514,9 +2514,7 @@ class IVssComponent extends IUnknown{
      * The GetRestoreSubcomponent method returns the specified subcomponent associated with a given component.
      * @remarks
      * The caller should free the memory held by the <i>pbstrLogicalPath</i> and <i>pbstrComponentName</i> parameters by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {Integer} iComponent Index of the subcomponent. The value of this parameter is an integer from 0 
-     *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of subcomponents associated with a given component. The value of <i>n</i> is returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount">IVssComponent::GetRestoreSubcomponentCount</a>.
+     * @param {Integer} _iComponent 
      * @param {Pointer<BSTR>} pbstrLogicalPath Pointer to a string containing the logical path of the subcomponent. The logical path cannot be empty when working with subcomponents.
      * @param {Pointer<BSTR>} pbstrComponentName Pointer to a string containing the name of the subcomponent. The string cannot be empty.
      * @param {Pointer<Boolean>} pbRepair Reserved for future use.
@@ -2586,10 +2584,10 @@ class IVssComponent extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponent
      */
-    GetRestoreSubcomponent(iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
+    GetRestoreSubcomponent(_iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
         pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, "uint", iComponent, "ptr", pbstrLogicalPath, "ptr", pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
+        result := ComCall(35, this, "uint", _iComponent, "ptr", pbstrLogicalPath, "ptr", pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
         return result
     }
 

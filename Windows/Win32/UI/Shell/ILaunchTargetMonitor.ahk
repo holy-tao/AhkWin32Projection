@@ -33,14 +33,12 @@ class ILaunchTargetMonitor extends IUnknown{
 
     /**
      * Retrieves the target monitor for the application being launched.
-     * @returns {HMONITOR} Type: <b>HMONITOR*</b>
-     * 
-     * Contains the address of a pointer to the target  monitor's handle.
+     * @returns {HMONITOR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
     GetMonitor() {
-        monitor := HMONITOR()
-        result := ComCall(3, this, "ptr", monitor, "HRESULT")
-        return monitor
+        _monitor := HMONITOR()
+        result := ComCall(3, this, "ptr", _monitor, "HRESULT")
+        return _monitor
     }
 }

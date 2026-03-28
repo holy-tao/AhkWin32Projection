@@ -346,8 +346,8 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {HICON} hIcon Handle to an icon object.
-     * @param {HBITMAP} hBitmap Handle to a bitmap object representing the thumbnail image.
+     * @param {HICON} _hIcon 
+     * @param {HBITMAP} _hBitmap 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -369,11 +369,11 @@ class IPhotoProgressDialog extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
      */
-    SetImage(nImageType, hIcon, hBitmap) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
-        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
+    SetImage(nImageType, _hIcon, _hBitmap) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
+        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
 
-        result := ComCall(13, this, "int", nImageType, "ptr", hIcon, "ptr", hBitmap, "HRESULT")
+        result := ComCall(13, this, "int", nImageType, "ptr", _hIcon, "ptr", _hBitmap, "HRESULT")
         return result
     }
 

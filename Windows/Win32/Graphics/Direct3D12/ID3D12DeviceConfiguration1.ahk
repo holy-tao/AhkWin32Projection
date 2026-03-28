@@ -31,15 +31,15 @@ class ID3D12DeviceConfiguration1 extends ID3D12DeviceConfiguration{
     /**
      * 
      * @param {Pointer} pLibraryBlob 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {PWSTR} RootSignatureSubobjectName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
-    CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary(pLibraryBlob, Size, RootSignatureSubobjectName, riid) {
+    CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary(pLibraryBlob, _Size, RootSignatureSubobjectName, riid) {
         RootSignatureSubobjectName := RootSignatureSubobjectName is String ? StrPtr(RootSignatureSubobjectName) : RootSignatureSubobjectName
 
-        result := ComCall(7, this, "ptr", pLibraryBlob, "ptr", Size, "ptr", RootSignatureSubobjectName, "ptr", riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pLibraryBlob, "ptr", _Size, "ptr", RootSignatureSubobjectName, "ptr", riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
         return ppvDeserializer
     }
 }

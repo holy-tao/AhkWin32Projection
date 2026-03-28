@@ -111,9 +111,9 @@ class ISchema extends ISchemaItem{
      * @returns {BSTR} 
      */
     get_version() {
-        version := BSTR()
-        result := ComCall(15, this, "ptr", version, "HRESULT")
-        return version
+        _version := BSTR()
+        result := ComCall(15, this, "ptr", _version, "HRESULT")
+        return _version
     }
 
     /**

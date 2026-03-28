@@ -58,7 +58,7 @@ class ISpeechBaseStream extends IDispatch{
 
     /**
      * The ReadBlobFromFile function reads a BLOB in a file.
-     * @param {Pointer<VARIANT>} Buffer_R 
+     * @param {Pointer<VARIANT>} _Buffer 
      * @param {Integer} NumberOfBytes 
      * @param {Pointer<Integer>} BytesRead 
      * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
@@ -66,21 +66,21 @@ class ISpeechBaseStream extends IDispatch{
      * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
      * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
-    Read(Buffer_R, NumberOfBytes, BytesRead) {
+    Read(_Buffer, NumberOfBytes, BytesRead) {
         BytesReadMarshal := BytesRead is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "ptr", Buffer_R, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
+        result := ComCall(9, this, "ptr", _Buffer, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
     /**
      * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
-     * @param {VARIANT} Buffer_R 
+     * @param {VARIANT} _Buffer 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
-    Write(Buffer_R) {
-        result := ComCall(10, this, "ptr", Buffer_R, "int*", &BytesWritten := 0, "HRESULT")
+    Write(_Buffer) {
+        result := ComCall(10, this, "ptr", _Buffer, "int*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 

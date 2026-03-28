@@ -14651,7 +14651,7 @@ class NetManagement {
      * <b>NetGetDCName</b> function.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14709,13 +14709,13 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetdcname
      * @since windows5.0
      */
-    static NetGetDCName(ServerName, DomainName, Buffer_R) {
+    static NetGetDCName(ServerName, DomainName, _Buffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -14732,7 +14732,7 @@ class NetManagement {
      * If <i>servername</i> specifies a domain controller, the <i>domainname</i> must be one of the domains trusted by the domain for which the server is a controller. The domain controller that this call finds has been operational at least once during this call.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14801,13 +14801,13 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetanydcname
      * @since windows5.0
      */
-    static NetGetAnyDCName(ServerName, DomainName, Buffer_R) {
+    static NetGetAnyDCName(ServerName, DomainName, _Buffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -14936,7 +14936,7 @@ class NetManagement {
      * </table>
      * @param {Integer} QueryLevel Indicates what information should be returned from the Netlogon service. This value can be any of the following structures.
      * @param {Pointer<Integer>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
      * 
      * <table>
@@ -15092,13 +15092,13 @@ class NetManagement {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-i_netlogoncontrol2
      */
-    static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer_R) {
+    static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, _Buffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
         DataMarshal := Data is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, DataMarshal, Data, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, DataMarshal, Data, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -15270,20 +15270,20 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netqueryserviceaccount
      * @since windows6.1
      */
-    static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, Buffer_R) {
+    static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, _Buffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15356,7 +15356,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Integer} BufferSize The size, in bytes, of the message buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -15394,12 +15394,12 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmalert/nf-lmalert-netalertraise
      * @since windows5.0
      */
-    static NetAlertRaise(AlertType, Buffer_R, BufferSize) {
+    static NetAlertRaise(AlertType, _Buffer, BufferSize) {
         AlertType := AlertType is String ? StrPtr(AlertType) : AlertType
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, _BufferMarshal, _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -18163,7 +18163,7 @@ class NetManagement {
      * <b>NetWkstaSetInfo</b> can be overwritten when workstation parameters are reset.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the workstation information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18200,13 +18200,13 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstasetinfo
      * @since windows5.0
      */
-    static NetWkstaSetInfo(servername, level, buffer_R, parm_err) {
+    static NetWkstaSetInfo(servername, level, _buffer, parm_err) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
         parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, buffer_RMarshal, buffer_R, parm_errMarshal, parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, _bufferMarshal, _buffer, parm_errMarshal, parm_err, "uint")
         return result
     }
 
@@ -18735,7 +18735,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @param {Integer} ByteCount Number of bytes to be allocated.
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -18743,10 +18743,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferallocate
      * @since windows5.0
      */
-    static NetApiBufferAllocate(ByteCount, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+    static NetApiBufferAllocate(ByteCount, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -18772,7 +18772,7 @@ class NetManagement {
      * 
      * For a code sample that demonstrates how to use of the <b>NetApiBufferFree</b> function to free memory internally allocated by a network management function to return information, see 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netserverenum">NetServerEnum</a> function.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -18780,10 +18780,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferfree
      * @since windows5.0
      */
-    static NetApiBufferFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static NetApiBufferFree(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferFree", Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferFree", _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -18822,7 +18822,7 @@ class NetManagement {
      * For a code sample that demonstrates how to use the network management 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a>.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Integer>} ByteCount Receives the size of the buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18831,11 +18831,11 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibuffersize
      * @since windows5.0
      */
-    static NetApiBufferSize(Buffer_R, ByteCount) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static NetApiBufferSize(_Buffer, ByteCount) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         ByteCountMarshal := ByteCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferSize", Buffer_RMarshal, Buffer_R, ByteCountMarshal, ByteCount, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferSize", _BufferMarshal, _Buffer, ByteCountMarshal, ByteCount, "uint")
         return result
     }
 
@@ -18890,8 +18890,8 @@ class NetManagement {
      * The NetErrorLogWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
      * @param {Pointer<Integer>} Reserved1 TBD
      * @param {Integer} Code TBD
-     * @param {PWSTR} Component TBD
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {PWSTR} _Component 
+     * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} NumBytes TBD
      * @param {Pointer<Integer>} MsgBuf TBD
      * @param {Integer} StrCount TBD
@@ -18899,53 +18899,53 @@ class NetManagement {
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogwrite
      */
-    static NetErrorLogWrite(Reserved1, Code, Component, Buffer_R, NumBytes, MsgBuf, StrCount, Reserved2) {
-        Component := Component is String ? StrPtr(Component) : Component
+    static NetErrorLogWrite(Reserved1, Code, _Component, _Buffer, NumBytes, MsgBuf, StrCount, Reserved2) {
+        _Component := _Component is String ? StrPtr(_Component) : _Component
 
         Reserved1Marshal := Reserved1 is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
         MsgBufMarshal := MsgBuf is VarRef ? "char*" : "ptr"
         Reserved2Marshal := Reserved2 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetErrorLogWrite", Reserved1Marshal, Reserved1, "uint", Code, "ptr", Component, Buffer_RMarshal, Buffer_R, "uint", NumBytes, MsgBufMarshal, MsgBuf, "uint", StrCount, Reserved2Marshal, Reserved2, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogWrite", Reserved1Marshal, Reserved1, "uint", Code, "ptr", _Component, _BufferMarshal, _Buffer, "uint", NumBytes, MsgBufMarshal, MsgBuf, "uint", StrCount, Reserved2Marshal, Reserved2, "uint")
         return result
     }
 
     /**
      * The NetConfigGet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
-     * @param {PWSTR} component TBD
+     * @param {PWSTR} _component 
      * @param {PWSTR} parameter TBD
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigget
      */
-    static NetConfigGet(server, component, parameter, bufptr) {
+    static NetConfigGet(server, _component, parameter, bufptr) {
         server := server is String ? StrPtr(server) : server
-        component := component is String ? StrPtr(component) : component
+        _component := _component is String ? StrPtr(_component) : _component
         parameter := parameter is String ? StrPtr(parameter) : parameter
 
         bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component, "ptr", parameter, bufptrMarshal, bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", _component, "ptr", parameter, bufptrMarshal, bufptr, "uint")
         return result
     }
 
     /**
      * The NetConfigGetAll function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
-     * @param {PWSTR} component TBD
+     * @param {PWSTR} _component 
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
      */
-    static NetConfigGetAll(server, component, bufptr) {
+    static NetConfigGetAll(server, _component, bufptr) {
         server := server is String ? StrPtr(server) : server
-        component := component is String ? StrPtr(component) : component
+        _component := _component is String ? StrPtr(_component) : _component
 
         bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component, bufptrMarshal, bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", _component, bufptrMarshal, bufptr, "uint")
         return result
     }
 
@@ -18953,7 +18953,7 @@ class NetManagement {
      * The NetConfigSet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
      * @param {PWSTR} reserved1 TBD
-     * @param {PWSTR} component TBD
+     * @param {PWSTR} _component 
      * @param {Integer} level TBD
      * @param {Integer} reserved2 TBD
      * @param {Pointer<Integer>} buf TBD
@@ -18961,14 +18961,14 @@ class NetManagement {
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigset
      */
-    static NetConfigSet(server, reserved1, component, level, reserved2, buf, reserved3) {
+    static NetConfigSet(server, reserved1, _component, level, reserved2, buf, reserved3) {
         server := server is String ? StrPtr(server) : server
         reserved1 := reserved1 is String ? StrPtr(reserved1) : reserved1
-        component := component is String ? StrPtr(component) : component
+        _component := _component is String ? StrPtr(_component) : _component
 
         bufMarshal := buf is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component, "uint", level, "uint", reserved2, bufMarshal, buf, "uint", reserved3, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", _component, "uint", level, "uint", reserved2, bufMarshal, buf, "uint", reserved3, "uint")
         return result
     }
 
@@ -21256,7 +21256,7 @@ class NetManagement {
      * 
      * Starting with   Windows Vista, the precision for the Task Scheduler was increased to the second. Therefore, the <b>NetScheduleJobAdd</b> function uses only the hours, minutes, and seconds specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} _Buffer 
      * @param {Pointer<Integer>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -21265,13 +21265,13 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobadd
      * @since windows5.0
      */
-    static NetScheduleJobAdd(Servername, Buffer_R, JobId) {
+    static NetScheduleJobAdd(Servername, _Buffer, JobId) {
         Servername := Servername is String ? StrPtr(Servername) : Servername
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
         JobIdMarshal := JobId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, Buffer_RMarshal, Buffer_R, JobIdMarshal, JobId, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, _BufferMarshal, _Buffer, JobIdMarshal, JobId, "uint")
         return result
     }
 

@@ -50,12 +50,12 @@ class IXpsOMDocumentCollection extends IUnknown{
      * @remarks
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface pointer to be obtained.
-     * @returns {IXpsOMDocument} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface pointer at the location specified by <i>index</i>.
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &document := 0, "HRESULT")
-        return IXpsOMDocument(document)
+        result := ComCall(4, this, "uint", index, "ptr*", &_document := 0, "HRESULT")
+        return IXpsOMDocument(_document)
     }
 
     /**
@@ -65,12 +65,12 @@ class IXpsOMDocumentCollection extends IUnknown{
      * 
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the collection where the interface pointer that is passed in  <i>document</i> is to be inserted.
-     * @param {IXpsOMDocument} document The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface pointer that is to be inserted at the location specified by <i>index</i>.
+     * @param {IXpsOMDocument} _document 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-insertat
      */
-    InsertAt(index, document) {
-        result := ComCall(5, this, "uint", index, "ptr", document, "HRESULT")
+    InsertAt(index, _document) {
+        result := ComCall(5, this, "uint", index, "ptr", _document, "HRESULT")
         return result
     }
 
@@ -96,12 +96,12 @@ class IXpsOMDocumentCollection extends IUnknown{
      * 
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface pointer is to be replaced.
-     * @param {IXpsOMDocument} document The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
+     * @param {IXpsOMDocument} _document 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-setat
      */
-    SetAt(index, document) {
-        result := ComCall(7, this, "uint", index, "ptr", document, "HRESULT")
+    SetAt(index, _document) {
+        result := ComCall(7, this, "uint", index, "ptr", _document, "HRESULT")
         return result
     }
 
@@ -109,12 +109,12 @@ class IXpsOMDocumentCollection extends IUnknown{
      * Appends an IXpsOMDocument interface to the end of the collection.
      * @remarks
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
-     * @param {IXpsOMDocument} document A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface that is to be appended  to the collection.
+     * @param {IXpsOMDocument} _document 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-append
      */
-    Append(document) {
-        result := ComCall(8, this, "ptr", document, "HRESULT")
+    Append(_document) {
+        result := ComCall(8, this, "ptr", _document, "HRESULT")
         return result
     }
 }

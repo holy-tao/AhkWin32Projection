@@ -41,19 +41,19 @@ class ISimilarity extends IUnknown{
      * Creates or opens a similarity traits table and a similarity file ID table.
      * @remarks
      * If one of the tables can be created or opened successfully, but the other one cannot, both tables are marked as not valid, and the variable that the <i>isNew</i> parameter points to receives <b>RDCTABLE_InvalidOrUnknown</b>.
-     * @param {PWSTR} path A pointer to a null-terminated string that specifies the name of the file that will contain the tables. The similarity traits table and the similarity file ID table will be created in two alternate file streams of this file. For more information, see the <i>path</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-isimilarityfileidtable-createtable">ISimilarityFileIdTable::CreateTable</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-isimilaritytraitstable-createtable">ISimilarityTraitsTable::CreateTable</a> methods.
+     * @param {PWSTR} _path 
      * @param {BOOL} truncate <b>TRUE</b> if a new similarity traits table and a new similarity file ID table should always be created or truncated. If <b>FALSE</b> is specified and these tables exist and are valid, they may be used; otherwise, if one of the tables is not valid or does not exist, any existing tables are overwritten.
-     * @param {Pointer<Integer>} securityDescriptor A pointer to a  security descriptor to use when opening the file. If this parameter is <b>NULL</b>, the file is assigned a default security descriptor. The access control lists (ACL) in the file's default security descriptor are inherited from the file's parent directory. For more information, see the <i>lpSecurityAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
+     * @param {Pointer<Integer>} _securityDescriptor 
      * @param {Integer} recordSize The size, in bytes, of each file ID to be stored in the similarity file id table. All similarity file IDs must be the same size. The valid range is from <b>SimilarityFileIdMinSize</b> to <b>SimilarityFileIdMaxSize</b>. If existing tables are being opened, the value of this parameter must match the file ID size of the existing similarity file ID table. Otherwise, the existing tables are assumed to be not valid and will be overwritten.
      * @returns {Integer} A pointer to  a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the tables. If new tables are created, this variable receives <b>RDCTABLE_New</b>. If existing tables are used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-createtable
      */
-    CreateTable(path, truncate, securityDescriptor, recordSize) {
-        path := path is String ? StrPtr(path) : path
+    CreateTable(_path, truncate, _securityDescriptor, recordSize) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
+        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, "int", truncate, _securityDescriptorMarshal, _securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -93,15 +93,15 @@ class ISimilarity extends IUnknown{
      * Adds the file ID and similarity data information to the tables in the similarity file.
      * @remarks
      * If this method fails, the similarity file ID table and the similarity traits table are marked as corrupted and must be rebuilt by the application. The application must close the corrupted tables and create new tables.
-     * @param {Pointer<SimilarityFileId>} similarityFileId A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similarityfileid">SimilarityFileId</a> structure to be added to the similarity file ID table.
-     * @param {Pointer<SimilarityData>} similarityData A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure to be added to the similarity traits table.
+     * @param {Pointer<SimilarityFileId>} _similarityFileId 
+     * @param {Pointer<SimilarityData>} _similarityData 
      * @returns {HRESULT} Returns <b>S_OK</b> on success, or an error <b>HRESULT</b> on failure.
      * 
      * This method can also return the following error codes.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-append
      */
-    Append(similarityFileId, similarityData) {
-        result := ComCall(6, this, "ptr", similarityFileId, "ptr", similarityData, "HRESULT")
+    Append(_similarityFileId, _similarityData) {
+        result := ComCall(6, this, "ptr", _similarityFileId, "ptr", _similarityData, "HRESULT")
         return result
     }
 
@@ -109,15 +109,15 @@ class ISimilarity extends IUnknown{
      * Returns a list of files that are similar to a given file.
      * @remarks
      * The file IDs that are returned in the <i>findSimilarResults</i> parameter may include IDs of files that have been deleted.
-     * @param {Pointer<SimilarityData>} similarityData A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that contains similarity information for the file.
+     * @param {Pointer<SimilarityData>} _similarityData 
      * @param {Integer} numberOfMatchesRequired TBD
      * @param {Integer} resultsSize The number of file IDs that can be stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-ifindsimilarresults">IFindSimilarResults</a> object that the <i>findSimilarResults</i> parameter points to.
-     * @returns {IFindSimilarResults} A pointer to a location that will receive the returned  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-ifindsimilarresults">IFindSimilarResults</a> interface pointer. The caller must release this interface when it is no longer needed.
+     * @returns {IFindSimilarResults} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-findsimilarfileid
      */
-    FindSimilarFileId(similarityData, numberOfMatchesRequired, resultsSize) {
-        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "uint", resultsSize, "ptr*", &findSimilarResults := 0, "HRESULT")
-        return IFindSimilarResults(findSimilarResults)
+    FindSimilarFileId(_similarityData, numberOfMatchesRequired, resultsSize) {
+        result := ComCall(7, this, "ptr", _similarityData, "ushort", numberOfMatchesRequired, "uint", resultsSize, "ptr*", &_findSimilarResults := 0, "HRESULT")
+        return IFindSimilarResults(_findSimilarResults)
     }
 
     /**

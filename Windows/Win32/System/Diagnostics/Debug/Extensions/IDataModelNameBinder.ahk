@@ -48,14 +48,14 @@ class IDataModelNameBinder extends IUnknown{
      * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
-     * @param {Pointer<IModelObject>} reference 
+     * @param {Pointer<IModelObject>} _reference 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
-    BindReference(contextObject, name, reference, metadata) {
+    BindReference(contextObject, name, _reference, metadata) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", contextObject, "ptr", name, "ptr*", reference, "ptr*", metadata, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, "ptr", name, "ptr*", _reference, "ptr*", metadata, "HRESULT")
         return result
     }
 
@@ -65,8 +65,8 @@ class IDataModelNameBinder extends IUnknown{
      * @returns {IKeyEnumerator} 
      */
     EnumerateValues(contextObject) {
-        result := ComCall(5, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(5, this, "ptr", contextObject, "ptr*", &_enumerator := 0, "HRESULT")
+        return IKeyEnumerator(_enumerator)
     }
 
     /**
@@ -75,7 +75,7 @@ class IDataModelNameBinder extends IUnknown{
      * @returns {IKeyEnumerator} 
      */
     EnumerateReferences(contextObject) {
-        result := ComCall(6, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(6, this, "ptr", contextObject, "ptr*", &_enumerator := 0, "HRESULT")
+        return IKeyEnumerator(_enumerator)
     }
 }

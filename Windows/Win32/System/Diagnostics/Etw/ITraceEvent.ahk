@@ -180,18 +180,16 @@ class ITraceEvent extends IUnknown{
 
     /**
      * Sets the time at which an event occurred.
-     * @param {Pointer<Integer>} TimeStamp Type: <b>LARGE_INTEGER*</b>
-     * 
-     *  The time at which the event occurred, in system time.
+     * @param {Pointer<Integer>} _TimeStamp 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-settimestamp
      */
-    SetTimeStamp(TimeStamp) {
-        TimeStampMarshal := TimeStamp is VarRef ? "int64*" : "ptr"
+    SetTimeStamp(_TimeStamp) {
+        _TimeStampMarshal := _TimeStamp is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(13, this, TimeStampMarshal, TimeStamp, "HRESULT")
+        result := ComCall(13, this, _TimeStampMarshal, _TimeStamp, "HRESULT")
         return result
     }
 

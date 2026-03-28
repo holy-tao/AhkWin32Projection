@@ -42,7 +42,7 @@ class IContextCallback extends IUnknown{
      * If <i>riid</i> is set to IID_IEnterActivityWithNoLock, the function is executed without an activity lock.
      * 
      * If <i>riid</i> is set to IID_ICallbackWithNoReentrancyToApplicationSTA, the function does not reenter an ASTA arbitrarily. Most apps should set <i>riid</i> to this values for general purpose use.
-     * @param {Pointer<PFNCONTEXTCALL>} pfnCallback The function to be called inside the object context.
+     * @param {Pointer<PFNCONTEXTCALL>} _pfnCallback 
      * @param {Pointer<ComCallData>} pParam The data to be passed to the function when it is called in the context.
      * @param {Pointer<Guid>} riid The IID of the call that is being simulated. See Remarks for more information.
      * @param {Integer} iMethod The method number of the call that is being simulated. See Remarks for more information.
@@ -50,8 +50,8 @@ class IContextCallback extends IUnknown{
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL. If none of these failures occur, the return value of this function is the <b>HRESULT</b> value returned by the <i>pfnCallback</i> function.
      * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
      */
-    ContextCallback(pfnCallback, pParam, riid, iMethod, pUnk) {
-        result := ComCall(3, this, "ptr", pfnCallback, "ptr", pParam, "ptr", riid, "int", iMethod, "ptr", pUnk, "HRESULT")
+    ContextCallback(_pfnCallback, pParam, riid, iMethod, pUnk) {
+        result := ComCall(3, this, "ptr", _pfnCallback, "ptr", pParam, "ptr", riid, "int", iMethod, "ptr", pUnk, "HRESULT")
         return result
     }
 }

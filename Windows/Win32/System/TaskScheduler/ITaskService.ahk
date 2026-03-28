@@ -71,17 +71,16 @@ class ITaskService extends IDispatch{
 
     /**
      * Gets a folder of registered tasks.
-     * @param {BSTR} path The path to the folder to retrieve. Do not use a backslash following the last folder name in the path. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
-     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
+     * @param {BSTR} _path 
      * @returns {ITaskFolder} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface for the requested folder.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getfolder
      */
-    GetFolder(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    GetFolder(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(7, this, "ptr", path, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _path, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 

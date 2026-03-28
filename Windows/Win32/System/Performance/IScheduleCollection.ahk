@@ -132,11 +132,11 @@ class IScheduleCollection extends IDispatch{
 
     /**
      * Creates a schedule object.
-     * @returns {ISchedule} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface that you use to specify when the data collector set runs.
+     * @returns {ISchedule} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-createschedule
      */
     CreateSchedule() {
-        result := ComCall(14, this, "ptr*", &Schedule := 0, "HRESULT")
-        return ISchedule(Schedule)
+        result := ComCall(14, this, "ptr*", &_Schedule := 0, "HRESULT")
+        return ISchedule(_Schedule)
     }
 }

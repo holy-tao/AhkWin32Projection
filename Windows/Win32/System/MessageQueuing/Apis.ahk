@@ -1172,14 +1172,14 @@ class MessageQueuing {
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Pointer<PMQRECEIVECALLBACK>} fnReceiveCallback 
-     * @param {HANDLE} hCursor 
+     * @param {HANDLE} _hCursor 
      * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
-    static MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, hCursor, pTransaction) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, _hCursor, pTransaction) {
+        _hCursor := _hCursor is Win32Handle ? NumGet(_hCursor, "ptr") : _hCursor
 
-        result := DllCall("mqrt.dll\MQReceiveMessage", "ptr", hSource, "uint", dwTimeout, "uint", dwAction, "ptr", pMessageProps, "ptr", lpOverlapped, "ptr", fnReceiveCallback, "ptr", hCursor, "ptr", pTransaction, "HRESULT")
+        result := DllCall("mqrt.dll\MQReceiveMessage", "ptr", hSource, "uint", dwTimeout, "uint", dwAction, "ptr", pMessageProps, "ptr", lpOverlapped, "ptr", fnReceiveCallback, "ptr", _hCursor, "ptr", pTransaction, "HRESULT")
         return result
     }
 
@@ -1212,13 +1212,13 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {HANDLE} hCursor 
+     * @param {HANDLE} _hCursor 
      * @returns {HRESULT} 
      */
-    static MQCloseCursor(hCursor) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static MQCloseCursor(_hCursor) {
+        _hCursor := _hCursor is Win32Handle ? NumGet(_hCursor, "ptr") : _hCursor
 
-        result := DllCall("mqrt.dll\MQCloseCursor", "ptr", hCursor, "HRESULT")
+        result := DllCall("mqrt.dll\MQCloseCursor", "ptr", _hCursor, "HRESULT")
         return result
     }
 

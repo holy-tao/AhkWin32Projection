@@ -49,13 +49,13 @@ class ICLRDebugging extends IUnknown{
 
     /**
      * 
-     * @param {HMODULE} hModule 
+     * @param {HMODULE} _hModule 
      * @returns {HRESULT} 
      */
-    CanUnloadNow(hModule) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    CanUnloadNow(_hModule) {
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
 
-        result := ComCall(4, this, "ptr", hModule, "HRESULT")
+        result := ComCall(4, this, "ptr", _hModule, "HRESULT")
         return result
     }
 }

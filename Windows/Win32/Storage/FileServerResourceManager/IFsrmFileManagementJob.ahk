@@ -870,9 +870,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
      */
     get_LastReportPathWithoutExtension() {
-        path := BSTR()
-        result := ComCall(47, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(47, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -940,14 +940,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     the status of the job, access the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus">IFsrmReportJob::RunningStatus</a> 
      *     property.
-     * @param {Integer} context Specifies to which subdirectory the reports or logging are written, if enabled. For possible values, see 
-     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
-     *       enumeration.
+     * @param {Integer} _context 
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run
      */
-    Run(context) {
-        result := ComCall(51, this, "int", context, "HRESULT")
+    Run(_context) {
+        result := ComCall(51, this, "int", _context, "HRESULT")
         return result
     }
 

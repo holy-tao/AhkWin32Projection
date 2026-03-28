@@ -7568,13 +7568,13 @@ class SystemServices {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
-    static NtMakeTemporaryObject(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static NtMakeTemporaryObject(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("ntdll.dll\NtMakeTemporaryObject", "ptr", Handle, "int")
+        result := DllCall("ntdll.dll\NtMakeTemporaryObject", "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7667,18 +7667,18 @@ class SystemServices {
      * @param {Pointer<Guid>} Uow 
      * @param {HANDLE} TmHandle 
      * @param {Integer} CreateOptions 
-     * @param {Integer} IsolationLevel 
+     * @param {Integer} _IsolationLevel 
      * @param {Integer} IsolationFlags 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<UNICODE_STRING>} Description 
      * @returns {NTSTATUS} 
      */
-    static NtCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static NtCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle, CreateOptions, _IsolationLevel, IsolationFlags, Timeout, Description) {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
+        result := DllCall("ntdll.dll\NtCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7979,11 +7979,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
-    static NtDisplayString(String_R) {
-        result := DllCall("ntdll.dll\NtDisplayString", "ptr", String_R, "int")
+    static NtDisplayString(_String) {
+        result := DllCall("ntdll.dll\NtDisplayString", "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8005,11 +8005,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<LUID>} Luid 
+     * @param {Pointer<LUID>} _Luid 
      * @returns {NTSTATUS} 
      */
-    static NtAllocateLocallyUniqueId(Luid) {
-        result := DllCall("ntdll.dll\NtAllocateLocallyUniqueId", "ptr", Luid, "int")
+    static NtAllocateLocallyUniqueId(_Luid) {
+        result := DllCall("ntdll.dll\NtAllocateLocallyUniqueId", "ptr", _Luid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8068,15 +8068,15 @@ class SystemServices {
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
-    static ZwPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength, Buffer_R) {
+    static ZwPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength, _Buffer) {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ntdll.dll\ZwPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8135,11 +8135,11 @@ class SystemServices {
      * 
      * @param {Integer} Value 
      * @param {Integer} Base 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
-    static RtlIntegerToUnicodeString(Value, Base, String_R) {
-        result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", "uint", Value, "uint", Base, "ptr", String_R, "int")
+    static RtlIntegerToUnicodeString(Value, Base, _String) {
+        result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", "uint", Value, "uint", Base, "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8148,43 +8148,43 @@ class SystemServices {
      * 
      * @param {Integer} Value 
      * @param {Integer} Base 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
-    static RtlInt64ToUnicodeString(Value, Base, String_R) {
-        result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", "uint", Value, "uint", Base, "ptr", String_R, "int")
+    static RtlInt64ToUnicodeString(Value, Base, _String) {
+        result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", "uint", Value, "uint", Base, "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @param {Integer} Base 
      * @param {Pointer<Integer>} Value 
      * @returns {NTSTATUS} 
      */
-    static RtlUnicodeStringToInteger(String_R, Base, Value) {
+    static RtlUnicodeStringToInteger(_String, Base, Value) {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", "ptr", String_R, "uint", Base, ValueMarshal, Value, "int")
+        result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", "ptr", _String, "uint", Base, ValueMarshal, Value, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @param {Integer} Base 
-     * @param {Pointer<Integer>} Number_R 
+     * @param {Pointer<Integer>} _Number 
      * @param {Pointer<PWSTR>} EndPointer 
      * @returns {NTSTATUS} 
      */
-    static RtlUnicodeStringToInt64(String_R, Base, Number_R, EndPointer) {
-        Number_RMarshal := Number_R is VarRef ? "int64*" : "ptr"
+    static RtlUnicodeStringToInt64(_String, Base, _Number, EndPointer) {
+        _NumberMarshal := _Number is VarRef ? "int64*" : "ptr"
         EndPointerMarshal := EndPointer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", "ptr", String_R, "uint", Base, Number_RMarshal, Number_R, EndPointerMarshal, EndPointer, "int")
+        result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", "ptr", _String, "uint", Base, _NumberMarshal, _Number, EndPointerMarshal, EndPointer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8204,19 +8204,19 @@ class SystemServices {
     /**
      * 
      * @param {Integer} RelativeTo 
-     * @param {PWSTR} Path 
+     * @param {PWSTR} _Path 
      * @param {Pointer<RTL_QUERY_REGISTRY_TABLE>} QueryTable 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<Void>} Environment 
      * @returns {NTSTATUS} 
      */
-    static RtlQueryRegistryValues(RelativeTo, Path, QueryTable, Context, Environment) {
-        Path := Path is String ? StrPtr(Path) : Path
+    static RtlQueryRegistryValues(RelativeTo, _Path, QueryTable, _Context, Environment) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         EnvironmentMarshal := Environment is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlQueryRegistryValues", "uint", RelativeTo, "ptr", Path, "ptr", QueryTable, ContextMarshal, Context, EnvironmentMarshal, Environment, "int")
+        result := DllCall("ntdll.dll\RtlQueryRegistryValues", "uint", RelativeTo, "ptr", _Path, "ptr", QueryTable, _ContextMarshal, _Context, EnvironmentMarshal, Environment, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8234,18 +8234,18 @@ class SystemServices {
     /**
      * 
      * @param {Integer} RelativeTo 
-     * @param {PWSTR} Path 
-     * @param {PWSTR} ValueName 
+     * @param {PWSTR} _Path 
+     * @param {PWSTR} _ValueName 
      * @param {Integer} ValueType 
      * @param {Pointer} ValueData 
      * @param {Integer} ValueLength 
      * @returns {NTSTATUS} 
      */
-    static RtlWriteRegistryValue(RelativeTo, Path, ValueName, ValueType, ValueData, ValueLength) {
-        Path := Path is String ? StrPtr(Path) : Path
-        ValueName := ValueName is String ? StrPtr(ValueName) : ValueName
+    static RtlWriteRegistryValue(RelativeTo, _Path, _ValueName, ValueType, ValueData, ValueLength) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
+        _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
-        result := DllCall("ntdll.dll\RtlWriteRegistryValue", "uint", RelativeTo, "ptr", Path, "ptr", ValueName, "uint", ValueType, "ptr", ValueData, "uint", ValueLength, "int")
+        result := DllCall("ntdll.dll\RtlWriteRegistryValue", "uint", RelativeTo, "ptr", _Path, "ptr", _ValueName, "uint", ValueType, "ptr", ValueData, "uint", ValueLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8253,15 +8253,15 @@ class SystemServices {
     /**
      * 
      * @param {Integer} RelativeTo 
-     * @param {PWSTR} Path 
-     * @param {PWSTR} ValueName 
+     * @param {PWSTR} _Path 
+     * @param {PWSTR} _ValueName 
      * @returns {NTSTATUS} 
      */
-    static RtlDeleteRegistryValue(RelativeTo, Path, ValueName) {
-        Path := Path is String ? StrPtr(Path) : Path
-        ValueName := ValueName is String ? StrPtr(ValueName) : ValueName
+    static RtlDeleteRegistryValue(RelativeTo, _Path, _ValueName) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
+        _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
-        result := DllCall("ntdll.dll\RtlDeleteRegistryValue", "uint", RelativeTo, "ptr", Path, "ptr", ValueName, "int")
+        result := DllCall("ntdll.dll\RtlDeleteRegistryValue", "uint", RelativeTo, "ptr", _Path, "ptr", _ValueName, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8269,13 +8269,13 @@ class SystemServices {
     /**
      * 
      * @param {Integer} RelativeTo 
-     * @param {PWSTR} Path 
+     * @param {PWSTR} _Path 
      * @returns {NTSTATUS} 
      */
-    static RtlCreateRegistryKey(RelativeTo, Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    static RtlCreateRegistryKey(RelativeTo, _Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := DllCall("ntdll.dll\RtlCreateRegistryKey", "uint", RelativeTo, "ptr", Path, "int")
+        result := DllCall("ntdll.dll\RtlCreateRegistryKey", "uint", RelativeTo, "ptr", _Path, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8283,13 +8283,13 @@ class SystemServices {
     /**
      * 
      * @param {Integer} RelativeTo 
-     * @param {PWSTR} Path 
+     * @param {PWSTR} _Path 
      * @returns {NTSTATUS} 
      */
-    static RtlCheckRegistryKey(RelativeTo, Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    static RtlCheckRegistryKey(RelativeTo, _Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := DllCall("ntdll.dll\RtlCheckRegistryKey", "uint", RelativeTo, "ptr", Path, "int")
+        result := DllCall("ntdll.dll\RtlCheckRegistryKey", "uint", RelativeTo, "ptr", _Path, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8360,16 +8360,16 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @param {BOOLEAN} CaseInSensitive 
      * @param {Integer} HashAlgorithm 
      * @param {Pointer<Integer>} HashValue 
      * @returns {NTSTATUS} 
      */
-    static RtlHashUnicodeString(String_R, CaseInSensitive, HashAlgorithm, HashValue) {
+    static RtlHashUnicodeString(_String, CaseInSensitive, HashAlgorithm, HashValue) {
         HashValueMarshal := HashValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlHashUnicodeString", "ptr", String_R, "char", CaseInSensitive, "uint", HashAlgorithm, HashValueMarshal, HashValue, "int")
+        result := DllCall("ntdll.dll\RtlHashUnicodeString", "ptr", _String, "char", CaseInSensitive, "uint", HashAlgorithm, HashValueMarshal, HashValue, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8591,13 +8591,13 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<Guid>} NamespaceGuid 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
      */
-    static RtlGenerateClass5Guid(NamespaceGuid, Buffer_R, BufferSize, Guid) {
-        result := DllCall("ntoskrnl.exe\RtlGenerateClass5Guid", "ptr", NamespaceGuid, "ptr", Buffer_R, "uint", BufferSize, "ptr", Guid, "int")
+    static RtlGenerateClass5Guid(NamespaceGuid, _Buffer, BufferSize, Guid) {
+        result := DllCall("ntoskrnl.exe\RtlGenerateClass5Guid", "ptr", NamespaceGuid, "ptr", _Buffer, "uint", BufferSize, "ptr", Guid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8616,11 +8616,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} Status 
+     * @param {Integer} _Status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static DbgBreakPointWithStatus(Status) {
-        DllCall("ntoskrnl.exe\DbgBreakPointWithStatus", "uint", Status)
+    static DbgBreakPointWithStatus(_Status) {
+        DllCall("ntoskrnl.exe\DbgBreakPointWithStatus", "uint", _Status)
     }
 
     /**
@@ -9081,39 +9081,39 @@ class SystemServices {
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} Revision 
      * @returns {NTSTATUS} 
      */
-    static RtlCreateSecurityDescriptor(SecurityDescriptor, Revision) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlCreateSecurityDescriptor(_SecurityDescriptor, Revision) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlCreateSecurityDescriptor", "ptr", SecurityDescriptor, "uint", Revision, "int")
+        result := DllCall("ntdll.dll\RtlCreateSecurityDescriptor", "ptr", _SecurityDescriptor, "uint", Revision, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
      */
-    static RtlValidSecurityDescriptor(SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlValidSecurityDescriptor(_SecurityDescriptor) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlValidSecurityDescriptor", "ptr", SecurityDescriptor, "char")
+        result := DllCall("ntdll.dll\RtlValidSecurityDescriptor", "ptr", _SecurityDescriptor, "char")
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {Integer} 
      */
-    static RtlLengthSecurityDescriptor(SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlLengthSecurityDescriptor(_SecurityDescriptor) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlLengthSecurityDescriptor", "ptr", SecurityDescriptor, "uint")
+        result := DllCall("ntdll.dll\RtlLengthSecurityDescriptor", "ptr", _SecurityDescriptor, "uint")
         return result
     }
 
@@ -9131,16 +9131,16 @@ class SystemServices {
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {BOOLEAN} DaclPresent 
      * @param {Pointer<ACL>} Dacl 
      * @param {BOOLEAN} DaclDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlSetDaclSecurityDescriptor(SecurityDescriptor, DaclPresent, Dacl, DaclDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlSetDaclSecurityDescriptor(_SecurityDescriptor, DaclPresent, Dacl, DaclDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlSetDaclSecurityDescriptor", "ptr", SecurityDescriptor, "char", DaclPresent, "ptr", Dacl, "char", DaclDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlSetDaclSecurityDescriptor", "ptr", _SecurityDescriptor, "char", DaclPresent, "ptr", Dacl, "char", DaclDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9178,21 +9178,21 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */
-    static RtlIsNtDdiVersionAvailable(Version) {
-        result := DllCall("ntoskrnl.exe\RtlIsNtDdiVersionAvailable", "uint", Version, "char")
+    static RtlIsNtDdiVersionAvailable(_Version) {
+        result := DllCall("ntoskrnl.exe\RtlIsNtDdiVersionAvailable", "uint", _Version, "char")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */
-    static RtlIsServicePackVersionInstalled(Version) {
-        result := DllCall("ntoskrnl.exe\RtlIsServicePackVersionInstalled", "uint", Version, "char")
+    static RtlIsServicePackVersionInstalled(_Version) {
+        result := DllCall("ntoskrnl.exe\RtlIsServicePackVersionInstalled", "uint", _Version, "char")
         return result
     }
 
@@ -9272,18 +9272,18 @@ class SystemServices {
 
     /**
      * 
-     * @param {HANDLE} Handle 
-     * @param {Pointer<Void>} Object_R 
+     * @param {HANDLE} _Handle 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<BOOLEAN>} UntrustedObject 
      * @returns {NTSTATUS} 
      */
-    static RtlIsUntrustedObject(Handle, Object_R, UntrustedObject) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static RtlIsUntrustedObject(_Handle, _Object, UntrustedObject) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         UntrustedObjectMarshal := UntrustedObject is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlIsUntrustedObject", "ptr", Handle, Object_RMarshal, Object_R, UntrustedObjectMarshal, UntrustedObject, "int")
+        result := DllCall("ntdll.dll\RtlIsUntrustedObject", "ptr", _Handle, _ObjectMarshal, _Object, UntrustedObjectMarshal, UntrustedObject, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9512,15 +9512,15 @@ class SystemServices {
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
-    static NtPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength, Buffer_R) {
+    static NtPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength, _Buffer) {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\NtPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ntdll.dll\NtPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9552,13 +9552,13 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @param {BOOLEAN} ReadOperation 
      * @param {BOOLEAN} DmaOperation 
      * @returns {String} Nothing - always returns an empty string
      */
-    static KeFlushIoBuffers(Mdl, ReadOperation, DmaOperation) {
-        DllCall("ntoskrnl.exe\KeFlushIoBuffers", "ptr", Mdl, "char", ReadOperation, "char", DmaOperation)
+    static KeFlushIoBuffers(_Mdl, ReadOperation, DmaOperation) {
+        DllCall("ntoskrnl.exe\KeFlushIoBuffers", "ptr", _Mdl, "char", ReadOperation, "char", DmaOperation)
     }
 
     /**
@@ -9634,17 +9634,17 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} DumpType 
+     * @param {Integer} _DumpType 
      * @param {Integer} Flags 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BufferNeeded 
      * @returns {NTSTATUS} 
      */
-    static KeInitializeCrashDumpHeader(DumpType, Flags, Buffer_R, BufferSize, BufferNeeded) {
+    static KeInitializeCrashDumpHeader(_DumpType, Flags, _Buffer, BufferSize, BufferNeeded) {
         BufferNeededMarshal := BufferNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeInitializeCrashDumpHeader", "uint", DumpType, "uint", Flags, "ptr", Buffer_R, "uint", BufferSize, BufferNeededMarshal, BufferNeeded, "int")
+        result := DllCall("ntoskrnl.exe\KeInitializeCrashDumpHeader", "uint", _DumpType, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, BufferNeededMarshal, BufferNeeded, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9662,11 +9662,11 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<KDPC>} Dpc 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @returns {String} Nothing - always returns an empty string
      */
-    static KeSetTargetProcessorDpc(Dpc, Number_R) {
-        DllCall("ntoskrnl.exe\KeSetTargetProcessorDpc", "ptr", Dpc, "char", Number_R)
+    static KeSetTargetProcessorDpc(Dpc, _Number) {
+        DllCall("ntoskrnl.exe\KeSetTargetProcessorDpc", "ptr", Dpc, "char", _Number)
     }
 
     /**
@@ -9701,11 +9701,11 @@ class SystemServices {
      * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Pointer<KDEVICE_QUEUE_ENTRY>} DeviceQueueEntry 
-     * @param {Integer} SortKey 
+     * @param {Integer} _SortKey 
      * @returns {BOOLEAN} 
      */
-    static KeInsertByKeyDeviceQueue(DeviceQueue, DeviceQueueEntry, SortKey) {
-        result := DllCall("ntoskrnl.exe\KeInsertByKeyDeviceQueue", "ptr", DeviceQueue, "ptr", DeviceQueueEntry, "uint", SortKey, "char")
+    static KeInsertByKeyDeviceQueue(DeviceQueue, DeviceQueueEntry, _SortKey) {
+        result := DllCall("ntoskrnl.exe\KeInsertByKeyDeviceQueue", "ptr", DeviceQueue, "ptr", DeviceQueueEntry, "uint", _SortKey, "char")
         return result
     }
 
@@ -9722,22 +9722,22 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
-     * @param {Integer} SortKey 
+     * @param {Integer} _SortKey 
      * @returns {Pointer<KDEVICE_QUEUE_ENTRY>} 
      */
-    static KeRemoveByKeyDeviceQueue(DeviceQueue, SortKey) {
-        result := DllCall("ntoskrnl.exe\KeRemoveByKeyDeviceQueue", "ptr", DeviceQueue, "uint", SortKey, "ptr")
+    static KeRemoveByKeyDeviceQueue(DeviceQueue, _SortKey) {
+        result := DllCall("ntoskrnl.exe\KeRemoveByKeyDeviceQueue", "ptr", DeviceQueue, "uint", _SortKey, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
-     * @param {Integer} SortKey 
+     * @param {Integer} _SortKey 
      * @returns {Pointer<KDEVICE_QUEUE_ENTRY>} 
      */
-    static KeRemoveByKeyDeviceQueueIfBusy(DeviceQueue, SortKey) {
-        result := DllCall("ntoskrnl.exe\KeRemoveByKeyDeviceQueueIfBusy", "ptr", DeviceQueue, "uint", SortKey, "ptr")
+    static KeRemoveByKeyDeviceQueueIfBusy(DeviceQueue, _SortKey) {
+        result := DllCall("ntoskrnl.exe\KeRemoveByKeyDeviceQueueIfBusy", "ptr", DeviceQueue, "uint", _SortKey, "ptr")
         return result
     }
 
@@ -9907,13 +9907,13 @@ class SystemServices {
      * 
      * @param {Integer} WaitMode 
      * @param {BOOLEAN} Alertable 
-     * @param {Pointer<Integer>} Interval 
+     * @param {Pointer<Integer>} _Interval 
      * @returns {NTSTATUS} 
      */
-    static KeDelayExecutionThread(WaitMode, Alertable, Interval) {
-        IntervalMarshal := Interval is VarRef ? "int64*" : "ptr"
+    static KeDelayExecutionThread(WaitMode, Alertable, _Interval) {
+        _IntervalMarshal := _Interval is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeDelayExecutionThread", "char", WaitMode, "char", Alertable, IntervalMarshal, Interval, "int")
+        result := DllCall("ntoskrnl.exe\KeDelayExecutionThread", "char", WaitMode, "char", Alertable, _IntervalMarshal, _Interval, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10024,11 +10024,11 @@ class SystemServices {
     /**
      * 
      * @param {PKTHREAD} Thread 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {Integer} 
      */
-    static KeSetPriorityThread(Thread, Priority) {
-        result := DllCall("ntoskrnl.exe\KeSetPriorityThread", "ptr", Thread, "int", Priority, "int")
+    static KeSetPriorityThread(Thread, _Priority) {
+        result := DllCall("ntoskrnl.exe\KeSetPriorityThread", "ptr", Thread, "int", _Priority, "int")
         return result
     }
 
@@ -10154,7 +10154,7 @@ class SystemServices {
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<Pointer<Void>>} Object_R 
+     * @param {Pointer<Pointer<Void>>} _Object 
      * @param {Integer} WaitType 
      * @param {Integer} WaitReason 
      * @param {Integer} WaitMode 
@@ -10163,29 +10163,29 @@ class SystemServices {
      * @param {Pointer<KWAIT_BLOCK>} WaitBlockArray 
      * @returns {NTSTATUS} 
      */
-    static KeWaitForMultipleObjects(Count, Object_R, WaitType, WaitReason, WaitMode, Alertable, Timeout, WaitBlockArray) {
-        Object_RMarshal := Object_R is VarRef ? "ptr*" : "ptr"
+    static KeWaitForMultipleObjects(Count, _Object, WaitType, WaitReason, WaitMode, Alertable, Timeout, WaitBlockArray) {
+        _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeWaitForMultipleObjects", "uint", Count, Object_RMarshal, Object_R, "int", WaitType, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "int")
+        result := DllCall("ntoskrnl.exe\KeWaitForMultipleObjects", "uint", Count, _ObjectMarshal, _Object, "int", WaitType, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} WaitReason 
      * @param {Integer} WaitMode 
      * @param {BOOLEAN} Alertable 
      * @param {Pointer<Integer>} Timeout 
      * @returns {NTSTATUS} 
      */
-    static KeWaitForSingleObject(Object_R, WaitReason, WaitMode, Alertable, Timeout) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static KeWaitForSingleObject(_Object, WaitReason, WaitMode, Alertable, Timeout) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeWaitForSingleObject", Object_RMarshal, Object_R, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        result := DllCall("ntoskrnl.exe\KeWaitForSingleObject", _ObjectMarshal, _Object, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10193,11 +10193,11 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<PKIPI_BROADCAST_WORKER>} BroadcastFunction 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @returns {Pointer} 
      */
-    static KeIpiGenericCall(BroadcastFunction, Context) {
-        result := DllCall("ntoskrnl.exe\KeIpiGenericCall", "ptr", BroadcastFunction, "ptr", Context, "ptr")
+    static KeIpiGenericCall(BroadcastFunction, _Context) {
+        result := DllCall("ntoskrnl.exe\KeIpiGenericCall", "ptr", BroadcastFunction, "ptr", _Context, "ptr")
         return result
     }
 
@@ -10357,26 +10357,26 @@ class SystemServices {
      * 
      * @param {Pointer<KBUGCHECK_CALLBACK_RECORD>} CallbackRecord 
      * @param {Pointer<PKBUGCHECK_CALLBACK_ROUTINE>} CallbackRoutine 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
-     * @param {Pointer<Integer>} Component 
+     * @param {Pointer<Integer>} _Component 
      * @returns {BOOLEAN} 
      */
-    static KeRegisterBugCheckCallback(CallbackRecord, CallbackRoutine, Buffer_R, Length, Component) {
-        ComponentMarshal := Component is VarRef ? "char*" : "ptr"
+    static KeRegisterBugCheckCallback(CallbackRecord, CallbackRoutine, _Buffer, Length, _Component) {
+        _ComponentMarshal := _Component is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeRegisterBugCheckCallback", "ptr", CallbackRecord, "ptr", CallbackRoutine, "ptr", Buffer_R, "uint", Length, ComponentMarshal, Component, "char")
+        result := DllCall("ntoskrnl.exe\KeRegisterBugCheckCallback", "ptr", CallbackRecord, "ptr", CallbackRoutine, "ptr", _Buffer, "uint", Length, _ComponentMarshal, _Component, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer} KtriageDumpDataArray 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {NTSTATUS} 
      */
-    static KeInitializeTriageDumpDataArray(KtriageDumpDataArray, Size) {
-        result := DllCall("ntoskrnl.exe\KeInitializeTriageDumpDataArray", "ptr", KtriageDumpDataArray, "uint", Size, "int")
+    static KeInitializeTriageDumpDataArray(KtriageDumpDataArray, _Size) {
+        result := DllCall("ntoskrnl.exe\KeInitializeTriageDumpDataArray", "ptr", KtriageDumpDataArray, "uint", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10384,14 +10384,14 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<KTRIAGE_DUMP_DATA_ARRAY>} KtriageDumpDataArray 
-     * @param {Pointer<Void>} Address 
-     * @param {Pointer} Size 
+     * @param {Pointer<Void>} _Address 
+     * @param {Pointer} _Size 
      * @returns {NTSTATUS} 
      */
-    static KeAddTriageDumpDataBlock(KtriageDumpDataArray, Address, Size) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static KeAddTriageDumpDataBlock(KtriageDumpDataArray, _Address, _Size) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeAddTriageDumpDataBlock", "ptr", KtriageDumpDataArray, AddressMarshal, Address, "ptr", Size, "int")
+        result := DllCall("ntoskrnl.exe\KeAddTriageDumpDataBlock", "ptr", KtriageDumpDataArray, _AddressMarshal, _Address, "ptr", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10411,38 +10411,38 @@ class SystemServices {
      * @param {Pointer<KBUGCHECK_REASON_CALLBACK_RECORD>} CallbackRecord 
      * @param {Pointer<PKBUGCHECK_REASON_CALLBACK_ROUTINE>} CallbackRoutine 
      * @param {Integer} Reason 
-     * @param {Pointer<Integer>} Component 
+     * @param {Pointer<Integer>} _Component 
      * @returns {BOOLEAN} 
      */
-    static KeRegisterBugCheckReasonCallback(CallbackRecord, CallbackRoutine, Reason, Component) {
-        ComponentMarshal := Component is VarRef ? "char*" : "ptr"
+    static KeRegisterBugCheckReasonCallback(CallbackRecord, CallbackRoutine, Reason, _Component) {
+        _ComponentMarshal := _Component is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeRegisterBugCheckReasonCallback", "ptr", CallbackRecord, "ptr", CallbackRoutine, "int", Reason, ComponentMarshal, Component, "char")
+        result := DllCall("ntoskrnl.exe\KeRegisterBugCheckReasonCallback", "ptr", CallbackRecord, "ptr", CallbackRoutine, "int", Reason, _ComponentMarshal, _Component, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<PNMI_CALLBACK>} CallbackRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {Pointer<Void>} 
      */
-    static KeRegisterNmiCallback(CallbackRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static KeRegisterNmiCallback(CallbackRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeRegisterNmiCallback", "ptr", CallbackRoutine, ContextMarshal, Context, "ptr")
+        result := DllCall("ntoskrnl.exe\KeRegisterNmiCallback", "ptr", CallbackRoutine, _ContextMarshal, _Context, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Handle 
+     * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static KeDeregisterNmiCallback(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static KeDeregisterNmiCallback(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeDeregisterNmiCallback", HandleMarshal, Handle, "int")
+        result := DllCall("ntoskrnl.exe\KeDeregisterNmiCallback", _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10459,13 +10459,13 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} Handle 
+     * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static KeDeregisterBoundCallback(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static KeDeregisterBoundCallback(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeDeregisterBoundCallback", HandleMarshal, Handle, "int")
+        result := DllCall("ntoskrnl.exe\KeDeregisterBoundCallback", _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10993,12 +10993,12 @@ class SystemServices {
      * @param {Integer} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {Pointer<Void>} 
      * @deprecated ExAllocatePoolWithTagPriority is deprecated, use ExAllocatePool3.
      */
-    static ExAllocatePoolWithTagPriority(PoolType, NumberOfBytes, Tag, Priority) {
-        result := DllCall("ntoskrnl.exe\ExAllocatePoolWithTagPriority", "int", PoolType, "ptr", NumberOfBytes, "uint", Tag, "int", Priority, "ptr")
+    static ExAllocatePoolWithTagPriority(PoolType, NumberOfBytes, Tag, _Priority) {
+        result := DllCall("ntoskrnl.exe\ExAllocatePoolWithTagPriority", "int", PoolType, "ptr", NumberOfBytes, "uint", Tag, "int", _Priority, "ptr")
         return result
     }
 
@@ -11074,17 +11074,17 @@ class SystemServices {
      * @param {Pointer<Void>} Allocation 
      * @param {Pointer} Cookie 
      * @param {Pointer} Offset 
-     * @param {Pointer} Size 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer} _Size 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
-    static ExSecurePoolUpdate(SecurePoolHandle, Tag, Allocation, Cookie, Offset, Size, Buffer_R) {
+    static ExSecurePoolUpdate(SecurePoolHandle, Tag, Allocation, Cookie, Offset, _Size, _Buffer) {
         SecurePoolHandle := SecurePoolHandle is Win32Handle ? NumGet(SecurePoolHandle, "ptr") : SecurePoolHandle
 
         AllocationMarshal := Allocation is VarRef ? "ptr" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ExSecurePoolUpdate", "ptr", SecurePoolHandle, "uint", Tag, AllocationMarshal, Allocation, "ptr", Cookie, "ptr", Offset, "ptr", Size, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ntoskrnl.exe\ExSecurePoolUpdate", "ptr", SecurePoolHandle, "uint", Tag, AllocationMarshal, Allocation, "ptr", Cookie, "ptr", Offset, "ptr", _Size, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11205,33 +11205,33 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer} Address 
+     * @param {Pointer} _Address 
      * @param {Pointer} Length 
      * @param {Integer} Alignment 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ProbeForRead(Address, Length, Alignment) {
-        DllCall("ntoskrnl.exe\ProbeForRead", "ptr", Address, "ptr", Length, "uint", Alignment)
+    static ProbeForRead(_Address, Length, Alignment) {
+        DllCall("ntoskrnl.exe\ProbeForRead", "ptr", _Address, "ptr", Length, "uint", Alignment)
     }
 
     /**
      * 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ExRaiseStatus(Status) {
-        DllCall("ntoskrnl.exe\ExRaiseStatus", "int", Status)
+    static ExRaiseStatus(_Status) {
+        DllCall("ntoskrnl.exe\ExRaiseStatus", "int", _Status)
     }
 
     /**
      * 
-     * @param {Pointer} Address 
+     * @param {Pointer} _Address 
      * @param {Pointer} Length 
      * @param {Integer} Alignment 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ProbeForWrite(Address, Length, Alignment) {
-        DllCall("ntoskrnl.exe\ProbeForWrite", "ptr", Address, "ptr", Length, "uint", Alignment)
+    static ProbeForWrite(_Address, Length, Alignment) {
+        DllCall("ntoskrnl.exe\ProbeForWrite", "ptr", _Address, "ptr", Length, "uint", Alignment)
     }
 
     /**
@@ -11500,28 +11500,28 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Integer>} SystemTime 
+     * @param {Pointer<Integer>} _SystemTime 
      * @param {Pointer<Integer>} LocalTime 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ExSystemTimeToLocalTime(SystemTime, LocalTime) {
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+    static ExSystemTimeToLocalTime(_SystemTime, LocalTime) {
+        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
         LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
 
-        DllCall("ntoskrnl.exe\ExSystemTimeToLocalTime", SystemTimeMarshal, SystemTime, LocalTimeMarshal, LocalTime)
+        DllCall("ntoskrnl.exe\ExSystemTimeToLocalTime", _SystemTimeMarshal, _SystemTime, LocalTimeMarshal, LocalTime)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} LocalTime 
-     * @param {Pointer<Integer>} SystemTime 
+     * @param {Pointer<Integer>} _SystemTime 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ExLocalTimeToSystemTime(LocalTime, SystemTime) {
+    static ExLocalTimeToSystemTime(LocalTime, _SystemTime) {
         LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
-        DllCall("ntoskrnl.exe\ExLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, SystemTimeMarshal, SystemTime)
+        DllCall("ntoskrnl.exe\ExLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime)
     }
 
     /**
@@ -12127,15 +12127,15 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<PEX_CALLBACK_FUNCTION>} Function 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} Cookie 
      * @returns {NTSTATUS} 
      */
-    static CmRegisterCallback(Function, Context, Cookie) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static CmRegisterCallback(Function, _Context, Cookie) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmRegisterCallback", "ptr", Function, ContextMarshal, Context, CookieMarshal, Cookie, "int")
+        result := DllCall("ntoskrnl.exe\CmRegisterCallback", "ptr", Function, _ContextMarshal, _Context, CookieMarshal, Cookie, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12156,18 +12156,18 @@ class SystemServices {
      * @param {Pointer<PEX_CALLBACK_FUNCTION>} Function 
      * @param {Pointer<UNICODE_STRING>} Altitude 
      * @param {Pointer<Void>} Driver 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} Cookie 
      * @returns {NTSTATUS} 
      */
-    static CmRegisterCallbackEx(Function, Altitude, Driver, Context, Cookie) {
+    static CmRegisterCallbackEx(Function, Altitude, Driver, _Context, Cookie) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         DriverMarshal := Driver is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmRegisterCallbackEx", "ptr", Function, "ptr", Altitude, DriverMarshal, Driver, ContextMarshal, Context, CookieMarshal, Cookie, "ptr", Reserved, "int")
+        result := DllCall("ntoskrnl.exe\CmRegisterCallbackEx", "ptr", Function, "ptr", Altitude, DriverMarshal, Driver, _ContextMarshal, _Context, CookieMarshal, Cookie, "ptr", Reserved, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12187,19 +12187,19 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} Cookie 
      * @param {Pointer<Void>} NewContext 
      * @param {Pointer<Pointer<Void>>} OldContext 
      * @returns {NTSTATUS} 
      */
-    static CmSetCallbackObjectContext(Object_R, Cookie, NewContext, OldContext) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static CmSetCallbackObjectContext(_Object, Cookie, NewContext, OldContext) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
         NewContextMarshal := NewContext is VarRef ? "ptr" : "ptr"
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmSetCallbackObjectContext", Object_RMarshal, Object_R, CookieMarshal, Cookie, NewContextMarshal, NewContext, OldContextMarshal, OldContext, "int")
+        result := DllCall("ntoskrnl.exe\CmSetCallbackObjectContext", _ObjectMarshal, _Object, CookieMarshal, Cookie, NewContextMarshal, NewContext, OldContextMarshal, OldContext, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12207,18 +12207,18 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<Integer>} Cookie 
-     * @param {Pointer<Void>} Object_R 
-     * @param {Pointer<Pointer>} ObjectID 
+     * @param {Pointer<Void>} _Object 
+     * @param {Pointer<Pointer>} _ObjectID 
      * @param {Pointer<Pointer<UNICODE_STRING>>} ObjectName 
      * @returns {NTSTATUS} 
      */
-    static CmCallbackGetKeyObjectID(Cookie, Object_R, ObjectID, ObjectName) {
+    static CmCallbackGetKeyObjectID(Cookie, _Object, _ObjectID, ObjectName) {
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
-        ObjectIDMarshal := ObjectID is VarRef ? "ptr*" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
+        _ObjectIDMarshal := _ObjectID is VarRef ? "ptr*" : "ptr"
         ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectID", CookieMarshal, Cookie, Object_RMarshal, Object_R, ObjectIDMarshal, ObjectID, ObjectNameMarshal, ObjectName, "int")
+        result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectID", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12226,33 +12226,33 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<Integer>} Cookie 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {Pointer<Void>} 
      */
-    static CmGetBoundTransaction(Cookie, Object_R) {
+    static CmGetBoundTransaction(Cookie, _Object) {
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmGetBoundTransaction", CookieMarshal, Cookie, Object_RMarshal, Object_R, "ptr")
+        result := DllCall("ntoskrnl.exe\CmGetBoundTransaction", CookieMarshal, Cookie, _ObjectMarshal, _Object, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} Cookie 
-     * @param {Pointer<Void>} Object_R 
-     * @param {Pointer<Pointer>} ObjectID 
+     * @param {Pointer<Void>} _Object 
+     * @param {Pointer<Pointer>} _ObjectID 
      * @param {Pointer<Pointer<UNICODE_STRING>>} ObjectName 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static CmCallbackGetKeyObjectIDEx(Cookie, Object_R, ObjectID, ObjectName, Flags) {
+    static CmCallbackGetKeyObjectIDEx(Cookie, _Object, _ObjectID, ObjectName, Flags) {
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
-        ObjectIDMarshal := ObjectID is VarRef ? "ptr*" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
+        _ObjectIDMarshal := _ObjectID is VarRef ? "ptr*" : "ptr"
         ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectIDEx", CookieMarshal, Cookie, Object_RMarshal, Object_R, ObjectIDMarshal, ObjectID, ObjectNameMarshal, ObjectName, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectIDEx", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12461,12 +12461,12 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @param {Integer} NumberOfBytes 
      * @returns {NTSTATUS} 
      */
-    static MmAdvanceMdl(Mdl, NumberOfBytes) {
-        result := DllCall("ntoskrnl.exe\MmAdvanceMdl", "ptr", Mdl, "uint", NumberOfBytes, "int")
+    static MmAdvanceMdl(_Mdl, NumberOfBytes) {
+        result := DllCall("ntoskrnl.exe\MmAdvanceMdl", "ptr", _Mdl, "uint", NumberOfBytes, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12490,13 +12490,13 @@ class SystemServices {
      * @param {Integer} CacheType 
      * @param {Pointer<Void>} RequestedAddress 
      * @param {Integer} BugCheckOnFailure 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {Pointer<Void>} 
      */
-    static MmMapLockedPagesSpecifyCache(MemoryDescriptorList, AccessMode, CacheType, RequestedAddress, BugCheckOnFailure, Priority) {
+    static MmMapLockedPagesSpecifyCache(MemoryDescriptorList, AccessMode, CacheType, RequestedAddress, BugCheckOnFailure, _Priority) {
         RequestedAddressMarshal := RequestedAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmMapLockedPagesSpecifyCache", "ptr", MemoryDescriptorList, "char", AccessMode, "int", CacheType, RequestedAddressMarshal, RequestedAddress, "uint", BugCheckOnFailure, "uint", Priority, "ptr")
+        result := DllCall("ntoskrnl.exe\MmMapLockedPagesSpecifyCache", "ptr", MemoryDescriptorList, "char", AccessMode, "int", CacheType, RequestedAddressMarshal, RequestedAddress, "uint", BugCheckOnFailure, "uint", _Priority, "ptr")
         return result
     }
 
@@ -12907,14 +12907,14 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<Void>} AddressWithinSection 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static MmProtectDriverSection(AddressWithinSection, Size, Flags) {
+    static MmProtectDriverSection(AddressWithinSection, _Size, Flags) {
         AddressWithinSectionMarshal := AddressWithinSection is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmProtectDriverSection", AddressWithinSectionMarshal, AddressWithinSection, "ptr", Size, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\MmProtectDriverSection", AddressWithinSectionMarshal, AddressWithinSection, "ptr", _Size, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12977,18 +12977,18 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} ObjectType 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {Pointer<Void>} _ObjectType 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ParentSecurityDescriptor 
      * @returns {Integer} 
      */
-    static SeComputeAutoInheritByObjectType(ObjectType, SecurityDescriptor, ParentSecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeComputeAutoInheritByObjectType(_ObjectType, _SecurityDescriptor, ParentSecurityDescriptor) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
         ParentSecurityDescriptor := ParentSecurityDescriptor is Win32Handle ? NumGet(ParentSecurityDescriptor, "ptr") : ParentSecurityDescriptor
 
-        ObjectTypeMarshal := ObjectType is VarRef ? "ptr" : "ptr"
+        _ObjectTypeMarshal := _ObjectType is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeComputeAutoInheritByObjectType", ObjectTypeMarshal, ObjectType, "ptr", SecurityDescriptor, "ptr", ParentSecurityDescriptor, "uint")
+        result := DllCall("ntoskrnl.exe\SeComputeAutoInheritByObjectType", _ObjectTypeMarshal, _ObjectType, "ptr", _SecurityDescriptor, "ptr", ParentSecurityDescriptor, "uint")
         return result
     }
 
@@ -12997,7 +12997,7 @@ class SystemServices {
      * @param {PSECURITY_DESCRIPTOR} ParentDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ExplicitDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor 
-     * @param {Pointer<Guid>} ObjectType 
+     * @param {Pointer<Guid>} _ObjectType 
      * @param {BOOLEAN} IsDirectoryObject 
      * @param {Integer} AutoInheritFlags 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
@@ -13005,29 +13005,29 @@ class SystemServices {
      * @param {Integer} PoolType 
      * @returns {NTSTATUS} 
      */
-    static SeAssignSecurityEx(ParentDescriptor, ExplicitDescriptor, NewDescriptor, ObjectType, IsDirectoryObject, AutoInheritFlags, SubjectContext, GenericMapping, PoolType) {
+    static SeAssignSecurityEx(ParentDescriptor, ExplicitDescriptor, NewDescriptor, _ObjectType, IsDirectoryObject, AutoInheritFlags, SubjectContext, GenericMapping, PoolType) {
         ParentDescriptor := ParentDescriptor is Win32Handle ? NumGet(ParentDescriptor, "ptr") : ParentDescriptor
         ExplicitDescriptor := ExplicitDescriptor is Win32Handle ? NumGet(ExplicitDescriptor, "ptr") : ExplicitDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAssignSecurityEx", "ptr", ParentDescriptor, "ptr", ExplicitDescriptor, "ptr", NewDescriptor, "ptr", ObjectType, "char", IsDirectoryObject, "uint", AutoInheritFlags, "ptr", SubjectContext, "ptr", GenericMapping, "int", PoolType, "int")
+        result := DllCall("ntoskrnl.exe\SeAssignSecurityEx", "ptr", ParentDescriptor, "ptr", ExplicitDescriptor, "ptr", NewDescriptor, "ptr", _ObjectType, "char", IsDirectoryObject, "uint", AutoInheritFlags, "ptr", SubjectContext, "ptr", GenericMapping, "int", PoolType, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @returns {NTSTATUS} 
      */
-    static SeDeassignSecurity(SecurityDescriptor) {
-        result := DllCall("ntoskrnl.exe\SeDeassignSecurity", "ptr", SecurityDescriptor, "int")
+    static SeDeassignSecurity(_SecurityDescriptor) {
+        result := DllCall("ntoskrnl.exe\SeDeassignSecurity", "ptr", _SecurityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {BOOLEAN} SubjectContextLocked 
      * @param {Integer} DesiredAccess 
@@ -13039,14 +13039,14 @@ class SystemServices {
      * @param {Pointer<Integer>} AccessStatus 
      * @returns {BOOLEAN} 
      */
-    static SeAccessCheck(SecurityDescriptor, SubjectSecurityContext, SubjectContextLocked, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAccessCheck(_SecurityDescriptor, SubjectSecurityContext, SubjectContextLocked, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         PrivilegesMarshal := Privileges is VarRef ? "ptr*" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeAccessCheck", "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, "char", SubjectContextLocked, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
+        result := DllCall("ntoskrnl.exe\SeAccessCheck", "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, "char", SubjectContextLocked, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
         return result
     }
 
@@ -13083,30 +13083,30 @@ class SystemServices {
     /**
      * 
      * @param {Integer} Length 
-     * @param {Pointer} SecurityDescriptor 
+     * @param {Pointer} _SecurityDescriptor 
      * @returns {BOOLEAN} 
      */
-    static SeValidSecurityDescriptor(Length, SecurityDescriptor) {
-        result := DllCall("ntoskrnl.exe\SeValidSecurityDescriptor", "uint", Length, "ptr", SecurityDescriptor, "char")
+    static SeValidSecurityDescriptor(Length, _SecurityDescriptor) {
+        result := DllCall("ntoskrnl.exe\SeValidSecurityDescriptor", "uint", Length, "ptr", _SecurityDescriptor, "char")
         return result
     }
 
     /**
      * 
-     * @param {Integer} ImageType 
+     * @param {Integer} _ImageType 
      * @param {Integer} CallbackType 
      * @param {Pointer<PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION>} CallbackFunction 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Pointer<Pointer<Void>>} CallbackHandle 
      * @returns {NTSTATUS} 
      */
-    static SeRegisterImageVerificationCallback(ImageType, CallbackType, CallbackFunction, CallbackContext, CallbackHandle) {
+    static SeRegisterImageVerificationCallback(_ImageType, CallbackType, CallbackFunction, CallbackContext, CallbackHandle) {
         static Token := 0 ;Reserved parameters must always be NULL
 
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
         CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeRegisterImageVerificationCallback", "int", ImageType, "int", CallbackType, "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, "ptr", Token, CallbackHandleMarshal, CallbackHandle, "int")
+        result := DllCall("ntoskrnl.exe\SeRegisterImageVerificationCallback", "int", _ImageType, "int", CallbackType, "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, "ptr", Token, CallbackHandleMarshal, CallbackHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13313,13 +13313,13 @@ class SystemServices {
      * @param {Integer} Length 
      * @param {BOOLEAN} SecondaryBuffer 
      * @param {BOOLEAN} ChargeQuota 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {Pointer<MDL>} 
      */
-    static IoAllocateMdl(VirtualAddress, Length, SecondaryBuffer, ChargeQuota, Irp) {
+    static IoAllocateMdl(VirtualAddress, Length, SecondaryBuffer, ChargeQuota, _Irp) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoAllocateMdl", VirtualAddressMarshal, VirtualAddress, "uint", Length, "char", SecondaryBuffer, "char", ChargeQuota, "ptr", Irp, "ptr")
+        result := DllCall("ntoskrnl.exe\IoAllocateMdl", VirtualAddressMarshal, VirtualAddress, "uint", Length, "char", SecondaryBuffer, "char", ChargeQuota, "ptr", _Irp, "ptr")
         return result
     }
 
@@ -13353,17 +13353,17 @@ class SystemServices {
      * 
      * @param {Integer} MajorFunction 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} StartingOffset 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {Pointer<IRP>} 
      */
-    static IoBuildAsynchronousFsdRequest(MajorFunction, DeviceObject, Buffer_R, Length, StartingOffset, IoStatusBlock) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static IoBuildAsynchronousFsdRequest(MajorFunction, DeviceObject, _Buffer, Length, StartingOffset, IoStatusBlock) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         StartingOffsetMarshal := StartingOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoBuildAsynchronousFsdRequest", "uint", MajorFunction, "ptr", DeviceObject, Buffer_RMarshal, Buffer_R, "uint", Length, StartingOffsetMarshal, StartingOffset, "ptr", IoStatusBlock, "ptr")
+        result := DllCall("ntoskrnl.exe\IoBuildAsynchronousFsdRequest", "uint", MajorFunction, "ptr", DeviceObject, _BufferMarshal, _Buffer, "uint", Length, StartingOffsetMarshal, StartingOffset, "ptr", IoStatusBlock, "ptr")
         return result
     }
 
@@ -13405,11 +13405,11 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<BOOTDISK_INFORMATION>} BootDiskInformation 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {NTSTATUS} 
      */
-    static IoGetBootDiskInformation(BootDiskInformation, Size) {
-        result := DllCall("ntoskrnl.exe\IoGetBootDiskInformation", "ptr", BootDiskInformation, "uint", Size, "int")
+    static IoGetBootDiskInformation(BootDiskInformation, _Size) {
+        result := DllCall("ntoskrnl.exe\IoGetBootDiskInformation", "ptr", BootDiskInformation, "uint", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13431,40 +13431,40 @@ class SystemServices {
      * 
      * @param {Integer} MajorFunction 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} StartingOffset 
      * @param {Pointer<KEVENT>} Event 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {Pointer<IRP>} 
      */
-    static IoBuildSynchronousFsdRequest(MajorFunction, DeviceObject, Buffer_R, Length, StartingOffset, Event, IoStatusBlock) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static IoBuildSynchronousFsdRequest(MajorFunction, DeviceObject, _Buffer, Length, StartingOffset, Event, IoStatusBlock) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         StartingOffsetMarshal := StartingOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoBuildSynchronousFsdRequest", "uint", MajorFunction, "ptr", DeviceObject, Buffer_RMarshal, Buffer_R, "uint", Length, StartingOffsetMarshal, StartingOffset, "ptr", Event, "ptr", IoStatusBlock, "ptr")
+        result := DllCall("ntoskrnl.exe\IoBuildSynchronousFsdRequest", "uint", MajorFunction, "ptr", DeviceObject, _BufferMarshal, _Buffer, "uint", Length, StartingOffsetMarshal, StartingOffset, "ptr", Event, "ptr", IoStatusBlock, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static IofCallDriver(DeviceObject, Irp) {
-        result := DllCall("ntoskrnl.exe\IofCallDriver", "ptr", DeviceObject, "ptr", Irp, "int")
+    static IofCallDriver(DeviceObject, _Irp) {
+        result := DllCall("ntoskrnl.exe\IofCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoCancelIrp(Irp) {
-        result := DllCall("ntoskrnl.exe\IoCancelIrp", "ptr", Irp, "char")
+    static IoCancelIrp(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoCancelIrp", "ptr", _Irp, "char")
         return result
     }
 
@@ -13519,12 +13519,12 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} PriorityBoost 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IofCompleteRequest(Irp, PriorityBoost) {
-        DllCall("ntoskrnl.exe\IofCompleteRequest", "ptr", Irp, "char", PriorityBoost)
+    static IofCompleteRequest(_Irp, PriorityBoost) {
+        DllCall("ntoskrnl.exe\IofCompleteRequest", "ptr", _Irp, "char", PriorityBoost)
     }
 
     /**
@@ -13746,20 +13746,20 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoFreeIrp(Irp) {
-        DllCall("ntoskrnl.exe\IoFreeIrp", "ptr", Irp)
+    static IoFreeIrp(_Irp) {
+        DllCall("ntoskrnl.exe\IoFreeIrp", "ptr", _Irp)
     }
 
     /**
      * 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoFreeMdl(Mdl) {
-        DllCall("ntoskrnl.exe\IoFreeMdl", "ptr", Mdl)
+    static IoFreeMdl(_Mdl) {
+        DllCall("ntoskrnl.exe\IoFreeMdl", "ptr", _Mdl)
     }
 
     /**
@@ -13827,25 +13827,25 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Pointer<DMA_IOMMU_INTERFACE>} InterfaceOut 
      * @returns {NTSTATUS} 
      */
-    static IoGetIommuInterface(Version, InterfaceOut) {
-        result := DllCall("ntoskrnl.exe\IoGetIommuInterface", "uint", Version, "ptr", InterfaceOut, "int")
+    static IoGetIommuInterface(_Version, InterfaceOut) {
+        result := DllCall("ntoskrnl.exe\IoGetIommuInterface", "uint", _Version, "ptr", InterfaceOut, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Integer} Flags 
      * @param {Pointer<DMA_IOMMU_INTERFACE_EX>} InterfaceOut 
      * @returns {NTSTATUS} 
      */
-    static IoGetIommuInterfaceEx(Version, Flags, InterfaceOut) {
-        result := DllCall("ntoskrnl.exe\IoGetIommuInterfaceEx", "uint", Version, "uint", Flags, "ptr", InterfaceOut, "int")
+    static IoGetIommuInterfaceEx(_Version, Flags, InterfaceOut) {
+        result := DllCall("ntoskrnl.exe\IoGetIommuInterfaceEx", "uint", _Version, "uint", Flags, "ptr", InterfaceOut, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13853,22 +13853,22 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoForwardIrpSynchronously(DeviceObject, Irp) {
-        result := DllCall("ntoskrnl.exe\IoForwardIrpSynchronously", "ptr", DeviceObject, "ptr", Irp, "char")
+    static IoForwardIrpSynchronously(DeviceObject, _Irp) {
+        result := DllCall("ntoskrnl.exe\IoForwardIrpSynchronously", "ptr", DeviceObject, "ptr", _Irp, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static IoSynchronousCallDriver(DeviceObject, Irp) {
-        result := DllCall("ntoskrnl.exe\IoSynchronousCallDriver", "ptr", DeviceObject, "ptr", Irp, "int")
+    static IoSynchronousCallDriver(DeviceObject, _Irp) {
+        result := DllCall("ntoskrnl.exe\IoSynchronousCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13927,59 +13927,59 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} PacketSize 
      * @param {Integer} StackSize 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoInitializeIrp(Irp, PacketSize, StackSize) {
-        DllCall("ntoskrnl.exe\IoInitializeIrp", "ptr", Irp, "ushort", PacketSize, "char", StackSize)
+    static IoInitializeIrp(_Irp, PacketSize, StackSize) {
+        DllCall("ntoskrnl.exe\IoInitializeIrp", "ptr", _Irp, "ushort", PacketSize, "char", StackSize)
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoCleanupIrp(Irp) {
-        DllCall("ntoskrnl.exe\IoCleanupIrp", "ptr", Irp)
+    static IoCleanupIrp(_Irp) {
+        DllCall("ntoskrnl.exe\IoCleanupIrp", "ptr", _Irp)
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} PacketSize 
      * @param {Integer} StackSize 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoInitializeIrpEx(Irp, DeviceObject, PacketSize, StackSize) {
-        DllCall("ntoskrnl.exe\IoInitializeIrpEx", "ptr", Irp, "ptr", DeviceObject, "ushort", PacketSize, "char", StackSize)
+    static IoInitializeIrpEx(_Irp, DeviceObject, PacketSize, StackSize) {
+        DllCall("ntoskrnl.exe\IoInitializeIrpEx", "ptr", _Irp, "ptr", DeviceObject, "ushort", PacketSize, "char", StackSize)
     }
 
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<PIO_TIMER_ROUTINE>} TimerRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static IoInitializeTimer(DeviceObject, TimerRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoInitializeTimer(DeviceObject, TimerRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoInitializeTimer", "ptr", DeviceObject, "ptr", TimerRoutine, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\IoInitializeTimer", "ptr", DeviceObject, "ptr", TimerRoutine, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {NTSTATUS} Iostatus 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoReuseIrp(Irp, Iostatus) {
-        DllCall("ntoskrnl.exe\IoReuseIrp", "ptr", Irp, "int", Iostatus)
+    static IoReuseIrp(_Irp, Iostatus) {
+        DllCall("ntoskrnl.exe\IoReuseIrp", "ptr", _Irp, "int", Iostatus)
     }
 
     /**
@@ -14049,18 +14049,18 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<PIO_COMPLETION_ROUTINE>} CompletionRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} InvokeOnSuccess 
      * @param {BOOLEAN} InvokeOnError 
      * @param {BOOLEAN} InvokeOnCancel 
      * @returns {NTSTATUS} 
      */
-    static IoSetCompletionRoutineEx(DeviceObject, Irp, CompletionRoutine, Context, InvokeOnSuccess, InvokeOnError, InvokeOnCancel) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoSetCompletionRoutineEx(DeviceObject, _Irp, CompletionRoutine, _Context, InvokeOnSuccess, InvokeOnError, InvokeOnCancel) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoSetCompletionRoutineEx", "ptr", DeviceObject, "ptr", Irp, "ptr", CompletionRoutine, ContextMarshal, Context, "char", InvokeOnSuccess, "char", InvokeOnError, "char", InvokeOnCancel, "int")
+        result := DllCall("ntoskrnl.exe\IoSetCompletionRoutineEx", "ptr", DeviceObject, "ptr", _Irp, "ptr", CompletionRoutine, _ContextMarshal, _Context, "char", InvokeOnSuccess, "char", InvokeOnError, "char", InvokeOnCancel, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14108,11 +14108,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoSetTopLevelIrp(Irp) {
-        DllCall("ntoskrnl.exe\IoSetTopLevelIrp", "ptr", Irp)
+    static IoSetTopLevelIrp(_Irp) {
+        DllCall("ntoskrnl.exe\IoSetTopLevelIrp", "ptr", _Irp)
     }
 
     /**
@@ -14132,17 +14132,17 @@ class SystemServices {
      * 
      * @param {Pointer<IO_REMOVE_LOCK>} RemoveLock 
      * @param {Pointer<Void>} Tag 
-     * @param {PSTR} File 
+     * @param {PSTR} _File 
      * @param {Integer} Line 
      * @param {Integer} RemlockSize 
      * @returns {NTSTATUS} 
      */
-    static IoAcquireRemoveLockEx(RemoveLock, Tag, File, Line, RemlockSize) {
-        File := File is String ? StrPtr(File) : File
+    static IoAcquireRemoveLockEx(RemoveLock, Tag, _File, Line, RemlockSize) {
+        _File := _File is String ? StrPtr(_File) : _File
 
         TagMarshal := Tag is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoAcquireRemoveLockEx", "ptr", RemoveLock, TagMarshal, Tag, "ptr", File, "uint", Line, "uint", RemlockSize, "int")
+        result := DllCall("ntoskrnl.exe\IoAcquireRemoveLockEx", "ptr", RemoveLock, TagMarshal, Tag, "ptr", _File, "uint", Line, "uint", RemlockSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14208,15 +14208,15 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} Key 
      * @param {Pointer<DRIVER_CANCEL>} CancelFunction 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoStartPacket(DeviceObject, Irp, Key, CancelFunction) {
+    static IoStartPacket(DeviceObject, _Irp, Key, CancelFunction) {
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoStartPacket", "ptr", DeviceObject, "ptr", Irp, KeyMarshal, Key, "ptr", CancelFunction)
+        DllCall("ntoskrnl.exe\IoStartPacket", "ptr", DeviceObject, "ptr", _Irp, KeyMarshal, Key, "ptr", CancelFunction)
     }
 
     /**
@@ -14348,13 +14348,13 @@ class SystemServices {
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE>} WorkerRoutine 
      * @param {Integer} QueueType 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoQueueWorkItem", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\IoQueueWorkItem", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, _ContextMarshal, _Context)
     }
 
     /**
@@ -14362,13 +14362,13 @@ class SystemServices {
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE_EX>} WorkerRoutine 
      * @param {Integer} QueueType 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoQueueWorkItemEx(IoWorkItem, WorkerRoutine, QueueType, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoQueueWorkItemEx(IoWorkItem, WorkerRoutine, QueueType, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoQueueWorkItemEx", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\IoQueueWorkItemEx", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, _ContextMarshal, _Context)
     }
 
     /**
@@ -14406,13 +14406,13 @@ class SystemServices {
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE_EX>} WorkerRoutine 
      * @param {Integer} QueueType 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
      */
-    static IoTryQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoTryQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoTryQueueWorkItem", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, ContextMarshal, Context, "char")
+        result := DllCall("ntoskrnl.exe\IoTryQueueWorkItem", "ptr", IoWorkItem, "ptr", WorkerRoutine, "int", QueueType, _ContextMarshal, _Context, "char")
         return result
     }
 
@@ -14557,15 +14557,15 @@ class SystemServices {
      * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Integer} ValueBufferSize 
      * @param {Pointer} ValueBuffer 
      * @returns {NTSTATUS} 
      */
-    static IoWMISetSingleInstance(DataBlockObject, InstanceName, Version, ValueBufferSize, ValueBuffer) {
+    static IoWMISetSingleInstance(DataBlockObject, InstanceName, _Version, ValueBufferSize, ValueBuffer) {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoWMISetSingleInstance", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
+        result := DllCall("ntoskrnl.exe\IoWMISetSingleInstance", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", _Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14575,15 +14575,15 @@ class SystemServices {
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
      * @param {Integer} DataItemId 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Integer} ValueBufferSize 
      * @param {Pointer} ValueBuffer 
      * @returns {NTSTATUS} 
      */
-    static IoWMISetSingleItem(DataBlockObject, InstanceName, DataItemId, Version, ValueBufferSize, ValueBuffer) {
+    static IoWMISetSingleItem(DataBlockObject, InstanceName, DataItemId, _Version, ValueBufferSize, ValueBuffer) {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoWMISetSingleItem", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", DataItemId, "uint", Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
+        result := DllCall("ntoskrnl.exe\IoWMISetSingleItem", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", DataItemId, "uint", _Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14609,16 +14609,16 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<WMI_NOTIFICATION_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static IoWMISetNotificationCallback(Object_R, Callback, Context) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoWMISetNotificationCallback(_Object, Callback, _Context) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoWMISetNotificationCallback", Object_RMarshal, Object_R, "ptr", Callback, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\IoWMISetNotificationCallback", _ObjectMarshal, _Object, "ptr", Callback, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14657,21 +14657,21 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoIs32bitProcess(Irp) {
-        result := DllCall("ntoskrnl.exe\IoIs32bitProcess", "ptr", Irp, "char")
+    static IoIs32bitProcess(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoIs32bitProcess", "ptr", _Irp, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoIsInitiator32bitProcess(Irp) {
-        result := DllCall("ntoskrnl.exe\IoIsInitiator32bitProcess", "ptr", Irp, "char")
+    static IoIsInitiator32bitProcess(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoIsInitiator32bitProcess", "ptr", _Irp, "char")
         return result
     }
 
@@ -14723,26 +14723,26 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<IO_CSQ>} Csq 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoCsqInsertIrp(Csq, Irp, Context) {
-        DllCall("ntoskrnl.exe\IoCsqInsertIrp", "ptr", Csq, "ptr", Irp, "ptr", Context)
+    static IoCsqInsertIrp(Csq, _Irp, _Context) {
+        DllCall("ntoskrnl.exe\IoCsqInsertIrp", "ptr", Csq, "ptr", _Irp, "ptr", _Context)
     }
 
     /**
      * 
      * @param {Pointer<IO_CSQ>} Csq 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
      * @param {Pointer<Void>} InsertContext 
      * @returns {NTSTATUS} 
      */
-    static IoCsqInsertIrpEx(Csq, Irp, Context, InsertContext) {
+    static IoCsqInsertIrpEx(Csq, _Irp, _Context, InsertContext) {
         InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoCsqInsertIrpEx", "ptr", Csq, "ptr", Irp, "ptr", Context, InsertContextMarshal, InsertContext, "int")
+        result := DllCall("ntoskrnl.exe\IoCsqInsertIrpEx", "ptr", Csq, "ptr", _Irp, "ptr", _Context, InsertContextMarshal, InsertContext, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14763,44 +14763,44 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<IO_CSQ>} Csq 
-     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context 
+     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
      * @returns {Pointer<IRP>} 
      */
-    static IoCsqRemoveIrp(Csq, Context) {
-        result := DllCall("ntoskrnl.exe\IoCsqRemoveIrp", "ptr", Csq, "ptr", Context, "ptr")
+    static IoCsqRemoveIrp(Csq, _Context) {
+        result := DllCall("ntoskrnl.exe\IoCsqRemoveIrp", "ptr", Csq, "ptr", _Context, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} RequiredAccess 
      * @returns {NTSTATUS} 
      */
-    static IoValidateDeviceIoControlAccess(Irp, RequiredAccess) {
-        result := DllCall("ntoskrnl.exe\IoValidateDeviceIoControlAccess", "ptr", Irp, "uint", RequiredAccess, "int")
+    static IoValidateDeviceIoControlAccess(_Irp, RequiredAccess) {
+        result := DllCall("ntoskrnl.exe\IoValidateDeviceIoControlAccess", "ptr", _Irp, "uint", RequiredAccess, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {Integer} 
      */
-    static IoGetIoPriorityHint(Irp) {
-        result := DllCall("ntoskrnl.exe\IoGetIoPriorityHint", "ptr", Irp, "int")
+    static IoGetIoPriorityHint(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoGetIoPriorityHint", "ptr", _Irp, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} PriorityHint 
      * @returns {NTSTATUS} 
      */
-    static IoSetIoPriorityHint(Irp, PriorityHint) {
-        result := DllCall("ntoskrnl.exe\IoSetIoPriorityHint", "ptr", Irp, "int", PriorityHint, "int")
+    static IoSetIoPriorityHint(_Irp, PriorityHint) {
+        result := DllCall("ntoskrnl.exe\IoSetIoPriorityHint", "ptr", _Irp, "int", PriorityHint, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14851,14 +14851,14 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<Void>>} IoAttributionHandle 
      * @returns {NTSTATUS} 
      */
-    static IoGetIoAttributionHandle(Irp, IoAttributionHandle) {
+    static IoGetIoAttributionHandle(_Irp, IoAttributionHandle) {
         IoAttributionHandleMarshal := IoAttributionHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetIoAttributionHandle", "ptr", Irp, IoAttributionHandleMarshal, IoAttributionHandle, "int")
+        result := DllCall("ntoskrnl.exe\IoGetIoAttributionHandle", "ptr", _Irp, IoAttributionHandleMarshal, IoAttributionHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14879,15 +14879,15 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} AttributionSource 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static IoSetIoAttributionIrp(Irp, AttributionSource, Flags) {
+    static IoSetIoAttributionIrp(_Irp, AttributionSource, Flags) {
         AttributionSourceMarshal := AttributionSource is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoSetIoAttributionIrp", "ptr", Irp, AttributionSourceMarshal, AttributionSource, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\IoSetIoAttributionIrp", "ptr", _Irp, AttributionSourceMarshal, AttributionSource, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14896,14 +14896,14 @@ class SystemServices {
      * 
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} ContainerObject 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferLength 
      * @returns {NTSTATUS} 
      */
-    static IoGetContainerInformation(InformationClass, ContainerObject, Buffer_R, BufferLength) {
+    static IoGetContainerInformation(InformationClass, ContainerObject, _Buffer, BufferLength) {
         ContainerObjectMarshal := ContainerObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetContainerInformation", "int", InformationClass, ContainerObjectMarshal, ContainerObject, "ptr", Buffer_R, "uint", BufferLength, "int")
+        result := DllCall("ntoskrnl.exe\IoGetContainerInformation", "int", InformationClass, ContainerObjectMarshal, ContainerObject, "ptr", _Buffer, "uint", BufferLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14940,15 +14940,15 @@ class SystemServices {
      * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} DataHandle 
      * @returns {NTSTATUS} 
      */
-    static IoReserveKsrPersistentMemory(DriverObject, PhysicalDeviceObject, Size, Flags, DataHandle) {
+    static IoReserveKsrPersistentMemory(DriverObject, PhysicalDeviceObject, _Size, Flags, DataHandle) {
         DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
+        result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", _Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14985,14 +14985,14 @@ class SystemServices {
      * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer<Pointer>} Size 
+     * @param {Pointer} _Buffer 
+     * @param {Pointer<Pointer>} _Size 
      * @returns {NTSTATUS} 
      */
-    static IoAcquireKsrPersistentMemory(DriverObject, PhysicalDeviceObject, Buffer_R, Size) {
-        SizeMarshal := Size is VarRef ? "ptr*" : "ptr"
+    static IoAcquireKsrPersistentMemory(DriverObject, PhysicalDeviceObject, _Buffer, _Size) {
+        _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", Buffer_R, SizeMarshal, Size, "int")
+        result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", _Buffer, _SizeMarshal, _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15000,14 +15000,14 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<Void>} DataHandle 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Buffer 
+     * @param {Pointer} _Size 
      * @returns {NTSTATUS} 
      */
-    static IoWriteKsrPersistentMemory(DataHandle, Buffer_R, Size) {
+    static IoWriteKsrPersistentMemory(DataHandle, _Buffer, _Size) {
         DataHandleMarshal := DataHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoWriteKsrPersistentMemory", DataHandleMarshal, DataHandle, "ptr", Buffer_R, "ptr", Size, "int")
+        result := DllCall("ntoskrnl.exe\IoWriteKsrPersistentMemory", DataHandleMarshal, DataHandle, "ptr", _Buffer, "ptr", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15036,16 +15036,16 @@ class SystemServices {
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
      * @param {Pointer<Integer>} DataTag 
      * @param {Integer} DataVersion 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} DataHandle 
      * @returns {NTSTATUS} 
      */
-    static IoReserveKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, DataTag, DataVersion, Size, Flags, DataHandle) {
+    static IoReserveKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, DataTag, DataVersion, _Size, Flags, DataHandle) {
         DataTagMarshal := DataTag is VarRef ? "ushort*" : "ptr"
         DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, "uint", DataVersion, "ptr", Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
+        result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, "uint", DataVersion, "ptr", _Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15077,16 +15077,16 @@ class SystemServices {
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
      * @param {Pointer<Integer>} DataTag 
      * @param {Pointer<Integer>} DataVersion 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer<Pointer>} Size 
+     * @param {Pointer} _Buffer 
+     * @param {Pointer<Pointer>} _Size 
      * @returns {NTSTATUS} 
      */
-    static IoAcquireKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, DataTag, DataVersion, Buffer_R, Size) {
+    static IoAcquireKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, DataTag, DataVersion, _Buffer, _Size) {
         DataTagMarshal := DataTag is VarRef ? "ushort*" : "ptr"
         DataVersionMarshal := DataVersion is VarRef ? "uint*" : "ptr"
-        SizeMarshal := Size is VarRef ? "ptr*" : "ptr"
+        _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, "ptr", Buffer_R, SizeMarshal, Size, "int")
+        result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, "ptr", _Buffer, _SizeMarshal, _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15097,14 +15097,14 @@ class SystemServices {
      * @param {Pointer} TraceInformation 
      * @param {Integer} TraceInformationLength 
      * @param {Pointer<Integer>} RequiredLength 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
-    static WmiQueryTraceInformation(TraceInformationClass, TraceInformation, TraceInformationLength, RequiredLength, Buffer_R) {
+    static WmiQueryTraceInformation(TraceInformationClass, TraceInformation, TraceInformationLength, RequiredLength, _Buffer) {
         RequiredLengthMarshal := RequiredLength is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WmiQueryTraceInformation", "int", TraceInformationClass, "ptr", TraceInformation, "uint", TraceInformationLength, RequiredLengthMarshal, RequiredLength, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ntoskrnl.exe\WmiQueryTraceInformation", "int", TraceInformationClass, "ptr", TraceInformation, "uint", TraceInformationLength, RequiredLengthMarshal, RequiredLength, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15114,70 +15114,70 @@ class SystemServices {
      * @param {Pointer<Guid>} ProviderId 
      * @param {Pointer<PETWENABLECALLBACK>} EnableCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @param {Pointer<REGHANDLE>} RegHandle 
+     * @param {Pointer<REGHANDLE>} _RegHandle 
      * @returns {NTSTATUS} 
      */
-    static EtwRegister(ProviderId, EnableCallback, CallbackContext, RegHandle) {
+    static EtwRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\EtwRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", RegHandle, "int")
+        result := DllCall("ntoskrnl.exe\EtwRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", _RegHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @returns {NTSTATUS} 
      */
-    static EtwUnregister(RegHandle) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwUnregister(_RegHandle) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwUnregister", "ptr", RegHandle, "int")
+        result := DllCall("ntoskrnl.exe\EtwUnregister", "ptr", _RegHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} InformationClass 
      * @param {Pointer} EventInformation 
      * @param {Integer} InformationLength 
      * @returns {NTSTATUS} 
      */
-    static EtwSetInformation(RegHandle, InformationClass, EventInformation, InformationLength) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwSetInformation(_RegHandle, InformationClass, EventInformation, InformationLength) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwSetInformation", "ptr", RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "int")
+        result := DllCall("ntoskrnl.exe\EtwSetInformation", "ptr", _RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @returns {BOOLEAN} 
      */
-    static EtwEventEnabled(RegHandle, EventDescriptor) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwEventEnabled(_RegHandle, EventDescriptor) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntdll.dll\EtwEventEnabled", "ptr", RegHandle, "ptr", EventDescriptor, "char")
+        result := DllCall("ntdll.dll\EtwEventEnabled", "ptr", _RegHandle, "ptr", EventDescriptor, "char")
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level 
      * @param {Integer} Keyword 
      * @returns {BOOLEAN} 
      */
-    static EtwProviderEnabled(RegHandle, Level, Keyword) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwProviderEnabled(_RegHandle, Level, Keyword) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwProviderEnabled", "ptr", RegHandle, "char", Level, "uint", Keyword, "char")
+        result := DllCall("ntoskrnl.exe\EtwProviderEnabled", "ptr", _RegHandle, "char", Level, "uint", Keyword, "char")
         return result
     }
 
@@ -15195,73 +15195,73 @@ class SystemServices {
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Pointer<Guid>} ActivityId 
      * @param {Integer} UserDataCount 
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {NTSTATUS} 
      */
-    static EtwWrite(RegHandle, EventDescriptor, ActivityId, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwWrite(_RegHandle, EventDescriptor, ActivityId, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwWrite", "ptr", RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "uint", UserDataCount, "ptr", UserData, "int")
+        result := DllCall("ntoskrnl.exe\EtwWrite", "ptr", _RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Pointer<Guid>} ActivityId 
      * @param {Pointer<Guid>} RelatedActivityId 
      * @param {Integer} UserDataCount 
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {NTSTATUS} 
      */
-    static EtwWriteTransfer(RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwWriteTransfer(_RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwWriteTransfer", "ptr", RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "int")
+        result := DllCall("ntoskrnl.exe\EtwWriteTransfer", "ptr", _RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level 
      * @param {Integer} Keyword 
      * @param {Pointer<Guid>} ActivityId 
-     * @param {PWSTR} String_R 
+     * @param {PWSTR} _String 
      * @returns {NTSTATUS} 
      */
-    static EtwWriteString(RegHandle, Level, Keyword, ActivityId, String_R) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    static EtwWriteString(_RegHandle, Level, Keyword, ActivityId, _String) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
+        _String := _String is String ? StrPtr(_String) : _String
 
-        result := DllCall("ntoskrnl.exe\EtwWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", ActivityId, "ptr", String_R, "int")
+        result := DllCall("ntoskrnl.exe\EtwWriteString", "ptr", _RegHandle, "char", Level, "uint", Keyword, "ptr", ActivityId, "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {REGHANDLE} RegHandle 
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Integer} Filter 
      * @param {Integer} Flags 
      * @param {Pointer<Guid>} ActivityId 
      * @param {Pointer<Guid>} RelatedActivityId 
      * @param {Integer} UserDataCount 
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {NTSTATUS} 
      */
-    static EtwWriteEx(RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EtwWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ntoskrnl.exe\EtwWriteEx", "ptr", RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "int")
+        result := DllCall("ntoskrnl.exe\EtwWriteEx", "ptr", _RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15301,14 +15301,14 @@ class SystemServices {
      * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<PIO_DEVICE_EJECT_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @returns {NTSTATUS} 
      */
-    static IoRequestDeviceEjectEx(PhysicalDeviceObject, Callback, Context, DriverObject) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoRequestDeviceEjectEx(PhysicalDeviceObject, Callback, _Context, DriverObject) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoRequestDeviceEjectEx", "ptr", PhysicalDeviceObject, "ptr", Callback, ContextMarshal, Context, "ptr", DriverObject, "int")
+        result := DllCall("ntoskrnl.exe\IoRequestDeviceEjectEx", "ptr", PhysicalDeviceObject, "ptr", Callback, _ContextMarshal, _Context, "ptr", DriverObject, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15419,16 +15419,16 @@ class SystemServices {
      * @param {Pointer<Void>} EventCategoryData 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_NOTIFICATION_CALLBACK_ROUTINE>} CallbackRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<Pointer<Void>>} NotificationEntry 
      * @returns {NTSTATUS} 
      */
-    static IoRegisterPlugPlayNotification(EventCategory, EventCategoryFlags, EventCategoryData, DriverObject, CallbackRoutine, Context, NotificationEntry) {
+    static IoRegisterPlugPlayNotification(EventCategory, EventCategoryFlags, EventCategoryData, DriverObject, CallbackRoutine, _Context, NotificationEntry) {
         EventCategoryDataMarshal := EventCategoryData is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoRegisterPlugPlayNotification", "int", EventCategory, "uint", EventCategoryFlags, EventCategoryDataMarshal, EventCategoryData, "ptr", DriverObject, "ptr", CallbackRoutine, ContextMarshal, Context, NotificationEntryMarshal, NotificationEntry, "int")
+        result := DllCall("ntoskrnl.exe\IoRegisterPlugPlayNotification", "int", EventCategory, "uint", EventCategoryFlags, EventCategoryDataMarshal, EventCategoryData, "ptr", DriverObject, "ptr", CallbackRoutine, _ContextMarshal, _Context, NotificationEntryMarshal, NotificationEntry, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15487,14 +15487,14 @@ class SystemServices {
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<Void>} NotificationStructure 
      * @param {Pointer<PDEVICE_CHANGE_COMPLETE_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static IoReportTargetDeviceChangeAsynchronous(PhysicalDeviceObject, NotificationStructure, Callback, Context) {
+    static IoReportTargetDeviceChangeAsynchronous(PhysicalDeviceObject, NotificationStructure, Callback, _Context) {
         NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChangeAsynchronous", "ptr", PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, "ptr", Callback, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChangeAsynchronous", "ptr", PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, "ptr", Callback, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15548,16 +15548,16 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
-     * @param {Pointer<DEVPROPKEY>} PropertyKey 
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
      * @param {Integer} Flags 
      * @param {Integer} Type 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Pointer} Data 
      * @returns {NTSTATUS} 
      */
-    static IoSetDevicePropertyData(Pdo, PropertyKey, Lcid, Flags, Type, Size, Data) {
-        result := DllCall("ntoskrnl.exe\IoSetDevicePropertyData", "ptr", Pdo, "ptr", PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", Size, "ptr", Data, "int")
+    static IoSetDevicePropertyData(Pdo, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
+        result := DllCall("ntoskrnl.exe\IoSetDevicePropertyData", "ptr", Pdo, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", _Size, "ptr", Data, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15565,21 +15565,21 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
-     * @param {Pointer<DEVPROPKEY>} PropertyKey 
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Pointer} Data 
      * @param {Pointer<Integer>} RequiredSize 
      * @param {Pointer<Integer>} Type 
      * @returns {NTSTATUS} 
      */
-    static IoGetDevicePropertyData(Pdo, PropertyKey, Lcid, Size, Data, RequiredSize, Type) {
+    static IoGetDevicePropertyData(Pdo, _PropertyKey, Lcid, _Size, Data, RequiredSize, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetDevicePropertyData", "ptr", Pdo, "ptr", PropertyKey, "uint", Lcid, "uint", Flags, "uint", Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
+        result := DllCall("ntoskrnl.exe\IoGetDevicePropertyData", "ptr", Pdo, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", _Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15587,16 +15587,16 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
-     * @param {Pointer<DEVPROPKEY>} PropertyKey 
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
      * @param {Integer} Flags 
      * @param {Integer} Type 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Pointer} Data 
      * @returns {NTSTATUS} 
      */
-    static IoSetDeviceInterfacePropertyData(SymbolicLinkName, PropertyKey, Lcid, Flags, Type, Size, Data) {
-        result := DllCall("ntoskrnl.exe\IoSetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", Size, "ptr", Data, "int")
+    static IoSetDeviceInterfacePropertyData(SymbolicLinkName, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
+        result := DllCall("ntoskrnl.exe\IoSetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", _Size, "ptr", Data, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15604,21 +15604,21 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
-     * @param {Pointer<DEVPROPKEY>} PropertyKey 
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Pointer} Data 
      * @param {Pointer<Integer>} RequiredSize 
      * @param {Pointer<Integer>} Type 
      * @returns {NTSTATUS} 
      */
-    static IoGetDeviceInterfacePropertyData(SymbolicLinkName, PropertyKey, Lcid, Size, Data, RequiredSize, Type) {
+    static IoGetDeviceInterfacePropertyData(SymbolicLinkName, _PropertyKey, Lcid, _Size, Data, RequiredSize, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", PropertyKey, "uint", Lcid, "uint", Flags, "uint", Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
+        result := DllCall("ntoskrnl.exe\IoGetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", _Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15683,16 +15683,16 @@ class SystemServices {
      * 
      * @param {Pointer<Void>} MemoryMap 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Address 
+     * @param {Pointer<Void>} _Address 
      * @param {Pointer} Length 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoSetHiberRange(MemoryMap, Flags, Address, Length, Tag) {
+    static PoSetHiberRange(MemoryMap, Flags, _Address, Length, Tag) {
         MemoryMapMarshal := MemoryMap is VarRef ? "ptr" : "ptr"
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\PoSetHiberRange", MemoryMapMarshal, MemoryMap, "uint", Flags, AddressMarshal, Address, "ptr", Length, "uint", Tag)
+        DllCall("ntoskrnl.exe\PoSetHiberRange", MemoryMapMarshal, MemoryMap, "uint", Flags, _AddressMarshal, _Address, "ptr", Length, "uint", Tag)
     }
 
     /**
@@ -15721,13 +15721,13 @@ class SystemServices {
      * 
      * @param {Pointer<Pointer<Void>>} PowerRequest 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<COUNTED_REASON_CONTEXT>} Context 
+     * @param {Pointer<COUNTED_REASON_CONTEXT>} _Context 
      * @returns {NTSTATUS} 
      */
-    static PoCreatePowerRequest(PowerRequest, DeviceObject, Context) {
+    static PoCreatePowerRequest(PowerRequest, DeviceObject, _Context) {
         PowerRequestMarshal := PowerRequest is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoCreatePowerRequest", PowerRequestMarshal, PowerRequest, "ptr", DeviceObject, "ptr", Context, "int")
+        result := DllCall("ntoskrnl.exe\PoCreatePowerRequest", PowerRequestMarshal, PowerRequest, "ptr", DeviceObject, "ptr", _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15777,26 +15777,26 @@ class SystemServices {
      * @param {Integer} MinorFunction 
      * @param {POWER_STATE} PowerState 
      * @param {Pointer<PREQUEST_POWER_COMPLETE>} CompletionFunction 
-     * @param {Pointer<Void>} Context 
-     * @param {Pointer<Pointer<IRP>>} Irp 
+     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Pointer<IRP>>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static PoRequestPowerIrp(DeviceObject, MinorFunction, PowerState, CompletionFunction, Context, Irp) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
-        IrpMarshal := Irp is VarRef ? "ptr*" : "ptr"
+    static PoRequestPowerIrp(DeviceObject, MinorFunction, PowerState, CompletionFunction, _Context, _Irp) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _IrpMarshal := _Irp is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoRequestPowerIrp", "ptr", DeviceObject, "char", MinorFunction, "ptr", PowerState, "ptr", CompletionFunction, ContextMarshal, Context, IrpMarshal, Irp, "int")
+        result := DllCall("ntoskrnl.exe\PoRequestPowerIrp", "ptr", DeviceObject, "char", MinorFunction, "ptr", PowerState, "ptr", CompletionFunction, _ContextMarshal, _Context, _IrpMarshal, _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoSetSystemWake(Irp) {
-        DllCall("ntoskrnl.exe\PoSetSystemWake", "ptr", Irp)
+    static PoSetSystemWake(_Irp) {
+        DllCall("ntoskrnl.exe\PoSetSystemWake", "ptr", _Irp)
     }
 
     /**
@@ -15810,11 +15810,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static PoGetSystemWake(Irp) {
-        result := DllCall("ntoskrnl.exe\PoGetSystemWake", "ptr", Irp, "char")
+    static PoGetSystemWake(_Irp) {
+        result := DllCall("ntoskrnl.exe\PoGetSystemWake", "ptr", _Irp, "char")
         return result
     }
 
@@ -15844,22 +15844,22 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static PoCallDriver(DeviceObject, Irp) {
-        result := DllCall("ntoskrnl.exe\PoCallDriver", "ptr", DeviceObject, "ptr", Irp, "int")
+    static PoCallDriver(DeviceObject, _Irp) {
+        result := DllCall("ntoskrnl.exe\PoCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoStartNextPowerIrp(Irp) {
-        DllCall("ntoskrnl.exe\PoStartNextPowerIrp", "ptr", Irp)
+    static PoStartNextPowerIrp(_Irp) {
+        DllCall("ntoskrnl.exe\PoStartNextPowerIrp", "ptr", _Irp)
     }
 
     /**
@@ -15926,28 +15926,28 @@ class SystemServices {
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Guid>} SettingGuid 
      * @param {Pointer<PPOWER_SETTING_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
-     * @param {Pointer<Pointer<Void>>} Handle 
+     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Pointer<Void>>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static PoRegisterPowerSettingCallback(DeviceObject, SettingGuid, Callback, Context, Handle) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
-        HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
+    static PoRegisterPowerSettingCallback(DeviceObject, SettingGuid, Callback, _Context, _Handle) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoRegisterPowerSettingCallback", "ptr", DeviceObject, "ptr", SettingGuid, "ptr", Callback, ContextMarshal, Context, HandleMarshal, Handle, "int")
+        result := DllCall("ntoskrnl.exe\PoRegisterPowerSettingCallback", "ptr", DeviceObject, "ptr", SettingGuid, "ptr", Callback, _ContextMarshal, _Context, _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Handle 
+     * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static PoUnregisterPowerSettingCallback(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static PoUnregisterPowerSettingCallback(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoUnregisterPowerSettingCallback", HandleMarshal, Handle, "int")
+        result := DllCall("ntoskrnl.exe\PoUnregisterPowerSettingCallback", _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -15956,166 +15956,166 @@ class SystemServices {
      * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<PO_FX_DEVICE_V1>} Device 
-     * @param {Pointer<POHANDLE>} Handle 
+     * @param {Pointer<POHANDLE>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static PoFxRegisterDevice(Pdo, Device, Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
+    static PoFxRegisterDevice(Pdo, Device, _Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoFxRegisterDevice", "ptr", Pdo, "ptr", Device, HandleMarshal, Handle, "int")
+        result := DllCall("ntoskrnl.exe\PoFxRegisterDevice", "ptr", Pdo, "ptr", Device, _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxStartDevicePowerManagement(Handle) {
-        DllCall("ntoskrnl.exe\PoFxStartDevicePowerManagement", "ptr", Handle)
+    static PoFxStartDevicePowerManagement(_Handle) {
+        DllCall("ntoskrnl.exe\PoFxStartDevicePowerManagement", "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxUnregisterDevice(Handle) {
-        DllCall("ntoskrnl.exe\PoFxUnregisterDevice", "ptr", Handle)
+    static PoFxUnregisterDevice(_Handle) {
+        DllCall("ntoskrnl.exe\PoFxUnregisterDevice", "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
-    static PoFxRegisterCrashdumpDevice(Handle) {
-        result := DllCall("ntoskrnl.exe\PoFxRegisterCrashdumpDevice", "ptr", Handle, "int")
+    static PoFxRegisterCrashdumpDevice(_Handle) {
+        result := DllCall("ntoskrnl.exe\PoFxRegisterCrashdumpDevice", "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Pointer<Void>} Context 
+     * @param {POHANDLE} _Handle 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static PoFxPowerOnCrashdumpDevice(Handle, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static PoFxPowerOnCrashdumpDevice(_Handle, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoFxPowerOnCrashdumpDevice", "ptr", Handle, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\PoFxPowerOnCrashdumpDevice", "ptr", _Handle, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxActivateComponent(Handle, Component, Flags) {
-        DllCall("ntoskrnl.exe\PoFxActivateComponent", "ptr", Handle, "uint", Component, "uint", Flags)
+    static PoFxActivateComponent(_Handle, _Component, Flags) {
+        DllCall("ntoskrnl.exe\PoFxActivateComponent", "ptr", _Handle, "uint", _Component, "uint", Flags)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxCompleteDevicePowerNotRequired(Handle) {
-        DllCall("ntoskrnl.exe\PoFxCompleteDevicePowerNotRequired", "ptr", Handle)
+    static PoFxCompleteDevicePowerNotRequired(_Handle) {
+        DllCall("ntoskrnl.exe\PoFxCompleteDevicePowerNotRequired", "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxCompleteIdleCondition(Handle, Component) {
-        DllCall("ntoskrnl.exe\PoFxCompleteIdleCondition", "ptr", Handle, "uint", Component)
+    static PoFxCompleteIdleCondition(_Handle, _Component) {
+        DllCall("ntoskrnl.exe\PoFxCompleteIdleCondition", "ptr", _Handle, "uint", _Component)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxCompleteIdleState(Handle, Component) {
-        DllCall("ntoskrnl.exe\PoFxCompleteIdleState", "ptr", Handle, "uint", Component)
+    static PoFxCompleteIdleState(_Handle, _Component) {
+        DllCall("ntoskrnl.exe\PoFxCompleteIdleState", "ptr", _Handle, "uint", _Component)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxIdleComponent(Handle, Component, Flags) {
-        DllCall("ntoskrnl.exe\PoFxIdleComponent", "ptr", Handle, "uint", Component, "uint", Flags)
+    static PoFxIdleComponent(_Handle, _Component, Flags) {
+        DllCall("ntoskrnl.exe\PoFxIdleComponent", "ptr", _Handle, "uint", _Component, "uint", Flags)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {Integer} Latency 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxSetComponentLatency(Handle, Component, Latency) {
-        DllCall("ntoskrnl.exe\PoFxSetComponentLatency", "ptr", Handle, "uint", Component, "uint", Latency)
+    static PoFxSetComponentLatency(_Handle, _Component, Latency) {
+        DllCall("ntoskrnl.exe\PoFxSetComponentLatency", "ptr", _Handle, "uint", _Component, "uint", Latency)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {Integer} Residency 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxSetComponentResidency(Handle, Component, Residency) {
-        DllCall("ntoskrnl.exe\PoFxSetComponentResidency", "ptr", Handle, "uint", Component, "uint", Residency)
+    static PoFxSetComponentResidency(_Handle, _Component, Residency) {
+        DllCall("ntoskrnl.exe\PoFxSetComponentResidency", "ptr", _Handle, "uint", _Component, "uint", Residency)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {BOOLEAN} WakeHint 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxSetComponentWake(Handle, Component, WakeHint) {
-        DllCall("ntoskrnl.exe\PoFxSetComponentWake", "ptr", Handle, "uint", Component, "char", WakeHint)
+    static PoFxSetComponentWake(_Handle, _Component, WakeHint) {
+        DllCall("ntoskrnl.exe\PoFxSetComponentWake", "ptr", _Handle, "uint", _Component, "char", WakeHint)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Integer} IdleTimeout 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxSetDeviceIdleTimeout(Handle, IdleTimeout) {
-        DllCall("ntoskrnl.exe\PoFxSetDeviceIdleTimeout", "ptr", Handle, "uint", IdleTimeout)
+    static PoFxSetDeviceIdleTimeout(_Handle, IdleTimeout) {
+        DllCall("ntoskrnl.exe\PoFxSetDeviceIdleTimeout", "ptr", _Handle, "uint", IdleTimeout)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxReportDevicePoweredOn(Handle) {
-        DllCall("ntoskrnl.exe\PoFxReportDevicePoweredOn", "ptr", Handle)
+    static PoFxReportDevicePoweredOn(_Handle) {
+        DllCall("ntoskrnl.exe\PoFxReportDevicePoweredOn", "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Pointer<Guid>} PowerControlCode 
      * @param {Pointer<Void>} InBuffer 
      * @param {Pointer} InBufferSize 
@@ -16124,12 +16124,12 @@ class SystemServices {
      * @param {Pointer<Pointer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static PoFxPowerControl(Handle, PowerControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned) {
+    static PoFxPowerControl(_Handle, PowerControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned) {
         InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
         OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
         BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoFxPowerControl", "ptr", Handle, "ptr", PowerControlCode, InBufferMarshal, InBuffer, "ptr", InBufferSize, OutBufferMarshal, OutBuffer, "ptr", OutBufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("ntoskrnl.exe\PoFxPowerControl", "ptr", _Handle, "ptr", PowerControlCode, InBufferMarshal, InBuffer, "ptr", InBufferSize, OutBufferMarshal, OutBuffer, "ptr", OutBufferSize, BytesReturnedMarshal, BytesReturned, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -16145,89 +16145,89 @@ class SystemServices {
 
     /**
      * 
-     * @param {POHANDLE} Handle 
-     * @param {Integer} Component 
+     * @param {POHANDLE} _Handle 
+     * @param {Integer} _Component 
      * @param {Integer} Flags 
      * @param {Pointer<PPO_FX_COMPONENT_PERF_STATE_CALLBACK>} ComponentPerfStateCallback 
      * @param {Pointer<PO_FX_COMPONENT_PERF_INFO>} InputStateInfo 
      * @param {Pointer<Pointer<PO_FX_COMPONENT_PERF_INFO>>} OutputStateInfo 
      * @returns {NTSTATUS} 
      */
-    static PoFxRegisterComponentPerfStates(Handle, Component, Flags, ComponentPerfStateCallback, InputStateInfo, OutputStateInfo) {
+    static PoFxRegisterComponentPerfStates(_Handle, _Component, Flags, ComponentPerfStateCallback, InputStateInfo, OutputStateInfo) {
         OutputStateInfoMarshal := OutputStateInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoFxRegisterComponentPerfStates", "ptr", Handle, "uint", Component, "uint", Flags, "ptr", ComponentPerfStateCallback, "ptr", InputStateInfo, OutputStateInfoMarshal, OutputStateInfo, "int")
+        result := DllCall("ntoskrnl.exe\PoFxRegisterComponentPerfStates", "ptr", _Handle, "uint", _Component, "uint", Flags, "ptr", ComponentPerfStateCallback, "ptr", InputStateInfo, OutputStateInfoMarshal, OutputStateInfo, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
-     * @param {Integer} Component 
+     * @param {Integer} _Component 
      * @param {Pointer<PO_FX_PERF_STATE_CHANGE>} PerfChange 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxIssueComponentPerfStateChange(Handle, Flags, Component, PerfChange, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static PoFxIssueComponentPerfStateChange(_Handle, Flags, _Component, PerfChange, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\PoFxIssueComponentPerfStateChange", "ptr", Handle, "uint", Flags, "uint", Component, "ptr", PerfChange, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\PoFxIssueComponentPerfStateChange", "ptr", _Handle, "uint", Flags, "uint", _Component, "ptr", PerfChange, _ContextMarshal, _Context)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
-     * @param {Integer} Component 
+     * @param {Integer} _Component 
      * @param {Integer} PerfChangesCount 
      * @param {Pointer<PO_FX_PERF_STATE_CHANGE>} PerfChanges 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxIssueComponentPerfStateChangeMultiple(Handle, Flags, Component, PerfChangesCount, PerfChanges, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static PoFxIssueComponentPerfStateChangeMultiple(_Handle, Flags, _Component, PerfChangesCount, PerfChanges, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\PoFxIssueComponentPerfStateChangeMultiple", "ptr", Handle, "uint", Flags, "uint", Component, "uint", PerfChangesCount, "ptr", PerfChanges, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\PoFxIssueComponentPerfStateChangeMultiple", "ptr", _Handle, "uint", Flags, "uint", _Component, "uint", PerfChangesCount, "ptr", PerfChanges, _ContextMarshal, _Context)
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
-     * @param {Integer} Component 
+     * @param {Integer} _Component 
      * @param {Integer} SetIndex 
      * @param {Pointer<Integer>} CurrentPerf 
      * @returns {NTSTATUS} 
      */
-    static PoFxQueryCurrentComponentPerfState(Handle, Flags, Component, SetIndex, CurrentPerf) {
+    static PoFxQueryCurrentComponentPerfState(_Handle, Flags, _Component, SetIndex, CurrentPerf) {
         CurrentPerfMarshal := CurrentPerf is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoFxQueryCurrentComponentPerfState", "ptr", Handle, "uint", Flags, "uint", Component, "uint", SetIndex, CurrentPerfMarshal, CurrentPerf, "int")
+        result := DllCall("ntoskrnl.exe\PoFxQueryCurrentComponentPerfState", "ptr", _Handle, "uint", Flags, "uint", _Component, "uint", SetIndex, CurrentPerfMarshal, CurrentPerf, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Integer} TargetState 
      * @returns {NTSTATUS} 
      */
-    static PoFxSetTargetDripsDevicePowerState(Handle, TargetState) {
-        result := DllCall("ntoskrnl.exe\PoFxSetTargetDripsDevicePowerState", "ptr", Handle, "int", TargetState, "int")
+    static PoFxSetTargetDripsDevicePowerState(_Handle, TargetState) {
+        result := DllCall("ntoskrnl.exe\PoFxSetTargetDripsDevicePowerState", "ptr", _Handle, "int", TargetState, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxCompleteDirectedPowerDown(Handle) {
-        DllCall("ntoskrnl.exe\PoFxCompleteDirectedPowerDown", "ptr", Handle)
+    static PoFxCompleteDirectedPowerDown(_Handle) {
+        DllCall("ntoskrnl.exe\PoFxCompleteDirectedPowerDown", "ptr", _Handle)
     }
 
     /**
@@ -16235,14 +16235,14 @@ class SystemServices {
      * @param {Pointer<Pointer<Void>>} ThermalRequest 
      * @param {Pointer<DEVICE_OBJECT>} TargetDeviceObject 
      * @param {Pointer<DEVICE_OBJECT>} PolicyDeviceObject 
-     * @param {Pointer<COUNTED_REASON_CONTEXT>} Context 
+     * @param {Pointer<COUNTED_REASON_CONTEXT>} _Context 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static PoCreateThermalRequest(ThermalRequest, TargetDeviceObject, PolicyDeviceObject, Context, Flags) {
+    static PoCreateThermalRequest(ThermalRequest, TargetDeviceObject, PolicyDeviceObject, _Context, Flags) {
         ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PoCreateThermalRequest", ThermalRequestMarshal, ThermalRequest, "ptr", TargetDeviceObject, "ptr", PolicyDeviceObject, "ptr", Context, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\PoCreateThermalRequest", ThermalRequestMarshal, ThermalRequest, "ptr", TargetDeviceObject, "ptr", PolicyDeviceObject, "ptr", _Context, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -16301,228 +16301,228 @@ class SystemServices {
 
     /**
      * 
-     * @param {POHANDLE} Handle 
+     * @param {POHANDLE} _Handle 
      * @param {Pointer<PPO_FX_DRIPS_WATCHDOG_CALLBACK>} Callback 
      * @param {BOOLEAN} IncludeChildDevices 
      * @param {Pointer<DRIVER_OBJECT>} MatchingDriverObject 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PoFxRegisterDripsWatchdogCallback(Handle, Callback, IncludeChildDevices, MatchingDriverObject) {
-        DllCall("ntoskrnl.exe\PoFxRegisterDripsWatchdogCallback", "ptr", Handle, "ptr", Callback, "char", IncludeChildDevices, "ptr", MatchingDriverObject)
+    static PoFxRegisterDripsWatchdogCallback(_Handle, Callback, IncludeChildDevices, MatchingDriverObject) {
+        DllCall("ntoskrnl.exe\PoFxRegisterDripsWatchdogCallback", "ptr", _Handle, "ptr", Callback, "char", IncludeChildDevices, "ptr", MatchingDriverObject)
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
-     * @param {Pointer<Pointer<Void>>} Object_R 
+     * @param {Pointer<Pointer<Void>>} _Object 
      * @param {Pointer<OBJECT_HANDLE_INFORMATION>} HandleInformation 
      * @returns {NTSTATUS} 
      */
-    static ObReferenceObjectByHandle(Handle, DesiredAccess, ObjectType, AccessMode, Object_R, HandleInformation) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ObReferenceObjectByHandle(_Handle, DesiredAccess, _ObjectType, AccessMode, _Object, HandleInformation) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        Object_RMarshal := Object_R is VarRef ? "ptr*" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandle", "ptr", Handle, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, Object_RMarshal, Object_R, "ptr", HandleInformation, "int")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandle", "ptr", _Handle, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, _ObjectMarshal, _Object, "ptr", HandleInformation, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
      * @param {Integer} Tag 
-     * @param {Pointer<Pointer<Void>>} Object_R 
+     * @param {Pointer<Pointer<Void>>} _Object 
      * @param {Pointer<OBJECT_HANDLE_INFORMATION>} HandleInformation 
      * @returns {NTSTATUS} 
      */
-    static ObReferenceObjectByHandleWithTag(Handle, DesiredAccess, ObjectType, AccessMode, Tag, Object_R, HandleInformation) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ObReferenceObjectByHandleWithTag(_Handle, DesiredAccess, _ObjectType, AccessMode, Tag, _Object, HandleInformation) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        Object_RMarshal := Object_R is VarRef ? "ptr*" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandleWithTag", "ptr", Handle, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, "uint", Tag, Object_RMarshal, Object_R, "ptr", HandleInformation, "int")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandleWithTag", "ptr", _Handle, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, _ObjectMarshal, _Object, "ptr", HandleInformation, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {BOOLEAN} 
      */
-    static ObReferenceObjectSafe(Object_R) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObReferenceObjectSafe(_Object) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectSafe", Object_RMarshal, Object_R, "char")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectSafe", _ObjectMarshal, _Object, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {BOOLEAN} 
      */
-    static ObReferenceObjectSafeWithTag(Object_R, Tag) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObReferenceObjectSafeWithTag(_Object, Tag) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectSafeWithTag", Object_RMarshal, Object_R, "uint", Tag, "char")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectSafeWithTag", _ObjectMarshal, _Object, "uint", Tag, "char")
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} PreviousMode 
      * @returns {NTSTATUS} 
      */
-    static ObCloseHandle(Handle, PreviousMode) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ObCloseHandle(_Handle, PreviousMode) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("ntoskrnl.exe\ObCloseHandle", "ptr", Handle, "char", PreviousMode, "int")
+        result := DllCall("ntoskrnl.exe\ObCloseHandle", "ptr", _Handle, "char", PreviousMode, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {Pointer} 
      */
-    static ObfReferenceObject(Object_R) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObfReferenceObject(_Object) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObfReferenceObject", Object_RMarshal, Object_R, "ptr")
+        result := DllCall("ntoskrnl.exe\ObfReferenceObject", _ObjectMarshal, _Object, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {Pointer} 
      */
-    static ObfReferenceObjectWithTag(Object_R, Tag) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObfReferenceObjectWithTag(_Object, Tag) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObfReferenceObjectWithTag", Object_RMarshal, Object_R, "uint", Tag, "ptr")
+        result := DllCall("ntoskrnl.exe\ObfReferenceObjectWithTag", _ObjectMarshal, _Object, "uint", Tag, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
      * @returns {NTSTATUS} 
      */
-    static ObReferenceObjectByPointer(Object_R, DesiredAccess, ObjectType, AccessMode) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObReferenceObjectByPointer(_Object, DesiredAccess, _ObjectType, AccessMode) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointer", Object_RMarshal, Object_R, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, "int")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointer", _ObjectMarshal, _Object, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
      * @param {Integer} Tag 
      * @returns {NTSTATUS} 
      */
-    static ObReferenceObjectByPointerWithTag(Object_R, DesiredAccess, ObjectType, AccessMode, Tag) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObReferenceObjectByPointerWithTag(_Object, DesiredAccess, _ObjectType, AccessMode, Tag) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointerWithTag", Object_RMarshal, Object_R, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, "uint", Tag, "int")
+        result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointerWithTag", _ObjectMarshal, _Object, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {Pointer} 
      */
-    static ObfDereferenceObject(Object_R) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObfDereferenceObject(_Object) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObfDereferenceObject", Object_RMarshal, Object_R, "ptr")
+        result := DllCall("ntoskrnl.exe\ObfDereferenceObject", _ObjectMarshal, _Object, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {Pointer} 
      */
-    static ObfDereferenceObjectWithTag(Object_R, Tag) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObfDereferenceObjectWithTag(_Object, Tag) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObfDereferenceObjectWithTag", Object_RMarshal, Object_R, "uint", Tag, "ptr")
+        result := DllCall("ntoskrnl.exe\ObfDereferenceObjectWithTag", _ObjectMarshal, _Object, "uint", Tag, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ObDereferenceObjectDeferDelete(Object_R) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObDereferenceObjectDeferDelete(_Object) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\ObDereferenceObjectDeferDelete", Object_RMarshal, Object_R)
+        DllCall("ntoskrnl.exe\ObDereferenceObjectDeferDelete", _ObjectMarshal, _Object)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ObDereferenceObjectDeferDeleteWithTag(Object_R, Tag) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObDereferenceObjectDeferDeleteWithTag(_Object, Tag) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\ObDereferenceObjectDeferDeleteWithTag", Object_RMarshal, Object_R, "uint", Tag)
+        DllCall("ntoskrnl.exe\ObDereferenceObjectDeferDeleteWithTag", _ObjectMarshal, _Object, "uint", Tag)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
+     * @param {Pointer<Void>} _Object 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} MemoryAllocated 
      * @returns {NTSTATUS} 
      */
-    static ObGetObjectSecurity(Object_R, SecurityDescriptor, MemoryAllocated) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObGetObjectSecurity(_Object, _SecurityDescriptor, MemoryAllocated) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         MemoryAllocatedMarshal := MemoryAllocated is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObGetObjectSecurity", Object_RMarshal, Object_R, "ptr", SecurityDescriptor, MemoryAllocatedMarshal, MemoryAllocated, "int")
+        result := DllCall("ntoskrnl.exe\ObGetObjectSecurity", _ObjectMarshal, _Object, "ptr", _SecurityDescriptor, MemoryAllocatedMarshal, MemoryAllocated, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {BOOLEAN} MemoryAllocated 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ObReleaseObjectSecurity(SecurityDescriptor, MemoryAllocated) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ObReleaseObjectSecurity(_SecurityDescriptor, MemoryAllocated) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        DllCall("ntoskrnl.exe\ObReleaseObjectSecurity", "ptr", SecurityDescriptor, "char", MemoryAllocated)
+        DllCall("ntoskrnl.exe\ObReleaseObjectSecurity", "ptr", _SecurityDescriptor, "char", MemoryAllocated)
     }
 
     /**
@@ -16661,13 +16661,13 @@ class SystemServices {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Pointer<Integer>} Key 
      * @returns {NTSTATUS} 
      */
-    static ZwReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, Buffer_R, Length, ByteOffset, Key) {
+    static ZwReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Buffer, Length, ByteOffset, Key) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
@@ -16675,7 +16675,7 @@ class SystemServices {
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
+        result := DllCall("ntdll.dll\ZwReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -16687,13 +16687,13 @@ class SystemServices {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Pointer<Integer>} Key 
      * @returns {NTSTATUS} 
      */
-    static ZwWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, Buffer_R, Length, ByteOffset, Key) {
+    static ZwWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Buffer, Length, ByteOffset, Key) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
@@ -16701,33 +16701,33 @@ class SystemServices {
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
+        result := DllCall("ntdll.dll\ZwWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
-    static ZwClose(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwClose(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("ntdll.dll\ZwClose", "ptr", Handle, "int")
+        result := DllCall("ntdll.dll\ZwClose", "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
-    static ZwMakeTemporaryObject(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwMakeTemporaryObject(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("ntdll.dll\ZwMakeTemporaryObject", "ptr", Handle, "int")
+        result := DllCall("ntdll.dll\ZwMakeTemporaryObject", "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -16908,18 +16908,18 @@ class SystemServices {
      * @param {Pointer<Guid>} Uow 
      * @param {HANDLE} TmHandle 
      * @param {Integer} CreateOptions 
-     * @param {Integer} IsolationLevel 
+     * @param {Integer} _IsolationLevel 
      * @param {Integer} IsolationFlags 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<UNICODE_STRING>} Description 
      * @returns {NTSTATUS} 
      */
-    static ZwCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static ZwCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle, CreateOptions, _IsolationLevel, IsolationFlags, Timeout, Description) {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
+        result := DllCall("ntdll.dll\ZwCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18594,14 +18594,14 @@ class SystemServices {
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
-    static TmPropagationComplete(ResourceManager, RequestCookie, BufferLength, Buffer_R) {
+    static TmPropagationComplete(ResourceManager, RequestCookie, BufferLength, _Buffer) {
         ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\TmPropagationComplete", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "uint", BufferLength, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ntoskrnl.exe\TmPropagationComplete", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18610,13 +18610,13 @@ class SystemServices {
      * 
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @param {Integer} RequestCookie 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {NTSTATUS} 
      */
-    static TmPropagationFailed(ResourceManager, RequestCookie, Status) {
+    static TmPropagationFailed(ResourceManager, RequestCookie, _Status) {
         ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\TmPropagationFailed", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "int", Status, "int")
+        result := DllCall("ntoskrnl.exe\TmPropagationFailed", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "int", _Status, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18696,30 +18696,30 @@ class SystemServices {
 
     /**
      * 
-     * @param {PPCW_BUFFER} Buffer_R 
+     * @param {PPCW_BUFFER} _Buffer 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Integer} Id 
      * @param {Integer} Count 
      * @param {Pointer<PCW_DATA>} Data 
      * @returns {NTSTATUS} 
      */
-    static PcwAddInstance(Buffer_R, Name, Id, Count, Data) {
-        result := DllCall("ntoskrnl.exe\PcwAddInstance", "ptr", Buffer_R, "ptr", Name, "uint", Id, "uint", Count, "ptr", Data, "int")
+    static PcwAddInstance(_Buffer, Name, Id, Count, Data) {
+        result := DllCall("ntoskrnl.exe\PcwAddInstance", "ptr", _Buffer, "ptr", Name, "uint", Id, "uint", Count, "ptr", Data, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} Handle 
+     * @param {Pointer<HANDLE>} _Handle 
      * @param {PEPROCESS} TargetProcess 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @param {Integer} DevicePageProtection 
      * @param {Integer} Attributes 
      * @returns {NTSTATUS} 
      */
-    static VslCreateSecureSection(Handle, TargetProcess, Mdl, DevicePageProtection, Attributes) {
-        result := DllCall("ntoskrnl.exe\VslCreateSecureSection", "ptr", Handle, "ptr", TargetProcess, "ptr", Mdl, "uint", DevicePageProtection, "uint", Attributes, "int")
+    static VslCreateSecureSection(_Handle, TargetProcess, _Mdl, DevicePageProtection, Attributes) {
+        result := DllCall("ntoskrnl.exe\VslCreateSecureSection", "ptr", _Handle, "ptr", TargetProcess, "ptr", _Mdl, "uint", DevicePageProtection, "uint", Attributes, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18751,14 +18751,14 @@ class SystemServices {
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Pointer<PRTL_RUN_ONCE_INIT_FN>} InitFn 
      * @param {Pointer<Void>} Parameter 
-     * @param {Pointer<Pointer<Void>>} Context 
+     * @param {Pointer<Pointer<Void>>} _Context 
      * @returns {NTSTATUS} 
      */
-    static RtlRunOnceExecuteOnce(RunOnce, InitFn, Parameter, Context) {
+    static RtlRunOnceExecuteOnce(RunOnce, InitFn, Parameter, _Context) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlRunOnceExecuteOnce", "ptr", RunOnce, "ptr", InitFn, ParameterMarshal, Parameter, ContextMarshal, Context, "int")
+        result := DllCall("ntdll.dll\RtlRunOnceExecuteOnce", "ptr", RunOnce, "ptr", InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18767,13 +18767,13 @@ class SystemServices {
      * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Integer} Flags 
-     * @param {Pointer<Pointer<Void>>} Context 
+     * @param {Pointer<Pointer<Void>>} _Context 
      * @returns {NTSTATUS} 
      */
-    static RtlRunOnceBeginInitialize(RunOnce, Flags, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static RtlRunOnceBeginInitialize(RunOnce, Flags, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlRunOnceBeginInitialize", "ptr", RunOnce, "uint", Flags, ContextMarshal, Context, "int")
+        result := DllCall("ntdll.dll\RtlRunOnceBeginInitialize", "ptr", RunOnce, "uint", Flags, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18782,13 +18782,13 @@ class SystemServices {
      * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static RtlRunOnceComplete(RunOnce, Flags, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static RtlRunOnceComplete(RunOnce, Flags, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlRunOnceComplete", "ptr", RunOnce, "uint", Flags, ContextMarshal, Context, "int")
+        result := DllCall("ntdll.dll\RtlRunOnceComplete", "ptr", RunOnce, "uint", Flags, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -18811,46 +18811,46 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<BOOLEAN>} NewElement 
      * @returns {Pointer<Void>} 
      */
-    static RtlInsertElementGenericTableAvl(Table, Buffer_R, BufferSize, NewElement) {
+    static RtlInsertElementGenericTableAvl(Table, _Buffer, BufferSize, NewElement) {
         NewElementMarshal := NewElement is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlInsertElementGenericTableAvl", "ptr", Table, "ptr", Buffer_R, "uint", BufferSize, NewElementMarshal, NewElement, "ptr")
+        result := DllCall("ntdll.dll\RtlInsertElementGenericTableAvl", "ptr", Table, "ptr", _Buffer, "uint", BufferSize, NewElementMarshal, NewElement, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<BOOLEAN>} NewElement 
      * @param {Pointer<Void>} NodeOrParent 
      * @param {Integer} SearchResult 
      * @returns {Pointer<Void>} 
      */
-    static RtlInsertElementGenericTableFullAvl(Table, Buffer_R, BufferSize, NewElement, NodeOrParent, SearchResult) {
+    static RtlInsertElementGenericTableFullAvl(Table, _Buffer, BufferSize, NewElement, NodeOrParent, SearchResult) {
         NewElementMarshal := NewElement is VarRef ? "char*" : "ptr"
         NodeOrParentMarshal := NodeOrParent is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlInsertElementGenericTableFullAvl", "ptr", Table, "ptr", Buffer_R, "uint", BufferSize, NewElementMarshal, NewElement, NodeOrParentMarshal, NodeOrParent, "int", SearchResult, "ptr")
+        result := DllCall("ntdll.dll\RtlInsertElementGenericTableFullAvl", "ptr", Table, "ptr", _Buffer, "uint", BufferSize, NewElementMarshal, NewElement, NodeOrParentMarshal, NodeOrParent, "int", SearchResult, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static RtlDeleteElementGenericTableAvl(Table, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlDeleteElementGenericTableAvl(Table, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlDeleteElementGenericTableAvl", "ptr", Table, Buffer_RMarshal, Buffer_R, "char")
+        result := DllCall("ntdll.dll\RtlDeleteElementGenericTableAvl", "ptr", Table, _BufferMarshal, _Buffer, "char")
         return result
     }
 
@@ -18869,30 +18869,30 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
      */
-    static RtlLookupElementGenericTableAvl(Table, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlLookupElementGenericTableAvl(Table, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLookupElementGenericTableAvl", "ptr", Table, Buffer_RMarshal, Buffer_R, "ptr")
+        result := DllCall("ntdll.dll\RtlLookupElementGenericTableAvl", "ptr", Table, _BufferMarshal, _Buffer, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} NodeOrParent 
      * @param {Pointer<Integer>} SearchResult 
      * @returns {Pointer<Void>} 
      */
-    static RtlLookupElementGenericTableFullAvl(Table, Buffer_R, NodeOrParent, SearchResult) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlLookupElementGenericTableFullAvl(Table, _Buffer, NodeOrParent, SearchResult) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         NodeOrParentMarshal := NodeOrParent is VarRef ? "ptr*" : "ptr"
         SearchResultMarshal := SearchResult is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLookupElementGenericTableFullAvl", "ptr", Table, Buffer_RMarshal, Buffer_R, NodeOrParentMarshal, NodeOrParent, SearchResultMarshal, SearchResult, "ptr")
+        result := DllCall("ntdll.dll\RtlLookupElementGenericTableFullAvl", "ptr", Table, _BufferMarshal, _Buffer, NodeOrParentMarshal, NodeOrParent, SearchResultMarshal, SearchResult, "ptr")
         return result
     }
 
@@ -18923,15 +18923,15 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} RestartKey 
      * @returns {Pointer<Void>} 
      */
-    static RtlLookupFirstMatchingElementGenericTableAvl(Table, Buffer_R, RestartKey) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlLookupFirstMatchingElementGenericTableAvl(Table, _Buffer, RestartKey) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         RestartKeyMarshal := RestartKey is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLookupFirstMatchingElementGenericTableAvl", "ptr", Table, Buffer_RMarshal, Buffer_R, RestartKeyMarshal, RestartKey, "ptr")
+        result := DllCall("ntdll.dll\RtlLookupFirstMatchingElementGenericTableAvl", "ptr", Table, _BufferMarshal, _Buffer, RestartKeyMarshal, RestartKey, "ptr")
         return result
     }
 
@@ -18943,16 +18943,16 @@ class SystemServices {
      * @param {Integer} NextFlag 
      * @param {Pointer<Pointer<Void>>} RestartKey 
      * @param {Pointer<Integer>} DeleteCount 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
      */
-    static RtlEnumerateGenericTableLikeADirectory(Table, MatchFunction, MatchData, NextFlag, RestartKey, DeleteCount, Buffer_R) {
+    static RtlEnumerateGenericTableLikeADirectory(Table, MatchFunction, MatchData, NextFlag, RestartKey, DeleteCount, _Buffer) {
         MatchDataMarshal := MatchData is VarRef ? "ptr" : "ptr"
         RestartKeyMarshal := RestartKey is VarRef ? "ptr*" : "ptr"
         DeleteCountMarshal := DeleteCount is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlEnumerateGenericTableLikeADirectory", "ptr", Table, "ptr", MatchFunction, MatchDataMarshal, MatchData, "uint", NextFlag, RestartKeyMarshal, RestartKey, DeleteCountMarshal, DeleteCount, Buffer_RMarshal, Buffer_R, "ptr")
+        result := DllCall("ntdll.dll\RtlEnumerateGenericTableLikeADirectory", "ptr", Table, "ptr", MatchFunction, MatchDataMarshal, MatchData, "uint", NextFlag, RestartKeyMarshal, RestartKey, DeleteCountMarshal, DeleteCount, _BufferMarshal, _Buffer, "ptr")
         return result
     }
 
@@ -19084,76 +19084,76 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<BOOLEAN>} NewElement 
      * @returns {Pointer<Void>} 
      */
-    static RtlInsertElementGenericTable(Table, Buffer_R, BufferSize, NewElement) {
+    static RtlInsertElementGenericTable(Table, _Buffer, BufferSize, NewElement) {
         NewElementMarshal := NewElement is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlInsertElementGenericTable", "ptr", Table, "ptr", Buffer_R, "uint", BufferSize, NewElementMarshal, NewElement, "ptr")
+        result := DllCall("ntdll.dll\RtlInsertElementGenericTable", "ptr", Table, "ptr", _Buffer, "uint", BufferSize, NewElementMarshal, NewElement, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<BOOLEAN>} NewElement 
      * @param {Pointer<Void>} NodeOrParent 
      * @param {Integer} SearchResult 
      * @returns {Pointer<Void>} 
      */
-    static RtlInsertElementGenericTableFull(Table, Buffer_R, BufferSize, NewElement, NodeOrParent, SearchResult) {
+    static RtlInsertElementGenericTableFull(Table, _Buffer, BufferSize, NewElement, NodeOrParent, SearchResult) {
         NewElementMarshal := NewElement is VarRef ? "char*" : "ptr"
         NodeOrParentMarshal := NodeOrParent is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlInsertElementGenericTableFull", "ptr", Table, "ptr", Buffer_R, "uint", BufferSize, NewElementMarshal, NewElement, NodeOrParentMarshal, NodeOrParent, "int", SearchResult, "ptr")
+        result := DllCall("ntdll.dll\RtlInsertElementGenericTableFull", "ptr", Table, "ptr", _Buffer, "uint", BufferSize, NewElementMarshal, NewElement, NodeOrParentMarshal, NodeOrParent, "int", SearchResult, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static RtlDeleteElementGenericTable(Table, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlDeleteElementGenericTable(Table, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlDeleteElementGenericTable", "ptr", Table, Buffer_RMarshal, Buffer_R, "char")
+        result := DllCall("ntdll.dll\RtlDeleteElementGenericTable", "ptr", Table, _BufferMarshal, _Buffer, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
      */
-    static RtlLookupElementGenericTable(Table, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlLookupElementGenericTable(Table, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLookupElementGenericTable", "ptr", Table, Buffer_RMarshal, Buffer_R, "ptr")
+        result := DllCall("ntdll.dll\RtlLookupElementGenericTable", "ptr", Table, _BufferMarshal, _Buffer, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} NodeOrParent 
      * @param {Pointer<Integer>} SearchResult 
      * @returns {Pointer<Void>} 
      */
-    static RtlLookupElementGenericTableFull(Table, Buffer_R, NodeOrParent, SearchResult) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlLookupElementGenericTableFull(Table, _Buffer, NodeOrParent, SearchResult) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         NodeOrParentMarshal := NodeOrParent is VarRef ? "ptr*" : "ptr"
         SearchResultMarshal := SearchResult is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLookupElementGenericTableFull", "ptr", Table, Buffer_RMarshal, Buffer_R, NodeOrParentMarshal, NodeOrParent, SearchResultMarshal, SearchResult, "ptr")
+        result := DllCall("ntdll.dll\RtlLookupElementGenericTableFull", "ptr", Table, _BufferMarshal, _Buffer, NodeOrParentMarshal, NodeOrParent, SearchResultMarshal, SearchResult, "ptr")
         return result
     }
 
@@ -19257,11 +19257,11 @@ class SystemServices {
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} Entry 
      * @param {Pointer} Signature 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} Context 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
      * @returns {BOOLEAN} 
      */
-    static RtlInsertEntryHashTable(HashTable, Entry, Signature, Context) {
-        result := DllCall("ntdll.dll\RtlInsertEntryHashTable", "ptr", HashTable, "ptr", Entry, "ptr", Signature, "ptr", Context, "char")
+    static RtlInsertEntryHashTable(HashTable, Entry, Signature, _Context) {
+        result := DllCall("ntdll.dll\RtlInsertEntryHashTable", "ptr", HashTable, "ptr", Entry, "ptr", Signature, "ptr", _Context, "char")
         return result
     }
 
@@ -19269,11 +19269,11 @@ class SystemServices {
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} Entry 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} Context 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
      * @returns {BOOLEAN} 
      */
-    static RtlRemoveEntryHashTable(HashTable, Entry, Context) {
-        result := DllCall("ntdll.dll\RtlRemoveEntryHashTable", "ptr", HashTable, "ptr", Entry, "ptr", Context, "char")
+    static RtlRemoveEntryHashTable(HashTable, Entry, _Context) {
+        result := DllCall("ntdll.dll\RtlRemoveEntryHashTable", "ptr", HashTable, "ptr", Entry, "ptr", _Context, "char")
         return result
     }
 
@@ -19281,119 +19281,119 @@ class SystemServices {
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer} Signature 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} Context 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
      */
-    static RtlLookupEntryHashTable(HashTable, Signature, Context) {
-        result := DllCall("ntdll.dll\RtlLookupEntryHashTable", "ptr", HashTable, "ptr", Signature, "ptr", Context, "ptr")
+    static RtlLookupEntryHashTable(HashTable, Signature, _Context) {
+        result := DllCall("ntdll.dll\RtlLookupEntryHashTable", "ptr", HashTable, "ptr", Signature, "ptr", _Context, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} Context 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
      */
-    static RtlGetNextEntryHashTable(HashTable, Context) {
-        result := DllCall("ntdll.dll\RtlGetNextEntryHashTable", "ptr", HashTable, "ptr", Context, "ptr")
+    static RtlGetNextEntryHashTable(HashTable, _Context) {
+        result := DllCall("ntdll.dll\RtlGetNextEntryHashTable", "ptr", HashTable, "ptr", _Context, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
      */
-    static RtlInitEnumerationHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlInitEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator, "char")
+    static RtlInitEnumerationHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlInitEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
      */
-    static RtlEnumerateEntryHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlEnumerateEntryHashTable", "ptr", HashTable, "ptr", Enumerator, "ptr")
+    static RtlEnumerateEntryHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlEnumerateEntryHashTable", "ptr", HashTable, "ptr", _Enumerator, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
      */
-    static RtlEndEnumerationHashTable(HashTable, Enumerator) {
-        DllCall("ntdll.dll\RtlEndEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator)
+    static RtlEndEnumerationHashTable(HashTable, _Enumerator) {
+        DllCall("ntdll.dll\RtlEndEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator)
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
      */
-    static RtlInitWeakEnumerationHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlInitWeakEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator, "char")
+    static RtlInitWeakEnumerationHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlInitWeakEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
      */
-    static RtlWeaklyEnumerateEntryHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlWeaklyEnumerateEntryHashTable", "ptr", HashTable, "ptr", Enumerator, "ptr")
+    static RtlWeaklyEnumerateEntryHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlWeaklyEnumerateEntryHashTable", "ptr", HashTable, "ptr", _Enumerator, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
      */
-    static RtlEndWeakEnumerationHashTable(HashTable, Enumerator) {
-        DllCall("ntdll.dll\RtlEndWeakEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator)
+    static RtlEndWeakEnumerationHashTable(HashTable, _Enumerator) {
+        DllCall("ntdll.dll\RtlEndWeakEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator)
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
      */
-    static RtlInitStrongEnumerationHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlInitStrongEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator, "char")
+    static RtlInitStrongEnumerationHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlInitStrongEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
      */
-    static RtlStronglyEnumerateEntryHashTable(HashTable, Enumerator) {
-        result := DllCall("ntdll.dll\RtlStronglyEnumerateEntryHashTable", "ptr", HashTable, "ptr", Enumerator, "ptr")
+    static RtlStronglyEnumerateEntryHashTable(HashTable, _Enumerator) {
+        result := DllCall("ntdll.dll\RtlStronglyEnumerateEntryHashTable", "ptr", HashTable, "ptr", _Enumerator, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
-     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} Enumerator 
+     * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
      */
-    static RtlEndStrongEnumerationHashTable(HashTable, Enumerator) {
-        DllCall("ntdll.dll\RtlEndStrongEnumerationHashTable", "ptr", HashTable, "ptr", Enumerator)
+    static RtlEndStrongEnumerationHashTable(HashTable, _Enumerator) {
+        DllCall("ntdll.dll\RtlEndStrongEnumerationHashTable", "ptr", HashTable, "ptr", _Enumerator)
     }
 
     /**
@@ -19549,21 +19549,21 @@ class SystemServices {
      * 
      * @param {HANDLE} PrimaryHandle 
      * @param {HANDLE} FallbackHandle 
-     * @param {Pointer<UNICODE_STRING>} ValueName 
+     * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {Integer} ValueLength 
      * @param {Pointer<Integer>} ValueType 
      * @param {Pointer} ValueData 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
      */
-    static RtlQueryRegistryValueWithFallback(PrimaryHandle, FallbackHandle, ValueName, ValueLength, ValueType, ValueData, ResultLength) {
+    static RtlQueryRegistryValueWithFallback(PrimaryHandle, FallbackHandle, _ValueName, ValueLength, ValueType, ValueData, ResultLength) {
         PrimaryHandle := PrimaryHandle is Win32Handle ? NumGet(PrimaryHandle, "ptr") : PrimaryHandle
         FallbackHandle := FallbackHandle is Win32Handle ? NumGet(FallbackHandle, "ptr") : FallbackHandle
 
         ValueTypeMarshal := ValueType is VarRef ? "uint*" : "ptr"
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlQueryRegistryValueWithFallback", "ptr", PrimaryHandle, "ptr", FallbackHandle, "ptr", ValueName, "uint", ValueLength, ValueTypeMarshal, ValueType, "ptr", ValueData, ResultLengthMarshal, ResultLength, "int")
+        result := DllCall("ntdll.dll\RtlQueryRegistryValueWithFallback", "ptr", PrimaryHandle, "ptr", FallbackHandle, "ptr", _ValueName, "uint", ValueLength, ValueTypeMarshal, ValueType, "ptr", ValueData, ResultLengthMarshal, ResultLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -19746,31 +19746,31 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 
      * @param {Pointer<Integer>} NewSecurityDescriptorLength 
      * @param {BOOLEAN} CheckOnly 
      * @returns {BOOLEAN} 
      */
-    static RtlNormalizeSecurityDescriptor(SecurityDescriptor, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
+    static RtlNormalizeSecurityDescriptor(_SecurityDescriptor, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
         NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", "ptr", SecurityDescriptor, "uint", SecurityDescriptorLength, "ptr", NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, "char", CheckOnly, "char")
+        result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", "ptr", _SecurityDescriptor, "uint", SecurityDescriptorLength, "ptr", NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, "char", CheckOnly, "char")
         return result
     }
 
     /**
      * 
      * @param {Integer} DataId 
-     * @param {Pointer<Void>} Buffer_R 
-     * @param {Integer} Size 
+     * @param {Pointer<Void>} _Buffer 
+     * @param {Integer} _Size 
      * @returns {NTSTATUS} 
      */
-    static RtlSetSystemGlobalData(DataId, Buffer_R, Size) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlSetSystemGlobalData(DataId, _Buffer, _Size) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlSetSystemGlobalData", "int", DataId, Buffer_RMarshal, Buffer_R, "uint", Size, "int")
+        result := DllCall("ntoskrnl.exe\RtlSetSystemGlobalData", "int", DataId, _BufferMarshal, _Buffer, "uint", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -19791,13 +19791,13 @@ class SystemServices {
      * 
      * @param {Pointer<PEXPAND_STACK_CALLOUT>} Callout 
      * @param {Pointer<Void>} Parameter 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @returns {NTSTATUS} 
      */
-    static KeExpandKernelStackAndCallout(Callout, Parameter, Size) {
+    static KeExpandKernelStackAndCallout(Callout, Parameter, _Size) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCallout", "ptr", Callout, ParameterMarshal, Parameter, "ptr", Size, "int")
+        result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCallout", "ptr", Callout, ParameterMarshal, Parameter, "ptr", _Size, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -19806,16 +19806,16 @@ class SystemServices {
      * 
      * @param {Pointer<PEXPAND_STACK_CALLOUT>} Callout 
      * @param {Pointer<Void>} Parameter 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static KeExpandKernelStackAndCalloutEx(Callout, Parameter, Size, Wait, Context) {
+    static KeExpandKernelStackAndCalloutEx(Callout, Parameter, _Size, Wait, _Context) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCalloutEx", "ptr", Callout, ParameterMarshal, Parameter, "ptr", Size, "char", Wait, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCalloutEx", "ptr", Callout, ParameterMarshal, Parameter, "ptr", _Size, "char", Wait, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20007,17 +20007,17 @@ class SystemServices {
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Pointer<Pointer>} NumberOfBytes 
      * @param {Pointer<MDL>} NewMdl 
-     * @param {Integer} Direction 
+     * @param {Integer} _Direction 
      * @param {Pointer<PMM_ROTATE_COPY_CALLBACK_FUNCTION>} CopyFunction 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static MmRotatePhysicalView(VirtualAddress, NumberOfBytes, NewMdl, Direction, CopyFunction, Context) {
+    static MmRotatePhysicalView(VirtualAddress, NumberOfBytes, NewMdl, _Direction, CopyFunction, _Context) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
         NumberOfBytesMarshal := NumberOfBytes is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmRotatePhysicalView", VirtualAddressMarshal, VirtualAddress, NumberOfBytesMarshal, NumberOfBytes, "ptr", NewMdl, "int", Direction, "ptr", CopyFunction, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\MmRotatePhysicalView", VirtualAddressMarshal, VirtualAddress, NumberOfBytesMarshal, NumberOfBytes, "ptr", NewMdl, "int", _Direction, "ptr", CopyFunction, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20219,27 +20219,27 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer} Address 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Address 
+     * @param {Pointer} _Size 
      * @param {Integer} ProbeMode 
      * @returns {HANDLE} 
      */
-    static MmSecureVirtualMemory(Address, Size, ProbeMode) {
-        result := DllCall("ntoskrnl.exe\MmSecureVirtualMemory", "ptr", Address, "ptr", Size, "uint", ProbeMode, "ptr")
+    static MmSecureVirtualMemory(_Address, _Size, ProbeMode) {
+        result := DllCall("ntoskrnl.exe\MmSecureVirtualMemory", "ptr", _Address, "ptr", _Size, "uint", ProbeMode, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
 
     /**
      * 
-     * @param {Pointer} Address 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Address 
+     * @param {Pointer} _Size 
      * @param {Integer} ProbeMode 
      * @param {Integer} Flags 
      * @returns {HANDLE} 
      */
-    static MmSecureVirtualMemoryEx(Address, Size, ProbeMode, Flags) {
-        result := DllCall("ntoskrnl.exe\MmSecureVirtualMemoryEx", "ptr", Address, "ptr", Size, "uint", ProbeMode, "uint", Flags, "ptr")
+    static MmSecureVirtualMemoryEx(_Address, _Size, ProbeMode, Flags) {
+        result := DllCall("ntoskrnl.exe\MmSecureVirtualMemoryEx", "ptr", _Address, "ptr", _Size, "uint", ProbeMode, "uint", Flags, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -20257,37 +20257,37 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} Section 
+     * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
      * @param {Pointer<Integer>} SectionOffset 
      * @param {Pointer} Flags 
      * @returns {NTSTATUS} 
      */
-    static MmMapViewInSystemSpaceEx(Section, MappedBase, ViewSize, SectionOffset, Flags) {
-        SectionMarshal := Section is VarRef ? "ptr" : "ptr"
+    static MmMapViewInSystemSpaceEx(_Section, MappedBase, ViewSize, SectionOffset, Flags) {
+        _SectionMarshal := _Section is VarRef ? "ptr" : "ptr"
         MappedBaseMarshal := MappedBase is VarRef ? "ptr*" : "ptr"
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
         SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpaceEx", SectionMarshal, Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
+        result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Section 
+     * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
      * @returns {NTSTATUS} 
      */
-    static MmMapViewInSystemSpace(Section, MappedBase, ViewSize) {
-        SectionMarshal := Section is VarRef ? "ptr" : "ptr"
+    static MmMapViewInSystemSpace(_Section, MappedBase, ViewSize) {
+        _SectionMarshal := _Section is VarRef ? "ptr" : "ptr"
         MappedBaseMarshal := MappedBase is VarRef ? "ptr*" : "ptr"
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpace", SectionMarshal, Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
+        result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20307,37 +20307,37 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<Void>} Section 
+     * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
      * @param {Pointer<Integer>} SectionOffset 
      * @param {Pointer} Flags 
      * @returns {NTSTATUS} 
      */
-    static MmMapViewInSessionSpaceEx(Section, MappedBase, ViewSize, SectionOffset, Flags) {
-        SectionMarshal := Section is VarRef ? "ptr" : "ptr"
+    static MmMapViewInSessionSpaceEx(_Section, MappedBase, ViewSize, SectionOffset, Flags) {
+        _SectionMarshal := _Section is VarRef ? "ptr" : "ptr"
         MappedBaseMarshal := MappedBase is VarRef ? "ptr*" : "ptr"
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
         SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpaceEx", SectionMarshal, Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
+        result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Section 
+     * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
      * @returns {NTSTATUS} 
      */
-    static MmMapViewInSessionSpace(Section, MappedBase, ViewSize) {
-        SectionMarshal := Section is VarRef ? "ptr" : "ptr"
+    static MmMapViewInSessionSpace(_Section, MappedBase, ViewSize) {
+        _SectionMarshal := _Section is VarRef ? "ptr" : "ptr"
         MappedBaseMarshal := MappedBase is VarRef ? "ptr*" : "ptr"
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpace", SectionMarshal, Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
+        result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20790,16 +20790,16 @@ class SystemServices {
     /**
      * 
      * @param {PESILO} Silo 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Integer} PoolType 
      * @param {Pointer<SILO_CONTEXT_CLEANUP_CALLBACK>} ContextCleanupCallback 
      * @param {Pointer<Pointer<Void>>} ReturnedSiloContext 
      * @returns {NTSTATUS} 
      */
-    static PsCreateSiloContext(Silo, Size, PoolType, ContextCleanupCallback, ReturnedSiloContext) {
+    static PsCreateSiloContext(Silo, _Size, PoolType, ContextCleanupCallback, ReturnedSiloContext) {
         ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\PsCreateSiloContext", "ptr", Silo, "uint", Size, "int", PoolType, "ptr", ContextCleanupCallback, ReturnedSiloContextMarshal, ReturnedSiloContext, "int")
+        result := DllCall("ntoskrnl.exe\PsCreateSiloContext", "ptr", Silo, "uint", _Size, "int", PoolType, "ptr", ContextCleanupCallback, ReturnedSiloContextMarshal, ReturnedSiloContext, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20946,32 +20946,32 @@ class SystemServices {
 
     /**
      * 
-     * @param {PSILO_MONITOR} Monitor 
+     * @param {PSILO_MONITOR} _Monitor 
      * @returns {NTSTATUS} 
      */
-    static PsStartSiloMonitor(Monitor) {
-        result := DllCall("ntoskrnl.exe\PsStartSiloMonitor", "ptr", Monitor, "int")
+    static PsStartSiloMonitor(_Monitor) {
+        result := DllCall("ntoskrnl.exe\PsStartSiloMonitor", "ptr", _Monitor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSILO_MONITOR} Monitor 
+     * @param {PSILO_MONITOR} _Monitor 
      * @returns {Integer} 
      */
-    static PsGetSiloMonitorContextSlot(Monitor) {
-        result := DllCall("ntoskrnl.exe\PsGetSiloMonitorContextSlot", "ptr", Monitor, "uint")
+    static PsGetSiloMonitorContextSlot(_Monitor) {
+        result := DllCall("ntoskrnl.exe\PsGetSiloMonitorContextSlot", "ptr", _Monitor, "uint")
         return result
     }
 
     /**
      * 
-     * @param {PSILO_MONITOR} Monitor 
+     * @param {PSILO_MONITOR} _Monitor 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PsUnregisterSiloMonitor(Monitor) {
-        DllCall("ntoskrnl.exe\PsUnregisterSiloMonitor", "ptr", Monitor)
+    static PsUnregisterSiloMonitor(_Monitor) {
+        DllCall("ntoskrnl.exe\PsUnregisterSiloMonitor", "ptr", _Monitor)
     }
 
     /**
@@ -21030,14 +21030,14 @@ class SystemServices {
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} NumberOfMapRegisters 
      * @param {Pointer<DRIVER_CONTROL>} ExecutionRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static IoAllocateAdapterChannel(AdapterObject, DeviceObject, NumberOfMapRegisters, ExecutionRoutine, Context) {
+    static IoAllocateAdapterChannel(AdapterObject, DeviceObject, NumberOfMapRegisters, ExecutionRoutine, _Context) {
         AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, "ptr", DeviceObject, "uint", NumberOfMapRegisters, "ptr", ExecutionRoutine, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\IoAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, "ptr", DeviceObject, "uint", NumberOfMapRegisters, "ptr", ExecutionRoutine, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -21047,13 +21047,13 @@ class SystemServices {
      * @param {Pointer<CONTROLLER_OBJECT>} ControllerObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<DRIVER_CONTROL>} ExecutionRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoAllocateController(ControllerObject, DeviceObject, ExecutionRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoAllocateController(ControllerObject, DeviceObject, ExecutionRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoAllocateController", "ptr", ControllerObject, "ptr", DeviceObject, "ptr", ExecutionRoutine, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\IoAllocateController", "ptr", ControllerObject, "ptr", DeviceObject, "ptr", ExecutionRoutine, _ContextMarshal, _Context)
     }
 
     /**
@@ -21088,11 +21088,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {Pointer<CONTROLLER_OBJECT>} 
      */
-    static IoCreateController(Size) {
-        result := DllCall("ntoskrnl.exe\IoCreateController", "uint", Size, "ptr")
+    static IoCreateController(_Size) {
+        result := DllCall("ntoskrnl.exe\IoCreateController", "uint", _Size, "ptr")
         return result
     }
 
@@ -21144,24 +21144,24 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} StackSize 
      * @returns {Pointer<IRP>} 
      */
-    static IoMakeAssociatedIrp(Irp, StackSize) {
-        result := DllCall("ntoskrnl.exe\IoMakeAssociatedIrp", "ptr", Irp, "char", StackSize, "ptr")
+    static IoMakeAssociatedIrp(_Irp, StackSize) {
+        result := DllCall("ntoskrnl.exe\IoMakeAssociatedIrp", "ptr", _Irp, "char", StackSize, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} StackSize 
      * @returns {Pointer<IRP>} 
      */
-    static IoMakeAssociatedIrpEx(Irp, DeviceObject, StackSize) {
-        result := DllCall("ntoskrnl.exe\IoMakeAssociatedIrpEx", "ptr", Irp, "ptr", DeviceObject, "char", StackSize, "ptr")
+    static IoMakeAssociatedIrpEx(_Irp, DeviceObject, StackSize) {
+        result := DllCall("ntoskrnl.exe\IoMakeAssociatedIrpEx", "ptr", _Irp, "ptr", DeviceObject, "char", StackSize, "ptr")
         return result
     }
 
@@ -21174,43 +21174,43 @@ class SystemServices {
      * @param {Pointer<Integer>} PeripheralType 
      * @param {Pointer<Integer>} PeripheralNumber 
      * @param {Pointer<PIO_QUERY_DEVICE_ROUTINE>} CalloutRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static IoQueryDeviceDescription(BusType, BusNumber, ControllerType, ControllerNumber, PeripheralType, PeripheralNumber, CalloutRoutine, Context) {
+    static IoQueryDeviceDescription(BusType, BusNumber, ControllerType, ControllerNumber, PeripheralType, PeripheralNumber, CalloutRoutine, _Context) {
         BusTypeMarshal := BusType is VarRef ? "int*" : "ptr"
         BusNumberMarshal := BusNumber is VarRef ? "uint*" : "ptr"
         ControllerTypeMarshal := ControllerType is VarRef ? "int*" : "ptr"
         ControllerNumberMarshal := ControllerNumber is VarRef ? "uint*" : "ptr"
         PeripheralTypeMarshal := PeripheralType is VarRef ? "int*" : "ptr"
         PeripheralNumberMarshal := PeripheralNumber is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoQueryDeviceDescription", BusTypeMarshal, BusType, BusNumberMarshal, BusNumber, ControllerTypeMarshal, ControllerType, ControllerNumberMarshal, ControllerNumber, PeripheralTypeMarshal, PeripheralType, PeripheralNumberMarshal, PeripheralNumber, "ptr", CalloutRoutine, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\IoQueryDeviceDescription", BusTypeMarshal, BusType, BusNumberMarshal, BusNumber, ControllerTypeMarshal, ControllerType, ControllerNumberMarshal, ControllerNumber, PeripheralTypeMarshal, PeripheralType, PeripheralNumberMarshal, PeripheralNumber, "ptr", CalloutRoutine, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<VPB>} Vpb 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<VPB>} _Vpb 
      * @param {Pointer<DEVICE_OBJECT>} RealDeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoRaiseHardError(Irp, Vpb, RealDeviceObject) {
-        DllCall("ntoskrnl.exe\IoRaiseHardError", "ptr", Irp, "ptr", Vpb, "ptr", RealDeviceObject)
+    static IoRaiseHardError(_Irp, _Vpb, RealDeviceObject) {
+        DllCall("ntoskrnl.exe\IoRaiseHardError", "ptr", _Irp, "ptr", _Vpb, "ptr", RealDeviceObject)
     }
 
     /**
      * 
      * @param {NTSTATUS} ErrorStatus 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @param {PKTHREAD} Thread 
      * @returns {BOOLEAN} 
      */
-    static IoRaiseInformationalHardError(ErrorStatus, String_R, Thread) {
-        result := DllCall("ntoskrnl.exe\IoRaiseInformationalHardError", "int", ErrorStatus, "ptr", String_R, "ptr", Thread, "char")
+    static IoRaiseInformationalHardError(ErrorStatus, _String, Thread) {
+        result := DllCall("ntoskrnl.exe\IoRaiseInformationalHardError", "int", ErrorStatus, "ptr", _String, "ptr", Thread, "char")
         return result
     }
 
@@ -21228,26 +21228,26 @@ class SystemServices {
      * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_REINITIALIZE>} DriverReinitializationRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoRegisterBootDriverReinitialization(DriverObject, DriverReinitializationRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoRegisterBootDriverReinitialization(DriverObject, DriverReinitializationRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoRegisterBootDriverReinitialization", "ptr", DriverObject, "ptr", DriverReinitializationRoutine, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\IoRegisterBootDriverReinitialization", "ptr", DriverObject, "ptr", DriverReinitializationRoutine, _ContextMarshal, _Context)
     }
 
     /**
      * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_REINITIALIZE>} DriverReinitializationRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoRegisterDriverReinitialization(DriverObject, DriverReinitializationRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static IoRegisterDriverReinitialization(DriverObject, DriverReinitializationRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\IoRegisterDriverReinitialization", "ptr", DriverObject, "ptr", DriverReinitializationRoutine, ContextMarshal, Context)
+        DllCall("ntoskrnl.exe\IoRegisterDriverReinitialization", "ptr", DriverObject, "ptr", DriverReinitializationRoutine, _ContextMarshal, _Context)
     }
 
     /**
@@ -21290,12 +21290,12 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoSetHardErrorOrVerifyDevice(Irp, DeviceObject) {
-        DllCall("ntoskrnl.exe\IoSetHardErrorOrVerifyDevice", "ptr", Irp, "ptr", DeviceObject)
+    static IoSetHardErrorOrVerifyDevice(_Irp, DeviceObject) {
+        DllCall("ntoskrnl.exe\IoSetHardErrorOrVerifyDevice", "ptr", _Irp, "ptr", DeviceObject)
     }
 
     /**
@@ -21303,13 +21303,13 @@ class SystemServices {
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} MBRTypeIdentifier 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
-    static HalExamineMBR(DeviceObject, SectorSize, MBRTypeIdentifier, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+    static HalExamineMBR(DeviceObject, SectorSize, MBRTypeIdentifier, _Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        DllCall("ntoskrnl.exe\HalExamineMBR", "ptr", DeviceObject, "uint", SectorSize, "uint", MBRTypeIdentifier, Buffer_RMarshal, Buffer_R)
+        DllCall("ntoskrnl.exe\HalExamineMBR", "ptr", DeviceObject, "uint", SectorSize, "uint", MBRTypeIdentifier, _BufferMarshal, _Buffer)
     }
 
     /**
@@ -21601,37 +21601,37 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer>} ExtraCreateParameter 
      * @returns {NTSTATUS} 
      */
-    static IoSetIrpExtraCreateParameter(Irp, ExtraCreateParameter) {
+    static IoSetIrpExtraCreateParameter(_Irp, ExtraCreateParameter) {
         ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoSetIrpExtraCreateParameter", "ptr", Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
+        result := DllCall("ntoskrnl.exe\IoSetIrpExtraCreateParameter", "ptr", _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoClearIrpExtraCreateParameter(Irp) {
-        DllCall("ntoskrnl.exe\IoClearIrpExtraCreateParameter", "ptr", Irp)
+    static IoClearIrpExtraCreateParameter(_Irp) {
+        DllCall("ntoskrnl.exe\IoClearIrpExtraCreateParameter", "ptr", _Irp)
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<Pointer>>} ExtraCreateParameter 
      * @returns {NTSTATUS} 
      */
-    static IoGetIrpExtraCreateParameter(Irp, ExtraCreateParameter) {
+    static IoGetIrpExtraCreateParameter(_Irp, ExtraCreateParameter) {
         ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetIrpExtraCreateParameter", "ptr", Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
+        result := DllCall("ntoskrnl.exe\IoGetIrpExtraCreateParameter", "ptr", _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -21713,11 +21713,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {Integer} 
      */
-    static IoGetPagingIoPriority(Irp) {
-        result := DllCall("ntoskrnl.exe\IoGetPagingIoPriority", "ptr", Irp, "int")
+    static IoGetPagingIoPriority(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoGetPagingIoPriority", "ptr", _Irp, "int")
         return result
     }
 
@@ -21747,39 +21747,39 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
      */
-    static IoGetActivityIdIrp(Irp, Guid) {
-        result := DllCall("ntoskrnl.exe\IoGetActivityIdIrp", "ptr", Irp, "ptr", Guid, "int")
+    static IoGetActivityIdIrp(_Irp, Guid) {
+        result := DllCall("ntoskrnl.exe\IoGetActivityIdIrp", "ptr", _Irp, "ptr", Guid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
      */
-    static IoSetActivityIdIrp(Irp, Guid) {
-        result := DllCall("ntoskrnl.exe\IoSetActivityIdIrp", "ptr", Irp, "ptr", Guid, "int")
+    static IoSetActivityIdIrp(_Irp, Guid) {
+        result := DllCall("ntoskrnl.exe\IoSetActivityIdIrp", "ptr", _Irp, "ptr", Guid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} PropagatedId 
      * @param {Pointer<Pointer<Guid>>} OriginalId 
      * @returns {NTSTATUS} 
      */
-    static IoPropagateActivityIdToThread(Irp, PropagatedId, OriginalId) {
+    static IoPropagateActivityIdToThread(_Irp, PropagatedId, OriginalId) {
         OriginalIdMarshal := OriginalId is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoPropagateActivityIdToThread", "ptr", Irp, "ptr", PropagatedId, OriginalIdMarshal, OriginalId, "int")
+        result := DllCall("ntoskrnl.exe\IoPropagateActivityIdToThread", "ptr", _Irp, "ptr", PropagatedId, OriginalIdMarshal, OriginalId, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -21824,48 +21824,48 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} ZeroingOffset 
      * @returns {NTSTATUS} 
      */
-    static IoGetFsZeroingOffset(Irp, ZeroingOffset) {
+    static IoGetFsZeroingOffset(_Irp, ZeroingOffset) {
         ZeroingOffsetMarshal := ZeroingOffset is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetFsZeroingOffset", "ptr", Irp, ZeroingOffsetMarshal, ZeroingOffset, "int")
+        result := DllCall("ntoskrnl.exe\IoGetFsZeroingOffset", "ptr", _Irp, ZeroingOffsetMarshal, ZeroingOffset, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static IoSetFsZeroingOffsetRequired(Irp) {
-        result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffsetRequired", "ptr", Irp, "int")
+    static IoSetFsZeroingOffsetRequired(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffsetRequired", "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} ZeroingOffset 
      * @returns {NTSTATUS} 
      */
-    static IoSetFsZeroingOffset(Irp, ZeroingOffset) {
-        result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffset", "ptr", Irp, "uint", ZeroingOffset, "int")
+    static IoSetFsZeroingOffset(_Irp, ZeroingOffset) {
+        result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffset", "ptr", _Irp, "uint", ZeroingOffset, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {Integer} 
      */
-    static IoIsValidIrpStatus(Status) {
-        result := DllCall("ntoskrnl.exe\IoIsValidIrpStatus", "int", Status, "uint")
+    static IoIsValidIrpStatus(_Status) {
+        result := DllCall("ntoskrnl.exe\IoIsValidIrpStatus", "int", _Status, "uint")
         return result
     }
 
@@ -21906,11 +21906,11 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<IRP>} MasterIrp 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoSetMasterIrpStatus(MasterIrp, Status) {
-        DllCall("ntoskrnl.exe\IoSetMasterIrpStatus", "ptr", MasterIrp, "int", Status)
+    static IoSetMasterIrpStatus(MasterIrp, _Status) {
+        DllCall("ntoskrnl.exe\IoSetMasterIrpStatus", "ptr", MasterIrp, "int", _Status)
     }
 
     /**
@@ -22027,12 +22027,12 @@ class SystemServices {
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {Integer} 
      */
-    static HalSetBusData(BusDataType, BusNumber, SlotNumber, Buffer_R, Length) {
-        result := DllCall("HAL.dll\HalSetBusData", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", Buffer_R, "uint", Length, "uint")
+    static HalSetBusData(BusDataType, BusNumber, SlotNumber, _Buffer, Length) {
+        result := DllCall("HAL.dll\HalSetBusData", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", _Buffer, "uint", Length, "uint")
         return result
     }
 
@@ -22041,13 +22041,13 @@ class SystemServices {
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Offset 
      * @param {Integer} Length 
      * @returns {Integer} 
      */
-    static HalSetBusDataByOffset(BusDataType, BusNumber, SlotNumber, Buffer_R, Offset, Length) {
-        result := DllCall("HAL.dll\HalSetBusDataByOffset", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", Buffer_R, "uint", Offset, "uint", Length, "uint")
+    static HalSetBusDataByOffset(BusDataType, BusNumber, SlotNumber, _Buffer, Offset, Length) {
+        result := DllCall("HAL.dll\HalSetBusDataByOffset", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", _Buffer, "uint", Offset, "uint", Length, "uint")
         return result
     }
 
@@ -22084,33 +22084,33 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<_ADAPTER_OBJECT>} Adapter 
+     * @param {Pointer<_ADAPTER_OBJECT>} _Adapter 
      * @param {Integer} NumberOfMapRegisters 
      * @param {Integer} Type 
      * @param {Pointer<Pointer<Void>>} MapRegisterBase 
      * @param {Pointer<Integer>} MapRegistersAvailable 
      * @returns {NTSTATUS} 
      */
-    static HalDmaAllocateCrashDumpRegistersEx(Adapter, NumberOfMapRegisters, Type, MapRegisterBase, MapRegistersAvailable) {
-        AdapterMarshal := Adapter is VarRef ? "ptr*" : "ptr"
+    static HalDmaAllocateCrashDumpRegistersEx(_Adapter, NumberOfMapRegisters, Type, MapRegisterBase, MapRegistersAvailable) {
+        _AdapterMarshal := _Adapter is VarRef ? "ptr*" : "ptr"
         MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr*" : "ptr"
         MapRegistersAvailableMarshal := MapRegistersAvailable is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HAL.dll\HalDmaAllocateCrashDumpRegistersEx", AdapterMarshal, Adapter, "uint", NumberOfMapRegisters, "int", Type, MapRegisterBaseMarshal, MapRegisterBase, MapRegistersAvailableMarshal, MapRegistersAvailable, "int")
+        result := DllCall("HAL.dll\HalDmaAllocateCrashDumpRegistersEx", _AdapterMarshal, _Adapter, "uint", NumberOfMapRegisters, "int", Type, MapRegisterBaseMarshal, MapRegisterBase, MapRegistersAvailableMarshal, MapRegistersAvailable, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<_ADAPTER_OBJECT>} Adapter 
+     * @param {Pointer<_ADAPTER_OBJECT>} _Adapter 
      * @param {Integer} Type 
      * @returns {NTSTATUS} 
      */
-    static HalDmaFreeCrashDumpRegistersEx(Adapter, Type) {
-        AdapterMarshal := Adapter is VarRef ? "ptr*" : "ptr"
+    static HalDmaFreeCrashDumpRegistersEx(_Adapter, Type) {
+        _AdapterMarshal := _Adapter is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("HAL.dll\HalDmaFreeCrashDumpRegistersEx", AdapterMarshal, Adapter, "int", Type, "int")
+        result := DllCall("HAL.dll\HalDmaFreeCrashDumpRegistersEx", _AdapterMarshal, _Adapter, "int", Type, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -22120,12 +22120,12 @@ class SystemServices {
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {Integer} 
      */
-    static HalGetBusData(BusDataType, BusNumber, SlotNumber, Buffer_R, Length) {
-        result := DllCall("HAL.dll\HalGetBusData", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", Buffer_R, "uint", Length, "uint")
+    static HalGetBusData(BusDataType, BusNumber, SlotNumber, _Buffer, Length) {
+        result := DllCall("HAL.dll\HalGetBusData", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", _Buffer, "uint", Length, "uint")
         return result
     }
 
@@ -22134,13 +22134,13 @@ class SystemServices {
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Offset 
      * @param {Integer} Length 
      * @returns {Integer} 
      */
-    static HalGetBusDataByOffset(BusDataType, BusNumber, SlotNumber, Buffer_R, Offset, Length) {
-        result := DllCall("HAL.dll\HalGetBusDataByOffset", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", Buffer_R, "uint", Offset, "uint", Length, "uint")
+    static HalGetBusDataByOffset(BusDataType, BusNumber, SlotNumber, _Buffer, Offset, Length) {
+        result := DllCall("HAL.dll\HalGetBusDataByOffset", "int", BusDataType, "uint", BusNumber, "uint", SlotNumber, "ptr", _Buffer, "uint", Offset, "uint", Length, "uint")
         return result
     }
 
@@ -22230,19 +22230,19 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
      * @param {Pointer<Void>} CurrentVa 
      * @param {Integer} Length 
      * @param {BOOLEAN} WriteToDevice 
      * @returns {BOOLEAN} 
      */
-    static IoFlushAdapterBuffers(AdapterObject, Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
+    static IoFlushAdapterBuffers(AdapterObject, _Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
         AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
         MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
         CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("HAL.dll\IoFlushAdapterBuffers", AdapterObjectMarshal, AdapterObject, "ptr", Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, "uint", Length, "char", WriteToDevice, "char")
+        result := DllCall("HAL.dll\IoFlushAdapterBuffers", AdapterObjectMarshal, AdapterObject, "ptr", _Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, "uint", Length, "char", WriteToDevice, "char")
         return result
     }
 
@@ -22274,20 +22274,20 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
      * @param {Pointer<Void>} CurrentVa 
      * @param {Pointer<Integer>} Length 
      * @param {BOOLEAN} WriteToDevice 
      * @returns {Integer} 
      */
-    static IoMapTransfer(AdapterObject, Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
+    static IoMapTransfer(AdapterObject, _Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
         AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
         MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
         CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HAL.dll\IoMapTransfer", AdapterObjectMarshal, AdapterObject, "ptr", Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, LengthMarshal, Length, "char", WriteToDevice, "int64")
+        result := DllCall("HAL.dll\IoMapTransfer", AdapterObjectMarshal, AdapterObject, "ptr", _Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, LengthMarshal, Length, "char", WriteToDevice, "int64")
         return result
     }
 
@@ -22330,11 +22330,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {BOOLEAN} 
      */
-    static FsRtlIsTotalDeviceFailure(Status) {
-        result := DllCall("ntoskrnl.exe\FsRtlIsTotalDeviceFailure", "int", Status, "char")
+    static FsRtlIsTotalDeviceFailure(_Status) {
+        result := DllCall("ntoskrnl.exe\FsRtlIsTotalDeviceFailure", "int", _Status, "char")
         return result
     }
 
@@ -22365,11 +22365,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
-    static ZwDisplayString(String_R) {
-        result := DllCall("ntdll.dll\ZwDisplayString", "ptr", String_R, "int")
+    static ZwDisplayString(_String) {
+        result := DllCall("ntdll.dll\ZwDisplayString", "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -22391,42 +22391,42 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<LUID>} Luid 
+     * @param {Pointer<LUID>} _Luid 
      * @returns {NTSTATUS} 
      */
-    static ZwAllocateLocallyUniqueId(Luid) {
-        result := DllCall("ntdll.dll\ZwAllocateLocallyUniqueId", "ptr", Luid, "int")
+    static ZwAllocateLocallyUniqueId(_Luid) {
+        result := DllCall("ntdll.dll\ZwAllocateLocallyUniqueId", "ptr", _Luid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER>} Configuration 
      * @param {Integer} NumberPreallocatedErrorReports 
      * @returns {NTSTATUS} 
      */
-    static WheaAddErrorSourceDeviceDriver(Context, Configuration, NumberPreallocatedErrorReports) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static WheaAddErrorSourceDeviceDriver(_Context, Configuration, NumberPreallocatedErrorReports) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriver", ContextMarshal, Context, "ptr", Configuration, "uint", NumberPreallocatedErrorReports, "int")
+        result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriver", _ContextMarshal, _Context, "ptr", Configuration, "uint", NumberPreallocatedErrorReports, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER>} Configuration 
      * @param {Integer} NumBuffersToPreallocate 
      * @param {Integer} MaxDataLength 
      * @returns {NTSTATUS} 
      */
-    static WheaAddErrorSourceDeviceDriverV1(Context, Configuration, NumBuffersToPreallocate, MaxDataLength) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static WheaAddErrorSourceDeviceDriverV1(_Context, Configuration, NumBuffersToPreallocate, MaxDataLength) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriverV1", ContextMarshal, Context, "ptr", Configuration, "uint", NumBuffersToPreallocate, "uint", MaxDataLength, "int")
+        result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriverV1", _ContextMarshal, _Context, "ptr", Configuration, "uint", NumBuffersToPreallocate, "uint", MaxDataLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -22554,13 +22554,13 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static WheaAddErrorSource(ErrorSource, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static WheaAddErrorSource(ErrorSource, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WheaAddErrorSource", "ptr", ErrorSource, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\WheaAddErrorSource", "ptr", ErrorSource, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -22639,13 +22639,13 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER>} Handler 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
      */
-    static WheaHighIrqlLogSelEventHandlerRegister(Handler, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static WheaHighIrqlLogSelEventHandlerRegister(Handler, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WheaHighIrqlLogSelEventHandlerRegister", "ptr", Handler, ContextMarshal, Context, "char")
+        result := DllCall("ntoskrnl.exe\WheaHighIrqlLogSelEventHandlerRegister", "ptr", Handler, _ContextMarshal, _Context, "char")
         return result
     }
 
@@ -22660,13 +22660,13 @@ class SystemServices {
     /**
      * 
      * @param {Pointer<PFN_IN_USE_PAGE_OFFLINE_NOTIFY>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static WheaRegisterInUsePageOfflineNotification(Callback, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static WheaRegisterInUsePageOfflineNotification(Callback, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\WheaRegisterInUsePageOfflineNotification", "ptr", Callback, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\WheaRegisterInUsePageOfflineNotification", "ptr", Callback, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -22715,23 +22715,23 @@ class SystemServices {
 
     /**
      * 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {Pointer<Void>} 
      */
-    static PshedAllocateMemory(Size) {
-        result := DllCall("PSHED.dll\PshedAllocateMemory", "uint", Size, "ptr")
+    static PshedAllocateMemory(_Size) {
+        result := DllCall("PSHED.dll\PshedAllocateMemory", "uint", _Size, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Address 
+     * @param {Pointer<Void>} _Address 
      * @returns {String} Nothing - always returns an empty string
      */
-    static PshedFreeMemory(Address) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static PshedFreeMemory(_Address) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        DllCall("PSHED.dll\PshedFreeMemory", AddressMarshal, Address)
+        DllCall("PSHED.dll\PshedFreeMemory", _AddressMarshal, _Address)
     }
 
     /**

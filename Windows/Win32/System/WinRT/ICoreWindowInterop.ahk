@@ -53,9 +53,9 @@ class ICoreWindowInterop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
      */
     get_WindowHandle() {
-        hwnd := HWND()
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
-        return hwnd
+        _hwnd := HWND()
+        result := ComCall(3, this, "ptr", _hwnd, "HRESULT")
+        return _hwnd
     }
 
     /**

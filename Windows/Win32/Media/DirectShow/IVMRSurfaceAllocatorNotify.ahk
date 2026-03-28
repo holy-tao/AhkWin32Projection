@@ -51,14 +51,14 @@ class IVMRSurfaceAllocatorNotify extends IUnknown{
      * @remarks
      * The VMR needs to know which DirectDraw device is being used at any given time in order to associate the Direct3D surfaces being created in the mixer component with that device.
      * @param {IDirectDraw7} lpDDrawDevice Specifies the DirectDraw device.
-     * @param {HMONITOR} hMonitor Handle to the monitor associated with the DirectDraw device.
+     * @param {HMONITOR} _hMonitor 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-setddrawdevice
      */
-    SetDDrawDevice(lpDDrawDevice, hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    SetDDrawDevice(lpDDrawDevice, _hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(4, this, "ptr", lpDDrawDevice, "ptr", hMonitor, "HRESULT")
+        result := ComCall(4, this, "ptr", lpDDrawDevice, "ptr", _hMonitor, "HRESULT")
         return result
     }
 
@@ -67,14 +67,14 @@ class IVMRSurfaceAllocatorNotify extends IUnknown{
      * @remarks
      * The VMR needs to know which DirectDraw device is being used at any given time in order to associate the Direct3D surfaces being created in the mixer component with that device.
      * @param {IDirectDraw7} lpDDrawDevice Specifies the DirectDraw device.
-     * @param {HMONITOR} hMonitor Specifies the handle to the monitor associated with the DirectDraw device.
+     * @param {HMONITOR} _hMonitor 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-changeddrawdevice
      */
-    ChangeDDrawDevice(lpDDrawDevice, hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    ChangeDDrawDevice(lpDDrawDevice, _hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(5, this, "ptr", lpDDrawDevice, "ptr", hMonitor, "HRESULT")
+        result := ComCall(5, this, "ptr", lpDDrawDevice, "ptr", _hMonitor, "HRESULT")
         return result
     }
 

@@ -171,16 +171,16 @@ class IMetaDataAssemblyEmit extends IUnknown{
 
     /**
      * 
-     * @param {Integer} file 
+     * @param {Integer} _file 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
      * @param {Integer} dwFileFlags 
      * @returns {HRESULT} 
      */
-    SetFileProps(file, pbHashValue, cbHashValue, dwFileFlags) {
+    SetFileProps(_file, pbHashValue, cbHashValue, dwFileFlags) {
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", file, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "HRESULT")
+        result := ComCall(10, this, "uint", _file, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "HRESULT")
         return result
     }
 

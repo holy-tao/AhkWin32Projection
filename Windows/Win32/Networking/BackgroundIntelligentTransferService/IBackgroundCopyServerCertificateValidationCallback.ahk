@@ -86,9 +86,7 @@ class IBackgroundCopyServerCertificateValidationCallback extends IUnknown{
      * @param {IBackgroundCopyJob} job Type: **[IBackgroundCopyJob](/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob)\***
      * 
      * The job.
-     * @param {IBackgroundCopyFile} file Type: **[IBackgroundCopyFile](/windows/desktop/api/bits/nn-bits-ibackgroundcopyfile)\***
-     * 
-     * The file being transferred.
+     * @param {IBackgroundCopyFile} _file 
      * @param {Integer} certLength Type: **[DWORD](/windows/desktop/winprog/windows-data-types)**
      * 
      * The length in bytes of the certificate data.
@@ -107,11 +105,11 @@ class IBackgroundCopyServerCertificateValidationCallback extends IUnknown{
      * @returns {HRESULT} Return **S_OK** to indicate that the certificate is acceptable. Otherwise, return any [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10) to indicate that the certificate is not acceptable.
      * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nf-bits10_3-ibackgroundcopyservercertificatevalidationcallback-validateservercertificate
      */
-    ValidateServerCertificate(job, file, certLength, certData, certEncodingType, certStoreLength, certStoreData) {
+    ValidateServerCertificate(job, _file, certLength, certData, certEncodingType, certStoreLength, certStoreData) {
         certDataMarshal := certData is VarRef ? "char*" : "ptr"
         certStoreDataMarshal := certStoreData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", job, "ptr", file, "uint", certLength, certDataMarshal, certData, "uint", certEncodingType, "uint", certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
+        result := ComCall(3, this, "ptr", job, "ptr", _file, "uint", certLength, certDataMarshal, certData, "uint", certEncodingType, "uint", certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
         return result
     }
 }

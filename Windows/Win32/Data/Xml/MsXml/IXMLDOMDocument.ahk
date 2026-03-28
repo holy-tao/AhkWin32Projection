@@ -291,8 +291,8 @@ class IXMLDOMDocument extends IXMLDOMNode{
         name := name is String ? BSTR.Alloc(name).Value : name
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &node := 0, "HRESULT")
-        return IXMLDOMNode(node)
+        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &_node := 0, "HRESULT")
+        return IXMLDOMNode(_node)
     }
 
     /**
@@ -303,8 +303,8 @@ class IXMLDOMDocument extends IXMLDOMNode{
     nodeFromID(idString) {
         idString := idString is String ? BSTR.Alloc(idString).Value : idString
 
-        result := ComCall(57, this, "ptr", idString, "ptr*", &node := 0, "HRESULT")
-        return IXMLDOMNode(node)
+        result := ComCall(57, this, "ptr", idString, "ptr*", &_node := 0, "HRESULT")
+        return IXMLDOMNode(_node)
     }
 
     /**

@@ -135,12 +135,12 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
      * The source memory must be aligned to 256 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BYTE_ALIGNMENT</a>, regardless of the specified <i>Mode</i>. 
      * 
      * The resource state that the memory pointed to must be in depends on the <i>Mode</i> parameter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_copy_mode">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</a>.
-     * @param {Integer} Mode The type of copy operation to perform. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_copy_mode">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</a>.
+     * @param {Integer} _Mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-copyraytracingaccelerationstructure
      */
-    CopyRaytracingAccelerationStructure(DestAccelerationStructureData, SourceAccelerationStructureData, Mode) {
-        ComCall(74, this, "uint", DestAccelerationStructureData, "uint", SourceAccelerationStructureData, "int", Mode)
+    CopyRaytracingAccelerationStructure(DestAccelerationStructureData, SourceAccelerationStructureData, _Mode) {
+        ComCall(74, this, "uint", DestAccelerationStructureData, "uint", SourceAccelerationStructureData, "int", _Mode)
     }
 
     /**

@@ -63,7 +63,7 @@ class IModelIterator extends IUnknown{
      * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
      * 
      * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
-     * @param {Pointer<IModelObject>} object_R 
+     * @param {Pointer<IModelObject>} _object 
      * @param {Integer} dimensions 
      * @param {Pointer<IModelObject>} indexers 
      * @param {Pointer<IKeyStore>} metadata 
@@ -74,8 +74,8 @@ class IModelIterator extends IUnknown{
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
      */
-    GetNext(object_R, dimensions, indexers, metadata) {
-        result := ComCall(4, this, "ptr*", object_R, "uint", dimensions, "ptr*", indexers, "ptr*", metadata, "HRESULT")
+    GetNext(_object, dimensions, indexers, metadata) {
+        result := ComCall(4, this, "ptr*", _object, "uint", dimensions, "ptr*", indexers, "ptr*", metadata, "HRESULT")
         return result
     }
 }

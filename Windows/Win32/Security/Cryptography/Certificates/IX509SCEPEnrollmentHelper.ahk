@@ -89,16 +89,16 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
      * 
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @param {BSTR} strTransactionId 
      * @returns {HRESULT} 
      */
-    InitializeForPending(strServerUrl, strRequestHeaders, Context, strTransactionId) {
+    InitializeForPending(strServerUrl, strRequestHeaders, _Context, strTransactionId) {
         strServerUrl := strServerUrl is String ? BSTR.Alloc(strServerUrl).Value : strServerUrl
         strRequestHeaders := strRequestHeaders is String ? BSTR.Alloc(strRequestHeaders).Value : strRequestHeaders
         strTransactionId := strTransactionId is String ? BSTR.Alloc(strTransactionId).Value : strTransactionId
 
-        result := ComCall(8, this, "ptr", strServerUrl, "ptr", strRequestHeaders, "int", Context, "ptr", strTransactionId, "HRESULT")
+        result := ComCall(8, this, "ptr", strServerUrl, "ptr", strRequestHeaders, "int", _Context, "ptr", strTransactionId, "HRESULT")
         return result
     }
 

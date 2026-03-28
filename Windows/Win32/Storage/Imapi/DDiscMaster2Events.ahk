@@ -39,29 +39,29 @@ class DDiscMaster2Events extends IDispatch{
 
     /**
      * Receives notification when an optical media device is added to the computer.
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
      * @returns {HRESULT} Return values are ignored.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceadded
      */
-    NotifyDeviceAdded(object_R, uniqueId) {
+    NotifyDeviceAdded(_object, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId
 
-        result := ComCall(7, this, "ptr", object_R, "ptr", uniqueId, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, "ptr", uniqueId, "HRESULT")
         return result
     }
 
     /**
      * Receives notification when an optical media device is removed from the computer.
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
      * @returns {HRESULT} Return values are ignored.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceremoved
      */
-    NotifyDeviceRemoved(object_R, uniqueId) {
+    NotifyDeviceRemoved(_object, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId
 
-        result := ComCall(8, this, "ptr", object_R, "ptr", uniqueId, "HRESULT")
+        result := ComCall(8, this, "ptr", _object, "ptr", uniqueId, "HRESULT")
         return result
     }
 }

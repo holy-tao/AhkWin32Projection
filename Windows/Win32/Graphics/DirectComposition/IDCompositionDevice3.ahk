@@ -69,14 +69,12 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
 
     /**
      * Creates an instance of IDCompositionColorMatrixEffect.
-     * @returns {IDCompositionColorMatrixEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>**</b>
-     * 
-     * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>.
+     * @returns {IDCompositionColorMatrixEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createcolormatrixeffect
      */
     CreateColorMatrixEffect() {
-        result := ComCall(26, this, "ptr*", &colorMatrixEffect := 0, "HRESULT")
-        return IDCompositionColorMatrixEffect(colorMatrixEffect)
+        result := ComCall(26, this, "ptr*", &_colorMatrixEffect := 0, "HRESULT")
+        return IDCompositionColorMatrixEffect(_colorMatrixEffect)
     }
 
     /**

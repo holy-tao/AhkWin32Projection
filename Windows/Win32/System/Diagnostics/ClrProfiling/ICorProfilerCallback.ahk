@@ -547,12 +547,12 @@ class ICorProfilerCallback extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
-    ObjectAllocated(objectId, classId) {
-        result := ComCall(50, this, "ptr", objectId, "ptr", classId, "HRESULT")
+    ObjectAllocated(_objectId, classId) {
+        result := ComCall(50, this, "ptr", _objectId, "ptr", classId, "HRESULT")
         return result
     }
 
@@ -573,16 +573,16 @@ class ICorProfilerCallback extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @param {Integer} cObjectRefs 
      * @param {Pointer<Pointer>} objectRefIds 
      * @returns {HRESULT} 
      */
-    ObjectReferences(objectId, classId, cObjectRefs, objectRefIds) {
+    ObjectReferences(_objectId, classId, cObjectRefs, objectRefIds) {
         objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(52, this, "ptr", objectId, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
+        result := ComCall(52, this, "ptr", _objectId, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
         return result
     }
 
@@ -718,11 +718,11 @@ class ICorProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @returns {HRESULT} 
      */
-    ExceptionCatcherEnter(functionId, objectId) {
-        result := ComCall(66, this, "ptr", functionId, "ptr", objectId, "HRESULT")
+    ExceptionCatcherEnter(functionId, _objectId) {
+        result := ComCall(66, this, "ptr", functionId, "ptr", _objectId, "HRESULT")
         return result
     }
 

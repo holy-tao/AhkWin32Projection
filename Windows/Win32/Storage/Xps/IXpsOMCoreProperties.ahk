@@ -578,26 +578,26 @@ class IXpsOMCoreProperties extends IXpsOMPart{
      * The <b>version</b> property contains the resource's version number.
      * 
      * This method allocates the memory used by the string that is returned in <i>version</i>.  If <i>version</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
-     * @returns {PWSTR} The string that is read from the <b>version</b> property.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getversion
      */
     GetVersion() {
-        result := ComCall(36, this, "ptr*", &version := 0, "HRESULT")
-        return version
+        result := ComCall(36, this, "ptr*", &_version := 0, "HRESULT")
+        return _version
     }
 
     /**
      * Sets the version property.
      * @remarks
      * The <b>version</b> property contains the version number of the resource.
-     * @param {PWSTR} version The string to be written to the <b>version</b> property. A <b>NULL</b> pointer clears the <b>version</b> property.
+     * @param {PWSTR} _version 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setversion
      */
-    SetVersion(version) {
-        version := version is String ? StrPtr(version) : version
+    SetVersion(_version) {
+        _version := _version is String ? StrPtr(_version) : _version
 
-        result := ComCall(37, this, "ptr", version, "HRESULT")
+        result := ComCall(37, this, "ptr", _version, "HRESULT")
         return result
     }
 

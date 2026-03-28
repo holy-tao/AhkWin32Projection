@@ -106,12 +106,12 @@ class IMSVidDevice extends IDispatch{
      * The get_Status method retrieves status information about the device.
      * @remarks
      * Not all device types implement this method.
-     * @returns {Integer} Pointer to a variable of that receives the current status.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_status
      */
     get_Status() {
-        result := ComCall(8, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(8, this, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**

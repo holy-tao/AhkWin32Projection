@@ -267,20 +267,16 @@ class IShellBrowser extends IOleWindow{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent to the control.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * The value depends on the message specified in the <i>uMsg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The value depends on the message specified in the <i>uMsg</i> parameter.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * The address of the return value of the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-sendcontrolmsg
      */
-    SendControlMsg(id, uMsg, wParam, lParam) {
-        result := ComCall(14, this, "uint", id, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr*", &pret := 0, "HRESULT")
+    SendControlMsg(id, uMsg, _wParam, _lParam) {
+        result := ComCall(14, this, "uint", id, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr*", &pret := 0, "HRESULT")
         return pret
     }
 

@@ -72,26 +72,26 @@ class IDedupDataPortManager extends IUnknown{
     /**
      * 
      * @param {Integer} Options 
-     * @param {BSTR} Path 
+     * @param {BSTR} _Path 
      * @returns {Integer} 
      */
-    GetVolumeStatus(Options, Path) {
-        Path := Path is String ? BSTR.Alloc(Path).Value : Path
+    GetVolumeStatus(Options, _Path) {
+        _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(4, this, "uint", Options, "ptr", Path, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, "uint", Options, "ptr", _Path, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
     /**
      * 
      * @param {Integer} Options 
-     * @param {BSTR} Path 
+     * @param {BSTR} _Path 
      * @returns {IDedupDataPort} 
      */
-    GetVolumeDataPort(Options, Path) {
-        Path := Path is String ? BSTR.Alloc(Path).Value : Path
+    GetVolumeDataPort(Options, _Path) {
+        _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(5, this, "uint", Options, "ptr", Path, "ptr*", &ppDataPort := 0, "HRESULT")
+        result := ComCall(5, this, "uint", Options, "ptr", _Path, "ptr*", &ppDataPort := 0, "HRESULT")
         return IDedupDataPort(ppDataPort)
     }
 }

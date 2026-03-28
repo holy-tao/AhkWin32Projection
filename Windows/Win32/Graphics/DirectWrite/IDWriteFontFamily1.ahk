@@ -54,14 +54,12 @@ class IDWriteFontFamily1 extends IDWriteFontFamily{
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the font in the font list.
-     * @returns {IDWriteFont3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a>**</b>
-     * 
-     * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a> interface for the newly created font object.
+     * @returns {IDWriteFont3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily1-getfont
      */
     GetFont(listIndex) {
-        result := ComCall(10, this, "uint", listIndex, "ptr*", &font := 0, "HRESULT")
-        return IDWriteFont3(font)
+        result := ComCall(10, this, "uint", listIndex, "ptr*", &_font := 0, "HRESULT")
+        return IDWriteFont3(_font)
     }
 
     /**

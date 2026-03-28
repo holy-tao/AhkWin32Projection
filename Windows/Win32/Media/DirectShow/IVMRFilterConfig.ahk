@@ -189,7 +189,7 @@ class IVMRFilterConfig extends IUnknown{
      * The SetRenderingMode method sets the rendering mode used by the VMR.
      * @remarks
      * The VMR is in <b>VMRMode_Windowed</b> by default. Use this method only if you are putting the VMR into <b>VMRMode_Windowless</b> or <b>VMRMode_Renderless</b> mode. You cannot change the mode after any pin has been connected and you cannot change the mode from windowless or renderless back to windowed, even before any pins are connected. Therefore, specifying <b>VMRMode_Windowed</b> for <i>Mode</i> has no effect under any circumstances.
-     * @param {Integer} Mode Specifies the rendering mode as a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrmode">VMRMode</a> value.
+     * @param {Integer} _Mode 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>
@@ -222,8 +222,8 @@ class IVMRFilterConfig extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode
      */
-    SetRenderingMode(Mode) {
-        result := ComCall(8, this, "uint", Mode, "HRESULT")
+    SetRenderingMode(_Mode) {
+        result := ComCall(8, this, "uint", _Mode, "HRESULT")
         return result
     }
 

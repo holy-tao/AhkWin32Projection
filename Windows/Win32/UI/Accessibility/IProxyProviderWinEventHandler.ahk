@@ -37,9 +37,7 @@ class IProxyProviderWinEventHandler extends IUnknown{
      * @param {Integer} idWinEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The identifier of the incoming WinEvent. For a list of WinEvent IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">Event Constants</a>.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * The handle of the window for which the WinEvent was fired. This should also be the window for which the proxy was created.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * The object identifier (OBJID_*) of the accessible object associated with the event. For a list of object identifiers, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">Object Identifiers</a>.
@@ -54,10 +52,10 @@ class IProxyProviderWinEventHandler extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent
      */
-    RespondToWinEvent(idWinEvent, hwnd, idObject, idChild, pSink) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    RespondToWinEvent(idWinEvent, _hwnd, idObject, idChild, pSink) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "uint", idWinEvent, "ptr", hwnd, "int", idObject, "int", idChild, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, "uint", idWinEvent, "ptr", _hwnd, "int", idObject, "int", idChild, "ptr", pSink, "HRESULT")
         return result
     }
 }

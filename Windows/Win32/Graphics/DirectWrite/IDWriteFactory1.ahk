@@ -41,14 +41,12 @@ class IDWriteFactory1 extends IDWriteFactory{
      * @param {BOOL} checkForUpdates Type: <b>BOOL</b>
      * 
      * Whether to check for updates.
-     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
-     * 
-     * The font collection to fill.
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
      */
     GetEudcFontCollection(checkForUpdates) {
-        result := ComCall(24, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
-        return IDWriteFontCollection(fontCollection)
+        result := ComCall(24, this, "ptr*", &_fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        return IDWriteFontCollection(_fontCollection)
     }
 
     /**

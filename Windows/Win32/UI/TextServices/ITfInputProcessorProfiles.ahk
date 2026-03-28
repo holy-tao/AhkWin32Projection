@@ -778,7 +778,7 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Pointer<Guid>} rclsid Contains the CLSID of the text service of the profile in question.
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies the language of the profile in question.
      * @param {Pointer<Guid>} guidProfile Contains a GUID value that identifies the profile in question.
-     * @param {HKL} hKL Contains an <b>HKL</b> value that specifies the input locale identifier for the substitute keyboard. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a>.
+     * @param {HKL} _hKL 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -811,10 +811,10 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-substitutekeyboardlayout
      */
-    SubstituteKeyboardLayout(rclsid, langid, guidProfile, hKL) {
-        hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+    SubstituteKeyboardLayout(rclsid, langid, guidProfile, _hKL) {
+        _hKL := _hKL is Win32Handle ? NumGet(_hKL, "ptr") : _hKL
 
-        result := ComCall(20, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", hKL, "HRESULT")
+        result := ComCall(20, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", _hKL, "HRESULT")
         return result
     }
 }

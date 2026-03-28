@@ -49,18 +49,16 @@ class IDefaultExtractIconInit extends IUnknown{
      * Sets the registry key from which to load the &quot;DefaultIcon&quot; value.
      * @remarks
      * It is recommended that any call to <b>IDefaultExtractIconInit::SetKey</b> come before any calls to the SetXxxIcon methods.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the registry key.
+     * @param {HKEY} _hkey 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setkey
      */
-    SetKey(hkey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    SetKey(_hkey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
 
-        result := ComCall(4, this, "ptr", hkey, "HRESULT")
+        result := ComCall(4, this, "ptr", _hkey, "HRESULT")
         return result
     }
 

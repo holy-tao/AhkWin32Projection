@@ -47,14 +47,12 @@ class IDWriteFont1 extends IDWriteFont{
      * @remarks
      * If the font has no PANOSE values,
      *     they are set to 'any' (0) and <a href="https://docs.microsoft.com/windows/win32/DirectWrite/direct-write-portal">DirectWrite</a> doesn't simulate those values.
-     * @param {Pointer<DWRITE_PANOSE>} panose Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a> structure to fill in.
+     * @param {Pointer<DWRITE_PANOSE>} _panose 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getpanose
      */
-    GetPanose(panose) {
-        ComCall(15, this, "ptr", panose)
+    GetPanose(_panose) {
+        ComCall(15, this, "ptr", _panose)
     }
 
     /**

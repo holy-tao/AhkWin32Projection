@@ -115,8 +115,8 @@ class INetFwProduct extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
      */
     get_PathToSignedProductExe() {
-        path := BSTR()
-        result := ComCall(11, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(11, this, "ptr", _path, "HRESULT")
+        return _path
     }
 }

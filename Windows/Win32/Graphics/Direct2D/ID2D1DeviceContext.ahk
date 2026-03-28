@@ -44,9 +44,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * Creates a bitmap that can be used as a target surface, for reading back to the CPU, or as a source for the DrawBitmap and ID2D1BitmapBrush APIs. In addition, color context information can be passed to the bitmap. (overload 2/2)
      * @remarks
      * The new bitmap can be used as a target for <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-settarget">SetTarget</a> if it is created with <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_bitmap_options">D2D1_BITMAP_OPTIONS_TARGET</a>.
-     * @param {D2D_SIZE_U} size Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-size-u">D2D1_SIZE_U</a></b>
-     * 
-     * The pixel size of the bitmap to be created.
+     * @param {D2D_SIZE_U} _size 
      * @param {Pointer<Void>} sourceData Type: <b>const void*</b>
      * 
      * The initial data that will be loaded into the bitmap.
@@ -56,16 +54,14 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1">D2D1_BITMAP_PROPERTIES1</a></b>
      * 
      * The properties of the bitmap to be created.
-     * @returns {ID2D1Bitmap1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1bitmap1">ID2D1Bitmap1</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to a new bitmap object.
+     * @returns {ID2D1Bitmap1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmap(d2d1_size_u_constvoid_uint32_constd2d1_bitmap_properties1_id2d1bitmap1)
      */
-    CreateBitmap(size, sourceData, pitch, bitmapProperties) {
+    CreateBitmap(_size, sourceData, pitch, bitmapProperties) {
         sourceDataMarshal := sourceData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(57, this, "ptr", size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap1(bitmap)
+        result := ComCall(57, this, "ptr", _size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(_bitmap)
     }
 
     /**
@@ -74,14 +70,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * 
      * The WIC bitmap to copy.
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties 
-     * @returns {ID2D1Bitmap1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1bitmap1">ID2D1Bitmap1</a>**</b>
-     * 
-     * When this method returns, contains a pointer to a pointer to the new bitmap. This parameter is passed uninitialized.
+     * @returns {ID2D1Bitmap1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromwicbitmap(iwicbitmapsource_id2d1bitmap1)
      */
     CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
-        result := ComCall(58, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap1(bitmap)
+        result := ComCall(58, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(_bitmap)
     }
 
     /**
@@ -93,9 +87,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Integer} space Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The space  of color context to create.
-     * @param {Pointer<Integer>} profile Type: <b>const BYTE*</b>
-     * 
-     * A buffer containing the ICC profile bytes used to initialize the color context when <i>space</i> is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE_CUSTOM</a>.  For other types, the parameter is ignored and should be set to <b>NULL</b>.
+     * @param {Pointer<Integer>} _profile 
      * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
      * The size in bytes of <i>Profile</i>.
@@ -104,10 +96,10 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * When this method returns, contains the address of a pointer to a new color context object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcolorcontext
      */
-    CreateColorContext(space, profile, profileSize) {
-        profileMarshal := profile is VarRef ? "char*" : "ptr"
+    CreateColorContext(space, _profile, profileSize) {
+        _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(59, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(59, this, "int", space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 
@@ -182,14 +174,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1">D2D1_BITMAP_PROPERTIES1</a>*</b>
      * 
      * The bitmap properties specified in addition to the surface.
-     * @returns {ID2D1Bitmap1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1bitmap1">ID2D1Bitmap1</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to a new bitmap object.
+     * @returns {ID2D1Bitmap1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromdxgisurface(idxgisurface_constd2d1_bitmap_properties1_id2d1bitmap1)
      */
     CreateBitmapFromDxgiSurface(surface, bitmapProperties) {
-        result := ComCall(62, this, "ptr", surface, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap1(bitmap)
+        result := ComCall(62, this, "ptr", surface, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(_bitmap)
     }
 
     /**
@@ -200,14 +190,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
      * The class ID of the effect to create. See <a href="https://docs.microsoft.com/windows/desktop/Direct2D/built-in-effects">Built-in Effects</a> for a list of effect IDs.
-     * @returns {ID2D1Effect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to a new effect.
+     * @returns {ID2D1Effect} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createeffect
      */
     CreateEffect(effectId) {
-        result := ComCall(63, this, "ptr", effectId, "ptr*", &effect := 0, "HRESULT")
-        return ID2D1Effect(effect)
+        result := ComCall(63, this, "ptr", effectId, "ptr*", &_effect := 0, "HRESULT")
+        return ID2D1Effect(_effect)
     }
 
     /**
@@ -381,9 +369,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      *     return hr;
      * }
      * ```
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image to be used as a source for the image brush.
+     * @param {ID2D1Image} _image 
      * @param {Pointer<D2D1_IMAGE_BRUSH_PROPERTIES>} imageBrushProperties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_image_brush_properties">D2D1_IMAGE_BRUSH_PROPERTIES</a></b>
      * 
      * The properties specific to an image brush.
@@ -393,16 +379,14 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * When this method returns, contains the address of a pointer to the  input rectangles.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createimagebrush(id2d1image_constd2d1_image_brush_properties__id2d1imagebrush)
      */
-    CreateImageBrush(image, imageBrushProperties, brushProperties) {
-        result := ComCall(65, this, "ptr", image, "ptr", imageBrushProperties, "ptr", brushProperties, "ptr*", &imageBrush := 0, "HRESULT")
+    CreateImageBrush(_image, imageBrushProperties, brushProperties) {
+        result := ComCall(65, this, "ptr", _image, "ptr", imageBrushProperties, "ptr", brushProperties, "ptr*", &imageBrush := 0, "HRESULT")
         return ID2D1ImageBrush(imageBrush)
     }
 
     /**
      * Creates a bitmap brush, the input image is a Direct2D bitmap object. (overload 4/4)
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap to use as the brush.
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D1_BITMAP_BRUSH_PROPERTIES1>} bitmapBrushProperties Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_brush_properties1">D2D1_BITMAP_BRUSH_PROPERTIES1</a>*</b>
      * 
      * A bitmap brush properties structure.
@@ -414,8 +398,8 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * The address of the newly created bitmap brush object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapbrush(id2d1bitmap_constd2d1_bitmap_brush_properties1__constd2d1_brush_properties__id2d1bitmapbrush1)
      */
-    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties) {
-        result := ComCall(66, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+    CreateBitmapBrush(_bitmap, bitmapBrushProperties, brushProperties) {
+        result := ComCall(66, this, "ptr", _bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
         return ID2D1BitmapBrush1(bitmapBrush)
     }
 
@@ -475,17 +459,15 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * 
      * The returned bounds reflect which pixels would be impacted by calling <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawimage">DrawImage</a> with a 
      *       target offset of (0,0) and an identity world transform matrix. They do not reflect the current clip rectangle set on the device context or the extent of the context's current target image.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image whose bounds will be calculated.
+     * @param {ID2D1Image} _image 
      * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>[1]</b>
      * 
      * When this method returns, contains a pointer to the bounds of the image in device independent pixels (DIPs) and in local space.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getimagelocalbounds
      */
-    GetImageLocalBounds(image) {
+    GetImageLocalBounds(_image) {
         localBounds := D2D_RECT_F()
-        result := ComCall(70, this, "ptr", image, "ptr", localBounds, "HRESULT")
+        result := ComCall(70, this, "ptr", _image, "ptr", localBounds, "HRESULT")
         return localBounds
     }
 
@@ -498,17 +480,15 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * 
      * 
      * The returned bounds reflect which pixels would be impacted by calling <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawimage(id2d1effect_constd2d1_point_2f_constd2d1_rect_f_d2d1_interpolation_mode_d2d1_composite_mode)">DrawImage</a> with the same image and a target offset of (0,0).  They do not reflect the current clip rectangle set on the device context or the extent of the context’s current target image.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image whose bounds will be calculated.
+     * @param {ID2D1Image} _image 
      * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>[1]</b>
      * 
      * When this method returns, contains a pointer to the bounds of the image in device independent pixels (DIPs).
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getimageworldbounds
      */
-    GetImageWorldBounds(image) {
+    GetImageWorldBounds(_image) {
         worldBounds := D2D_RECT_F()
-        result := ComCall(71, this, "ptr", image, "ptr", worldBounds, "HRESULT")
+        result := ComCall(71, this, "ptr", _image, "ptr", worldBounds, "HRESULT")
         return worldBounds
     }
 
@@ -519,9 +499,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin of the baseline for the glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyph run to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The DirectWrite measuring mode that indicates how glyph metrics are used to measure text when it is formatted.
@@ -530,9 +508,9 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * The bounds of the glyph run in DIPs and in world space.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getglyphrunworldbounds
      */
-    GetGlyphRunWorldBounds(baselineOrigin, glyphRun, measuringMode) {
+    GetGlyphRunWorldBounds(baselineOrigin, _glyphRun, measuringMode) {
         bounds := D2D_RECT_F()
-        result := ComCall(72, this, "ptr", baselineOrigin, "ptr", glyphRun, "int", measuringMode, "ptr", bounds, "HRESULT")
+        result := ComCall(72, this, "ptr", baselineOrigin, "ptr", _glyphRun, "int", measuringMode, "ptr", bounds, "HRESULT")
         return bounds
     }
 
@@ -630,14 +608,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1bitmap-copyfromrendertarget">ID2D1Bitmap::CopyFromRenderTarget</a> copies from the currently bound target bitmap.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The surface or command list to which the Direct2D device context will render.
+     * @param {ID2D1Image} _image 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-settarget
      */
-    SetTarget(image) {
-        ComCall(74, this, "ptr", image)
+    SetTarget(_image) {
+        ComCall(74, this, "ptr", _image)
     }
 
     /**
@@ -698,14 +674,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-resize(constd2d1_size_u)">ID2D1HwndRenderTarget::Resize</a> will return <b>DXGI_ERROR_INVALID_CALL</b> if there are any outstanding references to the original target bitmap associated with the render target.
      * 
      * Although the target can be a command list, it cannot be any other type of image. It cannot be the output image of an effect.
-     * @param {Pointer<ID2D1Image>} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the target currently associated with the device context.
+     * @param {Pointer<ID2D1Image>} _image 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-gettarget
      */
-    GetTarget(image) {
-        ComCall(75, this, "ptr*", image)
+    GetTarget(_image) {
+        ComCall(75, this, "ptr*", _image)
     }
 
     /**
@@ -809,9 +783,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * Origin of first glyph in the series.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyphs to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * Supplementary glyph series information.
@@ -824,8 +796,8 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawglyphrun
      */
-    DrawGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
-        ComCall(82, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode)
+    DrawGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
+        ComCall(82, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode)
     }
 
     /**
@@ -838,26 +810,22 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * If <i>compositeMode</i> is <b>D2D1_COMPOSITE_MODE_SOURCE_OVER</b>, <b>DrawImage</b> will use the currently selected primitive blend specified by <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-setprimitiveblend">ID2D1DeviceContext::SetPrimitiveBlend</a>. If <i>compositeMode</i> is not <b>D2D1_COMPOSITE_MODE_SOURCE_OVER</b>, the image will be extended to transparent up to the current axis-aligned clip.
      * 
      * If there is an image rectangle and a world transform, this is equivalent to inserting a clip effect to represent the image rectangle and a 2D affine transform to take into account the world transform.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image to be drawn to the device context.
+     * @param {ID2D1Image} _image 
      * @param {Pointer<D2D_POINT_2F>} targetOffset Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * The  offset in the destination space that the image will be rendered to. The entire logical extent of the image will be rendered to the corresponding destination. If not specified, the destination origin will be (0, 0). The top-left corner of the image will be mapped to the target offset. This will not necessarily be the origin. This default value is <i>NULL</i>.
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the given origins when processing the image. This default value is <i>NULL</i>.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode that will be used to scale the image if necessary.
+     * @param {Integer} _interpolationMode 
      * @param {Integer} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_composite_mode">D2D1_COMPOSITE_MODE</a></b>
      * 
      * The composite mode that will be applied to the limits of the currently selected clip. The default value is <b>D2D1_COMPOSITE_MODE_SOURCE_OVER</b>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawimage(id2d1image_constd2d1_point_2f_constd2d1_rect_f_d2d1_interpolation_mode_d2d1_composite_mode)
      */
-    DrawImage(image, targetOffset, imageRectangle, interpolationMode, compositeMode) {
-        ComCall(83, this, "ptr", image, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode, "int", compositeMode)
+    DrawImage(_image, targetOffset, imageRectangle, _interpolationMode, compositeMode) {
+        ComCall(83, this, "ptr", _image, "ptr", targetOffset, "ptr", imageRectangle, "int", _interpolationMode, "int", compositeMode)
     }
 
     /**
@@ -887,18 +855,14 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * 
      * 
      * If you specify <i>perspectiveTransform</i> it is applied to the rect in addition to the transform set on the render target.
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap to draw.
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D_RECT_F>} destinationRectangle Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The destination rectangle. The default is the size of the bitmap and the location is the upper left corner of the render target.
      * @param {Float} opacity Type: <b>FLOAT</b>
      * 
      * The opacity of the bitmap.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode to use.
+     * @param {Integer} _interpolationMode 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * An optional source rectangle.
@@ -908,8 +872,8 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawbitmap(id2d1bitmap_constd2d1_rect_f_float_d2d1_interpolation_mode_constd2d1_rect_f_constd2d1_matrix_4x4_f)
      */
-    DrawBitmap(bitmap, destinationRectangle, opacity, interpolationMode, sourceRectangle, perspectiveTransform) {
-        ComCall(85, this, "ptr", bitmap, "ptr", destinationRectangle, "float", opacity, "int", interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform)
+    DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
+        ComCall(85, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform)
     }
 
     /**
@@ -932,12 +896,8 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
 
     /**
      * This indicates that a portion of an effect's input is invalid. This method can be called many times.
-     * @param {ID2D1Effect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>*</b>
-     * 
-     * The effect to invalidate.
-     * @param {Integer} input Type: <b>UINT32</b>
-     * 
-     * The input index.
+     * @param {ID2D1Effect} _effect 
+     * @param {Integer} _input 
      * @param {Pointer<D2D_RECT_F>} inputRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The rect to invalidate.
@@ -965,23 +925,21 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-invalidateeffectinputrectangle
      */
-    InvalidateEffectInputRectangle(effect, input, inputRectangle) {
-        result := ComCall(87, this, "ptr", effect, "uint", input, "ptr", inputRectangle, "HRESULT")
+    InvalidateEffectInputRectangle(_effect, _input, inputRectangle) {
+        result := ComCall(87, this, "ptr", _effect, "uint", _input, "ptr", inputRectangle, "HRESULT")
         return result
     }
 
     /**
      * Gets the number of invalid output rectangles that have accumulated on the effect.
-     * @param {ID2D1Effect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>*</b>
-     * 
-     * The effect to count the invalid rectangles on.
+     * @param {ID2D1Effect} _effect 
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * The returned rectangle count.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectanglecount
      */
-    GetEffectInvalidRectangleCount(effect) {
-        result := ComCall(88, this, "ptr", effect, "uint*", &rectangleCount := 0, "HRESULT")
+    GetEffectInvalidRectangleCount(_effect) {
+        result := ComCall(88, this, "ptr", _effect, "uint*", &rectangleCount := 0, "HRESULT")
         return rectangleCount
     }
 
@@ -995,9 +953,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-invalidateeffectinputrectangle">InvalidateEffectInputRectangle</a> method to specify invalidated rectangles for Direct2D to propagate through an effect graph.
      * 
      * If multiple invalid rectangles are requested, the rectangles that this method returns may overlap. When this is the case, the rectangle count might be lower than the count that <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectanglecount">GetEffectInvalidRectangleCount</a>.
-     * @param {ID2D1Effect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>*</b>
-     * 
-     * The effect to get the invalid rectangles from.
+     * @param {ID2D1Effect} _effect 
      * @param {Integer} rectanglesCount Type: <b>UINT32</b>
      * 
      * The number of rectangles to get.
@@ -1006,9 +962,9 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * An array of <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a> structures.  You must allocate this to the correct size.  You can get the count of the invalid rectangles using the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectanglecount">GetEffectInvalidRectangleCount</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectangles
      */
-    GetEffectInvalidRectangles(effect, rectanglesCount) {
+    GetEffectInvalidRectangles(_effect, rectanglesCount) {
         rectangles := D2D_RECT_F()
-        result := ComCall(89, this, "ptr", effect, "ptr", rectangles, "uint", rectanglesCount, "HRESULT")
+        result := ComCall(89, this, "ptr", _effect, "ptr", rectangles, "uint", rectanglesCount, "HRESULT")
         return rectangles
     }
 

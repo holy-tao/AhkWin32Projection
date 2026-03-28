@@ -117,11 +117,11 @@ class ISVGTransform extends IDispatch{
 
     /**
      * 
-     * @param {ISVGMatrix} matrix 
+     * @param {ISVGMatrix} _matrix 
      * @returns {HRESULT} 
      */
-    setMatrix(matrix) {
-        result := ComCall(13, this, "ptr", matrix, "HRESULT")
+    setMatrix(_matrix) {
+        result := ComCall(13, this, "ptr", _matrix, "HRESULT")
         return result
     }
 
@@ -151,11 +151,11 @@ class ISVGTransform extends IDispatch{
      * 
      * @param {Float} angle 
      * @param {Float} cx 
-     * @param {Float} cy 
+     * @param {Float} _cy 
      * @returns {HRESULT} 
      */
-    setRotate(angle, cx, cy) {
-        result := ComCall(16, this, "float", angle, "float", cx, "float", cy, "HRESULT")
+    setRotate(angle, cx, _cy) {
+        result := ComCall(16, this, "float", angle, "float", cx, "float", _cy, "HRESULT")
         return result
     }
 

@@ -66,14 +66,14 @@ class IReferenceClock extends IUnknown{
      * This method is not implemented.
      * @param {Integer} startTime 
      * @param {Integer} periodTime 
-     * @param {HANDLE} hSemaphore 
+     * @param {HANDLE} _hSemaphore 
      * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-adviseperiodic
      */
-    AdvisePeriodic(startTime, periodTime, hSemaphore) {
-        hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
+    AdvisePeriodic(startTime, periodTime, _hSemaphore) {
+        _hSemaphore := _hSemaphore is Win32Handle ? NumGet(_hSemaphore, "ptr") : _hSemaphore
 
-        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", hSemaphore, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
+        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", _hSemaphore, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
         return pdwAdviseCookie
     }
 

@@ -93,14 +93,14 @@ class IAccStore extends IUnknown{
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
-    LookupByHWND(hWnd, riid) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    LookupByHWND(_hWnd, riid) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(6, this, "ptr", hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 

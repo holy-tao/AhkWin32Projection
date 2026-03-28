@@ -165,16 +165,14 @@ class IDWriteFontSet extends IUnknown{
 
     /**
      * Returns how many times a given property value occurs in the set.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} property Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
-     * 
-     * Font property of interest.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _property 
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Receives how many times the property occurs.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
-    GetPropertyOccurrenceCount(property) {
-        result := ComCall(10, this, "ptr", property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
+    GetPropertyOccurrenceCount(_property) {
+        result := ComCall(10, this, "ptr", _property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
         return propertyOccurrenceCount
     }
 
@@ -186,16 +184,16 @@ class IDWriteFontSet extends IUnknown{
      * @param {PWSTR} familyName 
      * @param {Integer} fontWeight 
      * @param {Integer} fontStretch 
-     * @param {Integer} fontStyle 
+     * @param {Integer} _fontStyle 
      * @returns {IDWriteFontSet} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
      * 
      * The subset of fonts that match the properties, or nullptr on failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
-    GetMatchingFonts(familyName, fontWeight, fontStretch, fontStyle) {
+    GetMatchingFonts(familyName, fontWeight, fontStretch, _fontStyle) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(11, this, "ptr", familyName, "int", fontWeight, "int", fontStretch, "int", fontStyle, "ptr*", &filteredSet := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", familyName, "int", fontWeight, "int", fontStretch, "int", _fontStyle, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
     }
 
@@ -204,9 +202,7 @@ class IDWriteFontSet extends IUnknown{
      * @remarks
      * If no fonts matched the filter, the subset will be empty (GetFontCount returns 0), but the function does not return an error. The subset will
      * always be equal to or less than the original set. If you only want to filter out remote fonts, you may pass null in properties and zero in propertyCount.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties Type: [in] <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
-     * 
-     * List of properties to filter using.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
      * @param {Integer} propertyCount Type: <b>UINT32</b>
      * 
      * The number of properties to filter.
@@ -215,8 +211,8 @@ class IDWriteFontSet extends IUnknown{
      * The subset of fonts that match the properties, or nullptr on failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
-    GetMatchingFonts1(properties, propertyCount) {
-        result := ComCall(12, this, "ptr", properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
+    GetMatchingFonts1(_properties, propertyCount) {
+        result := ComCall(12, this, "ptr", _properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
     }
 }

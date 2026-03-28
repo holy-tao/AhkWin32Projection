@@ -38,13 +38,13 @@ class ICanvasGradient extends IDispatch{
     /**
      * 
      * @param {Float} offset 
-     * @param {BSTR} color 
+     * @param {BSTR} _color 
      * @returns {HRESULT} 
      */
-    addColorStop(offset, color) {
-        color := color is String ? BSTR.Alloc(color).Value : color
+    addColorStop(offset, _color) {
+        _color := _color is String ? BSTR.Alloc(_color).Value : _color
 
-        result := ComCall(7, this, "float", offset, "ptr", color, "HRESULT")
+        result := ComCall(7, this, "float", offset, "ptr", _color, "HRESULT")
         return result
     }
 }

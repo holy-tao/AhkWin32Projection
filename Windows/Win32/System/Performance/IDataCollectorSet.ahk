@@ -562,9 +562,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        path := BSTR()
-        result := ComCall(18, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(18, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -573,14 +573,14 @@ class IDataCollectorSet extends IDispatch{
      * Typically, you do not set this property. When the data collector starts, PLA sets this property using the value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_outputlocation">IDataCollectorSet::OutputLocation</a> property.
      * 
      * You can set this property to empty if the folder has been deleted.
-     * @param {BSTR} path 
+     * @param {BSTR} _path 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_latestoutputlocation
      */
-    put_LatestOutputLocation(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    put_LatestOutputLocation(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(19, this, "ptr", path, "HRESULT")
+        result := ComCall(19, this, "ptr", _path, "HRESULT")
         return result
     }
 
@@ -605,9 +605,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_outputlocation
      */
     get_OutputLocation() {
-        path := BSTR()
-        result := ComCall(21, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(21, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -618,23 +618,23 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_rootpath
      */
     get_RootPath() {
-        folder := BSTR()
-        result := ComCall(22, this, "ptr", folder, "HRESULT")
-        return folder
+        _folder := BSTR()
+        result := ComCall(22, this, "ptr", _folder, "HRESULT")
+        return _folder
     }
 
     /**
      * Retrieves or sets the base path where the subdirectories are created. (Put)
      * @remarks
      * If this property is changed from the default value, the specified directory must exist before the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-start">IDataCollectorSet::Start</a> method is called.
-     * @param {BSTR} folder 
+     * @param {BSTR} _folder 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_rootpath
      */
-    put_RootPath(folder) {
-        folder := folder is String ? BSTR.Alloc(folder).Value : folder
+    put_RootPath(_folder) {
+        _folder := _folder is String ? BSTR.Alloc(_folder).Value : _folder
 
-        result := ComCall(23, this, "ptr", folder, "HRESULT")
+        result := ComCall(23, this, "ptr", _folder, "HRESULT")
         return result
     }
 
@@ -714,8 +714,8 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize
      */
     get_SegmentMaxSize() {
-        result := ComCall(28, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(28, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
@@ -724,12 +724,12 @@ class IDataCollectorSet extends IDispatch{
      * When the maximum size is reached, PLA creates a new log file to write to if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property is enabled.
      * 
      * PLA tries to limit the log file size to this value; however, the actual size of the log file might grow slightly larger than this value.
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segmentmaxsize
      */
-    put_SegmentMaxSize(size) {
-        result := ComCall(29, this, "uint", size, "HRESULT")
+    put_SegmentMaxSize(_size) {
+        result := ComCall(29, this, "uint", _size, "HRESULT")
         return result
     }
 
@@ -781,8 +781,8 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_status
      */
     get_Status() {
-        result := ComCall(33, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(33, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
@@ -797,9 +797,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectory
      */
     get_Subdirectory() {
-        folder := BSTR()
-        result := ComCall(34, this, "ptr", folder, "HRESULT")
-        return folder
+        _folder := BSTR()
+        result := ComCall(34, this, "ptr", _folder, "HRESULT")
+        return _folder
     }
 
     /**
@@ -810,14 +810,14 @@ class IDataCollectorSet extends IDispatch{
      * If a location is not specified, files are written to the path specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property.
      * 
      * PLA creates the folders in the subdirectory path if they do not exist. Note that the folders will not inherit the ACLs from the root path. The user specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_useraccount">IDataCollectorSet::UserAccount</a> property and those in the Administrators group will have read and write access to the folders. Users in the Performance Log Users group and Performance Monitor Users group have read-only access.
-     * @param {BSTR} folder 
+     * @param {BSTR} _folder 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectory
      */
-    put_Subdirectory(folder) {
-        folder := folder is String ? BSTR.Alloc(folder).Value : folder
+    put_Subdirectory(_folder) {
+        _folder := _folder is String ? BSTR.Alloc(_folder).Value : _folder
 
-        result := ComCall(35, this, "ptr", folder, "HRESULT")
+        result := ComCall(35, this, "ptr", _folder, "HRESULT")
         return result
     }
 
@@ -1737,15 +1737,15 @@ class IDataCollectorSet extends IDispatch{
      * </table>
      * @param {BSTR} name A unique name used to save the data collector set. The name is of the form  <b>[</b><i>Namespace</i><b>\]</b><i>Name</i>. For details, see Remarks.
      * @param {BSTR} server The computer on which you want to save the set. You can specify a computer name, a fully qualified domain name, or an IP address (IPv4 or IPv6 format). If <b>NULL</b>, the set is saved to the local computer.
-     * @param {Integer} mode Indicates whether you want to save, update, flush, or validate the data collector set. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-commitmode">CommitMode</a> enumeration.
+     * @param {Integer} _mode 
      * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid or is ignored. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors or warnings.
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-commit
      */
-    Commit(name, server, mode) {
+    Commit(name, server, _mode) {
         name := name is String ? BSTR.Alloc(name).Value : name
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(60, this, "ptr", name, "ptr", server, "int", mode, "ptr*", &validation := 0, "HRESULT")
+        result := ComCall(60, this, "ptr", name, "ptr", server, "int", _mode, "ptr*", &validation := 0, "HRESULT")
         return IValueMap(validation)
     }
 

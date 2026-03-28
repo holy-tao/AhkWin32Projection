@@ -44,7 +44,7 @@ class IDataModelScriptDebugStack extends IUnknown{
      * @returns {IDataModelScriptDebugStackFrame} 
      */
     GetStackFrame(frameNumber) {
-        result := ComCall(4, this, "uint", frameNumber, "ptr*", &stackFrame := 0, "HRESULT")
-        return IDataModelScriptDebugStackFrame(stackFrame)
+        result := ComCall(4, this, "uint", frameNumber, "ptr*", &_stackFrame := 0, "HRESULT")
+        return IDataModelScriptDebugStackFrame(_stackFrame)
     }
 }

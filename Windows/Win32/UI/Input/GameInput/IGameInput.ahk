@@ -77,12 +77,12 @@ class IGameInput extends IUnknown{
 
     /**
      * 
-     * @param {Integer} timestamp 
+     * @param {Integer} _timestamp 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
-    GetTemporalReading(timestamp, device) {
-        result := ComCall(7, this, "uint", timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+    GetTemporalReading(_timestamp, device) {
+        result := ComCall(7, this, "uint", _timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
         return IGameInputReading(reading)
     }
 
@@ -91,14 +91,14 @@ class IGameInput extends IUnknown{
      * @param {IGameInputDevice} device 
      * @param {Integer} inputKind 
      * @param {Float} analogThreshold 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputReadingCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterReadingCallback(device, inputKind, analogThreshold, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterReadingCallback(device, inputKind, analogThreshold, _context, callbackFunc) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -108,14 +108,14 @@ class IGameInput extends IUnknown{
      * @param {Integer} inputKind 
      * @param {Integer} statusFilter 
      * @param {Integer} enumerationKind 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputDeviceCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, _context, callbackFunc) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -123,28 +123,28 @@ class IGameInput extends IUnknown{
      * 
      * @param {IGameInputDevice} device 
      * @param {Integer} buttonFilter 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputSystemButtonCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterSystemButtonCallback(device, buttonFilter, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterSystemButtonCallback(device, buttonFilter, _context, callbackFunc) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", device, "int", buttonFilter, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", device, "int", buttonFilter, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
     /**
      * 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputKeyboardLayoutCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterKeyboardLayoutCallback(device, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterKeyboardLayoutCallback(device, _context, callbackFunc) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", device, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 

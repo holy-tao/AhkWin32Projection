@@ -252,9 +252,7 @@ class ITextStory extends IUnknown{
      * <a id="tomCheckTextLimit"></a>
      * <a id="tomchecktextlimit"></a>
      * <a id="TOMCHECKTEXTLIMIT"></a>
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The new text for this story. If this parameter is <b>NULL</b>, the text in the story is deleted.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -300,10 +298,10 @@ class ITextStory extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-settext
      */
-    SetText(Flags, bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetText(Flags, _bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(14, this, "int", Flags, "ptr", bstr, "HRESULT")
+        result := ComCall(14, this, "int", Flags, "ptr", _bstr, "HRESULT")
         return result
     }
 }

@@ -71,16 +71,16 @@ class ISpeechGrammarRuleState extends IDispatch{
      * @param {Integer} Type 
      * @param {BSTR} PropertyName 
      * @param {Integer} PropertyId 
-     * @param {Pointer<VARIANT>} PropertyValue 
+     * @param {Pointer<VARIANT>} _PropertyValue 
      * @param {Float} Weight 
      * @returns {HRESULT} 
      */
-    AddWordTransition(DestState, Words, Separators, Type, PropertyName, PropertyId, PropertyValue, Weight) {
+    AddWordTransition(DestState, Words, Separators, Type, PropertyName, PropertyId, _PropertyValue, Weight) {
         Words := Words is String ? BSTR.Alloc(Words).Value : Words
         Separators := Separators is String ? BSTR.Alloc(Separators).Value : Separators
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(9, this, "ptr", DestState, "ptr", Words, "ptr", Separators, "int", Type, "ptr", PropertyName, "int", PropertyId, "ptr", PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(9, this, "ptr", DestState, "ptr", Words, "ptr", Separators, "int", Type, "ptr", PropertyName, "int", PropertyId, "ptr", _PropertyValue, "float", Weight, "HRESULT")
         return result
     }
 
@@ -90,14 +90,14 @@ class ISpeechGrammarRuleState extends IDispatch{
      * @param {ISpeechGrammarRule} Rule 
      * @param {BSTR} PropertyName 
      * @param {Integer} PropertyId 
-     * @param {Pointer<VARIANT>} PropertyValue 
+     * @param {Pointer<VARIANT>} _PropertyValue 
      * @param {Float} Weight 
      * @returns {HRESULT} 
      */
-    AddRuleTransition(DestinationState, Rule, PropertyName, PropertyId, PropertyValue, Weight) {
+    AddRuleTransition(DestinationState, Rule, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(10, this, "ptr", DestinationState, "ptr", Rule, "ptr", PropertyName, "int", PropertyId, "ptr", PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(10, this, "ptr", DestinationState, "ptr", Rule, "ptr", PropertyName, "int", PropertyId, "ptr", _PropertyValue, "float", Weight, "HRESULT")
         return result
     }
 
@@ -107,14 +107,14 @@ class ISpeechGrammarRuleState extends IDispatch{
      * @param {Integer} Type 
      * @param {BSTR} PropertyName 
      * @param {Integer} PropertyId 
-     * @param {Pointer<VARIANT>} PropertyValue 
+     * @param {Pointer<VARIANT>} _PropertyValue 
      * @param {Float} Weight 
      * @returns {HRESULT} 
      */
-    AddSpecialTransition(DestinationState, Type, PropertyName, PropertyId, PropertyValue, Weight) {
+    AddSpecialTransition(DestinationState, Type, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(11, this, "ptr", DestinationState, "int", Type, "ptr", PropertyName, "int", PropertyId, "ptr", PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(11, this, "ptr", DestinationState, "int", Type, "ptr", PropertyName, "int", PropertyId, "ptr", _PropertyValue, "float", Weight, "HRESULT")
         return result
     }
 }

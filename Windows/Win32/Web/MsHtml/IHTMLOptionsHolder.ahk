@@ -333,9 +333,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {BSTR} 
      */
     openfiledlg(initFile, initDir, filter, title) {
-        pathName := BSTR()
-        result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return pathName
+        _pathName := BSTR()
+        result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", _pathName, "HRESULT")
+        return _pathName
     }
 
     /**
@@ -347,9 +347,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {BSTR} 
      */
     savefiledlg(initFile, initDir, filter, title) {
-        pathName := BSTR()
-        result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return pathName
+        _pathName := BSTR()
+        result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", _pathName, "HRESULT")
+        return _pathName
     }
 
     /**
@@ -358,8 +358,8 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     choosecolordlg(initColor) {
-        result := ComCall(29, this, "ptr", initColor, "int*", &rgbColor := 0, "HRESULT")
-        return rgbColor
+        result := ComCall(29, this, "ptr", initColor, "int*", &_rgbColor := 0, "HRESULT")
+        return _rgbColor
     }
 
     /**
@@ -373,11 +373,11 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {IHTMLObjectElement} object_R 
+     * @param {IHTMLObjectElement} _object 
      * @returns {VARIANT_BOOL} 
      */
-    isApartmentModel(object_R) {
-        result := ComCall(31, this, "ptr", object_R, "short*", &fApartment := 0, "HRESULT")
+    isApartmentModel(_object) {
+        result := ComCall(31, this, "ptr", _object, "short*", &fApartment := 0, "HRESULT")
         return fApartment
     }
 

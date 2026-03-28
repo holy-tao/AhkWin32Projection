@@ -1673,7 +1673,7 @@ class IDvdControl2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {POINT} point Point on the client window area, in screen pixel coordinates.
+     * @param {POINT} _point 
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -1750,8 +1750,8 @@ class IDvdControl2 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-activateatposition
      */
-    ActivateAtPosition(point) {
-        result := ComCall(32, this, "ptr", point, "HRESULT")
+    ActivateAtPosition(_point) {
+        result := ComCall(32, this, "ptr", _point, "HRESULT")
         return result
     }
 
@@ -1785,7 +1785,7 @@ class IDvdControl2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {POINT} point Point on the screen, in screen pixel coordinates.
+     * @param {POINT} _point 
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -1829,8 +1829,8 @@ class IDvdControl2 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectatposition
      */
-    SelectAtPosition(point) {
-        result := ComCall(33, this, "ptr", point, "HRESULT")
+    SelectAtPosition(_point) {
+        result := ComCall(33, this, "ptr", _point, "HRESULT")
         return result
     }
 

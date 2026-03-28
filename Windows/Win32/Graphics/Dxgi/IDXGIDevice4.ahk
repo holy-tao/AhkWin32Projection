@@ -62,9 +62,7 @@ class IDXGIDevice4 extends IDXGIDevice3{
      * @param {Pointer<IDXGIResource>} ppResources Type: <b>IDXGIResource*</b>
      * 
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
-     * @param {Integer} Priority Type: <b>DXGI_OFFER_RESOURCE_PRIORITY</b>
-     * 
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
+     * @param {Integer} _Priority 
      * @param {Integer} Flags Type: <b>UINT</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_offer_resource_flags">DXGI_OFFER_RESOURCE_FLAGS</a>.
@@ -73,8 +71,8 @@ class IDXGIDevice4 extends IDXGIDevice3{
      * This method returns an HRESULT success or error code, which can include E_INVALIDARG if a resource in the array, or the priority, is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-offerresources1
      */
-    OfferResources1(NumResources, ppResources, Priority, Flags) {
-        result := ComCall(18, this, "uint", NumResources, "ptr*", ppResources, "int", Priority, "uint", Flags, "HRESULT")
+    OfferResources1(NumResources, ppResources, _Priority, Flags) {
+        result := ComCall(18, this, "uint", NumResources, "ptr*", ppResources, "int", _Priority, "uint", Flags, "HRESULT")
         return result
     }
 

@@ -49,7 +49,7 @@ class IWPCProviderConfig extends IUnknown{
 
     /**
      * Called for the current provider when you click a user tile in the Parental Controls Control Panel. This method allows for changes to the configuration.
-     * @param {HWND} hWnd A handle to the parent window.
+     * @param {HWND} _hWnd 
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user to configure.
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
@@ -74,17 +74,17 @@ class IWPCProviderConfig extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-configure
      */
-    Configure(hWnd, bstrSID) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Configure(_hWnd, bstrSID) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
-        result := ComCall(4, this, "ptr", hWnd, "ptr", bstrSID, "HRESULT")
+        result := ComCall(4, this, "ptr", _hWnd, "ptr", bstrSID, "HRESULT")
         return result
     }
 
     /**
      * Called for the current provider to enable configuration override.
-     * @param {HWND} hWnd A handle to the parent window.
+     * @param {HWND} _hWnd 
      * @param {BSTR} bstrPath Pointer to a string that contains the path.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
@@ -92,11 +92,11 @@ class IWPCProviderConfig extends IUnknown{
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
      */
-    RequestOverride(hWnd, bstrPath, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    RequestOverride(_hWnd, bstrPath, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(5, this, "ptr", hWnd, "ptr", bstrPath, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", _hWnd, "ptr", bstrPath, "uint", dwFlags, "HRESULT")
         return result
     }
 }

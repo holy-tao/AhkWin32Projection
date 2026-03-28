@@ -55,11 +55,11 @@ class ISecurityInfo extends IUnknown{
 
     /**
      * 
-     * @param {Guid} ObjectType 
+     * @param {Guid} _ObjectType 
      * @returns {Integer} 
      */
-    GetPermissions(ObjectType) {
-        result := ComCall(5, this, "ptr", ObjectType, "uint*", &pPermissions := 0, "HRESULT")
+    GetPermissions(_ObjectType) {
+        result := ComCall(5, this, "ptr", _ObjectType, "uint*", &pPermissions := 0, "HRESULT")
         return pPermissions
     }
 }

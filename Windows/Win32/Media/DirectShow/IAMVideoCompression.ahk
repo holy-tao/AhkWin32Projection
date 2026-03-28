@@ -122,12 +122,12 @@ class IAMVideoCompression extends IUnknown{
      * The put_Quality method sets the compression quality.
      * @remarks
      * To determine if the filter supports this method, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-getinfo">IAMVideoCompression::GetInfo</a> method and check for the <b>CompressionCaps_CanQuality</b> flag in the <i>pCapabilities</i> parameter. The <b>GetInfo</b> method also returns the default quality.
-     * @param {Float} Quality Specifies the quality as a value between 0.0 and 1.0, where 1.0 indicates the best quality and 0.0 indicates the worst quality. If the value is negative, the filter will use the default quality.
+     * @param {Float} _Quality 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_quality
      */
-    put_Quality(Quality) {
-        result := ComCall(7, this, "double", Quality, "HRESULT")
+    put_Quality(_Quality) {
+        result := ComCall(7, this, "double", _Quality, "HRESULT")
         return result
     }
 
@@ -277,7 +277,7 @@ class IAMVideoCompression extends IUnknown{
      * @remarks
      * If the filter supports this method, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-getinfo">IAMVideoCompression::GetInfo</a> method will return the <b>CompressionCaps_CanCrunch</b> flag in the <i>pCapabilities</i> parameter. However, this flag can also indicate that the filter supports setting the bit rate, so it does not guarantee that the <c>OverrideFrameSize</c> method is supported.
      * @param {Integer} FrameNumber Specifies the frame number. The first frame that the filter delivers is numbered zero.
-     * @param {Integer} Size Specifies the maximum size of the specified frame, in bytes.
+     * @param {Integer} _Size 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -310,8 +310,8 @@ class IAMVideoCompression extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-overrideframesize
      */
-    OverrideFrameSize(FrameNumber, Size) {
-        result := ComCall(13, this, "int", FrameNumber, "int", Size, "HRESULT")
+    OverrideFrameSize(FrameNumber, _Size) {
+        result := ComCall(13, this, "int", FrameNumber, "int", _Size, "HRESULT")
         return result
     }
 }

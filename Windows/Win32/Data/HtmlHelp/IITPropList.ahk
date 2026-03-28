@@ -493,7 +493,7 @@ class IITPropList extends IPersistStreamInit{
     /**
      * Returns the property object associated with the given property ID.
      * @param {Integer} PropID ID of the property object to get.
-     * @param {Pointer<CProperty>} Property The property object returned.
+     * @param {Pointer<CProperty>} _Property 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -530,8 +530,8 @@ class IITPropList extends IPersistStreamInit{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-get
      */
-    Get(PropID, Property) {
-        result := ComCall(13, this, "uint", PropID, "ptr", Property, "HRESULT")
+    Get(PropID, _Property) {
+        result := ComCall(13, this, "uint", PropID, "ptr", _Property, "HRESULT")
         return result
     }
 
@@ -660,7 +660,7 @@ class IITPropList extends IPersistStreamInit{
 
     /**
      * Returns the first property object in a property list.
-     * @param {Pointer<CProperty>} Property The property object returned.
+     * @param {Pointer<CProperty>} _Property 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -695,8 +695,8 @@ class IITPropList extends IPersistStreamInit{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getfirst
      */
-    GetFirst(Property) {
-        result := ComCall(17, this, "ptr", Property, "HRESULT")
+    GetFirst(_Property) {
+        result := ComCall(17, this, "ptr", _Property, "HRESULT")
         return result
     }
 
@@ -710,7 +710,7 @@ class IITPropList extends IPersistStreamInit{
      * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
      * 
      * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
-     * @param {Pointer<CProperty>} Property 
+     * @param {Pointer<CProperty>} _Property 
      * @returns {HRESULT} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
@@ -718,8 +718,8 @@ class IITPropList extends IPersistStreamInit{
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
      */
-    GetNext(Property) {
-        result := ComCall(18, this, "ptr", Property, "HRESULT")
+    GetNext(_Property) {
+        result := ComCall(18, this, "ptr", _Property, "HRESULT")
         return result
     }
 

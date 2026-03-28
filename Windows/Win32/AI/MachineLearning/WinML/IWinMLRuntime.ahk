@@ -34,14 +34,14 @@ class IWinMLRuntime extends IUnknown{
 
     /**
      * Loads a WinML model.
-     * @param {PWSTR} Path Path name for the model.
+     * @param {PWSTR} _Path 
      * @returns {IWinMLModel} A double pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlmodel">IWinMLModel</a> describing a WinML model.
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-loadmodel
      */
-    LoadModel(Path) {
-        Path := Path is String ? StrPtr(Path) : Path
+    LoadModel(_Path) {
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(3, this, "ptr", Path, "ptr*", &ppModel := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _Path, "ptr*", &ppModel := 0, "HRESULT")
         return IWinMLModel(ppModel)
     }
 

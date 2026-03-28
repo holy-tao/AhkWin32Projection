@@ -38,7 +38,7 @@ class IThumbnailStreamCache extends IUnknown{
 
     /**
      * Gets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
-     * @param {PWSTR} path The path to the thumbnail.
+     * @param {PWSTR} _path 
      * @param {Integer} cacheId The identifier of the thumbnail.
      * @param {Integer} options The cache options for the thumbnail stream.
      * @param {Integer} requestedThumbnailSize The requested size of the thumbnail.
@@ -47,26 +47,26 @@ class IThumbnailStreamCache extends IUnknown{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-getthumbnailstream
      */
-    GetThumbnailStream(path, cacheId, options, requestedThumbnailSize, thumbnailSize, thumbnailStream) {
-        path := path is String ? StrPtr(path) : path
+    GetThumbnailStream(_path, cacheId, options, requestedThumbnailSize, thumbnailSize, thumbnailStream) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        result := ComCall(3, this, "ptr", path, "uint", cacheId, "int", options, "uint", requestedThumbnailSize, "ptr", thumbnailSize, "ptr*", thumbnailStream, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, "uint", cacheId, "int", options, "uint", requestedThumbnailSize, "ptr", thumbnailSize, "ptr*", thumbnailStream, "HRESULT")
         return result
     }
 
     /**
      * Sets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
-     * @param {PWSTR} path The path to the thumbnail.
+     * @param {PWSTR} _path 
      * @param {Integer} cacheId The identifier of the thumbnail.
      * @param {SIZE} thumbnailSize The size of the thumbnail.
      * @param {IStream} thumbnailStream The pointer to the thumbnail stream.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-setthumbnailstream
      */
-    SetThumbnailStream(path, cacheId, thumbnailSize, thumbnailStream) {
-        path := path is String ? StrPtr(path) : path
+    SetThumbnailStream(_path, cacheId, thumbnailSize, thumbnailStream) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        result := ComCall(4, this, "ptr", path, "uint", cacheId, "ptr", thumbnailSize, "ptr", thumbnailStream, "HRESULT")
+        result := ComCall(4, this, "ptr", _path, "uint", cacheId, "ptr", thumbnailSize, "ptr", thumbnailStream, "HRESULT")
         return result
     }
 }

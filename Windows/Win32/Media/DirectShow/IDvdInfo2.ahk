@@ -1250,12 +1250,12 @@ class IDvdInfo2 extends IUnknown{
      * The GetButtonAtPosition method retrieves the button located at the specified point within the display window.
      * @remarks
      * This method is typically called in response to a mouse pointer move within a DVD menu display window. Be sure to check for success in the <b>HRESULT</b> before trying to retrieve the button number; this method only sets the value of <i>puButtonIndex</i> if a button is found at the specified point. DVD buttons do not necessarily have highlighted rectangles, button rectangles can overlap, and button rectangles do not always correspond to the visual representation of the buttons.
-     * @param {POINT} point Current mouse pointer position as retrieved through the Win32 WM_MOUSEMOVE message.
+     * @param {POINT} _point 
      * @returns {Integer} Receives the index (from 1 through 36) of the button at the current mouse pointer position.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonatposition
      */
-    GetButtonAtPosition(point) {
-        result := ComCall(34, this, "ptr", point, "uint*", &pulButtonIndex := 0, "HRESULT")
+    GetButtonAtPosition(_point) {
+        result := ComCall(34, this, "ptr", _point, "uint*", &pulButtonIndex := 0, "HRESULT")
         return pulButtonIndex
     }
 

@@ -76,15 +76,15 @@ class IGPMMigrationTable extends IDispatch{
     /**
      * Creates an entry in the migration table. The method updates an existing entry.
      * @param {BSTR} bstrSource Source field of the entry. This parameter cannot be null.
-     * @param {Integer} gpmEntryType 
+     * @param {Integer} _gpmEntryType 
      * @param {Pointer<VARIANT>} pvarDestination A pointer to a <b>VARIANT</b> structure. You can use the <b>DestinationOptions</b>: <b>opDestinationSameAsSource</b>, <b>opDestinationNone</b>, or <b>opDestinationByRelativeName</b> by passing in a <i>pvarDestination</i> with a <b>vt</b> member of VT_I4. To explicitly pass in the destination, pass in a <i>pvarDestination</i> with a <b>vt</b> member of VT_BSTR, and this sets the <b>DestinationOptions</b> to <b>opDestinationSet</b>. If you pass in null, <b>AddEntry</b> uses the default value for the destination option, <b>opDestinationSameAsSource</b>.
      * @returns {IGPMMapEntry} The new entry.
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-addentry
      */
-    AddEntry(bstrSource, gpmEntryType, pvarDestination) {
+    AddEntry(bstrSource, _gpmEntryType, pvarDestination) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
 
-        result := ComCall(9, this, "ptr", bstrSource, "int", gpmEntryType, "ptr", pvarDestination, "ptr*", &ppEntry := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrSource, "int", _gpmEntryType, "ptr", pvarDestination, "ptr*", &ppEntry := 0, "HRESULT")
         return IGPMMapEntry(ppEntry)
     }
 

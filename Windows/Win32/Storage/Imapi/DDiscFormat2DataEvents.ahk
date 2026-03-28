@@ -51,15 +51,15 @@ class DDiscFormat2DataEvents extends IDispatch{
      * <li>Once after the operation completes</li>
      * </ul>
      * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-cancelwrite">IDiscFormat2Data::CancelWrite</a> method.
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2dataeventargs">IDiscFormat2DataEventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2Data</b> object in script.
      * @returns {HRESULT} Return values are ignored.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2dataevents-update
      */
-    Update(object_R, progress) {
-        result := ComCall(7, this, "ptr", object_R, "ptr", progress, "HRESULT")
+    Update(_object, progress) {
+        result := ComCall(7, this, "ptr", _object, "ptr", progress, "HRESULT")
         return result
     }
 }

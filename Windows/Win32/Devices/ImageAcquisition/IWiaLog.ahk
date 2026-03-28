@@ -39,27 +39,27 @@ class IWiaLog extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLog.InitializeLog)
-     * @param {Integer} hInstance Type: <b>LONG</b>
+     * @param {Integer} _hInstance 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-initializelog
      */
-    InitializeLog(hInstance) {
-        result := ComCall(3, this, "int", hInstance, "HRESULT")
+    InitializeLog(_hInstance) {
+        result := ComCall(3, this, "int", _hInstance, "HRESULT")
         return result
     }
 
     /**
      * This method is not supported. (IWiaLog.hResult)
-     * @param {HRESULT} hResult Type: <b>HRESULT</b>
+     * @param {HRESULT} _hResult 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-hresult
      */
-    hResult(hResult) {
-        result := ComCall(4, this, "int", hResult, "HRESULT")
+    hResult(_hResult) {
+        result := ComCall(4, this, "int", _hResult, "HRESULT")
         return result
     }
 

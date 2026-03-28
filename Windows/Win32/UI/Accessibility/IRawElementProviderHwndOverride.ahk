@@ -46,19 +46,17 @@ class IRawElementProviderHwndOverride extends IUnknown{
      * 
      * If the returned provider implements <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>, 
      * 			the provider should be part of the fragment's tree and be reachable by navigating from the fragment's root.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * The window handle of the element.
+     * @param {HWND} _hwnd 
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to the new provider for the specified window, or <b>NULL</b> if the provider is not being overridden. 
      * 				This parameter is passed uninitialized.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderhwndoverride-getoverrideproviderforhwnd
      */
-    GetOverrideProviderForHwnd(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetOverrideProviderForHwnd(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderSimple(pRetVal)
     }
 }

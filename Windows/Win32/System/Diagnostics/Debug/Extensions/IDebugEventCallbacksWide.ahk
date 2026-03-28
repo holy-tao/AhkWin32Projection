@@ -104,7 +104,7 @@ class IDebugEventCallbacksWide extends IUnknown{
      * <b>Windows Phone 8.1:</b> This function is supported for Windows Phone Store apps on Windows Phone 8.1 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {Integer} DataOffset 
      * @param {Integer} StartOffset 
      * @returns {HRESULT} If the function succeeds, the return value is a handle to the new thread.
@@ -120,8 +120,8 @@ class IDebugEventCallbacksWide extends IUnknown{
      *        process is created even if it refers to invalid or missing dynamic-link libraries (DLLs).
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread
      */
-    CreateThread(Handle, DataOffset, StartOffset) {
-        result := ComCall(6, this, "uint", Handle, "uint", DataOffset, "uint", StartOffset, "HRESULT")
+    CreateThread(_Handle, DataOffset, StartOffset) {
+        result := ComCall(6, this, "uint", _Handle, "uint", DataOffset, "uint", StartOffset, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ class IDebugEventCallbacksWide extends IUnknown{
      * 	CreateProcess(NULL, szCmdline, //...);
      * ```
      * @param {Integer} ImageFileHandle 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {Integer} BaseOffset 
      * @param {Integer} ModuleSize 
      * @param {PWSTR} ModuleName 
@@ -250,11 +250,11 @@ class IDebugEventCallbacksWide extends IUnknown{
      * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa
      */
-    CreateProcessA(ImageFileHandle, Handle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, InitialThreadHandle, ThreadDataOffset, StartOffset) {
+    CreateProcessA(ImageFileHandle, _Handle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, InitialThreadHandle, ThreadDataOffset, StartOffset) {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(8, this, "uint", ImageFileHandle, "uint", Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "HRESULT")
+        result := ComCall(8, this, "uint", ImageFileHandle, "uint", _Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "HRESULT")
         return result
     }
 
@@ -497,11 +497,11 @@ class IDebugEventCallbacksWide extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Status 
+     * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
-    SessionStatus(Status) {
-        result := ComCall(13, this, "uint", Status, "HRESULT")
+    SessionStatus(_Status) {
+        result := ComCall(13, this, "uint", _Status, "HRESULT")
         return result
     }
 

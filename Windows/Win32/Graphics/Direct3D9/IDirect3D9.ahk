@@ -82,9 +82,7 @@ class IDirect3D9 extends IUnknown{
 
     /**
      * The IDirect3D9::GetAdapterIdentifier method (d3d9.h) describes the physical display adapters present in the system when the IDirect3D9 interface was instantiated.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter. D3DADAPTER_DEFAULT is always the primary display adapter. The minimum value for this parameter is 0, and the maximum value for this parameter is one less than the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-getadaptercount">GetAdapterCount</a>.
+     * @param {Integer} _Adapter 
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Flags sets the <b>WHQLLevel</b> member of <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-identifier9">D3DADAPTER_IDENTIFIER9</a>. Flags can be set to either 0 or D3DENUM_WHQL_LEVEL. If D3DENUM_WHQL_LEVEL is specified, this call can connect to the Internet to download new Microsoft Windows Hardware Quality Labs (WHQL) certificates.
@@ -100,16 +98,14 @@ class IDirect3D9 extends IUnknown{
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if Adapter is out of range, if Flags contains unrecognized parameters, or if pIdentifier is <b>NULL</b> or points to unwritable memory.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapteridentifier
      */
-    GetAdapterIdentifier(Adapter, Flags, pIdentifier) {
-        result := ComCall(5, this, "uint", Adapter, "uint", Flags, "ptr", pIdentifier, "HRESULT")
+    GetAdapterIdentifier(_Adapter, Flags, pIdentifier) {
+        result := ComCall(5, this, "uint", _Adapter, "uint", Flags, "ptr", pIdentifier, "HRESULT")
         return result
     }
 
     /**
      * The IDirect3D9::GetAdapterModeCount method (d3d9.h) returns the number of display modes available on this adapter.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter. D3DADAPTER_DEFAULT is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dformat">D3DFORMAT</a></b>
      * 
      * Identifies the format of the surface type using <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dformat">D3DFORMAT</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-enumadaptermodes">EnumAdapterModes</a> to see the valid formats.
@@ -118,8 +114,8 @@ class IDirect3D9 extends IUnknown{
      * This method returns the number of display modes on this adapter or zero if Adapter is greater than or equal to the number of adapters on the system.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermodecount
      */
-    GetAdapterModeCount(Adapter, Format) {
-        result := ComCall(6, this, "uint", Adapter, "uint", Format, "uint")
+    GetAdapterModeCount(_Adapter, Format) {
+        result := ComCall(6, this, "uint", _Adapter, "uint", Format, "uint")
         return result
     }
 
@@ -139,15 +135,11 @@ class IDirect3D9 extends IUnknown{
      * <li>D3DFMT_X8R8G8B8</li>
      * </ul>
      * In addition, <b>EnumAdapterModes</b> treats pixel formats 565 and 555 as equivalent, and returns the correct version. The difference comes into play only when the application locks the back buffer and there is an explicit flag that the application must set in order to accomplish this.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number denoting the display adapter to enumerate. <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-default">D3DADAPTER_DEFAULT</a> is always the primary display adapter. This method returns D3DERR_INVALIDCALL when this value equals or exceeds the number of display adapters in the system.
+     * @param {Integer} _Adapter 
      * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dformat">D3DFORMAT</a></b>
      * 
      * Allowable pixel formats. See Remarks.
-     * @param {Integer} Mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Represents the display-mode index which is an unsigned integer between zero and the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-getadaptermodecount">GetAdapterModeCount</a> minus one.
+     * @param {Integer} _Mode 
      * @param {Pointer<D3DDISPLAYMODE>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a>*</b>
      * 
      * A pointer to the available display mode of type <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a>. See Remarks.
@@ -160,8 +152,8 @@ class IDirect3D9 extends IUnknown{
      * </ul>
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-enumadaptermodes
      */
-    EnumAdapterModes(Adapter, Format, Mode, pMode) {
-        result := ComCall(7, this, "uint", Adapter, "uint", Format, "uint", Mode, "ptr", pMode, "HRESULT")
+    EnumAdapterModes(_Adapter, Format, _Mode, pMode) {
+        result := ComCall(7, this, "uint", _Adapter, "uint", Format, "uint", _Mode, "ptr", pMode, "HRESULT")
         return result
     }
 
@@ -169,9 +161,7 @@ class IDirect3D9 extends IUnknown{
      * The IDirect3D9::GetAdapterDisplayMode method (d3d9.h) retrieves the current display mode of the adapter.
      * @remarks
      * <b>GetAdapterDisplayMode</b> will not return the correct format when the display is in an extended format, such as 2:10:10:10. Instead, it returns the format X8R8G8B8.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter to query. D3DADAPTER_DEFAULT is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Pointer<D3DDISPLAYMODE>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a> structure, to be filled with information describing the current adapter's mode.
@@ -184,8 +174,8 @@ class IDirect3D9 extends IUnknown{
      * If Adapter is out of range or pMode is invalid, this method returns D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapterdisplaymode
      */
-    GetAdapterDisplayMode(Adapter, pMode) {
-        result := ComCall(8, this, "uint", Adapter, "ptr", pMode, "HRESULT")
+    GetAdapterDisplayMode(_Adapter, pMode) {
+        result := ComCall(8, this, "uint", _Adapter, "ptr", pMode, "HRESULT")
         return result
     }
 
@@ -217,9 +207,7 @@ class IDirect3D9 extends IUnknown{
      * This code returns S_OK if the device can be used on the default adapter with the specified surface format.
      * 
      * Using <b>CheckDeviceType</b> to test for compatibility between a back buffer that differs from the display format will return appropriate values. This means that the call will reflect device capabilities. If the device cannot render to the requested back-buffer format, the call will still return D3DERR_NOTAVAILABLE. If the device can render to the format, but cannot perform the color-converting presentation, the return value will also be D3DERR_NOTAVAILABLE. Applications can discover hardware support for the presentation itself by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformatconversion">CheckDeviceFormatConversion</a>. No software emulation for the color-converting presentation itself will be offered.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number denoting the display adapter to enumerate. D3DADAPTER_DEFAULT is always the primary display adapter. This method returns D3DERR_INVALIDCALL when this value equals or exceeds the number of display adapters in the system.
+     * @param {Integer} _Adapter 
      * @param {Integer} DevType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, indicating the device type to check.
@@ -247,8 +235,8 @@ class IDirect3D9 extends IUnknown{
      *  D3DERR_NOTAVAILABLE is returned if the requested back buffer format is not supported, or if hardware acceleration is not available for the specified formats.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicetype
      */
-    CheckDeviceType(Adapter, DevType, AdapterFormat, BackBufferFormat, bWindowed) {
-        result := ComCall(9, this, "uint", Adapter, "int", DevType, "uint", AdapterFormat, "uint", BackBufferFormat, "int", bWindowed, "HRESULT")
+    CheckDeviceType(_Adapter, DevType, AdapterFormat, BackBufferFormat, bWindowed) {
+        result := ComCall(9, this, "uint", _Adapter, "int", DevType, "uint", AdapterFormat, "uint", BackBufferFormat, "int", bWindowed, "HRESULT")
         return result
     }
 
@@ -307,9 +295,7 @@ class IDirect3D9 extends IUnknown{
      * <li>Autogeneration of mipmaps - Set Usage to <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">D3DUSAGE_AUTOGENMIPMAP</a>. If the mipmap automatic generation fails, the application will get a non-mipmapped texture. Calling this method is considered a hint, so this method can return D3DOK_NOAUTOGEN (a valid success code) if the only thing that fails is the mipmap generation. For more information about mipmap generation, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/automatic-generation-of-mipmaps">Automatic Generation of Mipmaps (Direct3D 9)</a>.</li>
      * </ul>
      * When migrating code from Direct3D 9 to Direct3D 10, the Direct3D 10 equivalent to CheckDeviceFormat is <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-checkformatsupport">CheckFormatSupport</a>.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number denoting the display adapter to query. <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-default">D3DADAPTER_DEFAULT</a> is always the primary display adapter. This method returns D3DERR_INVALIDCALL when this value equals or exceeds the number of display adapters in the system.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, identifying the device type.
@@ -334,8 +320,8 @@ class IDirect3D9 extends IUnknown{
      * D3DERR_NOTAVAILABLE is returned if the format is not acceptable to the device for this usage.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformat
      */
-    CheckDeviceFormat(Adapter, DeviceType, AdapterFormat, Usage, RType, CheckFormat) {
-        result := ComCall(10, this, "uint", Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", Usage, "int", RType, "uint", CheckFormat, "HRESULT")
+    CheckDeviceFormat(_Adapter, DeviceType, AdapterFormat, Usage, RType, CheckFormat) {
+        result := ComCall(10, this, "uint", _Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", Usage, "int", RType, "uint", CheckFormat, "HRESULT")
         return result
     }
 
@@ -363,9 +349,7 @@ class IDirect3D9 extends IUnknown{
      * The preceding code will return S_OK if the device supports the full-screen D3DMULTISAMPLE_3_SAMPLES multisampling method with the surface format.
      * 
      * See the remarks in <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmultisample-type">D3DMULTISAMPLE_TYPE</a> for additional information on working with and setting multisample types and quality levels.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number denoting the display adapter to query. D3DADAPTER_DEFAULT is always the primary display adapter. This method returns <b>FALSE</b> when this value equals or exceeds the number of display adapters in the system. See Remarks.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, identifying the device type.
@@ -387,10 +371,10 @@ class IDirect3D9 extends IUnknown{
      *  D3DERR_INVALIDCALL is returned if the Adapter or MultiSampleType parameters are invalid. This method returns D3DERR_NOTAVAILABLE if the queried multisampling technique is not supported by this device. D3DERR_INVALIDDEVICE is returned if DeviceType does not apply to this adapter.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicemultisampletype
      */
-    CheckDeviceMultiSampleType(Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
+    CheckDeviceMultiSampleType(_Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
         pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", Adapter, "int", DeviceType, "uint", SurfaceFormat, "int", Windowed, "int", MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
+        result := ComCall(11, this, "uint", _Adapter, "int", DeviceType, "uint", SurfaceFormat, "int", Windowed, "int", MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
         return result
     }
 
@@ -436,9 +420,7 @@ class IDirect3D9 extends IUnknown{
      * 
      * 
      * The preceding call will return <b>FALSE</b> if DepthFormat cannot be used in conjunction with AdapterFormat and BackBufferFormat.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number denoting the display adapter to query. D3DADAPTER_DEFAULT is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, identifying the device type.
@@ -456,8 +438,8 @@ class IDirect3D9 extends IUnknown{
      * If the depth-stencil format is compatible with the render-target format in the display mode, this method returns D3D_OK. D3DERR_INVALIDCALL can be returned if one or more of the parameters is invalid. If a depth-stencil format is not compatible with the render target in the display mode, then this method returns D3DERR_NOTAVAILABLE.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdepthstencilmatch
      */
-    CheckDepthStencilMatch(Adapter, DeviceType, AdapterFormat, RenderTargetFormat, DepthStencilFormat) {
-        result := ComCall(12, this, "uint", Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", RenderTargetFormat, "uint", DepthStencilFormat, "HRESULT")
+    CheckDepthStencilMatch(_Adapter, DeviceType, AdapterFormat, RenderTargetFormat, DepthStencilFormat) {
+        result := ComCall(12, this, "uint", _Adapter, "int", DeviceType, "uint", AdapterFormat, "uint", RenderTargetFormat, "uint", DepthStencilFormat, "HRESULT")
         return result
     }
 
@@ -509,9 +491,7 @@ class IDirect3D9 extends IUnknown{
      * 
      * </li>
      * </ul>
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Display adapter ordinal number. D3DADAPTER_DEFAULT is always the primary display adapter. This method returns D3DERR_INVALIDCALL when this value equals or exceeds the number of display adapters in the system.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Device type. Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type.
@@ -527,8 +507,8 @@ class IDirect3D9 extends IUnknown{
      *  The method will return D3DERR_NOTAVAILABLE when the hardware does not support conversion between the two formats.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformatconversion
      */
-    CheckDeviceFormatConversion(Adapter, DeviceType, SourceFormat, TargetFormat) {
-        result := ComCall(13, this, "uint", Adapter, "int", DeviceType, "uint", SourceFormat, "uint", TargetFormat, "HRESULT")
+    CheckDeviceFormatConversion(_Adapter, DeviceType, SourceFormat, TargetFormat) {
+        result := ComCall(13, this, "uint", _Adapter, "int", DeviceType, "uint", SourceFormat, "uint", TargetFormat, "HRESULT")
         return result
     }
 
@@ -536,9 +516,7 @@ class IDirect3D9 extends IUnknown{
      * The IDirect3D9::GetDeviceCaps method (d3d9.h) retrieves device-specific information about a device.
      * @remarks
      * The application should not assume the persistence of vertex processing capabilities across Direct3D device objects. The particular capabilities that a physical device exposes may depend on parameters supplied to <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">CreateDevice</a>. For example, the capabilities may yield different vertex processing capabilities before and after creating a Direct3D Device Object with hardware vertex processing enabled. For more information see the description of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dcaps9">D3DCAPS9</a>.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter. D3DADAPTER_DEFAULT is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type. Denotes the device type.
@@ -550,8 +528,8 @@ class IDirect3D9 extends IUnknown{
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, D3DERR_INVALIDDEVICE, D3DERR_OUTOFVIDEOMEMORY, and D3DERR_NOTAVAILABLE.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getdevicecaps
      */
-    GetDeviceCaps(Adapter, DeviceType, pCaps) {
-        result := ComCall(14, this, "uint", Adapter, "int", DeviceType, "ptr", pCaps, "HRESULT")
+    GetDeviceCaps(_Adapter, DeviceType, pCaps) {
+        result := ComCall(14, this, "uint", _Adapter, "int", DeviceType, "ptr", pCaps, "HRESULT")
         return result
     }
 
@@ -574,16 +552,14 @@ class IDirect3D9 extends IUnknown{
      *     pD3D->Release();
      * 
      * ```
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter. D3DADAPTER_DEFAULT is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @returns {HMONITOR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a></b>
      * 
      * Handle of the monitor associated with the Direct3D object.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermonitor
      */
-    GetAdapterMonitor(Adapter) {
-        result := ComCall(15, this, "uint", Adapter, "ptr")
+    GetAdapterMonitor(_Adapter) {
+        result := ComCall(15, this, "uint", _Adapter, "ptr")
         resultHandle := HMONITOR({Value: result}, True)
         return resultHandle
     }
@@ -612,9 +588,7 @@ class IDirect3D9 extends IUnknown{
      * D3DFMT_UNKNOWN can be specified for the windowed mode back buffer format when calling <b>CreateDevice</b>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-reset">Reset</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-createadditionalswapchain">CreateAdditionalSwapChain</a>. This means the application does not have to query the current desktop format before calling <b>CreateDevice</b> for windowed mode. For full-screen mode, the back buffer format must be specified.
      * 
      * If you attempt to create a device on a 0x0 sized window, <b>CreateDevice</b> will fail.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Ordinal number that denotes the display adapter. <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-default">D3DADAPTER_DEFAULT</a> is always the primary display adapter.
+     * @param {Integer} _Adapter 
      * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type that denotes the desired device type. If the desired device type is not available, the method will fail.
@@ -658,10 +632,10 @@ class IDirect3D9 extends IUnknown{
      * Address of a pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface, which represents the created device.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice
      */
-    CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters) {
+    CreateDevice(_Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters) {
         hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
 
-        result := ComCall(16, this, "uint", Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        result := ComCall(16, this, "uint", _Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
         return IDirect3DDevice9(ppReturnedDeviceInterface)
     }
 }

@@ -102,41 +102,41 @@ class ICeeGen extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
-    GetIlSection(section) {
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+    GetIlSection(_section) {
+        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, sectionMarshal, section, "HRESULT")
+        result := ComCall(9, this, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
-    GetStringSection(section) {
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+    GetStringSection(_section) {
+        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, sectionMarshal, section, "HRESULT")
+        result := ComCall(10, this, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} _section 
      * @param {Integer} offset 
      * @param {Pointer<Void>} relativeTo 
      * @param {Integer} relocType 
      * @returns {HRESULT} 
      */
-    AddSectionReloc(section, offset, relativeTo, relocType) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    AddSectionReloc(_section, offset, relativeTo, relocType) {
+        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, sectionMarshal, section, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "HRESULT")
+        result := ComCall(11, this, _sectionMarshal, _section, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "HRESULT")
         return result
     }
 
@@ -144,58 +144,58 @@ class ICeeGen extends IUnknown{
      * 
      * @param {PSTR} name 
      * @param {Integer} flags 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
-    GetSectionCreate(name, flags, section) {
+    GetSectionCreate(name, flags, _section) {
         name := name is String ? StrPtr(name) : name
 
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", name, "uint", flags, sectionMarshal, section, "HRESULT")
+        result := ComCall(12, this, "ptr", name, "uint", flags, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} _section 
      * @param {Pointer<Integer>} dataLen 
      * @returns {HRESULT} 
      */
-    GetSectionDataLen(section, dataLen) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    GetSectionDataLen(_section, dataLen) {
+        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         dataLenMarshal := dataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, sectionMarshal, section, dataLenMarshal, dataLen, "HRESULT")
+        result := ComCall(13, this, _sectionMarshal, _section, dataLenMarshal, dataLen, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @param {Integer} align 
      * @param {Pointer<Pointer<Void>>} ppBytes 
      * @returns {HRESULT} 
      */
-    GetSectionBlock(section, len, align, ppBytes) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    GetSectionBlock(_section, len, align, ppBytes) {
+        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         ppBytesMarshal := ppBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, sectionMarshal, section, "uint", len, "uint", align, ppBytesMarshal, ppBytes, "HRESULT")
+        result := ComCall(14, this, _sectionMarshal, _section, "uint", len, "uint", align, ppBytesMarshal, ppBytes, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @returns {HRESULT} 
      */
-    TruncateSection(section, len) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    TruncateSection(_section, len) {
+        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, sectionMarshal, section, "uint", len, "HRESULT")
+        result := ComCall(15, this, _sectionMarshal, _section, "uint", len, "HRESULT")
         return result
     }
 
@@ -213,16 +213,16 @@ class ICeeGen extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} _section 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @returns {HRESULT} 
      */
-    ComputePointer(section, RVA, lpBuffer) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    ComputePointer(_section, RVA, lpBuffer) {
+        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, sectionMarshal, section, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
+        result := ComCall(17, this, _sectionMarshal, _section, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 }

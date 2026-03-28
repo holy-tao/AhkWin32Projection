@@ -1012,7 +1012,7 @@ class Shutdown {
      * Applications should call this function as they begin an operation that cannot be interrupted, such as burning a CD or DVD. When the operation has completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasondestroy">ShutdownBlockReasonDestroy</a> function to indicate that the system can be shut down.
      * 
      * Because users are typically in a hurry when shutting down the system, they may spend only  a few seconds looking at the shutdown reasons that are displayed by the system. Therefore, it is important that your reason strings are short and clear. For example "A CD burn is in progress." is better than "This application is blocking system shutdown because a CD burn is in progress. Do not shut down."
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
@@ -1021,13 +1021,13 @@ class Shutdown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasoncreate
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonCreate(hWnd, pwszReason) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonCreate(_hWnd, pwszReason) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pwszReason := pwszReason is String ? StrPtr(pwszReason) : pwszReason
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", hWnd, "ptr", pwszReason, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", _hWnd, "ptr", pwszReason, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1039,7 +1039,7 @@ class Shutdown {
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
      * @remarks
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<Integer>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
@@ -1049,15 +1049,15 @@ class Shutdown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasonquery
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonQuery(_hWnd, pwszBuff, pcchBuff) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
         pcchBuffMarshal := pcchBuff is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", _hWnd, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1071,7 +1071,7 @@ class Shutdown {
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
      * 
      * If system shutdown has been previously blocked by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasoncreate">ShutdownBlockReasonCreate</a> function, this function frees the reason string. Otherwise, this function is a no-op.
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
@@ -1079,12 +1079,12 @@ class Shutdown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasondestroy
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonDestroy(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonDestroy(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

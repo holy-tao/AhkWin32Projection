@@ -49,12 +49,12 @@ class IMbnConnectionEvents extends IUnknown{
      * When the connection operation results in an error, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnection-getactivationnetworkerror">GetActivationNetworkError</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface to obtain network error information.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device on which the connection operation has completed.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the connection operation.
-     * @param {HRESULT} status The completion status.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
      */
-    OnConnectComplete(newConnection, requestID, status) {
-        result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
+    OnConnectComplete(newConnection, requestID, _status) {
+        result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -64,12 +64,12 @@ class IMbnConnectionEvents extends IUnknown{
      * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the current connection state.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection that has been disconnected.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the disconnection operation.
-     * @param {HRESULT} status The operation completion status.  This can only be <b>S_OK</b>.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
      */
-    OnDisconnectComplete(newConnection, requestID, status) {
-        result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
+    OnDisconnectComplete(newConnection, requestID, _status) {
+        result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 

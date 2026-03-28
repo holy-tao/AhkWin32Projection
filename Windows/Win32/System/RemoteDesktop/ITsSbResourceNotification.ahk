@@ -34,13 +34,13 @@ class ITsSbResourceNotification extends IUnknown{
      * Notifies registered plug-ins about state changes in a session object. (ITsSbResourceNotification.NotifySessionChange)
      * @remarks
      * RD Connection Broker calls the <b>NotifySessionChange</b> method to notify registered plug-ins about state changes in a session object. For example, RD Connection Broker calls this method when a new session is added to the resource plug-in store as a result of a session logon.
-     * @param {Integer} changeType The type of change that occurred.
+     * @param {Integer} _changeType 
      * @param {ITsSbSession} pSession A pointer to a session object. This object is a copy of the object present in the RD Connection Broker store. Any changes to this object do not affect the object in the store.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotification-notifysessionchange
      */
-    NotifySessionChange(changeType, pSession) {
-        result := ComCall(3, this, "int", changeType, "ptr", pSession, "HRESULT")
+    NotifySessionChange(_changeType, pSession) {
+        result := ComCall(3, this, "int", _changeType, "ptr", pSession, "HRESULT")
         return result
     }
 
@@ -62,13 +62,13 @@ class ITsSbResourceNotification extends IUnknown{
      * Notifies registered plug-ins about state changes in a client connection. (ITsSbResourceNotification.NotifyClientConnectionStateChange)
      * @remarks
      * RD Connection Broker calls the <b>NotifyClientConnectionStateChange</b> method to notify registered plug-ins about state changes in a client connection.
-     * @param {Integer} ChangeType 
+     * @param {Integer} _ChangeType 
      * @param {ITsSbClientConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbclientconnection">ITsSbClientConnection</a> connection object.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotification-notifyclientconnectionstatechange
      */
-    NotifyClientConnectionStateChange(ChangeType, pConnection) {
-        result := ComCall(5, this, "int", ChangeType, "ptr", pConnection, "HRESULT")
+    NotifyClientConnectionStateChange(_ChangeType, pConnection) {
+        result := ComCall(5, this, "int", _ChangeType, "ptr", pConnection, "HRESULT")
         return result
     }
 }

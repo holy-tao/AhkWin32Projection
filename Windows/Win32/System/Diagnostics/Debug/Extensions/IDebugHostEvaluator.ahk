@@ -30,33 +30,33 @@ class IDebugHostEvaluator extends IUnknown{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
      * @param {Pointer<IModelObject>} result 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
-    EvaluateExpression(context, expression, bindingContext, result, metadata) {
+    EvaluateExpression(_context, expression, bindingContext, result, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(3, this, "ptr", context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
+        result := ComCall(3, this, "ptr", _context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
      * @param {Pointer<IModelObject>} result 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
-    EvaluateExtendedExpression(context, expression, bindingContext, result, metadata) {
+    EvaluateExtendedExpression(_context, expression, bindingContext, result, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(4, this, "ptr", context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
+        result := ComCall(4, this, "ptr", _context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
         return result
     }
 }

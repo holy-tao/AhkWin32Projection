@@ -4069,9 +4069,7 @@ class ActiveDirectory {
      * Allocates memory for and copies a specified string.
      * @remarks
      * For more information and a code example that shows how to use the <b>AllocADsStr</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
-     * @param {PWSTR} pStr Type: <b>LPWSTR</b>
-     * 
-     * Pointer to a null-terminated Unicode string to be copied.
+     * @param {PWSTR} _pStr 
      * @returns {PWSTR} Type: <b>LPWSTR</b>
      * 
      * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The string in <i>pStr</i> is copied to this buffer and null-terminated. The caller must  free this memory when it is no longer required by passing the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
@@ -4080,10 +4078,10 @@ class ActiveDirectory {
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-allocadsstr
      * @since windows6.0.6000
      */
-    static AllocADsStr(pStr) {
-        pStr := pStr is String ? StrPtr(pStr) : pStr
+    static AllocADsStr(_pStr) {
+        _pStr := _pStr is String ? StrPtr(_pStr) : _pStr
 
-        result := DllCall("ACTIVEDS.dll\AllocADsStr", "ptr", pStr, "ptr")
+        result := DllCall("ACTIVEDS.dll\AllocADsStr", "ptr", _pStr, "ptr")
         return result
     }
 
@@ -4099,11 +4097,7 @@ class ActiveDirectory {
      * For more information and a code example that shows how to use the 
      *     <b>FreeADsStr</b> function, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
-     * @param {PWSTR} pStr Type: <b>LPWSTR</b>
-     * 
-     * Pointer to the string to be freed. This string must have been allocated with the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a> or 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a> function.
+     * @param {PWSTR} _pStr 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if the memory is freed. Otherwise, it returns 
@@ -4111,10 +4105,10 @@ class ActiveDirectory {
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-freeadsstr
      * @since windows6.0.6000
      */
-    static FreeADsStr(pStr) {
-        pStr := pStr is String ? StrPtr(pStr) : pStr
+    static FreeADsStr(_pStr) {
+        _pStr := _pStr is String ? StrPtr(_pStr) : _pStr
 
-        result := DllCall("ACTIVEDS.dll\FreeADsStr", "ptr", pStr, "int")
+        result := DllCall("ACTIVEDS.dll\FreeADsStr", "ptr", _pStr, "int")
         return result
     }
 
@@ -4125,21 +4119,19 @@ class ActiveDirectory {
      * Pointer to null-terminated Unicode string pointer that receives the allocated string. <b>ReallocADsStr</b> will attempt to free this memory with <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a> before reallocating the string, so this parameter should be initialized to <b>NULL</b> if the memory should not be freed or was not allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsmem">AllocADsMem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a>, <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a> or <b>ReallocADsStr</b> function.
      * 
      * The caller must free this memory when it is no longer required by passing this pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
-     * @param {PWSTR} pStr Type: <b>LPWSTR</b>
-     * 
-     * Pointer to a null-terminated Unicode string that contains the string to copy.
+     * @param {PWSTR} _pStr 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if  successful, otherwise <b>FALSE</b> is returned.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-reallocadsstr
      * @since windows6.0.6000
      */
-    static ReallocADsStr(ppStr, pStr) {
-        pStr := pStr is String ? StrPtr(pStr) : pStr
+    static ReallocADsStr(ppStr, _pStr) {
+        _pStr := _pStr is String ? StrPtr(_pStr) : _pStr
 
         ppStrMarshal := ppStr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ReallocADsStr", ppStrMarshal, ppStr, "ptr", pStr, "int")
+        result := DllCall("ACTIVEDS.dll\ReallocADsStr", ppStrMarshal, ppStr, "ptr", _pStr, "int")
         return result
     }
 
@@ -7112,7 +7104,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} pszNameContext Pointer to a null-terminated string that specifies the distinguished name of the naming context to synchronize. The <i>pszNameContext</i> parameter is optional; if its value is <b>NULL</b>, the configuration naming context is replicated.
      * @param {Integer} ulFlags 
-     * @param {Pointer} pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
+     * @param {Pointer} _pFnCallBack 
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
      * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOA>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
@@ -7122,14 +7114,14 @@ class ActiveDirectory {
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasyncalla
      * @since windows6.0.6000
      */
-    static DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
+    static DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, _pFnCallBack, pCallbackData, pErrors) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
         pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", _pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
         return result
     }
 
@@ -7153,7 +7145,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} pszNameContext Pointer to a null-terminated string that specifies the distinguished name of the naming context to synchronize. The <i>pszNameContext</i> parameter is optional; if its value is <b>NULL</b>, the configuration naming context is replicated.
      * @param {Integer} ulFlags 
-     * @param {Pointer} pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
+     * @param {Pointer} _pFnCallBack 
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
      * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOW>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
@@ -7163,14 +7155,14 @@ class ActiveDirectory {
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasyncallw
      * @since windows6.0.6000
      */
-    static DsReplicaSyncAllW(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
+    static DsReplicaSyncAllW(hDS, pszNameContext, ulFlags, _pFnCallBack, pCallbackData, pErrors) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
         pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", _pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
         return result
     }
 
@@ -8244,33 +8236,33 @@ class ActiveDirectory {
      * Retrieves state data for the computer.
      * @param {PWSTR} lpServer Pointer to null-terminated Unicode string that contains the name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function is successful, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following values.
      * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolegetprimarydomaininformation
      * @since windows6.0.6000
      */
-    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer_R) {
+    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, _Buffer) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
     /**
      * Frees memory allocated by the DsRoleGetPrimaryDomainInformation function.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolefreememory
      * @since windows6.0.6000
      */
-    static DsRoleFreeMemory(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static DsRoleFreeMemory(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("NETAPI32.dll\DsRoleFreeMemory", Buffer_RMarshal, Buffer_R)
+        DllCall("NETAPI32.dll\DsRoleFreeMemory", _BufferMarshal, _Buffer)
     }
 
     /**

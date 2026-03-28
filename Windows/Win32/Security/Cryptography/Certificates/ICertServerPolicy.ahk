@@ -36,16 +36,15 @@ class ICertServerPolicy extends IDispatch{
      * Specifies the request to be used as the context for subsequent calls to Certificate Services.
      * @remarks
      * The policy module must call the <b>SetContext</b> method first, before calls to any other <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverpolicy">ICertServerPolicy</a> method,  so that the interface  references a valid request.
-     * @param {Integer} Context Specifies the request. This  parameter must be set to the identical value returned in the  <i>Context</i> parameter of the  
-     * <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nf-certpol-icertpolicy-verifyrequest">ICertPolicy::VerifyRequest</a> method.
+     * @param {Integer} _Context 
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-setcontext
      */
-    SetContext(Context) {
-        result := ComCall(7, this, "int", Context, "HRESULT")
+    SetContext(_Context) {
+        result := ComCall(7, this, "int", _Context, "HRESULT")
         return result
     }
 

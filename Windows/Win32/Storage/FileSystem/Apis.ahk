@@ -9502,17 +9502,17 @@ class FileSystem {
 
     /**
      * The AreShortNamesEnabled function determines whether short names are enabled for the specified volume.
-     * @param {HANDLE} Handle The handle to the volume or the handle to a file or directory that resides on the volume to query.
+     * @param {HANDLE} _Handle 
      * @param {Pointer<BOOL>} Enabled A pointer to a `BOOLEAN` value that receives the result of the query. If `TRUE`, short names are enabled for the volume, otherwise `FALSE` is returned.
      * @returns {BOOL} A `BOOLEAN` value that indicates whether the function succeeded. If the function succeeds, the return value is `TRUE`. If the function fails, the return value is `FALSE`. To get extended error information, call the [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-areshortnamesenabled
      */
-    static AreShortNamesEnabled(Handle, Enabled) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static AreShortNamesEnabled(_Handle, Enabled) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, EnabledMarshal, Enabled, "int")
+        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", _Handle, EnabledMarshal, Enabled, "int")
         return result
     }
 
@@ -16917,7 +16917,7 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -16929,10 +16929,10 @@ class FileSystem {
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2w
      */
-    static GetTempPath2W(BufferLength, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetTempPath2W(BufferLength, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer_R, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -17019,7 +17019,7 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -17031,10 +17031,10 @@ class FileSystem {
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2a
      */
-    static GetTempPath2A(BufferLength, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetTempPath2A(BufferLength, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer_R, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -19744,7 +19744,7 @@ class FileSystem {
 
     /**
      * Marks the specified log for deletion. The log is actually deleted when all handles, marshaling areas, and read contexts to the log are closed. If the log is a physical log, its underlying containers are deleted.
-     * @param {HANDLE} hLog A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
+     * @param {HANDLE} _hLog 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -19753,12 +19753,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-deletelogbyhandle
      * @since windows6.0.6000
      */
-    static DeleteLogByHandle(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static DeleteLogByHandle(_hLog) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", _hLog, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19805,9 +19805,7 @@ class FileSystem {
 
     /**
      * Adds a container to the physical log that is associated with the log handle�if the calling process has write access to the .blf file and the ability to create files in the target directory of the container.
-     * @param {HANDLE} hLog The handle to an open log. 
-     * 
-     * The handle must  be   obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with write access to the log. The client application must have  write access to the .blf file, and the ability to create files in the target directory of a container.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<Integer>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
      * 
      * The minimum size is  512 KB for normal logs and 1024 KB for multiplexed logs. The maximum size is approximately 4 gigabytes.
@@ -19830,8 +19828,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-addlogcontainer
      * @since windows6.0.6000
      */
-    static AddLogContainer(hLog, pcbContainer, pwszContainerPath, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static AddLogContainer(_hLog, pcbContainer, pwszContainerPath, pReserved) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
@@ -19839,7 +19837,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, pcbContainerMarshal, pcbContainer, "ptr", pwszContainerPath, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", _hLog, pcbContainerMarshal, pcbContainer, "ptr", pwszContainerPath, pReservedMarshal, pReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19859,9 +19857,7 @@ class FileSystem {
      *           efficient than making repeated calls to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a>, which only adds one container.
      * 
      * Containers are created and opened in a noncompressed mode, and are initialized with 0 (zeros) when they are created.
-     * @param {HANDLE} hLog The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
-     * 
-     * The file can be dedicated or multiplexed.
+     * @param {HANDLE} _hLog 
      * @param {Integer} cContainer The number of containers  in the <i>rgwszContainerPath</i> array.  
      * 
      * This value must be nonzero.  A log must have at least two containers before any I/O can be performed on it.
@@ -19887,8 +19883,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-addlogcontainerset
      * @since windows6.0.6000
      */
-    static AddLogContainerSet(hLog, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static AddLogContainerSet(_hLog, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
         rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
@@ -19896,7 +19892,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", _hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19910,7 +19906,7 @@ class FileSystem {
      * By default, container deletion is lazy, which means that a container is deleted  only if it is not part of an active log.  If the container is part of the active log, it is marked for deletion. However,  deletion does not occur until the  end  of the log exceeds the last sector of the container, or the container has a logical identifier that is greater than the logical identifier of the head of the active log.  The log size reflects the container deletion only when the container is deleted physically.
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as deleting a container  that  is  not part of the active log.  However, if the container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
+     * @param {HANDLE} _hLog 
      * @param {PWSTR} pwszContainerPath A pointer to a wide character string that contains a  path for a  log container that is created by either  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
      * @param {BOOL} fForce The deletion flag  that determines when and how a container is deleted.
      * 
@@ -19928,15 +19924,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-removelogcontainer
      * @since windows6.0.6000
      */
-    static RemoveLogContainer(hLog, pwszContainerPath, fForce, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogContainer(_hLog, pwszContainerPath, fForce, pReserved) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", _hLog, "ptr", pwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19951,9 +19947,7 @@ class FileSystem {
      * 
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as  deleting a container that  is  not part of the active log.  However, if a container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * The log handle must have administrative permission to add a log container, and can refer to either a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {Integer} cContainer The number of container path names in an array that is pointed to by <i>rgwszContainerPath</i>.  
      * 
      * This value must be nonzero.
@@ -19976,15 +19970,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-removelogcontainerset
      * @since windows6.0.6000
      */
-    static RemoveLogContainerSet(hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogContainerSet(_hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", _hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19996,9 +19990,7 @@ class FileSystem {
      * Sets the last archived log sequence number (LSN) or archive tail of an archivable log.
      * @remarks
      * If there are any archive contexts obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-preparelogarchive">PrepareLogArchive</a> that are not terminated with <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, the change does not take effect until all archives are complete. While there are outstanding archive contexts, only the greatest archive tail is applied.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * The log handle can refer to a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLS_LSN>} plsnArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies a valid physical LSN in the log.
      * 
      * 
@@ -20015,14 +20007,14 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setlogarchivetail
      * @since windows6.0.6000
      */
-    static SetLogArchiveTail(hLog, plsnArchiveTail, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogArchiveTail(_hLog, plsnArchiveTail, pReserved) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog, "ptr", plsnArchiveTail, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", _hLog, "ptr", plsnArchiveTail, pReservedMarshal, pReserved, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20036,9 +20028,7 @@ class FileSystem {
      * The <b>SetEndOfLog</b> function  truncates the log by setting the end of the log to the specified value.   This operation only works on dedicated logs.
      * 
      * <b>SetEndOfLog</b> can only be used to truncate a log.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * The log handle must refer to a dedicated log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLS_LSN>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
      * 
      * The LSN must be between the base log sequence number (LSN) of the log and the last LSN of the log.
@@ -20051,12 +20041,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setendoflog
      * @since windows6.0.6000
      */
-    static SetEndOfLog(hLog, plsnEnd, lpOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetEndOfLog(_hLog, plsnEnd, lpOverlapped) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", _hLog, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20098,9 +20088,7 @@ class FileSystem {
      * Creates a scan context to use with ScanLogContainers to enumerate all log containers that are associated with a log, and performs the first scan.
      * @remarks
      * After completing a scan, the client must call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-scanlogcontainers">ScanLogContainers</a> again with the <i>eScanMode</i> parameter set to <b>CLFS_SCAN_CLOSE</b>  so that it can free the system-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_container_information">CLFS_CONTAINER_INFORMATION</a> structures; otherwise, memory leaks result.
-     * @param {HANDLE} hLog A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
-     * 
-     * The file can be  a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {Integer} cFromContainer The container where  the scan is to be started.  
      * 
      * This parameter is an ordinal number relative to the number of containers in the log.
@@ -20167,12 +20155,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-createlogcontainerscancontext
      * @since windows6.0.6000
      */
-    static CreateLogContainerScanContext(hLog, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CreateLogContainerScanContext(_hLog, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", _hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20381,9 +20369,7 @@ class FileSystem {
 
     /**
      * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
-     * @param {HANDLE} hLog A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * The log handle can refer to a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a user-allocated <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives the log metadata.
      * @param {Pointer<Integer>} cbBuffer A pointer to a variable that on input specifies the size, in bytes, of the metadata buffer pointed to by <i>pinfoBuffer</i>.
      * 
@@ -20398,14 +20384,14 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogfileinformation
      * @since windows6.0.6000
      */
-    static GetLogFileInformation(hLog, pinfoBuffer, cbBuffer) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogFileInformation(_hLog, pinfoBuffer, cbBuffer) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         cbBufferMarshal := cbBuffer is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog, "ptr", pinfoBuffer, cbBufferMarshal, cbBuffer, "int")
+        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", _hLog, "ptr", pinfoBuffer, cbBufferMarshal, cbBuffer, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20415,8 +20401,7 @@ class FileSystem {
 
     /**
      * Enables or disables log archive support for a specified log.
-     * @param {HANDLE} hLog A handle to the log that is obtained from 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
+     * @param {HANDLE} _hLog 
      * @param {Integer} eMode 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
@@ -20426,12 +20411,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setlogarchivemode
      * @since windows6.0.6000
      */
-    static SetLogArchiveMode(hLog, eMode) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogArchiveMode(_hLog, eMode) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog, "int", eMode, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", _hLog, "int", eMode, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20654,9 +20639,7 @@ class FileSystem {
 
     /**
      * Resets the log file and then shuts the log.
-     * @param {HANDLE} hLog A handle to a dedicated or multiplexed log. 
-     * 
-     * This handle is returned by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  It is invalidated on successful completion of the call. No other operations that use this handle, or a derivative of this handle, can be called after this function has returned.
+     * @param {HANDLE} _hLog 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -20665,12 +20648,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-closeandresetlogfile
      * @since windows6.0.6000
      */
-    static CloseAndResetLogFile(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CloseAndResetLogFile(_hLog) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", _hLog, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20680,9 +20663,7 @@ class FileSystem {
 
     /**
      * Creates a marshaling area for a log, and when successful it returns a marshaling context. Before creating a marshaling area, the log must have at least one container.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * The log handle  can  refer to a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLFS_BLOCK_ALLOCATION>} pfnAllocBuffer The callback function that allocates memory for log blocks.  
      * 
      * If this parameter is <b>NULL</b>, the Common Log File System (CLFS) provides a default block allocation function.  This parameter cannot be <b>NULL</b> if a block-freeing callback is specified by using the <i>pfnFreeBuffer</i>  parameter.
@@ -20724,15 +20705,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-createlogmarshallingarea
      * @since windows6.0.6000
      */
-    static CreateLogMarshallingArea(hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAllocContext, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshal) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CreateLogMarshallingArea(_hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAllocContext, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshal) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pvBlockAllocContextMarshal := pvBlockAllocContext is VarRef ? "ptr" : "ptr"
         ppvMarshalMarshal := ppvMarshal is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
+        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", _hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21174,9 +21155,7 @@ class FileSystem {
      * Until you call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, containers that are being archived cannot be recycled.
      * 
      * You can only perform one archive operation at a time per handle that  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> returns.
-     * @param {HANDLE} hLog A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
-     * 
-     * This handle can be the handle to a dedicated or multiplexed log.
+     * @param {HANDLE} _hLog 
      * @param {PWSTR} pszBaseLogFileName A pointer to a  user-allocated buffer to receive the fully qualified path of the base log.  
      * 
      * If the buffer is not large enough, it contains a truncated file path on exit, and the function fails with an <i>ERROR_BUFFER_OVERFLOW</i> status code. 
@@ -21210,8 +21189,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-preparelogarchive
      * @since windows6.0.6000
      */
-    static PrepareLogArchive(hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PrepareLogArchive(_hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         pszBaseLogFileName := pszBaseLogFileName is String ? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
 
         pcActualLengthMarshal := pcActualLength is VarRef ? "uint*" : "ptr"
@@ -21221,7 +21200,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", _hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21374,11 +21353,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path name of the specified container.
-     * @param {HANDLE} hLog A handle to the log that is obtained from a successful call to 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. 
-     * 
-     * The log handle could refer to a 
-     *       log stream or a physical log.
+     * @param {HANDLE} _hLog 
      * @param {Integer} cidLogicalContainer The unique  identifier that is associated with a container.
      * @param {PWSTR} pwstrContainerName A pointer to a user-allocated buffer to receive the full path and name of the log container, in wide characters.
      * @param {Integer} cLenContainerName The size of the buffer pointed to by <i>pwstrContainerName</i>, in characters.
@@ -21397,15 +21372,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogcontainername
      * @since windows6.0.6000
      */
-    static GetLogContainerName(hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogContainerName(_hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         pwstrContainerName := pwstrContainerName is String ? StrPtr(pwstrContainerName) : pwstrContainerName
 
         pcActualLenContainerNameMarshal := pcActualLenContainerName is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
+        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", _hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21415,7 +21390,7 @@ class FileSystem {
 
     /**
      * Retrieves log I/O statistics for a dedicated or multiplexed log that is associated with the specified handle.
-     * @param {HANDLE} hLog A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<Void>} pvStatsBuffer A pointer to a buffer to receive the I/O statistics.  
      * 
      * This buffer must be at least as large as an I/O statistics packet header. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_io_statistics_header">CLFS_IO_STATISTICS_HEADER</a>.
@@ -21434,15 +21409,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogiostatistics
      * @since windows6.0.6000
      */
-    static GetLogIoStatistics(hLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbStatsWritten) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogIoStatistics(_hLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbStatsWritten) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pvStatsBufferMarshal := pvStatsBuffer is VarRef ? "ptr" : "ptr"
         pcbStatsWrittenMarshal := pcbStatsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
+        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", _hLog, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21454,7 +21429,7 @@ class FileSystem {
      * Registers a client with the log manager. A client can specify whether to receive notifications by using callbacks, or have the notifications queued for retrieval by using ReadLogNotification.
      * @remarks
      * A client can deregister either by closing the log handle, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient">DeregisterManageableLogClient</a>.
-     * @param {HANDLE} hLog The handle to the log to register. Only one registration per unique opening of the log is allowed.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<LOG_MANAGEMENT_CALLBACKS>} pCallbacks Specifies the callbacks that the client is registering for.  Valid callbacks are enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks">LOG_MANAGEMENT_CALLBACKS</a>. Specify zero to queue notifications instead.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -21464,12 +21439,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient
      * @since windows6.0.6000
      */
-    static RegisterManageableLogClient(hLog, pCallbacks) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RegisterManageableLogClient(_hLog, pCallbacks) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog, "ptr", pCallbacks, "int")
+        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", _hLog, "ptr", pCallbacks, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21479,7 +21454,7 @@ class FileSystem {
 
     /**
      * Deregisters a client with the log manager.
-     * @param {HANDLE} hLog The handle to deregister.
+     * @param {HANDLE} _hLog 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -21488,12 +21463,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient
      * @since windows6.0.6000
      */
-    static DeregisterManageableLogClient(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static DeregisterManageableLogClient(_hLog) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", _hLog, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21505,7 +21480,7 @@ class FileSystem {
      * Retrieves notifications from the log manager. It retrieves a queued notification from the log manager immediately if a notification is available; otherwise the request remains pending until a notification is generated.
      * @remarks
      * If the log handle is not created with the <b>FILE_FLAG_OVERLAPPED</b> file option, no operations can start on the log handle while the call to <b>ReadLogNotification</b>  is pending.
-     * @param {HANDLE} hLog The handle to the log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLFS_MGMT_NOTIFICATION>} pNotification Receives the notification type, and if the type has parameters associated with it, the parameters.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. If asynchronous operation is not used, this parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21515,12 +21490,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-readlognotification
      * @since windows6.0.6000
      */
-    static ReadLogNotification(hLog, pNotification, lpOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static ReadLogNotification(_hLog, pNotification, lpOverlapped) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog, "ptr", pNotification, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", _hLog, "ptr", pNotification, "ptr", lpOverlapped, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21532,7 +21507,7 @@ class FileSystem {
      * Installs (sets) a policy for a log.
      * @remarks
      * Installing a log policy does not trigger an immediate change in behavior.
-     * @param {HANDLE} hLog A handle to a log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicy A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy">CLFS_MGMT_POLICY</a> structure that represents the desired policy to install.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -21541,12 +21516,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-installlogpolicy
      * @since windows6.0.6000
      */
-    static InstallLogPolicy(hLog, pPolicy) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static InstallLogPolicy(_hLog, pPolicy) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog, "ptr", pPolicy, "int")
+        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", _hLog, "ptr", pPolicy, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21556,7 +21531,7 @@ class FileSystem {
 
     /**
      * Resets the specified policy to its default behavior.
-     * @param {HANDLE} hLog Handle to the log to reset the policy for.
+     * @param {HANDLE} _hLog 
      * @param {Integer} ePolicyType Specifies the policy to reset. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -21565,12 +21540,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-removelogpolicy
      * @since windows6.0.6000
      */
-    static RemoveLogPolicy(hLog, ePolicyType) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogPolicy(_hLog, ePolicyType) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog, "int", ePolicyType, "int")
+        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", _hLog, "int", ePolicyType, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21580,7 +21555,7 @@ class FileSystem {
 
     /**
      * The QueryLogPolicy function allows you to obtain a policy that is installed for the specified log.
-     * @param {HANDLE} hLog The handle to the log to query.
+     * @param {HANDLE} _hLog 
      * @param {Integer} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicyBuffer A pointer to a buffer to receive the returned policies.
      * @param {Pointer<Integer>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
@@ -21591,14 +21566,14 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-querylogpolicy
      * @since windows6.0.6000
      */
-    static QueryLogPolicy(hLog, ePolicyType, pPolicyBuffer, pcbPolicyBuffer) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static QueryLogPolicy(_hLog, ePolicyType, pPolicyBuffer, pcbPolicyBuffer) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pcbPolicyBufferMarshal := pcbPolicyBuffer is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr", pPolicyBuffer, pcbPolicyBufferMarshal, pcbPolicyBuffer, "int")
+        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", _hLog, "int", ePolicyType, "ptr", pPolicyBuffer, pcbPolicyBufferMarshal, pcbPolicyBuffer, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21610,7 +21585,7 @@ class FileSystem {
      * Adds or deletes containers from a log based on the state of the installed policies.
      * @remarks
      * Containers are  created using the same security attributes as   the .blf file and are created within the context of the application, not the context of the owner of the .blf file. For more information about .blf files, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/log-types">Log Types</a>. If containers are deleted, they are deleted using the security context of the calling application.
-     * @param {HANDLE} hLog A handle to a log.
+     * @param {HANDLE} _hLog 
      * @param {Pointer<Integer>} pDesiredSize 
      * @param {Pointer<Integer>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21620,15 +21595,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-setlogfilesizewithpolicy
      * @since windows6.0.6000
      */
-    static SetLogFileSizeWithPolicy(hLog, pDesiredSize, pResultingSize) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogFileSizeWithPolicy(_hLog, pDesiredSize, pResultingSize) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pDesiredSizeMarshal := pDesiredSize is VarRef ? "uint*" : "ptr"
         pResultingSizeMarshal := pResultingSize is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog, pDesiredSizeMarshal, pDesiredSize, pResultingSizeMarshal, pResultingSize, "int")
+        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", _hLog, pDesiredSizeMarshal, pDesiredSize, pResultingSizeMarshal, pResultingSize, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21642,7 +21617,7 @@ class FileSystem {
      * If containers are created to resolve a log-full condition, they are created using the calling application's security context.
      * 
      * <b>HandleLogFull</b> always results in asynchronous behavior or an error; if it returns false and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_IO_PENDING</b>, the result is asynchronous behavior. If a request is asynchronous, a notification is sent to the client when the handler has either  resolved the log full condition or it fails.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
+     * @param {HANDLE} _hLog 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -21651,12 +21626,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-handlelogfull
      * @since windows6.0.6000
      */
-    static HandleLogFull(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static HandleLogFull(_hLog) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", _hLog, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21666,7 +21641,7 @@ class FileSystem {
 
     /**
      * The LogTailAdvanceFailure function is called by a log client to indicate that it cannot comply with a request from log management to advance its tail.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} _hLog 
      * @param {Integer} dwReason Win32 error code with the reason for the failure For a list of possible values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21677,12 +21652,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-logtailadvancefailure
      * @since windows6.0.6000
      */
-    static LogTailAdvanceFailure(hLog, dwReason) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static LogTailAdvanceFailure(_hLog, dwReason) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog, "uint", dwReason, "int")
+        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", _hLog, "uint", dwReason, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21692,7 +21667,7 @@ class FileSystem {
 
     /**
      * The RegisterForLogWriteNotification function is called by a managed log client to enable or disable log write notifications.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} _hLog 
      * @param {Integer} cbThreshold Number of bytes to be written to the log file before the notification is sent.
      * @param {BOOL} fEnable If <b>TRUE</b>, the notification is enabled. If <b>FALSE</b>, the notification is disabled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21703,12 +21678,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-registerforlogwritenotification
      * @since windows6.0.6000
      */
-    static RegisterForLogWriteNotification(hLog, cbThreshold, fEnable) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RegisterForLogWriteNotification(_hLog, cbThreshold, fEnable) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog, "uint", cbThreshold, "int", fEnable, "int")
+        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", _hLog, "uint", cbThreshold, "int", fEnable, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23873,16 +23848,16 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Pointer<WofEnumEntryProc>} EnumProc The callback function for each data source. The enumeration will stop          if <i>EnumProc</i> returns <b>FALSE</b>.
-     * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} _UserData 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofenumentries
      */
-    static WofEnumEntries(VolumeName, Provider, EnumProc, UserData) {
+    static WofEnumEntries(VolumeName, Provider, EnumProc, _UserData) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, UserDataMarshal, UserData, "HRESULT")
+        result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
         return result
     }
 
@@ -23908,16 +23883,16 @@ class FileSystem {
      * @param {PWSTR} VolumeName The path to the volume which hosts WIM-backed files.
      * @param {Integer} DataSourceId Identifier used to identify the WIM entry.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for file provided by the WIM entry.
-     * @param {Pointer<Void>} UserData Optional user defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} _UserData 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimenumfiles
      */
-    static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData) {
+    static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, _UserData) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, UserDataMarshal, UserData, "HRESULT")
+        result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
         return result
     }
 
@@ -23974,16 +23949,16 @@ class FileSystem {
      * @param {PWSTR} VolumeName A full path to the volume containing the files to enumerate.
      * @param {Integer} Algorithm The compression algorithm to enumerate.  For a list of valid compression algorithms, see <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/ns-wofapi-wof_file_compression_info_v1">WOF_FILE_COMPRESSION_INFO_V1</a>.  If this value is MAX_ULONG, files compressed with any supported compression algorithm will be returned.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for each data source. The enumeration will stop if <i>EnumProc</i> returns FALSE.
-     * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} _UserData 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-woffileenumfiles
      */
-    static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData) {
+    static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, _UserData) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, UserDataMarshal, UserData, "HRESULT")
+        result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
         return result
     }
 
@@ -24066,7 +24041,7 @@ class FileSystem {
      * Reads the redo records from the log.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
      * @param {Integer} BufferLength The size of the output buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BytesUsed The number of bytes written to the output buffer.
      * @param {Pointer<Integer>} RecordCount The number of records written to the output buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -24132,14 +24107,14 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogreadrecords
      * @since windows6.0.6000
      */
-    static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer_R, BytesUsed, RecordCount) {
+    static TxfLogReadRecords(TxfLogContext, BufferLength, _Buffer, BytesUsed, RecordCount) {
         TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr" : "ptr"
         BytesUsedMarshal := BytesUsed is VarRef ? "uint*" : "ptr"
         RecordCountMarshal := RecordCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", Buffer_R, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
+        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", _Buffer, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24258,7 +24233,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} IsolationLevel Reserved; specify zero (0).
+     * @param {Integer} _IsolationLevel 
      * @param {Integer} IsolationFlags Reserved; specify zero (0).
      * @param {Integer} Timeout The time-out interval, in milliseconds. If a nonzero value is specified, the transaction will be aborted when the interval elapses if it has not already reached the prepared state.
      * 
@@ -24274,12 +24249,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-createtransaction
      * @since windows6.0.6000
      */
-    static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, _IsolationLevel, IsolationFlags, Timeout, Description) {
         Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
+        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24445,7 +24420,7 @@ class FileSystem {
      * Returns the requested information about the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
      * @param {Pointer<Integer>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
-     * @param {Pointer<Integer>} IsolationLevel Reserved.
+     * @param {Pointer<Integer>} _IsolationLevel 
      * @param {Pointer<Integer>} IsolationFlags Reserved.
      * @param {Pointer<Integer>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
      * @param {Integer} BufferLength The size of the <i>Description</i> parameter, in bytes. The buffer length value cannot be longer than the value of MAX_TRANSACTION_DESCRIPTION_LENGTH.
@@ -24459,18 +24434,18 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactioninformation
      * @since windows6.0.6000
      */
-    static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
+    static GetTransactionInformation(TransactionHandle, Outcome, _IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
         Description := Description is String ? StrPtr(Description) : Description
 
         OutcomeMarshal := Outcome is VarRef ? "uint*" : "ptr"
-        IsolationLevelMarshal := IsolationLevel is VarRef ? "uint*" : "ptr"
+        _IsolationLevelMarshal := _IsolationLevel is VarRef ? "uint*" : "ptr"
         IsolationFlagsMarshal := IsolationFlags is VarRef ? "uint*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, OutcomeMarshal, Outcome, IsolationLevelMarshal, IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, OutcomeMarshal, Outcome, _IsolationLevelMarshal, _IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24481,7 +24456,7 @@ class FileSystem {
     /**
      * Sets the transaction information for the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have the TRANSACTION_SET_INFORMATION permission to set the transaction information.
-     * @param {Integer} IsolationLevel Reserved; specify zero.
+     * @param {Integer} _IsolationLevel 
      * @param {Integer} IsolationFlags Reserved.
      * @param {Integer} Timeout The timeout value, in milliseconds, for this transaction.
      * @param {PWSTR} Description The user-defined description of this transaction.
@@ -24494,13 +24469,13 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-settransactioninformation
      * @since windows6.0.6000
      */
-    static SetTransactionInformation(TransactionHandle, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static SetTransactionInformation(TransactionHandle, _IsolationLevel, IsolationFlags, Timeout, Description) {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
         Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", _IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -25134,7 +25109,7 @@ class FileSystem {
      * This call cannot be used with volatile transaction managers.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Integer>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -25144,15 +25119,15 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R, BufferUsed) {
+    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, _Buffer, BufferUsed) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, BufferUsedMarshal, BufferUsed, "int")
+        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, _BufferMarshal, _Buffer, BufferUsedMarshal, BufferUsed, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -25194,7 +25169,7 @@ class FileSystem {
      * The information that is provided by the user may not be durably stored in the log at the completion of this operation, but it will be durably stored by the end of the next commit operation for this enlistment.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of <i>Buffer</i>, in bytes.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -25203,14 +25178,14 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-setenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R) {
+    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, _Buffer) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, _BufferMarshal, _Buffer, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -27035,7 +27010,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} Options This parameter must be zero.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -27043,12 +27018,12 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmstats/nf-lmstats-netstatisticsget
      * @since windows5.1.2600
      */
-    static NetStatisticsGet(ServerName, Service, Level, Options, Buffer_R) {
+    static NetStatisticsGet(ServerName, Service, Level, Options, _Buffer) {
         ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
         ServiceMarshal := Service is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -27200,9 +27175,9 @@ class FileSystem {
      * @remarks
      * Since I/O ring operations are performed asynchronously this function call is only a request for cancellation. The specified operation may complete before the cancellation is processed. The cancellation operation may complete after the operation it is canceling is completed. The completion of the cancel operation is not dependent on the actual completion of the I/O operations it cancels. Apps should look for the completion of the original operation in the completion queue by calling [PopIoRingCompletion](nf-ioringapi-popioringcompletion.md) to observe the final status of the operation. The operation may have completed successfully or with an error rather than being cancelled by the call to this function.
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which a cancellation is requested.
-     * @param {IORING_HANDLE_REF} file An [IORING_HANDLE_REF](ns-ioringapi-ioring_handle_ref.md) representing the file associated with the operation to cancel.
+     * @param {IORING_HANDLE_REF} _file 
      * @param {Pointer} opToCancel A **UINT_PTR** specifying the operation to cancel. This value is the same value provided in the *userData* parameter when the operation was registered. To support cancellation, the *userData* value must be unique for each operation.
-     * @param {Pointer} userData A UINT_PTR value identifying the cancellation operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} _userData 
      * @returns {HRESULT} | Value | Description |
      * |-------|-------------|
      * | S_OK  | Success |
@@ -27210,10 +27185,10 @@ class FileSystem {
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringcancelrequest
      */
-    static BuildIoRingCancelRequest(ioRing, file, opToCancel, userData) {
+    static BuildIoRingCancelRequest(ioRing, _file, opToCancel, _userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file, "ptr", opToCancel, "ptr", userData, "HRESULT")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", _file, "ptr", opToCancel, "ptr", _userData, "HRESULT")
         return result
     }
 
@@ -27226,7 +27201,7 @@ class FileSystem {
      * @param {IORING_BUFFER_REF} dataRef An [IORING_BUFFER_REF](ns-ioringapi-ioring_buffer_ref.md) specifying the buffer into which the file is read. The provided buffer must have a size of at least *numberOfBytesToRead* bytes.
      * @param {Integer} numberOfBytesToRead The number of bytes to read.
      * @param {Integer} fileOffset The offset into the file to begin reading.
-     * @param {Pointer} userData A UINT_PTR value identifying the file read operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} _userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
@@ -27237,10 +27212,10 @@ class FileSystem {
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringreadfile
      */
-    static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+    static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, _userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "HRESULT")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", _userData, "int", sqeFlags, "HRESULT")
         return result
     }
 
@@ -27251,7 +27226,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which file handles are registered.
      * @param {Integer} count A UINT32 specifying the number of handles provided in the *handles* parameter.
      * @param {Pointer<HANDLE>} handles An array of HANDLE values to be registered.
-     * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} _userData 
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27261,10 +27236,10 @@ class FileSystem {
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterfilehandles
      */
-    static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData) {
+    static BuildIoRingRegisterFileHandles(ioRing, count, handles, _userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData, "HRESULT")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", _userData, "HRESULT")
         return result
     }
 
@@ -27275,7 +27250,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which buffers are registered.
      * @param {Integer} count A UINT32 specifying the number of buffers provided in the *buffers* parameter.
      * @param {Pointer<IORING_BUFFER_INFO>} buffers An array of [IORING_BUFFER_INFO](../ntioring_x/ns-ntioring_x-ioring_buffer_info.md) structures representing the buffers to be registered.
-     * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} _userData 
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27285,10 +27260,10 @@ class FileSystem {
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterbuffers
      */
-    static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData) {
+    static BuildIoRingRegisterBuffers(ioRing, count, buffers, _userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData, "HRESULT")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", _userData, "HRESULT")
         return result
     }
 
@@ -27300,14 +27275,14 @@ class FileSystem {
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
      * @param {Integer} writeFlags 
-     * @param {Pointer} userData 
+     * @param {Pointer} _userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+    static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "HRESULT")
+        result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", _userData, "int", sqeFlags, "HRESULT")
         return result
     }
 
@@ -27316,14 +27291,14 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} flushMode 
-     * @param {Pointer} userData 
+     * @param {Pointer} _userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingFlushFile(ioRing, fileRef, flushMode, userData, sqeFlags) {
+    static BuildIoRingFlushFile(ioRing, fileRef, flushMode, _userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData, "int", sqeFlags, "HRESULT")
+        result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", _userData, "int", sqeFlags, "HRESULT")
         return result
     }
 
@@ -27335,14 +27310,14 @@ class FileSystem {
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
      * @param {Integer} numberOfBytesToRead 
      * @param {Integer} fileOffset 
-     * @param {Pointer} userData 
+     * @param {Pointer} _userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+    static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, _userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "HRESULT")
+        result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", _userData, "int", sqeFlags, "HRESULT")
         return result
     }
 
@@ -27355,14 +27330,14 @@ class FileSystem {
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
      * @param {Integer} writeFlags 
-     * @param {Pointer} userData 
+     * @param {Pointer} _userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+    static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "HRESULT")
+        result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", _userData, "int", sqeFlags, "HRESULT")
         return result
     }
 

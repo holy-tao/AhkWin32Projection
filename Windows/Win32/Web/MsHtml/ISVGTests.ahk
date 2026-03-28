@@ -80,13 +80,13 @@ class ISVGTests extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} extension 
+     * @param {BSTR} _extension 
      * @returns {VARIANT_BOOL} 
      */
-    hasExtension(extension) {
-        extension := extension is String ? BSTR.Alloc(extension).Value : extension
+    hasExtension(_extension) {
+        _extension := _extension is String ? BSTR.Alloc(_extension).Value : _extension
 
-        result := ComCall(10, this, "ptr", extension, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _extension, "short*", &pResult := 0, "HRESULT")
         return pResult
     }
 }

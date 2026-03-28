@@ -570,12 +570,12 @@ class IDvdControl extends IUnknown{
      * DVD buttons do not all necessarily have highlight rectangles. Button rectangles can overlap, and the rectangles do not always correspond to the visual representation of DVD buttons.
      * 
      * This method returns an error unless the domain is DVD_DOMAIN_VideoManagerMenu, DVD_DOMAIN_VideoTitleSetMenu, or DVD_DOMAIN_Title. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a>.
-     * @param {POINT} point Specified point within the display window.
+     * @param {POINT} _point 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value .
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseactivate
      */
-    MouseActivate(point) {
-        result := ComCall(35, this, "ptr", point, "HRESULT")
+    MouseActivate(_point) {
+        result := ComCall(35, this, "ptr", _point, "HRESULT")
         return result
     }
 
@@ -587,12 +587,12 @@ class IDvdControl extends IUnknown{
      * This method checks the specified point within the display window to see if it is within a current DVD button's highlight rectangle. If it is, this method selects the button.
      * 
      * DVD buttons do not all necessarily have highlight rectangles. Button rectangles can overlap, and the rectangles do not always correspond to the visual representation of DVD buttons.
-     * @param {POINT} point Specified point within the display window.
+     * @param {POINT} _point 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseselect
      */
-    MouseSelect(point) {
-        result := ComCall(36, this, "ptr", point, "HRESULT")
+    MouseSelect(_point) {
+        result := ComCall(36, this, "ptr", _point, "HRESULT")
         return result
     }
 

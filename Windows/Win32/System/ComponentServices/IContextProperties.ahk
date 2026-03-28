@@ -91,14 +91,14 @@ class IContextProperties extends IUnknown{
     /**
      * Sets a context object property.
      * @param {BSTR} name The name of the context object property to be set. See <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icontextproperties-getproperty">GetProperty</a> for a list of valid property names.
-     * @param {VARIANT} property The context object property value.
+     * @param {VARIANT} _property 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-setproperty
      */
-    SetProperty(name, property) {
+    SetProperty(name, _property) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(6, this, "ptr", name, "ptr", property, "HRESULT")
+        result := ComCall(6, this, "ptr", name, "ptr", _property, "HRESULT")
         return result
     }
 

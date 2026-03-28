@@ -3398,9 +3398,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -3448,7 +3446,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
      * @since windows6.0.6000
      */
-    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -3456,7 +3454,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -4474,9 +4472,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -4524,7 +4520,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -4532,7 +4528,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -4646,9 +4642,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_provider_change_callback0">FWPM_PROVIDER_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -4699,12 +4693,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidersubscribechanges0
      * @since windows6.0.6000
      */
-    static FwpmProviderSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+    static FwpmProviderSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "uint")
         return result
     }
 
@@ -6191,9 +6185,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -6241,7 +6233,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -6249,7 +6241,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -6363,9 +6355,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_provider_context_change_callback0">FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -6416,12 +6406,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextsubscribechanges0
      * @since windows6.0.6000
      */
-    static FwpmProviderContextSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+    static FwpmProviderContextSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "uint")
         return result
     }
 
@@ -7046,9 +7036,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -7096,7 +7084,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -7104,7 +7092,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -7218,9 +7206,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SUBLAYER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_sublayer_change_callback0">FWPM_SUBLAYER_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -7271,12 +7257,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayersubscribechanges0
      * @since windows6.0.6000
      */
-    static FwpmSubLayerSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+    static FwpmSubLayerSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "uint")
         return result
     }
 
@@ -7826,9 +7812,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -7876,7 +7860,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -7884,7 +7868,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -8627,9 +8611,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8677,7 +8659,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -8685,7 +8667,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -8799,9 +8781,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CALLOUT_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_callout_change_callback0">FWPM_CALLOUT_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -8852,12 +8832,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutsubscribechanges0
      * @since windows6.0.6000
      */
-    static FwpmCalloutSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+    static FwpmCalloutSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "uint")
         return result
     }
 
@@ -9623,9 +9603,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -9673,7 +9651,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
      * @since windows6.0.6000
      */
-    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -9681,7 +9659,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -9795,9 +9773,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_FILTER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_filter_change_callback0">FWPM_FILTER_CHANGE_CALLBACK0</a></b>
      * 
      * The  function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -9848,12 +9824,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltersubscribechanges0
      * @since windows6.0.6000
      */
-    static FwpmFilterSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+    static FwpmFilterSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "uint")
         return result
     }
 
@@ -12029,9 +12005,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_SA_CONTEXT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_sa_context_callback0">IPSEC_SA_CONTEXT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -12082,12 +12056,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextsubscribe0
      * @since windows8.0
      */
-    static IPsecSaContextSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+    static IPsecSaContextSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -12563,9 +12537,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -12613,7 +12585,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
      * @since windows6.0.6000
      */
-    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -12621,7 +12593,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -13019,9 +12991,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -13069,7 +13039,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
      * @since windows6.1
      */
-    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -13077,7 +13047,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -13421,9 +13391,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -13471,7 +13439,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipseckeymanagergetsecurityinfobykey0
      * @since windows8.0
      */
-    static IPsecKeyManagerGetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecKeyManagerGetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -13481,7 +13449,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -14385,9 +14353,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -14435,7 +14401,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
      * @since windows6.0.6000
      */
-    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -14443,7 +14409,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -15108,9 +15074,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -15158,7 +15122,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
      * @since windows6.0.6000
      */
-    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -15166,7 +15130,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -15270,9 +15234,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_net_event_callback0">FWPM_NET_EVENT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15323,12 +15285,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsubscribe0
      * @since windows6.1
      */
-    static FwpmNetEventSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmNetEventSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -15494,9 +15456,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK1>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_net_event_callback1">FWPM_NET_EVENT_CALLBACK1</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15547,12 +15507,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsubscribe1
      * @since windows8.0
      */
-    static FwpmNetEventSubscribe1(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmNetEventSubscribe1(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -15566,7 +15526,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription An [FWPM_NET_EVENT_SUBSCRIPTION0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_subscription0) structure which describes which notifications will be delivered.
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK2>} callback Pointer to a function of type [FWPM_NET_EVENT_CALLBACK2](/windows/win32/api/fwpmu/nc-fwpmu-fwpm_net_event_callback2) that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle Handle to the newly created subscription. Call [FwpmNetEventUnsubscribe0](/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventunsubscribe0) to close this handle when the subscription is no longer needed.
      * @returns {Integer} <table>
      * <tr>
@@ -15613,12 +15573,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsubscribe2
      * @since windows10.0.14393
      */
-    static FwpmNetEventSubscribe2(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmNetEventSubscribe2(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -15627,16 +15587,16 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK3>} callback 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle 
      * @returns {Integer} 
      */
-    static FwpmNetEventSubscribe3(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmNetEventSubscribe3(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -15645,16 +15605,16 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK4>} callback 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle 
      * @returns {Integer} 
      */
-    static FwpmNetEventSubscribe4(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmNetEventSubscribe4(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -15682,9 +15642,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_DYNAMIC_KEYWORD_CALLBACK0>} callback Type: \_In\_ **[FWPM_DYNAMIC_KEYWORD_CALLBACK0](nc-fwpmu-fwpm_dynamic_keyword_callback0.md)**
      * 
      * A pointer to a callback function that you implement, which will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: \_In\_opt\_ **void\***
-     * 
-     * An optional context pointer. This pointer is passed to the callback function.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} subscriptionHandle Type: \_Out\_ **[HANDLE](/windows/win32/winprog/windows-data-types)\***
      * 
      * The address of a handle, which is populated with a handle to the newly created subscription.
@@ -15697,10 +15655,10 @@ class WindowsFilteringPlatform {
      * |ERROR_INVALID_PARAMETER|The *flags* value is zero.|
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmdynamickeywordsubscribe0
      */
-    static FwpmDynamicKeywordSubscribe0(flags, callback, context, subscriptionHandle) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static FwpmDynamicKeywordSubscribe0(flags, callback, _context, subscriptionHandle) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", "uint", flags, "ptr", callback, contextMarshal, context, "ptr", subscriptionHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", "uint", flags, "ptr", callback, _contextMarshal, _context, "ptr", subscriptionHandle, "uint")
         return result
     }
 
@@ -15804,9 +15762,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SYSTEM_PORTS_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_system_ports_callback0">FWPM_SYSTEM_PORTS_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the system port.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} sysPortsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15857,14 +15813,14 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsystemportssubscribe0
      * @since windows6.1
      */
-    static FwpmSystemPortsSubscribe0(engineHandle, callback, context, sysPortsHandle) {
+    static FwpmSystemPortsSubscribe0(engineHandle, callback, _context, sysPortsHandle) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", "ptr", engineHandle, "ptr", reserved, "ptr", callback, contextMarshal, context, "ptr", sysPortsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", "ptr", engineHandle, "ptr", reserved, "ptr", callback, _contextMarshal, _context, "ptr", sysPortsHandle, "uint")
         return result
     }
 
@@ -15954,9 +15910,7 @@ class WindowsFilteringPlatform {
      * @param {Integer} id Type: <b>UINT64</b>
      * 
      * The run-time identifier for the connection.
-     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} connection Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
-     * 
-     * The connection information.
+     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16004,12 +15958,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
      * @since windows8.0
      */
-    static FwpmConnectionGetById0(engineHandle, id, connection) {
+    static FwpmConnectionGetById0(engineHandle, id, _connection) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        connectionMarshal := connection is VarRef ? "ptr*" : "ptr"
+        _connectionMarshal := _connection is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, connectionMarshal, connection, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, _connectionMarshal, _connection, "uint")
         return result
     }
 
@@ -16252,9 +16206,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16302,7 +16254,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
      * @since windows8.0
      */
-    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -16310,7 +16262,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 
@@ -16412,9 +16364,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CONNECTION_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_connection_callback0">FWPM_CONNECTION_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -16465,12 +16415,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionsubscribe0
      * @since windows8.0
      */
-    static FwpmConnectionSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+    static FwpmConnectionSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", eventsHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", eventsHandle, "uint")
         return result
     }
 
@@ -16564,9 +16514,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_VSWITCH_EVENT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_vswitch_event_callback0">FWPM_VSWITCH_EVENT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} subscriptionHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -16617,12 +16565,12 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsubscribe0
      * @since windows8.0
      */
-    static FwpmvSwitchEventSubscribe0(engineHandle, subscription, callback, context, subscriptionHandle) {
+    static FwpmvSwitchEventSubscribe0(engineHandle, subscription, callback, _context, subscriptionHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, contextMarshal, context, "ptr", subscriptionHandle, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, _contextMarshal, _context, "ptr", subscriptionHandle, "uint")
         return result
     }
 
@@ -16726,9 +16674,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16776,7 +16722,7 @@ class WindowsFilteringPlatform {
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
      * @since windows8.0
      */
-    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -16784,7 +16730,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "uint")
         return result
     }
 

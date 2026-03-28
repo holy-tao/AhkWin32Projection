@@ -32,7 +32,7 @@ class IRDPSRAPIClipboardUseEvents extends IUnknown{
 
     /**
      * This callback is issued when an attempt to copy data from the sharer computer is made.
-     * @param {Integer} clipboardFormat A clipboard format identifier. For more information about clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/clipboard-formats">Clipboard Formats</a>. For a list of clipboard format identifiers, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a>.
+     * @param {Integer} _clipboardFormat 
      * @param {IDispatch} pAttendee A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendee">IRDPSRAPIAttendee</a> instance for the attendee who attempted the clipboard copy.
      * @returns {VARIANT_BOOL} The return value for this attempt.
      * 
@@ -66,8 +66,8 @@ class IRDPSRAPIClipboardUseEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiclipboarduseevents-onpastefromclipboard
      */
-    OnPasteFromClipboard(clipboardFormat, pAttendee) {
-        result := ComCall(3, this, "uint", clipboardFormat, "ptr", pAttendee, "short*", &pRetVal := 0, "HRESULT")
+    OnPasteFromClipboard(_clipboardFormat, pAttendee) {
+        result := ComCall(3, this, "uint", _clipboardFormat, "ptr", pAttendee, "short*", &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 }

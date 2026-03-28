@@ -230,26 +230,26 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Size 
+     * @param {Pointer<Integer>} _Size 
      * @param {Pointer<Integer>} AccessType 
      * @returns {HRESULT} 
      */
-    GetDataParameters(Size, AccessType) {
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+    GetDataParameters(_Size, AccessType) {
+        _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
         AccessTypeMarshal := AccessType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, SizeMarshal, Size, AccessTypeMarshal, AccessType, "HRESULT")
+        result := ComCall(12, this, _SizeMarshal, _Size, AccessTypeMarshal, AccessType, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @param {Integer} AccessType 
      * @returns {HRESULT} 
      */
-    SetDataParameters(Size, AccessType) {
-        result := ComCall(13, this, "uint", Size, "uint", AccessType, "HRESULT")
+    SetDataParameters(_Size, AccessType) {
+        result := ComCall(13, this, "uint", _Size, "uint", AccessType, "HRESULT")
         return result
     }
 
@@ -317,15 +317,15 @@ class IDebugBreakpoint extends IUnknown{
      * 
      * > [!NOTE]
      * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      */
-    GetCommand(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetCommand(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(19, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -343,14 +343,14 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOffsetExpression(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetOffsetExpression(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(21, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
         return ExpressionSize
     }
 

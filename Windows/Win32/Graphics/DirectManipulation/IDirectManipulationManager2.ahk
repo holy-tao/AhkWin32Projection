@@ -38,7 +38,7 @@ class IDirectManipulationManager2 extends IDirectManipulationManager{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager2-createbehavior
      */
     CreateBehavior(clsid, riid) {
-        result := ComCall(10, this, "ptr", clsid, "ptr", riid, "ptr*", &object_R := 0, "HRESULT")
-        return object_R
+        result := ComCall(10, this, "ptr", clsid, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        return _object
     }
 }

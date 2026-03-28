@@ -58,14 +58,12 @@ class IAppxManifestPackageId extends IUnknown{
      * Processor architecture information is specified using the <b>ProcessorArchitecture</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-identity">Identity</a> element in the package manifest.
      * 
      * If no architecture is defined in the manifest, this method returns the <b>APPX_PACKAGE_ARCHITECTURE_NEUTRAL</b> value of the  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture">APPX_PACKAGE_ARCHITECTURE</a> enumeration.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture">APPX_PACKAGE_ARCHITECTURE</a>*</b>
-     * 
-     * The architecture specified for the package.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getarchitecture
      */
     GetArchitecture() {
-        result := ComCall(4, this, "int*", &architecture := 0, "HRESULT")
-        return architecture
+        result := ComCall(4, this, "int*", &_architecture := 0, "HRESULT")
+        return _architecture
     }
 
     /**

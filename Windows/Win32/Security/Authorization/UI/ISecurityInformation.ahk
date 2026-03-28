@@ -168,7 +168,7 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The PropertySheetPageCallback method notifies an EditSecurity or CreateSecurityPage caller that an access control editor property page is being created or destroyed.
-     * @param {HWND} hwnd If <i>uMsg</i> is PSPCB_SI_INITDIALOG, <i>hwnd</i> is a handle to the property page dialog box. Otherwise, <i>hwnd</i> is <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} uMsg 
      * @param {Integer} uPage A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration type that indicates the type of access control editor property page being created or destroyed.
@@ -177,10 +177,10 @@ class ISecurityInformation extends IUnknown{
      * Returns a nonzero error code if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-propertysheetpagecallback
      */
-    PropertySheetPageCallback(hwnd, uMsg, uPage) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    PropertySheetPageCallback(_hwnd, uMsg, uPage) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", hwnd, "uint", uMsg, "int", uPage, "HRESULT")
+        result := ComCall(9, this, "ptr", _hwnd, "uint", uMsg, "int", uPage, "HRESULT")
         return result
     }
 }

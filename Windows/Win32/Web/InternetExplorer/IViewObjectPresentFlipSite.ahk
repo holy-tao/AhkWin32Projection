@@ -39,11 +39,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {ISurfacePresenterFlip} 
      */
-    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, _mode) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
         return ISurfacePresenterFlip(ppSPFlip)
     }
 

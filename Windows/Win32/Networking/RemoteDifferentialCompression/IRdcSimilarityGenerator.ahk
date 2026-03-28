@@ -49,12 +49,12 @@ class IRdcSimilarityGenerator extends IUnknown{
 
     /**
      * Retrieves the similarity data that was generated for a file by the signature generator.
-     * @returns {SimilarityData} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that will receive the similarity data.
+     * @returns {SimilarityData} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsimilaritygenerator-results
      */
     Results() {
-        similarityData := SimilarityData()
-        result := ComCall(4, this, "ptr", similarityData, "HRESULT")
-        return similarityData
+        _similarityData := SimilarityData()
+        result := ComCall(4, this, "ptr", _similarityData, "HRESULT")
+        return _similarityData
     }
 }

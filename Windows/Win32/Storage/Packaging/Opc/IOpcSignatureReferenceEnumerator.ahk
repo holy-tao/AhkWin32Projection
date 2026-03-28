@@ -124,12 +124,12 @@ class IOpcSignatureReferenceEnumerator extends IUnknown{
      * Gets the IOpcSignatureReference interface pointer at the current position of the enumerator.
      * @remarks
      * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext">MoveNext</a> method after creating the enumerator.
-     * @returns {IOpcSignatureReference} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer.
+     * @returns {IOpcSignatureReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &reference := 0, "HRESULT")
-        return IOpcSignatureReference(reference)
+        result := ComCall(5, this, "ptr*", &_reference := 0, "HRESULT")
+        return IOpcSignatureReference(_reference)
     }
 
     /**

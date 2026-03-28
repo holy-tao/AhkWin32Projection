@@ -38,7 +38,7 @@ class ISecurityProperty extends IUnknown{
 
     /**
      * In MTS 2.0, this method retrieves the security identifier of the external process that directly created the current object. Do not use this method in COM+.
-     * @param {Pointer<PSID>} pSID A reference to the security ID of the process that directly created the current object.
+     * @param {Pointer<PSID>} _pSID 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -71,16 +71,16 @@ class ISecurityProperty extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcreatorsid
      */
-    GetDirectCreatorSID(pSID) {
-        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+    GetDirectCreatorSID(_pSID) {
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pSIDMarshal, pSID, "HRESULT")
+        result := ComCall(3, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
     }
 
     /**
      * In MTS 2.0, this method retrieves the security identifier of the base process that initiated the activity in which the current object is executing. Do not use this method in COM+.
-     * @param {Pointer<PSID>} pSID A reference to the security ID of the base process that initiated the activity in which the current object is executing.
+     * @param {Pointer<PSID>} _pSID 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -113,10 +113,10 @@ class ISecurityProperty extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcreatorsid
      */
-    GetOriginalCreatorSID(pSID) {
-        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+    GetOriginalCreatorSID(_pSID) {
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pSIDMarshal, pSID, "HRESULT")
+        result := ComCall(4, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ class ISecurityProperty extends IUnknown{
      * </li>
      * </ul>
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid">ISecurityProperty::ReleaseSID</a> on a security ID when you finish using it.
-     * @param {Pointer<PSID>} pSID A reference to the security ID of the process from which the current method was invoked.
+     * @param {Pointer<PSID>} _pSID 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -167,10 +167,10 @@ class ISecurityProperty extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcallersid
      */
-    GetDirectCallerSID(pSID) {
-        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+    GetDirectCallerSID(_pSID) {
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pSIDMarshal, pSID, "HRESULT")
+        result := ComCall(5, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
     }
 
@@ -215,8 +215,7 @@ class ISecurityProperty extends IUnknown{
      * 
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid">ReleaseSID</a> on a security 
      *     ID when you finish using it.
-     * @param {Pointer<PSID>} pSID A reference to the security ID of the base process that initiated the call sequence from which the current 
-     *       method was called.
+     * @param {Pointer<PSID>} _pSID 
      * @returns {HRESULT} This method can return the standard return values <b>E_INVALIDARG</b>, 
      *       <b>E_OUTOFMEMORY</b>, <b>E_UNEXPECTED</b>, and 
      *       <b>E_FAIL</b>, as well as the following values.
@@ -254,10 +253,10 @@ class ISecurityProperty extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcallersid
      */
-    GetOriginalCallerSID(pSID) {
-        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+    GetOriginalCallerSID(_pSID) {
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pSIDMarshal, pSID, "HRESULT")
+        result := ComCall(6, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
     }
 
@@ -265,7 +264,7 @@ class ISecurityProperty extends IUnknown{
      * Releases the security identifier returned by one of the other ISecurityProperty methods.
      * @remarks
      * You should always invoke the <b>ReleaseSID</b> method to release any security ID pointers returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcallersid">GetDirectCallerSID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcreatorsid">GetDirectCreatorSID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcallersid">GetOriginalCallerSID</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcreatorsid">GetOriginalCreatorSID</a> methods.
-     * @param {PSID} pSID A reference to a security ID.
+     * @param {PSID} _pSID 
      * @returns {HRESULT} This method can return the following values.
      * 
      * <table>
@@ -298,8 +297,8 @@ class ISecurityProperty extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid
      */
-    ReleaseSID(pSID) {
-        result := ComCall(7, this, "ptr", pSID, "HRESULT")
+    ReleaseSID(_pSID) {
+        result := ComCall(7, this, "ptr", _pSID, "HRESULT")
         return result
     }
 }

@@ -37,33 +37,33 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
-    AddPropertyGetHandler(context, interfaceName, callback) {
+    AddPropertyGetHandler(_context, interfaceName, callback) {
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(6, this, _contextMarshal, _context, "ptr", interfaceName, "ptr", callback, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
-    AddPropertySetHandler(context, interfaceName, callback) {
+    AddPropertySetHandler(_context, interfaceName, callback) {
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(7, this, _contextMarshal, _context, "ptr", interfaceName, "ptr", callback, "HRESULT")
         return result
     }
 

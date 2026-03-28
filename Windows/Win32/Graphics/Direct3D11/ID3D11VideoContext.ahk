@@ -233,12 +233,12 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * To use this feature, the driver must support downsampling, indicated by the <b>D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_CONSTRICTION</b> capability flag. To query for this capability, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a>.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {BOOL} Enable If <b>TRUE</b>, downsampling is enabled. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored.
-     * @param {SIZE} Size The sampling size.
+     * @param {SIZE} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputconstriction
      */
-    VideoProcessorSetOutputConstriction(pVideoProcessor, Enable, Size) {
-        ComCall(17, this, "ptr", pVideoProcessor, "int", Enable, "ptr", Size)
+    VideoProcessorSetOutputConstriction(pVideoProcessor, Enable, _Size) {
+        ComCall(17, this, "ptr", pVideoProcessor, "int", Enable, "ptr", _Size)
     }
 
     /**

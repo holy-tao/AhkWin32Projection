@@ -32,11 +32,11 @@ class IDataModelScriptHostContext extends IUnknown{
     /**
      * 
      * @param {IDataModelScript} script 
-     * @param {Integer} changeKind 
+     * @param {Integer} _changeKind 
      * @returns {HRESULT} 
      */
-    NotifyScriptChange(script, changeKind) {
-        result := ComCall(3, this, "ptr", script, "int", changeKind, "HRESULT")
+    NotifyScriptChange(script, _changeKind) {
+        result := ComCall(3, this, "ptr", script, "int", _changeKind, "HRESULT")
         return result
     }
 

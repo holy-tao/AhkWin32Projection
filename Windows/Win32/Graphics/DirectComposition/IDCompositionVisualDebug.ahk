@@ -34,12 +34,12 @@ class IDCompositionVisualDebug extends IDCompositionVisual2{
      * Enables a visual heatmap that represents overdraw regions.
      * @remarks
      * Heatmaps can be enabled by calling <b>EnableHeatMap</b>. The heatmaps are drawn on the source of the VisualDebug visual and child visuals. The heatmaps are represented in a specified color for all visual content. The heatmap color must have a transparency in order to see the overlaying overdraw regions. The colored surfaces are blended together to visually show all overdraw regions in a single view.
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisualdebug-enableheatmap
      */
-    EnableHeatMap(color) {
-        result := ComCall(22, this, "ptr", color, "HRESULT")
+    EnableHeatMap(_color) {
+        result := ComCall(22, this, "ptr", _color, "HRESULT")
         return result
     }
 

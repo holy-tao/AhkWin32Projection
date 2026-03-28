@@ -40,7 +40,7 @@ class ICameraUIControl extends IUnknown{
     /**
      * Displays the user interface control for the camera.
      * @param {IUnknown} pWindow Pointer to the user interface window.
-     * @param {Integer} mode Specifies whether the user interface will be presented in a browseable or linear manner.
+     * @param {Integer} _mode 
      * @param {Integer} selectionMode Specifies the selection mode.
      * @param {Integer} captureMode Specifies whether the user interface that will be shown allows the user to capture a photo, capture a video, or either.
      * @param {Integer} photoFormat Provides the format for capturing photos. The available formats include JPEG, PNG, and JPEG XR.
@@ -50,8 +50,8 @@ class ICameraUIControl extends IUnknown{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-show
      */
-    Show(pWindow, mode, selectionMode, captureMode, photoFormat, videoFormat, bHasCloseButton, pEventCallback) {
-        result := ComCall(3, this, "ptr", pWindow, "int", mode, "int", selectionMode, "int", captureMode, "int", photoFormat, "int", videoFormat, "int", bHasCloseButton, "ptr", pEventCallback, "HRESULT")
+    Show(pWindow, _mode, selectionMode, captureMode, photoFormat, videoFormat, bHasCloseButton, pEventCallback) {
+        result := ComCall(3, this, "ptr", pWindow, "int", _mode, "int", selectionMode, "int", captureMode, "int", photoFormat, "int", videoFormat, "int", bHasCloseButton, "ptr", pEventCallback, "HRESULT")
         return result
     }
 

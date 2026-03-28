@@ -69,22 +69,22 @@ class ITuner extends IUnknown{
 
     /**
      * The get_TuningSpace method gets the tuning space currently in effect for the Network Provider.
-     * @returns {ITuningSpace} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface pointer that will be set to the current tuning space.
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tuningspace
      */
     get_TuningSpace() {
-        result := ComCall(3, this, "ptr*", &TuningSpace := 0, "HRESULT")
-        return ITuningSpace(TuningSpace)
+        result := ComCall(3, this, "ptr*", &_TuningSpace := 0, "HRESULT")
+        return ITuningSpace(_TuningSpace)
     }
 
     /**
      * The put_TuningSpace method sets the tuning space for the Network Provider.
-     * @param {ITuningSpace} TuningSpace Pointer to the tuning space that will be set in the Network Provider.
+     * @param {ITuningSpace} _TuningSpace 
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tuningspace
      */
-    put_TuningSpace(TuningSpace) {
-        result := ComCall(4, this, "ptr", TuningSpace, "HRESULT")
+    put_TuningSpace(_TuningSpace) {
+        result := ComCall(4, this, "ptr", _TuningSpace, "HRESULT")
         return result
     }
 
@@ -104,24 +104,24 @@ class ITuner extends IUnknown{
      * The get_TuneRequest method gets the tune request currently in effect for the Network Provider.
      * @remarks
      * After a tune request is submitted to the Tuner, its Components collection will be filled in. By calling <b>get_TuneRequest</b> after tuning to the program, an application can determine which components are currently available for that program, and then use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-icomponent-put_status">IComponent::put_Status</a> method on the Component objects in the collection to activate or inactivate them. This is how an application, for example, changes from an English audio stream to a Spanish audio stream.
-     * @returns {ITuneRequest} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface pointer that will be set to the returned object.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tunerequest
      */
     get_TuneRequest() {
-        result := ComCall(6, this, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(6, this, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 
     /**
      * The put_TuneRequest method sets the tune request currently in effect for the Network Provider.
      * @remarks
      * Calling this method initiates a tuning operation based on the properties of the tune request. The tuning operation may be asynchronously attempted.
-     * @param {ITuneRequest} TuneRequest Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> object that will be used to set the Network Provider.
+     * @param {ITuneRequest} _TuneRequest 
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tunerequest
      */
-    put_TuneRequest(TuneRequest) {
-        result := ComCall(7, this, "ptr", TuneRequest, "HRESULT")
+    put_TuneRequest(_TuneRequest) {
+        result := ComCall(7, this, "ptr", _TuneRequest, "HRESULT")
         return result
     }
 
@@ -129,12 +129,12 @@ class ITuner extends IUnknown{
      * The Validate method returns a value indicating that the tune request can be carried out.
      * @remarks
      * The Network Provider will first query for its preferred tune request interface(s). If any are found, the Network Provider will validate that the tune request could be carried out. If none are available, it will then query for its preferred tuning space interface(s). If any are found, the Network Provider will validate that it could configure itself for the given tuning space.
-     * @param {ITuneRequest} TuneRequest Pointer to the tune request object.
+     * @param {ITuneRequest} _TuneRequest 
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-validate
      */
-    Validate(TuneRequest) {
-        result := ComCall(8, this, "ptr", TuneRequest, "HRESULT")
+    Validate(_TuneRequest) {
+        result := ComCall(8, this, "ptr", _TuneRequest, "HRESULT")
         return result
     }
 
@@ -142,24 +142,24 @@ class ITuner extends IUnknown{
      * The get_PreferredComponentTypes method gets the collection of ComponentType objects used for default component selection.
      * @remarks
      * When a program ends, there may be a new set of stream components available, so at that time the tuner will automatically examine the list of preferred component types and select a component based on that list. If no list is available, the tuner will make a selection based on other factors. Applications call this method simply to examine the current list.
-     * @returns {IComponentTypes} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface pointer that receives the collection of ComponentType objects.
+     * @returns {IComponentTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_preferredcomponenttypes
      */
     get_PreferredComponentTypes() {
-        result := ComCall(9, this, "ptr*", &ComponentTypes := 0, "HRESULT")
-        return IComponentTypes(ComponentTypes)
+        result := ComCall(9, this, "ptr*", &_ComponentTypes := 0, "HRESULT")
+        return IComponentTypes(_ComponentTypes)
     }
 
     /**
      * The put_PreferredComponentTypes method sets the collection of ComponentType objects used for default component selection.
      * @remarks
      * Applications create a list of preferred component types by instantiating an empty <b>ComponentTypes</b> collection, filling it, then submitting it to the Tuner using <b>put_PreferredComponentTypes</b>.
-     * @param {IComponentTypes} ComponentTypes Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface that contains the collection of ComponentType objects.
+     * @param {IComponentTypes} _ComponentTypes 
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_preferredcomponenttypes
      */
-    put_PreferredComponentTypes(ComponentTypes) {
-        result := ComCall(10, this, "ptr", ComponentTypes, "HRESULT")
+    put_PreferredComponentTypes(_ComponentTypes) {
+        result := ComCall(10, this, "ptr", _ComponentTypes, "HRESULT")
         return result
     }
 
@@ -183,12 +183,12 @@ class ITuner extends IUnknown{
      * Each call to <b>TriggerSignalEvents</b> enables the event to be raised only one time. To raise the event multiple times in response to a series of signal-status changes requires a succession of calls to <b>TriggerSignalEvents</b>.
      * 
      * Multiple event sink objects can wait for the tuner to raise an event that occurs when the signal status changes. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd376294(v=vs.85)">IBroadcastEvent Interface</a>.
-     * @param {Integer} Interval Specifies the time-out interval in milliseconds.
+     * @param {Integer} _Interval 
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-triggersignalevents
      */
-    TriggerSignalEvents(Interval) {
-        result := ComCall(12, this, "int", Interval, "HRESULT")
+    TriggerSignalEvents(_Interval) {
+        result := ComCall(12, this, "int", _Interval, "HRESULT")
         return result
     }
 }

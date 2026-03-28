@@ -69,9 +69,7 @@ class ITrackShellMenu extends IShellMenu{
 
     /**
      * Displays a modal pop-up menu at a specific location.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window of the pop-up menu.
+     * @param {HWND} _hwnd 
      * @param {Pointer<POINTL>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that specifies an initial point in screen coordinates. The pop-up menu is displayed in relation to this point as determined by the position flags set in <i>dwFlags</i>.
@@ -86,10 +84,10 @@ class ITrackShellMenu extends IShellMenu{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itrackshellmenu-popup
      */
-    Popup(hwnd, ppt, prcExclude, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Popup(_hwnd, ppt, prcExclude, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(13, this, "ptr", hwnd, "ptr", ppt, "ptr", prcExclude, "int", dwFlags, "HRESULT")
+        result := ComCall(13, this, "ptr", _hwnd, "ptr", ppt, "ptr", prcExclude, "int", dwFlags, "HRESULT")
         return result
     }
 }

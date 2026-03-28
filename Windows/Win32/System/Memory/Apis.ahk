@@ -3831,18 +3831,16 @@ class Memory {
      * Note that offering and reclaiming virtual memory is similar to using the MEM_RESET and MEM_RESET_UNDO memory allocation flags,
      *       except that <b>OfferVirtualMemory</b> removes the memory from the process working set and restricts access to the offered pages until they are reclaimed.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to offer.
-     * @param {Pointer} Size Size, in bytes, of the memory region to offer.  <i>Size</i> must be an integer multiple of the system page size.
-     * @param {Integer} Priority <i>Priority</i> indicates how important the offered memory is to the application.
-     *        A higher priority increases the probability that the offered memory can be reclaimed intact when calling <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-reclaimvirtualmemory">ReclaimVirtualMemory</a>.
-     *        The system typically discards lower priority memory before discarding higher priority memory.
+     * @param {Pointer} _Size 
+     * @param {Integer} _Priority 
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-offervirtualmemory
      * @since windows8.1
      */
-    static OfferVirtualMemory(VirtualAddress, Size, Priority) {
+    static OfferVirtualMemory(VirtualAddress, _Size, _Priority) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\OfferVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "int", Priority, "uint")
+        result := DllCall("KERNEL32.dll\OfferVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", _Size, "int", _Priority, "uint")
         return result
     }
 
@@ -3855,7 +3853,7 @@ class Memory {
      *       If the function returns ERROR_BUSY, the data in the reclaimed pages was discarded by the system and is no longer valid.
      *       For this reason, memory should only be offered to the system if the application does not need or can regenerate the data.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to reclaim.
-     * @param {Pointer} Size Size, in bytes, of the memory region to reclaim.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {Pointer} _Size 
      * @returns {Integer} Returns ERROR_SUCCESS if successful and the memory was reclaimed intact.
      * 
      * Returns ERROR_BUSY if successful but the memory was discarded and must be rewritten by the application.  In this case, the contents of the memory region is undefined.
@@ -3864,10 +3862,10 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-reclaimvirtualmemory
      * @since windows8.1
      */
-    static ReclaimVirtualMemory(VirtualAddress, Size) {
+    static ReclaimVirtualMemory(VirtualAddress, _Size) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\ReclaimVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "uint")
+        result := DllCall("KERNEL32.dll\ReclaimVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", _Size, "uint")
         return result
     }
 
@@ -3883,15 +3881,15 @@ class Memory {
      * <div class="alert"><b>Important</b>  Calls to <b>DiscardVirtualMemory</b> will fail if the memory protection is not <b>PAGE_READWRITE</b>.</div>
      * <div> </div>
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to discard.
-     * @param {Pointer} Size Size, in bytes, of the memory region to discard.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {Pointer} _Size 
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-discardvirtualmemory
      * @since windows8.1
      */
-    static DiscardVirtualMemory(VirtualAddress, Size) {
+    static DiscardVirtualMemory(VirtualAddress, _Size) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\DiscardVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "uint")
+        result := DllCall("KERNEL32.dll\DiscardVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", _Size, "uint")
         return result
     }
 
@@ -3930,17 +3928,17 @@ class Memory {
      * @param {Pointer} RegionSize 
      * @param {Integer} NumberOfOffsets 
      * @param {Pointer<CFG_CALL_TARGET_INFO>} OffsetInformation 
-     * @param {HANDLE} Section 
+     * @param {HANDLE} _Section 
      * @param {Integer} ExpectedFileOffset 
      * @returns {BOOL} 
      */
-    static SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, Section, ExpectedFileOffset) {
+    static SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, _Section, ExpectedFileOffset) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
-        Section := Section is Win32Handle ? NumGet(Section, "ptr") : Section
+        _Section := _Section is Win32Handle ? NumGet(_Section, "ptr") : _Section
 
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, VirtualAddressMarshal, VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", Section, "uint", ExpectedFileOffset, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, VirtualAddressMarshal, VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", _Section, "uint", ExpectedFileOffset, "int")
         return result
     }
 
@@ -3999,11 +3997,7 @@ class Memory {
      *       allocation granularity on the host computer, use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function. If this parameter is 
      *       <b>NULL</b>, the system determines where to allocate the region.
-     * @param {Pointer} Size The size of the region, in bytes. If the <i>BaseAddress</i> parameter is 
-     *       <b>NULL</b>, this value is rounded up to the next page boundary. Otherwise, the allocated 
-     *       pages include all pages containing one or more bytes in the range from <i>BaseAddress</i> to 
-     *       <i>BaseAddress</i>+<i>Size</i>. This means that a 2-byte range straddling 
-     *       a page boundary causes both pages to be included in the allocated region.
+     * @param {Pointer} _Size 
      * @param {Integer} AllocationType 
      * @param {Integer} Protection The memory protection for the region of pages to be allocated. If the pages are being committed, you can 
      *       specify one of the 
@@ -4022,12 +4016,12 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualallocfromapp
      * @since windows10.0.10240
      */
-    static VirtualAllocFromApp(BaseAddress, Size, AllocationType, Protection) {
+    static VirtualAllocFromApp(BaseAddress, _Size, AllocationType, Protection) {
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", Protection, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", BaseAddressMarshal, BaseAddress, "ptr", _Size, "uint", AllocationType, "uint", Protection, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4061,21 +4055,8 @@ class Memory {
      *    <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-flushinstructioncache">FlushInstructionCache</a> once the code has been set 
      *    in place.  Otherwise attempts to execute code out of the newly executable region may produce unpredictable 
      *    results.
-     * @param {Pointer<Void>} Address A pointer an address that describes the starting page of the region of pages whose access protection 
-     *        attributes are to be changed.
-     * 
-     * All pages in the specified region must be within the same reserved region allocated when calling the 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>, <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocfromapp">VirtualAllocFromApp</a>, or 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocex">VirtualAllocEx</a> function using 
-     *        <b>MEM_RESERVE</b>. The pages cannot span adjacent reserved regions that were allocated by 
-     *        separate calls to <b>VirtualAlloc</b>, <b>VirtualAllocFromApp</b>,  or 
-     *        <b>VirtualAllocEx</b> using 
-     *        <b>MEM_RESERVE</b>.
-     * @param {Pointer} Size The size of the region whose access protection attributes are to be changed, in bytes. The region of 
-     *       affected pages includes all pages containing one or more bytes in the range from the 
-     *       <i>Address</i> parameter to 
-     *       <c>(Address+Size)</c>. This means that a 2-byte range 
-     *       straddling a page boundary causes the protection attributes of both pages to be changed.
+     * @param {Pointer<Void>} _Address 
+     * @param {Pointer} _Size 
      * @param {Integer} NewProtection The memory protection option. This parameter can be one of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>.
      * 
@@ -4106,13 +4087,13 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualprotectfromapp
      * @since windows10.0.10240
      */
-    static VirtualProtectFromApp(Address, Size, NewProtection, OldProtection) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static VirtualProtectFromApp(_Address, _Size, NewProtection, OldProtection) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
         OldProtectionMarshal := OldProtection is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", AddressMarshal, Address, "ptr", Size, "uint", NewProtection, OldProtectionMarshal, OldProtection, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", _AddressMarshal, _Address, "ptr", _Size, "uint", NewProtection, OldProtectionMarshal, OldProtection, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4283,16 +4264,16 @@ class Memory {
     /**
      * 
      * @param {HANDLE} Process 
-     * @param {Pointer<Void>} Address 
-     * @param {Pointer} Size 
+     * @param {Pointer<Void>} _Address 
+     * @param {Pointer} _Size 
      * @returns {BOOL} 
      */
-    static VirtualUnlockEx(Process, Address, Size) {
+    static VirtualUnlockEx(Process, _Address, _Size) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, AddressMarshal, Address, "ptr", Size, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, _AddressMarshal, _Address, "ptr", _Size, "int")
         return result
     }
 
@@ -4375,14 +4356,7 @@ class Memory {
      * If this address is within an enclave that you have not initialized by calling <a href="https://docs.microsoft.com/windows/desktop/api/enclaveapi/nf-enclaveapi-initializeenclave">InitializeEnclave</a>, <b>VirtualAlloc2</b> allocates a page of zeros for the enclave at that address. The page must be previously uncommitted, and will not be measured with the EEXTEND instruction of the Intel Software Guard Extensions programming model.
      * 
      * If the address in within an enclave that you initialized, then the allocation operation fails with the **ERROR_INVALID_ADDRESS** error. That is true for enclaves that do not support dynamic memory management (i.e. SGX1). SGX2 enclaves will permit allocation, and the page must be accepted by the enclave after it has been allocated.
-     * @param {Pointer} Size The size of the region of memory to allocate, in bytes.
-     * 
-     * The size must always be a multiple of the page size.
-     * 
-     * If <i>BaseAddress</i> is not <b>NULL</b>, the function allocates all 
-     *        pages that contain one or more bytes in the range from <i>BaseAddress</i> to 
-     *        <i>BaseAddress</i>+<i>Size</i>. This means, for example, that a 2-byte 
-     *        range that straddles a page boundary causes the function to allocate both pages.
+     * @param {Pointer} _Size 
      * @param {Integer} AllocationType 
      * @param {Integer} PageProtection The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters An optional pointer to one or more extended parameters of type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter">MEM_EXTENDED_PARAMETER</a>. Each of those extended parameter values can itself have a <i>Type</i> field of either <b>MemExtendedParameterAddressRequirements</b> or <b>MemExtendedParameterNumaNode</b>. If no <b>MemExtendedParameterNumaNode</b> extended parameter is provided, then the behavior is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>/<a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> functions (that is, the preferred NUMA node for the physical pages is determined based on the ideal processor of the thread that first accesses the memory).
@@ -4393,14 +4367,14 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc2
      * @since windows10.0.10240
      */
-    static VirtualAlloc2(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+    static VirtualAlloc2(Process, BaseAddress, _Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", _Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4520,14 +4494,7 @@ class Memory {
      * 
      * If <i>BaseAddress</i> is <b>NULL</b>, the function determines where to 
      *        allocate the region.
-     * @param {Pointer} Size The size of the region of memory to allocate, in bytes.
-     * 
-     * The size must always be a multiple of the page size.
-     * 
-     * If <i>BaseAddress</i> is not <b>NULL</b>, the function allocates all 
-     *        pages that contain one or more bytes in the range from <i>BaseAddress</i> to 
-     *        <i>BaseAddress</i>+<i>Size</i>. This means, for example, that a 2-byte 
-     *        range that straddles a page boundary causes the function to allocate both pages.
+     * @param {Pointer} _Size 
      * @param {Integer} AllocationType 
      * @param {Integer} PageProtection The memory protection for the region of pages to be allocated. If the pages are being committed, you can 
      *       specify one of the 
@@ -4548,14 +4515,14 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc2fromapp
      * @since windows10.0.10240
      */
-    static VirtualAlloc2FromApp(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+    static VirtualAlloc2FromApp(Process, BaseAddress, _Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", _Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4628,13 +4595,7 @@ class Memory {
      * Creates or opens a named or unnamed file mapping object for a specified file. You can specify a preferred NUMA node for the physical memory as an extended parameter; see the *ExtendedParameters* parameter.
      * @remarks
      * See the **Remarks** for [CreateFileMapping](/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw#remarks).
-     * @param {HANDLE} File Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
-     * 
-     * A handle to the file from which to create a file mapping object.
-     * 
-     * The file must be opened with access rights that are compatible with the protection flags that the <i>flProtect</i> parameter specifies. It is not required, but it is recommended that files you intend to map be opened for exclusive access. For more information, see <a href="https://docs.microsoft.com/windows/win32/FileIO/file-security-and-access-rights">File security and access rights</a>.
-     * 
-     * If <i>hFile</i> is <b>INVALID_HANDLE_VALUE</b>, the calling process must also specify a size for the file mapping object in the <i>dwMaximumSizeHigh</i> and <i>dwMaximumSizeLow</i> parameters. In this scenario, <b>CreateFileMapping</b> creates a file mapping object of a specified size  that is backed by the system paging file instead of by a file in the file system.
+     * @param {HANDLE} _File 
      * @param {Pointer<SECURITY_ATTRIBUTES>} SecurityAttributes Type: \_In_opt\_ **[SECURITY_ATTRIBUTES](/previous-versions/windows/desktop/legacy/aa379560(v=vs.85))\***
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that determines whether a returned handle can be inherited by child processes. The <b>lpSecurityDescriptor</b> member of the <b>SECURITY_ATTRIBUTES</b> structure specifies a security descriptor for a new file mapping object.
@@ -4847,13 +4808,13 @@ class Memory {
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemapping2
      */
-    static CreateFileMapping2(File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
-        File := File is Win32Handle ? NumGet(File, "ptr") : File
+    static CreateFileMapping2(_File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
+        _File := _File is Win32Handle ? NumGet(_File, "ptr") : _File
         Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", _File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4956,38 +4917,38 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Buffer 
+     * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
      */
-    static RtlCrc32(Buffer_R, Size, InitialCrc) {
-        result := DllCall("ntdll.dll\RtlCrc32", "ptr", Buffer_R, "ptr", Size, "uint", InitialCrc, "uint")
+    static RtlCrc32(_Buffer, _Size, InitialCrc) {
+        result := DllCall("ntdll.dll\RtlCrc32", "ptr", _Buffer, "ptr", _Size, "uint", InitialCrc, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Buffer 
+     * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
      */
-    static RtlCrc64(Buffer_R, Size, InitialCrc) {
-        result := DllCall("ntdll.dll\RtlCrc64", "ptr", Buffer_R, "ptr", Size, "uint", InitialCrc, "uint")
+    static RtlCrc64(_Buffer, _Size, InitialCrc) {
+        result := DllCall("ntdll.dll\RtlCrc64", "ptr", _Buffer, "ptr", _Size, "uint", InitialCrc, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 
      */
-    static RtlIsZeroMemory(Buffer_R, Length) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlIsZeroMemory(_Buffer, Length) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlIsZeroMemory", Buffer_RMarshal, Buffer_R, "ptr", Length, "char")
+        result := DllCall("ntdll.dll\RtlIsZeroMemory", _BufferMarshal, _Buffer, "ptr", Length, "char")
         return result
     }
 
@@ -6575,9 +6536,7 @@ class Memory {
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 
      *     or later. For more information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to 
-     *       register.
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack 
      * @returns {BOOL} If the function succeeds, it registers the callback function and returns 
      *       <b>TRUE</b>.
      * 
@@ -6586,10 +6545,10 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addsecurememorycachecallback
      * @since windows6.0.6000
      */
-    static AddSecureMemoryCacheCallback(pfnCallBack) {
+    static AddSecureMemoryCacheCallback(_pfnCallBack) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", _pfnCallBack, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6601,15 +6560,15 @@ class Memory {
      * Unregisters a callback function that was previously registered with the AddSecureMemoryCacheCallback function.
      * @remarks
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to remove.
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack 
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-removesecurememorycachecallback
      * @since windows6.0.6000
      */
-    static RemoveSecureMemoryCacheCallback(pfnCallBack) {
-        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+    static RemoveSecureMemoryCacheCallback(_pfnCallBack) {
+        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", _pfnCallBack, "int")
         return result
     }
 

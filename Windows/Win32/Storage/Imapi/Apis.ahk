@@ -1490,22 +1490,22 @@ class Imapi {
      * A message session is used by client applications and service providers that want to deal with several related MAPI **IMessage** objects built on top of underlying OLE **IStorage** objects. The client or provider uses the [OpenIMsgSession](openimsgsession.md) and **CloseIMsgSession** functions to wrap the creation of such messages inside a message session. Once the message session is opened, the client or provider passes a pointer to it in a call to [OpenIMsgOnIStg](openimsgonistg.md) to create a new **IMessage**-on- **IStorage** object. 
      *   
      * A message session keeps track of all **IMessage**-on- **IStorage** objects opened during the duration of the session, in addition to all the attachments and other properties of the messages. When a client or provider calls **CloseIMsgSession**, it closes all these objects. Calling **CloseIMsgSession** is the only way to close **IMessage**-on- **IStorage** objects.
-     * @param {LPMSGSESS} lpMsgSess > [in] Pointer to the message session object obtained using the [OpenIMsgSession](openimsgsession.md) function at the start of the message session.
+     * @param {LPMSGSESS} _lpMsgSess 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/closeimsgsession
      */
-    static CloseIMsgSession(lpMsgSess) {
-        DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
+    static CloseIMsgSession(_lpMsgSess) {
+        DllCall("MAPI32.dll\CloseIMsgSession", "ptr", _lpMsgSess)
     }
 
     /**
      * Builds a new IMessage object on top of an existing OLE IStorage object, to be used within a message session.
      * @remarks
      * Property attributes can only be accessed on property objects, that is, objects implementing the [IMAPIProp : IUnknown](imapipropiunknown.md) interface. To make MAPI properties available on an OLE structured storage object, **OpenIMsgOnIStg** builds an [IMessage : IMAPIProp](imessageimapiprop.md) object on top of the OLE **IStorage** object. The property attributes on such objects can be set or altered with [SetAttribIMsgOnIStg](setattribimsgonistg.md) and retrieved with [GetAttribIMsgOnIStg](getattribimsgonistg.md).
-     * @param {LPMSGSESS} lpMsgSess > [in] Pointer to a message session object within which the new **IMessage**-on- **IStorage** object is to be created.
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {LPMSGSESS} _lpMsgSess 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {IMalloc} lpMalloc > [in] Pointer to a memory allocator object exposing the OLE **IMalloc** interface. The **IMessage** interface needs to use this allocation method when working with interfaces such as **IStorage** and **IStream**.
      * @param {Pointer<Void>} lpMapiSup > [in] Optional pointer to a MAPI support object that a service provider can use to call the methods of the [IMAPISupport : IUnknown](imapisupportiunknown.md) interface.
      * @param {IStorage} lpStg > [in, out] Pointer to an OLE **IStorage** object that is open and has read-only or read/write permission. Because **IMessage** does not support write-only access, **OpenIMsgOnIStg** does not accept a storage object opened in write-only mode.
@@ -1529,11 +1529,11 @@ class Imapi {
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgonistg
      */
-    static OpenIMsgOnIStg(lpMsgSess, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, lpMapiSup, lpStg, lpfMsgCallRelease, ulCallerData, ulFlags, lppMsg) {
+    static OpenIMsgOnIStg(_lpMsgSess, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpMalloc, lpMapiSup, lpStg, lpfMsgCallRelease, ulCallerData, ulFlags, lppMsg) {
         lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : "ptr"
         lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", lpMsgSess, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr*", lppMsg, "int")
+        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", _lpMsgSess, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr*", lppMsg, "int")
         return result
     }
 

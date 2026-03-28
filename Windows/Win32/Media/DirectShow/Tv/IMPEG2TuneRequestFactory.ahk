@@ -44,12 +44,12 @@ class IMPEG2TuneRequestFactory extends IDispatch{
 
     /**
      * The CreateTuneRequest method creates the minimal MPEG-2 tune request for a specified tuning space.
-     * @param {ITuningSpace} TuningSpace Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface of the tuning space.
-     * @returns {IMPEG2TuneRequest} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-impeg2tunerequest">IMPEG2TuneRequest</a> interface.
+     * @param {ITuningSpace} _TuningSpace 
+     * @returns {IMPEG2TuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequestfactory-createtunerequest
      */
-    CreateTuneRequest(TuningSpace) {
-        result := ComCall(7, this, "ptr", TuningSpace, "ptr*", &TuneRequest := 0, "HRESULT")
-        return IMPEG2TuneRequest(TuneRequest)
+    CreateTuneRequest(_TuningSpace) {
+        result := ComCall(7, this, "ptr", _TuningSpace, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return IMPEG2TuneRequest(_TuneRequest)
     }
 }

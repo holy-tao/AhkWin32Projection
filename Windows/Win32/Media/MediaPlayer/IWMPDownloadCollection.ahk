@@ -68,11 +68,11 @@ class IWMPDownloadCollection extends IDispatch{
 
     /**
      * 
-     * @param {Integer} lItem 
+     * @param {Integer} _lItem 
      * @returns {IWMPDownloadItem2} 
      */
-    item(lItem) {
-        result := ComCall(9, this, "int", lItem, "ptr*", &ppDownload := 0, "HRESULT")
+    item(_lItem) {
+        result := ComCall(9, this, "int", _lItem, "ptr*", &ppDownload := 0, "HRESULT")
         return IWMPDownloadItem2(ppDownload)
     }
 
@@ -92,11 +92,11 @@ class IWMPDownloadCollection extends IDispatch{
 
     /**
      * 
-     * @param {Integer} lItem 
+     * @param {Integer} _lItem 
      * @returns {HRESULT} 
      */
-    removeItem(lItem) {
-        result := ComCall(11, this, "int", lItem, "HRESULT")
+    removeItem(_lItem) {
+        result := ComCall(11, this, "int", _lItem, "HRESULT")
         return result
     }
 

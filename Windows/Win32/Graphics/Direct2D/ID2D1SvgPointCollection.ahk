@@ -48,9 +48,7 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
 
     /**
      * Updates the points array. Existing points not updated by this method are preserved. The array is resized larger if necessary to accommodate the new points.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const D2D1_POINT_2F*</b>
-     * 
-     * The points array.
+     * @param {Pointer<D2D_POINT_2F>} _points 
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * The number of points to update.
@@ -62,8 +60,8 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * This method returns an HRESULT success or error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-updatepoints
      */
-    UpdatePoints(points, pointsCount, startIndex) {
-        result := ComCall(7, this, "ptr", points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+    UpdatePoints(_points, pointsCount, startIndex) {
+        result := ComCall(7, this, "ptr", _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -75,15 +73,13 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index of the first point to retrieve.
-     * @returns {D2D_POINT_2F} Type: <b>D2D1_POINT_2F*</b>
-     * 
-     * Buffer to contain the points.
+     * @returns {D2D_POINT_2F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpoints
      */
     GetPoints(pointsCount, startIndex) {
-        points := D2D_POINT_2F()
-        result := ComCall(8, this, "ptr", points, "uint", pointsCount, "uint", startIndex, "HRESULT")
-        return points
+        _points := D2D_POINT_2F()
+        result := ComCall(8, this, "ptr", _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+        return _points
     }
 
     /**

@@ -278,23 +278,23 @@ class IComponentType extends IDispatch{
 
     /**
      * The get_MediaType method retrieves the DirectShow AM_MEDIA_TYPE structure for the component.
-     * @returns {AM_MEDIA_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that will be filled in with the values associated with the current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd693036(v=vs.85)">ComponentType</a>.
+     * @returns {AM_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediatype
      */
     get_MediaType() {
-        MediaType := AM_MEDIA_TYPE()
-        result := ComCall(21, this, "ptr", MediaType, "HRESULT")
-        return MediaType
+        _MediaType := AM_MEDIA_TYPE()
+        result := ComCall(21, this, "ptr", _MediaType, "HRESULT")
+        return _MediaType
     }
 
     /**
      * The put_MediaType method sets the DirectShow AM_MEDIA_TYPE structure for the component.
-     * @param {Pointer<AM_MEDIA_TYPE>} MediaType An <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the major type, subtype, format, and so on.
+     * @param {Pointer<AM_MEDIA_TYPE>} _MediaType 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediatype
      */
-    put_MediaType(MediaType) {
-        result := ComCall(22, this, "ptr", MediaType, "HRESULT")
+    put_MediaType(_MediaType) {
+        result := ComCall(22, this, "ptr", _MediaType, "HRESULT")
         return result
     }
 

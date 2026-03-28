@@ -35,12 +35,12 @@ class IDODownloadStatusCallback extends IUnknown{
     /**
      * Delivery Optimization calls your implementation of this method any time a download status has changed.
      * @param {IDODownload} download An pointer to the **IDODownload** interface whose status changed.
-     * @param {Pointer<DO_DOWNLOAD_STATUS>} status A pointer to a **DO_DOWNLOAD_STATUS** structure containing the download's status.
+     * @param {Pointer<DO_DOWNLOAD_STATUS>} _status 
      * @returns {HRESULT} If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownloadstatuscallback-onstatuschange
      */
-    OnStatusChange(download, status) {
-        result := ComCall(3, this, "ptr", download, "ptr", status, "HRESULT")
+    OnStatusChange(download, _status) {
+        result := ComCall(3, this, "ptr", download, "ptr", _status, "HRESULT")
         return result
     }
 }

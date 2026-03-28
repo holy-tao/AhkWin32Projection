@@ -489,14 +489,14 @@ class RightsManagement {
      * If this function fails, an application should destroy the current process after closing the environment with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a>.
      * 
      * Closing a handle to a library will cause the library to be unloaded if it has no remaining open objects.
-     * @param {Integer} handle A handle to close.
+     * @param {Integer} _handle 
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosehandle
      */
-    static DRMCloseHandle(handle) {
-        result := DllCall("msdrm.dll\DRMCloseHandle", "uint", handle, "HRESULT")
+    static DRMCloseHandle(_handle) {
+        result := DllCall("msdrm.dll\DRMCloseHandle", "uint", _handle, "HRESULT")
         return result
     }
 
@@ -833,18 +833,7 @@ class RightsManagement {
      * 
      * 
      * To retrieve  information about the secure environment, you can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetenvironmentinfo">DRMGetEnvironmentInfo</a> function.
-     * @param {Integer} handle Specifies the handle to query. This can be created by using one of the following functions:
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingbitsdecryptor">DRMCreateEnablingBitsDecryptor</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingbitsencryptor">DRMCreateEnablingBitsEncryptor</a>
-     * </li>
-     * </ul>
-     * <div class="alert"><b>Note</b>  You can specify only the handle of an encrypting or a decrypting object. If you specify any other handle, the function returns <b>E_DRM_INVALID_HANDLE</b>.</div>
-     * <div> </div>
+     * @param {Integer} _handle 
      * @param {PWSTR} wszAttribute The attribute of the handle to query for. The supported attributes are <b>g_wszQUERY_BLOCKSIZE</b>, to determine the block size, and <b>g_wszQUERY_SYMMETRICKEY_TYPE</b>, to determine whether the cipher mode is AES ECB or AES CBC 4K. 
      * 
      * <div class="alert"><b>Note</b>  You can use <b>g_wszQUERY_SYMMETRICKEY_TYPE</b> only in Windows 7. It is not available for earlier versions of AD RMS.</div>
@@ -862,14 +851,14 @@ class RightsManagement {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetinfo
      */
-    static DRMGetInfo(handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
+    static DRMGetInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
         wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
         peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := DllCall("msdrm.dll\DRMGetInfo", "uint", _handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -890,7 +879,7 @@ class RightsManagement {
      * 
      * 
      * In Rights Management Services client 1.0 SP1, the only supported attribute is <b>g_wszQUERY_BLOCKSIZE</b>. For the attributes that can be queried in Rights Management Services client 1.0, see the Msdrmgetinfo.h header file that installs with this SDK.
-     * @param {Integer} handle Environment handle.
+     * @param {Integer} _handle 
      * @param {PWSTR} wszAttribute The attribute to query for. In Rights Management Services client 1.0 SP1, the only supported attribute is <b>g_wszQUERY_BLOCKSIZE</b>. In Rights Management Services client 1.0, the attributes that can be queried are listed in the header file Msdrmgetinfo.h. Attributes include <b>g_wszQUERY_MANIFESTSOURCE</b> and <b>g_wszQUERY_APIVERSION</b>.
      * @param {Pointer<Integer>} peEncoding Encoding type used.
      * @param {Pointer<Integer>} pcBuffer A pointer to a UINT value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
@@ -900,14 +889,14 @@ class RightsManagement {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetenvironmentinfo
      */
-    static DRMGetEnvironmentInfo(handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
+    static DRMGetEnvironmentInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
         wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
         peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
         pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", _handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -1056,7 +1045,7 @@ class RightsManagement {
      * All license storage sessions must be closed before closing the client session. When you have finished using the client session, close it by passing the handle provided by this function to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function.
      * 
      * The <b>DRMCreateClientSession</b> function cannot be called concurrently by different processes running as different users on the same computer if one or more of these processes is a service process. A call by a second  process, for example, can succeed only after the client session handle for the first process has been closed.
-     * @param {Pointer<DRMCALLBACK>} pfnCallback A pointer to an application-defined callback function that will receive asynchronous function status messages in response to other AD RMS functions, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmactivate">DRMActivate</a>. The format of this callback function is defined in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
      * @param {Integer} uCallbackVersion Specifies the version of the callback function. Currently, only version zero is supported.
      * @param {PWSTR} wszGroupIDProviderType 
      * @param {PWSTR} wszGroupID A pointer to a null-terminated Unicode string that contains an email address for the user in the format <i>someone@example.com</i>. Typically, this value already exists in Active Directory (AD) and is the same ID as that supplied in the logon credentials. If it is not the same, later calls to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmisactivated">DRMIsActivated</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmenumeratelicense">DRMEnumerateLicense</a> will fail. For more information, see Remarks.
@@ -1068,13 +1057,13 @@ class RightsManagement {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateclientsession
      */
-    static DRMCreateClientSession(pfnCallback, uCallbackVersion, wszGroupIDProviderType, wszGroupID, phClient) {
+    static DRMCreateClientSession(_pfnCallback, uCallbackVersion, wszGroupIDProviderType, wszGroupID, phClient) {
         wszGroupIDProviderType := wszGroupIDProviderType is String ? StrPtr(wszGroupIDProviderType) : wszGroupIDProviderType
         wszGroupID := wszGroupID is String ? StrPtr(wszGroupID) : wszGroupID
 
         phClientMarshal := phClient is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
+        result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", _pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
         return result
     }
 
@@ -2970,7 +2959,7 @@ class RightsManagement {
      * @param {Integer} cbSymKey The size, in bytes, of the content key. Currently, this parameter can only be 16 unless the <i>uFlags</i> parameter specifies <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>, in which case this parameter can be zero.
      * @param {PWSTR} wszSymKeyType The key type. The value <b>AES</b> specifies the Advanced Encryption Standard (AES) algorithm with the  electronic code book (ECB) cipher mode. If you are using Windows 7, the value <b>AES_CBC4K</b> can be used to specify the AES algorithm with cipher-block chaining (CBC) cipher mode. See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmencrypt">DRMEncrypt</a> code examples for more information.
      * @param {PWSTR} wszClientLicensorCertificate A pointer to null-terminated Unicode string that contains a client licensor certificate obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a> function. If you are attempting online signing, this parameter should be <b>NULL</b>. If you are developing a server application that does not use a lockbox and  if you are using the <b>DRM_SERVER_ISSUANCELICENSE</b> flag in <i>uFlags</i>, pass in the server license certificate chain. The server licensor certificate chain can be retrieved by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/-getlicensorcertificate">GetLicensorCertificate</a> SOAP method; however, to make the chain usable, it must be reordered by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmconstructcertificatechain">DRMConstructCertificateChain</a> function.
-     * @param {Pointer<DRMCALLBACK>} pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
      * @param {PWSTR} wszURL A pointer to a null-terminated Unicode string that contains the URL of an AD RMS licensing server that was obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> function. This string takes the form "<i>ADRMSLicensingServerURL</i>/_wmcs/Licensing". This parameter value is required for online license requests; you can use <b>NULL</b> for offline license requests. This URL is entered in the signed issuance license as the default silent license acquisition URL, which is where an application will automatically go to acquire an end-user license if none is specified in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -2978,7 +2967,7 @@ class RightsManagement {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsignedissuancelicense
      */
-    static DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, wszClientLicensorCertificate, pfnCallback, wszURL, pvContext) {
+    static DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, wszClientLicensorCertificate, _pfnCallback, wszURL, pvContext) {
         wszSymKeyType := wszSymKeyType is String ? StrPtr(wszSymKeyType) : wszSymKeyType
         wszClientLicensorCertificate := wszClientLicensorCertificate is String ? StrPtr(wszClientLicensorCertificate) : wszClientLicensorCertificate
         wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
@@ -2986,7 +2975,7 @@ class RightsManagement {
         pbSymKeyMarshal := pbSymKey is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, pbSymKeyMarshal, pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
+        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, pbSymKeyMarshal, pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", _pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -3003,7 +2992,7 @@ class RightsManagement {
      * @param {Pointer<Void>} pvReserved Reserved for future use.
      * @param {Integer} hEnablingPrincipal A handle to an enabling principal in the end-user license that should be bound. Create this handle by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingprincipal">DRMCreateEnablingPrincipal</a> function by passing in the rights account certificate. This parameter is required.
      * @param {Integer} hBoundLicenseCLC A handle to the bound license corresponding to the client licensor certificate created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>. This can be created by binding the <i>wszClientLicensorCertificate</i> to the <b>ISSUE</b> right using the <i>hEnablingPrincipal</i> handle. This parameter is required.
-     * @param {Pointer<DRMCALLBACK>} pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -3011,13 +3000,13 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsignedissuancelicenseex
      * @since windows6.1
      */
-    static DRMGetSignedIssuanceLicenseEx(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, pvReserved, hEnablingPrincipal, hBoundLicenseCLC, pfnCallback, pvContext) {
+    static DRMGetSignedIssuanceLicenseEx(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, pvReserved, hEnablingPrincipal, hBoundLicenseCLC, _pfnCallback, pvContext) {
         wszSymKeyType := wszSymKeyType is String ? StrPtr(wszSymKeyType) : wszSymKeyType
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", pfnCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", _pfnCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -3577,23 +3566,23 @@ class RightsManagement {
      * @remarks
      * If the process ID does not equal the ID of the thread that created the window, the function fails. Also, if the visibility state of the window is not <b>WS_VISIBLE</b>, the function fails.
      * @param {Integer} hEnv A handle to the secure environment.
-     * @param {HWND} hwnd A handle to the window to be registered.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregisterprotectedwindow
      * @since windows6.0.6000
      */
-    static DRMRegisterProtectedWindow(hEnv, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DRMRegisterProtectedWindow(hEnv, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("msdrm.dll\DRMRegisterProtectedWindow", "uint", hEnv, "ptr", hwnd, "HRESULT")
+        result := DllCall("msdrm.dll\DRMRegisterProtectedWindow", "uint", hEnv, "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * Indicates whether a window is associated with a protected environment.
-     * @param {HWND} hwnd The window handle.
+     * @param {HWND} _hwnd 
      * @param {Pointer<BOOL>} pfProtected A pointer to a <b>BOOL</b> that indicates whether the window is associated with a protected environment.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -3601,12 +3590,12 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmiswindowprotected
      * @since windows6.0.6000
      */
-    static DRMIsWindowProtected(hwnd, pfProtected) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DRMIsWindowProtected(_hwnd, pfProtected) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pfProtectedMarshal := pfProtected is VarRef ? "int*" : "ptr"
 
-        result := DllCall("msdrm.dll\DRMIsWindowProtected", "ptr", hwnd, pfProtectedMarshal, pfProtected, "HRESULT")
+        result := DllCall("msdrm.dll\DRMIsWindowProtected", "ptr", _hwnd, pfProtectedMarshal, pfProtected, "HRESULT")
         return result
     }
 

@@ -880,20 +880,13 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Guid>} guidAttribute A GUID that identifies the attribute to retrieve. If the <i>dwStreamIndex</i> parameter equals  <b>MF_SOURCE_READER_MEDIASOURCE</b>, <i>guidAttribute</i> can specify one of the following:
-     * 
-     * <ul>
-     * <li>A presentation descriptor attribute. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/presentation-descriptor-attributes">Presentation Descriptor Attributes</a>.</li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-source-reader-mediasource-characteristics">MF_SOURCE_READER_MEDIASOURCE_CHARACTERISTICS</a>. Use this value to get characteristics flags from the media source.</li>
-     * </ul>
-     * Otherwise, if the <i>dwStreamIndex</i> parameter specifies a stream, <i>guidAttribute</i> specifies a stream descriptor attribute. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/stream-descriptor-attributes">Stream Descriptor Attributes</a>.
+     * @param {Pointer<Guid>} _guidAttribute 
      * @returns {PROPVARIANT} A pointer to a <b>PROPVARIANT</b> that receives the value of the attribute. Call the <b>PropVariantClear</b> function to free the <b>PROPVARIANT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute
      */
-    GetPresentationAttribute(dwStreamIndex, guidAttribute) {
+    GetPresentationAttribute(dwStreamIndex, _guidAttribute) {
         pvarAttribute := PROPVARIANT()
-        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidAttribute, "ptr", pvarAttribute, "HRESULT")
+        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", _guidAttribute, "ptr", pvarAttribute, "HRESULT")
         return pvarAttribute
     }
 }

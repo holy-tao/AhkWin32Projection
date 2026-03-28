@@ -33,17 +33,17 @@ class IRowsetNewRowAfter extends IUnknown{
      * @param {Pointer} hChapter 
      * @param {Integer} cbbmPrevious 
      * @param {Pointer<Integer>} pbmPrevious 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Integer>} pData 
      * @returns {Pointer} 
      */
-    SetNewDataAfter(hChapter, cbbmPrevious, pbmPrevious, hAccessor, pData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    SetNewDataAfter(hChapter, cbbmPrevious, pbmPrevious, _hAccessor, pData) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pbmPreviousMarshal := pbmPrevious is VarRef ? "char*" : "ptr"
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "uint", cbbmPrevious, pbmPreviousMarshal, pbmPrevious, "ptr", hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "uint", cbbmPrevious, pbmPreviousMarshal, pbmPrevious, "ptr", _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
         return phRow
     }
 }

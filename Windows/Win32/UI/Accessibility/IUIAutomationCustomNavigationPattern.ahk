@@ -33,12 +33,12 @@ class IUIAutomationCustomNavigationPattern extends IUnknown{
 
     /**
      * Gets the next element in the specified direction within the logical UI tree.
-     * @param {Integer} direction 
+     * @param {Integer} _direction 
      * @returns {IUIAutomationElement} The next element as specified by the <i>direction</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
      */
-    Navigate(direction) {
-        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+    Navigate(_direction) {
+        result := ComCall(3, this, "int", _direction, "ptr*", &pRetVal := 0, "HRESULT")
         return IUIAutomationElement(pRetVal)
     }
 }

@@ -160,9 +160,7 @@ class WindowsFirewall {
      * @param {Pointer<PAC_CHANGES_CALLBACK_FN>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/nc-networkisolation-pac_changes_callback_fn">PAC_CHANGES_CALLBACK_FN</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>PVOID</b>
-     * 
-     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} registrationObject Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created registration.
@@ -172,10 +170,10 @@ class WindowsFirewall {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationregisterforappcontainerchanges
      * @since windows8.0
      */
-    static NetworkIsolationRegisterForAppContainerChanges(flags, callback, context, registrationObject) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static NetworkIsolationRegisterForAppContainerChanges(flags, callback, _context, registrationObject) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, contextMarshal, context, "ptr", registrationObject, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, _contextMarshal, _context, "ptr", registrationObject, "uint")
         return result
     }
 
@@ -391,19 +389,19 @@ class WindowsFirewall {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} context Optional context pointer.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<PNETISO_EDP_ID_CALLBACK_FN>} callback Function pointer that will be invoked when a notification is ready for delivery.
      * @param {Pointer<HANDLE>} hOperation The handle for the Enterprise Data Protection Server endpoints.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationgetenterpriseidasync
      * @since windows10.0.10240
      */
-    static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context, callback, hOperation) {
+    static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, _context, callback, hOperation) {
         wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, contextMarshal, context, "ptr", callback, "ptr", hOperation, "uint")
+        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, _contextMarshal, _context, "ptr", callback, "ptr", hOperation, "uint")
         return result
     }
 

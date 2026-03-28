@@ -185,19 +185,19 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_data
      */
     get_Data() {
-        Rect := RECT()
-        result := ComCall(15, this, "ptr", Rect, "HRESULT")
-        return Rect
+        _Rect := RECT()
+        result := ComCall(15, this, "ptr", _Rect, "HRESULT")
+        return _Rect
     }
 
     /**
      * Gets or sets access to the rectangle structure (C++ only). (Put)
-     * @param {RECT} Rect 
+     * @param {RECT} _Rect 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_data
      */
-    put_Data(Rect) {
-        result := ComCall(16, this, "ptr", Rect, "HRESULT")
+    put_Data(_Rect) {
+        result := ComCall(16, this, "ptr", _Rect, "HRESULT")
         return result
     }
 

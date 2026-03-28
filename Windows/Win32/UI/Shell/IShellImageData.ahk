@@ -114,9 +114,7 @@ class IShellImageData extends IUnknown{
      * Draws a decoded image.
      * @remarks
      * If <i>prcSrc</i> is <b>NULL</b>, nothing is drawn and the method returns S_OK.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * The handle of the image.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prcDest Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>, measured in pixels, that specifies the bounds of the rendered image. The portion of the image specified by <i>prcSrc</i> is scaled to fill the rectangle specified by <i>prcDest</i>.
@@ -168,10 +166,10 @@ class IShellImageData extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-draw
      */
-    Draw(hdc, prcDest, prcSrc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Draw(_hdc, prcDest, prcSrc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(4, this, "ptr", hdc, "ptr", prcDest, "ptr", prcSrc, "HRESULT")
+        result := ComCall(4, this, "ptr", _hdc, "ptr", prcDest, "ptr", prcSrc, "HRESULT")
         return result
     }
 
@@ -962,9 +960,7 @@ class IShellImageData extends IUnknown{
      * @param {Integer} cx Type: <b>ULONG</b>
      * 
      * The horizontal (x) dimension. If this value is 0, the x dimension is set to a scaled value based on the point specified in <i>cy</i>.
-     * @param {Integer} cy Type: <b>ULONG</b>
-     * 
-     * The vertical (y) dimension. If this value is 0, the y dimension is set to a scaled value based on the point specified in <i>cx</i>.
+     * @param {Integer} _cy 
      * @param {Integer} hints Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a> enumeration, specifying the algorithm that is used when the image is scaled.
@@ -1024,8 +1020,8 @@ class IShellImageData extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-scale
      */
-    Scale(cx, cy, hints) {
-        result := ComCall(24, this, "uint", cx, "uint", cy, "int", hints, "HRESULT")
+    Scale(cx, _cy, hints) {
+        result := ComCall(24, this, "uint", cx, "uint", _cy, "int", hints, "HRESULT")
         return result
     }
 

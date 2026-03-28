@@ -115,14 +115,12 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @param {IStream} metafileStream Type: <b>IStream*</b>
      * 
      * A stream object that has the metafile data.
-     * @returns {ID2D1GdiMetafile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile">ID2D1GdiMetafile</a>**</b>
-     * 
-     * The address of the newly created GDI metafile object.
+     * @returns {ID2D1GdiMetafile} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-creategdimetafile
      */
     CreateGdiMetafile(metafileStream) {
-        result := ComCall(21, this, "ptr", metafileStream, "ptr*", &metafile := 0, "HRESULT")
-        return ID2D1GdiMetafile(metafile)
+        result := ComCall(21, this, "ptr", metafileStream, "ptr*", &_metafile := 0, "HRESULT")
+        return ID2D1GdiMetafile(_metafile)
     }
 
     /**
@@ -345,13 +343,11 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
      * The ID of the effect to retrieve properties from.
-     * @returns {ID2D1Properties} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the property interface that can be used to query the metadata of the effect.
+     * @returns {ID2D1Properties} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
      */
     GetEffectProperties(effectId) {
-        result := ComCall(26, this, "ptr", effectId, "ptr*", &properties := 0, "HRESULT")
-        return ID2D1Properties(properties)
+        result := ComCall(26, this, "ptr", effectId, "ptr*", &_properties := 0, "HRESULT")
+        return ID2D1Properties(_properties)
     }
 }

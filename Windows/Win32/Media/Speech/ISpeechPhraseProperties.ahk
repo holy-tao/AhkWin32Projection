@@ -65,8 +65,8 @@ class ISpeechPhraseProperties extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Property := 0, "HRESULT")
-        return ISpeechPhraseProperty(Property)
+        result := ComCall(8, this, "int", Index, "ptr*", &_Property := 0, "HRESULT")
+        return ISpeechPhraseProperty(_Property)
     }
 
     /**

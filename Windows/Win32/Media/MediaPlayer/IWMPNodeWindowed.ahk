@@ -30,11 +30,11 @@ class IWMPNodeWindowed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} hwnd 
+     * @param {Pointer} _hwnd 
      * @returns {HRESULT} 
      */
-    SetOwnerWindow(hwnd) {
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
+    SetOwnerWindow(_hwnd) {
+        result := ComCall(3, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 

@@ -243,14 +243,14 @@ class ITsSbSession extends IUnknown{
 
     /**
      * Retrieves or specifies the initial program for this session. (Put)
-     * @param {BSTR} Application 
+     * @param {BSTR} _Application 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_initialprogram
      */
-    put_InitialProgram(Application) {
-        Application := Application is String ? BSTR.Alloc(Application).Value : Application
+    put_InitialProgram(_Application) {
+        _Application := _Application is String ? BSTR.Alloc(_Application).Value : _Application
 
-        result := ComCall(15, this, "ptr", Application, "HRESULT")
+        result := ComCall(15, this, "ptr", _Application, "HRESULT")
         return result
     }
 
@@ -288,12 +288,12 @@ class ITsSbSession extends IUnknown{
 
     /**
      * Retrieves or specifies the protocol type for the session. (Put)
-     * @param {Integer} Val 
+     * @param {Integer} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_protocoltype
      */
-    put_ProtocolType(Val) {
-        result := ComCall(19, this, "uint", Val, "HRESULT")
+    put_ProtocolType(_Val) {
+        result := ComCall(19, this, "uint", _Val, "HRESULT")
         return result
     }
 }

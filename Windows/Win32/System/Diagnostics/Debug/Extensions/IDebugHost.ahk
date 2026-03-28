@@ -44,8 +44,8 @@ class IDebugHost extends IUnknown{
      * @returns {IDebugHostContext} 
      */
     GetCurrentContext() {
-        result := ComCall(4, this, "ptr*", &context := 0, "HRESULT")
-        return IDebugHostContext(context)
+        result := ComCall(4, this, "ptr*", &_context := 0, "HRESULT")
+        return IDebugHostContext(_context)
     }
 
     /**

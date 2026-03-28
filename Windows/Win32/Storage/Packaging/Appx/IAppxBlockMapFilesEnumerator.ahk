@@ -35,14 +35,12 @@ class IAppxBlockMapFilesEnumerator extends IUnknown{
      * Gets the file at the current position of the enumerator.
      * @remarks
      * The enumerator returned can be empty. In this case, a call to  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-gethascurrent">GetHasCurrent</a> returns <b>false</b>. If the enumerator is not empty, it points to the first element, and this method returns the first item. Subsequently, the user should use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-movenext">MoveNext</a> to move through the items, and call <b>GetHasCurrent</b> before using <b>GetCurrent</b> to access the item.
-     * @returns {IAppxBlockMapFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfile">IAppxBlockMapFile</a>**</b>
-     * 
-     * The current file.
+     * @returns {IAppxBlockMapFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &file := 0, "HRESULT")
-        return IAppxBlockMapFile(file)
+        result := ComCall(3, this, "ptr*", &_file := 0, "HRESULT")
+        return IAppxBlockMapFile(_file)
     }
 
     /**

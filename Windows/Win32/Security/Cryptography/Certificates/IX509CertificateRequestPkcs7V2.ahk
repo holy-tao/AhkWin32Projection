@@ -88,7 +88,7 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7{
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * Finally, the method sets the initialized PKCS #10 request as the inner request object.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -126,8 +126,8 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7v2-initializefromtemplate
      */
-    InitializeFromTemplate(context, pPolicyServer, pTemplate) {
-        result := ComCall(40, this, "int", context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+    InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
+        result := ComCall(40, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 

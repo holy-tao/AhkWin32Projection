@@ -49,11 +49,11 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential{
      * Retrieves the security identifier (SID) of the user that is associated with this credential.
      * @remarks
      * The Logon UI will use the returned SID from this method to associate the credential tile with a user tile. To associate the credential with the "Other user" user tile in the Logon UI, this method should return <b>S_FALSE</b> and a null SID. The "Other user" tile is normally only valid when the PC is joined to a domain.
-     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
     GetUserSid() {
-        result := ComCall(20, this, "ptr*", &sid := 0, "HRESULT")
-        return sid
+        result := ComCall(20, this, "ptr*", &_sid := 0, "HRESULT")
+        return _sid
     }
 }

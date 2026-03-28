@@ -101,12 +101,12 @@ class ISurrogateService extends IUnknown{
      * } ShutdownType;
      * 
      * ```
-     * @param {Integer} shutdownType The shutdown type, as described in Remarks.
+     * @param {Integer} _shutdownType 
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_UNEXPECTED.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isurrogateservice-processshutdown
      */
-    ProcessShutdown(shutdownType) {
-        result := ComCall(7, this, "int", shutdownType, "HRESULT")
+    ProcessShutdown(_shutdownType) {
+        result := ComCall(7, this, "int", _shutdownType, "HRESULT")
         return result
     }
 }

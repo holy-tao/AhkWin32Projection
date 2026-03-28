@@ -34,9 +34,9 @@ class IPixelFilter extends IFilter{
      * @returns {IMAGE_INFO} 
      */
     GetImageInfo() {
-        imageInfo := IMAGE_INFO()
-        result := ComCall(8, this, "ptr", imageInfo, "HRESULT")
-        return imageInfo
+        _imageInfo := IMAGE_INFO()
+        result := ComCall(8, this, "ptr", _imageInfo, "HRESULT")
+        return _imageInfo
     }
 
     /**

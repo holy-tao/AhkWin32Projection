@@ -1530,11 +1530,11 @@ class GdiPlus {
 ;@region Methods
     /**
      * 
-     * @param {Pointer} size 
+     * @param {Pointer} _size 
      * @returns {Pointer<Void>} 
      */
-    static GdipAlloc(size) {
-        result := DllCall("gdiplus.dll\GdipAlloc", "ptr", size, "ptr")
+    static GdipAlloc(_size) {
+        result := DllCall("gdiplus.dll\GdipAlloc", "ptr", _size, "ptr")
         return result
     }
 
@@ -1552,15 +1552,15 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<Pointer>} token 
-     * @param {Pointer<GdiplusStartupInput>} input 
+     * @param {Pointer<GdiplusStartupInput>} _input 
      * @param {Pointer<GdiplusStartupOutput>} output 
      * @returns {Integer} 
      * @since windows5.1.2600
      */
-    static GdiplusStartup(token, input, output) {
+    static GdiplusStartup(token, _input, output) {
         tokenMarshal := token is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdiplusStartup", tokenMarshal, token, "ptr", input, "ptr", output, "int")
+        result := DllCall("gdiplus.dll\GdiplusStartup", tokenMarshal, token, "ptr", _input, "ptr", output, "int")
         return result
     }
 
@@ -1577,83 +1577,83 @@ class GdiPlus {
     /**
      * 
      * @param {Guid} guid 
-     * @param {Pointer<Pointer<CGpEffect>>} effect 
+     * @param {Pointer<Pointer<CGpEffect>>} _effect 
      * @returns {Integer} 
      */
-    static GdipCreateEffect(guid, effect) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+    static GdipCreateEffect(guid, _effect) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateEffect", "ptr", guid, effectMarshal, effect, "int")
+        result := DllCall("gdiplus.dll\GdipCreateEffect", "ptr", guid, _effectMarshal, _effect, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<CGpEffect>} effect 
+     * @param {Pointer<CGpEffect>} _effect 
      * @returns {Integer} 
      */
-    static GdipDeleteEffect(effect) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+    static GdipDeleteEffect(_effect) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDeleteEffect", effectMarshal, effect, "int")
+        result := DllCall("gdiplus.dll\GdipDeleteEffect", _effectMarshal, _effect, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<CGpEffect>} effect 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<CGpEffect>} _effect 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetEffectParameterSize(effect, size) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    static GdipGetEffectParameterSize(_effect, _size) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetEffectParameterSize", effectMarshal, effect, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetEffectParameterSize", _effectMarshal, _effect, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<CGpEffect>} effect 
+     * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<Void>} params 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {Integer} 
      */
-    static GdipSetEffectParameters(effect, params, size) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+    static GdipSetEffectParameters(_effect, params, _size) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
         paramsMarshal := params is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetEffectParameters", effectMarshal, effect, paramsMarshal, params, "uint", size, "int")
+        result := DllCall("gdiplus.dll\GdipSetEffectParameters", _effectMarshal, _effect, paramsMarshal, params, "uint", _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<CGpEffect>} effect 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<CGpEffect>} _effect 
+     * @param {Pointer<Integer>} _size 
      * @param {Pointer<Void>} params 
      * @returns {Integer} 
      */
-    static GdipGetEffectParameters(effect, size, params) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    static GdipGetEffectParameters(_effect, _size, params) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
         paramsMarshal := params is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetEffectParameters", effectMarshal, effect, sizeMarshal, size, paramsMarshal, params, "int")
+        result := DllCall("gdiplus.dll\GdipGetEffectParameters", _effectMarshal, _effect, _sizeMarshal, _size, paramsMarshal, params, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} brushMode 
-     * @param {Pointer<Pointer<GpPath>>} path 
+     * @param {Pointer<Pointer<GpPath>>} _path 
      * @returns {Integer} 
      */
-    static GdipCreatePath(brushMode, path) {
-        pathMarshal := path is VarRef ? "ptr*" : "ptr"
+    static GdipCreatePath(brushMode, _path) {
+        _pathMarshal := _path is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePath", "int", brushMode, pathMarshal, path, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePath", "int", brushMode, _pathMarshal, _path, "int")
         return result
     }
 
@@ -1663,14 +1663,14 @@ class GdiPlus {
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @param {Pointer<Pointer<GpPath>>} path 
+     * @param {Pointer<Pointer<GpPath>>} _path 
      * @returns {Integer} 
      */
-    static GdipCreatePath2(param0, param1, param2, param3, path) {
+    static GdipCreatePath2(param0, param1, param2, param3, _path) {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
-        pathMarshal := path is VarRef ? "ptr*" : "ptr"
+        _pathMarshal := _path is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePath2", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, pathMarshal, path, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePath2", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, _pathMarshal, _path, "int")
         return result
     }
 
@@ -1680,236 +1680,236 @@ class GdiPlus {
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @param {Pointer<Pointer<GpPath>>} path 
+     * @param {Pointer<Pointer<GpPath>>} _path 
      * @returns {Integer} 
      */
-    static GdipCreatePath2I(param0, param1, param2, param3, path) {
+    static GdipCreatePath2I(param0, param1, param2, param3, _path) {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
-        pathMarshal := path is VarRef ? "ptr*" : "ptr"
+        _pathMarshal := _path is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePath2I", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, pathMarshal, path, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePath2I", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, _pathMarshal, _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Pointer<GpPath>>} clonePath 
      * @returns {Integer} 
      */
-    static GdipClonePath(path, clonePath) {
+    static GdipClonePath(_path, clonePath) {
         clonePathMarshal := clonePath is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipClonePath", "ptr", path, clonePathMarshal, clonePath, "int")
+        result := DllCall("gdiplus.dll\GdipClonePath", "ptr", _path, clonePathMarshal, clonePath, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipDeletePath(path) {
-        result := DllCall("gdiplus.dll\GdipDeletePath", "ptr", path, "int")
+    static GdipDeletePath(_path) {
+        result := DllCall("gdiplus.dll\GdipDeletePath", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipResetPath(path) {
-        result := DllCall("gdiplus.dll\GdipResetPath", "ptr", path, "int")
+    static GdipResetPath(_path) {
+        result := DllCall("gdiplus.dll\GdipResetPath", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
-    static GdipGetPointCount(path, count) {
+    static GdipGetPointCount(_path, count) {
         countMarshal := count is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPointCount", "ptr", path, countMarshal, count, "int")
+        result := DllCall("gdiplus.dll\GdipGetPointCount", "ptr", _path, countMarshal, count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer} types 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipGetPathTypes(path, types, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathTypes", "ptr", path, "ptr", types, "int", count, "int")
+    static GdipGetPathTypes(_path, types, count) {
+        result := DllCall("gdiplus.dll\GdipGetPathTypes", "ptr", _path, "ptr", types, "int", count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPath>} param0 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipGetPathPoints(param0, points, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathPoints", "ptr", param0, "ptr", points, "int", count, "int")
+    static GdipGetPathPoints(param0, _points, count) {
+        result := DllCall("gdiplus.dll\GdipGetPathPoints", "ptr", param0, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPath>} param0 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipGetPathPointsI(param0, points, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathPointsI", "ptr", param0, "ptr", points, "int", count, "int")
+    static GdipGetPathPointsI(param0, _points, count) {
+        result := DllCall("gdiplus.dll\GdipGetPathPointsI", "ptr", param0, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Integer>} fillmode 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Integer>} _fillmode 
      * @returns {Integer} 
      */
-    static GdipGetPathFillMode(path, fillmode) {
-        fillmodeMarshal := fillmode is VarRef ? "int*" : "ptr"
+    static GdipGetPathFillMode(_path, _fillmode) {
+        _fillmodeMarshal := _fillmode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathFillMode", "ptr", path, fillmodeMarshal, fillmode, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathFillMode", "ptr", _path, _fillmodeMarshal, _fillmode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Integer} fillmode 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Integer} _fillmode 
      * @returns {Integer} 
      */
-    static GdipSetPathFillMode(path, fillmode) {
-        result := DllCall("gdiplus.dll\GdipSetPathFillMode", "ptr", path, "int", fillmode, "int")
+    static GdipSetPathFillMode(_path, _fillmode) {
+        result := DllCall("gdiplus.dll\GdipSetPathFillMode", "ptr", _path, "int", _fillmode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PathData>} pathData 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PathData>} _pathData 
      * @returns {Integer} 
      */
-    static GdipGetPathData(path, pathData) {
-        pathDataMarshal := pathData is VarRef ? "ptr*" : "ptr"
+    static GdipGetPathData(_path, _pathData) {
+        _pathDataMarshal := _pathData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathData", "ptr", path, pathDataMarshal, pathData, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathData", "ptr", _path, _pathDataMarshal, _pathData, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipStartPathFigure(path) {
-        result := DllCall("gdiplus.dll\GdipStartPathFigure", "ptr", path, "int")
+    static GdipStartPathFigure(_path) {
+        result := DllCall("gdiplus.dll\GdipStartPathFigure", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipClosePathFigure(path) {
-        result := DllCall("gdiplus.dll\GdipClosePathFigure", "ptr", path, "int")
+    static GdipClosePathFigure(_path) {
+        result := DllCall("gdiplus.dll\GdipClosePathFigure", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipClosePathFigures(path) {
-        result := DllCall("gdiplus.dll\GdipClosePathFigures", "ptr", path, "int")
+    static GdipClosePathFigures(_path) {
+        result := DllCall("gdiplus.dll\GdipClosePathFigures", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipSetPathMarker(path) {
-        result := DllCall("gdiplus.dll\GdipSetPathMarker", "ptr", path, "int")
+    static GdipSetPathMarker(_path) {
+        result := DllCall("gdiplus.dll\GdipSetPathMarker", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipClearPathMarkers(path) {
-        result := DllCall("gdiplus.dll\GdipClearPathMarkers", "ptr", path, "int")
+    static GdipClearPathMarkers(_path) {
+        result := DllCall("gdiplus.dll\GdipClearPathMarkers", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipReversePath(path) {
-        result := DllCall("gdiplus.dll\GdipReversePath", "ptr", path, "int")
+    static GdipReversePath(_path) {
+        result := DllCall("gdiplus.dll\GdipReversePath", "ptr", _path, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} lastPoint 
      * @returns {Integer} 
      */
-    static GdipGetPathLastPoint(path, lastPoint) {
-        result := DllCall("gdiplus.dll\GdipGetPathLastPoint", "ptr", path, "ptr", lastPoint, "int")
+    static GdipGetPathLastPoint(_path, lastPoint) {
+        result := DllCall("gdiplus.dll\GdipGetPathLastPoint", "ptr", _path, "ptr", lastPoint, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x1 
      * @param {Float} y1 
      * @param {Float} x2 
      * @param {Float} y2 
      * @returns {Integer} 
      */
-    static GdipAddPathLine(path, x1, y1, x2, y2) {
-        result := DllCall("gdiplus.dll\GdipAddPathLine", "ptr", path, "float", x1, "float", y1, "float", x2, "float", y2, "int")
+    static GdipAddPathLine(_path, x1, y1, x2, y2) {
+        result := DllCall("gdiplus.dll\GdipAddPathLine", "ptr", _path, "float", x1, "float", y1, "float", x2, "float", y2, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathLine2(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathLine2", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathLine2(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathLine2", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
@@ -1918,14 +1918,14 @@ class GdiPlus {
      * @param {Float} sweepAngle 
      * @returns {Integer} 
      */
-    static GdipAddPathArc(path, x, y, width, height, startAngle, sweepAngle) {
-        result := DllCall("gdiplus.dll\GdipAddPathArc", "ptr", path, "float", x, "float", y, "float", width, "float", height, "float", startAngle, "float", sweepAngle, "int")
+    static GdipAddPathArc(_path, x, y, width, height, startAngle, sweepAngle) {
+        result := DllCall("gdiplus.dll\GdipAddPathArc", "ptr", _path, "float", x, "float", y, "float", width, "float", height, "float", startAngle, "float", sweepAngle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x1 
      * @param {Float} y1 
      * @param {Float} x2 
@@ -1936,131 +1936,131 @@ class GdiPlus {
      * @param {Float} y4 
      * @returns {Integer} 
      */
-    static GdipAddPathBezier(path, x1, y1, x2, y2, x3, y3, x4, y4) {
-        result := DllCall("gdiplus.dll\GdipAddPathBezier", "ptr", path, "float", x1, "float", y1, "float", x2, "float", y2, "float", x3, "float", y3, "float", x4, "float", y4, "int")
+    static GdipAddPathBezier(_path, x1, y1, x2, y2, x3, y3, x4, y4) {
+        result := DllCall("gdiplus.dll\GdipAddPathBezier", "ptr", _path, "float", x1, "float", y1, "float", x2, "float", y2, "float", x3, "float", y3, "float", x4, "float", y4, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathBeziers(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathBeziers", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathBeziers(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathBeziers", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathCurve(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurve", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathCurve(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurve", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathCurve2(path, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurve2", "ptr", path, "ptr", points, "int", count, "float", tension, "int")
+    static GdipAddPathCurve2(_path, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurve2", "ptr", _path, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Integer} offset 
      * @param {Integer} numberOfSegments 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathCurve3(path, points, count, offset, numberOfSegments, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurve3", "ptr", path, "ptr", points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
+    static GdipAddPathCurve3(_path, _points, count, offset, numberOfSegments, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurve3", "ptr", _path, "ptr", _points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathClosedCurve(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathClosedCurve(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathClosedCurve2(path, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve2", "ptr", path, "ptr", points, "int", count, "float", tension, "int")
+    static GdipAddPathClosedCurve2(_path, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve2", "ptr", _path, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
      * @param {Float} height 
      * @returns {Integer} 
      */
-    static GdipAddPathRectangle(path, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipAddPathRectangle", "ptr", path, "float", x, "float", y, "float", width, "float", height, "int")
+    static GdipAddPathRectangle(_path, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipAddPathRectangle", "ptr", _path, "float", x, "float", y, "float", width, "float", height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<RectF>} rects 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathRectangles(path, rects, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathRectangles", "ptr", path, "ptr", rects, "int", count, "int")
+    static GdipAddPathRectangles(_path, rects, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathRectangles", "ptr", _path, "ptr", rects, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
      * @param {Float} height 
      * @returns {Integer} 
      */
-    static GdipAddPathEllipse(path, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipAddPathEllipse", "ptr", path, "float", x, "float", y, "float", width, "float", height, "int")
+    static GdipAddPathEllipse(_path, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipAddPathEllipse", "ptr", _path, "float", x, "float", y, "float", width, "float", height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
@@ -2069,39 +2069,39 @@ class GdiPlus {
      * @param {Float} sweepAngle 
      * @returns {Integer} 
      */
-    static GdipAddPathPie(path, x, y, width, height, startAngle, sweepAngle) {
-        result := DllCall("gdiplus.dll\GdipAddPathPie", "ptr", path, "float", x, "float", y, "float", width, "float", height, "float", startAngle, "float", sweepAngle, "int")
+    static GdipAddPathPie(_path, x, y, width, height, startAngle, sweepAngle) {
+        result := DllCall("gdiplus.dll\GdipAddPathPie", "ptr", _path, "float", x, "float", y, "float", width, "float", height, "float", startAngle, "float", sweepAngle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathPolygon(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathPolygon", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathPolygon(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathPolygon", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<GpPath>} addingPath 
      * @param {BOOL} connect 
      * @returns {Integer} 
      */
-    static GdipAddPathPath(path, addingPath, connect) {
-        result := DllCall("gdiplus.dll\GdipAddPathPath", "ptr", path, "ptr", addingPath, "int", connect, "int")
+    static GdipAddPathPath(_path, addingPath, connect) {
+        result := DllCall("gdiplus.dll\GdipAddPathPath", "ptr", _path, "ptr", addingPath, "int", connect, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string_R 
+     * @param {Pointer<GpPath>} _path 
+     * @param {PWSTR} _string 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2110,17 +2110,17 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathString(path, string_R, length, family, style, emSize, layoutRect, format) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static GdipAddPathString(_path, _string, length, family, style, emSize, layoutRect, format) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", _path, "ptr", _string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string_R 
+     * @param {Pointer<GpPath>} _path 
+     * @param {PWSTR} _string 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2129,42 +2129,42 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathStringI(path, string_R, length, family, style, emSize, layoutRect, format) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static GdipAddPathStringI(_path, _string, length, family, style, emSize, layoutRect, format) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", _path, "ptr", _string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x1 
      * @param {Integer} y1 
      * @param {Integer} x2 
      * @param {Integer} y2 
      * @returns {Integer} 
      */
-    static GdipAddPathLineI(path, x1, y1, x2, y2) {
-        result := DllCall("gdiplus.dll\GdipAddPathLineI", "ptr", path, "int", x1, "int", y1, "int", x2, "int", y2, "int")
+    static GdipAddPathLineI(_path, x1, y1, x2, y2) {
+        result := DllCall("gdiplus.dll\GdipAddPathLineI", "ptr", _path, "int", x1, "int", y1, "int", x2, "int", y2, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathLine2I(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathLine2I", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathLine2I(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathLine2I", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -2173,14 +2173,14 @@ class GdiPlus {
      * @param {Float} sweepAngle 
      * @returns {Integer} 
      */
-    static GdipAddPathArcI(path, x, y, width, height, startAngle, sweepAngle) {
-        result := DllCall("gdiplus.dll\GdipAddPathArcI", "ptr", path, "int", x, "int", y, "int", width, "int", height, "float", startAngle, "float", sweepAngle, "int")
+    static GdipAddPathArcI(_path, x, y, width, height, startAngle, sweepAngle) {
+        result := DllCall("gdiplus.dll\GdipAddPathArcI", "ptr", _path, "int", x, "int", y, "int", width, "int", height, "float", startAngle, "float", sweepAngle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x1 
      * @param {Integer} y1 
      * @param {Integer} x2 
@@ -2191,131 +2191,131 @@ class GdiPlus {
      * @param {Integer} y4 
      * @returns {Integer} 
      */
-    static GdipAddPathBezierI(path, x1, y1, x2, y2, x3, y3, x4, y4) {
-        result := DllCall("gdiplus.dll\GdipAddPathBezierI", "ptr", path, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
+    static GdipAddPathBezierI(_path, x1, y1, x2, y2, x3, y3, x4, y4) {
+        result := DllCall("gdiplus.dll\GdipAddPathBezierI", "ptr", _path, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathBeziersI(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathBeziersI", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathBeziersI(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathBeziersI", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathCurveI(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurveI", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathCurveI(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurveI", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathCurve2I(path, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurve2I", "ptr", path, "ptr", points, "int", count, "float", tension, "int")
+    static GdipAddPathCurve2I(_path, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurve2I", "ptr", _path, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {Integer} offset 
      * @param {Integer} numberOfSegments 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathCurve3I(path, points, count, offset, numberOfSegments, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathCurve3I", "ptr", path, "ptr", points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
+    static GdipAddPathCurve3I(_path, _points, count, offset, numberOfSegments, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathCurve3I", "ptr", _path, "ptr", _points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathClosedCurveI(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathClosedCurveI", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathClosedCurveI(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathClosedCurveI", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipAddPathClosedCurve2I(path, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve2I", "ptr", path, "ptr", points, "int", count, "float", tension, "int")
+    static GdipAddPathClosedCurve2I(_path, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipAddPathClosedCurve2I", "ptr", _path, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {Integer} 
      */
-    static GdipAddPathRectangleI(path, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipAddPathRectangleI", "ptr", path, "int", x, "int", y, "int", width, "int", height, "int")
+    static GdipAddPathRectangleI(_path, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipAddPathRectangleI", "ptr", _path, "int", x, "int", y, "int", width, "int", height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Rect>} rects 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathRectanglesI(path, rects, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathRectanglesI", "ptr", path, "ptr", rects, "int", count, "int")
+    static GdipAddPathRectanglesI(_path, rects, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathRectanglesI", "ptr", _path, "ptr", rects, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {Integer} 
      */
-    static GdipAddPathEllipseI(path, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipAddPathEllipseI", "ptr", path, "int", x, "int", y, "int", width, "int", height, "int")
+    static GdipAddPathEllipseI(_path, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipAddPathEllipseI", "ptr", _path, "int", x, "int", y, "int", width, "int", height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -2324,48 +2324,48 @@ class GdiPlus {
      * @param {Float} sweepAngle 
      * @returns {Integer} 
      */
-    static GdipAddPathPieI(path, x, y, width, height, startAngle, sweepAngle) {
-        result := DllCall("gdiplus.dll\GdipAddPathPieI", "ptr", path, "int", x, "int", y, "int", width, "int", height, "float", startAngle, "float", sweepAngle, "int")
+    static GdipAddPathPieI(_path, x, y, width, height, startAngle, sweepAngle) {
+        result := DllCall("gdiplus.dll\GdipAddPathPieI", "ptr", _path, "int", x, "int", y, "int", width, "int", height, "float", startAngle, "float", sweepAngle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipAddPathPolygonI(path, points, count) {
-        result := DllCall("gdiplus.dll\GdipAddPathPolygonI", "ptr", path, "ptr", points, "int", count, "int")
+    static GdipAddPathPolygonI(_path, _points, count) {
+        result := DllCall("gdiplus.dll\GdipAddPathPolygonI", "ptr", _path, "ptr", _points, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} flatness 
      * @returns {Integer} 
      */
-    static GdipFlattenPath(path, matrix, flatness) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipFlattenPath(_path, _matrix, flatness) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipFlattenPath", "ptr", path, matrixMarshal, matrix, "float", flatness, "int")
+        result := DllCall("gdiplus.dll\GdipFlattenPath", "ptr", _path, _matrixMarshal, _matrix, "float", flatness, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} flatness 
      * @returns {Integer} 
      */
-    static GdipWindingModeOutline(path, matrix, flatness) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipWindingModeOutline(_path, _matrix, flatness) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipWindingModeOutline", "ptr", path, matrixMarshal, matrix, "float", flatness, "int")
+        result := DllCall("gdiplus.dll\GdipWindingModeOutline", "ptr", _path, _matrixMarshal, _matrix, "float", flatness, "int")
         return result
     }
 
@@ -2373,116 +2373,116 @@ class GdiPlus {
      * 
      * @param {Pointer<GpPath>} nativePath 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} flatness 
      * @returns {Integer} 
      */
-    static GdipWidenPath(nativePath, pen, matrix, flatness) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipWidenPath(nativePath, pen, _matrix, flatness) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipWidenPath", "ptr", nativePath, "ptr", pen, matrixMarshal, matrix, "float", flatness, "int")
+        result := DllCall("gdiplus.dll\GdipWidenPath", "ptr", nativePath, "ptr", pen, _matrixMarshal, _matrix, "float", flatness, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Matrix>} matrix 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Matrix>} _matrix 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} srcx 
      * @param {Float} srcy 
      * @param {Float} srcwidth 
      * @param {Float} srcheight 
-     * @param {Integer} warpMode 
+     * @param {Integer} _warpMode 
      * @param {Float} flatness 
      * @returns {Integer} 
      */
-    static GdipWarpPath(path, matrix, points, count, srcx, srcy, srcwidth, srcheight, warpMode, flatness) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipWarpPath(_path, _matrix, _points, count, srcx, srcy, srcwidth, srcheight, _warpMode, flatness) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipWarpPath", "ptr", path, matrixMarshal, matrix, "ptr", points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", warpMode, "float", flatness, "int")
+        result := DllCall("gdiplus.dll\GdipWarpPath", "ptr", _path, _matrixMarshal, _matrix, "ptr", _points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", _warpMode, "float", flatness, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipTransformPath(path, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipTransformPath(_path, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipTransformPath", "ptr", path, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipTransformPath", "ptr", _path, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<RectF>} bounds 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<GpPen>} pen 
      * @returns {Integer} 
      */
-    static GdipGetPathWorldBounds(path, bounds, matrix, pen) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetPathWorldBounds(_path, bounds, _matrix, pen) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathWorldBounds", "ptr", path, "ptr", bounds, matrixMarshal, matrix, "ptr", pen, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathWorldBounds", "ptr", _path, "ptr", bounds, _matrixMarshal, _matrix, "ptr", pen, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Rect>} bounds 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<GpPen>} pen 
      * @returns {Integer} 
      */
-    static GdipGetPathWorldBoundsI(path, bounds, matrix, pen) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetPathWorldBoundsI(_path, bounds, _matrix, pen) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathWorldBoundsI", "ptr", path, "ptr", bounds, matrixMarshal, matrix, "ptr", pen, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathWorldBoundsI", "ptr", _path, "ptr", bounds, _matrixMarshal, _matrix, "ptr", pen, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisiblePathPoint(path, x, y, graphics, result) {
+    static GdipIsVisiblePathPoint(_path, x, y, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisiblePathPoint", "ptr", path, "float", x, "float", y, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisiblePathPoint", "ptr", _path, "float", x, "float", y, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisiblePathPointI(path, x, y, graphics, result) {
+    static GdipIsVisiblePathPointI(_path, x, y, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisiblePathPointI", "ptr", path, "int", x, "int", y, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisiblePathPointI", "ptr", _path, "int", x, "int", y, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Pointer<GpPen>} pen 
@@ -2490,16 +2490,16 @@ class GdiPlus {
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsOutlineVisiblePathPoint(path, x, y, pen, graphics, result) {
+    static GdipIsOutlineVisiblePathPoint(_path, x, y, pen, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsOutlineVisiblePathPoint", "ptr", path, "float", x, "float", y, "ptr", pen, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsOutlineVisiblePathPoint", "ptr", _path, "float", x, "float", y, "ptr", pen, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Pointer<GpPen>} pen 
@@ -2507,23 +2507,23 @@ class GdiPlus {
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsOutlineVisiblePathPointI(path, x, y, pen, graphics, result) {
+    static GdipIsOutlineVisiblePathPointI(_path, x, y, pen, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsOutlineVisiblePathPointI", "ptr", path, "int", x, "int", y, "ptr", pen, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsOutlineVisiblePathPointI", "ptr", _path, "int", x, "int", y, "ptr", pen, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<GpPathIterator>>} iterator 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipCreatePathIter(iterator, path) {
+    static GdipCreatePathIter(iterator, _path) {
         iteratorMarshal := iterator is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePathIter", iteratorMarshal, iterator, "ptr", path, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePathIter", iteratorMarshal, iterator, "ptr", _path, "int")
         return result
     }
 
@@ -2560,15 +2560,15 @@ class GdiPlus {
      * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<BOOL>} isClosed 
      * @returns {Integer} 
      */
-    static GdipPathIterNextSubpathPath(iterator, resultCount, path, isClosed) {
+    static GdipPathIterNextSubpathPath(iterator, resultCount, _path, isClosed) {
         resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
         isClosedMarshal := isClosed is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPathIterNextSubpathPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", path, isClosedMarshal, isClosed, "int")
+        result := DllCall("gdiplus.dll\GdipPathIterNextSubpathPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", _path, isClosedMarshal, isClosed, "int")
         return result
     }
 
@@ -2612,13 +2612,13 @@ class GdiPlus {
      * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipPathIterNextMarkerPath(iterator, resultCount, path) {
+    static GdipPathIterNextMarkerPath(iterator, resultCount, _path) {
         resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPathIterNextMarkerPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", path, "int")
+        result := DllCall("gdiplus.dll\GdipPathIterNextMarkerPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", _path, "int")
         return result
     }
 
@@ -2688,16 +2688,16 @@ class GdiPlus {
      * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Pointer<Integer>} types 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipPathIterEnumerate(iterator, resultCount, points, types, count) {
+    static GdipPathIterEnumerate(iterator, resultCount, _points, types, count) {
         resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
         typesMarshal := types is VarRef ? "char*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPathIterEnumerate", "ptr", iterator, resultCountMarshal, resultCount, "ptr", points, typesMarshal, types, "int", count, "int")
+        result := DllCall("gdiplus.dll\GdipPathIterEnumerate", "ptr", iterator, resultCountMarshal, resultCount, "ptr", _points, typesMarshal, types, "int", count, "int")
         return result
     }
 
@@ -2705,29 +2705,29 @@ class GdiPlus {
      * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Pointer<Integer>} types 
      * @param {Integer} startIndex 
      * @param {Integer} endIndex 
      * @returns {Integer} 
      */
-    static GdipPathIterCopyData(iterator, resultCount, points, types, startIndex, endIndex) {
+    static GdipPathIterCopyData(iterator, resultCount, _points, types, startIndex, endIndex) {
         resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
         typesMarshal := types is VarRef ? "char*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPathIterCopyData", "ptr", iterator, resultCountMarshal, resultCount, "ptr", points, typesMarshal, types, "int", startIndex, "int", endIndex, "int")
+        result := DllCall("gdiplus.dll\GdipPathIterCopyData", "ptr", iterator, resultCountMarshal, resultCount, "ptr", _points, typesMarshal, types, "int", startIndex, "int", endIndex, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Matrix>>} matrix 
+     * @param {Pointer<Pointer<Matrix>>} _matrix 
      * @returns {Integer} 
      */
-    static GdipCreateMatrix(matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipCreateMatrix(_matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMatrix", matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMatrix", _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -2739,73 +2739,73 @@ class GdiPlus {
      * @param {Float} m22 
      * @param {Float} dx 
      * @param {Float} dy 
-     * @param {Pointer<Pointer<Matrix>>} matrix 
+     * @param {Pointer<Pointer<Matrix>>} _matrix 
      * @returns {Integer} 
      */
-    static GdipCreateMatrix2(m11, m12, m21, m22, dx, dy, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipCreateMatrix2(m11, m12, m21, m22, dx, dy, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMatrix2", "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMatrix2", "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @param {Pointer<PointF>} dstplg 
-     * @param {Pointer<Pointer<Matrix>>} matrix 
+     * @param {Pointer<Pointer<Matrix>>} _matrix 
      * @returns {Integer} 
      */
-    static GdipCreateMatrix3(rect, dstplg, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipCreateMatrix3(_rect, dstplg, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMatrix3", "ptr", rect, "ptr", dstplg, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMatrix3", "ptr", _rect, "ptr", dstplg, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @param {Pointer<Point>} dstplg 
-     * @param {Pointer<Pointer<Matrix>>} matrix 
+     * @param {Pointer<Pointer<Matrix>>} _matrix 
      * @returns {Integer} 
      */
-    static GdipCreateMatrix3I(rect, dstplg, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipCreateMatrix3I(_rect, dstplg, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMatrix3I", "ptr", rect, "ptr", dstplg, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMatrix3I", "ptr", _rect, "ptr", dstplg, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Pointer<Matrix>>} cloneMatrix 
      * @returns {Integer} 
      */
-    static GdipCloneMatrix(matrix, cloneMatrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipCloneMatrix(_matrix, cloneMatrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         cloneMatrixMarshal := cloneMatrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCloneMatrix", matrixMarshal, matrix, cloneMatrixMarshal, cloneMatrix, "int")
+        result := DllCall("gdiplus.dll\GdipCloneMatrix", _matrixMarshal, _matrix, cloneMatrixMarshal, cloneMatrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipDeleteMatrix(matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipDeleteMatrix(_matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDeleteMatrix", matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipDeleteMatrix", _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -2814,565 +2814,565 @@ class GdiPlus {
      * @param {Float} dy 
      * @returns {Integer} 
      */
-    static GdipSetMatrixElements(matrix, m11, m12, m21, m22, dx, dy) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetMatrixElements(_matrix, m11, m12, m21, m22, dx, dy) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetMatrixElements", matrixMarshal, matrix, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "int")
+        result := DllCall("gdiplus.dll\GdipSetMatrixElements", _matrixMarshal, _matrix, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Matrix>} matrix2 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyMatrix(matrix, matrix2, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyMatrix(_matrix, matrix2, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         matrix2Marshal := matrix2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyMatrix", matrixMarshal, matrix, matrix2Marshal, matrix2, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyMatrix", _matrixMarshal, _matrix, matrix2Marshal, matrix2, "int", order, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} offsetX 
      * @param {Float} offsetY 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipTranslateMatrix(matrix, offsetX, offsetY, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipTranslateMatrix(_matrix, offsetX, offsetY, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipTranslateMatrix", matrixMarshal, matrix, "float", offsetX, "float", offsetY, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipTranslateMatrix", _matrixMarshal, _matrix, "float", offsetX, "float", offsetY, "int", order, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} scaleX 
      * @param {Float} scaleY 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipScaleMatrix(matrix, scaleX, scaleY, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipScaleMatrix(_matrix, scaleX, scaleY, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipScaleMatrix", matrixMarshal, matrix, "float", scaleX, "float", scaleY, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipScaleMatrix", _matrixMarshal, _matrix, "float", scaleX, "float", scaleY, "int", order, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} angle 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipRotateMatrix(matrix, angle, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipRotateMatrix(_matrix, angle, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRotateMatrix", matrixMarshal, matrix, "float", angle, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipRotateMatrix", _matrixMarshal, _matrix, "float", angle, "int", order, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Float} shearX 
      * @param {Float} shearY 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipShearMatrix(matrix, shearX, shearY, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipShearMatrix(_matrix, shearX, shearY, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipShearMatrix", matrixMarshal, matrix, "float", shearX, "float", shearY, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipShearMatrix", _matrixMarshal, _matrix, "float", shearX, "float", shearY, "int", order, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipInvertMatrix(matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipInvertMatrix(_matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipInvertMatrix", matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipInvertMatrix", _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<PointF>} pts 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipTransformMatrixPoints(matrix, pts, count) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipTransformMatrixPoints(_matrix, pts, count) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipTransformMatrixPoints", matrixMarshal, matrix, "ptr", pts, "int", count, "int")
+        result := DllCall("gdiplus.dll\GdipTransformMatrixPoints", _matrixMarshal, _matrix, "ptr", pts, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Point>} pts 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipTransformMatrixPointsI(matrix, pts, count) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipTransformMatrixPointsI(_matrix, pts, count) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipTransformMatrixPointsI", matrixMarshal, matrix, "ptr", pts, "int", count, "int")
+        result := DllCall("gdiplus.dll\GdipTransformMatrixPointsI", _matrixMarshal, _matrix, "ptr", pts, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<PointF>} pts 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipVectorTransformMatrixPoints(matrix, pts, count) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipVectorTransformMatrixPoints(_matrix, pts, count) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipVectorTransformMatrixPoints", matrixMarshal, matrix, "ptr", pts, "int", count, "int")
+        result := DllCall("gdiplus.dll\GdipVectorTransformMatrixPoints", _matrixMarshal, _matrix, "ptr", pts, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Point>} pts 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipVectorTransformMatrixPointsI(matrix, pts, count) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipVectorTransformMatrixPointsI(_matrix, pts, count) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipVectorTransformMatrixPointsI", matrixMarshal, matrix, "ptr", pts, "int", count, "int")
+        result := DllCall("gdiplus.dll\GdipVectorTransformMatrixPointsI", _matrixMarshal, _matrix, "ptr", pts, "int", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Float>} matrixOut 
      * @returns {Integer} 
      */
-    static GdipGetMatrixElements(matrix, matrixOut) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetMatrixElements(_matrix, matrixOut) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         matrixOutMarshal := matrixOut is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetMatrixElements", matrixMarshal, matrix, matrixOutMarshal, matrixOut, "int")
+        result := DllCall("gdiplus.dll\GdipGetMatrixElements", _matrixMarshal, _matrix, matrixOutMarshal, matrixOut, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsMatrixInvertible(matrix, result) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipIsMatrixInvertible(_matrix, result) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsMatrixInvertible", matrixMarshal, matrix, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsMatrixInvertible", _matrixMarshal, _matrix, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsMatrixIdentity(matrix, result) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipIsMatrixIdentity(_matrix, result) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsMatrixIdentity", matrixMarshal, matrix, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsMatrixIdentity", _matrixMarshal, _matrix, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Matrix>} matrix2 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsMatrixEqual(matrix, matrix2, result) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipIsMatrixEqual(_matrix, matrix2, result) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
         matrix2Marshal := matrix2 is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsMatrixEqual", matrixMarshal, matrix, matrix2Marshal, matrix2, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsMatrixEqual", _matrixMarshal, _matrix, matrix2Marshal, matrix2, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegion(region) {
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+    static GdipCreateRegion(_region) {
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegion", regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegion", _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RectF>} rect 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {Pointer<RectF>} _rect 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegionRect(rect, region) {
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+    static GdipCreateRegionRect(_rect, _region) {
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegionRect", "ptr", rect, regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegionRect", "ptr", _rect, _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Rect>} rect 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {Pointer<Rect>} _rect 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegionRectI(rect, region) {
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+    static GdipCreateRegionRectI(_rect, _region) {
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegionRectI", "ptr", rect, regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegionRectI", "ptr", _rect, _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegionPath(path, region) {
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+    static GdipCreateRegionPath(_path, _region) {
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegionPath", "ptr", path, regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegionPath", "ptr", _path, _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} regionData 
-     * @param {Integer} size 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {Integer} _size 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegionRgnData(regionData, size, region) {
+    static GdipCreateRegionRgnData(regionData, _size, _region) {
         regionDataMarshal := regionData is VarRef ? "char*" : "ptr"
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegionRgnData", regionDataMarshal, regionData, "int", size, regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegionRgnData", regionDataMarshal, regionData, "int", _size, _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {HRGN} hRgn 
-     * @param {Pointer<Pointer<GpRegion>>} region 
+     * @param {HRGN} _hRgn 
+     * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Integer} 
      */
-    static GdipCreateRegionHrgn(hRgn, region) {
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static GdipCreateRegionHrgn(_hRgn, _region) {
+        _hRgn := _hRgn is Win32Handle ? NumGet(_hRgn, "ptr") : _hRgn
 
-        regionMarshal := region is VarRef ? "ptr*" : "ptr"
+        _regionMarshal := _region is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateRegionHrgn", "ptr", hRgn, regionMarshal, region, "int")
+        result := DllCall("gdiplus.dll\GdipCreateRegionHrgn", "ptr", _hRgn, _regionMarshal, _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Pointer<GpRegion>>} cloneRegion 
      * @returns {Integer} 
      */
-    static GdipCloneRegion(region, cloneRegion) {
+    static GdipCloneRegion(_region, cloneRegion) {
         cloneRegionMarshal := cloneRegion is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCloneRegion", "ptr", region, cloneRegionMarshal, cloneRegion, "int")
+        result := DllCall("gdiplus.dll\GdipCloneRegion", "ptr", _region, cloneRegionMarshal, cloneRegion, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @returns {Integer} 
      */
-    static GdipDeleteRegion(region) {
-        result := DllCall("gdiplus.dll\GdipDeleteRegion", "ptr", region, "int")
+    static GdipDeleteRegion(_region) {
+        result := DllCall("gdiplus.dll\GdipDeleteRegion", "ptr", _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @returns {Integer} 
      */
-    static GdipSetInfinite(region) {
-        result := DllCall("gdiplus.dll\GdipSetInfinite", "ptr", region, "int")
+    static GdipSetInfinite(_region) {
+        result := DllCall("gdiplus.dll\GdipSetInfinite", "ptr", _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @returns {Integer} 
      */
-    static GdipSetEmpty(region) {
-        result := DllCall("gdiplus.dll\GdipSetEmpty", "ptr", region, "int")
+    static GdipSetEmpty(_region) {
+        result := DllCall("gdiplus.dll\GdipSetEmpty", "ptr", _region, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<RectF>} rect 
-     * @param {Integer} combineMode 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<RectF>} _rect 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipCombineRegionRect(region, rect, combineMode) {
-        result := DllCall("gdiplus.dll\GdipCombineRegionRect", "ptr", region, "ptr", rect, "int", combineMode, "int")
+    static GdipCombineRegionRect(_region, _rect, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipCombineRegionRect", "ptr", _region, "ptr", _rect, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<Rect>} rect 
-     * @param {Integer} combineMode 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<Rect>} _rect 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipCombineRegionRectI(region, rect, combineMode) {
-        result := DllCall("gdiplus.dll\GdipCombineRegionRectI", "ptr", region, "ptr", rect, "int", combineMode, "int")
+    static GdipCombineRegionRectI(_region, _rect, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipCombineRegionRectI", "ptr", _region, "ptr", _rect, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<GpPath>} path 
-     * @param {Integer} combineMode 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipCombineRegionPath(region, path, combineMode) {
-        result := DllCall("gdiplus.dll\GdipCombineRegionPath", "ptr", region, "ptr", path, "int", combineMode, "int")
+    static GdipCombineRegionPath(_region, _path, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipCombineRegionPath", "ptr", _region, "ptr", _path, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpRegion>} region2 
-     * @param {Integer} combineMode 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipCombineRegionRegion(region, region2, combineMode) {
-        result := DllCall("gdiplus.dll\GdipCombineRegionRegion", "ptr", region, "ptr", region2, "int", combineMode, "int")
+    static GdipCombineRegionRegion(_region, region2, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipCombineRegionRegion", "ptr", _region, "ptr", region2, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Float} dx 
      * @param {Float} dy 
      * @returns {Integer} 
      */
-    static GdipTranslateRegion(region, dx, dy) {
-        result := DllCall("gdiplus.dll\GdipTranslateRegion", "ptr", region, "float", dx, "float", dy, "int")
+    static GdipTranslateRegion(_region, dx, dy) {
+        result := DllCall("gdiplus.dll\GdipTranslateRegion", "ptr", _region, "float", dx, "float", dy, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Integer} dx 
      * @param {Integer} dy 
      * @returns {Integer} 
      */
-    static GdipTranslateRegionI(region, dx, dy) {
-        result := DllCall("gdiplus.dll\GdipTranslateRegionI", "ptr", region, "int", dx, "int", dy, "int")
+    static GdipTranslateRegionI(_region, dx, dy) {
+        result := DllCall("gdiplus.dll\GdipTranslateRegionI", "ptr", _region, "int", dx, "int", dy, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipTransformRegion(region, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipTransformRegion(_region, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipTransformRegion", "ptr", region, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipTransformRegion", "ptr", _region, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetRegionBounds(region, graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetRegionBounds", "ptr", region, "ptr", graphics, "ptr", rect, "int")
+    static GdipGetRegionBounds(_region, graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetRegionBounds", "ptr", _region, "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetRegionBoundsI(region, graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetRegionBoundsI", "ptr", region, "ptr", graphics, "ptr", rect, "int")
+    static GdipGetRegionBoundsI(_region, graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetRegionBoundsI", "ptr", _region, "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<HRGN>} hRgn 
+     * @param {Pointer<HRGN>} _hRgn 
      * @returns {Integer} 
      */
-    static GdipGetRegionHRgn(region, graphics, hRgn) {
-        result := DllCall("gdiplus.dll\GdipGetRegionHRgn", "ptr", region, "ptr", graphics, "ptr", hRgn, "int")
+    static GdipGetRegionHRgn(_region, graphics, _hRgn) {
+        result := DllCall("gdiplus.dll\GdipGetRegionHRgn", "ptr", _region, "ptr", graphics, "ptr", _hRgn, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<BOOL>} result 
-     * @returns {Integer} 
-     */
-    static GdipIsEmptyRegion(region, graphics, result) {
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := DllCall("gdiplus.dll\GdipIsEmptyRegion", "ptr", region, "ptr", graphics, resultMarshal, result, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsInfiniteRegion(region, graphics, result) {
+    static GdipIsEmptyRegion(_region, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsInfiniteRegion", "ptr", region, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsEmptyRegion", "ptr", _region, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<GpGraphics>} graphics 
+     * @param {Pointer<BOOL>} result 
+     * @returns {Integer} 
+     */
+    static GdipIsInfiniteRegion(_region, graphics, result) {
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipIsInfiniteRegion", "ptr", _region, "ptr", graphics, resultMarshal, result, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpRegion>} region2 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsEqualRegion(region, region2, graphics, result) {
+    static GdipIsEqualRegion(_region, region2, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsEqualRegion", "ptr", region, "ptr", region2, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsEqualRegion", "ptr", _region, "ptr", region2, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Integer>} bufferSize 
      * @returns {Integer} 
      */
-    static GdipGetRegionDataSize(region, bufferSize) {
+    static GdipGetRegionDataSize(_region, bufferSize) {
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionDataSize", "ptr", region, bufferSizeMarshal, bufferSize, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionDataSize", "ptr", _region, bufferSizeMarshal, bufferSize, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferSize 
      * @param {Pointer<Integer>} sizeFilled 
      * @returns {Integer} 
      */
-    static GdipGetRegionData(region, buffer_R, bufferSize, sizeFilled) {
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+    static GdipGetRegionData(_region, _buffer, bufferSize, sizeFilled) {
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
         sizeFilledMarshal := sizeFilled is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, buffer_RMarshal, buffer_R, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", _region, _bufferMarshal, _buffer, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisibleRegionPoint(region, x, y, graphics, result) {
+    static GdipIsVisibleRegionPoint(_region, x, y, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisibleRegionPoint", "ptr", region, "float", x, "float", y, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisibleRegionPoint", "ptr", _region, "float", x, "float", y, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisibleRegionPointI(region, x, y, graphics, result) {
+    static GdipIsVisibleRegionPointI(_region, x, y, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisibleRegionPointI", "ptr", region, "int", x, "int", y, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisibleRegionPointI", "ptr", _region, "int", x, "int", y, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
@@ -3381,16 +3381,16 @@ class GdiPlus {
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisibleRegionRect(region, x, y, width, height, graphics, result) {
+    static GdipIsVisibleRegionRect(_region, x, y, width, height, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisibleRegionRect", "ptr", region, "float", x, "float", y, "float", width, "float", height, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisibleRegionRect", "ptr", _region, "float", x, "float", y, "float", width, "float", height, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -3399,57 +3399,57 @@ class GdiPlus {
      * @param {Pointer<BOOL>} result 
      * @returns {Integer} 
      */
-    static GdipIsVisibleRegionRectI(region, x, y, width, height, graphics, result) {
+    static GdipIsVisibleRegionRectI(_region, x, y, width, height, graphics, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipIsVisibleRegionRectI", "ptr", region, "int", x, "int", y, "int", width, "int", height, "ptr", graphics, resultMarshal, result, "int")
+        result := DllCall("gdiplus.dll\GdipIsVisibleRegionRectI", "ptr", _region, "int", x, "int", y, "int", width, "int", height, "ptr", graphics, resultMarshal, result, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetRegionScansCount(region, count, matrix) {
+    static GdipGetRegionScansCount(_region, count, _matrix) {
         countMarshal := count is VarRef ? "uint*" : "ptr"
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionScansCount", "ptr", region, countMarshal, count, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionScansCount", "ptr", _region, countMarshal, count, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<RectF>} rects 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetRegionScans(region, rects, count, matrix) {
+    static GdipGetRegionScans(_region, rects, count, _matrix) {
         countMarshal := count is VarRef ? "int*" : "ptr"
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionScans", "ptr", region, "ptr", rects, countMarshal, count, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionScans", "ptr", _region, "ptr", rects, countMarshal, count, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Rect>} rects 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetRegionScansI(region, rects, count, matrix) {
+    static GdipGetRegionScansI(_region, rects, count, _matrix) {
         countMarshal := count is VarRef ? "int*" : "ptr"
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionScansI", "ptr", region, "ptr", rects, countMarshal, count, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionScansI", "ptr", _region, "ptr", rects, countMarshal, count, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -3491,29 +3491,29 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Integer} hatchstyle 
+     * @param {Integer} _hatchstyle 
      * @param {Integer} forecol 
      * @param {Integer} backcol 
      * @param {Pointer<Pointer<GpHatch>>} brush 
      * @returns {Integer} 
      */
-    static GdipCreateHatchBrush(hatchstyle, forecol, backcol, brush) {
+    static GdipCreateHatchBrush(_hatchstyle, forecol, backcol, brush) {
         brushMarshal := brush is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateHatchBrush", "int", hatchstyle, "uint", forecol, "uint", backcol, brushMarshal, brush, "int")
+        result := DllCall("gdiplus.dll\GdipCreateHatchBrush", "int", _hatchstyle, "uint", forecol, "uint", backcol, brushMarshal, brush, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpHatch>} brush 
-     * @param {Pointer<Integer>} hatchstyle 
+     * @param {Pointer<Integer>} _hatchstyle 
      * @returns {Integer} 
      */
-    static GdipGetHatchStyle(brush, hatchstyle) {
-        hatchstyleMarshal := hatchstyle is VarRef ? "int*" : "ptr"
+    static GdipGetHatchStyle(brush, _hatchstyle) {
+        _hatchstyleMarshal := _hatchstyle is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetHatchStyle", "ptr", brush, hatchstyleMarshal, hatchstyle, "int")
+        result := DllCall("gdiplus.dll\GdipGetHatchStyle", "ptr", brush, _hatchstyleMarshal, _hatchstyle, "int")
         return result
     }
 
@@ -3545,22 +3545,22 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
-     * @param {Integer} wrapmode 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Integer} _wrapmode 
      * @param {Pointer<Pointer<GpTexture>>} texture 
      * @returns {Integer} 
      */
-    static GdipCreateTexture(image, wrapmode, texture) {
+    static GdipCreateTexture(_image, _wrapmode, texture) {
         textureMarshal := texture is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateTexture", "ptr", image, "int", wrapmode, textureMarshal, texture, "int")
+        result := DllCall("gdiplus.dll\GdipCreateTexture", "ptr", _image, "int", _wrapmode, textureMarshal, texture, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
-     * @param {Integer} wrapmode 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Integer} _wrapmode 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
@@ -3568,16 +3568,16 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpTexture>>} texture 
      * @returns {Integer} 
      */
-    static GdipCreateTexture2(image, wrapmode, x, y, width, height, texture) {
+    static GdipCreateTexture2(_image, _wrapmode, x, y, width, height, texture) {
         textureMarshal := texture is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateTexture2", "ptr", image, "int", wrapmode, "float", x, "float", y, "float", width, "float", height, textureMarshal, texture, "int")
+        result := DllCall("gdiplus.dll\GdipCreateTexture2", "ptr", _image, "int", _wrapmode, "float", x, "float", y, "float", width, "float", height, textureMarshal, texture, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @param {Float} x 
      * @param {Float} y 
@@ -3586,17 +3586,17 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpTexture>>} texture 
      * @returns {Integer} 
      */
-    static GdipCreateTextureIA(image, imageAttributes, x, y, width, height, texture) {
+    static GdipCreateTextureIA(_image, imageAttributes, x, y, width, height, texture) {
         textureMarshal := texture is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateTextureIA", "ptr", image, "ptr", imageAttributes, "float", x, "float", y, "float", width, "float", height, textureMarshal, texture, "int")
+        result := DllCall("gdiplus.dll\GdipCreateTextureIA", "ptr", _image, "ptr", imageAttributes, "float", x, "float", y, "float", width, "float", height, textureMarshal, texture, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
-     * @param {Integer} wrapmode 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Integer} _wrapmode 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -3604,16 +3604,16 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpTexture>>} texture 
      * @returns {Integer} 
      */
-    static GdipCreateTexture2I(image, wrapmode, x, y, width, height, texture) {
+    static GdipCreateTexture2I(_image, _wrapmode, x, y, width, height, texture) {
         textureMarshal := texture is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateTexture2I", "ptr", image, "int", wrapmode, "int", x, "int", y, "int", width, "int", height, textureMarshal, texture, "int")
+        result := DllCall("gdiplus.dll\GdipCreateTexture2I", "ptr", _image, "int", _wrapmode, "int", x, "int", y, "int", width, "int", height, textureMarshal, texture, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -3622,36 +3622,36 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpTexture>>} texture 
      * @returns {Integer} 
      */
-    static GdipCreateTextureIAI(image, imageAttributes, x, y, width, height, texture) {
+    static GdipCreateTextureIAI(_image, imageAttributes, x, y, width, height, texture) {
         textureMarshal := texture is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateTextureIAI", "ptr", image, "ptr", imageAttributes, "int", x, "int", y, "int", width, "int", height, textureMarshal, texture, "int")
+        result := DllCall("gdiplus.dll\GdipCreateTextureIAI", "ptr", _image, "ptr", imageAttributes, "int", x, "int", y, "int", width, "int", height, textureMarshal, texture, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetTextureTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetTextureTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetTextureTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetTextureTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipSetTextureTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetTextureTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetTextureTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipSetTextureTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -3668,14 +3668,14 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyTextureTransform(brush, matrix, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyTextureTransform(brush, _matrix, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyTextureTransform", "ptr", brush, matrixMarshal, matrix, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyTextureTransform", "ptr", brush, _matrixMarshal, _matrix, "int", order, "int")
         return result
     }
 
@@ -3720,74 +3720,74 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Integer} wrapmode 
+     * @param {Integer} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipSetTextureWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipSetTextureWrapMode", "ptr", brush, "int", wrapmode, "int")
+    static GdipSetTextureWrapMode(brush, _wrapmode) {
+        result := DllCall("gdiplus.dll\GdipSetTextureWrapMode", "ptr", brush, "int", _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Pointer<Integer>} wrapmode 
+     * @param {Pointer<Integer>} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipGetTextureWrapMode(brush, wrapmode) {
-        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+    static GdipGetTextureWrapMode(brush, _wrapmode) {
+        _wrapmodeMarshal := _wrapmode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetTextureWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
+        result := DllCall("gdiplus.dll\GdipGetTextureWrapMode", "ptr", brush, _wrapmodeMarshal, _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpTexture>} brush 
-     * @param {Pointer<Pointer<GpImage>>} image 
+     * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Integer} 
      */
-    static GdipGetTextureImage(brush, image) {
-        imageMarshal := image is VarRef ? "ptr*" : "ptr"
+    static GdipGetTextureImage(brush, _image) {
+        _imageMarshal := _image is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetTextureImage", "ptr", brush, imageMarshal, image, "int")
+        result := DllCall("gdiplus.dll\GdipGetTextureImage", "ptr", brush, _imageMarshal, _image, "int")
         return result
     }
 
     /**
      * 
-     * @param {Integer} color 
+     * @param {Integer} _color 
      * @param {Pointer<Pointer<GpSolidFill>>} brush 
      * @returns {Integer} 
      */
-    static GdipCreateSolidFill(color, brush) {
+    static GdipCreateSolidFill(_color, brush) {
         brushMarshal := brush is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateSolidFill", "uint", color, brushMarshal, brush, "int")
+        result := DllCall("gdiplus.dll\GdipCreateSolidFill", "uint", _color, brushMarshal, brush, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpSolidFill>} brush 
-     * @param {Integer} color 
+     * @param {Integer} _color 
      * @returns {Integer} 
      */
-    static GdipSetSolidFillColor(brush, color) {
-        result := DllCall("gdiplus.dll\GdipSetSolidFillColor", "ptr", brush, "uint", color, "int")
+    static GdipSetSolidFillColor(brush, _color) {
+        result := DllCall("gdiplus.dll\GdipSetSolidFillColor", "ptr", brush, "uint", _color, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpSolidFill>} brush 
-     * @param {Pointer<Integer>} color 
+     * @param {Pointer<Integer>} _color 
      * @returns {Integer} 
      */
-    static GdipGetSolidFillColor(brush, color) {
-        colorMarshal := color is VarRef ? "uint*" : "ptr"
+    static GdipGetSolidFillColor(brush, _color) {
+        _colorMarshal := _color is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetSolidFillColor", "ptr", brush, colorMarshal, color, "int")
+        result := DllCall("gdiplus.dll\GdipGetSolidFillColor", "ptr", brush, _colorMarshal, _color, "int")
         return result
     }
 
@@ -3797,14 +3797,14 @@ class GdiPlus {
      * @param {Pointer<PointF>} point2 
      * @param {Integer} color1 
      * @param {Integer} color2 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
      * @returns {Integer} 
      */
-    static GdipCreateLineBrush(point1, point2, color1, color2, wrapMode, lineGradient) {
+    static GdipCreateLineBrush(point1, point2, color1, color2, _wrapMode, lineGradient) {
         lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateLineBrush", "ptr", point1, "ptr", point2, "uint", color1, "uint", color2, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrush", "ptr", point1, "ptr", point2, "uint", color1, "uint", color2, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
         return result
     }
 
@@ -3814,84 +3814,84 @@ class GdiPlus {
      * @param {Pointer<Point>} point2 
      * @param {Integer} color1 
      * @param {Integer} color2 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
      * @returns {Integer} 
      */
-    static GdipCreateLineBrushI(point1, point2, color1, color2, wrapMode, lineGradient) {
+    static GdipCreateLineBrushI(point1, point2, color1, color2, _wrapMode, lineGradient) {
         lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushI", "ptr", point1, "ptr", point2, "uint", color1, "uint", color2, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushI", "ptr", point1, "ptr", point2, "uint", color1, "uint", color2, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
-     * @param {Integer} mode 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _mode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
      * @returns {Integer} 
      */
-    static GdipCreateLineBrushFromRect(rect, color1, color2, mode, wrapMode, lineGradient) {
+    static GdipCreateLineBrushFromRect(_rect, color1, color2, _mode, _wrapMode, lineGradient) {
         lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRect", "ptr", rect, "uint", color1, "uint", color2, "int", mode, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRect", "ptr", _rect, "uint", color1, "uint", color2, "int", _mode, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
-     * @param {Integer} mode 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _mode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
      * @returns {Integer} 
      */
-    static GdipCreateLineBrushFromRectI(rect, color1, color2, mode, wrapMode, lineGradient) {
+    static GdipCreateLineBrushFromRectI(_rect, color1, color2, _mode, _wrapMode, lineGradient) {
         lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectI", "ptr", rect, "uint", color1, "uint", color2, "int", mode, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectI", "ptr", _rect, "uint", color1, "uint", color2, "int", _mode, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RectF>} rect 
-     * @param {Integer} color1 
-     * @param {Integer} color2 
-     * @param {Float} angle 
-     * @param {BOOL} isAngleScalable 
-     * @param {Integer} wrapMode 
-     * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
-     * @returns {Integer} 
-     */
-    static GdipCreateLineBrushFromRectWithAngle(rect, color1, color2, angle, isAngleScalable, wrapMode, lineGradient) {
-        lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngle", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
      * @param {Float} angle 
      * @param {BOOL} isAngleScalable 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
      * @returns {Integer} 
      */
-    static GdipCreateLineBrushFromRectWithAngleI(rect, color1, color2, angle, isAngleScalable, wrapMode, lineGradient) {
+    static GdipCreateLineBrushFromRectWithAngle(_rect, color1, color2, angle, isAngleScalable, _wrapMode, lineGradient) {
         lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngleI", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", wrapMode, lineGradientMarshal, lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngle", "ptr", _rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Rect>} _rect 
+     * @param {Integer} color1 
+     * @param {Integer} color2 
+     * @param {Float} angle 
+     * @param {BOOL} isAngleScalable 
+     * @param {Integer} _wrapMode 
+     * @param {Pointer<Pointer<GpLineGradient>>} lineGradient 
+     * @returns {Integer} 
+     */
+    static GdipCreateLineBrushFromRectWithAngleI(_rect, color1, color2, angle, isAngleScalable, _wrapMode, lineGradient) {
+        lineGradientMarshal := lineGradient is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngleI", "ptr", _rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", _wrapMode, lineGradientMarshal, lineGradient, "int")
         return result
     }
 
@@ -3923,22 +3923,22 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetLineRect(brush, rect) {
-        result := DllCall("gdiplus.dll\GdipGetLineRect", "ptr", brush, "ptr", rect, "int")
+    static GdipGetLineRect(brush, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetLineRect", "ptr", brush, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetLineRectI(brush, rect) {
-        result := DllCall("gdiplus.dll\GdipGetLineRectI", "ptr", brush, "ptr", rect, "int")
+    static GdipGetLineRectI(brush, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetLineRectI", "ptr", brush, "ptr", _rect, "int")
         return result
     }
 
@@ -4083,50 +4083,50 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Integer} wrapmode 
+     * @param {Integer} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipSetLineWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipSetLineWrapMode", "ptr", brush, "int", wrapmode, "int")
+    static GdipSetLineWrapMode(brush, _wrapmode) {
+        result := DllCall("gdiplus.dll\GdipSetLineWrapMode", "ptr", brush, "int", _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<Integer>} wrapmode 
+     * @param {Pointer<Integer>} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipGetLineWrapMode(brush, wrapmode) {
-        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+    static GdipGetLineWrapMode(brush, _wrapmode) {
+        _wrapmodeMarshal := _wrapmode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetLineWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
+        result := DllCall("gdiplus.dll\GdipGetLineWrapMode", "ptr", brush, _wrapmodeMarshal, _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetLineTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetLineTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetLineTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetLineTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipSetLineTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetLineTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetLineTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipSetLineTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -4143,14 +4143,14 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpLineGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyLineTransform(brush, matrix, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyLineTransform(brush, _matrix, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyLineTransform", "ptr", brush, matrixMarshal, matrix, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyLineTransform", "ptr", brush, _matrixMarshal, _matrix, "int", order, "int")
         return result
     }
 
@@ -4194,44 +4194,44 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpPathGradient>>} polyGradient 
      * @returns {Integer} 
      */
-    static GdipCreatePathGradient(points, count, wrapMode, polyGradient) {
+    static GdipCreatePathGradient(_points, count, _wrapMode, polyGradient) {
         polyGradientMarshal := polyGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePathGradient", "ptr", points, "int", count, "int", wrapMode, polyGradientMarshal, polyGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePathGradient", "ptr", _points, "int", count, "int", _wrapMode, polyGradientMarshal, polyGradient, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
-     * @param {Integer} wrapMode 
+     * @param {Integer} _wrapMode 
      * @param {Pointer<Pointer<GpPathGradient>>} polyGradient 
      * @returns {Integer} 
      */
-    static GdipCreatePathGradientI(points, count, wrapMode, polyGradient) {
+    static GdipCreatePathGradientI(_points, count, _wrapMode, polyGradient) {
         polyGradientMarshal := polyGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePathGradientI", "ptr", points, "int", count, "int", wrapMode, polyGradientMarshal, polyGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePathGradientI", "ptr", _points, "int", count, "int", _wrapMode, polyGradientMarshal, polyGradient, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Pointer<GpPathGradient>>} polyGradient 
      * @returns {Integer} 
      */
-    static GdipCreatePathGradientFromPath(path, polyGradient) {
+    static GdipCreatePathGradientFromPath(_path, polyGradient) {
         polyGradientMarshal := polyGradient is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePathGradientFromPath", "ptr", path, polyGradientMarshal, polyGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePathGradientFromPath", "ptr", _path, polyGradientMarshal, polyGradient, "int")
         return result
     }
 
@@ -4262,118 +4262,118 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Integer>} color 
+     * @param {Pointer<Integer>} _color 
      * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientSurroundColorsWithCount(brush, color, count) {
-        colorMarshal := color is VarRef ? "uint*" : "ptr"
+    static GdipGetPathGradientSurroundColorsWithCount(brush, _color, count) {
+        _colorMarshal := _color is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorsWithCount", "ptr", brush, colorMarshal, color, countMarshal, count, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorsWithCount", "ptr", brush, _colorMarshal, _color, countMarshal, count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Integer>} color 
+     * @param {Pointer<Integer>} _color 
      * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientSurroundColorsWithCount(brush, color, count) {
-        colorMarshal := color is VarRef ? "uint*" : "ptr"
+    static GdipSetPathGradientSurroundColorsWithCount(brush, _color, count) {
+        _colorMarshal := _color is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetPathGradientSurroundColorsWithCount", "ptr", brush, colorMarshal, color, countMarshal, count, "int")
+        result := DllCall("gdiplus.dll\GdipSetPathGradientSurroundColorsWithCount", "ptr", brush, _colorMarshal, _color, countMarshal, count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientPath(brush, path) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientPath", "ptr", brush, "ptr", path, "int")
+    static GdipGetPathGradientPath(brush, _path) {
+        result := DllCall("gdiplus.dll\GdipGetPathGradientPath", "ptr", brush, "ptr", _path, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientPath(brush, path) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientPath", "ptr", brush, "ptr", path, "int")
+    static GdipSetPathGradientPath(brush, _path) {
+        result := DllCall("gdiplus.dll\GdipSetPathGradientPath", "ptr", brush, "ptr", _path, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientCenterPoint(brush, points) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterPoint", "ptr", brush, "ptr", points, "int")
+    static GdipGetPathGradientCenterPoint(brush, _points) {
+        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterPoint", "ptr", brush, "ptr", _points, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientCenterPointI(brush, points) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterPointI", "ptr", brush, "ptr", points, "int")
+    static GdipGetPathGradientCenterPointI(brush, _points) {
+        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterPointI", "ptr", brush, "ptr", _points, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientCenterPoint(brush, points) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientCenterPoint", "ptr", brush, "ptr", points, "int")
+    static GdipSetPathGradientCenterPoint(brush, _points) {
+        result := DllCall("gdiplus.dll\GdipSetPathGradientCenterPoint", "ptr", brush, "ptr", _points, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientCenterPointI(brush, points) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientCenterPointI", "ptr", brush, "ptr", points, "int")
+    static GdipSetPathGradientCenterPointI(brush, _points) {
+        result := DllCall("gdiplus.dll\GdipSetPathGradientCenterPointI", "ptr", brush, "ptr", _points, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientRect(brush, rect) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientRect", "ptr", brush, "ptr", rect, "int")
+    static GdipGetPathGradientRect(brush, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetPathGradientRect", "ptr", brush, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientRectI(brush, rect) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientRectI", "ptr", brush, "ptr", rect, "int")
+    static GdipGetPathGradientRectI(brush, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetPathGradientRectI", "ptr", brush, "ptr", _rect, "int")
         return result
     }
 
@@ -4544,50 +4544,50 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Integer>} wrapmode 
+     * @param {Pointer<Integer>} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientWrapMode(brush, wrapmode) {
-        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+    static GdipGetPathGradientWrapMode(brush, _wrapmode) {
+        _wrapmodeMarshal := _wrapmode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathGradientWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathGradientWrapMode", "ptr", brush, _wrapmodeMarshal, _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Integer} wrapmode 
+     * @param {Integer} _wrapmode 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientWrapMode", "ptr", brush, "int", wrapmode, "int")
+    static GdipSetPathGradientWrapMode(brush, _wrapmode) {
+        result := DllCall("gdiplus.dll\GdipSetPathGradientWrapMode", "ptr", brush, "int", _wrapmode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetPathGradientTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetPathGradientTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPathGradientTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetPathGradientTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipSetPathGradientTransform(brush, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetPathGradientTransform(brush, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetPathGradientTransform", "ptr", brush, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipSetPathGradientTransform", "ptr", brush, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -4604,14 +4604,14 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPathGradient>} brush 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyPathGradientTransform(brush, matrix, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyPathGradientTransform(brush, _matrix, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyPathGradientTransform", "ptr", brush, matrixMarshal, matrix, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyPathGradientTransform", "ptr", brush, _matrixMarshal, _matrix, "int", order, "int")
         return result
     }
 
@@ -4682,16 +4682,16 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Integer} color 
+     * @param {Integer} _color 
      * @param {Float} width 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Pointer<GpPen>>} pen 
      * @returns {Integer} 
      */
-    static GdipCreatePen1(color, width, unit, pen) {
+    static GdipCreatePen1(_color, width, _unit, pen) {
         penMarshal := pen is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePen1", "uint", color, "float", width, "int", unit, penMarshal, pen, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePen1", "uint", _color, "float", width, "int", _unit, penMarshal, pen, "int")
         return result
     }
 
@@ -4699,14 +4699,14 @@ class GdiPlus {
      * 
      * @param {Pointer<GpBrush>} brush 
      * @param {Float} width 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Pointer<GpPen>>} pen 
      * @returns {Integer} 
      */
-    static GdipCreatePen2(brush, width, unit, pen) {
+    static GdipCreatePen2(brush, width, _unit, pen) {
         penMarshal := pen is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreatePen2", "ptr", brush, "float", width, "int", unit, penMarshal, pen, "int")
+        result := DllCall("gdiplus.dll\GdipCreatePen2", "ptr", brush, "float", width, "int", _unit, penMarshal, pen, "int")
         return result
     }
 
@@ -4760,24 +4760,24 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @returns {Integer} 
      */
-    static GdipSetPenUnit(pen, unit) {
-        result := DllCall("gdiplus.dll\GdipSetPenUnit", "ptr", pen, "int", unit, "int")
+    static GdipSetPenUnit(pen, _unit) {
+        result := DllCall("gdiplus.dll\GdipSetPenUnit", "ptr", pen, "int", _unit, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Integer>} unit 
+     * @param {Pointer<Integer>} _unit 
      * @returns {Integer} 
      */
-    static GdipGetPenUnit(pen, unit) {
-        unitMarshal := unit is VarRef ? "int*" : "ptr"
+    static GdipGetPenUnit(pen, _unit) {
+        _unitMarshal := _unit is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPenUnit", "ptr", pen, unitMarshal, unit, "int")
+        result := DllCall("gdiplus.dll\GdipGetPenUnit", "ptr", pen, _unitMarshal, _unit, "int")
         return result
     }
 
@@ -4786,11 +4786,11 @@ class GdiPlus {
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} startCap 
      * @param {Integer} endCap 
-     * @param {Integer} dashCap 
+     * @param {Integer} _dashCap 
      * @returns {Integer} 
      */
-    static GdipSetPenLineCap197819(pen, startCap, endCap, dashCap) {
-        result := DllCall("gdiplus.dll\GdipSetPenLineCap197819", "ptr", pen, "int", startCap, "int", endCap, "int", dashCap, "int")
+    static GdipSetPenLineCap197819(pen, startCap, endCap, _dashCap) {
+        result := DllCall("gdiplus.dll\GdipSetPenLineCap197819", "ptr", pen, "int", startCap, "int", endCap, "int", _dashCap, "int")
         return result
     }
 
@@ -4819,11 +4819,11 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Integer} dashCap 
+     * @param {Integer} _dashCap 
      * @returns {Integer} 
      */
-    static GdipSetPenDashCap197819(pen, dashCap) {
-        result := DllCall("gdiplus.dll\GdipSetPenDashCap197819", "ptr", pen, "int", dashCap, "int")
+    static GdipSetPenDashCap197819(pen, _dashCap) {
+        result := DllCall("gdiplus.dll\GdipSetPenDashCap197819", "ptr", pen, "int", _dashCap, "int")
         return result
     }
 
@@ -4856,37 +4856,37 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Integer>} dashCap 
+     * @param {Pointer<Integer>} _dashCap 
      * @returns {Integer} 
      */
-    static GdipGetPenDashCap197819(pen, dashCap) {
-        dashCapMarshal := dashCap is VarRef ? "int*" : "ptr"
+    static GdipGetPenDashCap197819(pen, _dashCap) {
+        _dashCapMarshal := _dashCap is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPenDashCap197819", "ptr", pen, dashCapMarshal, dashCap, "int")
+        result := DllCall("gdiplus.dll\GdipGetPenDashCap197819", "ptr", pen, _dashCapMarshal, _dashCap, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Integer} lineJoin 
+     * @param {Integer} _lineJoin 
      * @returns {Integer} 
      */
-    static GdipSetPenLineJoin(pen, lineJoin) {
-        result := DllCall("gdiplus.dll\GdipSetPenLineJoin", "ptr", pen, "int", lineJoin, "int")
+    static GdipSetPenLineJoin(pen, _lineJoin) {
+        result := DllCall("gdiplus.dll\GdipSetPenLineJoin", "ptr", pen, "int", _lineJoin, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Integer>} lineJoin 
+     * @param {Pointer<Integer>} _lineJoin 
      * @returns {Integer} 
      */
-    static GdipGetPenLineJoin(pen, lineJoin) {
-        lineJoinMarshal := lineJoin is VarRef ? "int*" : "ptr"
+    static GdipGetPenLineJoin(pen, _lineJoin) {
+        _lineJoinMarshal := _lineJoin is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPenLineJoin", "ptr", pen, lineJoinMarshal, lineJoin, "int")
+        result := DllCall("gdiplus.dll\GdipGetPenLineJoin", "ptr", pen, _lineJoinMarshal, _lineJoin, "int")
         return result
     }
 
@@ -4989,26 +4989,26 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipSetPenTransform(pen, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetPenTransform(pen, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetPenTransform", "ptr", pen, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipSetPenTransform", "ptr", pen, _matrixMarshal, _matrix, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetPenTransform(pen, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetPenTransform(pen, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPenTransform", "ptr", pen, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetPenTransform", "ptr", pen, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -5025,14 +5025,14 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyPenTransform(pen, matrix, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyPenTransform(pen, _matrix, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyPenTransform", "ptr", pen, matrixMarshal, matrix, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyPenTransform", "ptr", pen, _matrixMarshal, _matrix, "int", order, "int")
         return result
     }
 
@@ -5138,24 +5138,24 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Integer>} dashstyle 
+     * @param {Pointer<Integer>} _dashstyle 
      * @returns {Integer} 
      */
-    static GdipGetPenDashStyle(pen, dashstyle) {
-        dashstyleMarshal := dashstyle is VarRef ? "int*" : "ptr"
+    static GdipGetPenDashStyle(pen, _dashstyle) {
+        _dashstyleMarshal := _dashstyle is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPenDashStyle", "ptr", pen, dashstyleMarshal, dashstyle, "int")
+        result := DllCall("gdiplus.dll\GdipGetPenDashStyle", "ptr", pen, _dashstyleMarshal, _dashstyle, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPen>} pen 
-     * @param {Integer} dashstyle 
+     * @param {Integer} _dashstyle 
      * @returns {Integer} 
      */
-    static GdipSetPenDashStyle(pen, dashstyle) {
-        result := DllCall("gdiplus.dll\GdipSetPenDashStyle", "ptr", pen, "int", dashstyle, "int")
+    static GdipSetPenDashStyle(pen, _dashstyle) {
+        result := DllCall("gdiplus.dll\GdipSetPenDashStyle", "ptr", pen, "int", _dashstyle, "int")
         return result
     }
 
@@ -5347,24 +5347,24 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpCustomLineCap>} customCap 
-     * @param {Integer} lineJoin 
+     * @param {Integer} _lineJoin 
      * @returns {Integer} 
      */
-    static GdipSetCustomLineCapStrokeJoin(customCap, lineJoin) {
-        result := DllCall("gdiplus.dll\GdipSetCustomLineCapStrokeJoin", "ptr", customCap, "int", lineJoin, "int")
+    static GdipSetCustomLineCapStrokeJoin(customCap, _lineJoin) {
+        result := DllCall("gdiplus.dll\GdipSetCustomLineCapStrokeJoin", "ptr", customCap, "int", _lineJoin, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpCustomLineCap>} customCap 
-     * @param {Pointer<Integer>} lineJoin 
+     * @param {Pointer<Integer>} _lineJoin 
      * @returns {Integer} 
      */
-    static GdipGetCustomLineCapStrokeJoin(customCap, lineJoin) {
-        lineJoinMarshal := lineJoin is VarRef ? "int*" : "ptr"
+    static GdipGetCustomLineCapStrokeJoin(customCap, _lineJoin) {
+        _lineJoinMarshal := _lineJoin is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeJoin", "ptr", customCap, lineJoinMarshal, lineJoin, "int")
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeJoin", "ptr", customCap, _lineJoinMarshal, _lineJoin, "int")
         return result
     }
 
@@ -5554,280 +5554,280 @@ class GdiPlus {
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<Pointer<GpImage>>} image 
+     * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Integer} 
      */
-    static GdipLoadImageFromStream(stream, image) {
-        imageMarshal := image is VarRef ? "ptr*" : "ptr"
+    static GdipLoadImageFromStream(stream, _image) {
+        _imageMarshal := _image is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipLoadImageFromStream", "ptr", stream, imageMarshal, image, "int")
+        result := DllCall("gdiplus.dll\GdipLoadImageFromStream", "ptr", stream, _imageMarshal, _image, "int")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<Pointer<GpImage>>} image 
+     * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Integer} 
      */
-    static GdipLoadImageFromFile(filename, image) {
+    static GdipLoadImageFromFile(filename, _image) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        imageMarshal := image is VarRef ? "ptr*" : "ptr"
+        _imageMarshal := _image is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipLoadImageFromFile", "ptr", filename, imageMarshal, image, "int")
+        result := DllCall("gdiplus.dll\GdipLoadImageFromFile", "ptr", filename, _imageMarshal, _image, "int")
         return result
     }
 
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<Pointer<GpImage>>} image 
+     * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Integer} 
      */
-    static GdipLoadImageFromStreamICM(stream, image) {
-        imageMarshal := image is VarRef ? "ptr*" : "ptr"
+    static GdipLoadImageFromStreamICM(stream, _image) {
+        _imageMarshal := _image is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipLoadImageFromStreamICM", "ptr", stream, imageMarshal, image, "int")
+        result := DllCall("gdiplus.dll\GdipLoadImageFromStreamICM", "ptr", stream, _imageMarshal, _image, "int")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<Pointer<GpImage>>} image 
+     * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Integer} 
      */
-    static GdipLoadImageFromFileICM(filename, image) {
+    static GdipLoadImageFromFileICM(filename, _image) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        imageMarshal := image is VarRef ? "ptr*" : "ptr"
+        _imageMarshal := _image is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipLoadImageFromFileICM", "ptr", filename, imageMarshal, image, "int")
+        result := DllCall("gdiplus.dll\GdipLoadImageFromFileICM", "ptr", filename, _imageMarshal, _image, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Pointer<GpImage>>} cloneImage 
      * @returns {Integer} 
      */
-    static GdipCloneImage(image, cloneImage) {
+    static GdipCloneImage(_image, cloneImage) {
         cloneImageMarshal := cloneImage is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCloneImage", "ptr", image, cloneImageMarshal, cloneImage, "int")
+        result := DllCall("gdiplus.dll\GdipCloneImage", "ptr", _image, cloneImageMarshal, cloneImage, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @returns {Integer} 
      */
-    static GdipDisposeImage(image) {
-        result := DllCall("gdiplus.dll\GdipDisposeImage", "ptr", image, "int")
+    static GdipDisposeImage(_image) {
+        result := DllCall("gdiplus.dll\GdipDisposeImage", "ptr", _image, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {PWSTR} filename 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Pointer<EncoderParameters>} encoderParams 
      * @returns {Integer} 
      */
-    static GdipSaveImageToFile(image, filename, clsidEncoder, encoderParams) {
+    static GdipSaveImageToFile(_image, filename, clsidEncoder, encoderParams) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := DllCall("gdiplus.dll\GdipSaveImageToFile", "ptr", image, "ptr", filename, "ptr", clsidEncoder, "ptr", encoderParams, "int")
+        result := DllCall("gdiplus.dll\GdipSaveImageToFile", "ptr", _image, "ptr", filename, "ptr", clsidEncoder, "ptr", encoderParams, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {IStream} stream 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Pointer<EncoderParameters>} encoderParams 
      * @returns {Integer} 
      */
-    static GdipSaveImageToStream(image, stream, clsidEncoder, encoderParams) {
-        result := DllCall("gdiplus.dll\GdipSaveImageToStream", "ptr", image, "ptr", stream, "ptr", clsidEncoder, "ptr", encoderParams, "int")
+    static GdipSaveImageToStream(_image, stream, clsidEncoder, encoderParams) {
+        result := DllCall("gdiplus.dll\GdipSaveImageToStream", "ptr", _image, "ptr", stream, "ptr", clsidEncoder, "ptr", encoderParams, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<EncoderParameters>} encoderParams 
      * @returns {Integer} 
      */
-    static GdipSaveAdd(image, encoderParams) {
-        result := DllCall("gdiplus.dll\GdipSaveAdd", "ptr", image, "ptr", encoderParams, "int")
+    static GdipSaveAdd(_image, encoderParams) {
+        result := DllCall("gdiplus.dll\GdipSaveAdd", "ptr", _image, "ptr", encoderParams, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImage>} newImage 
      * @param {Pointer<EncoderParameters>} encoderParams 
      * @returns {Integer} 
      */
-    static GdipSaveAddImage(image, newImage, encoderParams) {
-        result := DllCall("gdiplus.dll\GdipSaveAddImage", "ptr", image, "ptr", newImage, "ptr", encoderParams, "int")
+    static GdipSaveAddImage(_image, newImage, encoderParams) {
+        result := DllCall("gdiplus.dll\GdipSaveAddImage", "ptr", _image, "ptr", newImage, "ptr", encoderParams, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Integer} 
      */
-    static GdipGetImageGraphicsContext(image, graphics) {
+    static GdipGetImageGraphicsContext(_image, graphics) {
         graphicsMarshal := graphics is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageGraphicsContext", "ptr", image, graphicsMarshal, graphics, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageGraphicsContext", "ptr", _image, graphicsMarshal, graphics, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<RectF>} srcRect 
      * @param {Pointer<Integer>} srcUnit 
      * @returns {Integer} 
      */
-    static GdipGetImageBounds(image, srcRect, srcUnit) {
+    static GdipGetImageBounds(_image, srcRect, srcUnit) {
         srcUnitMarshal := srcUnit is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageBounds", "ptr", image, "ptr", srcRect, srcUnitMarshal, srcUnit, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageBounds", "ptr", _image, "ptr", srcRect, srcUnitMarshal, srcUnit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} width 
      * @param {Pointer<Float>} height 
      * @returns {Integer} 
      */
-    static GdipGetImageDimension(image, width, height) {
+    static GdipGetImageDimension(_image, width, height) {
         widthMarshal := width is VarRef ? "float*" : "ptr"
         heightMarshal := height is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageDimension", "ptr", image, widthMarshal, width, heightMarshal, height, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageDimension", "ptr", _image, widthMarshal, width, heightMarshal, height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} type 
      * @returns {Integer} 
      */
-    static GdipGetImageType(image, type) {
+    static GdipGetImageType(_image, type) {
         typeMarshal := type is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageType", "ptr", image, typeMarshal, type, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageType", "ptr", _image, typeMarshal, type, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} width 
      * @returns {Integer} 
      */
-    static GdipGetImageWidth(image, width) {
+    static GdipGetImageWidth(_image, width) {
         widthMarshal := width is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageWidth", "ptr", image, widthMarshal, width, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageWidth", "ptr", _image, widthMarshal, width, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} height 
      * @returns {Integer} 
      */
-    static GdipGetImageHeight(image, height) {
+    static GdipGetImageHeight(_image, height) {
         heightMarshal := height is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageHeight", "ptr", image, heightMarshal, height, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageHeight", "ptr", _image, heightMarshal, height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} resolution 
      * @returns {Integer} 
      */
-    static GdipGetImageHorizontalResolution(image, resolution) {
+    static GdipGetImageHorizontalResolution(_image, resolution) {
         resolutionMarshal := resolution is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageHorizontalResolution", "ptr", image, resolutionMarshal, resolution, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageHorizontalResolution", "ptr", _image, resolutionMarshal, resolution, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} resolution 
      * @returns {Integer} 
      */
-    static GdipGetImageVerticalResolution(image, resolution) {
+    static GdipGetImageVerticalResolution(_image, resolution) {
         resolutionMarshal := resolution is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageVerticalResolution", "ptr", image, resolutionMarshal, resolution, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageVerticalResolution", "ptr", _image, resolutionMarshal, resolution, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} flags 
      * @returns {Integer} 
      */
-    static GdipGetImageFlags(image, flags) {
+    static GdipGetImageFlags(_image, flags) {
         flagsMarshal := flags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageFlags", "ptr", image, flagsMarshal, flags, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageFlags", "ptr", _image, flagsMarshal, flags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} format 
      * @returns {Integer} 
      */
-    static GdipGetImageRawFormat(image, format) {
-        result := DllCall("gdiplus.dll\GdipGetImageRawFormat", "ptr", image, "ptr", format, "int")
+    static GdipGetImageRawFormat(_image, format) {
+        result := DllCall("gdiplus.dll\GdipGetImageRawFormat", "ptr", _image, "ptr", format, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} format 
      * @returns {Integer} 
      */
-    static GdipGetImagePixelFormat(image, format) {
+    static GdipGetImagePixelFormat(_image, format) {
         formatMarshal := format is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImagePixelFormat", "ptr", image, formatMarshal, format, "int")
+        result := DllCall("gdiplus.dll\GdipGetImagePixelFormat", "ptr", _image, formatMarshal, format, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} thumbWidth 
      * @param {Integer} thumbHeight 
      * @param {Pointer<Pointer<GpImage>>} thumbImage 
@@ -5835,339 +5835,339 @@ class GdiPlus {
      * @param {Pointer<Void>} callbackData 
      * @returns {Integer} 
      */
-    static GdipGetImageThumbnail(image, thumbWidth, thumbHeight, thumbImage, callback, callbackData) {
+    static GdipGetImageThumbnail(_image, thumbWidth, thumbHeight, thumbImage, callback, callbackData) {
         thumbImageMarshal := thumbImage is VarRef ? "ptr*" : "ptr"
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageThumbnail", "ptr", image, "uint", thumbWidth, "uint", thumbHeight, thumbImageMarshal, thumbImage, "ptr", callback, callbackDataMarshal, callbackData, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageThumbnail", "ptr", _image, "uint", thumbWidth, "uint", thumbHeight, thumbImageMarshal, thumbImage, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} clsidEncoder 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetEncoderParameterListSize(image, clsidEncoder, size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    static GdipGetEncoderParameterListSize(_image, clsidEncoder, _size) {
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetEncoderParameterListSize", "ptr", image, "ptr", clsidEncoder, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetEncoderParameterListSize", "ptr", _image, "ptr", clsidEncoder, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} clsidEncoder 
-     * @param {Integer} size 
-     * @param {Pointer<EncoderParameters>} buffer_R 
+     * @param {Integer} _size 
+     * @param {Pointer<EncoderParameters>} _buffer 
      * @returns {Integer} 
      */
-    static GdipGetEncoderParameterList(image, clsidEncoder, size, buffer_R) {
-        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", image, "ptr", clsidEncoder, "uint", size, "ptr", buffer_R, "int")
+    static GdipGetEncoderParameterList(_image, clsidEncoder, _size, _buffer) {
+        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", _image, "ptr", clsidEncoder, "uint", _size, "ptr", _buffer, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
-    static GdipImageGetFrameDimensionsCount(image, count) {
+    static GdipImageGetFrameDimensionsCount(_image, count) {
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsCount", "ptr", image, countMarshal, count, "int")
+        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsCount", "ptr", _image, countMarshal, count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionIDs 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipImageGetFrameDimensionsList(image, dimensionIDs, count) {
-        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsList", "ptr", image, "ptr", dimensionIDs, "uint", count, "int")
+    static GdipImageGetFrameDimensionsList(_image, dimensionIDs, count) {
+        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsList", "ptr", _image, "ptr", dimensionIDs, "uint", count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionID 
      * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
-    static GdipImageGetFrameCount(image, dimensionID, count) {
+    static GdipImageGetFrameCount(_image, dimensionID, count) {
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipImageGetFrameCount", "ptr", image, "ptr", dimensionID, countMarshal, count, "int")
+        result := DllCall("gdiplus.dll\GdipImageGetFrameCount", "ptr", _image, "ptr", dimensionID, countMarshal, count, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionID 
      * @param {Integer} frameIndex 
      * @returns {Integer} 
      */
-    static GdipImageSelectActiveFrame(image, dimensionID, frameIndex) {
-        result := DllCall("gdiplus.dll\GdipImageSelectActiveFrame", "ptr", image, "ptr", dimensionID, "uint", frameIndex, "int")
+    static GdipImageSelectActiveFrame(_image, dimensionID, frameIndex) {
+        result := DllCall("gdiplus.dll\GdipImageSelectActiveFrame", "ptr", _image, "ptr", dimensionID, "uint", frameIndex, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} rfType 
      * @returns {Integer} 
      */
-    static GdipImageRotateFlip(image, rfType) {
-        result := DllCall("gdiplus.dll\GdipImageRotateFlip", "ptr", image, "int", rfType, "int")
+    static GdipImageRotateFlip(_image, rfType) {
+        result := DllCall("gdiplus.dll\GdipImageRotateFlip", "ptr", _image, "int", rfType, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ColorPalette>} palette 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {Integer} 
      */
-    static GdipGetImagePalette(image, palette, size) {
-        result := DllCall("gdiplus.dll\GdipGetImagePalette", "ptr", image, "ptr", palette, "int", size, "int")
+    static GdipGetImagePalette(_image, palette, _size) {
+        result := DllCall("gdiplus.dll\GdipGetImagePalette", "ptr", _image, "ptr", palette, "int", _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ColorPalette>} palette 
      * @returns {Integer} 
      */
-    static GdipSetImagePalette(image, palette) {
-        result := DllCall("gdiplus.dll\GdipSetImagePalette", "ptr", image, "ptr", palette, "int")
+    static GdipSetImagePalette(_image, palette) {
+        result := DllCall("gdiplus.dll\GdipSetImagePalette", "ptr", _image, "ptr", palette, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetImagePaletteSize(image, size) {
-        sizeMarshal := size is VarRef ? "int*" : "ptr"
+    static GdipGetImagePaletteSize(_image, _size) {
+        _sizeMarshal := _size is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImagePaletteSize", "ptr", image, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetImagePaletteSize", "ptr", _image, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} numOfProperty 
      * @returns {Integer} 
      */
-    static GdipGetPropertyCount(image, numOfProperty) {
+    static GdipGetPropertyCount(_image, numOfProperty) {
         numOfPropertyMarshal := numOfProperty is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPropertyCount", "ptr", image, numOfPropertyMarshal, numOfProperty, "int")
+        result := DllCall("gdiplus.dll\GdipGetPropertyCount", "ptr", _image, numOfPropertyMarshal, numOfProperty, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} numOfProperty 
      * @param {Pointer<Integer>} list 
      * @returns {Integer} 
      */
-    static GdipGetPropertyIdList(image, numOfProperty, list) {
+    static GdipGetPropertyIdList(_image, numOfProperty, list) {
         listMarshal := list is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPropertyIdList", "ptr", image, "uint", numOfProperty, listMarshal, list, "int")
+        result := DllCall("gdiplus.dll\GdipGetPropertyIdList", "ptr", _image, "uint", numOfProperty, listMarshal, list, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetPropertyItemSize(image, propId, size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    static GdipGetPropertyItemSize(_image, propId, _size) {
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPropertyItemSize", "ptr", image, "uint", propId, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetPropertyItemSize", "ptr", _image, "uint", propId, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
      * @param {Integer} propSize 
-     * @param {Pointer<PropertyItem>} buffer_R 
+     * @param {Pointer<PropertyItem>} _buffer 
      * @returns {Integer} 
      */
-    static GdipGetPropertyItem(image, propId, propSize, buffer_R) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", image, "uint", propId, "uint", propSize, "ptr", buffer_R, "int")
+    static GdipGetPropertyItem(_image, propId, propSize, _buffer) {
+        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", _image, "uint", propId, "uint", propSize, "ptr", _buffer, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} totalBufferSize 
      * @param {Pointer<Integer>} numProperties 
      * @returns {Integer} 
      */
-    static GdipGetPropertySize(image, totalBufferSize, numProperties) {
+    static GdipGetPropertySize(_image, totalBufferSize, numProperties) {
         totalBufferSizeMarshal := totalBufferSize is VarRef ? "uint*" : "ptr"
         numPropertiesMarshal := numProperties is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPropertySize", "ptr", image, totalBufferSizeMarshal, totalBufferSize, numPropertiesMarshal, numProperties, "int")
+        result := DllCall("gdiplus.dll\GdipGetPropertySize", "ptr", _image, totalBufferSizeMarshal, totalBufferSize, numPropertiesMarshal, numProperties, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} totalBufferSize 
      * @param {Integer} numProperties 
      * @param {Pointer<PropertyItem>} allItems 
      * @returns {Integer} 
      */
-    static GdipGetAllPropertyItems(image, totalBufferSize, numProperties, allItems) {
-        result := DllCall("gdiplus.dll\GdipGetAllPropertyItems", "ptr", image, "uint", totalBufferSize, "uint", numProperties, "ptr", allItems, "int")
+    static GdipGetAllPropertyItems(_image, totalBufferSize, numProperties, allItems) {
+        result := DllCall("gdiplus.dll\GdipGetAllPropertyItems", "ptr", _image, "uint", totalBufferSize, "uint", numProperties, "ptr", allItems, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
      * @returns {Integer} 
      */
-    static GdipRemovePropertyItem(image, propId) {
-        result := DllCall("gdiplus.dll\GdipRemovePropertyItem", "ptr", image, "uint", propId, "int")
+    static GdipRemovePropertyItem(_image, propId) {
+        result := DllCall("gdiplus.dll\GdipRemovePropertyItem", "ptr", _image, "uint", propId, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<PropertyItem>} item 
      * @returns {Integer} 
      */
-    static GdipSetPropertyItem(image, item) {
-        result := DllCall("gdiplus.dll\GdipSetPropertyItem", "ptr", image, "ptr", item, "int")
+    static GdipSetPropertyItem(_image, item) {
+        result := DllCall("gdiplus.dll\GdipSetPropertyItem", "ptr", _image, "ptr", item, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Integer} 
      */
-    static GdipFindFirstImageItem(image, item) {
-        result := DllCall("gdiplus.dll\GdipFindFirstImageItem", "ptr", image, "ptr", item, "int")
+    static GdipFindFirstImageItem(_image, item) {
+        result := DllCall("gdiplus.dll\GdipFindFirstImageItem", "ptr", _image, "ptr", item, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Integer} 
      */
-    static GdipFindNextImageItem(image, item) {
-        result := DllCall("gdiplus.dll\GdipFindNextImageItem", "ptr", image, "ptr", item, "int")
+    static GdipFindNextImageItem(_image, item) {
+        result := DllCall("gdiplus.dll\GdipFindNextImageItem", "ptr", _image, "ptr", item, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Integer} 
      */
-    static GdipGetImageItemData(image, item) {
-        result := DllCall("gdiplus.dll\GdipGetImageItemData", "ptr", image, "ptr", item, "int")
+    static GdipGetImageItemData(_image, item) {
+        result := DllCall("gdiplus.dll\GdipGetImageItemData", "ptr", _image, "ptr", item, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @returns {Integer} 
      */
-    static GdipImageForceValidation(image) {
-        result := DllCall("gdiplus.dll\GdipImageForceValidation", "ptr", image, "int")
+    static GdipImageForceValidation(_image) {
+        result := DllCall("gdiplus.dll\GdipImageForceValidation", "ptr", _image, "int")
         return result
     }
 
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromStream(stream, bitmap) {
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+    static GdipCreateBitmapFromStream(stream, _bitmap) {
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromStream", "ptr", stream, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromStream", "ptr", stream, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromFile(filename, bitmap) {
+    static GdipCreateBitmapFromFile(filename, _bitmap) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromFile", "ptr", filename, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromFile", "ptr", filename, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromStreamICM(stream, bitmap) {
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+    static GdipCreateBitmapFromStreamICM(stream, _bitmap) {
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromStreamICM", "ptr", stream, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromStreamICM", "ptr", stream, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromFileICM(filename, bitmap) {
+    static GdipCreateBitmapFromFileICM(filename, _bitmap) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromFileICM", "ptr", filename, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromFileICM", "ptr", filename, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
@@ -6178,14 +6178,14 @@ class GdiPlus {
      * @param {Integer} stride 
      * @param {Integer} format 
      * @param {Pointer<Integer>} scan0 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromScan0(width, height, stride, format, scan0, bitmap) {
+    static GdipCreateBitmapFromScan0(width, height, stride, format, scan0, _bitmap) {
         scan0Marshal := scan0 is VarRef ? "char*" : "ptr"
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromScan0", "int", width, "int", height, "int", stride, "int", format, scan0Marshal, scan0, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromScan0", "int", width, "int", height, "int", stride, "int", format, scan0Marshal, scan0, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
@@ -6194,26 +6194,26 @@ class GdiPlus {
      * @param {Integer} width 
      * @param {Integer} height 
      * @param {Pointer<GpGraphics>} target 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromGraphics(width, height, target, bitmap) {
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+    static GdipCreateBitmapFromGraphics(width, height, target, _bitmap) {
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGraphics", "int", width, "int", height, "ptr", target, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGraphics", "int", width, "int", height, "ptr", target, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
      * @param {IDirectDrawSurface7} surface 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromDirectDrawSurface(surface, bitmap) {
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+    static GdipCreateBitmapFromDirectDrawSurface(surface, _bitmap) {
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromDirectDrawSurface", "ptr", surface, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromDirectDrawSurface", "ptr", surface, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
@@ -6221,86 +6221,86 @@ class GdiPlus {
      * 
      * @param {Pointer<BITMAPINFO>} gdiBitmapInfo 
      * @param {Pointer<Void>} gdiBitmapData 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromGdiDib(gdiBitmapInfo, gdiBitmapData, bitmap) {
+    static GdipCreateBitmapFromGdiDib(gdiBitmapInfo, gdiBitmapData, _bitmap) {
         gdiBitmapDataMarshal := gdiBitmapData is VarRef ? "ptr" : "ptr"
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGdiDib", "ptr", gdiBitmapInfo, gdiBitmapDataMarshal, gdiBitmapData, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGdiDib", "ptr", gdiBitmapInfo, gdiBitmapDataMarshal, gdiBitmapData, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
-     * @param {HBITMAP} hbm 
+     * @param {HBITMAP} _hbm 
      * @param {HPALETTE} hpal 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromHBITMAP(hbm, hpal, bitmap) {
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static GdipCreateBitmapFromHBITMAP(_hbm, hpal, _bitmap) {
+        _hbm := _hbm is Win32Handle ? NumGet(_hbm, "ptr") : _hbm
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromHBITMAP", "ptr", hbm, "ptr", hpal, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromHBITMAP", "ptr", _hbm, "ptr", hpal, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<HBITMAP>} hbmReturn 
      * @param {Integer} background 
      * @returns {Integer} 
      */
-    static GdipCreateHBITMAPFromBitmap(bitmap, hbmReturn, background) {
-        result := DllCall("gdiplus.dll\GdipCreateHBITMAPFromBitmap", "ptr", bitmap, "ptr", hbmReturn, "uint", background, "int")
+    static GdipCreateHBITMAPFromBitmap(_bitmap, hbmReturn, background) {
+        result := DllCall("gdiplus.dll\GdipCreateHBITMAPFromBitmap", "ptr", _bitmap, "ptr", hbmReturn, "uint", background, "int")
         return result
     }
 
     /**
      * 
-     * @param {HICON} hicon 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {HICON} _hicon 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromHICON(hicon, bitmap) {
-        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+    static GdipCreateBitmapFromHICON(_hicon, _bitmap) {
+        _hicon := _hicon is Win32Handle ? NumGet(_hicon, "ptr") : _hicon
 
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromHICON", "ptr", hicon, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromHICON", "ptr", _hicon, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<HICON>} hbmReturn 
      * @returns {Integer} 
      */
-    static GdipCreateHICONFromBitmap(bitmap, hbmReturn) {
-        result := DllCall("gdiplus.dll\GdipCreateHICONFromBitmap", "ptr", bitmap, "ptr", hbmReturn, "int")
+    static GdipCreateHICONFromBitmap(_bitmap, hbmReturn) {
+        result := DllCall("gdiplus.dll\GdipCreateHICONFromBitmap", "ptr", _bitmap, "ptr", hbmReturn, "int")
         return result
     }
 
     /**
      * 
-     * @param {HINSTANCE} hInstance 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpBitmapName 
-     * @param {Pointer<Pointer<GpBitmap>>} bitmap 
+     * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipCreateBitmapFromResource(hInstance, lpBitmapName, bitmap) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static GdipCreateBitmapFromResource(_hInstance, lpBitmapName, _bitmap) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
-        bitmapMarshal := bitmap is VarRef ? "ptr*" : "ptr"
+        _bitmapMarshal := _bitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromResource", "ptr", hInstance, "ptr", lpBitmapName, bitmapMarshal, bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromResource", "ptr", _hInstance, "ptr", lpBitmapName, _bitmapMarshal, _bitmap, "int")
         return result
     }
 
@@ -6342,54 +6342,54 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<GpBitmap>} _bitmap 
+     * @param {Pointer<Rect>} _rect 
      * @param {Integer} flags 
      * @param {Integer} format 
      * @param {Pointer<BitmapData>} lockedBitmapData 
      * @returns {Integer} 
      */
-    static GdipBitmapLockBits(bitmap, rect, flags, format, lockedBitmapData) {
-        result := DllCall("gdiplus.dll\GdipBitmapLockBits", "ptr", bitmap, "ptr", rect, "uint", flags, "int", format, "ptr", lockedBitmapData, "int")
+    static GdipBitmapLockBits(_bitmap, _rect, flags, format, lockedBitmapData) {
+        result := DllCall("gdiplus.dll\GdipBitmapLockBits", "ptr", _bitmap, "ptr", _rect, "uint", flags, "int", format, "ptr", lockedBitmapData, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<BitmapData>} lockedBitmapData 
      * @returns {Integer} 
      */
-    static GdipBitmapUnlockBits(bitmap, lockedBitmapData) {
-        result := DllCall("gdiplus.dll\GdipBitmapUnlockBits", "ptr", bitmap, "ptr", lockedBitmapData, "int")
+    static GdipBitmapUnlockBits(_bitmap, lockedBitmapData) {
+        result := DllCall("gdiplus.dll\GdipBitmapUnlockBits", "ptr", _bitmap, "ptr", lockedBitmapData, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<Integer>} color 
+     * @param {Pointer<Integer>} _color 
      * @returns {Integer} 
      */
-    static GdipBitmapGetPixel(bitmap, x, y, color) {
-        colorMarshal := color is VarRef ? "uint*" : "ptr"
+    static GdipBitmapGetPixel(_bitmap, x, y, _color) {
+        _colorMarshal := _color is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBitmapGetPixel", "ptr", bitmap, "int", x, "int", y, colorMarshal, color, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapGetPixel", "ptr", _bitmap, "int", x, "int", y, _colorMarshal, _color, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Integer} color 
+     * @param {Integer} _color 
      * @returns {Integer} 
      */
-    static GdipBitmapSetPixel(bitmap, x, y, color) {
-        result := DllCall("gdiplus.dll\GdipBitmapSetPixel", "ptr", bitmap, "int", x, "int", y, "uint", color, "int")
+    static GdipBitmapSetPixel(_bitmap, x, y, _color) {
+        result := DllCall("gdiplus.dll\GdipBitmapSetPixel", "ptr", _bitmap, "int", x, "int", y, "uint", _color, "int")
         return result
     }
 
@@ -6419,47 +6419,47 @@ class GdiPlus {
      * 
      * @param {Pointer<GpBitmap>} pInputBitmap 
      * @param {Integer} format 
-     * @param {Integer} dithertype 
-     * @param {Integer} palettetype 
+     * @param {Integer} _dithertype 
+     * @param {Integer} _palettetype 
      * @param {Pointer<ColorPalette>} palette 
      * @param {Float} alphaThresholdPercent 
      * @returns {Integer} 
      */
-    static GdipBitmapConvertFormat(pInputBitmap, format, dithertype, palettetype, palette, alphaThresholdPercent) {
-        result := DllCall("gdiplus.dll\GdipBitmapConvertFormat", "ptr", pInputBitmap, "int", format, "int", dithertype, "int", palettetype, "ptr", palette, "float", alphaThresholdPercent, "int")
+    static GdipBitmapConvertFormat(pInputBitmap, format, _dithertype, _palettetype, palette, alphaThresholdPercent) {
+        result := DllCall("gdiplus.dll\GdipBitmapConvertFormat", "ptr", pInputBitmap, "int", format, "int", _dithertype, "int", _palettetype, "ptr", palette, "float", alphaThresholdPercent, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<ColorPalette>} palette 
-     * @param {Integer} palettetype 
+     * @param {Integer} _palettetype 
      * @param {Integer} optimalColors 
      * @param {BOOL} useTransparentColor 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @returns {Integer} 
      */
-    static GdipInitializePalette(palette, palettetype, optimalColors, useTransparentColor, bitmap) {
-        result := DllCall("gdiplus.dll\GdipInitializePalette", "ptr", palette, "int", palettetype, "int", optimalColors, "int", useTransparentColor, "ptr", bitmap, "int")
+    static GdipInitializePalette(palette, _palettetype, optimalColors, useTransparentColor, _bitmap) {
+        result := DllCall("gdiplus.dll\GdipInitializePalette", "ptr", palette, "int", _palettetype, "int", optimalColors, "int", useTransparentColor, "ptr", _bitmap, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
-     * @param {Pointer<CGpEffect>} effect 
+     * @param {Pointer<GpBitmap>} _bitmap 
+     * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<RECT>} roi 
      * @param {BOOL} useAuxData 
      * @param {Pointer<Pointer<Void>>} auxData 
      * @param {Pointer<Integer>} auxDataSize 
      * @returns {Integer} 
      */
-    static GdipBitmapApplyEffect(bitmap, effect, roi, useAuxData, auxData, auxDataSize) {
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+    static GdipBitmapApplyEffect(_bitmap, _effect, roi, useAuxData, auxData, auxDataSize) {
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
         auxDataMarshal := auxData is VarRef ? "ptr*" : "ptr"
         auxDataSizeMarshal := auxDataSize is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", bitmap, effectMarshal, effect, "ptr", roi, "int", useAuxData, auxDataMarshal, auxData, auxDataSizeMarshal, auxDataSize, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", _bitmap, _effectMarshal, _effect, "ptr", roi, "int", useAuxData, auxDataMarshal, auxData, auxDataSizeMarshal, auxDataSize, "int")
         return result
     }
 
@@ -6467,7 +6467,7 @@ class GdiPlus {
      * 
      * @param {Pointer<Pointer<GpBitmap>>} inputBitmaps 
      * @param {Integer} numInputs 
-     * @param {Pointer<CGpEffect>} effect 
+     * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<RECT>} roi 
      * @param {Pointer<RECT>} outputRect 
      * @param {Pointer<Pointer<GpBitmap>>} outputBitmap 
@@ -6476,20 +6476,20 @@ class GdiPlus {
      * @param {Pointer<Integer>} auxDataSize 
      * @returns {Integer} 
      */
-    static GdipBitmapCreateApplyEffect(inputBitmaps, numInputs, effect, roi, outputRect, outputBitmap, useAuxData, auxData, auxDataSize) {
+    static GdipBitmapCreateApplyEffect(inputBitmaps, numInputs, _effect, roi, outputRect, outputBitmap, useAuxData, auxData, auxDataSize) {
         inputBitmapsMarshal := inputBitmaps is VarRef ? "ptr*" : "ptr"
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
         outputBitmapMarshal := outputBitmap is VarRef ? "ptr*" : "ptr"
         auxDataMarshal := auxData is VarRef ? "ptr*" : "ptr"
         auxDataSizeMarshal := auxDataSize is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", inputBitmapsMarshal, inputBitmaps, "int", numInputs, effectMarshal, effect, "ptr", roi, "ptr", outputRect, outputBitmapMarshal, outputBitmap, "int", useAuxData, auxDataMarshal, auxData, auxDataSizeMarshal, auxDataSize, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", inputBitmapsMarshal, inputBitmaps, "int", numInputs, _effectMarshal, _effect, "ptr", roi, "ptr", outputRect, outputBitmapMarshal, outputBitmap, "int", useAuxData, auxDataMarshal, auxData, auxDataSizeMarshal, auxDataSize, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Integer} format 
      * @param {Integer} NumberOfEntries 
      * @param {Pointer<Integer>} channel0 
@@ -6498,13 +6498,13 @@ class GdiPlus {
      * @param {Pointer<Integer>} channel3 
      * @returns {Integer} 
      */
-    static GdipBitmapGetHistogram(bitmap, format, NumberOfEntries, channel0, channel1, channel2, channel3) {
+    static GdipBitmapGetHistogram(_bitmap, format, NumberOfEntries, channel0, channel1, channel2, channel3) {
         channel0Marshal := channel0 is VarRef ? "uint*" : "ptr"
         channel1Marshal := channel1 is VarRef ? "uint*" : "ptr"
         channel2Marshal := channel2 is VarRef ? "uint*" : "ptr"
         channel3Marshal := channel3 is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBitmapGetHistogram", "ptr", bitmap, "int", format, "uint", NumberOfEntries, channel0Marshal, channel0, channel1Marshal, channel1, channel2Marshal, channel2, channel3Marshal, channel3, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapGetHistogram", "ptr", _bitmap, "int", format, "uint", NumberOfEntries, channel0Marshal, channel0, channel1Marshal, channel1, channel2Marshal, channel2, channel3Marshal, channel3, "int")
         return result
     }
 
@@ -6523,13 +6523,13 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Float} xdpi 
      * @param {Float} ydpi 
      * @returns {Integer} 
      */
-    static GdipBitmapSetResolution(bitmap, xdpi, ydpi) {
-        result := DllCall("gdiplus.dll\GdipBitmapSetResolution", "ptr", bitmap, "float", xdpi, "float", ydpi, "int")
+    static GdipBitmapSetResolution(_bitmap, xdpi, ydpi) {
+        result := DllCall("gdiplus.dll\GdipBitmapSetResolution", "ptr", _bitmap, "float", xdpi, "float", ydpi, "int")
         return result
     }
 
@@ -6595,13 +6595,13 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {Integer} type 
      * @param {BOOL} enableFlag 
-     * @param {Pointer<ColorMatrix>} colorMatrix 
+     * @param {Pointer<ColorMatrix>} _colorMatrix 
      * @param {Pointer<ColorMatrix>} grayMatrix 
      * @param {Integer} flags 
      * @returns {Integer} 
      */
-    static GdipSetImageAttributesColorMatrix(imageattr, type, enableFlag, colorMatrix, grayMatrix, flags) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorMatrix", "ptr", imageattr, "int", type, "int", enableFlag, "ptr", colorMatrix, "ptr", grayMatrix, "int", flags, "int")
+    static GdipSetImageAttributesColorMatrix(imageattr, type, enableFlag, _colorMatrix, grayMatrix, flags) {
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorMatrix", "ptr", imageattr, "int", type, "int", enableFlag, "ptr", _colorMatrix, "ptr", grayMatrix, "int", flags, "int")
         return result
     }
 
@@ -6715,12 +6715,12 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpImageAttributes>} imageAttr 
-     * @param {Pointer<ColorPalette>} colorPalette 
-     * @param {Integer} colorAdjustType 
+     * @param {Pointer<ColorPalette>} _colorPalette 
+     * @param {Integer} _colorAdjustType 
      * @returns {Integer} 
      */
-    static GdipGetImageAttributesAdjustedPalette(imageAttr, colorPalette, colorAdjustType) {
-        result := DllCall("gdiplus.dll\GdipGetImageAttributesAdjustedPalette", "ptr", imageAttr, "ptr", colorPalette, "int", colorAdjustType, "int")
+    static GdipGetImageAttributesAdjustedPalette(imageAttr, _colorPalette, _colorAdjustType) {
+        result := DllCall("gdiplus.dll\GdipGetImageAttributesAdjustedPalette", "ptr", imageAttr, "ptr", _colorPalette, "int", _colorAdjustType, "int")
         return result
     }
 
@@ -6737,63 +6737,63 @@ class GdiPlus {
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Integer} 
      */
-    static GdipCreateFromHDC(hdc, graphics) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipCreateFromHDC(_hdc, graphics) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         graphicsMarshal := graphics is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFromHDC", "ptr", hdc, graphicsMarshal, graphics, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFromHDC", "ptr", _hdc, graphicsMarshal, graphics, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {HANDLE} hDevice 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Integer} 
      */
-    static GdipCreateFromHDC2(hdc, hDevice, graphics) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipCreateFromHDC2(_hdc, hDevice, graphics) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
         graphicsMarshal := graphics is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFromHDC2", "ptr", hdc, "ptr", hDevice, graphicsMarshal, graphics, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFromHDC2", "ptr", _hdc, "ptr", hDevice, graphicsMarshal, graphics, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Integer} 
      */
-    static GdipCreateFromHWND(hwnd, graphics) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GdipCreateFromHWND(_hwnd, graphics) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         graphicsMarshal := graphics is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFromHWND", "ptr", hwnd, graphicsMarshal, graphics, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFromHWND", "ptr", _hwnd, graphicsMarshal, graphics, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Integer} 
      */
-    static GdipCreateFromHWNDICM(hwnd, graphics) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GdipCreateFromHWNDICM(_hwnd, graphics) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         graphicsMarshal := graphics is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFromHWNDICM", "ptr", hwnd, graphicsMarshal, graphics, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFromHWNDICM", "ptr", _hwnd, graphicsMarshal, graphics, "int")
         return result
     }
 
@@ -6810,48 +6810,48 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<HDC>} hdc 
+     * @param {Pointer<HDC>} _hdc 
      * @returns {Integer} 
      */
-    static GdipGetDC(graphics, hdc) {
-        result := DllCall("gdiplus.dll\GdipGetDC", "ptr", graphics, "ptr", hdc, "int")
+    static GdipGetDC(graphics, _hdc) {
+        result := DllCall("gdiplus.dll\GdipGetDC", "ptr", graphics, "ptr", _hdc, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @returns {Integer} 
      */
-    static GdipReleaseDC(graphics, hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipReleaseDC(graphics, _hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("gdiplus.dll\GdipReleaseDC", "ptr", graphics, "ptr", hdc, "int")
+        result := DllCall("gdiplus.dll\GdipReleaseDC", "ptr", graphics, "ptr", _hdc, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} compositingMode 
+     * @param {Integer} _compositingMode 
      * @returns {Integer} 
      */
-    static GdipSetCompositingMode(graphics, compositingMode) {
-        result := DllCall("gdiplus.dll\GdipSetCompositingMode", "ptr", graphics, "int", compositingMode, "int")
+    static GdipSetCompositingMode(graphics, _compositingMode) {
+        result := DllCall("gdiplus.dll\GdipSetCompositingMode", "ptr", graphics, "int", _compositingMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} compositingMode 
+     * @param {Pointer<Integer>} _compositingMode 
      * @returns {Integer} 
      */
-    static GdipGetCompositingMode(graphics, compositingMode) {
-        compositingModeMarshal := compositingMode is VarRef ? "int*" : "ptr"
+    static GdipGetCompositingMode(graphics, _compositingMode) {
+        _compositingModeMarshal := _compositingMode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetCompositingMode", "ptr", graphics, compositingModeMarshal, compositingMode, "int")
+        result := DllCall("gdiplus.dll\GdipGetCompositingMode", "ptr", graphics, _compositingModeMarshal, _compositingMode, "int")
         return result
     }
 
@@ -6885,96 +6885,96 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} compositingQuality 
+     * @param {Integer} _compositingQuality 
      * @returns {Integer} 
      */
-    static GdipSetCompositingQuality(graphics, compositingQuality) {
-        result := DllCall("gdiplus.dll\GdipSetCompositingQuality", "ptr", graphics, "int", compositingQuality, "int")
+    static GdipSetCompositingQuality(graphics, _compositingQuality) {
+        result := DllCall("gdiplus.dll\GdipSetCompositingQuality", "ptr", graphics, "int", _compositingQuality, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} compositingQuality 
+     * @param {Pointer<Integer>} _compositingQuality 
      * @returns {Integer} 
      */
-    static GdipGetCompositingQuality(graphics, compositingQuality) {
-        compositingQualityMarshal := compositingQuality is VarRef ? "int*" : "ptr"
+    static GdipGetCompositingQuality(graphics, _compositingQuality) {
+        _compositingQualityMarshal := _compositingQuality is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetCompositingQuality", "ptr", graphics, compositingQualityMarshal, compositingQuality, "int")
+        result := DllCall("gdiplus.dll\GdipGetCompositingQuality", "ptr", graphics, _compositingQualityMarshal, _compositingQuality, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} smoothingMode 
+     * @param {Integer} _smoothingMode 
      * @returns {Integer} 
      */
-    static GdipSetSmoothingMode(graphics, smoothingMode) {
-        result := DllCall("gdiplus.dll\GdipSetSmoothingMode", "ptr", graphics, "int", smoothingMode, "int")
+    static GdipSetSmoothingMode(graphics, _smoothingMode) {
+        result := DllCall("gdiplus.dll\GdipSetSmoothingMode", "ptr", graphics, "int", _smoothingMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} smoothingMode 
+     * @param {Pointer<Integer>} _smoothingMode 
      * @returns {Integer} 
      */
-    static GdipGetSmoothingMode(graphics, smoothingMode) {
-        smoothingModeMarshal := smoothingMode is VarRef ? "int*" : "ptr"
+    static GdipGetSmoothingMode(graphics, _smoothingMode) {
+        _smoothingModeMarshal := _smoothingMode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetSmoothingMode", "ptr", graphics, smoothingModeMarshal, smoothingMode, "int")
+        result := DllCall("gdiplus.dll\GdipGetSmoothingMode", "ptr", graphics, _smoothingModeMarshal, _smoothingMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} pixelOffsetMode 
+     * @param {Integer} _pixelOffsetMode 
      * @returns {Integer} 
      */
-    static GdipSetPixelOffsetMode(graphics, pixelOffsetMode) {
-        result := DllCall("gdiplus.dll\GdipSetPixelOffsetMode", "ptr", graphics, "int", pixelOffsetMode, "int")
+    static GdipSetPixelOffsetMode(graphics, _pixelOffsetMode) {
+        result := DllCall("gdiplus.dll\GdipSetPixelOffsetMode", "ptr", graphics, "int", _pixelOffsetMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} pixelOffsetMode 
+     * @param {Pointer<Integer>} _pixelOffsetMode 
      * @returns {Integer} 
      */
-    static GdipGetPixelOffsetMode(graphics, pixelOffsetMode) {
-        pixelOffsetModeMarshal := pixelOffsetMode is VarRef ? "int*" : "ptr"
+    static GdipGetPixelOffsetMode(graphics, _pixelOffsetMode) {
+        _pixelOffsetModeMarshal := _pixelOffsetMode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPixelOffsetMode", "ptr", graphics, pixelOffsetModeMarshal, pixelOffsetMode, "int")
+        result := DllCall("gdiplus.dll\GdipGetPixelOffsetMode", "ptr", graphics, _pixelOffsetModeMarshal, _pixelOffsetMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {Integer} 
      */
-    static GdipSetTextRenderingHint(graphics, mode) {
-        result := DllCall("gdiplus.dll\GdipSetTextRenderingHint", "ptr", graphics, "int", mode, "int")
+    static GdipSetTextRenderingHint(graphics, _mode) {
+        result := DllCall("gdiplus.dll\GdipSetTextRenderingHint", "ptr", graphics, "int", _mode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} mode 
+     * @param {Pointer<Integer>} _mode 
      * @returns {Integer} 
      */
-    static GdipGetTextRenderingHint(graphics, mode) {
-        modeMarshal := mode is VarRef ? "int*" : "ptr"
+    static GdipGetTextRenderingHint(graphics, _mode) {
+        _modeMarshal := _mode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetTextRenderingHint", "ptr", graphics, modeMarshal, mode, "int")
+        result := DllCall("gdiplus.dll\GdipGetTextRenderingHint", "ptr", graphics, _modeMarshal, _mode, "int")
         return result
     }
 
@@ -7005,37 +7005,37 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} interpolationMode 
+     * @param {Integer} _interpolationMode 
      * @returns {Integer} 
      */
-    static GdipSetInterpolationMode(graphics, interpolationMode) {
-        result := DllCall("gdiplus.dll\GdipSetInterpolationMode", "ptr", graphics, "int", interpolationMode, "int")
+    static GdipSetInterpolationMode(graphics, _interpolationMode) {
+        result := DllCall("gdiplus.dll\GdipSetInterpolationMode", "ptr", graphics, "int", _interpolationMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} interpolationMode 
+     * @param {Pointer<Integer>} _interpolationMode 
      * @returns {Integer} 
      */
-    static GdipGetInterpolationMode(graphics, interpolationMode) {
-        interpolationModeMarshal := interpolationMode is VarRef ? "int*" : "ptr"
+    static GdipGetInterpolationMode(graphics, _interpolationMode) {
+        _interpolationModeMarshal := _interpolationMode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetInterpolationMode", "ptr", graphics, interpolationModeMarshal, interpolationMode, "int")
+        result := DllCall("gdiplus.dll\GdipGetInterpolationMode", "ptr", graphics, _interpolationModeMarshal, _interpolationMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipSetWorldTransform(graphics, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipSetWorldTransform(graphics, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipSetWorldTransform", "ptr", graphics, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipSetWorldTransform", "ptr", graphics, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -7052,14 +7052,14 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Integer} order 
      * @returns {Integer} 
      */
-    static GdipMultiplyWorldTransform(graphics, matrix, order) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipMultiplyWorldTransform(graphics, _matrix, order) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMultiplyWorldTransform", "ptr", graphics, matrixMarshal, matrix, "int", order, "int")
+        result := DllCall("gdiplus.dll\GdipMultiplyWorldTransform", "ptr", graphics, _matrixMarshal, _matrix, "int", order, "int")
         return result
     }
 
@@ -7104,13 +7104,13 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipGetWorldTransform(graphics, matrix) {
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+    static GdipGetWorldTransform(graphics, _matrix) {
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetWorldTransform", "ptr", graphics, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipGetWorldTransform", "ptr", graphics, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -7127,13 +7127,13 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Integer>} unit 
+     * @param {Pointer<Integer>} _unit 
      * @returns {Integer} 
      */
-    static GdipGetPageUnit(graphics, unit) {
-        unitMarshal := unit is VarRef ? "int*" : "ptr"
+    static GdipGetPageUnit(graphics, _unit) {
+        _unitMarshal := _unit is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetPageUnit", "ptr", graphics, unitMarshal, unit, "int")
+        result := DllCall("gdiplus.dll\GdipGetPageUnit", "ptr", graphics, _unitMarshal, _unit, "int")
         return result
     }
 
@@ -7153,11 +7153,11 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @returns {Integer} 
      */
-    static GdipSetPageUnit(graphics, unit) {
-        result := DllCall("gdiplus.dll\GdipSetPageUnit", "ptr", graphics, "int", unit, "int")
+    static GdipSetPageUnit(graphics, _unit) {
+        result := DllCall("gdiplus.dll\GdipSetPageUnit", "ptr", graphics, "int", _unit, "int")
         return result
     }
 
@@ -7203,12 +7203,12 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} destSpace 
      * @param {Integer} srcSpace 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipTransformPoints(graphics, destSpace, srcSpace, points, count) {
-        result := DllCall("gdiplus.dll\GdipTransformPoints", "ptr", graphics, "int", destSpace, "int", srcSpace, "ptr", points, "int", count, "int")
+    static GdipTransformPoints(graphics, destSpace, srcSpace, _points, count) {
+        result := DllCall("gdiplus.dll\GdipTransformPoints", "ptr", graphics, "int", destSpace, "int", srcSpace, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7217,12 +7217,12 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} destSpace 
      * @param {Integer} srcSpace 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipTransformPointsI(graphics, destSpace, srcSpace, points, count) {
-        result := DllCall("gdiplus.dll\GdipTransformPointsI", "ptr", graphics, "int", destSpace, "int", srcSpace, "ptr", points, "int", count, "int")
+    static GdipTransformPointsI(graphics, destSpace, srcSpace, _points, count) {
+        result := DllCall("gdiplus.dll\GdipTransformPointsI", "ptr", graphics, "int", destSpace, "int", srcSpace, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7283,12 +7283,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawLines(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawLines", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawLines(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawLines", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7296,12 +7296,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawLinesI(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawLinesI", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawLinesI(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawLinesI", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7381,12 +7381,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawBeziers(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawBeziers", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawBeziers(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawBeziers", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7394,12 +7394,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawBeziersI(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawBeziersI", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawBeziersI(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawBeziersI", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7527,12 +7527,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawPolygon(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawPolygon", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawPolygon(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawPolygon", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7540,12 +7540,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawPolygonI(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawPolygonI", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawPolygonI(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawPolygonI", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7553,11 +7553,11 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipDrawPath(graphics, pen, path) {
-        result := DllCall("gdiplus.dll\GdipDrawPath", "ptr", graphics, "ptr", pen, "ptr", path, "int")
+    static GdipDrawPath(graphics, pen, _path) {
+        result := DllCall("gdiplus.dll\GdipDrawPath", "ptr", graphics, "ptr", pen, "ptr", _path, "int")
         return result
     }
 
@@ -7565,12 +7565,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawCurve(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawCurve", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawCurve(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawCurve", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7578,12 +7578,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawCurveI(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawCurveI", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawCurveI(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawCurveI", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7591,27 +7591,13 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
-     * @param {Integer} count 
-     * @param {Float} tension 
-     * @returns {Integer} 
-     */
-    static GdipDrawCurve2(graphics, pen, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawCurve2", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "float", tension, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipDrawCurve2I(graphics, pen, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawCurve2I", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "float", tension, "int")
+    static GdipDrawCurve2(graphics, pen, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawCurve2", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
@@ -7619,15 +7605,29 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<Point>} _points 
+     * @param {Integer} count 
+     * @param {Float} tension 
+     * @returns {Integer} 
+     */
+    static GdipDrawCurve2I(graphics, pen, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawCurve2I", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "float", tension, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<GpGraphics>} graphics 
+     * @param {Pointer<GpPen>} pen 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Integer} offset 
      * @param {Integer} numberOfSegments 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipDrawCurve3(graphics, pen, points, count, offset, numberOfSegments, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawCurve3", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
+    static GdipDrawCurve3(graphics, pen, _points, count, offset, numberOfSegments, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawCurve3", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
         return result
     }
 
@@ -7635,15 +7635,15 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {Integer} offset 
      * @param {Integer} numberOfSegments 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipDrawCurve3I(graphics, pen, points, count, offset, numberOfSegments, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawCurve3I", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
+    static GdipDrawCurve3I(graphics, pen, _points, count, offset, numberOfSegments, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawCurve3I", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int", offset, "int", numberOfSegments, "float", tension, "int")
         return result
     }
 
@@ -7651,12 +7651,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawClosedCurve(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawClosedCurve", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawClosedCurve(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawClosedCurve", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7664,12 +7664,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawClosedCurveI(graphics, pen, points, count) {
-        result := DllCall("gdiplus.dll\GdipDrawClosedCurveI", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "int")
+    static GdipDrawClosedCurveI(graphics, pen, _points, count) {
+        result := DllCall("gdiplus.dll\GdipDrawClosedCurveI", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7677,38 +7677,38 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<PointF>} points 
-     * @param {Integer} count 
-     * @param {Float} tension 
-     * @returns {Integer} 
-     */
-    static GdipDrawClosedCurve2(graphics, pen, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawClosedCurve2", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "float", tension, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpPen>} pen 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipDrawClosedCurve2I(graphics, pen, points, count, tension) {
-        result := DllCall("gdiplus.dll\GdipDrawClosedCurve2I", "ptr", graphics, "ptr", pen, "ptr", points, "int", count, "float", tension, "int")
+    static GdipDrawClosedCurve2(graphics, pen, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawClosedCurve2", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "float", tension, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Integer} color 
+     * @param {Pointer<GpPen>} pen 
+     * @param {Pointer<Point>} _points 
+     * @param {Integer} count 
+     * @param {Float} tension 
      * @returns {Integer} 
      */
-    static GdipGraphicsClear(graphics, color) {
-        result := DllCall("gdiplus.dll\GdipGraphicsClear", "ptr", graphics, "uint", color, "int")
+    static GdipDrawClosedCurve2I(graphics, pen, _points, count, tension) {
+        result := DllCall("gdiplus.dll\GdipDrawClosedCurve2I", "ptr", graphics, "ptr", pen, "ptr", _points, "int", count, "float", tension, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<GpGraphics>} graphics 
+     * @param {Integer} _color 
+     * @returns {Integer} 
+     */
+    static GdipGraphicsClear(graphics, _color) {
+        result := DllCall("gdiplus.dll\GdipGraphicsClear", "ptr", graphics, "uint", _color, "int")
         return result
     }
 
@@ -7772,13 +7772,13 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
-     * @param {Integer} fillMode 
+     * @param {Integer} _fillMode 
      * @returns {Integer} 
      */
-    static GdipFillPolygon(graphics, brush, points, count, fillMode) {
-        result := DllCall("gdiplus.dll\GdipFillPolygon", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int", fillMode, "int")
+    static GdipFillPolygon(graphics, brush, _points, count, _fillMode) {
+        result := DllCall("gdiplus.dll\GdipFillPolygon", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int", _fillMode, "int")
         return result
     }
 
@@ -7786,13 +7786,13 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
-     * @param {Integer} fillMode 
+     * @param {Integer} _fillMode 
      * @returns {Integer} 
      */
-    static GdipFillPolygonI(graphics, brush, points, count, fillMode) {
-        result := DllCall("gdiplus.dll\GdipFillPolygonI", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int", fillMode, "int")
+    static GdipFillPolygonI(graphics, brush, _points, count, _fillMode) {
+        result := DllCall("gdiplus.dll\GdipFillPolygonI", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int", _fillMode, "int")
         return result
     }
 
@@ -7800,12 +7800,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipFillPolygon2(graphics, brush, points, count) {
-        result := DllCall("gdiplus.dll\GdipFillPolygon2", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int")
+    static GdipFillPolygon2(graphics, brush, _points, count) {
+        result := DllCall("gdiplus.dll\GdipFillPolygon2", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7813,12 +7813,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipFillPolygon2I(graphics, brush, points, count) {
-        result := DllCall("gdiplus.dll\GdipFillPolygon2I", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int")
+    static GdipFillPolygon2I(graphics, brush, _points, count) {
+        result := DllCall("gdiplus.dll\GdipFillPolygon2I", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7890,11 +7890,11 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<GpPath>} path 
+     * @param {Pointer<GpPath>} _path 
      * @returns {Integer} 
      */
-    static GdipFillPath(graphics, brush, path) {
-        result := DllCall("gdiplus.dll\GdipFillPath", "ptr", graphics, "ptr", brush, "ptr", path, "int")
+    static GdipFillPath(graphics, brush, _path) {
+        result := DllCall("gdiplus.dll\GdipFillPath", "ptr", graphics, "ptr", brush, "ptr", _path, "int")
         return result
     }
 
@@ -7902,12 +7902,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipFillClosedCurve(graphics, brush, points, count) {
-        result := DllCall("gdiplus.dll\GdipFillClosedCurve", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int")
+    static GdipFillClosedCurve(graphics, brush, _points, count) {
+        result := DllCall("gdiplus.dll\GdipFillClosedCurve", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7915,12 +7915,12 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipFillClosedCurveI(graphics, brush, points, count) {
-        result := DllCall("gdiplus.dll\GdipFillClosedCurveI", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "int")
+    static GdipFillClosedCurveI(graphics, brush, _points, count) {
+        result := DllCall("gdiplus.dll\GdipFillClosedCurveI", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "int")
         return result
     }
 
@@ -7928,29 +7928,14 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<PointF>} points 
-     * @param {Integer} count 
-     * @param {Float} tension 
-     * @param {Integer} fillMode 
-     * @returns {Integer} 
-     */
-    static GdipFillClosedCurve2(graphics, brush, points, count, tension, fillMode) {
-        result := DllCall("gdiplus.dll\GdipFillClosedCurve2", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "float", tension, "int", fillMode, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} tension 
-     * @param {Integer} fillMode 
+     * @param {Integer} _fillMode 
      * @returns {Integer} 
      */
-    static GdipFillClosedCurve2I(graphics, brush, points, count, tension, fillMode) {
-        result := DllCall("gdiplus.dll\GdipFillClosedCurve2I", "ptr", graphics, "ptr", brush, "ptr", points, "int", count, "float", tension, "int", fillMode, "int")
+    static GdipFillClosedCurve2(graphics, brush, _points, count, tension, _fillMode) {
+        result := DllCall("gdiplus.dll\GdipFillClosedCurve2", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "float", tension, "int", _fillMode, "int")
         return result
     }
 
@@ -7958,119 +7943,134 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<Point>} _points 
+     * @param {Integer} count 
+     * @param {Float} tension 
+     * @param {Integer} _fillMode 
      * @returns {Integer} 
      */
-    static GdipFillRegion(graphics, brush, region) {
-        result := DllCall("gdiplus.dll\GdipFillRegion", "ptr", graphics, "ptr", brush, "ptr", region, "int")
+    static GdipFillClosedCurve2I(graphics, brush, _points, count, tension, _fillMode) {
+        result := DllCall("gdiplus.dll\GdipFillClosedCurve2I", "ptr", graphics, "ptr", brush, "ptr", _points, "int", count, "float", tension, "int", _fillMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpBrush>} brush 
+     * @param {Pointer<GpRegion>} _region 
+     * @returns {Integer} 
+     */
+    static GdipFillRegion(graphics, brush, _region) {
+        result := DllCall("gdiplus.dll\GdipFillRegion", "ptr", graphics, "ptr", brush, "ptr", _region, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<GpGraphics>} graphics 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<RectF>} source 
-     * @param {Pointer<Matrix>} xForm 
-     * @param {Pointer<CGpEffect>} effect 
+     * @param {Pointer<Matrix>} _xForm 
+     * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @param {Integer} srcUnit 
      * @returns {Integer} 
      */
-    static GdipDrawImageFX(graphics, image, source, xForm, effect, imageAttributes, srcUnit) {
-        xFormMarshal := xForm is VarRef ? "ptr*" : "ptr"
-        effectMarshal := effect is VarRef ? "ptr*" : "ptr"
+    static GdipDrawImageFX(graphics, _image, source, _xForm, _effect, imageAttributes, srcUnit) {
+        _xFormMarshal := _xForm is VarRef ? "ptr*" : "ptr"
+        _effectMarshal := _effect is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawImageFX", "ptr", graphics, "ptr", image, "ptr", source, xFormMarshal, xForm, effectMarshal, effect, "ptr", imageAttributes, "int", srcUnit, "int")
+        result := DllCall("gdiplus.dll\GdipDrawImageFX", "ptr", graphics, "ptr", _image, "ptr", source, _xFormMarshal, _xForm, _effectMarshal, _effect, "ptr", imageAttributes, "int", srcUnit, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {Integer} 
      */
-    static GdipDrawImage(graphics, image, x, y) {
-        result := DllCall("gdiplus.dll\GdipDrawImage", "ptr", graphics, "ptr", image, "float", x, "float", y, "int")
+    static GdipDrawImage(graphics, _image, x, y) {
+        result := DllCall("gdiplus.dll\GdipDrawImage", "ptr", graphics, "ptr", _image, "float", x, "float", y, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {Integer} 
      */
-    static GdipDrawImageI(graphics, image, x, y) {
-        result := DllCall("gdiplus.dll\GdipDrawImageI", "ptr", graphics, "ptr", image, "int", x, "int", y, "int")
+    static GdipDrawImageI(graphics, _image, x, y) {
+        result := DllCall("gdiplus.dll\GdipDrawImageI", "ptr", graphics, "ptr", _image, "int", x, "int", y, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
      * @param {Float} height 
      * @returns {Integer} 
      */
-    static GdipDrawImageRect(graphics, image, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipDrawImageRect", "ptr", graphics, "ptr", image, "float", x, "float", y, "float", width, "float", height, "int")
+    static GdipDrawImageRect(graphics, _image, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipDrawImageRect", "ptr", graphics, "ptr", _image, "float", x, "float", y, "float", width, "float", height, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {Integer} 
      */
-    static GdipDrawImageRectI(graphics, image, x, y, width, height) {
-        result := DllCall("gdiplus.dll\GdipDrawImageRectI", "ptr", graphics, "ptr", image, "int", x, "int", y, "int", width, "int", height, "int")
+    static GdipDrawImageRectI(graphics, _image, x, y, width, height) {
+        result := DllCall("gdiplus.dll\GdipDrawImageRectI", "ptr", graphics, "ptr", _image, "int", x, "int", y, "int", width, "int", height, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<PointF>} dstpoints 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawImagePoints(graphics, image, dstpoints, count) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePoints", "ptr", graphics, "ptr", image, "ptr", dstpoints, "int", count, "int")
+    static GdipDrawImagePoints(graphics, _image, dstpoints, count) {
+        result := DllCall("gdiplus.dll\GdipDrawImagePoints", "ptr", graphics, "ptr", _image, "ptr", dstpoints, "int", count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Point>} dstpoints 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    static GdipDrawImagePointsI(graphics, image, dstpoints, count) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePointsI", "ptr", graphics, "ptr", image, "ptr", dstpoints, "int", count, "int")
+    static GdipDrawImagePointsI(graphics, _image, dstpoints, count) {
+        result := DllCall("gdiplus.dll\GdipDrawImagePointsI", "ptr", graphics, "ptr", _image, "ptr", dstpoints, "int", count, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} srcx 
@@ -8080,15 +8080,15 @@ class GdiPlus {
      * @param {Integer} srcUnit 
      * @returns {Integer} 
      */
-    static GdipDrawImagePointRect(graphics, image, x, y, srcx, srcy, srcwidth, srcheight, srcUnit) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePointRect", "ptr", graphics, "ptr", image, "float", x, "float", y, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "int")
+    static GdipDrawImagePointRect(graphics, _image, x, y, srcx, srcy, srcwidth, srcheight, srcUnit) {
+        result := DllCall("gdiplus.dll\GdipDrawImagePointRect", "ptr", graphics, "ptr", _image, "float", x, "float", y, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} srcx 
@@ -8098,15 +8098,15 @@ class GdiPlus {
      * @param {Integer} srcUnit 
      * @returns {Integer} 
      */
-    static GdipDrawImagePointRectI(graphics, image, x, y, srcx, srcy, srcwidth, srcheight, srcUnit) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePointRectI", "ptr", graphics, "ptr", image, "int", x, "int", y, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "int")
+    static GdipDrawImagePointRectI(graphics, _image, x, y, srcx, srcy, srcwidth, srcheight, srcUnit) {
+        result := DllCall("gdiplus.dll\GdipDrawImagePointRectI", "ptr", graphics, "ptr", _image, "int", x, "int", y, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Float} dstx 
      * @param {Float} dsty 
      * @param {Float} dstwidth 
@@ -8121,17 +8121,17 @@ class GdiPlus {
      * @param {Pointer<Void>} callbackData 
      * @returns {Integer} 
      */
-    static GdipDrawImageRectRect(graphics, image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
+    static GdipDrawImageRectRect(graphics, _image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawImageRectRect", "ptr", graphics, "ptr", image, "float", dstx, "float", dsty, "float", dstwidth, "float", dstheight, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
+        result := DllCall("gdiplus.dll\GdipDrawImageRectRect", "ptr", graphics, "ptr", _image, "float", dstx, "float", dsty, "float", dstwidth, "float", dstheight, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
+     * @param {Pointer<GpImage>} _image 
      * @param {Integer} dstx 
      * @param {Integer} dsty 
      * @param {Integer} dstwidth 
@@ -8146,18 +8146,18 @@ class GdiPlus {
      * @param {Pointer<Void>} callbackData 
      * @returns {Integer} 
      */
-    static GdipDrawImageRectRectI(graphics, image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
+    static GdipDrawImageRectRectI(graphics, _image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawImageRectRectI", "ptr", graphics, "ptr", image, "int", dstx, "int", dsty, "int", dstwidth, "int", dstheight, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
+        result := DllCall("gdiplus.dll\GdipDrawImageRectRectI", "ptr", graphics, "ptr", _image, "int", dstx, "int", dsty, "int", dstwidth, "int", dstheight, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
-     * @param {Pointer<PointF>} points 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {Float} srcx 
      * @param {Float} srcy 
@@ -8169,18 +8169,18 @@ class GdiPlus {
      * @param {Pointer<Void>} callbackData 
      * @returns {Integer} 
      */
-    static GdipDrawImagePointsRect(graphics, image, points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
+    static GdipDrawImagePointsRect(graphics, _image, _points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawImagePointsRect", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
+        result := DllCall("gdiplus.dll\GdipDrawImagePointsRect", "ptr", graphics, "ptr", _image, "ptr", _points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpImage>} image 
-     * @param {Pointer<Point>} points 
+     * @param {Pointer<GpImage>} _image 
+     * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {Integer} srcx 
      * @param {Integer} srcy 
@@ -8192,85 +8192,85 @@ class GdiPlus {
      * @param {Pointer<Void>} callbackData 
      * @returns {Integer} 
      */
-    static GdipDrawImagePointsRectI(graphics, image, points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
+    static GdipDrawImagePointsRectI(graphics, _image, _points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawImagePointsRectI", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
+        result := DllCall("gdiplus.dll\GdipDrawImagePointsRectI", "ptr", graphics, "ptr", _image, "ptr", _points, "int", count, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoint 
      * @param {Pointer} callback 
      * @param {Pointer<Void>} callbackData 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestPoint(graphics, metafile, destPoint, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestPoint(graphics, _metafile, destPoint, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoint", "ptr", graphics, "ptr", _metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoint 
      * @param {Pointer} callback 
      * @param {Pointer<Void>} callbackData 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestPointI(graphics, metafile, destPoint, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestPointI(graphics, _metafile, destPoint, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointI", "ptr", graphics, "ptr", _metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<RectF>} destRect 
      * @param {Pointer} callback 
      * @param {Pointer<Void>} callbackData 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestRect(graphics, metafile, destRect, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestRect(graphics, _metafile, destRect, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRect", "ptr", graphics, "ptr", _metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Rect>} destRect 
      * @param {Pointer} callback 
      * @param {Pointer<Void>} callbackData 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestRectI(graphics, metafile, destRect, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestRectI(graphics, _metafile, destRect, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRectI", "ptr", graphics, "ptr", _metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoints 
      * @param {Integer} count 
      * @param {Pointer} callback 
@@ -8278,17 +8278,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestPoints(graphics, metafile, destPoints, count, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestPoints(graphics, _metafile, destPoints, count, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoints", "ptr", graphics, "ptr", _metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoints 
      * @param {Integer} count 
      * @param {Pointer} callback 
@@ -8296,17 +8296,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileDestPointsI(graphics, metafile, destPoints, count, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileDestPointsI(graphics, _metafile, destPoints, count, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointsI", "ptr", graphics, "ptr", _metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoint 
      * @param {Pointer<RectF>} srcRect 
      * @param {Integer} srcUnit 
@@ -8315,17 +8315,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestPoint(graphics, metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestPoint(graphics, _metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoint", "ptr", graphics, "ptr", _metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoint 
      * @param {Pointer<Rect>} srcRect 
      * @param {Integer} srcUnit 
@@ -8334,17 +8334,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestPointI(graphics, metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestPointI(graphics, _metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointI", "ptr", graphics, "ptr", _metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<RectF>} destRect 
      * @param {Pointer<RectF>} srcRect 
      * @param {Integer} srcUnit 
@@ -8353,17 +8353,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestRect(graphics, metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestRect(graphics, _metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRect", "ptr", graphics, "ptr", _metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Rect>} destRect 
      * @param {Pointer<Rect>} srcRect 
      * @param {Integer} srcUnit 
@@ -8372,17 +8372,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestRectI(graphics, metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestRectI(graphics, _metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRectI", "ptr", graphics, "ptr", _metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoints 
      * @param {Integer} count 
      * @param {Pointer<RectF>} srcRect 
@@ -8392,17 +8392,17 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestPoints(graphics, metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestPoints(graphics, _metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoints", "ptr", graphics, "ptr", _metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoints 
      * @param {Integer} count 
      * @param {Pointer<Rect>} srcRect 
@@ -8412,26 +8412,26 @@ class GdiPlus {
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @returns {Integer} 
      */
-    static GdipEnumerateMetafileSrcRectDestPointsI(graphics, metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
+    static GdipEnumerateMetafileSrcRectDestPointsI(graphics, _metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
         callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointsI", "ptr", graphics, "ptr", _metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Integer} recordType 
      * @param {Integer} flags 
      * @param {Integer} dataSize 
      * @param {Pointer<Integer>} data 
      * @returns {Integer} 
      */
-    static GdipPlayMetafileRecord(metafile, recordType, flags, dataSize, data) {
+    static GdipPlayMetafileRecord(_metafile, recordType, flags, dataSize, data) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPlayMetafileRecord", "ptr", metafile, "int", recordType, "uint", flags, "uint", dataSize, dataMarshal, data, "int")
+        result := DllCall("gdiplus.dll\GdipPlayMetafileRecord", "ptr", _metafile, "int", recordType, "uint", flags, "uint", dataSize, dataMarshal, data, "int")
         return result
     }
 
@@ -8439,11 +8439,11 @@ class GdiPlus {
      * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpGraphics>} srcgraphics 
-     * @param {Integer} combineMode 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipGraphics(graphics, srcgraphics, combineMode) {
-        result := DllCall("gdiplus.dll\GdipSetClipGraphics", "ptr", graphics, "ptr", srcgraphics, "int", combineMode, "int")
+    static GdipSetClipGraphics(graphics, srcgraphics, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipSetClipGraphics", "ptr", graphics, "ptr", srcgraphics, "int", _combineMode, "int")
         return result
     }
 
@@ -8454,11 +8454,11 @@ class GdiPlus {
      * @param {Float} y 
      * @param {Float} width 
      * @param {Float} height 
-     * @param {Integer} combineMode 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipRect(graphics, x, y, width, height, combineMode) {
-        result := DllCall("gdiplus.dll\GdipSetClipRect", "ptr", graphics, "float", x, "float", y, "float", width, "float", height, "int", combineMode, "int")
+    static GdipSetClipRect(graphics, x, y, width, height, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipSetClipRect", "ptr", graphics, "float", x, "float", y, "float", width, "float", height, "int", _combineMode, "int")
         return result
     }
 
@@ -8469,49 +8469,49 @@ class GdiPlus {
      * @param {Integer} y 
      * @param {Integer} width 
      * @param {Integer} height 
-     * @param {Integer} combineMode 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipRectI(graphics, x, y, width, height, combineMode) {
-        result := DllCall("gdiplus.dll\GdipSetClipRectI", "ptr", graphics, "int", x, "int", y, "int", width, "int", height, "int", combineMode, "int")
+    static GdipSetClipRectI(graphics, x, y, width, height, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipSetClipRectI", "ptr", graphics, "int", x, "int", y, "int", width, "int", height, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpPath>} path 
-     * @param {Integer} combineMode 
+     * @param {Pointer<GpPath>} _path 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipPath(graphics, path, combineMode) {
-        result := DllCall("gdiplus.dll\GdipSetClipPath", "ptr", graphics, "ptr", path, "int", combineMode, "int")
+    static GdipSetClipPath(graphics, _path, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipSetClipPath", "ptr", graphics, "ptr", _path, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpRegion>} region 
-     * @param {Integer} combineMode 
+     * @param {Pointer<GpRegion>} _region 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipRegion(graphics, region, combineMode) {
-        result := DllCall("gdiplus.dll\GdipSetClipRegion", "ptr", graphics, "ptr", region, "int", combineMode, "int")
+    static GdipSetClipRegion(graphics, _region, _combineMode) {
+        result := DllCall("gdiplus.dll\GdipSetClipRegion", "ptr", graphics, "ptr", _region, "int", _combineMode, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {HRGN} hRgn 
-     * @param {Integer} combineMode 
+     * @param {HRGN} _hRgn 
+     * @param {Integer} _combineMode 
      * @returns {Integer} 
      */
-    static GdipSetClipHrgn(graphics, hRgn, combineMode) {
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static GdipSetClipHrgn(graphics, _hRgn, _combineMode) {
+        _hRgn := _hRgn is Win32Handle ? NumGet(_hRgn, "ptr") : _hRgn
 
-        result := DllCall("gdiplus.dll\GdipSetClipHrgn", "ptr", graphics, "ptr", hRgn, "int", combineMode, "int")
+        result := DllCall("gdiplus.dll\GdipSetClipHrgn", "ptr", graphics, "ptr", _hRgn, "int", _combineMode, "int")
         return result
     }
 
@@ -8552,33 +8552,33 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpRegion>} region 
+     * @param {Pointer<GpRegion>} _region 
      * @returns {Integer} 
      */
-    static GdipGetClip(graphics, region) {
-        result := DllCall("gdiplus.dll\GdipGetClip", "ptr", graphics, "ptr", region, "int")
+    static GdipGetClip(graphics, _region) {
+        result := DllCall("gdiplus.dll\GdipGetClip", "ptr", graphics, "ptr", _region, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetClipBounds(graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetClipBounds", "ptr", graphics, "ptr", rect, "int")
+    static GdipGetClipBounds(graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetClipBounds", "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetClipBoundsI(graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetClipBoundsI", "ptr", graphics, "ptr", rect, "int")
+    static GdipGetClipBoundsI(graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetClipBoundsI", "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
@@ -8598,22 +8598,22 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<RectF>} rect 
+     * @param {Pointer<RectF>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetVisibleClipBounds(graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetVisibleClipBounds", "ptr", graphics, "ptr", rect, "int")
+    static GdipGetVisibleClipBounds(graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetVisibleClipBounds", "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Rect>} rect 
+     * @param {Pointer<Rect>} _rect 
      * @returns {Integer} 
      */
-    static GdipGetVisibleClipBoundsI(graphics, rect) {
-        result := DllCall("gdiplus.dll\GdipGetVisibleClipBoundsI", "ptr", graphics, "ptr", rect, "int")
+    static GdipGetVisibleClipBoundsI(graphics, _rect) {
+        result := DllCall("gdiplus.dll\GdipGetVisibleClipBoundsI", "ptr", graphics, "ptr", _rect, "int")
         return result
     }
 
@@ -8723,14 +8723,14 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<RectF>} dstrect 
      * @param {Pointer<RectF>} srcrect 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Integer>} state 
      * @returns {Integer} 
      */
-    static GdipBeginContainer(graphics, dstrect, srcrect, unit, state) {
+    static GdipBeginContainer(graphics, dstrect, srcrect, _unit, state) {
         stateMarshal := state is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBeginContainer", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, stateMarshal, state, "int")
+        result := DllCall("gdiplus.dll\GdipBeginContainer", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", _unit, stateMarshal, state, "int")
         return result
     }
 
@@ -8739,14 +8739,14 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Rect>} dstrect 
      * @param {Pointer<Rect>} srcrect 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Pointer<Integer>} state 
      * @returns {Integer} 
      */
-    static GdipBeginContainerI(graphics, dstrect, srcrect, unit, state) {
+    static GdipBeginContainerI(graphics, dstrect, srcrect, _unit, state) {
         stateMarshal := state is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipBeginContainerI", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, stateMarshal, state, "int")
+        result := DllCall("gdiplus.dll\GdipBeginContainerI", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", _unit, stateMarshal, state, "int")
         return result
     }
 
@@ -8777,14 +8777,14 @@ class GdiPlus {
     /**
      * 
      * @param {HMETAFILE} hWmf 
-     * @param {Pointer<WmfPlaceableFileHeader>} wmfPlaceableFileHeader 
+     * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Integer} 
      */
-    static GdipGetMetafileHeaderFromWmf(hWmf, wmfPlaceableFileHeader, header) {
+    static GdipGetMetafileHeaderFromWmf(hWmf, _wmfPlaceableFileHeader, header) {
         hWmf := hWmf is Win32Handle ? NumGet(hWmf, "ptr") : hWmf
 
-        result := DllCall("gdiplus.dll\GdipGetMetafileHeaderFromWmf", "ptr", hWmf, "ptr", wmfPlaceableFileHeader, "ptr", header, "int")
+        result := DllCall("gdiplus.dll\GdipGetMetafileHeaderFromWmf", "ptr", hWmf, "ptr", _wmfPlaceableFileHeader, "ptr", header, "int")
         return result
     }
 
@@ -8827,23 +8827,23 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Integer} 
      */
-    static GdipGetMetafileHeaderFromMetafile(metafile, header) {
-        result := DllCall("gdiplus.dll\GdipGetMetafileHeaderFromMetafile", "ptr", metafile, "ptr", header, "int")
+    static GdipGetMetafileHeaderFromMetafile(_metafile, header) {
+        result := DllCall("gdiplus.dll\GdipGetMetafileHeaderFromMetafile", "ptr", _metafile, "ptr", header, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<HENHMETAFILE>} hEmf 
      * @returns {Integer} 
      */
-    static GdipGetHemfFromMetafile(metafile, hEmf) {
-        result := DllCall("gdiplus.dll\GdipGetHemfFromMetafile", "ptr", metafile, "ptr", hEmf, "int")
+    static GdipGetHemfFromMetafile(_metafile, hEmf) {
+        result := DllCall("gdiplus.dll\GdipGetHemfFromMetafile", "ptr", _metafile, "ptr", hEmf, "int")
         return result
     }
 
@@ -8865,16 +8865,16 @@ class GdiPlus {
      * 
      * @param {HMETAFILE} hWmf 
      * @param {BOOL} deleteWmf 
-     * @param {Pointer<WmfPlaceableFileHeader>} wmfPlaceableFileHeader 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipCreateMetafileFromWmf(hWmf, deleteWmf, wmfPlaceableFileHeader, metafile) {
+    static GdipCreateMetafileFromWmf(hWmf, deleteWmf, _wmfPlaceableFileHeader, _metafile) {
         hWmf := hWmf is Win32Handle ? NumGet(hWmf, "ptr") : hWmf
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmf", "ptr", hWmf, "int", deleteWmf, "ptr", wmfPlaceableFileHeader, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmf", "ptr", hWmf, "int", deleteWmf, "ptr", _wmfPlaceableFileHeader, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -8882,59 +8882,59 @@ class GdiPlus {
      * 
      * @param {HENHMETAFILE} hEmf 
      * @param {BOOL} deleteEmf 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipCreateMetafileFromEmf(hEmf, deleteEmf, metafile) {
+    static GdipCreateMetafileFromEmf(hEmf, deleteEmf, _metafile) {
         hEmf := hEmf is Win32Handle ? NumGet(hEmf, "ptr") : hEmf
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromEmf", "ptr", hEmf, "int", deleteEmf, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromEmf", "ptr", hEmf, "int", deleteEmf, _metafileMarshal, _metafile, "int")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} file 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {PWSTR} _file 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipCreateMetafileFromFile(file, metafile) {
-        file := file is String ? StrPtr(file) : file
+    static GdipCreateMetafileFromFile(_file, _metafile) {
+        _file := _file is String ? StrPtr(_file) : _file
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromFile", "ptr", file, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromFile", "ptr", _file, _metafileMarshal, _metafile, "int")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} file 
-     * @param {Pointer<WmfPlaceableFileHeader>} wmfPlaceableFileHeader 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {PWSTR} _file 
+     * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipCreateMetafileFromWmfFile(file, wmfPlaceableFileHeader, metafile) {
-        file := file is String ? StrPtr(file) : file
+    static GdipCreateMetafileFromWmfFile(_file, _wmfPlaceableFileHeader, _metafile) {
+        _file := _file is String ? StrPtr(_file) : _file
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmfFile", "ptr", file, "ptr", wmfPlaceableFileHeader, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmfFile", "ptr", _file, "ptr", _wmfPlaceableFileHeader, _metafileMarshal, _metafile, "int")
         return result
     }
 
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipCreateMetafileFromStream(stream, metafile) {
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+    static GdipCreateMetafileFromStream(stream, _metafile) {
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromStream", "ptr", stream, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromStream", "ptr", stream, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -8945,16 +8945,16 @@ class GdiPlus {
      * @param {Pointer<RectF>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafile(referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafile(referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafile", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafile", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -8965,16 +8965,16 @@ class GdiPlus {
      * @param {Pointer<Rect>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafileI(referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafileI(referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafileI", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafileI", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -8986,17 +8986,17 @@ class GdiPlus {
      * @param {Pointer<RectF>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafileFileName(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafileFileName(fileName, referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafileFileName", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafileFileName", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -9008,17 +9008,17 @@ class GdiPlus {
      * @param {Pointer<Rect>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafileFileNameI(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafileFileNameI(fileName, referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafileFileNameI", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafileFileNameI", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -9030,16 +9030,16 @@ class GdiPlus {
      * @param {Pointer<RectF>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafileStream(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafileStream(stream, referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafileStream", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafileStream", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
@@ -9051,92 +9051,92 @@ class GdiPlus {
      * @param {Pointer<Rect>} frameRect 
      * @param {Integer} frameUnit 
      * @param {PWSTR} description 
-     * @param {Pointer<Pointer<GpMetafile>>} metafile 
+     * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Integer} 
      */
-    static GdipRecordMetafileStreamI(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+    static GdipRecordMetafileStreamI(stream, referenceHdc, type, frameRect, frameUnit, description, _metafile) {
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
         description := description is String ? StrPtr(description) : description
 
-        metafileMarshal := metafile is VarRef ? "ptr*" : "ptr"
+        _metafileMarshal := _metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipRecordMetafileStreamI", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, metafileMarshal, metafile, "int")
+        result := DllCall("gdiplus.dll\GdipRecordMetafileStreamI", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, _metafileMarshal, _metafile, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Integer} metafileRasterizationLimitDpi 
      * @returns {Integer} 
      */
-    static GdipSetMetafileDownLevelRasterizationLimit(metafile, metafileRasterizationLimitDpi) {
-        result := DllCall("gdiplus.dll\GdipSetMetafileDownLevelRasterizationLimit", "ptr", metafile, "uint", metafileRasterizationLimitDpi, "int")
+    static GdipSetMetafileDownLevelRasterizationLimit(_metafile, metafileRasterizationLimitDpi) {
+        result := DllCall("gdiplus.dll\GdipSetMetafileDownLevelRasterizationLimit", "ptr", _metafile, "uint", metafileRasterizationLimitDpi, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} metafileRasterizationLimitDpi 
      * @returns {Integer} 
      */
-    static GdipGetMetafileDownLevelRasterizationLimit(metafile, metafileRasterizationLimitDpi) {
+    static GdipGetMetafileDownLevelRasterizationLimit(_metafile, metafileRasterizationLimitDpi) {
         metafileRasterizationLimitDpiMarshal := metafileRasterizationLimitDpi is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetMetafileDownLevelRasterizationLimit", "ptr", metafile, metafileRasterizationLimitDpiMarshal, metafileRasterizationLimitDpi, "int")
+        result := DllCall("gdiplus.dll\GdipGetMetafileDownLevelRasterizationLimit", "ptr", _metafile, metafileRasterizationLimitDpiMarshal, metafileRasterizationLimitDpi, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} numDecoders 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetImageDecodersSize(numDecoders, size) {
+    static GdipGetImageDecodersSize(numDecoders, _size) {
         numDecodersMarshal := numDecoders is VarRef ? "uint*" : "ptr"
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageDecodersSize", numDecodersMarshal, numDecoders, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageDecodersSize", numDecodersMarshal, numDecoders, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} numDecoders 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Pointer} decoders 
      * @returns {Integer} 
      */
-    static GdipGetImageDecoders(numDecoders, size, decoders) {
-        result := DllCall("gdiplus.dll\GdipGetImageDecoders", "uint", numDecoders, "uint", size, "ptr", decoders, "int")
+    static GdipGetImageDecoders(numDecoders, _size, decoders) {
+        result := DllCall("gdiplus.dll\GdipGetImageDecoders", "uint", numDecoders, "uint", _size, "ptr", decoders, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} numEncoders 
-     * @param {Pointer<Integer>} size 
+     * @param {Pointer<Integer>} _size 
      * @returns {Integer} 
      */
-    static GdipGetImageEncodersSize(numEncoders, size) {
+    static GdipGetImageEncodersSize(numEncoders, _size) {
         numEncodersMarshal := numEncoders is VarRef ? "uint*" : "ptr"
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetImageEncodersSize", numEncodersMarshal, numEncoders, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetImageEncodersSize", numEncodersMarshal, numEncoders, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} numEncoders 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Pointer} encoders 
      * @returns {Integer} 
      */
-    static GdipGetImageEncoders(numEncoders, size, encoders) {
-        result := DllCall("gdiplus.dll\GdipGetImageEncoders", "uint", numEncoders, "uint", size, "ptr", encoders, "int")
+    static GdipGetImageEncoders(numEncoders, _size, encoders) {
+        result := DllCall("gdiplus.dll\GdipGetImageEncoders", "uint", numEncoders, "uint", _size, "ptr", encoders, "int")
         return result
     }
 
@@ -9157,39 +9157,39 @@ class GdiPlus {
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<GpFontCollection>} fontCollection 
-     * @param {Pointer<Pointer<GpFontFamily>>} fontFamily 
+     * @param {Pointer<GpFontCollection>} _fontCollection 
+     * @param {Pointer<Pointer<GpFontFamily>>} _fontFamily 
      * @returns {Integer} 
      */
-    static GdipCreateFontFamilyFromName(name, fontCollection, fontFamily) {
+    static GdipCreateFontFamilyFromName(name, _fontCollection, _fontFamily) {
         name := name is String ? StrPtr(name) : name
 
-        fontFamilyMarshal := fontFamily is VarRef ? "ptr*" : "ptr"
+        _fontFamilyMarshal := _fontFamily is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFontFamilyFromName", "ptr", name, "ptr", fontCollection, fontFamilyMarshal, fontFamily, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFontFamilyFromName", "ptr", name, "ptr", _fontCollection, _fontFamilyMarshal, _fontFamily, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontFamily>} fontFamily 
+     * @param {Pointer<GpFontFamily>} _fontFamily 
      * @returns {Integer} 
      */
-    static GdipDeleteFontFamily(fontFamily) {
-        result := DllCall("gdiplus.dll\GdipDeleteFontFamily", "ptr", fontFamily, "int")
+    static GdipDeleteFontFamily(_fontFamily) {
+        result := DllCall("gdiplus.dll\GdipDeleteFontFamily", "ptr", _fontFamily, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontFamily>} fontFamily 
+     * @param {Pointer<GpFontFamily>} _fontFamily 
      * @param {Pointer<Pointer<GpFontFamily>>} clonedFontFamily 
      * @returns {Integer} 
      */
-    static GdipCloneFontFamily(fontFamily, clonedFontFamily) {
+    static GdipCloneFontFamily(_fontFamily, clonedFontFamily) {
         clonedFontFamilyMarshal := clonedFontFamily is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCloneFontFamily", "ptr", fontFamily, clonedFontFamilyMarshal, clonedFontFamily, "int")
+        result := DllCall("gdiplus.dll\GdipCloneFontFamily", "ptr", _fontFamily, clonedFontFamilyMarshal, clonedFontFamily, "int")
         return result
     }
 
@@ -9315,310 +9315,310 @@ class GdiPlus {
 
     /**
      * 
-     * @param {HDC} hdc 
-     * @param {Pointer<Pointer<GpFont>>} font 
+     * @param {HDC} _hdc 
+     * @param {Pointer<Pointer<GpFont>>} _font 
      * @returns {Integer} 
      */
-    static GdipCreateFontFromDC(hdc, font) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipCreateFontFromDC(_hdc, _font) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        fontMarshal := font is VarRef ? "ptr*" : "ptr"
+        _fontMarshal := _font is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFontFromDC", "ptr", hdc, fontMarshal, font, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFontFromDC", "ptr", _hdc, _fontMarshal, _font, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<LOGFONTA>} logfont 
-     * @param {Pointer<Pointer<GpFont>>} font 
+     * @param {Pointer<Pointer<GpFont>>} _font 
      * @returns {Integer} 
      */
-    static GdipCreateFontFromLogfontA(hdc, logfont, font) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipCreateFontFromLogfontA(_hdc, logfont, _font) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        fontMarshal := font is VarRef ? "ptr*" : "ptr"
+        _fontMarshal := _font is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFontFromLogfontA", "ptr", hdc, "ptr", logfont, fontMarshal, font, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFontFromLogfontA", "ptr", _hdc, "ptr", logfont, _fontMarshal, _font, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<LOGFONTW>} logfont 
-     * @param {Pointer<Pointer<GpFont>>} font 
+     * @param {Pointer<Pointer<GpFont>>} _font 
      * @returns {Integer} 
      */
-    static GdipCreateFontFromLogfontW(hdc, logfont, font) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdipCreateFontFromLogfontW(_hdc, logfont, _font) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        fontMarshal := font is VarRef ? "ptr*" : "ptr"
+        _fontMarshal := _font is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFontFromLogfontW", "ptr", hdc, "ptr", logfont, fontMarshal, font, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFontFromLogfontW", "ptr", _hdc, "ptr", logfont, _fontMarshal, _font, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontFamily>} fontFamily 
+     * @param {Pointer<GpFontFamily>} _fontFamily 
      * @param {Float} emSize 
      * @param {Integer} style 
-     * @param {Integer} unit 
-     * @param {Pointer<Pointer<GpFont>>} font 
+     * @param {Integer} _unit 
+     * @param {Pointer<Pointer<GpFont>>} _font 
      * @returns {Integer} 
      */
-    static GdipCreateFont(fontFamily, emSize, style, unit, font) {
-        fontMarshal := font is VarRef ? "ptr*" : "ptr"
+    static GdipCreateFont(_fontFamily, emSize, style, _unit, _font) {
+        _fontMarshal := _font is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateFont", "ptr", fontFamily, "float", emSize, "int", style, "int", unit, fontMarshal, font, "int")
+        result := DllCall("gdiplus.dll\GdipCreateFont", "ptr", _fontFamily, "float", emSize, "int", style, "int", _unit, _fontMarshal, _font, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Pointer<GpFont>>} cloneFont 
      * @returns {Integer} 
      */
-    static GdipCloneFont(font, cloneFont) {
+    static GdipCloneFont(_font, cloneFont) {
         cloneFontMarshal := cloneFont is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCloneFont", "ptr", font, cloneFontMarshal, cloneFont, "int")
+        result := DllCall("gdiplus.dll\GdipCloneFont", "ptr", _font, cloneFontMarshal, cloneFont, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @returns {Integer} 
      */
-    static GdipDeleteFont(font) {
-        result := DllCall("gdiplus.dll\GdipDeleteFont", "ptr", font, "int")
+    static GdipDeleteFont(_font) {
+        result := DllCall("gdiplus.dll\GdipDeleteFont", "ptr", _font, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Pointer<GpFontFamily>>} family 
      * @returns {Integer} 
      */
-    static GdipGetFamily(font, family) {
+    static GdipGetFamily(_font, family) {
         familyMarshal := family is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFamily", "ptr", font, familyMarshal, family, "int")
+        result := DllCall("gdiplus.dll\GdipGetFamily", "ptr", _font, familyMarshal, family, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Integer>} style 
      * @returns {Integer} 
      */
-    static GdipGetFontStyle(font, style) {
+    static GdipGetFontStyle(_font, style) {
         styleMarshal := style is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontStyle", "ptr", font, styleMarshal, style, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontStyle", "ptr", _font, styleMarshal, style, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
-     * @param {Pointer<Float>} size 
+     * @param {Pointer<GpFont>} _font 
+     * @param {Pointer<Float>} _size 
      * @returns {Integer} 
      */
-    static GdipGetFontSize(font, size) {
-        sizeMarshal := size is VarRef ? "float*" : "ptr"
+    static GdipGetFontSize(_font, _size) {
+        _sizeMarshal := _size is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontSize", "ptr", font, sizeMarshal, size, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontSize", "ptr", _font, _sizeMarshal, _size, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
-     * @param {Pointer<Integer>} unit 
+     * @param {Pointer<GpFont>} _font 
+     * @param {Pointer<Integer>} _unit 
      * @returns {Integer} 
      */
-    static GdipGetFontUnit(font, unit) {
-        unitMarshal := unit is VarRef ? "int*" : "ptr"
+    static GdipGetFontUnit(_font, _unit) {
+        _unitMarshal := _unit is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontUnit", "ptr", font, unitMarshal, unit, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontUnit", "ptr", _font, _unitMarshal, _unit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Float>} height 
      * @returns {Integer} 
      */
-    static GdipGetFontHeight(font, graphics, height) {
+    static GdipGetFontHeight(_font, graphics, height) {
         heightMarshal := height is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontHeight", "ptr", font, "ptr", graphics, heightMarshal, height, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontHeight", "ptr", _font, "ptr", graphics, heightMarshal, height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Float} dpi 
      * @param {Pointer<Float>} height 
      * @returns {Integer} 
      */
-    static GdipGetFontHeightGivenDPI(font, dpi, height) {
+    static GdipGetFontHeightGivenDPI(_font, dpi, height) {
         heightMarshal := height is VarRef ? "float*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontHeightGivenDPI", "ptr", font, "float", dpi, heightMarshal, height, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontHeightGivenDPI", "ptr", _font, "float", dpi, heightMarshal, height, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<LOGFONTA>} logfontA 
+     * @param {Pointer<LOGFONTA>} _logfontA 
      * @returns {Integer} 
      */
-    static GdipGetLogFontA(font, graphics, logfontA) {
-        result := DllCall("gdiplus.dll\GdipGetLogFontA", "ptr", font, "ptr", graphics, "ptr", logfontA, "int")
+    static GdipGetLogFontA(_font, graphics, _logfontA) {
+        result := DllCall("gdiplus.dll\GdipGetLogFontA", "ptr", _font, "ptr", graphics, "ptr", _logfontA, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<LOGFONTW>} logfontW 
+     * @param {Pointer<LOGFONTW>} _logfontW 
      * @returns {Integer} 
      */
-    static GdipGetLogFontW(font, graphics, logfontW) {
-        result := DllCall("gdiplus.dll\GdipGetLogFontW", "ptr", font, "ptr", graphics, "ptr", logfontW, "int")
+    static GdipGetLogFontW(_font, graphics, _logfontW) {
+        result := DllCall("gdiplus.dll\GdipGetLogFontW", "ptr", _font, "ptr", graphics, "ptr", _logfontW, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<GpFontCollection>>} fontCollection 
+     * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Integer} 
      */
-    static GdipNewInstalledFontCollection(fontCollection) {
-        fontCollectionMarshal := fontCollection is VarRef ? "ptr*" : "ptr"
+    static GdipNewInstalledFontCollection(_fontCollection) {
+        _fontCollectionMarshal := _fontCollection is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipNewInstalledFontCollection", fontCollectionMarshal, fontCollection, "int")
+        result := DllCall("gdiplus.dll\GdipNewInstalledFontCollection", _fontCollectionMarshal, _fontCollection, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<GpFontCollection>>} fontCollection 
+     * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Integer} 
      */
-    static GdipNewPrivateFontCollection(fontCollection) {
-        fontCollectionMarshal := fontCollection is VarRef ? "ptr*" : "ptr"
+    static GdipNewPrivateFontCollection(_fontCollection) {
+        _fontCollectionMarshal := _fontCollection is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipNewPrivateFontCollection", fontCollectionMarshal, fontCollection, "int")
+        result := DllCall("gdiplus.dll\GdipNewPrivateFontCollection", _fontCollectionMarshal, _fontCollection, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<GpFontCollection>>} fontCollection 
+     * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Integer} 
      */
-    static GdipDeletePrivateFontCollection(fontCollection) {
-        fontCollectionMarshal := fontCollection is VarRef ? "ptr*" : "ptr"
+    static GdipDeletePrivateFontCollection(_fontCollection) {
+        _fontCollectionMarshal := _fontCollection is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDeletePrivateFontCollection", fontCollectionMarshal, fontCollection, "int")
+        result := DllCall("gdiplus.dll\GdipDeletePrivateFontCollection", _fontCollectionMarshal, _fontCollection, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontCollection>} fontCollection 
+     * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Pointer<Integer>} numFound 
      * @returns {Integer} 
      */
-    static GdipGetFontCollectionFamilyCount(fontCollection, numFound) {
+    static GdipGetFontCollectionFamilyCount(_fontCollection, numFound) {
         numFoundMarshal := numFound is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyCount", "ptr", fontCollection, numFoundMarshal, numFound, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyCount", "ptr", _fontCollection, numFoundMarshal, numFound, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontCollection>} fontCollection 
+     * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Integer} numSought 
      * @param {Pointer<Pointer<GpFontFamily>>} gpfamilies 
      * @param {Pointer<Integer>} numFound 
      * @returns {Integer} 
      */
-    static GdipGetFontCollectionFamilyList(fontCollection, numSought, gpfamilies, numFound) {
+    static GdipGetFontCollectionFamilyList(_fontCollection, numSought, gpfamilies, numFound) {
         gpfamiliesMarshal := gpfamilies is VarRef ? "ptr*" : "ptr"
         numFoundMarshal := numFound is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyList", "ptr", fontCollection, "int", numSought, gpfamiliesMarshal, gpfamilies, numFoundMarshal, numFound, "int")
+        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyList", "ptr", _fontCollection, "int", numSought, gpfamiliesMarshal, gpfamilies, numFoundMarshal, numFound, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontCollection>} fontCollection 
+     * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {PWSTR} filename 
      * @returns {Integer} 
      */
-    static GdipPrivateAddFontFile(fontCollection, filename) {
+    static GdipPrivateAddFontFile(_fontCollection, filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := DllCall("gdiplus.dll\GdipPrivateAddFontFile", "ptr", fontCollection, "ptr", filename, "int")
+        result := DllCall("gdiplus.dll\GdipPrivateAddFontFile", "ptr", _fontCollection, "ptr", filename, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpFontCollection>} fontCollection 
+     * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Pointer<Void>} memory 
      * @param {Integer} length 
      * @returns {Integer} 
      */
-    static GdipPrivateAddMemoryFont(fontCollection, memory, length) {
+    static GdipPrivateAddMemoryFont(_fontCollection, memory, length) {
         memoryMarshal := memory is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipPrivateAddMemoryFont", "ptr", fontCollection, memoryMarshal, memory, "int", length, "int")
+        result := DllCall("gdiplus.dll\GdipPrivateAddMemoryFont", "ptr", _fontCollection, memoryMarshal, memory, "int", length, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} _string 
      * @param {Integer} length 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<RectF>} layoutRect 
      * @param {Pointer<GpStringFormat>} stringFormat 
      * @param {Pointer<GpBrush>} brush 
      * @returns {Integer} 
      */
-    static GdipDrawString(graphics, string_R, length, font, layoutRect, stringFormat, brush) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static GdipDrawString(graphics, _string, length, _font, layoutRect, stringFormat, brush) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
+        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", _string, "int", length, "ptr", _font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} _string 
      * @param {Integer} length 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<RectF>} layoutRect 
      * @param {Pointer<GpStringFormat>} stringFormat 
      * @param {Pointer<RectF>} boundingBox 
@@ -9626,34 +9626,34 @@ class GdiPlus {
      * @param {Pointer<Integer>} linesFilled 
      * @returns {Integer} 
      */
-    static GdipMeasureString(graphics, string_R, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static GdipMeasureString(graphics, _string, length, _font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
+        _string := _string is String ? StrPtr(_string) : _string
 
         codepointsFittedMarshal := codepointsFitted is VarRef ? "int*" : "ptr"
         linesFilledMarshal := linesFilled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", _string, "int", length, "ptr", _font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} _string 
      * @param {Integer} length 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<RectF>} layoutRect 
      * @param {Pointer<GpStringFormat>} stringFormat 
      * @param {Integer} regionCount 
      * @param {Pointer<Pointer<GpRegion>>} regions 
      * @returns {Integer} 
      */
-    static GdipMeasureCharacterRanges(graphics, string_R, length, font, layoutRect, stringFormat, regionCount, regions) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static GdipMeasureCharacterRanges(graphics, _string, length, _font, layoutRect, stringFormat, regionCount, regions) {
+        _string := _string is String ? StrPtr(_string) : _string
 
         regionsMarshal := regions is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", _string, "int", length, "ptr", _font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
         return result
     }
 
@@ -9662,18 +9662,18 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<PointF>} positions 
      * @param {Integer} flags 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @returns {Integer} 
      */
-    static GdipDrawDriverString(graphics, text, length, font, brush, positions, flags, matrix) {
+    static GdipDrawDriverString(graphics, text, length, _font, brush, positions, flags, _matrix) {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipDrawDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", font, "ptr", brush, "ptr", positions, "int", flags, matrixMarshal, matrix, "int")
+        result := DllCall("gdiplus.dll\GdipDrawDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", _font, "ptr", brush, "ptr", positions, "int", flags, _matrixMarshal, _matrix, "int")
         return result
     }
 
@@ -9682,18 +9682,18 @@ class GdiPlus {
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
-     * @param {Pointer<GpFont>} font 
+     * @param {Pointer<GpFont>} _font 
      * @param {Pointer<PointF>} positions 
      * @param {Integer} flags 
-     * @param {Pointer<Matrix>} matrix 
+     * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<RectF>} boundingBox 
      * @returns {Integer} 
      */
-    static GdipMeasureDriverString(graphics, text, length, font, positions, flags, matrix, boundingBox) {
+    static GdipMeasureDriverString(graphics, text, length, _font, positions, flags, _matrix, boundingBox) {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
-        matrixMarshal := matrix is VarRef ? "ptr*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", font, "ptr", positions, "int", flags, matrixMarshal, matrix, "ptr", boundingBox, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", _font, "ptr", positions, "int", flags, _matrixMarshal, _matrix, "ptr", boundingBox, "int")
         return result
     }
 
@@ -9857,24 +9857,24 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpStringFormat>} format 
-     * @param {Integer} hotkeyPrefix 
+     * @param {Integer} _hotkeyPrefix 
      * @returns {Integer} 
      */
-    static GdipSetStringFormatHotkeyPrefix(format, hotkeyPrefix) {
-        result := DllCall("gdiplus.dll\GdipSetStringFormatHotkeyPrefix", "ptr", format, "int", hotkeyPrefix, "int")
+    static GdipSetStringFormatHotkeyPrefix(format, _hotkeyPrefix) {
+        result := DllCall("gdiplus.dll\GdipSetStringFormatHotkeyPrefix", "ptr", format, "int", _hotkeyPrefix, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpStringFormat>} format 
-     * @param {Pointer<Integer>} hotkeyPrefix 
+     * @param {Pointer<Integer>} _hotkeyPrefix 
      * @returns {Integer} 
      */
-    static GdipGetStringFormatHotkeyPrefix(format, hotkeyPrefix) {
-        hotkeyPrefixMarshal := hotkeyPrefix is VarRef ? "int*" : "ptr"
+    static GdipGetStringFormatHotkeyPrefix(format, _hotkeyPrefix) {
+        _hotkeyPrefixMarshal := _hotkeyPrefix is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetStringFormatHotkeyPrefix", "ptr", format, hotkeyPrefixMarshal, hotkeyPrefix, "int")
+        result := DllCall("gdiplus.dll\GdipGetStringFormatHotkeyPrefix", "ptr", format, _hotkeyPrefixMarshal, _hotkeyPrefix, "int")
         return result
     }
 
@@ -9976,38 +9976,38 @@ class GdiPlus {
 
     /**
      * 
-     * @param {Pointer<GpBitmap>} bitmap 
+     * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<Pointer<GpCachedBitmap>>} cachedBitmap 
+     * @param {Pointer<Pointer<GpCachedBitmap>>} _cachedBitmap 
      * @returns {Integer} 
      */
-    static GdipCreateCachedBitmap(bitmap, graphics, cachedBitmap) {
-        cachedBitmapMarshal := cachedBitmap is VarRef ? "ptr*" : "ptr"
+    static GdipCreateCachedBitmap(_bitmap, graphics, _cachedBitmap) {
+        _cachedBitmapMarshal := _cachedBitmap is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipCreateCachedBitmap", "ptr", bitmap, "ptr", graphics, cachedBitmapMarshal, cachedBitmap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateCachedBitmap", "ptr", _bitmap, "ptr", graphics, _cachedBitmapMarshal, _cachedBitmap, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<GpCachedBitmap>} cachedBitmap 
+     * @param {Pointer<GpCachedBitmap>} _cachedBitmap 
      * @returns {Integer} 
      */
-    static GdipDeleteCachedBitmap(cachedBitmap) {
-        result := DllCall("gdiplus.dll\GdipDeleteCachedBitmap", "ptr", cachedBitmap, "int")
+    static GdipDeleteCachedBitmap(_cachedBitmap) {
+        result := DllCall("gdiplus.dll\GdipDeleteCachedBitmap", "ptr", _cachedBitmap, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {Pointer<GpCachedBitmap>} cachedBitmap 
+     * @param {Pointer<GpCachedBitmap>} _cachedBitmap 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {Integer} 
      */
-    static GdipDrawCachedBitmap(graphics, cachedBitmap, x, y) {
-        result := DllCall("gdiplus.dll\GdipDrawCachedBitmap", "ptr", graphics, "ptr", cachedBitmap, "int", x, "int", y, "int")
+    static GdipDrawCachedBitmap(graphics, _cachedBitmap, x, y) {
+        result := DllCall("gdiplus.dll\GdipDrawCachedBitmap", "ptr", graphics, "ptr", _cachedBitmap, "int", x, "int", y, "int")
         return result
     }
 
@@ -10077,63 +10077,63 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} refGraphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 
-     * @param {Integer} emfType 
+     * @param {Integer} _emfType 
      * @param {PWSTR} description 
      * @param {Pointer<Pointer<GpMetafile>>} out_metafile 
      * @returns {Integer} 
      */
-    static GdipConvertToEmfPlus(refGraphics, metafile, conversionFailureFlag, emfType, description, out_metafile) {
+    static GdipConvertToEmfPlus(refGraphics, _metafile, conversionFailureFlag, _emfType, description, out_metafile) {
         description := description is String ? StrPtr(description) : description
 
         conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
         out_metafileMarshal := out_metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlus", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "int", emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlus", "ptr", refGraphics, "ptr", _metafile, conversionFailureFlagMarshal, conversionFailureFlag, "int", _emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} refGraphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 
      * @param {PWSTR} filename 
-     * @param {Integer} emfType 
+     * @param {Integer} _emfType 
      * @param {PWSTR} description 
      * @param {Pointer<Pointer<GpMetafile>>} out_metafile 
      * @returns {Integer} 
      */
-    static GdipConvertToEmfPlusToFile(refGraphics, metafile, conversionFailureFlag, filename, emfType, description, out_metafile) {
+    static GdipConvertToEmfPlusToFile(refGraphics, _metafile, conversionFailureFlag, filename, _emfType, description, out_metafile) {
         filename := filename is String ? StrPtr(filename) : filename
         description := description is String ? StrPtr(description) : description
 
         conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
         out_metafileMarshal := out_metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToFile", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", filename, "int", emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToFile", "ptr", refGraphics, "ptr", _metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", filename, "int", _emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} refGraphics 
-     * @param {Pointer<GpMetafile>} metafile 
+     * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 
      * @param {IStream} stream 
-     * @param {Integer} emfType 
+     * @param {Integer} _emfType 
      * @param {PWSTR} description 
      * @param {Pointer<Pointer<GpMetafile>>} out_metafile 
      * @returns {Integer} 
      */
-    static GdipConvertToEmfPlusToStream(refGraphics, metafile, conversionFailureFlag, stream, emfType, description, out_metafile) {
+    static GdipConvertToEmfPlusToStream(refGraphics, _metafile, conversionFailureFlag, stream, _emfType, description, out_metafile) {
         description := description is String ? StrPtr(description) : description
 
         conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
         out_metafileMarshal := out_metafile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToStream", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", stream, "int", emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToStream", "ptr", refGraphics, "ptr", _metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", stream, "int", _emfType, "ptr", description, out_metafileMarshal, out_metafile, "int")
         return result
     }
 

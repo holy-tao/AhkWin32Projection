@@ -150,9 +150,9 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {VARIANT} 
      */
     get_PropertyValue() {
-        PropertyValue := VARIANT()
-        result := ComCall(13, this, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        _PropertyValue := VARIANT()
+        result := ComCall(13, this, "ptr", _PropertyValue, "HRESULT")
+        return _PropertyValue
     }
 
     /**

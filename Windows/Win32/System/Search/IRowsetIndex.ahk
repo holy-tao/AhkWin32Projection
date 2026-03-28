@@ -54,25 +54,25 @@ class IRowsetIndex extends IUnknown{
      * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
      * 
      * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cKeyValues 
      * @param {Pointer<Void>} pData 
      * @param {Integer} dwSeekOptions 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
-    Seek(hAccessor, cKeyValues, pData, dwSeekOptions) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    Seek(_hAccessor, cKeyValues, pData, dwSeekOptions) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", _hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cStartKeyColumns 
      * @param {Pointer<Void>} pStartData 
      * @param {Pointer} cEndKeyColumns 
@@ -80,13 +80,13 @@ class IRowsetIndex extends IUnknown{
      * @param {Integer} dwRangeOptions 
      * @returns {HRESULT} 
      */
-    SetRange(hAccessor, cStartKeyColumns, pStartData, cEndKeyColumns, pEndData, dwRangeOptions) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    SetRange(_hAccessor, cStartKeyColumns, pStartData, cEndKeyColumns, pEndData, dwRangeOptions) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pStartDataMarshal := pStartData is VarRef ? "ptr" : "ptr"
         pEndDataMarshal := pEndData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
+        result := ComCall(5, this, "ptr", _hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
         return result
     }
 }

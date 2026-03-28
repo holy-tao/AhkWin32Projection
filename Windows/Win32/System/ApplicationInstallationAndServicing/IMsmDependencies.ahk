@@ -49,8 +49,8 @@ class IMsmDependencies extends IDispatch{
      * @returns {IMsmDependency} 
      */
     get_Item(Item) {
-        result := ComCall(7, this, "int", Item, "ptr*", &Return_R := 0, "HRESULT")
-        return IMsmDependency(Return_R)
+        result := ComCall(7, this, "int", Item, "ptr*", &_Return := 0, "HRESULT")
+        return IMsmDependency(_Return)
     }
 
     /**

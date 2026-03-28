@@ -95,11 +95,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
     /**
      * 
      * @param {Integer} Identifier 
-     * @param {IBindCtx} Context 
+     * @param {IBindCtx} _Context 
      * @returns {HRESULT} 
      */
-    Begin_GetUrl(Identifier, Context) {
-        result := ComCall(9, this, "int", Identifier, "ptr", Context, "HRESULT")
+    Begin_GetUrl(Identifier, _Context) {
+        result := ComCall(9, this, "int", Identifier, "ptr", _Context, "HRESULT")
         return result
     }
 

@@ -208,7 +208,7 @@ class IAMVideoAccelerator extends IUnknown{
      * This method might block if no frame buffer is available.
      * 
      * For each call to <b>BeginFrame</b>, the decoder must make a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe">IAMVideoAccelerator::EndFrame</a>.
-     * @param {Pointer<AMVABeginFrameInfo>} amvaBeginFrameInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvabeginframeinfo">AMVABeginFrameInfo</a> structure that contains information needed to begin processing the frame.
+     * @param {Pointer<AMVABeginFrameInfo>} _amvaBeginFrameInfo 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
      * 
      * <table>
@@ -296,8 +296,8 @@ class IAMVideoAccelerator extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-beginframe
      */
-    BeginFrame(amvaBeginFrameInfo) {
-        result := ComCall(8, this, "ptr", amvaBeginFrameInfo, "HRESULT")
+    BeginFrame(_amvaBeginFrameInfo) {
+        result := ComCall(8, this, "ptr", _amvaBeginFrameInfo, "HRESULT")
         return result
     }
 

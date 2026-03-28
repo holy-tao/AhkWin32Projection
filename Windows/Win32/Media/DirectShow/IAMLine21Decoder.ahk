@@ -444,7 +444,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The SetDrawBackgroundMode method specifies whether the Line 21 Decoder filter draws the captions on a transparent background or an opaque background. By default, the caption background is opaque.
-     * @param {Integer} Mode Specifies a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
+     * @param {Integer} _Mode 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -477,8 +477,8 @@ class IAMLine21Decoder extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setdrawbackgroundmode
      */
-    SetDrawBackgroundMode(Mode) {
-        result := ComCall(15, this, "int", Mode, "HRESULT")
+    SetDrawBackgroundMode(_Mode) {
+        result := ComCall(15, this, "int", _Mode, "HRESULT")
         return result
     }
 }

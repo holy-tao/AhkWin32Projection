@@ -111,23 +111,23 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Sets the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @param {COLORREF} color A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the background RGB color value.
+     * @param {COLORREF} _color 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor
      */
-    SetBackgroundColor(color) {
-        result := ComCall(8, this, "uint", color, "HRESULT")
+    SetBackgroundColor(_color) {
+        result := ComCall(8, this, "uint", _color, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @returns {COLORREF} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that, when this method returns successfully, receives the RGB color value. If this method fails, this value is set to 0.
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
      */
     GetBackgroundColor() {
-        result := ComCall(9, this, "uint*", &color := 0, "HRESULT")
-        return color
+        result := ComCall(9, this, "uint*", &_color := 0, "HRESULT")
+        return _color
     }
 
     /**
@@ -244,14 +244,14 @@ class IDesktopWallpaper extends IUnknown{
     /**
      * Switches the wallpaper on a specified monitor to the next image in the slideshow.
      * @param {PWSTR} monitorID The ID of the monitor on which to change the wallpaper image. This ID can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat">GetMonitorDevicePathAt</a> method. If this parameter is set to <b>NULL</b>, the monitor scheduled to change next is used.
-     * @param {Integer} direction The direction that the slideshow should advance. One of the following DESKTOP_SLIDESHOW_DIRECTION values:
+     * @param {Integer} _direction 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-advanceslideshow
      */
-    AdvanceSlideshow(monitorID, direction) {
+    AdvanceSlideshow(monitorID, _direction) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(16, this, "ptr", monitorID, "int", direction, "HRESULT")
+        result := ComCall(16, this, "ptr", monitorID, "int", _direction, "HRESULT")
         return result
     }
 

@@ -74,7 +74,7 @@ class ICreatePropBagOnRegKey extends IUnknown{
      *  
      * 
      * If you write a value of VT_EMPTY or VT_NULL the property is removed from the bag and the corresponding registry values are deleted.
-     * @param {HKEY} hkey Specifies a handle to the registry key.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} subkey Specifies the subkey.
      * @param {Integer} ulOptions Reserved; must be zero.
      * @param {Integer} samDesired Specifies the desired access rights to the key. The value can be any combination of flags from the <i>samDesired</i> parameter in the Win32 <b>RegOpenKeyEx</b> function.
@@ -82,11 +82,11 @@ class ICreatePropBagOnRegKey extends IUnknown{
      * @returns {Pointer<Void>} Address of a variable that receives the interface specified by the <i>iid</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/regbag/nf-regbag-icreatepropbagonregkey-create
      */
-    Create(hkey, subkey, ulOptions, samDesired, iid) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    Create(_hkey, subkey, ulOptions, samDesired, iid) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         subkey := subkey is String ? StrPtr(subkey) : subkey
 
-        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", &ppBag := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", &ppBag := 0, "HRESULT")
         return ppBag
     }
 }

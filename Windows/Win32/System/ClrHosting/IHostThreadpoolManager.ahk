@@ -44,7 +44,7 @@ class IHostThreadpoolManager extends IUnknown{
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
-     * @param {Pointer<Void>} Context A single parameter value to be passed to the thread function.
+     * @param {Pointer<Void>} _Context 
      * @param {Integer} Flags 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -52,10 +52,10 @@ class IHostThreadpoolManager extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      */
-    QueueUserWorkItem(Function, Context, Flags) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    QueueUserWorkItem(Function, _Context, Flags) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Function, ContextMarshal, Context, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, "ptr", Function, _ContextMarshal, _Context, "uint", Flags, "HRESULT")
         return result
     }
 

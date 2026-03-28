@@ -127,12 +127,12 @@ class IPortableDeviceServiceCapabilities extends IUnknown{
      * 
      * Note that this method will not retrieve attributes that differ across object instances.
      * @param {Pointer<Guid>} Format The format whose property has its attributes retrieved.
-     * @param {Pointer<PROPERTYKEY>} Property The property whose attributes are retrieved.
+     * @param {Pointer<PROPERTYKEY>} _Property 
      * @returns {IPortableDeviceValues} The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that receives the list of attributes.
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getformatpropertyattributes
      */
-    GetFormatPropertyAttributes(Format, Property) {
-        result := ComCall(10, this, "ptr", Format, "ptr", Property, "ptr*", &ppAttributes := 0, "HRESULT")
+    GetFormatPropertyAttributes(Format, _Property) {
+        result := ComCall(10, this, "ptr", Format, "ptr", _Property, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 

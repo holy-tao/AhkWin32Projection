@@ -86,12 +86,12 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * <img alt="Diagram showing a discrete transition" src="Images/DiscreteTransition.png"/>
      * @param {Float} delay The amount of time by which to delay the instantaneous switch to the final value.
      * @param {Float} finalValue The value of the animation variable at the end of the transition.
-     * @param {Float} hold The amount of time by which to hold the variable at its final value.
+     * @param {Float} _hold 
      * @returns {IUIAnimationTransition} The new discrete transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-creatediscretetransition
      */
-    CreateDiscreteTransition(delay, finalValue, hold) {
-        result := ComCall(5, this, "double", delay, "double", finalValue, "double", hold, "ptr*", &transition := 0, "HRESULT")
+    CreateDiscreteTransition(delay, finalValue, _hold) {
+        result := ComCall(5, this, "double", delay, "double", finalValue, "double", _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition(transition)
     }
 

@@ -519,41 +519,38 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {Integer} reportStoreType Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The type of report store to extract from. See remarks.
-     * @returns {HDIAGNOSTIC_REPORT} Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
-     * This output parameter is a pointer to the handle for the resource that contains the known set of problem reports.
+     * @returns {HDIAGNOSTIC_REPORT} 
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreport
      * @since windows10.0.19041
      */
     static DdqGetDiagnosticReport(hSession, reportStoreType) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        hReport := HDIAGNOSTIC_REPORT()
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", "ptr", hSession, "uint", reportStoreType, "ptr", hReport, "HRESULT")
-        return hReport
+        _hReport := HDIAGNOSTIC_REPORT()
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", "ptr", hSession, "uint", reportStoreType, "ptr", _hReport, "HRESULT")
+        return _hReport
     }
 
     /**
      * Frees memory allocated for error reports referenced by HDIAGNOSTIC_REPORT_DATA handle.
      * @remarks
      * For information the datatype DIAGNOSTIC_REPORT_DATA, see [**here**](/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data)
-     * @param {HDIAGNOSTIC_REPORT} hReport Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
-     * The handle to the resource that contains the set of error reports to be freed.
+     * @param {HDIAGNOSTIC_REPORT} _hReport 
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * Returns S_OK on successful completion.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqfreediagnosticreport
      * @since windows10.0.19041
      */
-    static DdqFreeDiagnosticReport(hReport) {
-        hReport := hReport is Win32Handle ? NumGet(hReport, "ptr") : hReport
+    static DdqFreeDiagnosticReport(_hReport) {
+        _hReport := _hReport is Win32Handle ? NumGet(_hReport, "ptr") : _hReport
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqFreeDiagnosticReport", "ptr", hReport, "HRESULT")
+        result := DllCall("DiagnosticDataQuery.dll\DdqFreeDiagnosticReport", "ptr", _hReport, "HRESULT")
         return result
     }
 
     /**
      * Fetches an error report and its information at the specified index in the resource pointed to by the HDIAGNOSTIC_REPORT_DATA handle.
-     * @param {HDIAGNOSTIC_REPORT} hReport Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
-     * Handle to the resource with the set of problem reports.
+     * @param {HDIAGNOSTIC_REPORT} _hReport 
      * @param {Integer} index Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The index of the error report to fetch.
      * @param {Pointer<DIAGNOSTIC_REPORT_DATA>} report Type: **[DIAGNOSTIC_DATA_REPORT_DATA\*](/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data)**
@@ -563,26 +560,25 @@ class DiagnosticDataQuery {
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreportatindex
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticReportAtIndex(hReport, index, report) {
-        hReport := hReport is Win32Handle ? NumGet(hReport, "ptr") : hReport
+    static DdqGetDiagnosticReportAtIndex(_hReport, index, report) {
+        _hReport := _hReport is Win32Handle ? NumGet(_hReport, "ptr") : _hReport
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportAtIndex", "ptr", hReport, "uint", index, "ptr", report, "HRESULT")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportAtIndex", "ptr", _hReport, "uint", index, "ptr", report, "HRESULT")
         return result
     }
 
     /**
      * Fetches the number (size) of error reports in the resource pointed to by HDIAGNOSTIC_REPORT_DATA handle.
-     * @param {HDIAGNOSTIC_REPORT} hReport Type: **[HANDLE](/windows/desktop/com/structure-of-com-error-codes)**
-     * Handle to the resource that contains the set of error reports.
+     * @param {HDIAGNOSTIC_REPORT} _hReport 
      * @returns {Integer} Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * Pointer to the number of error reports.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreportcount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticReportCount(hReport) {
-        hReport := hReport is Win32Handle ? NumGet(hReport, "ptr") : hReport
+    static DdqGetDiagnosticReportCount(_hReport) {
+        _hReport := _hReport is Win32Handle ? NumGet(_hReport, "ptr") : _hReport
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", hReport, "uint*", &reportCount := 0, "HRESULT")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", _hReport, "uint*", &reportCount := 0, "HRESULT")
         return reportCount
     }
 

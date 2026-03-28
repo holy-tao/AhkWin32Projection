@@ -40,13 +40,11 @@ class IAppxManifestPackageId2 extends IAppxManifestPackageId{
      * Processor architecture information is specified using the <b>ProcessorArchitecture</b> attribute of the <b>Identity</b> element in the app package manifest.
      * 
      * If no architecture is defined in the manifest, this method returns the <b>APPX_PACKAGE_ARCHITECTURE_NEUTRAL</b> value of the  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture2">APPX_PACKAGE_ARCHITECTURE2</a> enumeration.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture2">APPX_PACKAGE_ARCHITECTURE2</a>*</b>
-     * 
-     * The architecture specified for the package.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid2-getarchitecture2
      */
     GetArchitecture2() {
-        result := ComCall(11, this, "int*", &architecture := 0, "HRESULT")
-        return architecture
+        result := ComCall(11, this, "int*", &_architecture := 0, "HRESULT")
+        return _architecture
     }
 }

@@ -175,18 +175,16 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Retrieves a UI Automation element for the specified window.
-     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
-     * 
-     * The window handle.
+     * @param {HWND} _hwnd 
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandle
      */
-    ElementFromHandle(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ElementFromHandle(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -242,9 +240,7 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Retrieves a UI Automation element for the specified window, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
-     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
-     * 
-     * The window handle.
+     * @param {HWND} _hwnd 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to the cache request, which specifies the properties and control patterns to store in the cache.
@@ -253,10 +249,10 @@ class IUIAutomation extends IUnknown{
      * Receives a pointer to the element.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandlebuildcache
      */
-    ElementFromHandleBuildCache(hwnd, cacheRequest) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ElementFromHandleBuildCache(_hwnd, cacheRequest) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -853,16 +849,14 @@ class IUIAutomation extends IUnknown{
      * @param {Integer} arrayCount Type: <b>int</b>
      * 
      * The number of elements in <i>array</i>.
-     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
-     * 
-     * Receives a pointer to the allocated SAFEARRAY.
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
      */
     IntNativeArrayToSafeArray(array, arrayCount) {
         arrayMarshal := array is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", &safeArray := 0, "HRESULT")
-        return safeArray
+        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
+        return _safeArray
     }
 
     /**
@@ -972,17 +966,15 @@ class IUIAutomation extends IUnknown{
      * The programmatic name is intended for debugging and diagnostic purposes only. The string is not localized.
      * 
      * This property should not be used in string comparisons. To determine whether two properties are the same, compare the property identifiers directly.
-     * @param {Integer} property Type: <b>PROPERTYID</b>
-     * 
-     * The property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @param {Integer} _property 
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives the registered programmatic name.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-getpropertyprogrammaticname
      */
-    GetPropertyProgrammaticName(property) {
+    GetPropertyProgrammaticName(_property) {
         name := BSTR()
-        result := ComCall(49, this, "int", property, "ptr", name, "HRESULT")
+        result := ComCall(49, this, "int", _property, "ptr", name, "HRESULT")
         return name
     }
 

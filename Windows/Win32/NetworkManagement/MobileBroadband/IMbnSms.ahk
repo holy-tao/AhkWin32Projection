@@ -107,14 +107,14 @@ class IMbnSms extends IUnknown{
      * 
      * This is an asynchronous operation that will return immediately. If the method returns without error,  then the Mobile Broadband service will call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmssendcomplete">OnSmsSendComplete</a> method of the  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
      * @param {PWSTR} pduData A string representing the PDU message in hexadecimal format.
-     * @param {Integer} size The size of PDU message in number of bytes before converting to hexadecimal string format and excluding the service center address length.
+     * @param {Integer} _size 
      * @returns {Integer} A pointer to a request ID issued by the Mobile Broadband service to identify this request.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendpdu
      */
-    SmsSendPdu(pduData, size) {
+    SmsSendPdu(pduData, _size) {
         pduData := pduData is String ? StrPtr(pduData) : pduData
 
-        result := ComCall(5, this, "ptr", pduData, "char", size, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pduData, "char", _size, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -133,7 +133,7 @@ class IMbnSms extends IUnknown{
      * 
      * 
      * This is an asynchronous operation that will return immediately. If the method returns without error,  then the Mobile Broadband service will call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmssendcomplete">OnSmsSendComplete</a> method of the  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
-     * @param {PWSTR} address A null terminated string that contains the receiver's phone number.  The maximum size of the string is 15 digits.
+     * @param {PWSTR} _address 
      * @param {Integer} encoding A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_encoding">MBN_SMS_CDMA_ENCODING</a> value that specifies the data encoding.
      * @param {Integer} language An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_lang">MBN_SMS_CDMA_LANG</a> value that specifies the language.
      * @param {Integer} sizeInCharacters The number of encoded characters in the message. This can be different from the size of the message array.
@@ -143,10 +143,10 @@ class IMbnSms extends IUnknown{
      * @returns {Integer} A pointer to a request ID issued by the Mobile Broadband service to identify this request.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendcdma
      */
-    SmsSendCdma(address, encoding, language, sizeInCharacters, message) {
-        address := address is String ? StrPtr(address) : address
+    SmsSendCdma(_address, encoding, language, sizeInCharacters, message) {
+        _address := _address is String ? StrPtr(_address) : _address
 
-        result := ComCall(6, this, "ptr", address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 

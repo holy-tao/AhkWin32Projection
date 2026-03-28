@@ -31,13 +31,13 @@ class IRowsetUpdate extends IRowsetChange{
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
      */
-    GetOriginalData(hRow, hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetOriginalData(hRow, _hAccessor) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
-        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hRow, "ptr", _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 

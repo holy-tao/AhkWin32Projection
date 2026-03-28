@@ -89,11 +89,11 @@ class IDisplayServices extends IUnknown{
     /**
      * 
      * @param {IHTMLElement} pIElement 
-     * @param {RECT} rect 
+     * @param {RECT} _rect 
      * @returns {HRESULT} 
      */
-    ScrollRectIntoView(pIElement, rect) {
-        result := ComCall(8, this, "ptr", pIElement, "ptr", rect, "HRESULT")
+    ScrollRectIntoView(pIElement, _rect) {
+        result := ComCall(8, this, "ptr", pIElement, "ptr", _rect, "HRESULT")
         return result
     }
 

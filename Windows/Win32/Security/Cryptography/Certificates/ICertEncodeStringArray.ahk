@@ -125,13 +125,13 @@ class ICertEncodeStringArray extends IDispatch{
     /**
      * Returns the specified string from the string array.
      * @param {Integer} Index The zero-based index that specifies the string to retrieve.
-     * @returns {BSTR} A pointer to a <b>BSTR</b> that represents the string value. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
      */
     GetValue(Index) {
-        pstr := BSTR()
-        result := ComCall(10, this, "int", Index, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(10, this, "int", Index, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 
     /**

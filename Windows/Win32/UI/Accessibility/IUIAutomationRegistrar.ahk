@@ -36,16 +36,14 @@ class IUIAutomationRegistrar extends IUnknown{
      * Registers a third-party property.
      * @remarks
      * The property ID can be used in various property methods, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition">CreatePropertyCondition</a>. The same value can be used as a WinEvent value for property change events in <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> implementations.
-     * @param {Pointer<UIAutomationPropertyInfo>} property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo">UIAutomationPropertyInfo</a>*</b>
-     * 
-     * A pointer to a structure that contains information about the property to register.
+     * @param {Pointer<UIAutomationPropertyInfo>} _property 
      * @returns {Integer} Type: <b>PropertyID*</b>
      * 
      * Receives the property ID of the newly registered property.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerproperty
      */
-    RegisterProperty(property) {
-        result := ComCall(3, this, "ptr", property, "int*", &propertyId := 0, "HRESULT")
+    RegisterProperty(_property) {
+        result := ComCall(3, this, "ptr", _property, "int*", &propertyId := 0, "HRESULT")
         return propertyId
     }
 

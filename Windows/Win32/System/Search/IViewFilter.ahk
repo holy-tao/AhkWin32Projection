@@ -30,20 +30,20 @@ class IViewFilter extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Pointer>} pcRows 
      * @param {Pointer<Pointer<Integer>>} pCompareOps 
      * @param {Pointer<Void>} pCriteriaData 
      * @returns {HRESULT} 
      */
-    GetFilter(hAccessor, pcRows, pCompareOps, pCriteriaData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetFilter(_hAccessor, pcRows, pCompareOps, pCriteriaData) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
         pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(3, this, "ptr", _hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 
@@ -63,19 +63,19 @@ class IViewFilter extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cRows 
      * @param {Pointer<Integer>} CompareOps 
      * @param {Pointer<Void>} pCriteriaData 
      * @returns {HRESULT} 
      */
-    SetFilter(hAccessor, cRows, CompareOps, pCriteriaData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    SetFilter(_hAccessor, cRows, CompareOps, pCriteriaData) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         CompareOpsMarshal := CompareOps is VarRef ? "uint*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(5, this, "ptr", _hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 }

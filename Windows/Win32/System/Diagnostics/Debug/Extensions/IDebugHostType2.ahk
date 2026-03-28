@@ -61,8 +61,8 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {Integer} 
      */
     GetFunctionVarArgsKind() {
-        result := ComCall(32, this, "int*", &varArgsKind := 0, "HRESULT")
-        return varArgsKind
+        result := ComCall(32, this, "int*", &_varArgsKind := 0, "HRESULT")
+        return _varArgsKind
     }
 
     /**

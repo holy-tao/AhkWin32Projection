@@ -55,14 +55,14 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
      * @returns {HRESULT} 
      */
-    StorePipelineStateDesc(pKey, KeySize, Version, pDesc) {
+    StorePipelineStateDesc(pKey, KeySize, _Version, pDesc) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, "HRESULT")
+        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, "ptr", pDesc, "HRESULT")
         return result
     }
 
@@ -86,17 +86,17 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
      * @param {Pointer<Void>} pStateObjectToGrowFromKey 
      * @param {Integer} StateObjectToGrowFromKeySize 
      * @returns {HRESULT} 
      */
-    StoreStateObjectDesc(pKey, KeySize, Version, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
+    StoreStateObjectDesc(pKey, KeySize, _Version, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
+        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
         return result
     }
 

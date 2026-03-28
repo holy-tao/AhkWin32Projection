@@ -73,12 +73,12 @@ class IAVIFile extends IUnknown{
      * 
      * ```
      * @param {Integer} fccType Four-character code indicating the type of stream to locate.
-     * @param {Integer} lParam Stream number.
+     * @param {Integer} _lParam 
      * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to a stream.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-getstream
      */
-    GetStream(fccType, lParam) {
-        result := ComCall(4, this, "ptr*", &ppStream := 0, "uint", fccType, "int", lParam, "HRESULT")
+    GetStream(fccType, _lParam) {
+        result := ComCall(4, this, "ptr*", &ppStream := 0, "uint", fccType, "int", _lParam, "HRESULT")
         return IAVIStream(ppStream)
     }
 
@@ -177,11 +177,11 @@ class IAVIFile extends IUnknown{
     /**
      * 
      * @param {Integer} fccType 
-     * @param {Integer} lParam 
+     * @param {Integer} _lParam 
      * @returns {HRESULT} 
      */
-    DeleteStream(fccType, lParam) {
-        result := ComCall(9, this, "uint", fccType, "int", lParam, "HRESULT")
+    DeleteStream(fccType, _lParam) {
+        result := ComCall(9, this, "uint", fccType, "int", _lParam, "HRESULT")
         return result
     }
 }

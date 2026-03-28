@@ -10384,7 +10384,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {HWND} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Void>} hRequest Handle to the Internet connection used in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a>.
      * @param {Integer} dwError 
@@ -10447,13 +10447,13 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-interneterrordlg
      * @since windows5.0
      */
-    static InternetErrorDlg(hWnd, hRequest, dwError, dwFlags, lppvData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetErrorDlg(_hWnd, hRequest, dwError, dwFlags, lppvData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
         lppvDataMarshal := lppvData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, "uint")
+        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", _hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, "uint")
         return result
     }
 
@@ -10472,7 +10472,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10520,12 +10520,12 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossinga
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossingA(_hWnd, szUrlPrev, szUrlNew, bPost) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", _hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -10544,7 +10544,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PWSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10592,12 +10592,12 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossingw
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossingW(_hWnd, szUrlPrev, szUrlNew, bPost) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", _hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -10610,7 +10610,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10658,12 +10658,12 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossing
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossing(_hWnd, szUrlPrev, szUrlNew, bPost) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", _hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -14671,15 +14671,15 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwCommand 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {BOOL} 
      */
-    static InternetFortezzaCommand(dwCommand, hwnd) {
+    static InternetFortezzaCommand(dwCommand, _hwnd) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, "ptr", hwnd, "ptr", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, "ptr", _hwnd, "ptr", dwReserved, "int")
         return result
     }
 
@@ -14800,19 +14800,19 @@ class WinInet {
      * @param {PSTR} lpszUrl 
      * @param {PSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {BOOL} 
      */
-    static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+    static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, _hWnd, lpvReserved) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", _hWnd, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -14821,19 +14821,19 @@ class WinInet {
      * @param {PWSTR} lpszUrl 
      * @param {PWSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {BOOL} 
      */
-    static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+    static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, _hWnd, lpvReserved) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", _hWnd, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -15299,35 +15299,35 @@ class WinInet {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
-    static RunOnceUrlCache(hwnd, hinst, lpszCmd, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RunOnceUrlCache(_hwnd, hinst, lpszCmd, nCmdShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-        result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
+        result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", _hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
-    static DeleteIE3Cache(hwnd, hinst, lpszCmd, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DeleteIE3Cache(_hwnd, hinst, lpszCmd, nCmdShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-        result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
+        result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", _hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
 
@@ -15345,17 +15345,17 @@ class WinInet {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {Integer} gid 
      * @param {Integer} dwOpsFilter 
      * @param {Integer} dwReserved 
      * @returns {BOOL} 
      */
-    static RegisterUrlCacheNotification(hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegisterUrlCacheNotification(_hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("WININET.dll\RegisterUrlCacheNotification", "ptr", hWnd, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\RegisterUrlCacheNotification", "ptr", _hWnd, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, "int")
         return result
     }
 

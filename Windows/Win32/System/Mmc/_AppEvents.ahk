@@ -36,106 +36,106 @@ class _AppEvents extends IDispatch{
 
     /**
      * 
-     * @param {_Application} Application 
+     * @param {_Application} _Application 
      * @returns {HRESULT} 
      */
-    OnQuit(Application) {
-        result := ComCall(7, this, "ptr", Application, "HRESULT")
+    OnQuit(_Application) {
+        result := ComCall(7, this, "ptr", _Application, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
+     * @param {Document} _Document 
      * @param {BOOL} New 
      * @returns {HRESULT} 
      */
-    OnDocumentOpen(Document, New) {
-        result := ComCall(8, this, "ptr", Document, "int", New, "HRESULT")
+    OnDocumentOpen(_Document, New) {
+        result := ComCall(8, this, "ptr", _Document, "int", New, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
+     * @param {Document} _Document 
      * @returns {HRESULT} 
      */
-    OnDocumentClose(Document) {
-        result := ComCall(9, this, "ptr", Document, "HRESULT")
+    OnDocumentClose(_Document) {
+        result := ComCall(9, this, "ptr", _Document, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
-     * @param {SnapIn} SnapIn 
+     * @param {Document} _Document 
+     * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
      */
-    OnSnapInAdded(Document, SnapIn) {
-        result := ComCall(10, this, "ptr", Document, "ptr", SnapIn, "HRESULT")
+    OnSnapInAdded(_Document, _SnapIn) {
+        result := ComCall(10, this, "ptr", _Document, "ptr", _SnapIn, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
-     * @param {SnapIn} SnapIn 
+     * @param {Document} _Document 
+     * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
      */
-    OnSnapInRemoved(Document, SnapIn) {
-        result := ComCall(11, this, "ptr", Document, "ptr", SnapIn, "HRESULT")
+    OnSnapInRemoved(_Document, _SnapIn) {
+        result := ComCall(11, this, "ptr", _Document, "ptr", _SnapIn, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} _View 
      * @returns {HRESULT} 
      */
-    OnNewView(View) {
-        result := ComCall(12, this, "ptr", View, "HRESULT")
+    OnNewView(_View) {
+        result := ComCall(12, this, "ptr", _View, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} _View 
      * @returns {HRESULT} 
      */
-    OnViewClose(View) {
-        result := ComCall(13, this, "ptr", View, "HRESULT")
+    OnViewClose(_View) {
+        result := ComCall(13, this, "ptr", _View, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} _View 
      * @param {Node} NewOwnerNode 
      * @returns {HRESULT} 
      */
-    OnViewChange(View, NewOwnerNode) {
-        result := ComCall(14, this, "ptr", View, "ptr", NewOwnerNode, "HRESULT")
+    OnViewChange(_View, NewOwnerNode) {
+        result := ComCall(14, this, "ptr", _View, "ptr", NewOwnerNode, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} _View 
      * @param {Nodes} NewNodes 
      * @returns {HRESULT} 
      */
-    OnSelectionChange(View, NewNodes) {
-        result := ComCall(15, this, "ptr", View, "ptr", NewNodes, "HRESULT")
+    OnSelectionChange(_View, NewNodes) {
+        result := ComCall(15, this, "ptr", _View, "ptr", NewNodes, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {MenuItem} MenuItem 
+     * @param {MenuItem} _MenuItem 
      * @returns {HRESULT} 
      */
-    OnContextMenuExecuted(MenuItem) {
-        result := ComCall(16, this, "ptr", MenuItem, "HRESULT")
+    OnContextMenuExecuted(_MenuItem) {
+        result := ComCall(16, this, "ptr", _MenuItem, "HRESULT")
         return result
     }
 
@@ -150,11 +150,11 @@ class _AppEvents extends IDispatch{
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} _View 
      * @returns {HRESULT} 
      */
-    OnListUpdated(View) {
-        result := ComCall(18, this, "ptr", View, "HRESULT")
+    OnListUpdated(_View) {
+        result := ComCall(18, this, "ptr", _View, "HRESULT")
         return result
     }
 }

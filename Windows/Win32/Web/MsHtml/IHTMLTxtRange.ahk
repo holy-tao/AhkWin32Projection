@@ -139,52 +139,52 @@ class IHTMLTxtRange extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} Unit 
+     * @param {BSTR} _Unit 
      * @returns {VARIANT_BOOL} 
      */
-    expand(Unit) {
-        Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
+    expand(_Unit) {
+        _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(16, this, "ptr", Unit, "short*", &Success := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", _Unit, "short*", &Success := 0, "HRESULT")
         return Success
     }
 
     /**
      * 
-     * @param {BSTR} Unit 
+     * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
      */
-    move(Unit, Count) {
-        Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
+    move(_Unit, Count) {
+        _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(17, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
     /**
      * 
-     * @param {BSTR} Unit 
+     * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
      */
-    moveStart(Unit, Count) {
-        Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
+    moveStart(_Unit, Count) {
+        _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(18, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
     /**
      * 
-     * @param {BSTR} Unit 
+     * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
      */
-    moveEnd(Unit, Count) {
-        Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
+    moveEnd(_Unit, Count) {
+        _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(19, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -432,15 +432,15 @@ class IHTMLTxtRange extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} String_R 
+     * @param {BSTR} _String 
      * @param {Integer} count 
      * @param {Integer} Flags 
      * @returns {VARIANT_BOOL} 
      */
-    findText(String_R, count, Flags) {
-        String_R := String_R is String ? BSTR.Alloc(String_R).Value : String_R
+    findText(_String, count, Flags) {
+        _String := _String is String ? BSTR.Alloc(_String).Value : _String
 
-        result := ComCall(25, this, "ptr", String_R, "int", count, "int", Flags, "short*", &Success := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", _String, "int", count, "int", Flags, "short*", &Success := 0, "HRESULT")
         return Success
     }
 

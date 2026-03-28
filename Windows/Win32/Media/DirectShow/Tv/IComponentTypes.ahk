@@ -94,35 +94,35 @@ class IComponentTypes extends IDispatch{
     /**
      * The get_Item method retrieves the IComponentType interface pointer at the specified index number.
      * @param {VARIANT} Index The index number of the object to retrieve.
-     * @returns {IComponentType} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> interface. The caller must release the interface.
+     * @returns {IComponentType} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-get_item
      */
     get_Item(Index) {
-        result := ComCall(10, this, "ptr", Index, "ptr*", &ComponentType := 0, "HRESULT")
-        return IComponentType(ComponentType)
+        result := ComCall(10, this, "ptr", Index, "ptr*", &_ComponentType := 0, "HRESULT")
+        return IComponentType(_ComponentType)
     }
 
     /**
      * The put_Item method replaces the ComponentType object at the specified index with a new ComponentType object.
      * @param {VARIANT} Index Index number of the item to be replaced.
-     * @param {IComponentType} ComponentType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> object that will be inserted into the collection.
+     * @param {IComponentType} _ComponentType 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-put_item
      */
-    put_Item(Index, ComponentType) {
-        result := ComCall(11, this, "ptr", Index, "ptr", ComponentType, "HRESULT")
+    put_Item(Index, _ComponentType) {
+        result := ComCall(11, this, "ptr", Index, "ptr", _ComponentType, "HRESULT")
         return result
     }
 
     /**
      * The Add method adds a new ComponentType object to the collection.
-     * @param {IComponentType} ComponentType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> object that will be added to the collection.
+     * @param {IComponentType} _ComponentType 
      * @returns {VARIANT} The index number of the component type after it has been added to the collection.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-add
      */
-    Add(ComponentType) {
+    Add(_ComponentType) {
         NewIndex := VARIANT()
-        result := ComCall(12, this, "ptr", ComponentType, "ptr", NewIndex, "HRESULT")
+        result := ComCall(12, this, "ptr", _ComponentType, "ptr", NewIndex, "HRESULT")
         return NewIndex
     }
 

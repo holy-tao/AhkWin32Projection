@@ -364,16 +364,14 @@ class IFileDialog extends IModalWindow{
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the folder to be made available to the user. This can only be a folder.
-     * @param {Integer} fdap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fdap">FDAP</a></b>
-     * 
-     * Specifies where the folder is placed within the list. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fdap">FDAP</a>.
+     * @param {Integer} _fdap 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-addplace
      */
-    AddPlace(psi, fdap) {
-        result := ComCall(21, this, "ptr", psi, "int", fdap, "HRESULT")
+    AddPlace(psi, _fdap) {
+        result := ComCall(21, this, "ptr", psi, "int", _fdap, "HRESULT")
         return result
     }
 

@@ -10741,7 +10741,7 @@ class MediaFoundation {
      * A single <b>HMONITOR</b> handle can be associated with several physical monitors. Each physical monitor has its own connector. The application must set the protection mechanism individually for each physical monitor, using the <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointers returned in <i>pppOPMVideoOutputArray</i>.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> interface has two modes of behavior, depending on the value of the <i>vos</i> parameter. If <i>vos</i> is <b>OPM_VOS_COPP_SEMANTICS</b>, <b>IOPMVideoOutput</b> uses COPP semantics. This mode is intended for backward compatibility with COPP. If <i>vos</i> is <b>OPM_VOS_OPM_SEMANTICS</b>, <b>IOPMVideoOutput</b> uses the newer OPM semantics. Differences in behavior are noted on the reference page for each method. The mode does not change during the lifetime of the object.
-     * @param {HMONITOR} hMonitor The monitor handle for which to create OPM objects. There are several functions that return <b>HMONITOR</b> values. For more information, see the topic <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-functions">Multiple Display Monitors Functions</a> in the Windows graphics device interface (GDI) documentation.
+     * @param {HMONITOR} _hMonitor 
      * @param {Integer} vos A member of the <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/ne-opmapi-opm_video_output_semantics">OPM_VIDEO_OUTPUT_SEMANTICS</a> enumeration.
      * 
      * <table>
@@ -10776,13 +10776,13 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-opmgetvideooutputsfromhmonitor
      * @since windows6.0.6000
      */
-    static OPMGetVideoOutputsFromHMONITOR(hMonitor, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static OPMGetVideoOutputsFromHMONITOR(_hMonitor, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pulNumVideoOutputsMarshal := pulNumVideoOutputs is VarRef ? "uint*" : "ptr"
         pppOPMVideoOutputArrayMarshal := pppOPMVideoOutputArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "HRESULT")
+        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", _hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "HRESULT")
         return result
     }
 
@@ -12715,13 +12715,13 @@ class MediaFoundation {
     /**
      * Gets the local system ID.
      * @param {Pointer} verifier Application-specific verifier value.
-     * @param {Integer} size Length in bytes of verifier.
+     * @param {Integer} _size 
      * @returns {PWSTR} Returned ID string.  This value must be freed by the caller by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfgetlocalid
      * @since windows8.0
      */
-    static MFGetLocalId(verifier, size) {
-        result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", size, "ptr*", &id := 0, "HRESULT")
+    static MFGetLocalId(verifier, _size) {
+        result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", _size, "ptr*", &id := 0, "HRESULT")
         return id
     }
 
@@ -13123,7 +13123,7 @@ class MediaFoundation {
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @param {Integer} Version Version number. Use the value <b>MF_VERSION</b>, defined in mfapi.h.
+     * @param {Integer} _Version 
      * @param {Integer} dwFlags This parameter is optional when using C++ but required in C. The value must be one of the following flags:
      *           
      * 
@@ -13225,8 +13225,8 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfstartup
      * @since windows6.0.6000
      */
-    static MFStartup(Version, dwFlags) {
-        result := DllCall("MFPlat.dll\MFStartup", "uint", Version, "uint", dwFlags, "HRESULT")
+    static MFStartup(_Version, dwFlags) {
+        result := DllCall("MFPlat.dll\MFStartup", "uint", _Version, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -13392,7 +13392,7 @@ class MediaFoundation {
     /**
      * Puts an asynchronous operation on a work queue, with a specified priority. (MFPutWorkItem2)
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard Media Foundation work queues, or a work queue created by the application. For list of standard Media Foundation work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>. To create a new work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> or  MFAllocateWorkQueueEx.
-     * @param {Integer} Priority The priority of the work item. Work items are performed in order of priority.
+     * @param {Integer} _Priority 
      * @param {IMFAsyncCallback} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface. The caller must implement this interface.
      * @param {IUnknown} pState A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -13439,8 +13439,8 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfputworkitem2
      * @since windows8.0
      */
-    static MFPutWorkItem2(dwQueue, Priority, pCallback, pState) {
-        result := DllCall("MFPlat.dll\MFPutWorkItem2", "uint", dwQueue, "int", Priority, "ptr", pCallback, "ptr", pState, "HRESULT")
+    static MFPutWorkItem2(dwQueue, _Priority, pCallback, pState) {
+        result := DllCall("MFPlat.dll\MFPutWorkItem2", "uint", dwQueue, "int", _Priority, "ptr", pCallback, "ptr", pState, "HRESULT")
         return result
     }
 
@@ -13512,7 +13512,7 @@ class MediaFoundation {
      * @remarks
      * To invoke the work item, this function passes <i>pResult</i> to the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfinvokecallback">MFInvokeCallback</a> function. The callback is specified when you create the result object specified by <i>pResult</i>.
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard Media Foundation work queues, or a work queue created by the application. For list of standard Media Foundation work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>. To create a new work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueueex">MFAllocateWorkQueueEx</a>.
-     * @param {Integer} Priority The priority of the work item. This value should be 1, 0, or -1. Items with a value of 1 are executed before items with a value of 0. Items with a value of  -1 are executed after items with a value of 0.
+     * @param {Integer} _Priority 
      * @param {IMFAsyncResult} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -13558,8 +13558,8 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfputworkitemex2
      * @since windows8.0
      */
-    static MFPutWorkItemEx2(dwQueue, Priority, pResult) {
-        result := DllCall("MFPlat.dll\MFPutWorkItemEx2", "uint", dwQueue, "int", Priority, "ptr", pResult, "HRESULT")
+    static MFPutWorkItemEx2(dwQueue, _Priority, pResult) {
+        result := DllCall("MFPlat.dll\MFPutWorkItemEx2", "uint", dwQueue, "int", _Priority, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -13580,7 +13580,7 @@ class MediaFoundation {
      * </ul>
      * Do not use any of the following work queues: <b>MFASYNC_CALLBACK_QUEUE_IO</b>, <b>MFASYNC_CALLBACK_QUEUE_LONG_FUNCTION</b>, <b>MFASYNC_CALLBACK_QUEUE_RT</b>, or <b>MFASYNC_CALLBACK_QUEUE_TIMER</b>.
      * @param {HANDLE} hEvent A handle to an event object. To create an event object, call <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a>.
-     * @param {Integer} Priority The priority of the work item. Work items are performed in order of priority.
+     * @param {Integer} _Priority 
      * @param {IMFAsyncResult} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
      * @returns {Integer} Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcancelworkitem">MFCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
      * 
@@ -13588,10 +13588,10 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfputwaitingworkitem
      * @since windows8.0
      */
-    static MFPutWaitingWorkItem(hEvent, Priority, pResult) {
+    static MFPutWaitingWorkItem(hEvent, _Priority, pResult) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", Priority, "ptr", pResult, "uint*", &pKey := 0, "HRESULT")
+        result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", _Priority, "ptr", pResult, "uint*", &pKey := 0, "HRESULT")
         return pKey
     }
 
@@ -14620,8 +14620,8 @@ class MediaFoundation {
      * @returns {Integer} 
      */
     static MFGetDXGIDeviceManageMode(pDeviceManager) {
-        result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, "int*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
@@ -17501,20 +17501,16 @@ class MediaFoundation {
      * If <i>pwszURL</i> is <b>NULL</b>, this parameter is ignored.
      * @param {Integer} creationOptions Bitwise <b>OR</b> of zero of more flags from the <a href="https://docs.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_creation_options">_MFP_CREATION_OPTIONS</a> enumeration.
      * @param {IMFPMediaPlayerCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayercallback">IMFPMediaPlayerCallback</a> interface of a callback object, implemented by the application. Use this interface to get event notifications from the MFPlay player object. This parameter can be <b>NULL</b>. If  the parameter is <b>NULL</b>, the application will not receive  event notifications from the player object.
-     * @param {HWND} hWnd A handle to a window where the video will appear. For audio-only playback, this parameter can be <b>NULL</b>.
-     * 
-     * The window specified by <i>hWnd</i> is used for the first selected video stream in the source. If the source has multiple video streams, you must call <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaitem-setstreamsink">IMFPMediaItem::SetStreamSink</a> to render any of the video streams after the first.
-     * 
-     * If <i>hWnd</i> is <b>NULL</b>, MFPlay will not display any video unless the application calls <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaitem-setstreamsink">IMFPMediaItem::SetStreamSink</a> to specify a media sink for the video stream.
+     * @param {HWND} _hWnd 
      * @returns {IMFPMediaPlayer} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> interface. The caller must release the interface. This parameter can be <b>NULL</b>. If this parameter is <b>NULL</b>, <i>fStartPlayback</i> must be <b>TRUE</b> and <i>pwszURL</i> cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-mfpcreatemediaplayer
      * @since windows6.1
      */
-    static MFPCreateMediaPlayer(pwszURL, fStartPlayback, creationOptions, pCallback, hWnd) {
+    static MFPCreateMediaPlayer(pwszURL, fStartPlayback, creationOptions, pCallback, _hWnd) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr*", &ppMediaPlayer := 0, "HRESULT")
+        result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", _hWnd, "ptr*", &ppMediaPlayer := 0, "HRESULT")
         return IMFPMediaPlayer(ppMediaPlayer)
     }
 

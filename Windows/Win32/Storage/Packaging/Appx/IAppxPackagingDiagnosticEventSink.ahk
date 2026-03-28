@@ -30,19 +30,19 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown{
 
     /**
      * 
-     * @param {Integer} changeType 
+     * @param {Integer} _changeType 
      * @param {Integer} contextId 
      * @param {PSTR} contextName 
      * @param {PWSTR} contextMessage 
      * @param {PWSTR} detailsMessage 
      * @returns {HRESULT} 
      */
-    ReportContextChange(changeType, contextId, contextName, contextMessage, detailsMessage) {
+    ReportContextChange(_changeType, contextId, contextName, contextMessage, detailsMessage) {
         contextName := contextName is String ? StrPtr(contextName) : contextName
         contextMessage := contextMessage is String ? StrPtr(contextMessage) : contextMessage
         detailsMessage := detailsMessage is String ? StrPtr(detailsMessage) : detailsMessage
 
-        result := ComCall(3, this, "int", changeType, "int", contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "HRESULT")
+        result := ComCall(3, this, "int", _changeType, "int", contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "HRESULT")
         return result
     }
 

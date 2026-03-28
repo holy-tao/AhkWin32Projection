@@ -59,13 +59,13 @@ class IRowset extends IUnknown{
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
      */
-    GetData(hRow, hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetData(hRow, _hAccessor) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hRow, "ptr", _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 

@@ -207,23 +207,23 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
      */
     get_Version() {
-        version := BSTR()
-        result := ComCall(18, this, "ptr", version, "HRESULT")
-        return version
+        _version := BSTR()
+        result := ComCall(18, this, "ptr", _version, "HRESULT")
+        return _version
     }
 
     /**
      * The version of the module definition. (Put)
      * @remarks
      * This property is optional. There is no restriction to the version's format.
-     * @param {BSTR} version 
+     * @param {BSTR} _version 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_version
      */
-    put_Version(version) {
-        version := version is String ? BSTR.Alloc(version).Value : version
+    put_Version(_version) {
+        _version := _version is String ? BSTR.Alloc(_version).Value : _version
 
-        result := ComCall(19, this, "ptr", version, "HRESULT")
+        result := ComCall(19, this, "ptr", _version, "HRESULT")
         return result
     }
 

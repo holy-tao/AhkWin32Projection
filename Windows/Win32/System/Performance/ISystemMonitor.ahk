@@ -338,11 +338,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_BackColor(Color) {
-        result := ComCall(6, this, "uint", Color, "HRESULT")
+    put_BackColor(_Color) {
+        result := ComCall(6, this, "uint", _Color, "HRESULT")
         return result
     }
 
@@ -376,11 +376,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_ForeColor(Color) {
-        result := ComCall(10, this, "uint", Color, "HRESULT")
+    put_ForeColor(_Color) {
+        result := ComCall(10, this, "uint", _Color, "HRESULT")
         return result
     }
 
@@ -730,11 +730,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_BackColorCtl(Color) {
-        result := ComCall(46, this, "uint", Color, "HRESULT")
+    put_BackColorCtl(_Color) {
+        result := ComCall(46, this, "uint", _Color, "HRESULT")
         return result
     }
 
@@ -809,11 +809,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_GridColor(Color) {
-        result := ComCall(54, this, "uint", Color, "HRESULT")
+    put_GridColor(_Color) {
+        result := ComCall(54, this, "uint", _Color, "HRESULT")
         return result
     }
 
@@ -828,11 +828,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_TimeBarColor(Color) {
-        result := ComCall(56, this, "uint", Color, "HRESULT")
+    put_TimeBarColor(_Color) {
+        result := ComCall(56, this, "uint", _Color, "HRESULT")
         return result
     }
 

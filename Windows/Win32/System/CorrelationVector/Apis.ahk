@@ -39,12 +39,12 @@ class CorrelationVector {
     /**
      * 
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Pointer<Guid>} Guid 
      * @returns {Integer} 
      */
-    static RtlInitializeCorrelationVector(CorrelationVector, Version, Guid) {
-        result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", "ptr", CorrelationVector, "int", Version, "ptr", Guid, "uint")
+    static RtlInitializeCorrelationVector(CorrelationVector, _Version, Guid) {
+        result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", "ptr", CorrelationVector, "int", _Version, "ptr", Guid, "uint")
         return result
     }
 

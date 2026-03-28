@@ -89,7 +89,7 @@ class IDataModelScriptManager extends IUnknown{
      * @returns {IDataModelScriptProviderEnumerator} 
      */
     EnumerateScriptProviders() {
-        result := ComCall(8, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IDataModelScriptProviderEnumerator(enumerator)
+        result := ComCall(8, this, "ptr*", &_enumerator := 0, "HRESULT")
+        return IDataModelScriptProviderEnumerator(_enumerator)
     }
 }

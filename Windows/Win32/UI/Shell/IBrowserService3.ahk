@@ -34,9 +34,7 @@ class IBrowserService3 extends IBrowserService2{
 
     /**
      * Deprecated. Used in view size negotiations. This method is called by _UpdateViewRectSize after determining the available dimensions.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the view window.
+     * @param {HWND} _hwnd 
      * @param {Pointer<RECT>} prc Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the available dimensions.
@@ -45,10 +43,10 @@ class IBrowserService3 extends IBrowserService2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
      */
-    _PositionViewWindow(hwnd, prc) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    _PositionViewWindow(_hwnd, prc) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(95, this, "ptr", hwnd, "ptr", prc, "HRESULT")
+        result := ComCall(95, this, "ptr", _hwnd, "ptr", prc, "HRESULT")
         return result
     }
 

@@ -56,9 +56,9 @@ class IFsrmFileScreenException extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(12, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(12, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**

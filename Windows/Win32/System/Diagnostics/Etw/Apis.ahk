@@ -2533,31 +2533,7 @@ class Etw {
      * 
      * This function copies the session name that you provide to the offset that the
      * **LoggerNameOffset** member of _Properties_ points to.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure that specifies the behavior of the session. The following are key
-     * members of the structure to set:
-     * 
-     * - **Wnode.BufferSize**
-     * - **Wnode.Guid**
-     * - **Wnode.ClientContext**
-     * - **Wnode.Flags**
-     * - **LogFileMode**
-     * - **LogFileNameOffset**
-     * - **LoggerNameOffset**
-     * 
-     * Depending on the type of log file you choose to create, you may also need to
-     * specify a value for **MaximumFileSize**. See the Remarks section for more
-     * information on setting the _Properties_ parameter and the behavior of the
-     * session.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering in to **StartTrace** when starting
-     * system wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -2652,12 +2628,12 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-starttracew
      * @since windows5.0
      */
-    static StartTraceW(TraceId, InstanceName, Properties) {
+    static StartTraceW(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         TraceIdMarshal := TraceId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\StartTraceW", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StartTraceW", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -2701,31 +2677,7 @@ class Etw {
      * 
      * This function copies the session name that you provide to the offset that the
      * **LoggerNameOffset** member of _Properties_ points to.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure that specifies the behavior of the session. The following are key
-     * members of the structure to set:
-     * 
-     * - **Wnode.BufferSize**
-     * - **Wnode.Guid**
-     * - **Wnode.ClientContext**
-     * - **Wnode.Flags**
-     * - **LogFileMode**
-     * - **LogFileNameOffset**
-     * - **LoggerNameOffset**
-     * 
-     * Depending on the type of log file you choose to create, you may also need to
-     * specify a value for **MaximumFileSize**. See the Remarks section for more
-     * information on setting the _Properties_ parameter and the behavior of the
-     * session.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering in to **StartTrace** when starting
-     * system wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -2820,12 +2772,12 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-starttracea
      * @since windows5.0
      */
-    static StartTraceA(TraceId, InstanceName, Properties) {
+    static StartTraceA(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         TraceIdMarshal := TraceId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\StartTraceA", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StartTraceA", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -2860,23 +2812,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure
-     * that receives the final properties and statistics for the session.
-     * 
-     * If you are using a newly initialized structure, you only need to set the
-     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the structure. You can use the maximum session
-     * name (1024 characters) and maximum log file name (1024 characters) lengths to
-     * calculate the buffer size and offsets if not known.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering in to **StopTrace** for system
-     * wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -2909,10 +2845,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-stoptracew
      * @since windows5.0
      */
-    static StopTraceW(TraceId, InstanceName, Properties) {
+    static StopTraceW(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -2947,23 +2883,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure
-     * that receives the final properties and statistics for the session.
-     * 
-     * If you are using a newly initialized structure, you only need to set the
-     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the structure. You can use the maximum session
-     * name (1024 characters) and maximum log file name (1024 characters) lengths to
-     * calculate the buffer size and offsets if not known.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering in to **StopTrace** for system
-     * wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -2996,10 +2916,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-stoptracea
      * @since windows5.0
      */
-    static StopTraceA(TraceId, InstanceName, Properties) {
+    static StopTraceA(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3026,24 +2946,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * You only need to set the **Wnode.BufferSize** member of the
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * You can use the maximum session name (1024 characters) and maximum log file name
-     * (1024 characters) lengths to calculate the buffer size and offsets if not known.
-     * 
-     * On output, the structure members contain the property settings and session
-     * statistics for the event tracing session.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering into **QueryTrace** for system
-     * wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3083,10 +2986,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-querytracew
      * @since windows5.0
      */
-    static QueryTraceW(TraceId, InstanceName, Properties) {
+    static QueryTraceW(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3113,24 +3016,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * You only need to set the **Wnode.BufferSize** member of the
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * You can use the maximum session name (1024 characters) and maximum log file name
-     * (1024 characters) lengths to calculate the buffer size and offsets if not known.
-     * 
-     * On output, the structure members contain the property settings and session
-     * statistics for the event tracing session.
-     * 
-     * **Starting with Windows 10, version 1703:** For better performance in cross
-     * process scenarios, you can now pass filtering into **QueryTrace** for system
-     * wide private loggers. You will need to pass in the new
-     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
-     * structure to include filtering information. See
-     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
-     * for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3170,10 +3056,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-querytracea
      * @since windows5.0
      */
-    static QueryTraceA(TraceId, InstanceName, Properties) {
+    static QueryTraceA(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3236,14 +3122,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * On input, the members must specify the new values for the properties to update.
-     * For information on which properties you can update, see Remarks.
-     * 
-     * On output, the structure members contains the updated settings and statistics
-     * for the event tracing session.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3280,10 +3159,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-updatetracew
      * @since windows5.0
      */
-    static UpdateTraceW(TraceId, InstanceName, Properties) {
+    static UpdateTraceW(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3346,14 +3225,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * On input, the members must specify the new values for the properties to update.
-     * For information on which properties you can update, see Remarks.
-     * 
-     * On output, the structure members contains the updated settings and statistics
-     * for the event tracing session.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3390,10 +3262,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-updatetracea
      * @since windows5.0
      */
-    static UpdateTraceA(TraceId, InstanceName, Properties) {
+    static UpdateTraceA(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3430,18 +3302,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * If you are using a newly initialized structure, you only need to set the
-     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the structure. You can use the maximum session
-     * name (1024 characters) and maximum log file name (1024 characters) lengths to
-     * calculate the buffer size and offsets if not known.
-     * 
-     * On output, the structure receives the property settings and session statistics
-     * of the event tracing session, which reflect the state of the session after the
-     * flush.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3475,10 +3336,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-flushtracew
      * @since windows5.1.2600
      */
-    static FlushTraceW(TraceId, InstanceName, Properties) {
+    static FlushTraceW(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3515,18 +3376,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
-     * 
-     * If you are using a newly initialized structure, you only need to set the
-     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the structure. You can use the maximum session
-     * name (1024 characters) and maximum log file name (1024 characters) lengths to
-     * calculate the buffer size and offsets if not known.
-     * 
-     * On output, the structure receives the property settings and session statistics
-     * of the event tracing session, which reflect the state of the session after the
-     * flush.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -3560,10 +3410,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-flushtracea
      * @since windows5.1.2600
      */
-    static FlushTraceA(TraceId, InstanceName, Properties) {
+    static FlushTraceA(TraceId, InstanceName, _Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint")
         return result
     }
 
@@ -3592,70 +3442,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure. This structure should be zeroed-out before setting any fields.
-     * 
-     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_STOP**,
-     * **EVENT_TRACE_CONTROL_QUERY** or **EVENT_TRACE_CONTROL_FLUSH**, you only need to
-     * set the **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure. If the session is a private session, you also need to set
-     * **LogFileMode**. You can use the maximum session name (1024 characters) and
-     * maximum log file name (1024 characters) lengths to calculate the buffer size and
-     * offsets if not known.
-     * 
-     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_UPDATE**, on input, the members
-     * must specify the new values for the properties to update. On output,
-     * _Properties_ contains the properties and statistics for the event tracing
-     * session. You can update the following properties.
-     * 
-     * - **EnableFlags**: Set this member to 0 to disable all system providers. Set
-     *   this to a non-zero value to specify the system providers that you want to
-     *   enable or keep enabled. This may be non-zero only for
-     *   [system loggers](/windows/win32/api/evntrace/nf-evntrace-starttracew#system-loggers).
-     * 
-     * - **FlushTimer**: Set this member if you want to change the time to wait before
-     *   flushing buffers. If this member is 0, the member is not updated.
-     * 
-     * - **LogFileNameOffset**: Set this member if you want to switch to another log
-     *   file or to flush a buffering-mode trace to a new log file. If this member is
-     *   0, the file name is not updated. If the offset is not zero and you do not
-     *   change the log file name, the function returns an error.
-     * 
-     * - **LogFileMode**: Set this member if you want to turn
-     *   **EVENT_TRACE_REAL_TIME_MODE** on and off. To turn real time consuming off,
-     *   set this member to 0. To turn real time consuming on (creating a session that
-     *   records to disk as well as delivering events in real-time), set this member to
-     *   **EVENT_TRACE_REAL_TIME_MODE** and it will be OR'd with the current modes.
-     * 
-     * - **MaximumBuffers**: Set this member if you want to change the maximum number
-     *   of buffers that ETW uses. If this member is 0, the member is not updated.
-     * 
-     * For private logger sessions, you can update only the **LogFileNameOffset** and
-     * **FlushTimer** members.
-     * 
-     * If you are using a newly initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure, zero-out the structure, then set **Wnode.BufferSize**,
-     * **Wnode.Guid**, and **Wnode.Flags**, and the values you want to update.
-     * 
-     * If you are reusing a **EVENT_TRACE_PROPERTIES** structure (i.e. using a
-     * structure that you previously passed to
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew) or
-     * **ControlTrace**), be sure to set the **LogFileNameOffset** member to 0 unless
-     * you are changing the log file name, and be sure to set
-     * [EVENT_TRACE_PROPERTIES.Wnode.Flags](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * to **WNODE_FLAG_TRACED_GUID**.
-     * 
-     * > **Starting with Windows 10, version 1703:** For better performance in cross
-     * > process scenarios, you can now pass filtering information to **ControlTrace**
-     * > for system wide private loggers. You will need to use the
-     * > [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
-     * > structure to include filtering information. See
-     * > [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
-     * > for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @param {Integer} ControlCode 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -3721,10 +3508,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-controltracew
      * @since windows5.0
      */
-    static ControlTraceW(TraceId, InstanceName, Properties, ControlCode) {
+    static ControlTraceW(TraceId, InstanceName, _Properties, ControlCode) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
+        result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint", ControlCode, "uint")
         return result
     }
 
@@ -3753,70 +3540,7 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure. This structure should be zeroed-out before setting any fields.
-     * 
-     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_STOP**,
-     * **EVENT_TRACE_CONTROL_QUERY** or **EVENT_TRACE_CONTROL_FLUSH**, you only need to
-     * set the **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
-     * **LogFileNameOffset** members of the
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure. If the session is a private session, you also need to set
-     * **LogFileMode**. You can use the maximum session name (1024 characters) and
-     * maximum log file name (1024 characters) lengths to calculate the buffer size and
-     * offsets if not known.
-     * 
-     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_UPDATE**, on input, the members
-     * must specify the new values for the properties to update. On output,
-     * _Properties_ contains the properties and statistics for the event tracing
-     * session. You can update the following properties.
-     * 
-     * - **EnableFlags**: Set this member to 0 to disable all system providers. Set
-     *   this to a non-zero value to specify the system providers that you want to
-     *   enable or keep enabled. This may be non-zero only for
-     *   [system loggers](/windows/win32/api/evntrace/nf-evntrace-starttracea#system-loggers).
-     * 
-     * - **FlushTimer**: Set this member if you want to change the time to wait before
-     *   flushing buffers. If this member is 0, the member is not updated.
-     * 
-     * - **LogFileNameOffset**: Set this member if you want to switch to another log
-     *   file or to flush a buffering-mode trace to a new log file. If this member is
-     *   0, the file name is not updated. If the offset is not zero and you do not
-     *   change the log file name, the function returns an error.
-     * 
-     * - **LogFileMode**: Set this member if you want to turn
-     *   **EVENT_TRACE_REAL_TIME_MODE** on and off. To turn real time consuming off,
-     *   set this member to 0. To turn real time consuming on (creating a session that
-     *   records to disk as well as delivering events in real-time), set this member to
-     *   **EVENT_TRACE_REAL_TIME_MODE** and it will be OR'd with the current modes.
-     * 
-     * - **MaximumBuffers**: Set this member if you want to change the maximum number
-     *   of buffers that ETW uses. If this member is 0, the member is not updated.
-     * 
-     * For private logger sessions, you can update only the **LogFileNameOffset** and
-     * **FlushTimer** members.
-     * 
-     * If you are using a newly initialized
-     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * structure, zero-out the structure, then set **Wnode.BufferSize**,
-     * **Wnode.Guid**, and **Wnode.Flags**, and the values you want to update.
-     * 
-     * If you are reusing a **EVENT_TRACE_PROPERTIES** structure (i.e. using a
-     * structure that you previously passed to
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) or
-     * **ControlTrace**), be sure to set the **LogFileNameOffset** member to 0 unless
-     * you are changing the log file name, and be sure to set
-     * [EVENT_TRACE_PROPERTIES.Wnode.Flags](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
-     * to **WNODE_FLAG_TRACED_GUID**.
-     * 
-     * > **Starting with Windows 10, version 1703:** For better performance in cross
-     * > process scenarios, you can now pass filtering information to **ControlTrace**
-     * > for system wide private loggers. You will need to use the
-     * > [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
-     * > structure to include filtering information. See
-     * > [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
-     * > for more details.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
      * @param {Integer} ControlCode 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -3877,10 +3601,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-controltracea
      * @since windows5.0
      */
-    static ControlTraceA(TraceId, InstanceName, Properties, ControlCode) {
+    static ControlTraceA(TraceId, InstanceName, _Properties, ControlCode) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
+        result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", _Properties, "uint", ControlCode, "uint")
         return result
     }
 
@@ -4893,11 +4617,7 @@ class Etw {
      * `1` when **InstanceId** reaches the maximum value for a **ULONG**. Only
      * user-mode providers can call the **CreateTraceInstanceId** function (drivers
      * cannot call this function).
-     * @param {HANDLE} RegHandle Handle to a registered event trace class. The
-     * [RegisterTraceGuids](/windows/win32/api/evntrace/nf-evntrace-registertraceguidsa)
-     * function returns this handle in the **RegHandle** member of the
-     * [TRACE_GUID_REGISTRATION](/windows/desktop/ETW/trace-guid-registration)
-     * structure.
+     * @param {HANDLE} _RegHandle 
      * @param {Pointer<EVENT_INSTANCE_INFO>} InstInfo Pointer to an [EVENT_INSTANCE_INFO](/windows/desktop/ETW/event-instance-info)
      * structure. The **InstanceId** member of this structure contains the transaction
      * identifier.
@@ -4916,10 +4636,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-createtraceinstanceid
      * @since windows5.0
      */
-    static CreateTraceInstanceId(RegHandle, InstInfo) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static CreateTraceInstanceId(_RegHandle, InstInfo) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\CreateTraceInstanceId", "ptr", RegHandle, "ptr", InstInfo, "uint")
+        result := DllCall("ADVAPI32.dll\CreateTraceInstanceId", "ptr", _RegHandle, "ptr", InstInfo, "uint")
         return result
     }
 
@@ -5542,7 +5262,7 @@ class Etw {
      * [GetTraceEnableLevel](/windows/desktop/ETW/gettraceenablelevel) functions to
      * retrieve the enable flags and level values passed to the
      * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Integer} If the function succeeds, it returns the event tracing session handle.
      * 
      * If the function fails, it returns **INVALID_HANDLE_VALUE**. To get extended
@@ -5552,12 +5272,12 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-gettraceloggerhandle
      * @since windows5.0
      */
-    static GetTraceLoggerHandle(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static GetTraceLoggerHandle(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", _BufferMarshal, _Buffer, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5988,25 +5708,25 @@ class Etw {
      * 
      * **ProcessTraceBufferIncrementReference** is not supported for buffers provided by a processing session opened by [OpenTraceFromBufferStream](nf-evntrace-opentracefrombufferstream.md).
      * @param {PROCESSTRACE_HANDLE} TraceHandle The processing session that this *Buffer* came from.
-     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer_R 
+     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer 
      * @returns {Integer} Win32 Error Code. Possible codes may include ERROR_INVALID_PARAMETER and ERROR_OUTOFMEMORY.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferincrementreference
      */
-    static ProcessTraceBufferIncrementReference(TraceHandle, Buffer_R) {
+    static ProcessTraceBufferIncrementReference(TraceHandle, _Buffer) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
 
-        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "ptr", TraceHandle, "ptr", Buffer_R, "uint")
+        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "ptr", TraceHandle, "ptr", _Buffer, "uint")
         return result
     }
 
     /**
      * Releases a reference to a Buffer that was added by ProcessTraceBufferIncrementReference.
-     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer_R 
+     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer 
      * @returns {Integer} Win32 Error Code.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferdecrementreference
      */
-    static ProcessTraceBufferDecrementReference(Buffer_R) {
-        result := DllCall("ADVAPI32.dll\ProcessTraceBufferDecrementReference", "ptr", Buffer_R, "uint")
+    static ProcessTraceBufferDecrementReference(_Buffer) {
+        result := DllCall("ADVAPI32.dll\ProcessTraceBufferDecrementReference", "ptr", _Buffer, "uint")
         return result
     }
 
@@ -6017,15 +5737,15 @@ class Etw {
      * 
      * When the buffer is done processing, the *BufferCompletionCallback* specified in [OpenTraceFromBufferStream](nf-evntrace-opentracefrombufferstream.md) will be called to release it.
      * @param {PROCESSTRACE_HANDLE} TraceHandle The TRACEHANDLE for the processing session to add to.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The ETW buffer size.
      * @returns {Integer} ERROR_SUCCESS or a Win32 error code to indicate that the buffer is invalid, out of time order, or that the TraceHandle is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtraceaddbuffertobufferstream
      */
-    static ProcessTraceAddBufferToBufferStream(TraceHandle, Buffer_R, BufferSize) {
+    static ProcessTraceAddBufferToBufferStream(TraceHandle, _Buffer, BufferSize) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
 
-        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "ptr", TraceHandle, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "ptr", TraceHandle, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -6519,15 +6239,7 @@ class Etw {
      * `NULL` if no callback is needed.
      * @param {Pointer<Void>} CallbackContext Optional context data that ETW will provide when invoking _EnableCallback_. Use
      * `NULL` if no callback context is needed.
-     * @param {Pointer<REGHANDLE>} RegHandle Receives the event provider registration handle. The handle is used in
-     * subsequent calls to provider APIs such as **EventWrite**,
-     * **EventProviderEnabled**, and **EventRegister**.
-     * 
-     * Before your provider unloads or exits, free the provider registration handle by
-     * calling
-     * [EventUnregister](/windows/desktop/api/evntprov/nf-evntprov-eventunregister). A
-     * DLL that unloads without freeing all of the provider handles that it registered
-     * may cause the process to crash.
+     * @param {Pointer<REGHANDLE>} _RegHandle 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful.
      * 
      * The error code returned by **EventRegister** is primarily intended for use in
@@ -6537,10 +6249,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventregister
      * @since windows6.0.6000
      */
-    static EventRegister(ProviderId, EnableCallback, CallbackContext, RegHandle) {
+    static EventRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", RegHandle, "uint")
+        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", _RegHandle, "uint")
         return result
     }
 
@@ -6552,23 +6264,21 @@ class Etw {
      * RegHandle value, do nothing, and return immediately. Callers do not need to
      * check for a zero-valued RegHandle before calling **EventWrite** or
      * **EventUnregister**.
-     * @param {REGHANDLE} RegHandle Event provider registration handle returned by
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
+     * @param {REGHANDLE} _RegHandle 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful.
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventunregister
      * @since windows6.0.6000
      */
-    static EventUnregister(RegHandle) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventUnregister(_RegHandle) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventUnregister", "ptr", RegHandle, "uint")
+        result := DllCall("ADVAPI32.dll\EventUnregister", "ptr", _RegHandle, "uint")
         return result
     }
 
     /**
      * Configures an ETW event provider.
-     * @param {REGHANDLE} RegHandle Event provider registration handle. This is a handle returned by
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} InformationClass [EVENT_INFO_CLASS](/windows/desktop/api/evntprov/ne-evntprov-event_info_class)
      * value that specifies the configuration operation to be performed on the event
      * provider.
@@ -6595,10 +6305,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventsetinformation
      * @since windows8.0
      */
-    static EventSetInformation(RegHandle, InformationClass, EventInformation, InformationLength) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventSetInformation(_RegHandle, InformationClass, EventInformation, InformationLength) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventSetInformation", "ptr", RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "uint")
+        result := DllCall("ADVAPI32.dll\EventSetInformation", "ptr", _RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "uint")
         return result
     }
 
@@ -6631,10 +6341,7 @@ class Etw {
      *   calling **EventEnabled**.
      * - ETW framework implementations usually check their own provider state rather
      *   than calling **EventEnabled**.
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
-     * 
-     * If _RegHandle_ is **NULL**, **EventEnabled** will return **FALSE**.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * that provides information that will be used to determine whether the event is
      * enabled. This includes the event's Level (severity) and Keyword (categories).
@@ -6645,10 +6352,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventenabled
      * @since windows6.0.6000
      */
-    static EventEnabled(RegHandle, EventDescriptor) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventEnabled(_RegHandle, EventDescriptor) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventEnabled", "ptr", RegHandle, "ptr", EventDescriptor, "char")
+        result := DllCall("ADVAPI32.dll\EventEnabled", "ptr", _RegHandle, "ptr", EventDescriptor, "char")
         return result
     }
 
@@ -6684,10 +6391,7 @@ class Etw {
      * 
      * For additional details, see
      * [EventEnabled](/windows/desktop/api/evntprov/nf-evntprov-eventenabled).
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
-     * 
-     * If _RegHandle_ is **NULL**, **EventProviderEnabled** will return **FALSE**.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level An 8-bit number used to describe an event's severity or importance. See
      * [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * for more information about event level values.
@@ -6699,10 +6403,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventproviderenabled
      * @since windows6.0.6000
      */
-    static EventProviderEnabled(RegHandle, Level, Keyword) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventProviderEnabled(_RegHandle, Level, Keyword) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "ptr", RegHandle, "char", Level, "uint", Keyword, "char")
+        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "ptr", _RegHandle, "char", Level, "uint", Keyword, "char")
         return result
     }
 
@@ -6739,9 +6443,7 @@ class Etw {
      * [EventWriteEx](/windows/win32/api/evntprov/nf-evntprov-eventwriteex) with 0 for
      * _Filter_, 0 for _Flags_, **NULL** for _ActivityId_, and **NULL** for
      * _RelatedActivityId_.
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
-     * generated event will use the ProviderId associated with the handle.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6753,16 +6455,7 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData An array of _UserDataCount_
-     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
-     * structures that describe the data to be included in the event. _UserData_ may be
-     * **NULL** if _UserDataCount_ is zero.
-     * 
-     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
-     * the event. The specified blocks will be concatenated in order with no padding or
-     * alignment to form the event content. If using manifest-based decoding, the event
-     * content must match the layout specified in the template associated with the
-     * event in the manifest.
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6787,10 +6480,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventwrite
      * @since windows6.0.6000
      */
-    static EventWrite(RegHandle, EventDescriptor, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventWrite(_RegHandle, EventDescriptor, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventWrite", "ptr", RegHandle, "ptr", EventDescriptor, "uint", UserDataCount, "ptr", UserData, "uint")
+        result := DllCall("ADVAPI32.dll\EventWrite", "ptr", _RegHandle, "ptr", EventDescriptor, "uint", UserDataCount, "ptr", _UserData, "uint")
         return result
     }
 
@@ -6821,9 +6514,7 @@ class Etw {
      * **EventWriteTransfer** is equivalent to
      * [EventWriteEx](/windows/win32/api/evntprov/nf-evntprov-eventwriteex) with 0 for
      * _Filter_ and 0 for _Flags_.
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
-     * generated event will use the ProviderId associated with the handle.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6855,16 +6546,7 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData An array of _UserDataCount_
-     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
-     * structures that describe the data to be included in the event. _UserData_ may be
-     * **NULL** if _UserDataCount_ is zero.
-     * 
-     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
-     * the event. The specified blocks will be concatenated in order with no padding or
-     * alignment to form the event content. If using manifest-based decoding, the event
-     * content must match the layout specified in the template associated with the
-     * event in the manifest.
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6889,10 +6571,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventwritetransfer
      * @since windows6.0.6000
      */
-    static EventWriteTransfer(RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventWriteTransfer(_RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventWriteTransfer", "ptr", RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
+        result := DllCall("ADVAPI32.dll\EventWriteTransfer", "ptr", _RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "uint")
         return result
     }
 
@@ -6928,9 +6610,7 @@ class Etw {
      * provider can evaluate the filter and use the _Filter_ parameter of
      * **EventWriteEx** to indicate that certain trace sessions did not pass the filter
      * and should therefore not receive the event.
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
-     * generated event will use the ProviderId associated with the handle.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6979,16 +6659,7 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} UserData An array of _UserDataCount_
-     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
-     * structures that describe the data to be included in the event. _UserData_ may be
-     * **NULL** if _UserDataCount_ is zero.
-     * 
-     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
-     * the event. The specified blocks will be concatenated in order with no padding or
-     * alignment to form the event content. If using manifest-based decoding, the event
-     * content must match the layout specified in the template associated with the
-     * event in the manifest.
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -7013,10 +6684,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventwriteex
      * @since windows6.1
      */
-    static EventWriteEx(RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+    static EventWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventWriteEx", "ptr", RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
+        result := DllCall("ADVAPI32.dll\EventWriteEx", "ptr", _RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "uint")
         return result
     }
 
@@ -7072,9 +6743,7 @@ class Etw {
      * can extract the string value even when the decoder cannot locate any other
      * decoding information for the event provider. However, without a manifest, the
      * tools will not be able to determine the event's provider name.
-     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
-     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
-     * generated event will use the ProviderId associated with the handle.
+     * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level An 8-bit number used to describe an event's severity or importance.
      * 
      * > [!Important]
@@ -7094,7 +6763,7 @@ class Etw {
      * 
      * See [EVENT_DESCRIPTOR](nf-evntprov-eventdatadesccreate.md) for details about the
      * event keyword.
-     * @param {PWSTR} String_R 
+     * @param {PWSTR} _String 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -7119,11 +6788,11 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventwritestring
      * @since windows6.0.6000
      */
-    static EventWriteString(RegHandle, Level, Keyword, String_R) {
-        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    static EventWriteString(_RegHandle, Level, Keyword, _String) {
+        _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
+        _String := _String is String ? StrPtr(_String) : _String
 
-        result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", String_R, "uint")
+        result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", _RegHandle, "char", Level, "uint", Keyword, "ptr", _String, "uint")
         return result
     }
 
@@ -7243,7 +6912,7 @@ class Etw {
      * @param {Integer} Operation Type of operation to perform, for example, add a DACL to the session's GUID or provider's GUID. For 
      *       possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ne-evntcons-eventsecurityoperation">EVENTSECURITYOPERATION</a> 
      *       enumeration.
-     * @param {PSID} Sid The security identifier (SID) of the user  or group to whom you want to grant or deny permissions.
+     * @param {PSID} _Sid 
      * @param {Integer} Rights You can specify one or more of the following permissions:
      * 
      * <table>
@@ -7342,8 +7011,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntcons/nf-evntcons-eventaccesscontrol
      * @since windows6.0.6000
      */
-    static EventAccessControl(Guid, Operation, Sid, Rights, AllowOrDeny) {
-        result := DllCall("ADVAPI32.dll\EventAccessControl", "ptr", Guid, "uint", Operation, "ptr", Sid, "uint", Rights, "char", AllowOrDeny, "uint")
+    static EventAccessControl(Guid, Operation, _Sid, Rights, AllowOrDeny) {
+        result := DllCall("ADVAPI32.dll\EventAccessControl", "ptr", Guid, "uint", Operation, "ptr", _Sid, "uint", Rights, "char", AllowOrDeny, "uint")
         return result
     }
 
@@ -7354,7 +7023,7 @@ class Etw {
      * 
      * For information on accessing the components of the security descriptor, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/getting-information-from-an-acl">Getting Information from an ACL</a>, the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl">GetSecurityDescriptorDacl</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl">GetSecurityDescriptorSacl</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> functions, and the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure.
      * @param {Pointer<Guid>} Guid GUID that uniquely identifies the provider or session.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize Size of the security descriptor buffer, in bytes. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_MORE_DATA and this parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful.
      * 
@@ -7380,10 +7049,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntcons/nf-evntcons-eventaccessquery
      * @since windows6.0.6000
      */
-    static EventAccessQuery(Guid, Buffer_R, BufferSize) {
+    static EventAccessQuery(Guid, _Buffer, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7641,7 +7310,7 @@ class Etw {
      * @param {Pointer<EVENT_RECORD>} Event The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
      * @param {Integer} TdhContextCount Number of elements in <i>pTdhContext</i>.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Array of context values for WPP or classic ETW events only; otherwise, <b>NULL</b>. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">TDH_CONTEXT</a> structure.  The array must not contain duplicate context types.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7709,10 +7378,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhgeteventinformation
      * @since windows6.0.6000
      */
-    static TdhGetEventInformation(Event, TdhContextCount, TdhContext, Buffer_R, BufferSize) {
+    static TdhGetEventInformation(Event, TdhContextCount, TdhContext, _Buffer, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7996,7 +7665,7 @@ class Etw {
      * @remarks
      * Use [TdhEnumerateProviders](nf-tdh-tdhenumerateproviders.md) to retrieve all providers that have registered on the computer.
      * @param {Integer} filter One or more values from [DECODING_SOURCE enumeration](ne-tdh-decoding_source.md).
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} _buffer 
      * @param {Integer} bufferSize Size, in bytes, of the *pBuffer* buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @param {Pointer<Integer>} bufferRequired The buffer required.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8007,10 +7676,10 @@ class Etw {
      * | **ERROR_INVALID_PARAMETER** | One or more of the parameters is not valid. |
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumerateprovidersfordecodingsource
      */
-    static TdhEnumerateProvidersForDecodingSource(filter, buffer_R, bufferSize, bufferRequired) {
+    static TdhEnumerateProvidersForDecodingSource(filter, _buffer, bufferSize, bufferRequired) {
         bufferRequiredMarshal := bufferRequired is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer_R, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, "uint")
+        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", _buffer, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, "uint")
         return result
     }
 
@@ -8185,7 +7854,7 @@ class Etw {
      * @param {Integer} TdhContextCount Not used.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Not used.
      * @param {Pointer<Integer>} FilterCount The number of filter structures that the <i>pBuffer</i> buffer contains. Is zero if the <i>pBuffer</i> buffer is insufficient.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8242,11 +7911,11 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumerateproviderfilters
      * @since windows6.1
      */
-    static TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCount, Buffer_R, BufferSize) {
+    static TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCount, _Buffer, BufferSize) {
         FilterCountMarshal := FilterCount is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, FilterCountMarshal, FilterCount, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, FilterCountMarshal, FilterCount, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -8431,9 +8100,9 @@ class Etw {
      * @param {Integer} PropertyOutType The output type of the property. Use the **OutType** member of the [EVENT_PROPERTY_INFO structure](ns-tdh-event_property_info.md) to set this parameter.
      * @param {Integer} PropertyLength The length, in bytes, of the property. Use the **Length** member of the [EVENT_PROPERTY_INFO structure](ns-tdh-event_property_info.md) to set this parameter.
      * @param {Integer} UserDataLength The size, in bytes, of the *UserData* buffer. See Remarks.
-     * @param {Pointer} UserData The buffer that contains the event data. See Remarks.
+     * @param {Pointer} _UserData 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the *Buffer* buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} UserDataConsumed The length, in bytes, of the consumed event data. Use this value to adjust the values of the *UserData* and *UserDataLength* parameters. See Remarks.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8445,11 +8114,11 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhformatproperty
      * @since windows6.1
      */
-    static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, UserData, BufferSize, Buffer_R, UserDataConsumed) {
+    static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, _UserData, BufferSize, _Buffer, UserDataConsumed) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         UserDataConsumedMarshal := UserDataConsumed is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, UserDataConsumedMarshal, UserDataConsumed, "uint")
+        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", _UserData, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UserDataConsumedMarshal, UserDataConsumed, "uint")
         return result
     }
 
@@ -8457,9 +8126,7 @@ class Etw {
      * Opens a decoding handle.
      * @remarks
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhclosedecodinghandle">TdhCloseDecodingHandle</a> to free the returned handle.
-     * @param {Pointer<TDH_HANDLE>} Handle Type: <b>PTDH_HANDLE</b>
-     * 
-     * A valid decoding handle.
+     * @param {Pointer<TDH_HANDLE>} _Handle 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8495,16 +8162,14 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhopendecodinghandle
      * @since windows8.0
      */
-    static TdhOpenDecodingHandle(Handle) {
-        result := DllCall("tdh.dll\TdhOpenDecodingHandle", "ptr", Handle, "uint")
+    static TdhOpenDecodingHandle(_Handle) {
+        result := DllCall("tdh.dll\TdhOpenDecodingHandle", "ptr", _Handle, "uint")
         return result
     }
 
     /**
      * Sets the value of a decoding parameter.
-     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
-     * 
-     * A valid decoding handle.
+     * @param {TDH_HANDLE} _Handle 
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
      * 
      * Array of context values. The array must not contain duplicate context types.
@@ -8543,18 +8208,16 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhsetdecodingparameter
      * @since windows8.0
      */
-    static TdhSetDecodingParameter(Handle, TdhContext) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static TdhSetDecodingParameter(_Handle, TdhContext) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("tdh.dll\TdhSetDecodingParameter", "ptr", Handle, "ptr", TdhContext, "uint")
+        result := DllCall("tdh.dll\TdhSetDecodingParameter", "ptr", _Handle, "ptr", TdhContext, "uint")
         return result
     }
 
     /**
      * Retrieves the value of a decoding parameter.
-     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
-     * 
-     * A valid decoding handle.
+     * @param {TDH_HANDLE} _Handle 
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
      * 
      * Array of context values. The array must not contain duplicate context types.
@@ -8593,10 +8256,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhgetdecodingparameter
      * @since windows8.0
      */
-    static TdhGetDecodingParameter(Handle, TdhContext) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static TdhGetDecodingParameter(_Handle, TdhContext) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("tdh.dll\TdhGetDecodingParameter", "ptr", Handle, "ptr", TdhContext, "uint")
+        result := DllCall("tdh.dll\TdhGetDecodingParameter", "ptr", _Handle, "ptr", TdhContext, "uint")
         return result
     }
 
@@ -8604,9 +8267,7 @@ class Etw {
      * Retrieves a specific property associated with a WPP message.
      * @remarks
      * To retrieve only the decoded event message without specifying a property name, call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetwppmessage">TdhGetWppMessage</a>.
-     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
-     * 
-     * A valid decoding handle.
+     * @param {TDH_HANDLE} _Handle 
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
@@ -8618,7 +8279,7 @@ class Etw {
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8665,13 +8326,13 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhgetwppproperty
      * @since windows8.0
      */
-    static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer_R) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static TdhGetWppProperty(_Handle, EventRecord, PropertyName, BufferSize, _Buffer) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", _Handle, "ptr", EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -8679,16 +8340,14 @@ class Etw {
      * Retrieves the formatted WPP message embedded into an EVENT_RECORD structure.
      * @remarks
      * To retrieve a specific property instead of the decoded event message without specifying a property name, call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetwppproperty">TdhGetWppProperty</a>.
-     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
-     * 
-     * A valid decoding handle.
+     * @param {TDH_HANDLE} _Handle 
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8735,30 +8394,28 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhgetwppmessage
      * @since windows8.0
      */
-    static TdhGetWppMessage(Handle, EventRecord, BufferSize, Buffer_R) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static TdhGetWppMessage(_Handle, EventRecord, BufferSize, _Buffer) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", _Handle, "ptr", EventRecord, BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
     /**
      * Frees any resources associated with the input decoding handle.
-     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
-     * 
-     * The decoding handle to be closed.
+     * @param {TDH_HANDLE} _Handle 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * This function returns ERROR_SUCCESS on completion.
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhclosedecodinghandle
      * @since windows8.0
      */
-    static TdhCloseDecodingHandle(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static TdhCloseDecodingHandle(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("tdh.dll\TdhCloseDecodingHandle", "ptr", Handle, "uint")
+        result := DllCall("tdh.dll\TdhCloseDecodingHandle", "ptr", _Handle, "uint")
         return result
     }
 
@@ -8797,7 +8454,7 @@ class Etw {
     /**
      * Retrieves the list of events present in the provider manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose list of events you want to retrieve.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>ProviderInfo</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8865,10 +8522,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumeratemanifestproviderevents
      * @since windows8.1
      */
-    static TdhEnumerateManifestProviderEvents(ProviderGuid, Buffer_R, BufferSize) {
+    static TdhEnumerateManifestProviderEvents(ProviderGuid, _Buffer, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -8876,7 +8533,7 @@ class Etw {
      * Retrieves metadata about an event in a manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose event metadata you want to retrieve.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor A pointer to the event descriptor that contains information such as event id, version, op-code, and keyword. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structure
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>Buffer</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8944,10 +8601,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhgetmanifesteventinformation
      * @since windows8.1
      */
-    static TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, Buffer_R, BufferSize) {
+    static TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, _Buffer, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 

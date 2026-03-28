@@ -56,13 +56,13 @@ class IHTMLOpsProfile extends IDispatch{
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
-     * @param {VARIANT} path 
+     * @param {VARIANT} _path 
      * @param {VARIANT} expire 
      * @param {VARIANT} reserved 
      * @returns {HRESULT} 
      */
-    doRequest(usage, fname, domain, path, expire, reserved) {
-        result := ComCall(9, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path, "ptr", expire, "ptr", reserved, "HRESULT")
+    doRequest(usage, fname, domain, _path, expire, reserved) {
+        result := ComCall(9, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", _path, "ptr", expire, "ptr", reserved, "HRESULT")
         return result
     }
 
@@ -121,13 +121,13 @@ class IHTMLOpsProfile extends IDispatch{
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
-     * @param {VARIANT} path 
+     * @param {VARIANT} _path 
      * @param {VARIANT} expire 
      * @param {VARIANT} reserved 
      * @returns {HRESULT} 
      */
-    doReadRequest(usage, fname, domain, path, expire, reserved) {
-        result := ComCall(14, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path, "ptr", expire, "ptr", reserved, "HRESULT")
+    doReadRequest(usage, fname, domain, _path, expire, reserved) {
+        result := ComCall(14, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", _path, "ptr", expire, "ptr", reserved, "HRESULT")
         return result
     }
 

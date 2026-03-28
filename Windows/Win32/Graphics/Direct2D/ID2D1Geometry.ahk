@@ -66,7 +66,7 @@ class ID2D1Geometry extends ID2D1Resource{
 
     /**
      * Determines whether the geometry's stroke contains the specified point.
-     * @param {D2D_POINT_2F} point 
+     * @param {D2D_POINT_2F} _point 
      * @param {Float} strokeWidth 
      * @param {ID2D1StrokeStyle} strokeStyle 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
@@ -74,22 +74,22 @@ class ID2D1Geometry extends ID2D1Resource{
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-strokecontainspoint
      */
-    StrokeContainsPoint(point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
-        result := ComCall(6, this, "ptr", point, "float", strokeWidth, "ptr", strokeStyle, "ptr", worldTransform, "float", flatteningTolerance, "int*", &contains_R := 0, "HRESULT")
-        return contains_R
+    StrokeContainsPoint(_point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
+        result := ComCall(6, this, "ptr", _point, "float", strokeWidth, "ptr", strokeStyle, "ptr", worldTransform, "float", flatteningTolerance, "int*", &_contains := 0, "HRESULT")
+        return _contains
     }
 
     /**
      * Indicates whether the area filled by the geometry would contain the specified point.
-     * @param {D2D_POINT_2F} point 
+     * @param {D2D_POINT_2F} _point 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-fillcontainspoint
      */
-    FillContainsPoint(point, worldTransform, flatteningTolerance) {
-        result := ComCall(7, this, "ptr", point, "ptr", worldTransform, "float", flatteningTolerance, "int*", &contains_R := 0, "HRESULT")
-        return contains_R
+    FillContainsPoint(_point, worldTransform, flatteningTolerance) {
+        result := ComCall(7, this, "ptr", _point, "ptr", worldTransform, "float", flatteningTolerance, "int*", &_contains := 0, "HRESULT")
+        return _contains
     }
 
     /**
@@ -139,15 +139,15 @@ class ID2D1Geometry extends ID2D1Resource{
     /**
      * Combines this geometry with the specified geometry and stores the result in an ID2D1SimplifiedGeometrySink.
      * @param {ID2D1Geometry} inputGeometry 
-     * @param {Integer} combineMode 
+     * @param {Integer} _combineMode 
      * @param {Pointer<D2D_MATRIX_3X2_F>} inputGeometryTransform 
      * @param {Float} flatteningTolerance 
      * @param {ID2D1SimplifiedGeometrySink} geometrySink 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-combinewithgeometry
      */
-    CombineWithGeometry(inputGeometry, combineMode, inputGeometryTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(11, this, "ptr", inputGeometry, "int", combineMode, "ptr", inputGeometryTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+    CombineWithGeometry(inputGeometry, _combineMode, inputGeometryTransform, flatteningTolerance, geometrySink) {
+        result := ComCall(11, this, "ptr", inputGeometry, "int", _combineMode, "ptr", inputGeometryTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -201,13 +201,13 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {Float} length 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<D2D_POINT_2F>} point 
+     * @param {Pointer<D2D_POINT_2F>} _point 
      * @param {Pointer<D2D_POINT_2F>} unitTangentVector 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computepointatlength
      */
-    ComputePointAtLength(length, worldTransform, flatteningTolerance, point, unitTangentVector) {
-        result := ComCall(15, this, "float", length, "ptr", worldTransform, "float", flatteningTolerance, "ptr", point, "ptr", unitTangentVector, "HRESULT")
+    ComputePointAtLength(length, worldTransform, flatteningTolerance, _point, unitTangentVector) {
+        result := ComCall(15, this, "float", length, "ptr", worldTransform, "float", flatteningTolerance, "ptr", _point, "ptr", unitTangentVector, "HRESULT")
         return result
     }
 

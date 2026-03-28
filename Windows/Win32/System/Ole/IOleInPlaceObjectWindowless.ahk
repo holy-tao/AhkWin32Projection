@@ -91,14 +91,14 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
      * Objects can also use <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage">IOleInPlaceSiteWindowless::OnDefWindowMessage</a> to explicitly invoke the default message processing from the container. In the case of the WM_SETCURSOR message, this allows an object to take action if the container does not set the cursor.
      * 
      * All coordinates passed to the object in <i>wParam</i> and <i>lParam</i> are specified as client coordinates of the containing window.
-     * @param {Integer} msg The identifier for the window message provided to the container by Windows.
-     * @param {WPARAM} wParam A parameter for the window message provided to the container by Windows.
-     * @param {LPARAM} lParam A parameter for the window message provided to the container by Windows.
+     * @param {Integer} _msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} A pointer to result code for the window message.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */
-    OnWindowMessage(msg, wParam, lParam) {
-        result := ComCall(9, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+    OnWindowMessage(_msg, _wParam, _lParam) {
+        result := ComCall(9, this, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
         return plResult
     }
 

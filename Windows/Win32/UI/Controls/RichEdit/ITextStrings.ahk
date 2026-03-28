@@ -65,9 +65,7 @@ class ITextStrings extends IDispatch{
      * Adds a string to the end of the collection.
      * @remarks
      * Adding an item to the end of a collection is like pushing a parameter onto the stack.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The string. The value can be <b>NULL</b> for  a null string.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -102,10 +100,10 @@ class ITextStrings extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-add
      */
-    Add(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    Add(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(9, this, "ptr", bstr, "HRESULT")
+        result := ComCall(9, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -175,18 +173,16 @@ class ITextStrings extends IDispatch{
 
     /**
      * Inserts text between the top two strings in a collection.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The text to insert. The value can be <b>NULL</b>.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-cattop2
      */
-    CatTop2(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    CatTop2(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(12, this, "ptr", bstr, "HRESULT")
+        result := ComCall(12, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -246,9 +242,7 @@ class ITextStrings extends IDispatch{
      * @param {Integer} Align Type: <b>long</b>
      * 
      * The object alignment. See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a> for a table of definitions.
-     * @param {Integer} Char Type: <b>long</b>
-     * 
-     * The object character.
+     * @param {Integer} _Char 
      * @param {Integer} Char1 Type: <b>long</b>
      * 
      * The object character.
@@ -272,8 +266,8 @@ class ITextStrings extends IDispatch{
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-encodefunction
      */
-    EncodeFunction(Type, Align, Char, Char1, Char2, Count, TeXStyle, cCol, pRange) {
-        result := ComCall(14, this, "int", Type, "int", Align, "int", Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "ptr", pRange, "HRESULT")
+    EncodeFunction(Type, Align, _Char, Char1, Char2, Count, TeXStyle, cCol, pRange) {
+        result := ComCall(14, this, "int", Type, "int", Align, "int", _Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "ptr", pRange, "HRESULT")
         return result
     }
 
@@ -333,9 +327,7 @@ class ITextStrings extends IDispatch{
 
     /**
      * Prefixes a string to the top string in the collection.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The string to prefix to the collection.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -359,10 +351,10 @@ class ITextStrings extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-prefixtop
      */
-    PrefixTop(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    PrefixTop(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(18, this, "ptr", bstr, "HRESULT")
+        result := ComCall(18, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -373,9 +365,7 @@ class ITextStrings extends IDispatch{
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
-     * @param {Integer} cString Type: <b>long</b>
-     * 
-     * The count of strings to remove.
+     * @param {Integer} _cString 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -399,8 +389,8 @@ class ITextStrings extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-remove
      */
-    Remove(iString, cString) {
-        result := ComCall(19, this, "int", iString, "int", cString, "HRESULT")
+    Remove(iString, _cString) {
+        result := ComCall(19, this, "int", iString, "int", _cString, "HRESULT")
         return result
     }
 
@@ -491,9 +481,7 @@ class ITextStrings extends IDispatch{
      * Suffixes a string to the top string in the collection.
      * @remarks
      * This method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstrings-append">ITextStrings::Append</a>, but appends a string instead of a range.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The text to suffix to the top string.
+     * @param {BSTR} _bstr 
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The range with the desired character formatting.
@@ -520,10 +508,10 @@ class ITextStrings extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-suffixtop
      */
-    SuffixTop(bstr, pRange) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SuffixTop(_bstr, pRange) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(22, this, "ptr", bstr, "ptr", pRange, "HRESULT")
+        result := ComCall(22, this, "ptr", _bstr, "ptr", pRange, "HRESULT")
         return result
     }
 

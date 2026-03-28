@@ -115,25 +115,23 @@ class IDiscMasterProgressEvents extends IUnknown{
 
     /**
      * Notifies an application that a call to IDiscMaster::RecordDisc has finished.
-     * @param {HRESULT} status Status code to be returned from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-recorddisc">IDiscMaster::RecordDisc</a>.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyburncomplete
      */
-    NotifyBurnComplete(status) {
-        result := ComCall(10, this, "int", status, "HRESULT")
+    NotifyBurnComplete(_status) {
+        result := ComCall(10, this, "int", _status, "HRESULT")
         return result
     }
 
     /**
      * Notifies an application that a call to IDiscRecorder::Erase has finished.
-     * @param {HRESULT} status Status code to be returned from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscrecorder-erase">IDiscRecorder::Erase</a>.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyerasecomplete
      */
-    NotifyEraseComplete(status) {
-        result := ComCall(11, this, "int", status, "HRESULT")
+    NotifyEraseComplete(_status) {
+        result := ComCall(11, this, "int", _status, "HRESULT")
         return result
     }
 }

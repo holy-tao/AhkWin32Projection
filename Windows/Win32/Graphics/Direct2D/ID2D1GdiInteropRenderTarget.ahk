@@ -50,18 +50,14 @@ class ID2D1GdiInteropRenderTarget extends IUnknown{
      * <div> </div>
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-releasedc">ReleaseDC</a> must be called once for each call to <b>GetDC</b>.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dc_initialize_mode">D2D1_DC_INITIALIZE_MODE</a></b>
-     * 
-     * A value that specifies whether the device context should be cleared.
-     * @returns {HDC} Type: <b>HDC*</b>
-     * 
-     * When this method returns, contains the device context associated with this render target. You must allocate storage for this parameter.
+     * @param {Integer} _mode 
+     * @returns {HDC} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-getdc
      */
-    GetDC(mode) {
-        hdc := HDC()
-        result := ComCall(3, this, "int", mode, "ptr", hdc, "HRESULT")
-        return hdc
+    GetDC(_mode) {
+        _hdc := HDC()
+        result := ComCall(3, this, "int", _mode, "ptr", _hdc, "HRESULT")
+        return _hdc
     }
 
     /**

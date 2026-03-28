@@ -30,11 +30,11 @@ class IMLOperatorShapeInferrer extends IUnknown{
 
     /**
      * 
-     * @param {IMLOperatorShapeInferenceContext} context 
+     * @param {IMLOperatorShapeInferenceContext} _context 
      * @returns {HRESULT} 
      */
-    InferOutputShapes(context) {
-        result := ComCall(3, this, "ptr", context, "HRESULT")
+    InferOutputShapes(_context) {
+        result := ComCall(3, this, "ptr", _context, "HRESULT")
         return result
     }
 }

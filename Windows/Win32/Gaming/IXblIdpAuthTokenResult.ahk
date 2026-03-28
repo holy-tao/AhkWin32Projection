@@ -38,12 +38,12 @@ class IXblIdpAuthTokenResult extends IUnknown{
 
     /**
      * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetStatus)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status">XBL_IDP_AUTH_TOKEN_STATUS</a>*</b>
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getstatus
      */
     GetStatus() {
-        result := ComCall(3, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(3, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
@@ -218,12 +218,12 @@ class IXblIdpAuthTokenResult extends IUnknown{
 
     /**
      * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetRestrictions)
-     * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getrestrictions
      */
     GetRestrictions() {
-        result := ComCall(21, this, "ptr*", &restrictions := 0, "HRESULT")
-        return restrictions
+        result := ComCall(21, this, "ptr*", &_restrictions := 0, "HRESULT")
+        return _restrictions
     }
 
     /**

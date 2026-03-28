@@ -74,8 +74,8 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
@@ -153,11 +153,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */
-    GetObjectSize2(objectId) {
-        result := ComCall(80, this, "ptr", objectId, "ptr*", &pcSize := 0, "HRESULT")
+    GetObjectSize2(_objectId) {
+        result := ComCall(80, this, "ptr", _objectId, "ptr*", &pcSize := 0, "HRESULT")
         return pcSize
     }
 }

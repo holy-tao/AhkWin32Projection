@@ -31,7 +31,7 @@ class IRowsetFind extends IUnknown{
     /**
      * 
      * @param {Pointer} hChapter 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pFindValue 
      * @param {Integer} CompareOp 
      * @param {Pointer} cbBookmark 
@@ -41,14 +41,14 @@ class IRowsetFind extends IUnknown{
      * @param {Pointer<Pointer>} pcRowsObtained 
      * @returns {Pointer<Pointer>} 
      */
-    FindNextRow(hChapter, hAccessor, pFindValue, CompareOp, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    FindNextRow(hChapter, _hAccessor, pFindValue, CompareOp, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pFindValueMarshal := pFindValue is VarRef ? "ptr" : "ptr"
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", hAccessor, pFindValueMarshal, pFindValue, "uint", CompareOp, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", &prghRows := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", _hAccessor, pFindValueMarshal, pFindValue, "uint", CompareOp, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", &prghRows := 0, "HRESULT")
         return prghRows
     }
 }

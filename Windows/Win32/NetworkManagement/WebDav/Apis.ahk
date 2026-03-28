@@ -431,13 +431,13 @@ class WebDav {
      * 
      * To unregister the callback function, use the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davunregisterauthcallback">DavUnregisterAuthCallback</a> function, passing the returned opaque handle in the <i>hCallback</i>  parameter.
      * @param {Pointer<PFNDAVAUTHCALLBACK>} CallBack A pointer to a function of type <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">PFNDAVAUTHCALLBACK</a>.
-     * @param {Integer} Version This parameter is reserved for future use.
+     * @param {Integer} _Version 
      * @returns {Integer} If the function succeeds, the return value is an opaque handle. Note that <b>OPAQUE_HANDLE</b> is defined to be a <b>DWORD</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davregisterauthcallback
      * @since windows6.0.6000
      */
-    static DavRegisterAuthCallback(CallBack, Version) {
-        result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, "uint", Version, "uint")
+    static DavRegisterAuthCallback(CallBack, _Version) {
+        result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, "uint", _Version, "uint")
         return result
     }
 

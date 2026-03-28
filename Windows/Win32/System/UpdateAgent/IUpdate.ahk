@@ -991,7 +991,7 @@ class IUpdate extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  We don't recommend or support the use of the <b>IUpdate::CopyFromCache</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate2-copytocache">IUpdate2::CopyToCache</a> methods to move downloaded updates from one computer to another computer. When the Windows Update Agent (WUA) downloads an update, it might only download the portions of the update’s payload that are necessary for a particular client computer. The necessary portions of the update’s payload can often vary from one computer to another computer, even if the computers have similar hardware and software configurations. <b>IUpdate2::CopyToCache</b> only works if the provided files are an exact match for the files that Windows Update would have normally downloaded on that computer; if you called <b>IUpdate::CopyFromCache</b> to obtain the files on a different computer, the files are likely not to match the files that Windows Update would have normally downloaded so <b>IUpdate2::CopyToCache</b> might fail.</div>
      * <div> </div>
-     * @param {BSTR} path The path of the location where the update contents are to be copied.
+     * @param {BSTR} _path 
      * @param {VARIANT_BOOL} toExtractCabFiles Reserved for future use. 
      * 
      * You must set <i>toExtractCabFiles</i> to <b>VARIANT_TRUE</b> or <b>VARIANT_FALSE</b>.
@@ -1097,10 +1097,10 @@ class IUpdate extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-copyfromcache
      */
-    CopyFromCache(path, toExtractCabFiles) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    CopyFromCache(_path, toExtractCabFiles) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(49, this, "ptr", path, "short", toExtractCabFiles, "HRESULT")
+        result := ComCall(49, this, "ptr", _path, "short", toExtractCabFiles, "HRESULT")
         return result
     }
 

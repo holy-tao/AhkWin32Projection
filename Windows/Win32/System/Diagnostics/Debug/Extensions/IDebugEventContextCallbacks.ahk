@@ -40,12 +40,12 @@ class IDebugEventContextCallbacks extends IUnknown{
     /**
      * 
      * @param {IDebugBreakpoint2} Bp 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    Breakpoint(Bp, Context, ContextSize) {
-        result := ComCall(4, this, "ptr", Bp, "ptr", Context, "uint", ContextSize, "HRESULT")
+    Breakpoint(Bp, _Context, ContextSize) {
+        result := ComCall(4, this, "ptr", Bp, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -53,12 +53,12 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Pointer<EXCEPTION_RECORD64>} Exception 
      * @param {Integer} FirstChance 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    Exception(Exception, FirstChance, Context, ContextSize) {
-        result := ComCall(5, this, "ptr", Exception, "uint", FirstChance, "ptr", Context, "uint", ContextSize, "HRESULT")
+    Exception(Exception, FirstChance, _Context, ContextSize) {
+        result := ComCall(5, this, "ptr", Exception, "uint", FirstChance, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -108,10 +108,10 @@ class IDebugEventContextCallbacks extends IUnknown{
      * <b>Windows Phone 8.1:</b> This function is supported for Windows Phone Store apps on Windows Phone 8.1 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {Integer} DataOffset 
      * @param {Integer} StartOffset 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is a handle to the new thread.
      * 
@@ -126,8 +126,8 @@ class IDebugEventContextCallbacks extends IUnknown{
      *        process is created even if it refers to invalid or missing dynamic-link libraries (DLLs).
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread
      */
-    CreateThread(Handle, DataOffset, StartOffset, Context, ContextSize) {
-        result := ComCall(6, this, "uint", Handle, "uint", DataOffset, "uint", StartOffset, "ptr", Context, "uint", ContextSize, "HRESULT")
+    CreateThread(_Handle, DataOffset, StartOffset, _Context, ContextSize) {
+        result := ComCall(6, this, "uint", _Handle, "uint", DataOffset, "uint", StartOffset, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -170,13 +170,13 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} ExitCode 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitthread
      */
-    ExitThread(ExitCode, Context, ContextSize) {
-        result := ComCall(7, this, "uint", ExitCode, "ptr", Context, "uint", ContextSize, "HRESULT")
+    ExitThread(ExitCode, _Context, ContextSize) {
+        result := ComCall(7, this, "uint", ExitCode, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 	CreateProcess(NULL, szCmdline, //...);
      * ```
      * @param {Integer} ImageFileHandle 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @param {Integer} BaseOffset 
      * @param {Integer} ModuleSize 
      * @param {PWSTR} ModuleName 
@@ -250,7 +250,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * @param {Integer} InitialThreadHandle 
      * @param {Integer} ThreadDataOffset 
      * @param {Integer} StartOffset 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -260,11 +260,11 @@ class IDebugEventContextCallbacks extends IUnknown{
      * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa
      */
-    CreateProcessA(ImageFileHandle, Handle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, InitialThreadHandle, ThreadDataOffset, StartOffset, Context, ContextSize) {
+    CreateProcessA(ImageFileHandle, _Handle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, InitialThreadHandle, ThreadDataOffset, StartOffset, _Context, ContextSize) {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(8, this, "uint", ImageFileHandle, "uint", Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "ptr", Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(8, this, "uint", ImageFileHandle, "uint", _Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -299,13 +299,13 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * Exiting a process does not necessarily remove the process object from the operating system. A process object is deleted when the last handle to the process is closed.
      * @param {Integer} ExitCode 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
      */
-    ExitProcess(ExitCode, Context, ContextSize) {
-        result := ComCall(9, this, "uint", ExitCode, "ptr", Context, "uint", ContextSize, "HRESULT")
+    ExitProcess(ExitCode, _Context, ContextSize) {
+        result := ComCall(9, this, "uint", ExitCode, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -416,7 +416,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * @param {PWSTR} ImageName 
      * @param {Integer} CheckSum 
      * @param {Integer} TimeDateStamp 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is greater than 31.
      * 
@@ -477,11 +477,11 @@ class IDebugEventContextCallbacks extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-loadmodule
      */
-    LoadModule(ImageFileHandle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, Context, ContextSize) {
+    LoadModule(ImageFileHandle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, _Context, ContextSize) {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(10, this, "uint", ImageFileHandle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "ptr", Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(10, this, "uint", ImageFileHandle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -489,14 +489,14 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {PWSTR} ImageBaseName 
      * @param {Integer} BaseOffset 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    UnloadModule(ImageBaseName, BaseOffset, Context, ContextSize) {
+    UnloadModule(ImageBaseName, BaseOffset, _Context, ContextSize) {
         ImageBaseName := ImageBaseName is String ? StrPtr(ImageBaseName) : ImageBaseName
 
-        result := ComCall(11, this, "ptr", ImageBaseName, "uint", BaseOffset, "ptr", Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(11, this, "ptr", ImageBaseName, "uint", BaseOffset, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -504,35 +504,22 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Integer} Error 
      * @param {Integer} Level 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    SystemError(Error, Level, Context, ContextSize) {
-        result := ComCall(12, this, "uint", Error, "uint", Level, "ptr", Context, "uint", ContextSize, "HRESULT")
+    SystemError(Error, Level, _Context, ContextSize) {
+        result := ComCall(12, this, "uint", Error, "uint", Level, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Status 
+     * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
-    SessionStatus(Status) {
-        result := ComCall(13, this, "uint", Status, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} Flags 
-     * @param {Integer} Argument 
-     * @param {Pointer} Context 
-     * @param {Integer} ContextSize 
-     * @returns {HRESULT} 
-     */
-    ChangeDebuggeeState(Flags, Argument, Context, ContextSize) {
-        result := ComCall(14, this, "uint", Flags, "uint", Argument, "ptr", Context, "uint", ContextSize, "HRESULT")
+    SessionStatus(_Status) {
+        result := ComCall(13, this, "uint", _Status, "HRESULT")
         return result
     }
 
@@ -540,12 +527,25 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    ChangeEngineState(Flags, Argument, Context, ContextSize) {
-        result := ComCall(15, this, "uint", Flags, "uint", Argument, "ptr", Context, "uint", ContextSize, "HRESULT")
+    ChangeDebuggeeState(Flags, Argument, _Context, ContextSize) {
+        result := ComCall(14, this, "uint", Flags, "uint", Argument, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Flags 
+     * @param {Integer} Argument 
+     * @param {Pointer} _Context 
+     * @param {Integer} ContextSize 
+     * @returns {HRESULT} 
+     */
+    ChangeEngineState(Flags, Argument, _Context, ContextSize) {
+        result := ComCall(15, this, "uint", Flags, "uint", Argument, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 

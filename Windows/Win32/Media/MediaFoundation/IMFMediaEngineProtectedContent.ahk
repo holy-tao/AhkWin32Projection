@@ -59,14 +59,14 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * Specifies the window that should receive output link protections.
      * @remarks
      * In frame-server mode, call this method to specify the destination window for protected video content. The Media Engine uses this window to set link protections, using the <a href="https://docs.microsoft.com/windows/desktop/medfound/output-protection-manager">Output Protection Manager</a> (OPM).
-     * @param {HWND} hwnd A handle to the window.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setopmwindow
      */
-    SetOPMWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetOPMWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(5, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 

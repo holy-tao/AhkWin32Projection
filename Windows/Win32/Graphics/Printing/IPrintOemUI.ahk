@@ -52,22 +52,22 @@ class IPrintOemUI extends IPrintOemCommon{
     /**
      * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    DocumentPropertySheets(pPSUIInfo, lParam) {
-        result := ComCall(7, this, "ptr", pPSUIInfo, "ptr", lParam, "HRESULT")
+    DocumentPropertySheets(pPSUIInfo, _lParam) {
+        result := ComCall(7, this, "ptr", pPSUIInfo, "ptr", _lParam, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    DevicePropertySheets(pPSUIInfo, lParam) {
-        result := ComCall(8, this, "ptr", pPSUIInfo, "ptr", lParam, "HRESULT")
+    DevicePropertySheets(pPSUIInfo, _lParam) {
+        result := ComCall(8, this, "ptr", pPSUIInfo, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -154,13 +154,13 @@ class IPrintOemUI extends IPrintOemCommon{
      * @param {PWSTR} pPrinterName 
      * @param {Integer} iDriverEvent 
      * @param {Integer} dwFlags 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    PrinterEvent(pPrinterName, iDriverEvent, dwFlags, lParam) {
+    PrinterEvent(pPrinterName, iDriverEvent, dwFlags, _lParam) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
-        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, "ptr", lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -169,13 +169,13 @@ class IPrintOemUI extends IPrintOemCommon{
      * @param {Integer} dwDriverEvent 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, lParam) {
+    DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, _lParam) {
         pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", lParam, "HRESULT")
+        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -205,16 +205,16 @@ class IPrintOemUI extends IPrintOemCommon{
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} usMsg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    FontInstallerDlgProc(hWnd, usMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    FontInstallerDlgProc(_hWnd, usMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(15, this, "ptr", hWnd, "uint", usMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(15, this, "ptr", _hWnd, "uint", usMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 

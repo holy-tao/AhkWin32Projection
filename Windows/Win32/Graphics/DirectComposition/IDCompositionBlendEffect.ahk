@@ -32,16 +32,14 @@ class IDCompositionBlendEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the blend mode to use when the blend effect combines the two images.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/blend">D2D1_BLEND_MODE</a></b>
-     * 
-     * The blend mode to use when the blend effect combines the two images.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionblendeffect-setmode
      */
-    SetMode(mode) {
-        result := ComCall(4, this, "int", mode, "HRESULT")
+    SetMode(_mode) {
+        result := ComCall(4, this, "int", _mode, "HRESULT")
         return result
     }
 }

@@ -49,14 +49,14 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetKernelConnectionOptions(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetKernelConnectionOptions(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(4, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -533,30 +533,30 @@ class IDebugClient9 extends IUnknown{
      * @returns {Integer} 
      */
     GetOutputWidth() {
-        result := ComCall(39, this, "uint*", &Columns := 0, "HRESULT")
-        return Columns
+        result := ComCall(39, this, "uint*", &_Columns := 0, "HRESULT")
+        return _Columns
     }
 
     /**
      * 
-     * @param {Integer} Columns 
+     * @param {Integer} _Columns 
      * @returns {HRESULT} 
      */
-    SetOutputWidth(Columns) {
-        result := ComCall(40, this, "uint", Columns, "HRESULT")
+    SetOutputWidth(_Columns) {
+        result := ComCall(40, this, "uint", _Columns, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOutputLinePrefix(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetOutputLinePrefix(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(41, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -574,14 +574,14 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetIdentity(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetIdentity(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 
@@ -829,49 +829,49 @@ class IDebugClient9 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberDumpFiles() {
-        result := ComCall(63, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(63, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} NameSize 
-     * @param {Pointer<Integer>} Handle 
+     * @param {Pointer<Integer>} _Handle 
      * @param {Pointer<Integer>} Type 
      * @returns {HRESULT} 
      */
-    GetDumpFile(Index, Buffer_R, BufferSize, NameSize, Handle, Type) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetDumpFile(Index, _Buffer, BufferSize, NameSize, _Handle, Type) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
+        _HandleMarshal := _Handle is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(64, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, NameSizeMarshal, NameSize, HandleMarshal, Handle, TypeMarshal, Type, "HRESULT")
+        result := ComCall(64, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} NameSize 
-     * @param {Pointer<Integer>} Handle 
+     * @param {Pointer<Integer>} _Handle 
      * @param {Pointer<Integer>} Type 
      * @returns {HRESULT} 
      */
-    GetDumpFileWide(Index, Buffer_R, BufferSize, NameSize, Handle, Type) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetDumpFileWide(Index, _Buffer, BufferSize, NameSize, _Handle, Type) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
+        _HandleMarshal := _Handle is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(65, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, NameSizeMarshal, NameSize, HandleMarshal, Handle, TypeMarshal, Type, "HRESULT")
+        result := ComCall(65, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -890,14 +890,14 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetKernelConnectionOptionsWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetKernelConnectionOptionsWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(67, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(67, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -987,14 +987,14 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOutputLinePrefixWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetOutputLinePrefixWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(75, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(75, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -1012,14 +1012,14 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetIdentityWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetIdentityWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(77, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 
@@ -1144,8 +1144,8 @@ class IDebugClient9 extends IUnknown{
     PushOutputLinePrefix(NewPrefix) {
         NewPrefix := NewPrefix is String ? StrPtr(NewPrefix) : NewPrefix
 
-        result := ComCall(85, this, "ptr", NewPrefix, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(85, this, "ptr", NewPrefix, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
@@ -1156,17 +1156,17 @@ class IDebugClient9 extends IUnknown{
     PushOutputLinePrefixWide(NewPrefix) {
         NewPrefix := NewPrefix is String ? StrPtr(NewPrefix) : NewPrefix
 
-        result := ComCall(86, this, "ptr", NewPrefix, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(86, this, "ptr", NewPrefix, "uint*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
-    PopOutputLinePrefix(Handle) {
-        result := ComCall(87, this, "uint", Handle, "HRESULT")
+    PopOutputLinePrefix(_Handle) {
+        result := ComCall(87, this, "uint", _Handle, "HRESULT")
         return result
     }
 
@@ -1200,51 +1200,51 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetQuitLockString(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetQuitLockString(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(91, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(91, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
      * 
-     * @param {PSTR} String_R 
+     * @param {PSTR} _String 
      * @returns {HRESULT} 
      */
-    SetQuitLockString(String_R) {
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    SetQuitLockString(_String) {
+        _String := _String is String ? StrPtr(_String) : _String
 
-        result := ComCall(92, this, "ptr", String_R, "HRESULT")
+        result := ComCall(92, this, "ptr", _String, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetQuitLockStringWide(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetQuitLockStringWide(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(93, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(93, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
      * 
-     * @param {PWSTR} String_R 
+     * @param {PWSTR} _String 
      * @returns {HRESULT} 
      */
-    SetQuitLockStringWide(String_R) {
-        String_R := String_R is String ? StrPtr(String_R) : String_R
+    SetQuitLockStringWide(_String) {
+        _String := _String is String ? StrPtr(_String) : _String
 
-        result := ComCall(94, this, "ptr", String_R, "HRESULT")
+        result := ComCall(94, this, "ptr", _String, "HRESULT")
         return result
     }
 
@@ -1260,12 +1260,12 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} Context 
+     * @param {Pointer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    SetClientContext(Context, ContextSize) {
-        result := ComCall(96, this, "ptr", Context, "uint", ContextSize, "HRESULT")
+    SetClientContext(_Context, ContextSize) {
+        result := ComCall(96, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 

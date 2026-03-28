@@ -63,7 +63,7 @@ class IDXGIDevice2 extends IDXGIDevice1{
      * <b>Platform Update for Windows 7:  </b>The runtime validates that <b>OfferResources</b> is used correctly on non-shared resources but doesn't perform the intended functionality. For more info about the Platform Update for Windows 7, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
      * @param {Integer} NumResources The number of resources in the <i>ppResources</i> argument array.
      * @param {Pointer<IDXGIResource>} ppResources An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
-     * @param {Integer} Priority A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
+     * @param {Integer} _Priority 
      * @returns {HRESULT} <b>OfferResources</b> returns:
      *             
      *           
@@ -74,8 +74,8 @@ class IDXGIDevice2 extends IDXGIDevice1{
      * </ul>
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-offerresources
      */
-    OfferResources(NumResources, ppResources, Priority) {
-        result := ComCall(14, this, "uint", NumResources, "ptr*", ppResources, "int", Priority, "HRESULT")
+    OfferResources(NumResources, ppResources, _Priority) {
+        result := ComCall(14, this, "uint", NumResources, "ptr*", ppResources, "int", _Priority, "HRESULT")
         return result
     }
 

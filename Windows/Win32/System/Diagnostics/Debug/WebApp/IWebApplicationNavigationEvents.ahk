@@ -88,19 +88,17 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @param {PWSTR} targetFrameName Type: <b>LPCWSTR</b>
      * 
      * The name of the frame in which the navigation error occurred. The value is <b>null</b> if no named frame was targeted.
-     * @param {Integer} statusCode Type: <b>DWORD</b>
-     * 
-     * The error code. Could be a <b>HRESULT</b> or a HTTP status code.
+     * @param {Integer} _statusCode 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationnavigationevents-navigateerror
      */
-    NavigateError(htmlWindow, url, targetFrameName, statusCode) {
+    NavigateError(htmlWindow, url, targetFrameName, _statusCode) {
         url := url is String ? StrPtr(url) : url
         targetFrameName := targetFrameName is String ? StrPtr(targetFrameName) : targetFrameName
 
-        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, "ptr", targetFrameName, "uint", statusCode, "HRESULT")
+        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, "ptr", targetFrameName, "uint", _statusCode, "HRESULT")
         return result
     }
 

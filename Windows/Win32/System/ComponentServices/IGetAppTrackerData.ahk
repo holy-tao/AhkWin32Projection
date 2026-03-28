@@ -250,7 +250,7 @@ class IGetAppTrackerData extends IUnknown{
      * @param {Pointer<Guid>} ApplicationId An application ID to filter results, or GUID_NULL for all applications.
      * @param {Integer} Flags A combination of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-getapptrackerdataflags">GetAppTrackerDataFlags</a> enumeration to filter results and to select which data is returned. The following flags are supported: GATD_INCLUDE_LIBRARY_APPS, GATD_INCLUDE_SWC, GATD_INCLUDE_CLASS_NAME, GATD_INCLUDE_APPLICATION_NAME. See Remarks below for more information.
      * @param {Pointer<Integer>} NumComponentsInProcess On return, the number of components in the process that match the filter criteria specified by <i>PartitionId</i>, <i>ApplicationId</i>, and <i>Flags</i>.
-     * @param {Pointer<Pointer<ComponentSummary>>} Components On return, an array of <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ns-comsvcs-componentsummary">ComponentSummary</a> structures for the matching components.
+     * @param {Pointer<Pointer<ComponentSummary>>} _Components 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
@@ -294,11 +294,11 @@ class IGetAppTrackerData extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentsinprocess
      */
-    GetComponentsInProcess(ApplicationInstanceId, ProcessId, PartitionId, ApplicationId, Flags, NumComponentsInProcess, Components) {
+    GetComponentsInProcess(ApplicationInstanceId, ProcessId, PartitionId, ApplicationId, Flags, NumComponentsInProcess, _Components) {
         NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
-        ComponentsMarshal := Components is VarRef ? "ptr*" : "ptr"
+        _ComponentsMarshal := _Components is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, ComponentsMarshal, Components, "HRESULT")
+        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
         return result
     }
 

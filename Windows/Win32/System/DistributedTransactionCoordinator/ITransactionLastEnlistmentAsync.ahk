@@ -30,12 +30,12 @@ class ITransactionLastEnlistmentAsync extends IUnknown{
 
     /**
      * 
-     * @param {Integer} XactStat 
+     * @param {Integer} _XactStat 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 
      */
-    TransactionOutcome(XactStat, pboidReason) {
-        result := ComCall(3, this, "int", XactStat, "ptr", pboidReason, "HRESULT")
+    TransactionOutcome(_XactStat, pboidReason) {
+        result := ComCall(3, this, "int", _XactStat, "ptr", pboidReason, "HRESULT")
         return result
     }
 }

@@ -57,20 +57,15 @@ class IRdcComparator extends IUnknown{
      *       must be zero. On output the <b>m_Used</b> member will contain the number of 
      *       <b>RdcNeed</b> structures in the array pointed to by the 
      *       <b>m_Data</b> member.
-     * @param {Pointer<Integer>} rdc_ErrorCode The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
-     *       filled with an RDC specific error code if the return value from the 
-     *       <b>Process</b> method is 
-     *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
-     *       return value of the <b>Process</b> method contains the 
-     *       specific error code.
+     * @param {Pointer<Integer>} _rdc_ErrorCode 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdccomparator-process
      */
-    Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode) {
+    Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, _rdc_ErrorCode) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
-        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
+        _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
+        result := ComCall(3, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
         return result
     }
 }

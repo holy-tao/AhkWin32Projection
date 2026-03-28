@@ -89,8 +89,8 @@ class IInkStrokes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-get_ink
      */
     get_Ink() {
-        result := ComCall(9, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(9, this, "ptr*", &_Ink := 0, "HRESULT")
+        return IInkDisp(_Ink)
     }
 
     /**
@@ -234,7 +234,7 @@ class IInkStrokes extends IDispatch{
      * @remarks
      * <div class="alert"><b>Note</b>  This collection must already exist within the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object and cannot belong to another <b>InkDisp</b> object. Also, this does not copy or otherwise alter the <b>InkDisp</b> object, but merely adds this collection of strokes to the collection.</div>
      * <div> </div>
-     * @param {IInkStrokes} InkStrokes The collection of strokes to add to the collection of strokes.
+     * @param {IInkStrokes} _InkStrokes 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -322,8 +322,8 @@ class IInkStrokes extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-addstrokes
      */
-    AddStrokes(InkStrokes) {
-        result := ComCall(14, this, "ptr", InkStrokes, "HRESULT")
+    AddStrokes(_InkStrokes) {
+        result := ComCall(14, this, "ptr", _InkStrokes, "HRESULT")
         return result
     }
 
@@ -428,7 +428,7 @@ class IInkStrokes extends IDispatch{
 
     /**
      * Removes strokes from the collection.
-     * @param {IInkStrokes} InkStrokes The strokes to remove from the collection.
+     * @param {IInkStrokes} _InkStrokes 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -516,8 +516,8 @@ class IInkStrokes extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-removestrokes
      */
-    RemoveStrokes(InkStrokes) {
-        result := ComCall(16, this, "ptr", InkStrokes, "HRESULT")
+    RemoveStrokes(_InkStrokes) {
+        result := ComCall(16, this, "ptr", _InkStrokes, "HRESULT")
         return result
     }
 

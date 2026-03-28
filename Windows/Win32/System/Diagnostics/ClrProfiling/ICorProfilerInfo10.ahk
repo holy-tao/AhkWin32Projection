@@ -30,28 +30,28 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @param {Pointer<ObjectReferenceCallback>} callback 
      * @param {Pointer<Void>} clientData 
      * @returns {HRESULT} 
      */
-    EnumerateObjectReferences(objectId, callback, clientData) {
+    EnumerateObjectReferences(_objectId, callback, clientData) {
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(93, this, "ptr", objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
+        result := ComCall(93, this, "ptr", _objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} _objectId 
      * @param {Pointer<BOOL>} pbFrozen 
      * @returns {HRESULT} 
      */
-    IsFrozenObject(objectId, pbFrozen) {
+    IsFrozenObject(_objectId, pbFrozen) {
         pbFrozenMarshal := pbFrozen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(94, this, "ptr", objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
+        result := ComCall(94, this, "ptr", _objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
         return result
     }
 

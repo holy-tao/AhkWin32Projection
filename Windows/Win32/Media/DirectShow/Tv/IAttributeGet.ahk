@@ -61,7 +61,7 @@ class IAttributeGet extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
-     * @param {Guid} guidAttribute <b>GUID</b> that specifies the attribute to retrieve.
+     * @param {Guid} _guidAttribute 
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that receives the attribute value. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwAttributeLength If <i>pbAttribute</i> is <b>NULL</b>, this parameter receives the size of the attribute data, in bytes. If <i>pbAttribute</i> is non-<b>NULL</b>, this parameter specifies the size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -107,11 +107,11 @@ class IAttributeGet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattrib
      */
-    GetAttrib(guidAttribute, pbAttribute, pdwAttributeLength) {
+    GetAttrib(_guidAttribute, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
         pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", guidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
+        result := ComCall(5, this, "ptr", _guidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
     }
 }

@@ -32,14 +32,14 @@ class ITpmVirtualSmartCardManagerStatusCallback extends IUnknown{
 
     /**
      * Reports the progress of the current operation.
-     * @param {Integer} Status Status code of the current operation from the possible status states listed in the <a href="https://docs.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status">TPMVSCMGR_STATUS</a> enumeration.
+     * @param {Integer} _Status 
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns a Win32 error code. The requested operation on the TPM virtual smart card manager server may be interrupted.
      * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reportprogress
      */
-    ReportProgress(Status) {
-        result := ComCall(3, this, "int", Status, "HRESULT")
+    ReportProgress(_Status) {
+        result := ComCall(3, this, "int", _Status, "HRESULT")
         return result
     }
 

@@ -45,7 +45,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
 
     /**
      * Draws the text within the given layout rectangle. (overload 1/2)
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} _string 
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The number of characters in string.
@@ -76,10 +76,10 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f_id2d1brush_id2d1svgglyphstyle_uint32_d2d1_draw_text_options_dwrite_measuring_mode)
      */
-    DrawText(string_R, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(109, this, "ptr", string_R, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options, "int", measuringMode)
+        ComCall(109, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options, "int", measuringMode)
     }
 
     /**
@@ -123,9 +123,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin of the baseline for the glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyphs to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Indicates the measuring method.
@@ -135,8 +133,8 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawcolorbitmapglyphrun
      */
-    DrawColorBitmapGlyphRun(glyphImageFormat, baselineOrigin, glyphRun, measuringMode, bitmapSnapOption) {
-        ComCall(111, this, "int", glyphImageFormat, "ptr", baselineOrigin, "ptr", glyphRun, "int", measuringMode, "int", bitmapSnapOption)
+    DrawColorBitmapGlyphRun(glyphImageFormat, baselineOrigin, _glyphRun, measuringMode, bitmapSnapOption) {
+        ComCall(111, this, "int", glyphImageFormat, "ptr", baselineOrigin, "ptr", _glyphRun, "int", measuringMode, "int", bitmapSnapOption)
     }
 
     /**
@@ -144,9 +142,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin of the baseline for the glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyphs to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {ID2D1Brush} defaultFillBrush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to paint the specified glyphs.
@@ -163,8 +159,8 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
      */
-    DrawSvgGlyphRun(baselineOrigin, glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
-        ComCall(112, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode)
+    DrawSvgGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
+        ComCall(112, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode)
     }
 
     /**

@@ -169,14 +169,14 @@ class IFEDictionary extends IUnknown{
 
     /**
      * This method is obsolete starting with Windows 8, and is no longer supported.
-     * @param {HWND} hwnd The parent window handle.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-displayproperty
      */
-    DisplayProperty(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    DisplayProperty(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -660,14 +660,14 @@ class IFEDictionary extends IUnknown{
     /**
      * 
      * @param {PSTR} pchDic 
-     * @param {Pointer<PFNLOG>} pfnLog 
+     * @param {Pointer<PFNLOG>} _pfnLog 
      * @param {Integer} reg 
      * @returns {HRESULT} 
      */
-    ConvertFromOldMSIME(pchDic, pfnLog, reg) {
+    ConvertFromOldMSIME(pchDic, _pfnLog, reg) {
         pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
 
-        result := ComCall(18, this, "ptr", pchDic, "ptr", pfnLog, "int", reg, "HRESULT")
+        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, "int", reg, "HRESULT")
         return result
     }
 

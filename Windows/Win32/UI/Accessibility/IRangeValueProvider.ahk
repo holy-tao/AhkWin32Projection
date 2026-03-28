@@ -78,16 +78,14 @@ class IRangeValueProvider extends IUnknown{
      * Sets the value of the control. (IRangeValueProvider.SetValue)
      * @remarks
      * The actual value set depends on the control implementation. The control may round the requested value up or down.
-     * @param {Float} val Type: <b>double</b>
-     * 
-     * The value to set.
+     * @param {Float} _val 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-setvalue
      */
-    SetValue(val) {
-        result := ComCall(3, this, "double", val, "HRESULT")
+    SetValue(_val) {
+        result := ComCall(3, this, "double", _val, "HRESULT")
         return result
     }
 

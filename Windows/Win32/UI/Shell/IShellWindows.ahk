@@ -85,14 +85,12 @@ class IShellWindows extends IDispatch{
      * @param {VARIANT} index Type: <b>VARIANT</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_UI4, VT_I2, or VT_I4. If the type is VT_UI4, the value of <i>index</i> is interpreted as a member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a>; in this case, <b>Item</b> returns the window that is closest to the foreground window and has a matching type. If the type is VT_I, or VT_I4, <i>index</i> is treated as an index into the Shell windows collection.
-     * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
-     * 
-     * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if the specified window was not found.
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
      */
     Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &Folder := 0, "HRESULT")
-        return IDispatch(Folder)
+        result := ComCall(8, this, "ptr", index, "ptr*", &_Folder := 0, "HRESULT")
+        return IDispatch(_Folder)
     }
 
     /**
@@ -116,9 +114,7 @@ class IShellWindows extends IDispatch{
      * @param {IDispatch} pid Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>*</b>
      * 
      * The window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.
-     * @param {Integer} hwnd Type: <b>long</b>
-     * 
-     * A handle that specifies the window to register.
+     * @param {Integer} _hwnd 
      * @param {Integer} swClass Type: <b>int</b>
      * 
      * A member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> that specifies the type of window.
@@ -127,8 +123,8 @@ class IShellWindows extends IDispatch{
      * The window's cookie.
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
-    Register(pid, hwnd, swClass) {
-        result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
+    Register(pid, _hwnd, swClass) {
+        result := ComCall(10, this, "ptr", pid, "int", _hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 

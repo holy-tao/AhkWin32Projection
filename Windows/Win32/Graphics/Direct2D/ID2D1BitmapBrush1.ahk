@@ -32,14 +32,12 @@ class ID2D1BitmapBrush1 extends ID2D1BitmapBrush{
 
     /**
      * Sets the interpolation mode for the brush.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * The mode to use.
+     * @param {Integer} _interpolationMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-setinterpolationmode1
      */
-    SetInterpolationMode1(interpolationMode) {
-        ComCall(16, this, "int", interpolationMode)
+    SetInterpolationMode1(_interpolationMode) {
+        ComCall(16, this, "int", _interpolationMode)
     }
 
     /**

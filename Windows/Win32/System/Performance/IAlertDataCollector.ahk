@@ -184,18 +184,18 @@ class IAlertDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_sampleinterval
      */
     get_SampleInterval() {
-        result := ComCall(36, this, "uint*", &interval := 0, "HRESULT")
-        return interval
+        result := ComCall(36, this, "uint*", &_interval := 0, "HRESULT")
+        return _interval
     }
 
     /**
      * Retrieves or sets the time interval to wait between sampling counter data. (Put)
-     * @param {Integer} interval 
+     * @param {Integer} _interval 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-put_sampleinterval
      */
-    put_SampleInterval(interval) {
-        result := ComCall(37, this, "uint", interval, "HRESULT")
+    put_SampleInterval(_interval) {
+        result := ComCall(37, this, "uint", _interval, "HRESULT")
         return result
     }
 

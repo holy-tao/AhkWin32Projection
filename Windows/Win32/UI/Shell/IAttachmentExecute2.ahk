@@ -39,13 +39,13 @@ class IAttachmentExecute2 extends IAttachmentExecute{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    SaveWithUINoVirusCheck(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SaveWithUINoVirusCheck(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(16, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(16, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

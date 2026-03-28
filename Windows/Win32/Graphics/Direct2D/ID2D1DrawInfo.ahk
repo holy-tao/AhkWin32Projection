@@ -32,7 +32,7 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
 
     /**
      * Sets the constant buffer for this transform's pixel shader.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer
@@ -41,10 +41,10 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setpixelshaderconstantbuffer
      */
-    SetPixelShaderConstantBuffer(buffer_R, bufferCount) {
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+    SetPixelShaderConstantBuffer(_buffer, bufferCount) {
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, buffer_RMarshal, buffer_R, "uint", bufferCount, "HRESULT")
+        result := ComCall(7, this, _bufferMarshal, _buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
 
     /**
      * Sets the constant buffer for this transform's vertex shader.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer.
@@ -77,10 +77,10 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setvertexshaderconstantbuffer
      */
-    SetVertexShaderConstantBuffer(buffer_R, bufferCount) {
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+    SetVertexShaderConstantBuffer(_buffer, bufferCount) {
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, buffer_RMarshal, buffer_R, "uint", bufferCount, "HRESULT")
+        result := ComCall(9, this, _bufferMarshal, _buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 

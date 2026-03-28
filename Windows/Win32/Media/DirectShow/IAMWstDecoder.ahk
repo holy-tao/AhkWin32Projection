@@ -287,29 +287,12 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Downstream filters use the SetDrawBackgroundMode method to assign whether the caption text background is to be opaque or transparent.
-     * @param {Integer} Mode A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_drawbgmode">AM_WST_DRAWBGMODE</a> enumeration that specifies whether the caption text background is to be opaque or transparent.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value
-     *                 </th>
-     * <th>Description
-     *                 </th>
-     * </tr>
-     * <tr>
-     * <td>AM_WST_DRAWBGMODE_Opaque</td>
-     * <td>Caption text background is opaque.</td>
-     * </tr>
-     * <tr>
-     * <td>AM_WST_DRAWBGMODE_Transparent</td>
-     * <td>Caption text background is transparent.</td>
-     * </tr>
-     * </table>
+     * @param {Integer} _Mode 
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setdrawbackgroundmode
      */
-    SetDrawBackgroundMode(Mode) {
-        result := ComCall(14, this, "int", Mode, "HRESULT")
+    SetDrawBackgroundMode(_Mode) {
+        result := ComCall(14, this, "int", _Mode, "HRESULT")
         return result
     }
 

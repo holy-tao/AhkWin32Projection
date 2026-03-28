@@ -38,14 +38,12 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1{
      * @param {Integer} index Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Zero-based index of the font family.
-     * @returns {IDWriteFontFamily2} Type: **[IDWriteFontFamily2](./nn-dwrite_3-idwritefontfamily2.md)\*\***
-     * 
-     * The address of a pointer to an [IDWriteFontFamily2](./nn-dwrite_3-idwritefontfamily2.md) interface. On successful completion, the function sets the pointer to a newly created font family object.
+     * @returns {IDWriteFontFamily2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection2-getfontfamily
      */
     GetFontFamily(index) {
-        result := ComCall(9, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
-        return IDWriteFontFamily2(fontFamily)
+        result := ComCall(9, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily2(_fontFamily)
     }
 
     /**

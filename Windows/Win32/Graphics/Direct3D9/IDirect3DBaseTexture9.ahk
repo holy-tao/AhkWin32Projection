@@ -129,16 +129,14 @@ class IDirect3DBaseTexture9 extends IDirect3DResource9{
      * For more information about texture filter types, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtexturefiltertype">D3DTEXTUREFILTERTYPE</a>.
      * 
      * This method has no effect if the texture is not created with D3DUSAGE_AUTOGENMIPMAP. In this case, no failure is returned. For more information about usage constants, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">D3DUSAGE</a>.
-     * @param {Integer} FilterType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtexturefiltertype">D3DTEXTUREFILTERTYPE</a></b>
-     * 
-     * Filter type. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtexturefiltertype">D3DTEXTUREFILTERTYPE</a>. This method will fail if the filter type is invalid or not supported.
+     * @param {Integer} _FilterType 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-setautogenfiltertype
      */
-    SetAutoGenFilterType(FilterType) {
-        result := ComCall(14, this, "int", FilterType, "HRESULT")
+    SetAutoGenFilterType(_FilterType) {
+        result := ComCall(14, this, "int", _FilterType, "HRESULT")
         return result
     }
 

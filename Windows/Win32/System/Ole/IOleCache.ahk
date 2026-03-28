@@ -117,12 +117,12 @@ class IOleCache extends IUnknown{
      * </tr>
      * </table>
      * @param {Pointer<FORMATETC>} pformatetc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure that specifies the format and other data to be cached. View caching is specified by passing a zero clipboard format in <i>pformatetc</i>.
-     * @param {Integer} advf A group of flags that control the caching. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. When used in this context, for a cache, these values have specific meanings, which are outlined in Remarks. Refer to the <b>ADVF</b> enumeration for a more detailed description.
+     * @param {Integer} _advf 
      * @returns {Integer} A pointer to a variable that receives the identifier of this connection, which can later be used to turn caching off (by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-uncache">IOleCache::Uncache</a>). If this value is 0, the connection was not established. The OLE-provided implementation uses nonzero numbers for connection identifiers.
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */
-    Cache(pformatetc, advf) {
-        result := ComCall(3, this, "ptr", pformatetc, "uint", advf, "uint*", &pdwConnection := 0, "HRESULT")
+    Cache(pformatetc, _advf) {
+        result := ComCall(3, this, "ptr", pformatetc, "uint", _advf, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 

@@ -1706,7 +1706,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
@@ -1715,12 +1715,12 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation
      * @since windows6.0.6000
      */
-    static GetLogicalProcessorInformation(Buffer_R, ReturnedLength) {
+    static GetLogicalProcessorInformation(_Buffer, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1842,7 +1842,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
@@ -1851,12 +1851,12 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
      * @since windows6.1
      */
-    static GetLogicalProcessorInformationEx(RelationshipType, Buffer_R, ReturnedLength) {
+    static GetLogicalProcessorInformationEx(RelationshipType, _Buffer, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2288,7 +2288,7 @@ class SystemInformation {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2298,12 +2298,12 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
      * @since windows6.1
      */
-    static GetProcessorSystemCycleTime(Group, Buffer_R, ReturnedLength) {
+    static GetProcessorSystemCycleTime(Group, _Buffer, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2719,14 +2719,14 @@ class SystemInformation {
     /**
      * 
      * @param {Integer} DataId 
-     * @param {Pointer<Void>} Buffer_R 
-     * @param {Integer} Size 
+     * @param {Pointer<Void>} _Buffer 
+     * @param {Integer} _Size 
      * @returns {Integer} 
      */
-    static RtlGetSystemGlobalData(DataId, Buffer_R, Size) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlGetSystemGlobalData(DataId, _Buffer, _Size) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, Buffer_RMarshal, Buffer_R, "uint", Size, "uint")
+        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, _BufferMarshal, _Buffer, "uint", _Size, "uint")
         return result
     }
 

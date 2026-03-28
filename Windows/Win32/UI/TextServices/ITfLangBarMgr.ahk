@@ -35,7 +35,7 @@ class ITfLangBarMgr extends IUnknown{
      * @remarks
      * <i>pdwCookie</i> receives an identifier that should be passed to <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink">ITfLangBarMgr::UnadviseEventSink</a> when the event sink is no longer required.
      * @param {ITfLangBarEventSink} pSink Sink object to advise about the event.
-     * @param {HWND} hwnd Reserved; must be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer<Integer>} pdwCookie Pointer to an identifier for the connection.
      * @returns {HRESULT} This method can return one of these values.
@@ -81,12 +81,12 @@ class ITfLangBarMgr extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-adviseeventsink
      */
-    AdviseEventSink(pSink, hwnd, dwFlags, pdwCookie) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    AdviseEventSink(pSink, _hwnd, dwFlags, pdwCookie) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSink, "ptr", hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pSink, "ptr", _hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

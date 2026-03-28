@@ -182,24 +182,24 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
      * For internal use only. Not intended to be called directly. (ID3D12VideoEncodeCommandList::SetMarker)
      * @param {Integer} Metadata Internal.
      * @param {Pointer} pData Internal.
-     * @param {Integer} Size Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setmarker
      */
-    SetMarker(Metadata, pData, Size) {
-        ComCall(18, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    SetMarker(Metadata, pData, _Size) {
+        ComCall(18, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**
      * For internal use only. Not intended to be called directly. (ID3D12VideoEncodeCommandList::BeginEvent)
      * @param {Integer} Metadata Internal.
      * @param {Pointer} pData Internal.
-     * @param {Integer} Size Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginevent
      */
-    BeginEvent(Metadata, pData, Size) {
-        ComCall(19, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    BeginEvent(Metadata, pData, _Size) {
+        ComCall(19, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**

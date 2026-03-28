@@ -32,14 +32,12 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the image associated with the provided image brush.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image to be associated with the image brush.
+     * @param {ID2D1Image} _image 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setimage
      */
-    SetImage(image) {
-        ComCall(8, this, "ptr", image)
+    SetImage(_image) {
+        ComCall(8, this, "ptr", _image)
     }
 
     /**
@@ -68,14 +66,12 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the interpolation mode for the image brush.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * How the contents of the image will be interpolated to handle the brush transform.
+     * @param {Integer} _interpolationMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setinterpolationmode
      */
-    SetInterpolationMode(interpolationMode) {
-        ComCall(11, this, "int", interpolationMode)
+    SetInterpolationMode(_interpolationMode) {
+        ComCall(11, this, "int", _interpolationMode)
     }
 
     /**
@@ -104,14 +100,12 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the image associated with the image brush.
-     * @param {Pointer<ID2D1Image>} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the image associated with  this brush.
+     * @param {Pointer<ID2D1Image>} _image 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getimage
      */
-    GetImage(image) {
-        ComCall(13, this, "ptr*", image)
+    GetImage(_image) {
+        ComCall(13, this, "ptr*", _image)
     }
 
     /**

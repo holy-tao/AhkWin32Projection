@@ -74,17 +74,17 @@ class IRdcLibrary extends IUnknown{
      * Opens an existing serialized parameter block and returns an IRdcGeneratorParameters interface pointer initialized with the data.
      * @remarks
      * To create a serialized parameter block, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize">IRdcGeneratorParameters::Serialize</a> method.
-     * @param {Integer} size The size, in bytes, of the serialized parameter block.
+     * @param {Integer} _size 
      * @param {Pointer<Integer>} parametersBlob Pointer to a serialized parameter block.
      * @returns {IRdcGeneratorParameters} Pointer to a location that will receive the returned 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer. Callers 
      *   must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
      */
-    OpenGeneratorParameters(size, parametersBlob) {
+    OpenGeneratorParameters(_size, parametersBlob) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(5, this, "uint", _size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 

@@ -60,9 +60,7 @@ class IShellItemImageFactory extends IUnknown{
      * Icon extraction can be time consuming. This method generally should not be called from a UI thread to avoid causing that thread to become unresponsive. You can call <b>IShellItemImageFactory::GetImage</b> on a UI thread if you set the <b>SIIGBF_INCACHEONLY</b> flag. However, if the image is not found in the cache, the calling application should be prepared to launch a background thread to extract the image. An extraction should never be done on a UI thread.
      * 
      * See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd940383(v=vs.85)">Using Image Factory</a> sample for a full example of how to use this method.
-     * @param {SIZE} size Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
-     * 
-     * A structure that specifies the size of the image to be received.
+     * @param {SIZE} _size 
      * @param {Integer} flags Type: <b>SIIGBF</b>
      * 
      * One or more of the following:
@@ -71,9 +69,9 @@ class IShellItemImageFactory extends IUnknown{
      * Pointer to a value that, when this method returns successfully, receives the handle of the retrieved bitmap. It is the responsibility of the caller to free this retrieved resource through <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> when it is no longer needed.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
      */
-    GetImage(size, flags) {
+    GetImage(_size, flags) {
         phbm := HBITMAP()
-        result := ComCall(3, this, "ptr", size, "int", flags, "ptr", phbm, "HRESULT")
+        result := ComCall(3, this, "ptr", _size, "int", flags, "ptr", phbm, "HRESULT")
         return phbm
     }
 }

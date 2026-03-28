@@ -152,8 +152,7 @@ class IVdsControllerPort extends IUnknown{
 
     /**
      * The IVdsControllerPort::SetStatus (vdshwprv.h) method sets the status of a controller port to the specified value.
-     * @param {Integer} status A value enumerated by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_port_status">VDS_PORT_STATUS</a> enumeration. Passing in 
-     *       <b>VDS_PRS_UNKNOWN</b> fails with <b>E_INVALIDARG</b>.
+     * @param {Integer} _status 
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
@@ -228,8 +227,8 @@ class IVdsControllerPort extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-setstatus
      */
-    SetStatus(status) {
-        result := ComCall(7, this, "int", status, "HRESULT")
+    SetStatus(_status) {
+        result := ComCall(7, this, "int", _status, "HRESULT")
         return result
     }
 }

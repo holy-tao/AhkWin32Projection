@@ -38,16 +38,14 @@ class IPreviewHandlerVisuals extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this method to be called. The preview handlers must be able to make their own decisions.</div>
      * <div> </div>
-     * @param {COLORREF} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
-     * 
-     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler background.
+     * @param {COLORREF} _color 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setbackgroundcolor
      */
-    SetBackgroundColor(color) {
-        result := ComCall(3, this, "uint", color, "HRESULT")
+    SetBackgroundColor(_color) {
+        result := ComCall(3, this, "uint", _color, "HRESULT")
         return result
     }
 
@@ -74,16 +72,14 @@ class IPreviewHandlerVisuals extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this method to be called; the preview handlers must be able to make their own decisions.</div>
      * <div> </div>
-     * @param {COLORREF} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
-     * 
-     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler text color.
+     * @param {COLORREF} _color 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-settextcolor
      */
-    SetTextColor(color) {
-        result := ComCall(5, this, "uint", color, "HRESULT")
+    SetTextColor(_color) {
+        result := ComCall(5, this, "uint", _color, "HRESULT")
         return result
     }
 }

@@ -8092,9 +8092,7 @@ class Rras {
 
     /**
      * The RasGetLinkStatistics function retrieves accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} _hRasConn 
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to retrieve statistics.
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
@@ -8154,16 +8152,16 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetlinkstatistics
      * @since windows5.0
      */
-    static RasGetLinkStatistics(hRasConn, dwSubEntry, lpStatistics) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasGetLinkStatistics(_hRasConn, dwSubEntry, lpStatistics) {
+        _hRasConn := _hRasConn is Win32Handle ? NumGet(_hRasConn, "ptr") : _hRasConn
 
-        result := DllCall("RASAPI32.dll\RasGetLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "ptr", lpStatistics, "uint")
+        result := DllCall("RASAPI32.dll\RasGetLinkStatistics", "ptr", _hRasConn, "uint", dwSubEntry, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasGetConnectionStatistics function retrieves accumulated connection statistics for the specified connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} _hRasConn 
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
      * 
@@ -8221,18 +8219,16 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectionstatistics
      * @since windows5.0
      */
-    static RasGetConnectionStatistics(hRasConn, lpStatistics) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasGetConnectionStatistics(_hRasConn, lpStatistics) {
+        _hRasConn := _hRasConn is Win32Handle ? NumGet(_hRasConn, "ptr") : _hRasConn
 
-        result := DllCall("RASAPI32.dll\RasGetConnectionStatistics", "ptr", hRasConn, "ptr", lpStatistics, "uint")
+        result := DllCall("RASAPI32.dll\RasGetConnectionStatistics", "ptr", _hRasConn, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasClearLinkStatistics functions clears any accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} _hRasConn 
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to clear statistics.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8303,18 +8299,16 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearlinkstatistics
      * @since windows5.0
      */
-    static RasClearLinkStatistics(hRasConn, dwSubEntry) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasClearLinkStatistics(_hRasConn, dwSubEntry) {
+        _hRasConn := _hRasConn is Win32Handle ? NumGet(_hRasConn, "ptr") : _hRasConn
 
-        result := DllCall("RASAPI32.dll\RasClearLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "uint")
+        result := DllCall("RASAPI32.dll\RasClearLinkStatistics", "ptr", _hRasConn, "uint", dwSubEntry, "uint")
         return result
     }
 
     /**
      * The RasClearConnectionStatistics functions clears any accumulated statistics for the specified RAS connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} _hRasConn 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8362,10 +8356,10 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearconnectionstatistics
      * @since windows5.0
      */
-    static RasClearConnectionStatistics(hRasConn) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasClearConnectionStatistics(_hRasConn) {
+        _hRasConn := _hRasConn is Win32Handle ? NumGet(_hRasConn, "ptr") : _hRasConn
 
-        result := DllCall("RASAPI32.dll\RasClearConnectionStatistics", "ptr", hRasConn, "uint")
+        result := DllCall("RASAPI32.dll\RasClearConnectionStatistics", "ptr", _hRasConn, "uint")
         return result
     }
 
@@ -9133,7 +9127,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYW>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9209,14 +9203,14 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentityw
      * @since windows5.0
      */
-    static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+    static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUserIdentity) {
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -9282,7 +9276,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYA>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9358,14 +9352,14 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentitya
      * @since windows5.0
      */
-    static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+    static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUserIdentity) {
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -9463,9 +9457,7 @@ class Rras {
      * The RasUpdateConnection function updates the tunnel endpoints of an Internet Key Exchange version 2 (IKEv2) connection.
      * @remarks
      * Note that 32-bit applications that call <b>RasUpdateConnection</b> will fail when run on a 64-bit machine. The workaround is to write a 64-bit version of the application for 64-bit machines.
-     * @param {HRASCONN} hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+     * @param {HRASCONN} _hrasconn 
      * @param {Pointer<RASUPDATECONN>} lprasupdateconn A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd408110(v=vs.85)">RASUPDATECONN</a> structure that contains the new tunnel endpoints  for the RAS connection specified by <i>hrasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -9473,10 +9465,10 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasupdateconnection
      * @since windows6.1
      */
-    static RasUpdateConnection(hrasconn, lprasupdateconn) {
-        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+    static RasUpdateConnection(_hrasconn, lprasupdateconn) {
+        _hrasconn := _hrasconn is Win32Handle ? NumGet(_hrasconn, "ptr") : _hrasconn
 
-        result := DllCall("RASAPI32.dll\RasUpdateConnection", "ptr", hrasconn, "ptr", lprasupdateconn, "uint")
+        result := DllCall("RASAPI32.dll\RasUpdateConnection", "ptr", _hrasconn, "ptr", lprasupdateconn, "uint")
         return result
     }
 
@@ -9487,9 +9479,7 @@ class Rras {
      * 
      * Remote access projection information is not available until the operating system has executed the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
      * <b>RasGetProjectionInfoEx</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
-     * @param {HRASCONN} hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+     * @param {HRASCONN} _hrasconn 
      * @param {Pointer<RAS_PROJECTION_INFO>} pRasProjection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structure that receives the projection information for the RAS connections.
      * @param {Pointer<Integer>} lpdwSize A pointer, in input, that specifies the size, in bytes, of the buffer pointed to by pRasProjection. On output, this variable receives the size, in bytes, of the buffer needed to store the number of <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structures pointed to by 
      * 					<i>pRasProjection</i>.
@@ -9561,12 +9551,12 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoex
      * @since windows6.1
      */
-    static RasGetProjectionInfoEx(hrasconn, pRasProjection, lpdwSize) {
-        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+    static RasGetProjectionInfoEx(_hrasconn, pRasProjection, lpdwSize) {
+        _hrasconn := _hrasconn is Win32Handle ? NumGet(_hrasconn, "ptr") : _hrasconn
 
         lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", "ptr", hrasconn, "ptr", pRasProjection, lpdwSizeMarshal, lpdwSize, "uint")
+        result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", "ptr", _hrasconn, "ptr", pRasProjection, lpdwSizeMarshal, lpdwSize, "uint")
         return result
     }
 
@@ -20577,13 +20567,13 @@ class Rras {
     /**
      * 
      * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
-     * @param {IN6_ADDR} Address 
+     * @param {IN6_ADDR} _Address 
      * @param {Integer} dwLength 
      * @param {Integer} dwAddressSize 
      * @returns {Integer} 
      */
-    static RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, Address, dwLength, dwAddressSize) {
-        result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", "ptr", pNetAddress, "ptr", Address, "uint", dwLength, "uint", dwAddressSize, "uint")
+    static RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLength, dwAddressSize) {
+        result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", "ptr", pNetAddress, "ptr", _Address, "uint", dwLength, "uint", dwAddressSize, "uint")
         return result
     }
 
@@ -21037,8 +21027,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client whose methods are being invoked.
-     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} Input Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_method_input">RTM_ENTITY_METHOD_INPUT</a> structure that contains the method to be invoked and a common input buffer.
+     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} _Input 
      * @param {Pointer<Integer>} OutputSize On input, <i>OutputSize</i> is a pointer to a <b>UINT</b> value that specifies the size, in bytes, of <i>Output</i>. 
      * 
      * 
@@ -21075,10 +21064,10 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtminvokemethod
      * @since windowsserver2000
      */
-    static RtmInvokeMethod(RtmRegHandle, EntityHandle, Input, OutputSize, Output) {
+    static RtmInvokeMethod(RtmRegHandle, EntityHandle, _Input, OutputSize, Output) {
         OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmInvokeMethod", "ptr", RtmRegHandle, "ptr", EntityHandle, "ptr", Input, OutputSizeMarshal, OutputSize, "ptr", Output, "uint")
+        result := DllCall("rtm.dll\RtmInvokeMethod", "ptr", RtmRegHandle, "ptr", EntityHandle, "ptr", _Input, OutputSizeMarshal, OutputSize, "ptr", Output, "uint")
         return result
     }
 
@@ -22862,8 +22851,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
+     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress 
      * @param {Integer} ProtocolId Specifies the protocol identifier used to determine the best route information returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetenumdests">RtmGetEnumDests</a> function. The <i>ProtocolID</i> is not part of the search criteria. The routing table manager uses this identifier to determine which route information to return (for example, if a client specifies the RIP protocol identifier, the best RIP route is returned, even if a non-RIP route is the best route to the destination). 
      * 
@@ -22926,10 +22914,10 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatedestenum
      * @since windowsserver2000
      */
-    static RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, NetAddress, ProtocolId, RtmEnumHandle) {
+    static RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, _NetAddress, ProtocolId, RtmEnumHandle) {
         RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmCreateDestEnum", "ptr", RtmRegHandle, "uint", TargetViews, "uint", EnumFlags, "ptr", NetAddress, "uint", ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
+        result := DllCall("rtm.dll\RtmCreateDestEnum", "ptr", RtmRegHandle, "uint", TargetViews, "uint", EnumFlags, "ptr", _NetAddress, "uint", ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
         return result
     }
 
@@ -23497,8 +23485,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
+     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress 
      * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
@@ -23547,10 +23534,10 @@ class Rras {
      * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatenexthopenum
      * @since windowsserver2000
      */
-    static RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, NetAddress, RtmEnumHandle) {
+    static RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, _NetAddress, RtmEnumHandle) {
         RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmCreateNextHopEnum", "ptr", RtmRegHandle, "uint", EnumFlags, "ptr", NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
+        result := DllCall("rtm.dll\RtmCreateNextHopEnum", "ptr", RtmRegHandle, "uint", EnumFlags, "ptr", _NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
         return result
     }
 

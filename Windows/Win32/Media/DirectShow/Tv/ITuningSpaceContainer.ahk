@@ -96,12 +96,12 @@ class ITuningSpaceContainer extends IDispatch{
      * @remarks
      * Tuning spaces are identified by ID number. The ID number is unique within the collection. The range of valid IDs is not guaranteed to be contiguous; there may be holes if tuning spaces are added and then removed.
      * @param {VARIANT} varIndex <b>VARIANT</b> that specifies the ID of the tuning space.
-     * @returns {ITuningSpace} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface pointer that will be set to the returned interface.
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_item
      */
     get_Item(varIndex) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", &TuningSpace := 0, "HRESULT")
-        return ITuningSpace(TuningSpace)
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &_TuningSpace := 0, "HRESULT")
+        return ITuningSpace(_TuningSpace)
     }
 
     /**
@@ -111,7 +111,7 @@ class ITuningSpaceContainer extends IDispatch{
      * 
      * To add a new tuning space, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ituningspacecontainer-add">ITuningSpaceContainer::Add</a> method.
      * @param {VARIANT} varIndex <b>VARIANT</b> that specifies the index of the tuning space.
-     * @param {ITuningSpace} TuningSpace Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface of the tuning space.
+     * @param {ITuningSpace} _TuningSpace 
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -158,8 +158,8 @@ class ITuningSpaceContainer extends IDispatch{
      * If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-put_item
      */
-    put_Item(varIndex, TuningSpace) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr", TuningSpace, "HRESULT")
+    put_Item(varIndex, _TuningSpace) {
+        result := ComCall(10, this, "ptr", varIndex, "ptr", _TuningSpace, "HRESULT")
         return result
     }
 
@@ -203,12 +203,12 @@ class ITuningSpaceContainer extends IDispatch{
 
     /**
      * The FindID method retrieves the ID of a specified tuning space within the collection.
-     * @param {ITuningSpace} TuningSpace Pointer to the <b>ITuningSpace</b> interface of the tuning space.
+     * @param {ITuningSpace} _TuningSpace 
      * @returns {Integer} Pointer to a variable that receives the ID of the tuning space. The returned value is specific to this collection object (which represents the local system).
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-findid
      */
-    FindID(TuningSpace) {
-        result := ComCall(14, this, "ptr", TuningSpace, "int*", &ID := 0, "HRESULT")
+    FindID(_TuningSpace) {
+        result := ComCall(14, this, "ptr", _TuningSpace, "int*", &ID := 0, "HRESULT")
         return ID
     }
 
@@ -218,13 +218,13 @@ class ITuningSpaceContainer extends IDispatch{
      * This method adds a new tuning space to the collection. The collection object automatically persists the tuning space information.
      * 
      * The tuning space must have a unique name that does not clash with any of the tuning spaces already in the collection. To overwrite an existing tuning space, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ituningspacecontainer-put_item">ITuningSpaceContainer::put_Item</a> method.
-     * @param {ITuningSpace} TuningSpace Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface of the new tuning space
+     * @param {ITuningSpace} _TuningSpace 
      * @returns {VARIANT} Pointer to a variable of type <b>VARIANT</b> that receives the ID of the new tuning space within the current collection.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-add
      */
-    Add(TuningSpace) {
+    Add(_TuningSpace) {
         NewIndex := VARIANT()
-        result := ComCall(15, this, "ptr", TuningSpace, "ptr", NewIndex, "HRESULT")
+        result := ComCall(15, this, "ptr", _TuningSpace, "ptr", NewIndex, "HRESULT")
         return NewIndex
     }
 

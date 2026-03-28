@@ -32,11 +32,11 @@ class IIEWebDriverSite extends IDispatch{
     /**
      * 
      * @param {Integer} operationCode 
-     * @param {Integer} hWnd 
+     * @param {Integer} _hWnd 
      * @returns {HRESULT} 
      */
-    WindowOperation(operationCode, hWnd) {
-        result := ComCall(7, this, "uint", operationCode, "uint", hWnd, "HRESULT")
+    WindowOperation(operationCode, _hWnd) {
+        result := ComCall(7, this, "uint", operationCode, "uint", _hWnd, "HRESULT")
         return result
     }
 

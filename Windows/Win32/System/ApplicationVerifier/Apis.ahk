@@ -26,7 +26,7 @@ class ApplicationVerifier {
      * 
      * If <i>ResourceType</i> is AvrfResrouceHeapAllocation and the <i>Flags</i> parameter contains AVRF_ENUM_RESOURCES_FLAGS_SUSPEND, the PROCESS_SUSPEND_RESUME flag must be used as well.
      * @param {Integer} Flags If <i>ResourceType</i> is AvrfResourceHandleTrace, no flags are defined and the value for the Flags parameter must be 0.
-     * @param {Integer} ResourceType 
+     * @param {Integer} _ResourceType 
      * @param {Pointer<AVRF_RESOURCE_ENUMERATE_CALLBACK>} ResourceCallback An application-defined function that is invoked by the API.
      * 
      * The prototype is agnostic toward the type of resource being enumerated. The use will pass a prototype suitable for the type of enumeration being performed
@@ -34,12 +34,12 @@ class ApplicationVerifier {
      * @returns {Integer} This function returns one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/nf-avrfsdk-verifierenumerateresource
      */
-    static VerifierEnumerateResource(Process, Flags, ResourceType, ResourceCallback, EnumerationContext) {
+    static VerifierEnumerateResource(Process, Flags, _ResourceType, ResourceCallback, EnumerationContext) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", ResourceType, "ptr", ResourceCallback, EnumerationContextMarshal, EnumerationContext, "uint")
+        result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", _ResourceType, "ptr", ResourceCallback, EnumerationContextMarshal, EnumerationContext, "uint")
         return result
     }
 

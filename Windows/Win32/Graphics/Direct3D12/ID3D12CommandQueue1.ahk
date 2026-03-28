@@ -34,15 +34,15 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
      * When a thread is running in one of the dynamic priority classes, the system temporarily boosts the thread's priority when it is taken out of a wait state. If 
      * <b>SetProcessPriorityBoost</b> is called with the <i>DisablePriorityBoost</i> parameter set to TRUE, its threads' priorities are not boosted. This setting affects all existing threads and any threads subsequently created by the process. To restore normal behavior, call 
      * <b>SetProcessPriorityBoost</b> with <i>DisablePriorityBoost</i> set to FALSE.
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocesspriorityboost
      */
-    SetProcessPriority(Priority) {
-        result := ComCall(19, this, "int", Priority, "HRESULT")
+    SetProcessPriority(_Priority) {
+        result := ComCall(19, this, "int", _Priority, "HRESULT")
         return result
     }
 
@@ -64,11 +64,11 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
 
     /**
      * 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {HRESULT} 
      */
-    SetGlobalPriority(Priority) {
-        result := ComCall(21, this, "int", Priority, "HRESULT")
+    SetGlobalPriority(_Priority) {
+        result := ComCall(21, this, "int", _Priority, "HRESULT")
         return result
     }
 

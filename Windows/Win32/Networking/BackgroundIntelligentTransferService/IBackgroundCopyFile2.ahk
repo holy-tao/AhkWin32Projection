@@ -78,7 +78,7 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile{
      * <td>The user does not have access to the file specified in <i>Val</i>.</td>
      * </tr>
      * </table>
-     * @param {PWSTR} Val Null-terminated string that contains the name of the file on the server. For information on specifying the remote name, see the <b>RemoteName</b> member and Remarks section of the <a href="https://docs.microsoft.com/windows/desktop/api/bits/ns-bits-bg_file_info">BG_FILE_INFO</a> structure.
+     * @param {PWSTR} _Val 
      * @returns {HRESULT} This method returns the following return values, as well as others.
      * 
      * <table>
@@ -133,10 +133,10 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nf-bits2_0-ibackgroundcopyfile2-setremotename
      */
-    SetRemoteName(Val) {
-        Val := Val is String ? StrPtr(Val) : Val
+    SetRemoteName(_Val) {
+        _Val := _Val is String ? StrPtr(_Val) : _Val
 
-        result := ComCall(7, this, "ptr", Val, "HRESULT")
+        result := ComCall(7, this, "ptr", _Val, "HRESULT")
         return result
     }
 }

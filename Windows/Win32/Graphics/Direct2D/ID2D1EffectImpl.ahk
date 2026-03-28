@@ -73,16 +73,14 @@ class ID2D1EffectImpl extends IUnknown{
      * The method will not otherwise be called. The transforms created by the effect will be called to handle their input and output rectangles for every draw call.
      * 
      * Most effects defer creating any resources or specifying a topology until this call is made. They store their properties and map them to a concrete set of rendering techniques when first drawn.
-     * @param {Integer} changeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_change_type">D2D1_CHANGE_TYPE</a></b>
-     * 
-     * Indicates the type of change the effect should expect.
+     * @param {Integer} _changeType 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-prepareforrender
      */
-    PrepareForRender(changeType) {
-        result := ComCall(4, this, "int", changeType, "HRESULT")
+    PrepareForRender(_changeType) {
+        result := ComCall(4, this, "int", _changeType, "HRESULT")
         return result
     }
 

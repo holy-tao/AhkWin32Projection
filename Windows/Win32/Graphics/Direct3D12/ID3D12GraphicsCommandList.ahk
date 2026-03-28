@@ -1359,14 +1359,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b>UINT</b>
-     * 
-     * Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
      */
-    SetMarker(Metadata, pData, Size) {
-        ComCall(56, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    SetMarker(Metadata, pData, _Size) {
+        ComCall(56, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**
@@ -1381,14 +1379,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Pointer} pData Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">void</a>*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Internal.
+     * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
      */
-    BeginEvent(Metadata, pData, Size) {
-        ComCall(57, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    BeginEvent(Metadata, pData, _Size) {
+        ComCall(57, this, "uint", Metadata, "ptr", pData, "uint", _Size)
     }
 
     /**

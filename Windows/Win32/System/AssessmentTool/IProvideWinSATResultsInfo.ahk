@@ -88,9 +88,9 @@ class IProvideWinSATResultsInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentdatetime
      */
     get_AssessmentDateTime() {
-        fileTime := VARIANT()
-        result := ComCall(9, this, "ptr", fileTime, "HRESULT")
-        return fileTime
+        _fileTime := VARIANT()
+        result := ComCall(9, this, "ptr", _fileTime, "HRESULT")
+        return _fileTime
     }
 
     /**

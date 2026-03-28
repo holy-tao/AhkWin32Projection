@@ -377,9 +377,9 @@ class IHTMLPerformanceTiming extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        string_R := BSTR()
-        result := ComCall(28, this, "ptr", string_R, "HRESULT")
-        return string_R
+        _string := BSTR()
+        result := ComCall(28, this, "ptr", _string, "HRESULT")
+        return _string
     }
 
     /**

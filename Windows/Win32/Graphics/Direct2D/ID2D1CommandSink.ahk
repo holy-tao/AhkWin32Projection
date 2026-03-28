@@ -192,16 +192,14 @@ class ID2D1CommandSink extends IUnknown{
      * <li>Opaque black for an ignore bitmap target.</li>
      * <li>Containing no content (or white) for a printer page.</li>
      * </ul>
-     * @param {Pointer<D2D1_COLOR_F>} color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
-     * 
-     * The color to which the command sink should be cleared.
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-clear
      */
-    Clear(color) {
-        result := ComCall(12, this, "ptr", color, "HRESULT")
+    Clear(_color) {
+        result := ComCall(12, this, "ptr", _color, "HRESULT")
         return result
     }
 
@@ -212,9 +210,7 @@ class ID2D1CommandSink extends IUnknown{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The upper left corner of the baseline.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyphs to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * Additional non-rendering information about the glyphs.
@@ -229,8 +225,8 @@ class ID2D1CommandSink extends IUnknown{
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawglyphrun
      */
-    DrawGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
-        result := ComCall(13, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode, "HRESULT")
+    DrawGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
+        result := ComCall(13, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode, "HRESULT")
         return result
     }
 
@@ -291,9 +287,7 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Draws a rectangle.
-     * @param {Pointer<D2D_RECT_F>} rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
-     * 
-     * The rectangle to be drawn to the command sink.
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to stroke the geometry.
@@ -308,8 +302,8 @@ class ID2D1CommandSink extends IUnknown{
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawrectangle
      */
-    DrawRectangle(rect, brush, strokeWidth, strokeStyle) {
-        result := ComCall(16, this, "ptr", rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+    DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
+        result := ComCall(16, this, "ptr", _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -325,18 +319,14 @@ class ID2D1CommandSink extends IUnknown{
      * 
      * 
      * The <i>perspectiveTransform</i> is specified in addition to the transform on device context.
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap to draw.
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D_RECT_F>} destinationRectangle Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * The destination rectangle. The default is the size of the bitmap and the location is the upper left corner of the render target.
      * @param {Float} opacity Type: <b>FLOAT</b>
      * 
      * The opacity of the bitmap.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode to use.
+     * @param {Integer} _interpolationMode 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * An optional source rectangle.
@@ -346,8 +336,8 @@ class ID2D1CommandSink extends IUnknown{
      * @returns {HRESULT} This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawbitmap
      */
-    DrawBitmap(bitmap, destinationRectangle, opacity, interpolationMode, sourceRectangle, perspectiveTransform) {
-        result := ComCall(17, this, "ptr", bitmap, "ptr", destinationRectangle, "float", opacity, "int", interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform, "HRESULT")
+    DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
+        result := ComCall(17, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform, "HRESULT")
         return result
     }
 
@@ -355,18 +345,14 @@ class ID2D1CommandSink extends IUnknown{
      * Draws the provided image to the command sink.
      * @remarks
      * Because the image can itself be a command list or contain an effect graph that in turn contains a command list, this method can result in recursive processing.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The image to be drawn to the command sink.
+     * @param {ID2D1Image} _image 
      * @param {Pointer<D2D_POINT_2F>} targetOffset Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * This defines the offset in the destination space that the image will be rendered to. The entire logical extent of the image will be rendered to the corresponding destination. If not specified, the destination origin will be (0, 0). The top-left corner of the image will be mapped to the target offset. This will not necessarily be the origin.
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the provided origins when processing the image.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode to use to  scale the image if necessary.
+     * @param {Integer} _interpolationMode 
      * @param {Integer} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_composite_mode">D2D1_COMPOSITE_MODE</a></b>
      * 
      * If specified, the composite mode that will be applied to the limits of the currently selected clip.
@@ -375,8 +361,8 @@ class ID2D1CommandSink extends IUnknown{
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawimage
      */
-    DrawImage(image, targetOffset, imageRectangle, interpolationMode, compositeMode) {
-        result := ComCall(18, this, "ptr", image, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode, "int", compositeMode, "HRESULT")
+    DrawImage(_image, targetOffset, imageRectangle, _interpolationMode, compositeMode) {
+        result := ComCall(18, this, "ptr", _image, "ptr", targetOffset, "ptr", imageRectangle, "int", _interpolationMode, "int", compositeMode, "HRESULT")
         return result
     }
 
@@ -469,9 +455,7 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Indicates to the command sink a rectangle to be filled.
-     * @param {Pointer<D2D_RECT_F>} rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
-     * 
-     * The rectangle to fill.
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to fill the rectangle.
@@ -480,8 +464,8 @@ class ID2D1CommandSink extends IUnknown{
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-fillrectangle
      */
-    FillRectangle(rect, brush) {
-        result := ComCall(23, this, "ptr", rect, "ptr", brush, "HRESULT")
+    FillRectangle(_rect, brush) {
+        result := ComCall(23, this, "ptr", _rect, "ptr", brush, "HRESULT")
         return result
     }
 

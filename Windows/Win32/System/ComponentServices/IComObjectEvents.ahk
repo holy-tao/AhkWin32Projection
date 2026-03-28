@@ -34,12 +34,12 @@ class IComObjectEvents extends IUnknown{
      * Generated when an object gets an instance of a new JIT-activated object.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The GUID of the current context.
-     * @param {Integer} ObjectID The JIT-activated object.
+     * @param {Integer} _ObjectID 
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectactivate
      */
-    OnObjectActivate(pInfo, CtxtID, ObjectID) {
-        result := ComCall(3, this, "ptr", pInfo, "uint", CtxtID, "uint", ObjectID, "HRESULT")
+    OnObjectActivate(pInfo, CtxtID, _ObjectID) {
+        result := ComCall(3, this, "ptr", pInfo, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
         return result
     }
 
@@ -47,12 +47,12 @@ class IComObjectEvents extends IUnknown{
      * Generated when the JIT-activated object is freed by SetComplete or SetAbort.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The GUID of the current context.
-     * @param {Integer} ObjectID The JIT-activated object.
+     * @param {Integer} _ObjectID 
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectdeactivate
      */
-    OnObjectDeactivate(pInfo, CtxtID, ObjectID) {
-        result := ComCall(4, this, "ptr", pInfo, "uint", CtxtID, "uint", ObjectID, "HRESULT")
+    OnObjectDeactivate(pInfo, CtxtID, _ObjectID) {
+        result := ComCall(4, this, "ptr", pInfo, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
         return result
     }
 

@@ -187,9 +187,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
      */
     get_RelativePath() {
-        path := BSTR()
-        result := ComCall(8, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(8, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -264,9 +264,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_size
      */
     get_Size() {
-        size := VARIANT()
-        result := ComCall(14, this, "ptr", size, "HRESULT")
-        return size
+        _size := VARIANT()
+        result := ComCall(14, this, "ptr", _size, "HRESULT")
+        return _size
     }
 
     /**

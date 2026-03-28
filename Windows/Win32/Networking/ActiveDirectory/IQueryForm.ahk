@@ -95,24 +95,24 @@ class IQueryForm extends IUnknown{
     /**
      * Called to allow a query form extension object to add forms to the query dialog box.
      * @param {Pointer<LPCQADDFORMSPROC>} pAddFormsProc Pointer to a callback function of the form <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddformsproc">CQAddFormsProc</a>. The query form extension  calls this function with the supplied <i>lParam</i> one time for each form to be added.
-     * @param {LPARAM} lParam Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddformsproc">CQAddFormsProc</a> call.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or a standard <b>HRESULT</b> failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addforms
      */
-    AddForms(pAddFormsProc, lParam) {
-        result := ComCall(4, this, "ptr", pAddFormsProc, "ptr", lParam, "HRESULT")
+    AddForms(pAddFormsProc, _lParam) {
+        result := ComCall(4, this, "ptr", pAddFormsProc, "ptr", _lParam, "HRESULT")
         return result
     }
 
     /**
      * Called to allow a query form object to add pages to an existing form.
      * @param {Pointer<LPCQADDPAGESPROC>} pAddPagesProc Pointer to a callback function of the form <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddpagesproc">CQAddPagesProc</a>. The query form extension  calls this function with the supplied <i>lParam</i> one time for each page to be added to a form.
-     * @param {LPARAM} lParam Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddpagesproc">CQAddPagesProc</a> call.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or a standard <b>HRESULT</b> failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addpages
      */
-    AddPages(pAddPagesProc, lParam) {
-        result := ComCall(5, this, "ptr", pAddPagesProc, "ptr", lParam, "HRESULT")
+    AddPages(pAddPagesProc, _lParam) {
+        result := ComCall(5, this, "ptr", pAddPagesProc, "ptr", _lParam, "HRESULT")
         return result
     }
 }

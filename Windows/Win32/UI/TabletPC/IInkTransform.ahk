@@ -598,19 +598,19 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_data
      */
     get_Data() {
-        XForm := XFORM()
-        result := ComCall(27, this, "ptr", XForm, "HRESULT")
-        return XForm
+        _XForm := XFORM()
+        result := ComCall(27, this, "ptr", _XForm, "HRESULT")
+        return _XForm
     }
 
     /**
      * Gets or sets access to the XFORM structure. (Put)
-     * @param {XFORM} XForm 
+     * @param {XFORM} _XForm 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_data
      */
-    put_Data(XForm) {
-        result := ComCall(28, this, "ptr", XForm, "HRESULT")
+    put_Data(_XForm) {
+        result := ComCall(28, this, "ptr", _XForm, "HRESULT")
         return result
     }
 }

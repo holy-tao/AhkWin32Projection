@@ -56,9 +56,9 @@ class IHtmlDlgSafeHelper extends IDispatch{
      * @returns {VARIANT} 
      */
     choosecolordlg(initColor) {
-        rgbColor := VARIANT()
-        result := ComCall(7, this, "ptr", initColor, "ptr", rgbColor, "HRESULT")
-        return rgbColor
+        _rgbColor := VARIANT()
+        result := ComCall(7, this, "ptr", initColor, "ptr", _rgbColor, "HRESULT")
+        return _rgbColor
     }
 
     /**

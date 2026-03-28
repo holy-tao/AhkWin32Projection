@@ -147,18 +147,18 @@ class IDynamicRenderer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_hwnd
      */
     get_HWND() {
-        result := ComCall(5, this, "ptr*", &hwnd := 0, "HRESULT")
-        return hwnd
+        result := ComCall(5, this, "ptr*", &_hwnd := 0, "HRESULT")
+        return _hwnd
     }
 
     /**
      * Gets or sets the window handle, HWND, associated with the DynamicRenderer Class object. (Put)
-     * @param {HANDLE_PTR} hwnd 
+     * @param {HANDLE_PTR} _hwnd 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-put_hwnd
      */
-    put_HWND(hwnd) {
-        result := ComCall(6, this, "ptr", hwnd, "HRESULT")
+    put_HWND(_hwnd) {
+        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -450,12 +450,12 @@ class IDynamicRenderer extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  Drawing cached data cannot be used on Microsoft&lt;entity type="reg"/&gt; Windows&lt;entity type="reg"/&gt; XP Tablet PC Edition 2005 systems.</div>
      * <div> </div>
-     * @param {HANDLE_PTR} hDC The handle of the device context on which to draw.
+     * @param {HANDLE_PTR} _hDC 
      * @returns {HRESULT} For a description of the return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-draw
      */
-    Draw(hDC) {
-        result := ComCall(17, this, "ptr", hDC, "HRESULT")
+    Draw(_hDC) {
+        result := ComCall(17, this, "ptr", _hDC, "HRESULT")
         return result
     }
 }

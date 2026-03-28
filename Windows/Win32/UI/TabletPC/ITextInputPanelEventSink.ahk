@@ -458,7 +458,7 @@ class ITextInputPanelEventSink extends IUnknown{
      * Occurs when the Tablet PC Input Panel is about to insert text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
      * @remarks
      * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
-     * @param {Pointer<SAFEARRAY>} Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
+     * @param {Pointer<SAFEARRAY>} _Ink 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -491,8 +491,8 @@ class ITextInputPanelEventSink extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserting
      */
-    TextInserting(Ink) {
-        result := ComCall(13, this, "ptr", Ink, "HRESULT")
+    TextInserting(_Ink) {
+        result := ComCall(13, this, "ptr", _Ink, "HRESULT")
         return result
     }
 
@@ -500,7 +500,7 @@ class ITextInputPanelEventSink extends IUnknown{
      * Occurs when the Tablet PC Input Panel has inserted text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
      * @remarks
      * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
-     * @param {Pointer<SAFEARRAY>} Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
+     * @param {Pointer<SAFEARRAY>} _Ink 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -533,8 +533,8 @@ class ITextInputPanelEventSink extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserted
      */
-    TextInserted(Ink) {
-        result := ComCall(14, this, "ptr", Ink, "HRESULT")
+    TextInserted(_Ink) {
+        result := ComCall(14, this, "ptr", _Ink, "HRESULT")
         return result
     }
 }

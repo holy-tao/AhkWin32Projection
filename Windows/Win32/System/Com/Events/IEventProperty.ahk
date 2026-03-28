@@ -78,19 +78,19 @@ class IEventProperty extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_value
      */
     get_Value() {
-        propertyValue := VARIANT()
-        result := ComCall(9, this, "ptr", propertyValue, "HRESULT")
-        return propertyValue
+        _propertyValue := VARIANT()
+        result := ComCall(9, this, "ptr", _propertyValue, "HRESULT")
+        return _propertyValue
     }
 
     /**
      * The value of the event property. (Put)
-     * @param {Pointer<VARIANT>} propertyValue 
+     * @param {Pointer<VARIANT>} _propertyValue 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-put_value
      */
-    put_Value(propertyValue) {
-        result := ComCall(10, this, "ptr", propertyValue, "HRESULT")
+    put_Value(_propertyValue) {
+        result := ComCall(10, this, "ptr", _propertyValue, "HRESULT")
         return result
     }
 }

@@ -741,12 +741,8 @@ class IWICImagingFactory extends IUnknown{
      * Creates an IWICBitmap from a bitmap handle.
      * @remarks
      * For a non-palletized bitmap, set NULL for the <i>hPalette</i> parameter.
-     * @param {HBITMAP} hBitmap Type: <b>HBITMAP</b>
-     * 
-     * A bitmap handle to create the bitmap from.
-     * @param {HPALETTE} hPalette Type: <b>HPALETTE</b>
-     * 
-     * A palette handle used to create the bitmap.
+     * @param {HBITMAP} _hBitmap 
+     * @param {HPALETTE} _hPalette 
      * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapalphachanneloption">WICBitmapAlphaChannelOption</a></b>
      * 
      * The alpha channel options to create the bitmap.
@@ -755,28 +751,26 @@ class IWICImagingFactory extends IUnknown{
      * A pointer that receives a pointer to the new bitmap.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhbitmap
      */
-    CreateBitmapFromHBITMAP(hBitmap, hPalette, options) {
-        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
-        hPalette := hPalette is Win32Handle ? NumGet(hPalette, "ptr") : hPalette
+    CreateBitmapFromHBITMAP(_hBitmap, _hPalette, options) {
+        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
+        _hPalette := _hPalette is Win32Handle ? NumGet(_hPalette, "ptr") : _hPalette
 
-        result := ComCall(21, this, "ptr", hBitmap, "ptr", hPalette, "int", options, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", _hBitmap, "ptr", _hPalette, "int", options, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IWICBitmap from an icon handle.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * The icon handle to create the new bitmap from.
+     * @param {HICON} _hIcon 
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhicon
      */
-    CreateBitmapFromHICON(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    CreateBitmapFromHICON(_hIcon) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := ComCall(22, this, "ptr", hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", _hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -784,9 +778,7 @@ class IWICImagingFactory extends IUnknown{
      * Creates an IEnumUnknown object of the specified component types.
      * @remarks
      * Component types must be enumerated separately. Combinations of component types and <b>WICAllComponents</b> are unsupported.
-     * @param {Integer} componentTypes Type: <b>DWORD</b>
-     * 
-     * The types of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a> to enumerate.
+     * @param {Integer} _componentTypes 
      * @param {Integer} options Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponentenumerateoptions">WICComponentEnumerateOptions</a> used to enumerate the given component types.
@@ -795,8 +787,8 @@ class IWICImagingFactory extends IUnknown{
      * A pointer that receives a pointer to a new component enumerator.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcomponentenumerator
      */
-    CreateComponentEnumerator(componentTypes, options) {
-        result := ComCall(23, this, "uint", componentTypes, "uint", options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
+    CreateComponentEnumerator(_componentTypes, options) {
+        result := ComCall(23, this, "uint", _componentTypes, "uint", options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
         return IEnumUnknown(ppIEnumUnknown)
     }
 

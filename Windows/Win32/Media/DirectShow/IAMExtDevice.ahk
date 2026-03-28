@@ -478,33 +478,12 @@ class IAMExtDevice extends IUnknown{
      * <h3><a id="DV_Implementation"></a><a id="dv_implementation"></a><a id="DV_IMPLEMENTATION"></a>DV Implementation</h3>
      * The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/msdv-driver">MSDV</a> and UVC drivers do not support this method. The method returns E_NOTIMPL.
      * @param {Pointer} hEvent Handle to an event. The event is signaled when the action is complete.
-     * @param {Integer} Mode Specifies a value that activates or deactivates the calibration process:
-     * 
-     * <table>
-     * <tr>
-     * <th>Value
-     *                 </th>
-     * <th>Description
-     *                 </th>
-     * </tr>
-     * <tr>
-     * <td>ED_ACTIVE</td>
-     * <td>Activates the calibration process.</td>
-     * </tr>
-     * <tr>
-     * <td>ED_INACTIVE</td>
-     * <td>Deactivates the calibration process.</td>
-     * </tr>
-     * <tr>
-     * <td><b>NULL</b></td>
-     * <td>No action; return the calibration status in <i>pStatus</i>.</td>
-     * </tr>
-     * </table>
+     * @param {Integer} _Mode 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
      */
-    Calibrate(hEvent, Mode) {
-        result := ComCall(8, this, "ptr", hEvent, "int", Mode, "int*", &pStatus := 0, "HRESULT")
+    Calibrate(hEvent, _Mode) {
+        result := ComCall(8, this, "ptr", hEvent, "int", _Mode, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 

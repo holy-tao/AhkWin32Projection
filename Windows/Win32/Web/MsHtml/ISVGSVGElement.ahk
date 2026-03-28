@@ -536,47 +536,47 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
      */
-    getIntersectionList(rect, referenceElement) {
+    getIntersectionList(_rect, referenceElement) {
         pResult := VARIANT()
-        result := ComCall(46, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
+        result := ComCall(46, this, "ptr", _rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
         return pResult
     }
 
     /**
      * 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
      */
-    getEnclosureList(rect, referenceElement) {
+    getEnclosureList(_rect, referenceElement) {
         pResult := VARIANT()
-        result := ComCall(47, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
+        result := ComCall(47, this, "ptr", _rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
         return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
      */
-    checkIntersection(element, rect) {
-        result := ComCall(48, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+    checkIntersection(element, _rect) {
+        result := ComCall(48, this, "ptr", element, "ptr", _rect, "short*", &pResult := 0, "HRESULT")
         return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
      */
-    checkEnclosure(element, rect) {
-        result := ComCall(49, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+    checkEnclosure(element, _rect) {
+        result := ComCall(49, this, "ptr", element, "ptr", _rect, "short*", &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -654,11 +654,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {ISVGMatrix} matrix 
+     * @param {ISVGMatrix} _matrix 
      * @returns {ISVGTransform} 
      */
-    createSVGTransformFromMatrix(matrix) {
-        result := ComCall(58, this, "ptr", matrix, "ptr*", &pResult := 0, "HRESULT")
+    createSVGTransformFromMatrix(_matrix) {
+        result := ComCall(58, this, "ptr", _matrix, "ptr*", &pResult := 0, "HRESULT")
         return ISVGTransform(pResult)
     }
 

@@ -55,9 +55,7 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1{
      * @param {Integer} fontAxisRangeCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Number of axis ranges.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties Type: **[DWRITE_FONT_PROPERTY](./ns-dwrite_3-dwrite_font_property.md) const \***
-     * 
-     * List of properties to associate with the reference.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
      * @param {Integer} propertyCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The number of properties defined.
@@ -66,8 +64,8 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1{
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder2-addfont
      */
-    AddFont(fontFile, fontFaceIndex, fontSimulations, fontAxisValues, fontAxisValueCount, fontAxisRanges, fontAxisRangeCount, properties, propertyCount) {
-        result := ComCall(8, this, "ptr", fontFile, "uint", fontFaceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "ptr", properties, "uint", propertyCount, "HRESULT")
+    AddFont(fontFile, fontFaceIndex, fontSimulations, fontAxisValues, fontAxisValueCount, fontAxisRanges, fontAxisRangeCount, _properties, propertyCount) {
+        result := ComCall(8, this, "ptr", fontFile, "uint", fontFaceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "ptr", _properties, "uint", propertyCount, "HRESULT")
         return result
     }
 

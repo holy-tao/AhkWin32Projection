@@ -47,9 +47,7 @@ class IDWriteFontSet4 extends IDWriteFontSet3{
      * @param {Integer} fontStretch Type: **[DWRITE_FONT_STRETCH](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
      * 
      * Font stretch, used to compute "wdth" axis value.
-     * @param {Integer} fontStyle Type: **[DWRITE_FONT_STYLE](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style)**
-     * 
-     * Font style, used to compute "slnt" and "ital" axis values.
+     * @param {Integer} _fontStyle 
      * @param {Float} fontSize Type: **float**
      * 
      * Font size in DIPs, used to compute "opsz" axis value. If this parameter is zero, then no "opsz" axis value is added to the output array.
@@ -61,8 +59,8 @@ class IDWriteFontSet4 extends IDWriteFontSet3{
      * Returns the number of derived axis values that were actually written to the output array.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset4-convertweightstretchstyletofontaxisvalues
      */
-    ConvertWeightStretchStyleToFontAxisValues(inputAxisValues, inputAxisCount, fontWeight, fontStretch, fontStyle, fontSize, outputAxisValues) {
-        result := ComCall(30, this, "ptr", inputAxisValues, "uint", inputAxisCount, "int", fontWeight, "int", fontStretch, "int", fontStyle, "float", fontSize, "ptr", outputAxisValues, "uint")
+    ConvertWeightStretchStyleToFontAxisValues(inputAxisValues, inputAxisCount, fontWeight, fontStretch, _fontStyle, fontSize, outputAxisValues) {
+        result := ComCall(30, this, "ptr", inputAxisValues, "uint", inputAxisCount, "int", fontWeight, "int", fontStretch, "int", _fontStyle, "float", fontSize, "ptr", outputAxisValues, "uint")
         return result
     }
 

@@ -36,70 +36,12 @@ class IMbnMultiCarrierEvents extends IUnknown{
      * If <i>status</i> is <b>S_OK</b>, the home provider for the interface has been successfully set to the new provider by <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider">SetHomeProvider</a>. Otherwise, the original home provider is not changed and the previous states, such as connection, packet service etc, of the interface remain unchanged.
      * @param {IMbnMultiCarrier} mbnInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnmulticarrier">IMbnMultiCarrier</a> object that represents the Mobile Broadband device <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider">SetHomeProvider</a> operation.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider">SetHomeProvider</a> operation.
-     * @param {HRESULT} status A status code that indicates the outcome of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider">SetHomeProvider</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="S_OK"></a><a id="s_ok"></a><dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation  was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_MBN_PROVIDER_NOT_VISIBLE"></a><a id="e_mbn_provider_not_visible"></a><dl>
-     * <dt><b>E_MBN_PROVIDER_NOT_VISIBLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested provider is not visible.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_INVALIDARG"></a><a id="e_invalidarg"></a><dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid registration mode input, the provider ID provided as input is longer than the maximum length 7 characters, or data class provided is invalid. The Mobile Broadband service will not send the request to the device when invalid arguments are provided in the input.
-     * In manual registration mode, this indicates that the requested provider is forbidden.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_FAIL"></a><a id="e_fail"></a><dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation could not be completed. More information is available in the network error code.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="HRESULT_FROM_WIN32_ERROR_NOT_SUPPORTED_"></a><a id="hresult_from_win32_error_not_supported_"></a><dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation is not supported by the device. This may be returned by devices which do not support multi-carrier.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrierevents-onsethomeprovidercomplete
      */
-    OnSetHomeProviderComplete(mbnInterface, requestID, status) {
-        result := ComCall(3, this, "ptr", mbnInterface, "uint", requestID, "int", status, "HRESULT")
+    OnSetHomeProviderComplete(mbnInterface, requestID, _status) {
+        result := ComCall(3, this, "ptr", mbnInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -156,69 +98,12 @@ class IMbnMultiCarrierEvents extends IUnknown{
      * If multiple applications registered for notifications, then this method will be called on all registered applications. This means that an application that did not initiate the update operation will receive a notification.
      * @param {IMbnMultiCarrier} mbnInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnmulticarrier">IMbnMultiCarrier</a> object that represents the Mobile Broadband device <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-scannetwork">ScanNetwork</a> operation.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-scannetwork">ScanNetwork</a> operation.
-     * @param {HRESULT} status A status code that indicates the outcome of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnmulticarrier-scannetwork">ScanNetwork</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="S_OK"></a><a id="s_ok"></a><dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation  was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_MBN_RADIO_POWER_OFF"></a><a id="e_mbn_radio_power_off"></a><dl>
-     * <dt><b>E_MBN_RADIO_POWER_OFF</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Can't get a visible network list because the device radio is off.  The application can issue a network scan request when it gets the radio-turned-on notification.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_MBN_DEVICE_BUSY"></a><a id="e_mbn_device_busy"></a><dl>
-     * <dt><b>E_MBN_DEVICE_BUSY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The device is busy and can't currently perform a network scan operation.  This is returned by devices which don't support a network scan operation when it has a data connection established.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="E_MBN_ALREADY_ACTIVE"></a><a id="e_mbn_already_active"></a><dl>
-     * <dt><b>E_MBN_ALREADY_ACTIVE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A network scan operation is already in progress.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="HRESULT_FROM_WIN32_ERROR_NOT_SUPPORTED_"></a><a id="hresult_from_win32_error_not_supported_"></a><dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation is not supported by the device. This may be returned by devices which do not support multi-carrier.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrierevents-onscannetworkcomplete
      */
-    OnScanNetworkComplete(mbnInterface, requestID, status) {
-        result := ComCall(6, this, "ptr", mbnInterface, "uint", requestID, "int", status, "HRESULT")
+    OnScanNetworkComplete(mbnInterface, requestID, _status) {
+        result := ComCall(6, this, "ptr", mbnInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 

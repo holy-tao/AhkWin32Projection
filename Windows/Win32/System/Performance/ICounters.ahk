@@ -88,14 +88,14 @@ class ICounters extends IDispatch{
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
-     * @param {BSTR} pathname 
+     * @param {BSTR} _pathname 
      * @returns {DICounterItem} 
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
-    Add(pathname) {
-        pathname := pathname is String ? BSTR.Alloc(pathname).Value : pathname
+    Add(_pathname) {
+        _pathname := _pathname is String ? BSTR.Alloc(_pathname).Value : _pathname
 
-        result := ComCall(10, this, "ptr", pathname, "ptr*", &ppI := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _pathname, "ptr*", &ppI := 0, "HRESULT")
         return DICounterItem(ppI)
     }
 

@@ -163,12 +163,12 @@ class IXpsOMGradientStop extends IUnknown{
      * Gets the color value and color profile of the gradient stop.
      * @remarks
      * A color profile is only returned when the color type of <i>color</i> is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
-     * @param {Pointer<XPS_COLOR>} color The color value of the gradient stop.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @returns {IXpsOMColorProfileResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface that contains the color profile to be used. If no color profile resource has been set, a <b>NULL</b> pointer is returned. See remarks.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getcolor
      */
-    GetColor(color) {
-        result := ComCall(6, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
+    GetColor(_color) {
+        result := ComCall(6, this, "ptr", _color, "ptr*", &colorProfile := 0, "HRESULT")
         return IXpsOMColorProfileResource(colorProfile)
     }
 
@@ -176,9 +176,7 @@ class IXpsOMGradientStop extends IUnknown{
      * Sets the color value and color profile of the gradient stop.
      * @remarks
      * A color profile is only required when the color type of <i>color</i> is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
-     * @param {Pointer<XPS_COLOR>} color The color value to be set at the gradient stop.
-     * 
-     * If the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed in this parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, a valid color profile must be provided in the <i>colorProfile</i> parameter.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @param {IXpsOMColorProfileResource} colorProfile The color profile to be used with <i>color</i>.
      * 
      * A color profile is required when the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed  in the <i>color</i> parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>. If the value of the <b>colorType</b> field is not <b>XPS_COLOR_TYPE_CONTEXT</b>, this parameter must be set to <b>NULL</b>.
@@ -247,8 +245,8 @@ class IXpsOMGradientStop extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setcolor
      */
-    SetColor(color, colorProfile) {
-        result := ComCall(7, this, "ptr", color, "ptr", colorProfile, "HRESULT")
+    SetColor(_color, colorProfile) {
+        result := ComCall(7, this, "ptr", _color, "ptr", colorProfile, "HRESULT")
         return result
     }
 

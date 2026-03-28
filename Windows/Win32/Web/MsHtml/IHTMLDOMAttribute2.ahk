@@ -245,8 +245,8 @@ class IHTMLDOMAttribute2 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(20, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(20, this, "ptr", newChild, "ptr", refChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -256,8 +256,8 @@ class IHTMLDOMAttribute2 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceChild(newChild, oldChild) {
-        result := ComCall(21, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(21, this, "ptr", newChild, "ptr", oldChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -266,8 +266,8 @@ class IHTMLDOMAttribute2 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     removeChild(oldChild) {
-        result := ComCall(22, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(22, this, "ptr", oldChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**
@@ -276,8 +276,8 @@ class IHTMLDOMAttribute2 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     appendChild(newChild) {
-        result := ComCall(23, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(23, this, "ptr", newChild, "ptr*", &_node := 0, "HRESULT")
+        return IHTMLDOMNode(_node)
     }
 
     /**

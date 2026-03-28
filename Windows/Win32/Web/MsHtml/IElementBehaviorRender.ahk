@@ -30,7 +30,7 @@ class IElementBehaviorRender extends IUnknown{
 
     /**
      * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
      * @param {IUnknown} pReserved 
@@ -39,10 +39,10 @@ class IElementBehaviorRender extends IUnknown{
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
      */
-    Draw(hdc, lLayer, pRect, pReserved) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Draw(_hdc, lLayer, pRect, pReserved) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(3, this, "ptr", hdc, "int", lLayer, "ptr", pRect, "ptr", pReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", _hdc, "int", lLayer, "ptr", pRect, "ptr", pReserved, "HRESULT")
         return result
     }
 

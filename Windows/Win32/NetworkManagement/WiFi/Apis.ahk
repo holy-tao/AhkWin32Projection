@@ -8901,7 +8901,7 @@ class WiFi {
      * 
      * The supplied profile must be present on the interface <i>pInterfaceGuid</i>. That means the profile must have been previously created and saved in the profile store and that the profile must be valid for the supplied interface.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {HWND} hWnd The handle of the  application window requesting the UI display.
+     * @param {HWND} _hWnd 
      * @param {Integer} wlStartPage A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wl_display_pages">WL_DISPLAY_PAGES</a> value that specifies the active tab when the UI dialog box appears.
      * @param {Pointer<Integer>} pWlanReasonCode A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value that indicates why the UI display failed.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -8950,15 +8950,15 @@ class WiFi {
      * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanuieditprofile
      * @since windows6.0.6000
      */
-    static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, hWnd, wlStartPage, pWlanReasonCode) {
+    static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, _hWnd, wlStartPage, pWlanReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         wstrProfileName := wstrProfileName is String ? StrPtr(wstrProfileName) : wstrProfileName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         pWlanReasonCodeMarshal := pWlanReasonCode is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", hWnd, "int", wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, "uint")
+        result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", _hWnd, "int", wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, "uint")
         return result
     }
 
@@ -10613,7 +10613,7 @@ class WiFi {
      * @param {HANDLE} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @param {Pointer<Pointer<Integer>>} pDeviceAddress A pointer to the target device’s Wi-Fi Direct device address. This is the MAC address of the target Wi-Fi device.
      * @param {Pointer<Void>} pvContext An optional context pointer which is passed to the callback function specified in the <i>pfnCallback</i> parameter.
-     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} pfnCallback A pointer to the callback function to be called once the <b>WFDStartOpenSession</b> request has completed.
+     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} _pfnCallback 
      * @param {Pointer<HANDLE>} phSessionHandle A handle to this specific Wi-Fi Direct session.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -10691,13 +10691,13 @@ class WiFi {
      * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdstartopensession
      * @since windows8.0
      */
-    static WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, pfnCallback, phSessionHandle) {
+    static WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, _pfnCallback, phSessionHandle) {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         pDeviceAddressMarshal := pDeviceAddress is VarRef ? "ptr*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", pfnCallback, "ptr", phSessionHandle, "uint")
+        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", _pfnCallback, "ptr", phSessionHandle, "uint")
         return result
     }
 

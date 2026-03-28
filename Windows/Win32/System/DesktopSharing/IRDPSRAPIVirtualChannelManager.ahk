@@ -70,7 +70,7 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * @param {BSTR} bstrChannelName Type: <b>BSTR</b>
      * 
      * The name of the channel. The maximum length is 8 characters, including the null-terminating character. Legacy channel names are limited to 32 characters.
-     * @param {Integer} Priority Type: <b>CHANNEL_PRIORITY</b>
+     * @param {Integer} _Priority 
      * @param {Integer} ChannelFlags Type: <b>unsigned long</b>
      * 
      * Flags that determine how data is sent on the channel. This parameter can be 0 or <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_flags">CHANNEL_FLAGS_UNCOMPRESSED</a>.
@@ -79,10 +79,10 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel">IRDPSRAPIVirtualChannel</a> interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
      */
-    CreateVirtualChannel(bstrChannelName, Priority, ChannelFlags) {
+    CreateVirtualChannel(bstrChannelName, _Priority, ChannelFlags) {
         bstrChannelName := bstrChannelName is String ? BSTR.Alloc(bstrChannelName).Value : bstrChannelName
 
-        result := ComCall(9, this, "ptr", bstrChannelName, "int", Priority, "uint", ChannelFlags, "ptr*", &ppChannel := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrChannelName, "int", _Priority, "uint", ChannelFlags, "ptr*", &ppChannel := 0, "HRESULT")
         return IRDPSRAPIVirtualChannel(ppChannel)
     }
 }

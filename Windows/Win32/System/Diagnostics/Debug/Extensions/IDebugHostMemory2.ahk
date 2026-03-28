@@ -31,13 +31,13 @@ class IDebugHostMemory2 extends IDebugHostMemory{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
      * @returns {Location} 
      */
-    LinearizeLocation(context, location) {
+    LinearizeLocation(_context, _location) {
         pLinearizedLocation := Location()
-        result := ComCall(8, this, "ptr", context, "ptr", location, "ptr", pLinearizedLocation, "HRESULT")
+        result := ComCall(8, this, "ptr", _context, "ptr", _location, "ptr", pLinearizedLocation, "HRESULT")
         return pLinearizedLocation
     }
 }

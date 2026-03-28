@@ -62,18 +62,16 @@ class IValueProvider extends IUnknown{
      *         if the value of any of the items is editable, regardless of the current edit 
      *         mode of the control. The parent control must also implement <b>IValueProvider</b> 
      *         if the child items are editable.
-     * @param {PWSTR} val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
-     * 
-     * The value to set. The provider is responsible for converting the value to the appropriate data type.
+     * @param {PWSTR} _val 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue
      */
-    SetValue(val) {
-        val := val is String ? StrPtr(val) : val
+    SetValue(_val) {
+        _val := _val is String ? StrPtr(_val) : _val
 
-        result := ComCall(3, this, "ptr", val, "HRESULT")
+        result := ComCall(3, this, "ptr", _val, "HRESULT")
         return result
     }
 

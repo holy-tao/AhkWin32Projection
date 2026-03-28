@@ -230,17 +230,17 @@ class IMarshal extends IUnknown{
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
      * @param {Pointer<Void>} pv A pointer to the interface to be marshaled; can be <b>NULL</b> if the caller does not have a pointer to the desired interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the typical case) or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} _mshlflags 
      * @returns {Guid} A pointer that receives the CLSID to be used to create a proxy in the client process.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getunmarshalclass
      */
-    GetUnmarshalClass(riid, pv, dwDestContext, mshlflags) {
+    GetUnmarshalClass(riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
         pCid := Guid()
-        result := ComCall(3, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "ptr", pCid, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, "ptr", pCid, "HRESULT")
         return pCid
     }
 
@@ -271,16 +271,16 @@ class IMarshal extends IUnknown{
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
      * @param {Pointer<Void>} pv The interface pointer to be marshaled. This parameter can be <b>NULL</b>.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the typical case) or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} _mshlflags 
      * @returns {Integer} A pointer to a variable that receives the maximum size of the buffer.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getmarshalsizemax
      */
-    GetMarshalSizeMax(riid, pv, dwDestContext, mshlflags) {
+    GetMarshalSizeMax(riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "uint*", &pSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, "uint*", &pSize := 0, "HRESULT")
         return pSize
     }
 
@@ -320,7 +320,7 @@ class IMarshal extends IUnknown{
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Pointer<Void>} pv A pointer to the interface pointer to be marshaled. This parameter can be <b>NULL</b> if the caller does not have a pointer to the desired interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Currently, unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process—the typical case—or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} _mshlflags 
      * @returns {HRESULT} This method can return the standard return value E_FAIL, as well as the following values.
      * 
      * <table>
@@ -364,12 +364,12 @@ class IMarshal extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-marshalinterface
      */
-    MarshalInterface(pStm, riid, pv, dwDestContext, mshlflags) {
+    MarshalInterface(pStm, riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", pStm, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "HRESULT")
+        result := ComCall(5, this, "ptr", pStm, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, "HRESULT")
         return result
     }
 

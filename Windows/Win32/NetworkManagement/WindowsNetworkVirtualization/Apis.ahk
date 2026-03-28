@@ -50,9 +50,7 @@ class WindowsNetworkVirtualization {
      * @param {Pointer<WNV_NOTIFICATION_PARAM>} NotificationParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">PWNV_NOTIFICATION_PARAM</a></b>
      * 
      * A pointer to the notification type for the request.
-     * @param {Pointer<OVERLAPPED>} Overlapped Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">LPOVERLAPPED</a></b>
-     * 
-     * Information about the asynchronous completion of this request. If this parameter is <b>NULL</b>, the request is synchronous.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @param {Pointer<Integer>} BytesTransferred Type: <b>PULONG</b>
      * 
      * When this function returns, the <i>BytesTransferred</i> parameter points to the size of the buffer that is filled with the notification structures of the specific event type.
@@ -97,12 +95,12 @@ class WindowsNetworkVirtualization {
      * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvrequestnotification
      * @since windowsserver2012
      */
-    static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {
+    static WnvRequestNotification(WnvHandle, NotificationParam, _Overlapped, BytesTransferred) {
         WnvHandle := WnvHandle is Win32Handle ? NumGet(WnvHandle, "ptr") : WnvHandle
 
         BytesTransferredMarshal := BytesTransferred is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, BytesTransferredMarshal, BytesTransferred, "uint")
+        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", _Overlapped, BytesTransferredMarshal, BytesTransferred, "uint")
         return result
     }
 

@@ -162,8 +162,8 @@ class IUIAutomationCacheRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
      */
     get_AutomationElementMode() {
-        result := ComCall(10, this, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(10, this, "int*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
@@ -174,12 +174,12 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Certain operations on elements, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus">SetFocus</a>, require a full reference; attempting to perform these on an element that has none results in an error.
      * 
      * Using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> can be more efficient when only properties are needed, as it avoids the overhead involved in setting up full references.
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_automationelementmode
      */
-    put_AutomationElementMode(mode) {
-        result := ComCall(11, this, "int", mode, "HRESULT")
+    put_AutomationElementMode(_mode) {
+        result := ComCall(11, this, "int", _mode, "HRESULT")
         return result
     }
 }

@@ -47,8 +47,8 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @returns {Void} 
      */
     ReadExtensionData(blobId, bufferSize) {
-        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &buffer_R := 0, "HRESULT")
-        return buffer_R
+        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &_buffer := 0, "HRESULT")
+        return _buffer
     }
 
     /**

@@ -110,13 +110,13 @@ class EventCollector {
      * @param {Pointer} Subscription The handle to the subscription object.
      * @param {Integer} PropertyId A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration that specifies which property of the subscription to set.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @param {Pointer<EC_VARIANT>} PropertyValue The value of the property to set for the indicated subscription property.
+     * @param {Pointer<EC_VARIANT>} _PropertyValue 
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetsubscriptionproperty
      * @since windows6.0.6000
      */
-    static EcSetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValue) {
-        result := DllCall("WecApi.dll\EcSetSubscriptionProperty", "ptr", Subscription, "int", PropertyId, "uint", Flags, "ptr", PropertyValue, "int")
+    static EcSetSubscriptionProperty(Subscription, PropertyId, Flags, _PropertyValue) {
+        result := DllCall("WecApi.dll\EcSetSubscriptionProperty", "ptr", Subscription, "int", PropertyId, "uint", Flags, "ptr", _PropertyValue, "int")
         return result
     }
 
@@ -196,13 +196,13 @@ class EventCollector {
      * @param {Integer} PropertyId An identifier that specifies which property to set. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Set  the Address, Enabled, UserName, and Password properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
      * @param {Integer} ArrayIndex The index of the  object in the array to set a property value on.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @param {Pointer<EC_VARIANT>} PropertyValue The value of the property.
+     * @param {Pointer<EC_VARIANT>} _PropertyValue 
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetobjectarrayproperty
      * @since windows6.0.6000
      */
-    static EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValue) {
-        result := DllCall("WecApi.dll\EcSetObjectArrayProperty", "ptr", ObjectArray, "int", PropertyId, "uint", ArrayIndex, "uint", Flags, "ptr", PropertyValue, "int")
+    static EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, _PropertyValue) {
+        result := DllCall("WecApi.dll\EcSetObjectArrayProperty", "ptr", ObjectArray, "int", PropertyId, "uint", ArrayIndex, "uint", Flags, "ptr", _PropertyValue, "int")
         return result
     }
 
@@ -308,13 +308,13 @@ class EventCollector {
 
     /**
      * Closes a handle received from other Event Collector functions.
-     * @param {Pointer} Object_R 
+     * @param {Pointer} _Object 
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecclose
      * @since windows6.0.6000
      */
-    static EcClose(Object_R) {
-        result := DllCall("WecApi.dll\EcClose", "ptr", Object_R, "int")
+    static EcClose(_Object) {
+        result := DllCall("WecApi.dll\EcClose", "ptr", _Object, "int")
         return result
     }
 

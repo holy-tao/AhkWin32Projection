@@ -125,7 +125,7 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
-        result := ComCall(19, this, "short*", &reference := 0, "HRESULT")
-        return reference
+        result := ComCall(19, this, "short*", &_reference := 0, "HRESULT")
+        return _reference
     }
 }

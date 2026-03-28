@@ -211,13 +211,13 @@ class ISystemMonitor2 extends ISystemMonitor{
      * 
      * @param {BSTR} bstrFileName 
      * @param {Integer} eSysmonFileType 
-     * @param {Integer} iFilter 
+     * @param {Integer} _iFilter 
      * @returns {HRESULT} 
      */
-    Relog(bstrFileName, eSysmonFileType, iFilter) {
+    Relog(bstrFileName, eSysmonFileType, _iFilter) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(91, this, "ptr", bstrFileName, "int", eSysmonFileType, "int", iFilter, "HRESULT")
+        result := ComCall(91, this, "ptr", bstrFileName, "int", eSysmonFileType, "int", _iFilter, "HRESULT")
         return result
     }
 

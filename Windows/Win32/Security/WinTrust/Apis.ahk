@@ -992,7 +992,7 @@ class WinTrust {
      * Each trust provider supports a specific set of actions that it can evaluate. Each action has a GUID that identifies it. A trust provider can support any number of action identifiers, but two trust providers cannot support the same action identifier.
      * 
      * For an example that demonstrates how to use this function to verify the signature of a portable executable (PE) file, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/example-c-program--verifying-the-signature-of-a-pe-file">Example C Program: Verifying the Signature of a PE File</a>.
-     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1145,18 +1145,18 @@ class WinTrust {
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-winverifytrust
      * @since windows5.1.2600
      */
-    static WinVerifyTrust(hwnd, pgActionID, pWVTData) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinVerifyTrust(_hwnd, pgActionID, pWVTData) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pWVTDataMarshal := pWVTData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd, "ptr", pgActionID, pWVTDataMarshal, pWVTData, "int")
+        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", _hwnd, "ptr", pgActionID, pWVTDataMarshal, pWVTData, "int")
         return result
     }
 
     /**
      * Performs a trust verification action on a specified object and takes a pointer to a WINTRUST_DATA structure.
-     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1321,10 +1321,10 @@ class WinTrust {
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-winverifytrustex
      * @since windows5.1.2600
      */
-    static WinVerifyTrustEx(hwnd, pgActionID, pWinTrustData) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinVerifyTrustEx(_hwnd, pgActionID, pWinTrustData) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("WINTRUST.dll\WinVerifyTrustEx", "ptr", hwnd, "ptr", pgActionID, "ptr", pWinTrustData, "int")
+        result := DllCall("WINTRUST.dll\WinVerifyTrustEx", "ptr", _hwnd, "ptr", pgActionID, "ptr", pWinTrustData, "int")
         return result
     }
 

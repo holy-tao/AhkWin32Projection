@@ -228,12 +228,12 @@ class IWMDMDevice extends IUnknown{
      * The GetDeviceIcon method retrieves a handle to the icon that the device manufacturer wants to display when the device is connected.
      * @remarks
      * When the application is finished with the icon, it must call the Win32 <b>DestroyIcon</b> function to free the memory.
-     * @returns {Integer} Handle to an icon object.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice-getdeviceicon
      */
     GetDeviceIcon() {
-        result := ComCall(10, this, "uint*", &hIcon := 0, "HRESULT")
-        return hIcon
+        result := ComCall(10, this, "uint*", &_hIcon := 0, "HRESULT")
+        return _hIcon
     }
 
     /**

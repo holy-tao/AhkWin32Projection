@@ -65,9 +65,7 @@ class IDXGIFactory1 extends IDXGIFactory{
      *       adapter interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the reference count before you destroy the pointer.
      * 
      * <b>EnumAdapters1</b> first returns the adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. <b>EnumAdapters1</b> next returns other adapters with outputs. <b>EnumAdapters1</b> finally returns adapters without outputs.
-     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * The index of the adapter to enumerate.
+     * @param {Integer} _Adapter 
      * @param {Pointer<IDXGIAdapter1>} ppAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a> interface at the position specified by the <i>Adapter</i> parameter.  
@@ -78,8 +76,8 @@ class IDXGIFactory1 extends IDXGIFactory{
      *       system, or <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_INVALID_CALL</a> if <i>ppAdapter</i> parameter is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory1-enumadapters1
      */
-    EnumAdapters1(Adapter, ppAdapter) {
-        result := ComCall(12, this, "uint", Adapter, "ptr*", ppAdapter, "int")
+    EnumAdapters1(_Adapter, ppAdapter) {
+        result := ComCall(12, this, "uint", _Adapter, "ptr*", ppAdapter, "int")
         return result
     }
 

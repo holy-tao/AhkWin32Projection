@@ -68,9 +68,9 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyvalue
      */
     get_PropertyValue() {
-        propertyValue := VARIANT()
-        result := ComCall(4, this, "ptr", propertyValue, "HRESULT")
-        return propertyValue
+        _propertyValue := VARIANT()
+        result := ComCall(4, this, "ptr", _propertyValue, "HRESULT")
+        return _propertyValue
     }
 
     /**

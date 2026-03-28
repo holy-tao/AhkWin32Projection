@@ -68,18 +68,16 @@ class IImageList extends IUnknown{
      * @param {Integer} i Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the index of the image to replace. If i is -1, the function adds the image to the end of the list.
-     * @param {HICON} hicon Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a></b>
-     * 
-     * A handle to the icon or cursor that contains the bitmap and mask for the new image.
+     * @param {HICON} _hicon 
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that will contain the index of the image on return if 	successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replaceicon
      */
-    ReplaceIcon(i, hicon) {
-        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+    ReplaceIcon(i, _hicon) {
+        _hicon := _hicon is Win32Handle ? NumGet(_hicon, "ptr") : _hicon
 
-        result := ComCall(4, this, "int", i, "ptr", hicon, "int*", &pi := 0, "HRESULT")
+        result := ComCall(4, this, "int", i, "ptr", _hicon, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -96,16 +94,14 @@ class IImageList extends IUnknown{
      * @param {Integer} iImage Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the zero-based index of an image in the image list. This index identifies the image to use as an overlay mask.
-     * @param {Integer} iOverlay Type: <b>int</b>
-     * 
-     * A value of type <b>int</b> that contains the one-based index of the overlay mask.
+     * @param {Integer} _iOverlay 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-setoverlayimage
      */
-    SetOverlayImage(iImage, iOverlay) {
-        result := ComCall(5, this, "int", iImage, "int", iOverlay, "HRESULT")
+    SetOverlayImage(iImage, _iOverlay) {
+        result := ComCall(5, this, "int", iImage, "int", _iOverlay, "HRESULT")
         return result
     }
 
@@ -368,19 +364,17 @@ class IImageList extends IUnknown{
      * @param {Pointer<Integer>} cx Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the width, in pixels, of each image.
-     * @param {Pointer<Integer>} cy Type: <b>int*</b>
-     * 
-     * A pointer to an <b>int</b> that receives the height, in pixels, of each image.
+     * @param {Pointer<Integer>} _cy 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticonsize
      */
-    GetIconSize(cx, cy) {
+    GetIconSize(cx, _cy) {
         cxMarshal := cx is VarRef ? "int*" : "ptr"
-        cyMarshal := cy is VarRef ? "int*" : "ptr"
+        _cyMarshal := _cy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
+        result := ComCall(16, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
     }
 
@@ -391,16 +385,14 @@ class IImageList extends IUnknown{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the width, in pixels, of the images in the image list. All images in an image list have the same dimensions.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * A value of type <b>int</b> that contains the height, in pixels, of the images in the image list. All images in an image list have the same dimensions.
+     * @param {Integer} _cy 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-seticonsize
      */
-    SetIconSize(cx, cy) {
-        result := ComCall(17, this, "int", cx, "int", cy, "HRESULT")
+    SetIconSize(cx, _cy) {
+        result := ComCall(17, this, "int", cx, "int", _cy, "HRESULT")
         return result
     }
 
@@ -674,17 +666,15 @@ class IImageList extends IUnknown{
      * Retrieves a specified image from the list of images used as overlay masks.
      * @remarks
      * To use <b>IImageList::GetOverlayImage</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
-     * @param {Integer} iOverlay Type: <b>int</b>
-     * 
-     * A value of type <b>int</b> that contains the one-based index of the overlay mask.
+     * @param {Integer} _iOverlay 
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the zero-based index of  
      * 				an image in the image list. This index identifies the image that is used as an overlay mask.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getoverlayimage
      */
-    GetOverlayImage(iOverlay) {
-        result := ComCall(31, this, "int", iOverlay, "int*", &piIndex := 0, "HRESULT")
+    GetOverlayImage(_iOverlay) {
+        result := ComCall(31, this, "int", _iOverlay, "int*", &piIndex := 0, "HRESULT")
         return piIndex
     }
 }

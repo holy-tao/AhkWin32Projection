@@ -506,17 +506,15 @@ class CloudFilters {
      * | **CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION** | This is applicable for directories only. When specified, it marks the converted placeholder directory partially populated such that any future access to it will result in a **FETCH_PLACEHOLDERS** callback sent to the sync provider. |
      * | **CF_CONVERT_FLAG_ALWAYS_FULL** | This is effective on placeholder files only. Once a file is converted to a placeholder with this flag, the placeholder is marked always full. Any attempt to dehydrate such a placeholder will fail with error code **ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED**. |
      * | **CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE** | When specified, the platform allows a sync engine to atomically convert a non-cloud files placeholder (having another reparse tag/data) to a cloud files placeholder. Note that the API normally fails conversion of any non-placeholder file to a placeholder.<br/><br/>The combination **(CF\_CONVERT\_FLAG\_FORCE\_CONVERT\_TO\_CLOUD\_FILE \| CF\_CONVERT\_FLAG\_DEHYDRATE)** is especially useful in migration scenarios when certain providers are migrating from another platform to cloud files platform and they intend to convert hydrated placeholders on the older platform to dehydrated placeholders on the cloud files platform atomically. Just this flag should be passed for converting full placeholders to cloud files placeholders. If the older platform implements full files as a regular, non-placeholder files, this flag is not needed. Passing this flag on a directory converts directories to cloud files as well, though the **DEHYDRATE** flag doesn’t apply to directories.<br/><br/>Even when the policy **CF\_PLACEHOLDER\_MANAGEMENT\_POLICY\_CONVERT\_TO\_UNRESTRICTED** was specified with [CfRegisterSyncRoot](nf-cfapi-cfregistersyncroot.md), only processes that have registered/connected to the cloud files sync root are allowed to specify this flag.<br/><br/>**Note:** The flag is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher. |
-     * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfConvertToPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
-     * 
-     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {Integer} When specified, this is the final USN value after convert actions are performed.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfconverttoplaceholder
      * @since windows10.0.16299
      */
-    static CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, ConvertFlags, Overlapped) {
+    static CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, ConvertFlags, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("cldapi.dll\CfConvertToPlaceholder", "ptr", FileHandle, "ptr", FileIdentity, "uint", FileIdentityLength, "int", ConvertFlags, "int64*", &ConvertUsn := 0, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfConvertToPlaceholder", "ptr", FileHandle, "ptr", FileIdentity, "uint", FileIdentityLength, "int", ConvertFlags, "int64*", &ConvertUsn := 0, "ptr", _Overlapped, "HRESULT")
         return ConvertUsn
     }
 
@@ -565,19 +563,17 @@ class CloudFilters {
      * @param {Pointer<Integer>} UpdateUsn On input, *UpdateUsn* instructs the platform to only perform the update if the file still has the same USN value as the one passed in. This serves a similar purpose to **CF_UPDATE_FLAG_VERIFY_IN_SYNC** but also encompasses local metadata changes. Passing a pointer to a USN value of `0` on input is the same as passing a `NULL` pointer.
      * 
      * On return, *UpdateUsn* receives the final USN value after update actions were performed.
-     * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfUpdatePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
-     * 
-     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfupdateplaceholder
      * @since windows10.0.16299
      */
-    static CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLength, DehydrateRangeArray, DehydrateRangeCount, UpdateFlags, UpdateUsn, Overlapped) {
+    static CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLength, DehydrateRangeArray, DehydrateRangeCount, UpdateFlags, UpdateUsn, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         UpdateUsnMarshal := UpdateUsn is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("cldapi.dll\CfUpdatePlaceholder", "ptr", FileHandle, "ptr", FsMetadata, "ptr", FileIdentity, "uint", FileIdentityLength, "ptr", DehydrateRangeArray, "uint", DehydrateRangeCount, "int", UpdateFlags, UpdateUsnMarshal, UpdateUsn, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfUpdatePlaceholder", "ptr", FileHandle, "ptr", FsMetadata, "ptr", FileIdentity, "uint", FileIdentityLength, "ptr", DehydrateRangeArray, "uint", DehydrateRangeCount, "int", UpdateFlags, UpdateUsnMarshal, UpdateUsn, "ptr", _Overlapped, "HRESULT")
         return result
     }
 
@@ -591,17 +587,15 @@ class CloudFilters {
      * If the API returns HRESULT_FROM_WIN32(ERROR_IO_PENDING) when using *Overlapped* asynchronously, the caller can then wait using [GetOverlappedResult](/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresult).
      * @param {HANDLE} FileHandle A handle to the file or directory placeholder that is about to be reverted to a normal file or directory. The platform properly synchronizes the revert operation with other active requests. An attribute or no-access handle is sufficient.
      * @param {Integer} RevertFlags Placeholder revert flags. *RevertFlags* should be set to **CF_REVERT_FLAG_NONE**.
-     * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfRevertPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
-     * 
-     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfrevertplaceholder
      * @since windows10.0.16299
      */
-    static CfRevertPlaceholder(FileHandle, RevertFlags, Overlapped) {
+    static CfRevertPlaceholder(FileHandle, RevertFlags, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("cldapi.dll\CfRevertPlaceholder", "ptr", FileHandle, "int", RevertFlags, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfRevertPlaceholder", "ptr", FileHandle, "int", RevertFlags, "ptr", _Overlapped, "HRESULT")
         return result
     }
 
@@ -615,17 +609,15 @@ class CloudFilters {
      * @param {Integer} StartingOffset The starting point offset of the placeholder file data.
      * @param {Integer} Length The length, in bytes, of the placeholder file whose data must be available locally on the disk after the API completes successfully. A length of `CF_EOF` (defined as -1) signifies end of file. For any subrange that is not present in the placeholder, the platform will fetch the data from the sync provider and store it on disk in the placeholder.
      * @param {Integer} HydrateFlags The placeholder hydration flags. *HydrateFlags* must be set to **CF_HYDRATE_FLAG_NONE**.
-     * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfHydratePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
-     * 
-     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfhydrateplaceholder
      * @since windows10.0.16299
      */
-    static CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, Overlapped) {
+    static CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("cldapi.dll\CfHydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", HydrateFlags, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfHydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", HydrateFlags, "ptr", _Overlapped, "HRESULT")
         return result
     }
 
@@ -635,13 +627,13 @@ class CloudFilters {
      * @param {Integer} StartingOffset 
      * @param {Integer} Length 
      * @param {Integer} DehydrateFlags 
-     * @param {Pointer<OVERLAPPED>} Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} 
      */
-    static CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags, Overlapped) {
+    static CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("cldapi.dll\CfDehydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", DehydrateFlags, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfDehydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", DehydrateFlags, "ptr", _Overlapped, "HRESULT")
         return result
     }
 
@@ -658,15 +650,15 @@ class CloudFilters {
      * - If **CF_PIN_FLAG_RECURSE** is specified, the platform applies the pin state to *FileHandle* and every file recursively beneath it (relevant only if *FileHandle* is a handle to a directory).
      * - If **CF_PIN_FLAG_RECURSE_ONLY** is specified, the platform applies the pin state to every file recursively beneath *FileHandle*, but not to *FileHandle* itself.
      * - If **CF_PIN_FLAG_RECURSE_STOP_ERROR** is specified, the platform will stop the recursion when encountering first error. Otherwise, the platform skips the error and continues the recursion.
-     * @param {Pointer<OVERLAPPED>} Overlapped Allows the call to be performed asynchronously. See the [Remarks](#-remarks) section for more details.
+     * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetpinstate
      * @since windows10.0.16299
      */
-    static CfSetPinState(FileHandle, PinState, PinFlags, Overlapped) {
+    static CfSetPinState(FileHandle, PinState, PinFlags, _Overlapped) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("cldapi.dll\CfSetPinState", "ptr", FileHandle, "int", PinState, "int", PinFlags, "ptr", Overlapped, "HRESULT")
+        result := DllCall("cldapi.dll\CfSetPinState", "ptr", FileHandle, "int", PinState, "int", PinFlags, "ptr", _Overlapped, "HRESULT")
         return result
     }
 

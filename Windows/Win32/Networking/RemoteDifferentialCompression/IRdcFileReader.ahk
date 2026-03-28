@@ -61,18 +61,18 @@ class IRdcFileReader extends IUnknown{
      * @param {Integer} offsetFileStart Offset from the start of the data at which to start the read.
      * @param {Integer} bytesToRead Number of bytes to be read.
      * @param {Pointer<Integer>} bytesActuallyRead Address of a <b>ULONG</b> that will receive the number of bytes read.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Pointer<BOOL>} eof Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
      *       the file has been read.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-read
      */
-    Read(offsetFileStart, bytesToRead, bytesActuallyRead, buffer_R, eof) {
+    Read(offsetFileStart, bytesToRead, bytesActuallyRead, _buffer, eof) {
         bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
         eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, buffer_RMarshal, buffer_R, eofMarshal, eof, "HRESULT")
+        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, _bufferMarshal, _buffer, eofMarshal, eof, "HRESULT")
         return result
     }
 

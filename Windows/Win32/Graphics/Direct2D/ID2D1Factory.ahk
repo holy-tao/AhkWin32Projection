@@ -138,9 +138,7 @@ class ID2D1Factory extends IUnknown{
      * Creates an ID2D1GeometryGroup, which is an object that holds other geometries.
      * @remarks
      * Geometry groups are a convenient way to group several geometries simultaneously so all figures of several distinct geometries are concatenated into one. To create a  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a> object, call  the <b>CreateGeometryGroup</b> method on the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a> object, passing in the <i>fillMode</i> with possible values of   <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE_ALTERNATE</a> (alternate) and <b>D2D1_FILL_MODE_WINDING</b>, an array of geometry objects to add to the geometry group, and the number of elements in this array.
-     * @param {Integer} fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
-     * 
-     * A value that specifies the rule that a composite shape uses to determine whether a given point is part of the geometry.
+     * @param {Integer} _fillMode 
      * @param {Pointer<ID2D1Geometry>} geometries Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>**</b>
      * 
      * An array containing the geometry objects to add to the geometry group. The number of elements in this array is indicated by the <i>geometriesCount</i> parameter.
@@ -152,8 +150,8 @@ class ID2D1Factory extends IUnknown{
      * When this method returns, contains the address of a pointer to the geometry group created by this method.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup
      */
-    CreateGeometryGroup(fillMode, geometries, geometriesCount) {
-        result := ComCall(8, this, "int", fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
+    CreateGeometryGroup(_fillMode, geometries, geometriesCount) {
+        result := ComCall(8, this, "int", _fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
         return ID2D1GeometryGroup(geometryGroup)
     }
 

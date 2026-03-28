@@ -115,12 +115,12 @@ class ITransformProvider2 extends ITransformProvider{
 
     /**
      * Zooms the viewport of the control by the specified logical unit.
-     * @param {Integer} zoomUnit The logical unit by which to increase or decrease the zoom of the viewport.
+     * @param {Integer} _zoomUnit 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoombyunit
      */
-    ZoomByUnit(zoomUnit) {
-        result := ComCall(14, this, "int", zoomUnit, "HRESULT")
+    ZoomByUnit(_zoomUnit) {
+        result := ComCall(14, this, "int", _zoomUnit, "HRESULT")
         return result
     }
 }

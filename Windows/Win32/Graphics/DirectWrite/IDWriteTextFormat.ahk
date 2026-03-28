@@ -360,14 +360,12 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the current font collection.
-     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
-     * 
-     * When this method returns, contains an address of a pointer to the font collection being used for the current text.
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontcollection
      */
     GetFontCollection() {
-        result := ComCall(19, this, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection(fontCollection)
+        result := ComCall(19, this, "ptr*", &_fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection(_fontCollection)
     }
 
     /**

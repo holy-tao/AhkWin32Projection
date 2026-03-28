@@ -28,16 +28,16 @@ class IWABObject extends IUnknown{
 
     /**
      * This method is not implemented. (IWABObject.GetLastError)
-     * @param {HRESULT} hResult TBD
+     * @param {HRESULT} _hResult 
      * @param {Integer} ulFlags TBD
      * @param {Pointer<Pointer<MAPIERROR>>} lppMAPIError TBD
      * @returns {HRESULT} This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-getlasterror
      */
-    GetLastError(hResult, ulFlags, lppMAPIError) {
+    GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -159,20 +159,16 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book to search.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * Value of type <b>HWND</b> that specifies 
-     * 				the handle to the parent window for the Find dialog box. 
-     * 				The value can be <b>NULL</b>.
+     * @param {HWND} _hWnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-find
      */
-    Find(lpIAB, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Find(lpIAB, _hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(9, this, "ptr", lpIAB, "ptr", hWnd, "HRESULT")
+        result := ComCall(9, this, "ptr", lpIAB, "ptr", _hWnd, "HRESULT")
         return result
     }
 
@@ -182,10 +178,7 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book object.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * Value of type <b>HWND</b> that specifies 
-     * 				the parent window handle for displayed dialog boxes.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpszFileName Type: <b>LPSTR</b>
      * 
      * Value of type <b>LPSTR</b> that specifies 		
@@ -195,11 +188,11 @@ class IWABObject extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcarddisplay
      */
-    VCardDisplay(lpIAB, hWnd, lpszFileName) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    VCardDisplay(lpIAB, _hWnd, lpszFileName) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := ComCall(10, this, "ptr", lpIAB, "ptr", hWnd, "ptr", lpszFileName, "HRESULT")
+        result := ComCall(10, this, "ptr", lpIAB, "ptr", _hWnd, "ptr", lpszFileName, "HRESULT")
         return result
     }
 
@@ -220,10 +213,7 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book to use.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * Value of type <b>HWND</b> that specifies the 
-     * 				handle to the parent window for displayed dialog boxes.
+     * @param {HWND} _hWnd 
      * @param {Integer} ulFlags Type: <b>ULONG</b>
      * 
      * Value of type <b>ULONG</b> that specifies flags 
@@ -240,11 +230,11 @@ class IWABObject extends IUnknown{
      * 				if requested. Otherwise, it is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-ldapurl
      */
-    LDAPUrl(lpIAB, hWnd, ulFlags, lpszURL) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    LDAPUrl(lpIAB, _hWnd, ulFlags, lpszURL) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
-        result := ComCall(11, this, "ptr", lpIAB, "ptr", hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", lpIAB, "ptr", _hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
         return IMailUser(lppMailUser)
     }
 
@@ -373,23 +363,18 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a> 
      * 				that specifies the entry identifier of the ME object on return.
-     * @param {HWND} hwnd Type: <b>ULONG</b>
-     * 
-     * Value of type <b>ULONG</b> that specifies 
-     * 				the handle of the parent window for displayed dialog boxes. 
-     * 				You must cast the parent <b>HWND</b> to a 
-     * 				<b>ULONG</b>.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-getme
      */
-    GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, "ptr", lpsbEID, "ptr", hwnd, "HRESULT")
+        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, "ptr", lpsbEID, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -424,21 +409,16 @@ class IWABObject extends IUnknown{
      * Value of type <a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a> that 
      * 				specifies the entry identifier of the contact that should be tagged 
      * 				as ME.
-     * @param {HWND} hwnd Type: <b>ULONG</b>
-     * 
-     * Value of type <b>ULONG</b> that specifies the 
-     * 				parent window handle for displaying dialog boxes. Cast the 
-     * 				parent <b>HWND</b> to a <b>ULONG</b> 
-     * 				before passing.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-setme
      */
-    SetMe(lpIAB, ulFlags, sbEID, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetMe(lpIAB, ulFlags, sbEID, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(15, this, "ptr", lpIAB, "uint", ulFlags, "ptr", sbEID, "ptr", hwnd, "HRESULT")
+        result := ComCall(15, this, "ptr", lpIAB, "uint", ulFlags, "ptr", sbEID, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

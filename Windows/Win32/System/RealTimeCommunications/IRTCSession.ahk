@@ -113,8 +113,8 @@ class IRTCSession extends IUnknown{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(5, this, "int*", &penType := 0, "HRESULT")
-        return penType
+        result := ComCall(5, this, "int*", &_penType := 0, "HRESULT")
+        return _penType
     }
 
     /**

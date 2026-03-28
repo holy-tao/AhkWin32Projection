@@ -135,14 +135,14 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {BSTR} Property 
+     * @param {BSTR} _Property 
      * @param {VARIANT} vtValue 
      * @returns {HRESULT} 
      */
-    PutProperty(Property, vtValue) {
-        Property := Property is String ? BSTR.Alloc(Property).Value : Property
+    PutProperty(_Property, vtValue) {
+        _Property := _Property is String ? BSTR.Alloc(_Property).Value : _Property
 
-        result := ComCall(34, this, "ptr", Property, "ptr", vtValue, "HRESULT")
+        result := ComCall(34, this, "ptr", _Property, "ptr", vtValue, "HRESULT")
         return result
     }
 
@@ -152,15 +152,15 @@ class IWebBrowserApp extends IWebBrowser{
      * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
      * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
-     * @param {BSTR} Property 
+     * @param {BSTR} _Property 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
-    GetProperty(Property) {
-        Property := Property is String ? BSTR.Alloc(Property).Value : Property
+    GetProperty(_Property) {
+        _Property := _Property is String ? BSTR.Alloc(_Property).Value : _Property
 
         pvtValue := VARIANT()
-        result := ComCall(35, this, "ptr", Property, "ptr", pvtValue, "HRESULT")
+        result := ComCall(35, this, "ptr", _Property, "ptr", pvtValue, "HRESULT")
         return pvtValue
     }
 
@@ -201,9 +201,9 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {BSTR} 
      */
     get_Path() {
-        Path := BSTR()
-        result := ComCall(39, this, "ptr", Path, "HRESULT")
-        return Path
+        _Path := BSTR()
+        result := ComCall(39, this, "ptr", _Path, "HRESULT")
+        return _Path
     }
 
     /**

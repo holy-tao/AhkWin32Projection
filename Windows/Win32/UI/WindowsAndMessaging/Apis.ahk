@@ -7090,9 +7090,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Using this function incorrectly can compromise the security of your application. Incorrect use includes specifying the wrong size in the <i>nBufferMax</i> parameter. For example, if <i>lpBuffer</i> points to a buffer <i>szBuffer</i> which is declared as <c>TCHAR szBuffer[100]</code>, then sizeof(szBuffer) gives the size of the buffer in bytes, which could lead to a buffer overflow for the Unicode version of the function. Buffer overflow situations are the cause of many security problems in applications. In this case, using <code>sizeof(szBuffer)/sizeof(TCHAR)</code> or <code>sizeof(szBuffer)/sizeof(szBuffer[0])</c> would give the proper size of the buffer.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
@@ -7114,13 +7112,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadstringa
      * @since windows5.0
      */
-    static LoadStringA(hInstance, uID, lpBuffer, cchBufferMax) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadStringA(_hInstance, uID, lpBuffer, cchBufferMax) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadStringA", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
+        result := DllCall("USER32.dll\LoadStringA", "ptr", _hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7135,9 +7133,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Using this function incorrectly can compromise the security of your application. Incorrect use includes specifying the wrong size in the <i>nBufferMax</i> parameter. For example, if <i>lpBuffer</i> points to a buffer <i>szBuffer</i> which is declared as <c>TCHAR szBuffer[100]</code>, then sizeof(szBuffer) gives the size of the buffer in bytes, which could lead to a buffer overflow for the Unicode version of the function. Buffer overflow situations are the cause of many security problems in applications. In this case, using <code>sizeof(szBuffer)/sizeof(TCHAR)</code> or <code>sizeof(szBuffer)/sizeof(szBuffer[0])</c> would give the proper size of the buffer.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
@@ -7159,13 +7155,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadstringw
      * @since windows5.0
      */
-    static LoadStringW(hInstance, uID, lpBuffer, cchBufferMax) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadStringW(_hInstance, uID, lpBuffer, cchBufferMax) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadStringW", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
+        result := DllCall("USER32.dll\LoadStringW", "ptr", _hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7185,9 +7181,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>LONG_PTR</b>
      * 
@@ -7199,12 +7193,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowlongptra
      * @since windows5.0
      */
-    static GetWindowLongPtrA(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowLongPtrA(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowLongPtrA", "ptr", hWnd, "int", nIndex, "ptr")
+        result := DllCall("USER32.dll\GetWindowLongPtrA", "ptr", _hWnd, "int", nIndex, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7224,9 +7218,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>LONG_PTR</b>
      * 
@@ -7238,12 +7230,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowlongptrw
      * @since windows5.0
      */
-    static GetWindowLongPtrW(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowLongPtrW(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowLongPtrW", "ptr", hWnd, "int", nIndex, "ptr")
+        result := DllCall("USER32.dll\GetWindowLongPtrW", "ptr", _hWnd, "int", nIndex, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7277,11 +7269,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
-     * 
-     * <b>Windows XP/2000:  </b> The <b>SetWindowLongPtr</b> function fails if the window specified by the <i>hWnd</i> parameter does not belong to the same process as the calling thread.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
@@ -7296,12 +7284,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowlongptra
      * @since windows5.0
      */
-    static SetWindowLongPtrA(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowLongPtrA(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowLongPtrA", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
+        result := DllCall("USER32.dll\SetWindowLongPtrA", "ptr", _hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7335,11 +7323,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
-     * 
-     * <b>Windows XP/2000:  </b> The <b>SetWindowLongPtr</b> function fails if the window specified by the <i>hWnd</i> parameter does not belong to the same process as the calling thread.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
@@ -7354,12 +7338,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowlongptrw
      * @since windows5.0
      */
-    static SetWindowLongPtrW(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowLongPtrW(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowLongPtrW", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
+        result := DllCall("USER32.dll\SetWindowLongPtrW", "ptr", _hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7379,9 +7363,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>ULONG_PTR</b>
      * 
@@ -7391,12 +7373,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclasslongptra
      * @since windows5.0
      */
-    static GetClassLongPtrA(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassLongPtrA(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassLongPtrA", "ptr", hWnd, "int", nIndex, "ptr")
+        result := DllCall("USER32.dll\GetClassLongPtrA", "ptr", _hWnd, "int", nIndex, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7416,9 +7398,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>ULONG_PTR</b>
      * 
@@ -7428,12 +7408,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclasslongptrw
      * @since windows5.0
      */
-    static GetClassLongPtrW(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassLongPtrW(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassLongPtrW", "ptr", hWnd, "int", nIndex, "ptr")
+        result := DllCall("USER32.dll\GetClassLongPtrW", "ptr", _hWnd, "int", nIndex, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7459,9 +7439,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
@@ -7474,12 +7452,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclasslongptra
      * @since windows5.0
      */
-    static SetClassLongPtrA(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetClassLongPtrA(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetClassLongPtrA", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
+        result := DllCall("USER32.dll\SetClassLongPtrA", "ptr", _hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7505,9 +7483,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
@@ -7520,12 +7496,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclasslongptrw
      * @since windows5.0
      */
-    static SetClassLongPtrW(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetClassLongPtrW(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetClassLongPtrW", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
+        result := DllCall("USER32.dll\SetClassLongPtrW", "ptr", _hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8031,9 +8007,7 @@ class WindowsAndMessaging {
      * The Windows timeout criteria of 5 seconds is subject to change.
      * 
      * This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is <b>TRUE</b> if the window stops responding; otherwise, it is <b>FALSE</b>.  Ghost windows always return
@@ -8041,10 +8015,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ishungappwindow
      * @since windows5.0
      */
-    static IsHungAppWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IsHungAppWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\IsHungAppWindow", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\IsHungAppWindow", "ptr", _hwnd, "int")
         return result
     }
 
@@ -8157,14 +8131,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
-     * 
-     * 
-     * If <i>hWnd</i> is <b>NULL</b>, <b>GetMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
-     * 
-     *  If <i>hWnd</i> is -1, <b>GetMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>,  that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The integer value of the lowest message value to be retrieved. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message. 
@@ -8218,12 +8185,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmessagea
      * @since windows5.0
      */
-    static GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMessageA", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
+        result := DllCall("USER32.dll\GetMessageA", "ptr", lpMsg, "ptr", _hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8264,14 +8231,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
-     * 
-     * 
-     * If <i>hWnd</i> is <b>NULL</b>, <b>GetMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
-     * 
-     *  If <i>hWnd</i> is -1, <b>GetMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>,  that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The integer value of the lowest message value to be retrieved. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message. 
@@ -8325,12 +8285,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmessagew
      * @since windows5.0
      */
-    static GetMessageW(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetMessageW(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMessageW", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
+        result := DllCall("USER32.dll\GetMessageW", "ptr", lpMsg, "ptr", _hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8447,15 +8407,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
-     * 
-     * 
-     * 
-     * If <i>hWnd</i> is <b>NULL</b>, <b>PeekMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
-     * 
-     *  If <i>hWnd</i> is -1, <b>PeekMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>, that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The value of the first message in the range of messages to be examined. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message.
@@ -8475,10 +8427,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-peekmessagea
      * @since windows5.0
      */
-    static PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PeekMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\PeekMessageA", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
+        result := DllCall("USER32.dll\PeekMessageA", "ptr", lpMsg, "ptr", _hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
         return result
     }
 
@@ -8512,15 +8464,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
-     * 
-     * 
-     * 
-     * If <i>hWnd</i> is <b>NULL</b>, <b>PeekMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
-     * 
-     *  If <i>hWnd</i> is -1, <b>PeekMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>, that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The value of the first message in the range of messages to be examined. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message.
@@ -8540,10 +8484,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-peekmessagew
      * @since windows5.0
      */
-    static PeekMessageW(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PeekMessageW(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\PeekMessageW", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
+        result := DllCall("USER32.dll\PeekMessageW", "ptr", lpMsg, "ptr", _hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
         return result
     }
 
@@ -8612,17 +8556,15 @@ class WindowsAndMessaging {
 
     /**
      * Sets the extra message information for the current thread.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The value to be associated with the current thread.
+     * @param {LPARAM} _lParam 
      * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the previous value associated with the current thread.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmessageextrainfo
      * @since windows5.0
      */
-    static SetMessageExtraInfo(lParam) {
-        result := DllCall("USER32.dll\SetMessageExtraInfo", "ptr", lParam, "ptr")
+    static SetMessageExtraInfo(_lParam) {
+        result := DllCall("USER32.dll\SetMessageExtraInfo", "ptr", _lParam, "ptr")
         return result
     }
 
@@ -8638,34 +8580,22 @@ class WindowsAndMessaging {
      * If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessagetimeouta">SendMessageTimeout</a> with SMTO_BLOCK set. For more information on nonqueued messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">Nonqueued Messages</a>.
      * 
      *  An accessibility application can use <b>SendMessage</b> to send <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-appcommand">WM_APPCOMMAND</a> messages  to the shell to launch applications. This  functionality is not guaranteed to work for other types of applications.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * 
-     *  Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagea
      * @since windows5.0
      */
-    static SendMessageA(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageA(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\SendMessageA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8685,34 +8615,22 @@ class WindowsAndMessaging {
      * If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessagetimeouta">SendMessageTimeout</a> with SMTO_BLOCK set. For more information on nonqueued messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">Nonqueued Messages</a>.
      * 
      *  An accessibility application can use <b>SendMessage</b> to send <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-appcommand">WM_APPCOMMAND</a> messages  to the shell to launch applications. This  functionality is not guaranteed to work for other types of applications.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * 
-     *  Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagew
      * @since windows5.0
      */
-    static SendMessageW(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageW(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\SendMessageW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8735,22 +8653,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageTimeout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message.
-     * 
-     * If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows. The function does not return until each window has timed out. Therefore, the total wait time can be up to the value of <i>uTimeout</i> multiplied by the number of top-level windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Any additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Any additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Integer} fuFlags Type: <b>UINT</b>
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
@@ -8768,14 +8674,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagetimeouta
      * @since windows5.0
      */
-    static SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageTimeoutA(_hWnd, _Msg, _wParam, _lParam, fuFlags, uTimeout, lpdwResult) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageTimeoutA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "uint", fuFlags, "uint", uTimeout, lpdwResultMarshal, lpdwResult, "ptr")
+        result := DllCall("USER32.dll\SendMessageTimeoutA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "uint", fuFlags, "uint", uTimeout, lpdwResultMarshal, lpdwResult, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8798,22 +8704,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageTimeout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message.
-     * 
-     * If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows. The function does not return until each window has timed out. Therefore, the total wait time can be up to the value of <i>uTimeout</i> multiplied by the number of top-level windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Any additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Any additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Integer} fuFlags Type: <b>UINT</b>
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
@@ -8831,14 +8725,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagetimeoutw
      * @since windows5.0
      */
-    static SendMessageTimeoutW(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageTimeoutW(_hWnd, _Msg, _wParam, _lParam, fuFlags, uTimeout, lpdwResult) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageTimeoutW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "uint", fuFlags, "uint", uTimeout, lpdwResultMarshal, lpdwResult, "ptr")
+        result := DllCall("USER32.dll\SendMessageTimeoutW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "uint", fuFlags, "uint", uTimeout, lpdwResultMarshal, lpdwResult, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8861,20 +8755,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendNotifyMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -8883,12 +8767,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendnotifymessagea
      * @since windows5.0
      */
-    static SendNotifyMessageA(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendNotifyMessageA(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendNotifyMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\SendNotifyMessageA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8911,20 +8795,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendNotifyMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -8933,12 +8807,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendnotifymessagew
      * @since windows5.0
      */
-    static SendNotifyMessageW(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendNotifyMessageW(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendNotifyMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\SendNotifyMessageW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8963,20 +8837,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
      * 
      * A pointer to a callback function that the system calls after the window procedure processes the message. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-sendasyncproc">SendAsyncProc</a>. 
@@ -8995,12 +8859,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagecallbacka
      * @since windows5.0
      */
-    static SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageCallbackA(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageCallbackA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
+        result := DllCall("USER32.dll\SendMessageCallbackA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9025,20 +8889,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
      * 
      * A pointer to a callback function that the system calls after the window procedure processes the message. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-sendasyncproc">SendAsyncProc</a>. 
@@ -9057,12 +8911,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessagecallbackw
      * @since windows5.0
      */
-    static SendMessageCallbackW(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SendMessageCallbackW(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SendMessageCallbackW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
+        result := DllCall("USER32.dll\SendMessageCallbackW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9218,8 +9072,7 @@ class WindowsAndMessaging {
 
     /**
      * Closes the specified device notification handle.
-     * @param {HDEVNOTIFY} Handle Device notification handle returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a> function.
+     * @param {HDEVNOTIFY} _Handle 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9227,12 +9080,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterdevicenotification
      * @since windows5.1.2600
      */
-    static UnregisterDeviceNotification(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static UnregisterDeviceNotification(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterDeviceNotification", "ptr", Handle, "int")
+        result := DllCall("USER32.dll\UnregisterDeviceNotification", "ptr", _Handle, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9270,52 +9123,10 @@ class WindowsAndMessaging {
      * If the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information. <b>GetLastError</b> returns <b>ERROR_NOT_ENOUGH_QUOTA</b> when the limit is hit.
      * 
      * The minimum acceptable value is 4000.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="HWND_BROADCAST"></a><a id="hwnd_broadcast"></a><dl>
-     * <dt><b>HWND_BROADCAST</b></dt>
-     * <dt>((HWND)0xffff)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message is posted to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows. The message is not posted to child windows.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>NULL</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function behaves like a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a> with the <i>dwThreadId</i> parameter set to the identifier of the current thread.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Starting with Windows Vista, message posting is subject to UIPI. The thread of a process can post messages only to message queues of threads in processes of lesser or equal integrity level.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be posted.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9324,12 +9135,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-postmessagea
      * @since windows5.0
      */
-    static PostMessageA(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PostMessageA(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\PostMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\PostMessageA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9367,52 +9178,10 @@ class WindowsAndMessaging {
      * If the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information. <b>GetLastError</b> returns <b>ERROR_NOT_ENOUGH_QUOTA</b> when the limit is hit.
      * 
      * The minimum acceptable value is 4000.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="HWND_BROADCAST"></a><a id="hwnd_broadcast"></a><dl>
-     * <dt><b>HWND_BROADCAST</b></dt>
-     * <dt>((HWND)0xffff)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message is posted to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows. The message is not posted to child windows.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>NULL</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function behaves like a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a> with the <i>dwThreadId</i> parameter set to the identifier of the current thread.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Starting with Windows Vista, message posting is subject to UIPI. The thread of a process can post messages only to message queues of threads in processes of lesser or equal integrity level.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be posted.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9421,12 +9190,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-postmessagew
      * @since windows5.0
      */
-    static PostMessageW(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PostMessageW(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\PostMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\PostMessageW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9501,15 +9270,9 @@ class WindowsAndMessaging {
      *  This thread must have the <b>SE_TCB_NAME</b> privilege to post a message to a thread that belongs to a process with the same locally unique identifier (LUID) but is in a different desktop. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
      * 
      *  This thread must either belong to the same desktop as the calling thread or to a process with the same LUID. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The type of message to be posted.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9518,10 +9281,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-postthreadmessagea
      * @since windows5.0
      */
-    static PostThreadMessageA(idThread, Msg, wParam, lParam) {
+    static PostThreadMessageA(idThread, _Msg, _wParam, _lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\PostThreadMessageA", "uint", idThread, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\PostThreadMessageA", "uint", idThread, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9596,15 +9359,9 @@ class WindowsAndMessaging {
      *  This thread must have the <b>SE_TCB_NAME</b> privilege to post a message to a thread that belongs to a process with the same locally unique identifier (LUID) but is in a different desktop. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
      * 
      *  This thread must either belong to the same desktop as the calling thread or to a process with the same LUID. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The type of message to be posted.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9613,10 +9370,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-postthreadmessagew
      * @since windows5.0
      */
-    static PostThreadMessageW(idThread, Msg, wParam, lParam) {
+    static PostThreadMessageW(idThread, _Msg, _wParam, _lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\PostThreadMessageW", "uint", idThread, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\PostThreadMessageW", "uint", idThread, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -9630,9 +9387,7 @@ class WindowsAndMessaging {
      * By calling this function, the window procedure that receives the message allows the thread that called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> to continue to run as though the thread receiving the message had returned control. The thread that calls the <b>ReplyMessage</b> function also continues to run. 
      * 
      * If the message was not sent through <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> or if the message was sent by the same thread, <b>ReplyMessage</b> has no effect.
-     * @param {LRESULT} lResult Type: <b>LRESULT</b>
-     * 
-     * The result of the message processing. The possible values are based on the message sent.
+     * @param {LRESULT} _lResult 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the calling thread was processing a message sent from another thread or process, the return value is nonzero.
@@ -9641,8 +9396,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-replymessage
      * @since windows5.0
      */
-    static ReplyMessage(lResult) {
-        result := DllCall("USER32.dll\ReplyMessage", "ptr", lResult, "int")
+    static ReplyMessage(_lResult) {
+        result := DllCall("USER32.dll\ReplyMessage", "ptr", _lResult, "int")
         return result
     }
 
@@ -9674,28 +9429,20 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DefWindowProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window procedure that received the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defwindowproca
      * @since windows5.0
      */
-    static DefWindowProcA(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefWindowProcA(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\DefWindowProcA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefWindowProcA", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -9704,28 +9451,20 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DefWindowProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window procedure that received the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defwindowprocw
      * @since windows5.0
      */
-    static DefWindowProcW(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefWindowProcW(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\DefWindowProcW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefWindowProcW", "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -9774,28 +9513,20 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window procedure to receive the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callwindowproca
      * @since windows5.0
      */
-    static CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static CallWindowProcA(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\CallWindowProcA", "ptr", lpPrevWndFunc, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\CallWindowProcA", "ptr", lpPrevWndFunc, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -9827,28 +9558,20 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window procedure to receive the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callwindowprocw
      * @since windows5.0
      */
-    static CallWindowProcW(lpPrevWndFunc, hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static CallWindowProcW(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\CallWindowProcW", "ptr", lpPrevWndFunc, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\CallWindowProcW", "ptr", lpPrevWndFunc, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -10025,9 +9748,7 @@ class WindowsAndMessaging {
      * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the module that created the class.
+     * @param {HINSTANCE} _hInstance 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
@@ -10036,13 +9757,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterclassa
      * @since windows5.0
      */
-    static UnregisterClassA(lpClassName, hInstance) {
+    static UnregisterClassA(lpClassName, _hInstance) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterClassA", "ptr", lpClassName, "ptr", hInstance, "int")
+        result := DllCall("USER32.dll\UnregisterClassA", "ptr", lpClassName, "ptr", _hInstance, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10070,9 +9791,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the module that created the class.
+     * @param {HINSTANCE} _hInstance 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
@@ -10081,13 +9800,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterclassw
      * @since windows5.0
      */
-    static UnregisterClassW(lpClassName, hInstance) {
+    static UnregisterClassW(lpClassName, _hInstance) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterClassW", "ptr", lpClassName, "ptr", hInstance, "int")
+        result := DllCall("USER32.dll\UnregisterClassW", "ptr", lpClassName, "ptr", _hInstance, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10100,9 +9819,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
@@ -10120,13 +9837,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassinfoa
      * @since windows5.0
      */
-    static GetClassInfoA(hInstance, lpClassName, lpWndClass) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static GetClassInfoA(_hInstance, lpClassName, lpWndClass) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassInfoA", "ptr", hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
+        result := DllCall("USER32.dll\GetClassInfoA", "ptr", _hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10139,9 +9856,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
@@ -10159,13 +9874,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassinfow
      * @since windows5.0
      */
-    static GetClassInfoW(hInstance, lpClassName, lpWndClass) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static GetClassInfoW(_hInstance, lpClassName, lpWndClass) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassInfoW", "ptr", hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
+        result := DllCall("USER32.dll\GetClassInfoW", "ptr", _hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10245,9 +9960,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
@@ -10263,13 +9976,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassinfoexa
      * @since windows5.0
      */
-    static GetClassInfoExA(hInstance, lpszClass, lpwcx) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static GetClassInfoExA(_hInstance, lpszClass, lpwcx) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassInfoExA", "ptr", hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
+        result := DllCall("USER32.dll\GetClassInfoExA", "ptr", _hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10289,9 +10002,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
@@ -10307,13 +10018,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassinfoexw
      * @since windows5.0
      */
-    static GetClassInfoExW(hInstance, lpszClass, lpwcx) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static GetClassInfoExW(_hInstance, lpszClass, lpwcx) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassInfoExW", "ptr", hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
+        result := DllCall("USER32.dll\GetClassInfoExW", "ptr", _hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10453,12 +10164,8 @@ class WindowsAndMessaging {
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the module to be associated with the window.
+     * @param {HMENU} _hMenu 
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
      * 
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
@@ -10482,18 +10189,18 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa
      * @since windows5.0
      */
-    static CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
+    static CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, _hMenu, _hInstance, lpParam) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
         lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         lpParamMarshal := lpParam is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateWindowExA", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, lpParamMarshal, lpParam, "ptr")
+        result := DllCall("USER32.dll\CreateWindowExA", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", _hMenu, "ptr", _hInstance, lpParamMarshal, lpParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10634,12 +10341,8 @@ class WindowsAndMessaging {
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the module to be associated with the window.
+     * @param {HMENU} _hMenu 
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
      * 
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
@@ -10663,18 +10366,18 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexw
      * @since windows5.0
      */
-    static CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
+    static CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, _hMenu, _hInstance, lpParam) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
         lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         lpParamMarshal := lpParam is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateWindowExW", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, lpParamMarshal, lpParam, "ptr")
+        result := DllCall("USER32.dll\CreateWindowExW", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", _hMenu, "ptr", _hInstance, lpParamMarshal, lpParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10687,9 +10390,7 @@ class WindowsAndMessaging {
      * Determines whether the specified window handle identifies an existing window.
      * @remarks
      * A thread should not use <b>IsWindow</b> for a window that it did not create because the window could be destroyed after this function was called. Further, because window handles are recycled the handle could even point to a different window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window handle identifies an existing window, the return value is nonzero.
@@ -10698,18 +10399,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iswindow
      * @since windows5.0
      */
-    static IsWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsWindow(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsWindow", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsWindow", "ptr", _hWnd, "int")
         return result
     }
 
     /**
      * Determines whether a handle is a menu handle.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to be tested.
+     * @param {HMENU} _hMenu 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the handle is a menu handle, the return value is nonzero. 
@@ -10718,10 +10417,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ismenu
      * @since windows5.0
      */
-    static IsMenu(hMenu) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static IsMenu(_hMenu) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\IsMenu", "ptr", hMenu, "int")
+        result := DllCall("USER32.dll\IsMenu", "ptr", _hMenu, "int")
         return result
     }
 
@@ -10730,9 +10429,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a child or descendant window of the specified parent window, the return value is nonzero.
@@ -10741,11 +10438,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ischild
      * @since windows5.0
      */
-    static IsChild(hWndParent, hWnd) {
+    static IsChild(hWndParent, _hWnd) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsChild", "ptr", hWndParent, "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsChild", "ptr", hWndParent, "ptr", _hWnd, "int")
         return result
     }
 
@@ -10755,9 +10452,7 @@ class WindowsAndMessaging {
      * A thread cannot use <b>DestroyWindow</b> to destroy a window created by a different thread. 
      * 
      * If the window being destroyed is a child window that does not have the <b>WS_EX_NOPARENTNOTIFY</b> style, a <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-parentnotify">WM_PARENTNOTIFY</a> message is sent to the parent.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be destroyed.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10766,12 +10461,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroywindow
      * @since windows5.0
      */
-    static DestroyWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DestroyWindow(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DestroyWindow", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\DestroyWindow", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10792,9 +10487,7 @@ class WindowsAndMessaging {
      * <li>Applications create their main window by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> with the <b>WS_VISIBLE</b> flag set. </li>
      * <li>Applications create their main window by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> with the <b>WS_VISIBLE</b> flag cleared, and later call <b>ShowWindow</b> with the <b>SW_SHOW</b> flag set to make it visible. </li>
      * </ul>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Integer} nCmdShow Type: <b>int</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
@@ -10804,10 +10497,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showwindow
      * @since windows5.0
      */
-    static ShowWindow(hWnd, nCmdShow) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShowWindow(_hWnd, nCmdShow) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\ShowWindow", "ptr", hWnd, "int", nCmdShow, "int")
+        result := DllCall("USER32.dll\ShowWindow", "ptr", _hWnd, "int", nCmdShow, "int")
         return result
     }
 
@@ -10827,9 +10520,7 @@ class WindowsAndMessaging {
      * <b>AnimateWindow</b> supports RTL windows.
      * 
      * Avoid animating a window that has a drop shadow because it produces visually distracting, jerky animations.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to animate. The calling thread must own this window.
+     * @param {HWND} _hWnd 
      * @param {Integer} dwTime Type: <b>DWORD</b>
      * 
      * The time it takes to play the animation, in milliseconds. Typically, an animation takes 200 milliseconds to play.
@@ -10851,12 +10542,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-animatewindow
      * @since windows5.0
      */
-    static AnimateWindow(hWnd, dwTime, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AnimateWindow(_hWnd, dwTime, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AnimateWindow", "ptr", hWnd, "uint", dwTime, "uint", dwFlags, "int")
+        result := DllCall("USER32.dll\AnimateWindow", "ptr", _hWnd, "uint", dwTime, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10878,11 +10569,7 @@ class WindowsAndMessaging {
      * For best drawing performance by the layered window and any underlying windows, the layered window should be as small as possible. An application should also process the  message and re-create its layered windows when the display's color depth changes.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Layered Windows</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to a layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. 
-     * 
-     * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
+     * @param {HWND} _hWnd 
      * @param {HDC} hdcDst Type: <b>HDC</b>
      * 
      * A handle to a DC for the screen. This handle is obtained by specifying <b>NULL</b> when calling the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc">GetDC</a> function. It is used for palette color matching when the window contents are updated. If <i>hdcDst</i> is <b>NULL</b>, the default palette will be used.
@@ -10915,14 +10602,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-updatelayeredwindow
      * @since windows5.0
      */
-    static UpdateLayeredWindow(hWnd, hdcDst, pptDst, psize, hdcSrc, pptSrc, crKey, pblend, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static UpdateLayeredWindow(_hWnd, hdcDst, pptDst, psize, hdcSrc, pptSrc, crKey, pblend, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hdcDst := hdcDst is Win32Handle ? NumGet(hdcDst, "ptr") : hdcDst
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UpdateLayeredWindow", "ptr", hWnd, "ptr", hdcDst, "ptr", pptDst, "ptr", psize, "ptr", hdcSrc, "ptr", pptSrc, "uint", crKey, "ptr", pblend, "uint", dwFlags, "int")
+        result := DllCall("USER32.dll\UpdateLayeredWindow", "ptr", _hWnd, "ptr", hdcDst, "ptr", pptDst, "ptr", psize, "ptr", hdcSrc, "ptr", pptSrc, "uint", crKey, "ptr", pblend, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10932,14 +10619,14 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<UPDATELAYEREDWINDOWINFO>} pULWInfo 
      * @returns {BOOL} 
      */
-    static UpdateLayeredWindowIndirect(hWnd, pULWInfo) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static UpdateLayeredWindowIndirect(_hWnd, pULWInfo) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\UpdateLayeredWindowIndirect", "ptr", hWnd, "ptr", pULWInfo, "int")
+        result := DllCall("USER32.dll\UpdateLayeredWindowIndirect", "ptr", _hWnd, "ptr", pULWInfo, "int")
         return result
     }
 
@@ -10949,9 +10636,7 @@ class WindowsAndMessaging {
      * <b>GetLayeredWindowAttributes</b> can be called only if the application has previously called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setlayeredwindowattributes">SetLayeredWindowAttributes</a> on the window. The function will fail if the layered window was setup with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatelayeredwindow">UpdateLayeredWindow</a>.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/using-windows">Using Layered Windows</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
+     * @param {HWND} _hwnd 
      * @param {Pointer<COLORREF>} pcrKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that receives the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. This can be <b>NULL</b> if the argument is not needed.
@@ -10967,8 +10652,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlayeredwindowattributes
      * @since windows5.1.2600
      */
-    static GetLayeredWindowAttributes(hwnd, pcrKey, pbAlpha, pdwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetLayeredWindowAttributes(_hwnd, pcrKey, pbAlpha, pdwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pcrKeyMarshal := pcrKey is VarRef ? "uint*" : "ptr"
         pbAlphaMarshal := pbAlpha is VarRef ? "char*" : "ptr"
@@ -10976,7 +10661,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", hwnd, pcrKeyMarshal, pcrKey, pbAlphaMarshal, pbAlpha, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", _hwnd, pcrKeyMarshal, pcrKey, pbAlphaMarshal, pbAlpha, pdwFlagsMarshal, pdwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10990,11 +10675,7 @@ class WindowsAndMessaging {
      * Note that once <b>SetLayeredWindowAttributes</b> has been called for a layered window, subsequent <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatelayeredwindow">UpdateLayeredWindow</a> calls will fail until the layering style bit is cleared and set again.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/using-windows">Using Layered Windows</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
-     * 
-     * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
+     * @param {HWND} _hwnd 
      * @param {COLORREF} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that specifies the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. To generate a <b>COLORREF</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
@@ -11012,12 +10693,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setlayeredwindowattributes
      * @since windows5.0
      */
-    static SetLayeredWindowAttributes(hwnd, crKey, bAlpha, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SetLayeredWindowAttributes(_hwnd, crKey, bAlpha, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetLayeredWindowAttributes", "ptr", hwnd, "uint", crKey, "char", bAlpha, "uint", dwFlags, "int")
+        result := DllCall("USER32.dll\SetLayeredWindowAttributes", "ptr", _hwnd, "uint", crKey, "char", bAlpha, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11029,9 +10710,7 @@ class WindowsAndMessaging {
      * Sets the show state of a window without waiting for the operation to complete.
      * @remarks
      * This function posts a show-window event to the message queue of the given window. An application can use this function to avoid becoming nonresponsive while waiting for a nonresponsive application to finish processing a show-window event.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Integer} nCmdShow Type: <b>int</b>
      * 
      * Controls how the window is to be shown. For a list of possible values, see the description of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
@@ -11041,10 +10720,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showwindowasync
      * @since windows5.0
      */
-    static ShowWindowAsync(hWnd, nCmdShow) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShowWindowAsync(_hWnd, nCmdShow) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\ShowWindowAsync", "ptr", hWnd, "int", nCmdShow, "int")
+        result := DllCall("USER32.dll\ShowWindowAsync", "ptr", _hWnd, "int", nCmdShow, "int")
         return result
     }
 
@@ -11057,7 +10736,7 @@ class WindowsAndMessaging {
      * 
      * The 
      * <b>FlashWindow</b> function flashes the window only once; for repeated flashing, the application should create a system timer.
-     * @param {HWND} hWnd A handle to the window to be flashed. The window can be either open or minimized.
+     * @param {HWND} _hWnd 
      * @param {BOOL} bInvert If this parameter is <b>TRUE</b>, the window is flashed from one state to the other. If it is <b>FALSE</b>, the window is returned to its original state (either active or inactive). 
      * 
      * 
@@ -11069,10 +10748,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-flashwindow
      * @since windows5.1.2600
      */
-    static FlashWindow(hWnd, bInvert) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FlashWindow(_hWnd, bInvert) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\FlashWindow", "ptr", hWnd, "int", bInvert, "int")
+        result := DllCall("USER32.dll\FlashWindow", "ptr", _hWnd, "int", bInvert, "int")
         return result
     }
 
@@ -11096,9 +10775,7 @@ class WindowsAndMessaging {
      * Shows or hides all pop-up windows owned by the specified window.
      * @remarks
      * <b>ShowOwnedPopups</b> shows only windows hidden by a previous call to <b>ShowOwnedPopups</b>. For example, if a pop-up window is hidden by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function, subsequently calling <b>ShowOwnedPopups</b> with the <i>fShow</i> parameter set to <b>TRUE</b> does not cause the window to be shown.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the pop-up windows to be shown or hidden.
+     * @param {HWND} _hWnd 
      * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
      * If this parameter is <b>TRUE</b>, all hidden pop-up windows are shown. If this parameter is <b>FALSE</b>, all visible pop-up windows are hidden.
@@ -11110,12 +10787,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showownedpopups
      * @since windows5.0
      */
-    static ShowOwnedPopups(hWnd, fShow) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShowOwnedPopups(_hWnd, fShow) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShowOwnedPopups", "ptr", hWnd, "int", fShow, "int")
+        result := DllCall("USER32.dll\ShowOwnedPopups", "ptr", _hWnd, "int", fShow, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11127,9 +10804,7 @@ class WindowsAndMessaging {
      * Restores a minimized (iconic) window to its previous size and position; it then activates the window.
      * @remarks
      * <b>OpenIcon</b> sends a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-queryopen">WM_QUERYOPEN</a> message to the given window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be restored and activated.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -11138,12 +10813,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-openicon
      * @since windows5.0
      */
-    static OpenIcon(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static OpenIcon(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenIcon", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\OpenIcon", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11155,9 +10830,7 @@ class WindowsAndMessaging {
      * Minimizes (but does not destroy) the specified window.
      * @remarks
      * To destroy a window, an application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroywindow">DestroyWindow</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be minimized.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -11166,12 +10839,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-closewindow
      * @since windows5.0
      */
-    static CloseWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static CloseWindow(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseWindow", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\CloseWindow", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11185,9 +10858,7 @@ class WindowsAndMessaging {
      * If the <i>bRepaint</i> parameter is <b>TRUE</b>, the system sends the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to the window procedure immediately after moving the window (that is, the <b>MoveWindow</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> function). If <i>bRepaint</i> is <b>FALSE</b>, the application must explicitly invalidate or redraw any parts of the window and parent window that need redrawing.
      * 
      * <b>MoveWindow</b> sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanging">WM_WINDOWPOSCHANGING</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanged">WM_WINDOWPOSCHANGED</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-move">WM_MOVE</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-size">WM_SIZE</a>, and <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-nccalcsize">WM_NCCALCSIZE</a> messages to the window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Integer} X Type: <b>int</b>
      * 
      * The new position of the left side of the window.
@@ -11211,12 +10882,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-movewindow
      * @since windows5.0
      */
-    static MoveWindow(hWnd, X, Y, nWidth, nHeight, bRepaint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static MoveWindow(_hWnd, X, Y, nWidth, nHeight, bRepaint) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MoveWindow", "ptr", hWnd, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int", bRepaint, "int")
+        result := DllCall("USER32.dll\MoveWindow", "ptr", _hWnd, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int", bRepaint, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11248,9 +10919,7 @@ class WindowsAndMessaging {
      * If an application is not in the foreground, and should be in the foreground, it must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> function. 
      * 
      * To use <b>SetWindowPos</b> to bring a window to the top, the process that owns the window must have <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> permission.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} X Type: <b>int</b>
      * 
@@ -11261,9 +10930,7 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The new width of the window, in pixels.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The new height of the window, in pixels.
+     * @param {Integer} _cy 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
@@ -11273,13 +10940,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowpos
      * @since windows5.0
      */
-    static SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowPos(_hWnd, hWndInsertAfter, X, Y, cx, _cy, uFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hWndInsertAfter := hWndInsertAfter is Win32Handle ? NumGet(hWndInsertAfter, "ptr") : hWndInsertAfter
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowPos", "ptr", hWnd, "ptr", hWndInsertAfter, "int", X, "int", Y, "int", cx, "int", cy, "uint", uFlags, "int")
+        result := DllCall("USER32.dll\SetWindowPos", "ptr", _hWnd, "ptr", hWndInsertAfter, "int", X, "int", Y, "int", cx, "int", _cy, "uint", uFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11293,9 +10960,7 @@ class WindowsAndMessaging {
      * The <b>flags</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> retrieved by this function is always zero. If the window identified by the <i>hWnd</i> parameter is maximized, the <b>showCmd</b> member is SW_SHOWMAXIMIZED. If the window is minimized, <b>showCmd</b> is SW_SHOWMINIMIZED. Otherwise, it is SW_SHOWNORMAL. 
      * 
      * The <b>length</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> must be set to sizeof(<b>WINDOWPLACEMENT</b>). If this member is not set correctly, the function returns <b>FALSE</b>. For additional remarks on the proper use of window placement coordinates, see <b>WINDOWPLACEMENT</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that receives the show state and position information. Before calling <b>GetWindowPlacement</b>, set the <b>length</b> member to <c>sizeof(WINDOWPLACEMENT)</c>. <b>GetWindowPlacement</b> fails if <i>lpwndpl</i>-&gt; <i>length</i> is not set correctly.
@@ -11307,12 +10972,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowplacement
      * @since windows5.0
      */
-    static GetWindowPlacement(hWnd, lpwndpl) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowPlacement(_hWnd, lpwndpl) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowPlacement", "ptr", hWnd, "ptr", lpwndpl, "int")
+        result := DllCall("USER32.dll\GetWindowPlacement", "ptr", _hWnd, "ptr", lpwndpl, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11326,9 +10991,7 @@ class WindowsAndMessaging {
      * If the information specified in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> would result in a window that is completely off the screen, the system will automatically adjust the coordinates so that the window is visible, taking into account changes in screen resolution and multiple monitor configuration. 
      * 
      * The <b>length</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> must be set to <c>sizeof(WINDOWPLACEMENT)</c>. If this member is not set correctly, the function returns <b>FALSE</b>. For additional remarks on the proper use of window placement coordinates, see <b>WINDOWPLACEMENT</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that specifies the new show state and window positions.
@@ -11342,12 +11005,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowplacement
      * @since windows5.0
      */
-    static SetWindowPlacement(hWnd, lpwndpl) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowPlacement(_hWnd, lpwndpl) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowPlacement", "ptr", hWnd, "ptr", lpwndpl, "int")
+        result := DllCall("USER32.dll\SetWindowPlacement", "ptr", _hWnd, "ptr", lpwndpl, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11366,9 +11029,7 @@ class WindowsAndMessaging {
      * It is important to note that unlike a security feature or an implementation of Digital Rights Management (DRM), there is no guarantee that 
      * 		 using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowdisplayaffinity">SetWindowDisplayAffinity</a> 
      * 		and <b>GetWindowDisplayAffinity</b>, and other necessary functions such as <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmiscompositionenabled">DwmIsCompositionEnabled</a>, will strictly protect windowed content, as in the case where someone takes a photograph of the screen.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Integer>} pdwAffinity Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that receives the display affinity setting.
@@ -11381,14 +11042,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdisplayaffinity
      * @since windows6.1
      */
-    static GetWindowDisplayAffinity(hWnd, pdwAffinity) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowDisplayAffinity(_hWnd, pdwAffinity) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         pdwAffinityMarshal := pdwAffinity is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowDisplayAffinity", "ptr", hWnd, pdwAffinityMarshal, pdwAffinity, "int")
+        result := DllCall("USER32.dll\GetWindowDisplayAffinity", "ptr", _hWnd, pdwAffinityMarshal, pdwAffinity, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11404,9 +11065,7 @@ class WindowsAndMessaging {
      * It is important to note that unlike a security feature or an implementation of Digital Rights Management (DRM), there is no guarantee that using <b>SetWindowDisplayAffinity</b> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowdisplayaffinity">GetWindowDisplayAffinity</a>, and other necessary functions such as <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmiscompositionenabled">DwmIsCompositionEnabled</a>, will strictly protect windowed content, for example where someone takes a photograph of the screen.
      * 
      * Starting in Windows 10 Version 2004, WDA_EXCLUDEFROMCAPTURE is a supported value. Setting the display affinity to WDA_EXCLUDEFROMCAPTURE on previous version of Windows will behave as if WDA_MONITOR is applied.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the top-level window. The window must belong to the current process.
+     * @param {HWND} _hWnd 
      * @param {Integer} dwAffinity Type: <b>DWORD</b>
      * 
      * The display affinity setting that specifies where the content of the window can be displayed.
@@ -11416,12 +11075,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowdisplayaffinity
      * @since windows6.1
      */
-    static SetWindowDisplayAffinity(hWnd, dwAffinity) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowDisplayAffinity(_hWnd, dwAffinity) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowDisplayAffinity", "ptr", hWnd, "uint", dwAffinity, "int")
+        result := DllCall("USER32.dll\SetWindowDisplayAffinity", "ptr", _hWnd, "uint", dwAffinity, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11485,10 +11144,7 @@ class WindowsAndMessaging {
      * 
      * A handle to a multiple-window 
      * 					– position structure that contains size and position information for one or more windows. This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-begindeferwindowpos">BeginDeferWindowPos</a> or by the most recent call to <b>DeferWindowPos</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window for which update information is stored in the structure. All windows in a multiple-window 
-     * 					– position structure must have the same parent.
+     * @param {HWND} _hWnd 
      * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} x Type: <b>int</b>
      * 
@@ -11499,9 +11155,7 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The window's new width, in pixels.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The window's new height, in pixels.
+     * @param {Integer} _cy 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @returns {HDWP} Type: <b>HDWP</b>
      * 
@@ -11512,14 +11166,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-deferwindowpos
      * @since windows5.0
      */
-    static DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags) {
+    static DeferWindowPos(hWinPosInfo, _hWnd, hWndInsertAfter, x, y, cx, _cy, uFlags) {
         hWinPosInfo := hWinPosInfo is Win32Handle ? NumGet(hWinPosInfo, "ptr") : hWinPosInfo
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hWndInsertAfter := hWndInsertAfter is Win32Handle ? NumGet(hWndInsertAfter, "ptr") : hWndInsertAfter
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DeferWindowPos", "ptr", hWinPosInfo, "ptr", hWnd, "ptr", hWndInsertAfter, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "ptr")
+        result := DllCall("USER32.dll\DeferWindowPos", "ptr", hWinPosInfo, "ptr", _hWnd, "ptr", hWndInsertAfter, "int", x, "int", y, "int", cx, "int", _cy, "uint", uFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11563,9 +11217,7 @@ class WindowsAndMessaging {
      * The visibility state of a window is indicated by the <b>WS_VISIBLE</b> style bit. When <b>WS_VISIBLE</b> is set, the window is displayed and subsequent drawing into it is displayed as long as the window has the <b>WS_VISIBLE</b> style. 
      * 
      * Any drawing to a window with the <b>WS_VISIBLE</b> style will not be displayed if the window is obscured by other windows or is clipped by its parent window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the specified window, its parent window, its parent's parent window, and so forth, have the <b>WS_VISIBLE</b> style, the return value is nonzero. Otherwise, the return value is zero. 
@@ -11574,18 +11226,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iswindowvisible
      * @since windows5.0
      */
-    static IsWindowVisible(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsWindowVisible(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsWindowVisible", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsWindowVisible", "ptr", _hWnd, "int")
         return result
     }
 
     /**
      * Determines whether the specified window is minimized (iconic).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is iconic, the return value is nonzero.
@@ -11594,10 +11244,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-isiconic
      * @since windows5.0
      */
-    static IsIconic(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsIconic(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsIconic", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsIconic", "ptr", _hWnd, "int")
         return result
     }
 
@@ -11624,9 +11274,7 @@ class WindowsAndMessaging {
      * Use the <b>BringWindowToTop</b> function to uncover any window that is partially or completely obscured by other windows. 
      * 
      * Calling this function is similar to calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a> function to change a window's position in the Z order. <b>BringWindowToTop</b> does not make a window a top-level window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to bring to the top of the Z order.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -11635,12 +11283,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-bringwindowtotop
      * @since windows5.0
      */
-    static BringWindowToTop(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static BringWindowToTop(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BringWindowToTop", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\BringWindowToTop", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11650,9 +11298,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a window is maximized.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is zoomed, the return value is nonzero.
@@ -11661,10 +11307,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iszoomed
      * @since windows5.0
      */
-    static IsZoomed(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsZoomed(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsZoomed", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsZoomed", "ptr", _hWnd, "int")
         return result
     }
 
@@ -11681,9 +11327,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11704,14 +11348,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdialogparama
      * @since windows5.0
      */
-    static CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static CreateDialogParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\CreateDialogParamA", "ptr", _hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11733,9 +11377,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11756,14 +11398,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdialogparamw
      * @since windows5.0
      */
-    static CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\CreateDialogParamW", "ptr", _hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11791,9 +11433,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template <b>CreateDialogIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -11821,13 +11461,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdialogindirectparama
      * @since windows5.0
      */
-    static CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogIndirectParamA", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\CreateDialogIndirectParamA", "ptr", _hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11855,9 +11495,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template <b>CreateDialogIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -11885,13 +11523,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdialogindirectparamw
      * @since windows5.0
      */
-    static CreateDialogIndirectParamW(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static CreateDialogIndirectParamW(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogIndirectParamW", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\CreateDialogIndirectParamW", "ptr", _hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11913,9 +11551,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11936,14 +11572,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dialogboxparama
      * @since windows5.0
      */
-    static DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DialogBoxParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DialogBoxParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\DialogBoxParamA", "ptr", _hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11964,9 +11600,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11987,14 +11621,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dialogboxparamw
      * @since windows5.0
      */
-    static DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DialogBoxParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\DialogBoxParamW", "ptr", _hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12021,9 +11655,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module that creates the dialog box.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template that <b>DialogBoxIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -12049,13 +11681,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dialogboxindirectparama
      * @since windows5.0
      */
-    static DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DialogBoxIndirectParamA", "ptr", hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\DialogBoxIndirectParamA", "ptr", _hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12082,9 +11714,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module that creates the dialog box.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template that <b>DialogBoxIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -12110,13 +11740,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dialogboxindirectparamw
      * @since windows5.0
      */
-    static DialogBoxIndirectParamW(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DialogBoxIndirectParamW(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DialogBoxIndirectParamW", "ptr", hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
+        result := DllCall("USER32.dll\DialogBoxIndirectParamW", "ptr", _hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12439,27 +12069,19 @@ class WindowsAndMessaging {
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control that receives the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-senddlgitemmessagea
      * @since windows5.0
      */
-    static SendDlgItemMessageA(hDlg, nIDDlgItem, Msg, wParam, lParam) {
+    static SendDlgItemMessageA(hDlg, nIDDlgItem, _Msg, _wParam, _lParam) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("USER32.dll\SendDlgItemMessageA", "ptr", hDlg, "int", nIDDlgItem, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\SendDlgItemMessageA", "ptr", hDlg, "int", nIDDlgItem, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -12475,27 +12097,19 @@ class WindowsAndMessaging {
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control that receives the message.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-senddlgitemmessagew
      * @since windows5.0
      */
-    static SendDlgItemMessageW(hDlg, nIDDlgItem, Msg, wParam, lParam) {
+    static SendDlgItemMessageW(hDlg, nIDDlgItem, _Msg, _wParam, _lParam) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("USER32.dll\SendDlgItemMessageW", "ptr", hDlg, "int", nIDDlgItem, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\SendDlgItemMessageW", "ptr", hDlg, "int", nIDDlgItem, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -12592,9 +12206,7 @@ class WindowsAndMessaging {
      * <b>GetDlgCtrlID</b> accepts child window handles as well as handles of controls in dialog boxes. An application sets the identifier for a child window when it creates the window by assigning the identifier value to the <i>hmenu</i> parameter when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. 
      * 
      * Although <b>GetDlgCtrlID</b> may return a value if <i>hwndCtl</i> is a handle to a top-level window, top-level windows cannot have identifiers and such a return value is never valid.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the control.
+     * @param {HWND} _hWnd 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the identifier of the control.
@@ -12603,12 +12215,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdlgctrlid
      * @since windows5.0
      */
-    static GetDlgCtrlID(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetDlgCtrlID(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgCtrlID", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\GetDlgCtrlID", "ptr", _hWnd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12670,24 +12282,18 @@ class WindowsAndMessaging {
      * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defdlgproca
      */
-    static DefDlgProcA(hDlg, Msg, wParam, lParam) {
+    static DefDlgProcA(hDlg, _Msg, _wParam, _lParam) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("USER32.dll\DefDlgProcA", "ptr", hDlg, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefDlgProcA", "ptr", hDlg, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -12702,25 +12308,19 @@ class WindowsAndMessaging {
      * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defdlgprocw
      * @since windows5.0
      */
-    static DefDlgProcW(hDlg, Msg, wParam, lParam) {
+    static DefDlgProcW(hDlg, _Msg, _wParam, _lParam) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("USER32.dll\DefDlgProcW", "ptr", hDlg, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefDlgProcW", "ptr", hDlg, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -14241,9 +13841,7 @@ class WindowsAndMessaging {
      * <b>SetTimer</b> can reuse timer IDs in the case where <i>hWnd</i> is <b>NULL</b>. 
      * 	
      * Before using **SetTimer** or other timer-related functions, it is recommended to set the **UOI_TIMERPROC_EXCEPTION_SUPPRESSION** flag to **false** through the **SetUserObjectInformationW** function, otherwise the application could behave unpredictably and could be vulnerable to security exploits. For more info, see <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationw">SetUserObjectInformationW</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
+     * @param {HWND} _hWnd 
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
      * 
      * A nonzero timer identifier. If the <i>hWnd</i> parameter is <b>NULL</b>, and the <i>nIDEvent</i> does not match an existing timer then it is ignored and a new timer ID is generated. If the <i>hWnd</i> parameter is not <b>NULL</b> and the window specified by <i>hWnd</i> already has a timer with the value <i>nIDEvent</i>, then the existing timer is replaced by the new timer. When <b>SetTimer</b> replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, <i>nIDEvent</i> should be 0 if the <i>hWnd</i> is <b>NULL</b>.
@@ -14265,12 +13863,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-settimer
      * @since windows5.0
      */
-    static SetTimer(hWnd, nIDEvent, uElapse, lpTimerFunc) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetTimer", "ptr", hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "ptr")
+        result := DllCall("USER32.dll\SetTimer", "ptr", _hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14294,9 +13892,7 @@ class WindowsAndMessaging {
      * When <i>uToleranceDelay</i> is set to 0, the system default timer coalescing is used and   <b>SetCoalescableTimer</b>  behaves the same as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a>.
      * 
      * Before using **SetCoalescableTimer** or other timer-related functions, it is recommended to set the **UOI_TIMERPROC_EXCEPTION_SUPPRESSION** flag to **false** through the **SetUserObjectInformationW** function, otherwise the application could behave unpredictably and could be vulnerable to security exploits. For more info, see <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationw">SetUserObjectInformationW</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
+     * @param {HWND} _hWnd 
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
      * 
      * A timer identifier. If the <i>hWnd</i> parameter is <b>NULL</b>, and the <i>nIDEvent</i> does not match an existing timer, then the <i>nIDEvent</i> is ignored and a new timer ID is generated. If the <i>hWnd</i> parameter is not <b>NULL</b> and the window specified by <i>hWnd</i> already has a timer with the value <i>nIDEvent</i>, then the existing timer is replaced by the new timer. When <b>SetCoalescableTimer</b> replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, <i>nIDEvent</i> should be 0 if the <i>hWnd</i> is <b>NULL</b>.
@@ -14321,12 +13917,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setcoalescabletimer
      * @since windows8.0
      */
-    static SetCoalescableTimer(hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetCoalescableTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetCoalescableTimer", "ptr", hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "uint", uToleranceDelay, "ptr")
+        result := DllCall("USER32.dll\SetCoalescableTimer", "ptr", _hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "uint", uToleranceDelay, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14338,10 +13934,7 @@ class WindowsAndMessaging {
      * Destroys the specified timer.
      * @remarks
      * The <b>KillTimer</b> function does not remove <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-timer">WM_TIMER</a> messages already posted to the message queue.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window associated with the specified timer. This value must be the same as the 
-     * 					<i>hWnd</i> value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a> function that created the timer.
+     * @param {HWND} _hWnd 
      * @param {Pointer} uIDEvent Type: <b>UINT_PTR</b>
      * 
      * The timer to be destroyed. If the window handle passed to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a> is valid, this parameter must be the same as the
@@ -14357,12 +13950,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-killtimer
      * @since windows5.0
      */
-    static KillTimer(hWnd, uIDEvent) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static KillTimer(_hWnd, uIDEvent) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\KillTimer", "ptr", hWnd, "ptr", uIDEvent, "int")
+        result := DllCall("USER32.dll\KillTimer", "ptr", _hWnd, "ptr", uIDEvent, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14376,9 +13969,7 @@ class WindowsAndMessaging {
      * The character set of a window is determined by the use of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function. If the window class was registered with the ANSI version of <b>RegisterClass</b> (<b>RegisterClassA</b>), the character set of the window is ANSI. If the window class was registered with the Unicode version of <b>RegisterClass</b> (<b>RegisterClassW</b>), the character set of the window is Unicode. 
      * 
      * The system does automatic two-way translation (Unicode to ANSI) for window messages. For example, if an ANSI window message is sent to a window that uses the Unicode character set, the system translates that message into a Unicode message before calling the window procedure. The system calls <b>IsWindowUnicode</b> to determine whether to translate the message.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a native Unicode window, the return value is nonzero.
@@ -14387,10 +13978,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iswindowunicode
      * @since windows5.0
      */
-    static IsWindowUnicode(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsWindowUnicode(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\IsWindowUnicode", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsWindowUnicode", "ptr", _hWnd, "int")
         return result
     }
 
@@ -14400,9 +13991,7 @@ class WindowsAndMessaging {
      * If the accelerator table has not yet been loaded, the function loads it from the specified executable file.
      * 
      * Accelerator tables loaded from resources are freed automatically when the application terminates.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module whose executable file contains the accelerator table to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14414,13 +14003,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadacceleratorsa
      * @since windows5.0
      */
-    static LoadAcceleratorsA(hInstance, lpTableName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadAcceleratorsA(_hInstance, lpTableName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadAcceleratorsA", "ptr", hInstance, "ptr", lpTableName, "ptr")
+        result := DllCall("USER32.dll\LoadAcceleratorsA", "ptr", _hInstance, "ptr", lpTableName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14435,9 +14024,7 @@ class WindowsAndMessaging {
      * If the accelerator table has not yet been loaded, the function loads it from the specified executable file.
      * 
      * Accelerator tables loaded from resources are freed automatically when the application terminates.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module whose executable file contains the accelerator table to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14449,13 +14036,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadacceleratorsw
      * @since windows5.0
      */
-    static LoadAcceleratorsW(hInstance, lpTableName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadAcceleratorsW(_hInstance, lpTableName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadAcceleratorsW", "ptr", hInstance, "ptr", lpTableName, "ptr")
+        result := DllCall("USER32.dll\LoadAcceleratorsW", "ptr", _hInstance, "ptr", lpTableName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14522,9 +14109,7 @@ class WindowsAndMessaging {
 
     /**
      * Destroys an accelerator table.
-     * @param {HACCEL} hAccel Type: <b>HACCEL</b>
-     * 
-     * A handle to the accelerator table to be destroyed. This handle must have been created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function.
+     * @param {HACCEL} _hAccel 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. However, if the table has been loaded more than one call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a>, the function will return a nonzero value only when <b>DestroyAcceleratorTable</b> has been called an equal number of times.
@@ -14533,10 +14118,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyacceleratortable
      * @since windows5.0
      */
-    static DestroyAcceleratorTable(hAccel) {
-        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+    static DestroyAcceleratorTable(_hAccel) {
+        _hAccel := _hAccel is Win32Handle ? NumGet(_hAccel, "ptr") : _hAccel
 
-        result := DllCall("USER32.dll\DestroyAcceleratorTable", "ptr", hAccel, "int")
+        result := DllCall("USER32.dll\DestroyAcceleratorTable", "ptr", _hAccel, "int")
         return result
     }
 
@@ -14624,9 +14209,7 @@ class WindowsAndMessaging {
      * 
      * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
      *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be translated.
+     * @param {HWND} _hWnd 
      * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
@@ -14641,13 +14224,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratora
      * @since windows5.0
      */
-    static TranslateAcceleratorA(hWnd, hAccTable, lpMsg) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static TranslateAcceleratorA(_hWnd, hAccTable, lpMsg) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hAccTable := hAccTable is Win32Handle ? NumGet(hAccTable, "ptr") : hAccTable
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TranslateAcceleratorA", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
+        result := DllCall("USER32.dll\TranslateAcceleratorA", "ptr", _hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14681,9 +14264,7 @@ class WindowsAndMessaging {
      * 
      * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
      *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose messages are to be translated.
+     * @param {HWND} _hWnd 
      * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
@@ -14698,13 +14279,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratorw
      * @since windows5.0
      */
-    static TranslateAcceleratorW(hWnd, hAccTable, lpMsg) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static TranslateAcceleratorW(_hWnd, hAccTable, lpMsg) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hAccTable := hAccTable is Win32Handle ? NumGet(hAccTable, "ptr") : hAccTable
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TranslateAcceleratorW", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
+        result := DllCall("USER32.dll\TranslateAcceleratorW", "ptr", _hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14882,9 +14463,7 @@ class WindowsAndMessaging {
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (ANSI)
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module containing the menu resource to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14896,13 +14475,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadmenua
      * @since windows5.0
      */
-    static LoadMenuA(hInstance, lpMenuName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadMenuA(_hInstance, lpMenuName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuA", "ptr", hInstance, "ptr", lpMenuName, "ptr")
+        result := DllCall("USER32.dll\LoadMenuA", "ptr", _hInstance, "ptr", lpMenuName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14915,9 +14494,7 @@ class WindowsAndMessaging {
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (Unicode)
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the module containing the menu resource to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14929,13 +14506,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadmenuw
      * @since windows5.0
      */
-    static LoadMenuW(hInstance, lpMenuName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadMenuW(_hInstance, lpMenuName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuW", "ptr", hInstance, "ptr", lpMenuName, "ptr")
+        result := DllCall("USER32.dll\LoadMenuW", "ptr", _hInstance, "ptr", lpMenuName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15020,19 +14597,17 @@ class WindowsAndMessaging {
      * Retrieves a handle to the menu assigned to the specified window.
      * @remarks
      * <b>GetMenu</b> does not work on floating menu bars. Floating menu bars are custom controls that mimic standard menus; they are not menus. To get the handle on a floating menu bar, use the <a href="https://docs.microsoft.com/previous-versions/ms971350(v=msdn.10)">Active Accessibility</a> APIs.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose menu handle is to be retrieved.
+     * @param {HWND} _hWnd 
      * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * The return value is a handle to the menu. If the specified window has no menu, the return value is <b>NULL</b>. If the window is a child window, the return value is undefined.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenu
      * @since windows5.0
      */
-    static GetMenu(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetMenu(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\GetMenu", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetMenu", "ptr", _hWnd, "ptr")
         resultHandle := HMENU({Value: result}, True)
         return resultHandle
     }
@@ -15043,12 +14618,8 @@ class WindowsAndMessaging {
      * The window is redrawn to reflect the menu change. A menu can be assigned to any window that is not a child window.
      * 
      * The <b>SetMenu</b> function replaces the previous menu, if any, but it does not destroy it. An application should call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function to accomplish this task.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to which the menu is to be assigned.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the new menu. If this parameter is <b>NULL</b>, the window's current menu is removed.
+     * @param {HWND} _hWnd 
+     * @param {HMENU} _hMenu 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15057,13 +14628,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenu
      * @since windows5.0
      */
-    static SetMenu(hWnd, hMenu) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static SetMenu(_hWnd, _hMenu) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenu", "ptr", hWnd, "ptr", hMenu, "int")
+        result := DllCall("USER32.dll\SetMenu", "ptr", _hWnd, "ptr", _hMenu, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15073,35 +14644,35 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {HMENU} hMenu 
+     * @param {HMENU} _hMenu 
      * @param {Integer} cmd 
      * @param {PSTR} lpszNewItem 
      * @param {Integer} cmdInsert 
      * @param {Integer} flags 
      * @returns {BOOL} 
      */
-    static ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static ChangeMenuA(_hMenu, cmd, lpszNewItem, cmdInsert, flags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
 
-        result := DllCall("USER32.dll\ChangeMenuA", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
+        result := DllCall("USER32.dll\ChangeMenuA", "ptr", _hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
     }
 
     /**
      * 
-     * @param {HMENU} hMenu 
+     * @param {HMENU} _hMenu 
      * @param {Integer} cmd 
      * @param {PWSTR} lpszNewItem 
      * @param {Integer} cmdInsert 
      * @param {Integer} flags 
      * @returns {BOOL} 
      */
-    static ChangeMenuW(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static ChangeMenuW(_hMenu, cmd, lpszNewItem, cmdInsert, flags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
 
-        result := DllCall("USER32.dll\ChangeMenuW", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
+        result := DllCall("USER32.dll\ChangeMenuW", "ptr", _hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
     }
 
@@ -15109,12 +14680,8 @@ class WindowsAndMessaging {
      * Adds or removes highlighting from an item in a menu bar.
      * @remarks
      * The <b>MF_HILITE</b> and <b>MF_UNHILITE</b> flags can be used only with the <b>HiliteMenuItem</b> function; they cannot be used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-modifymenua">ModifyMenu</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that contains the menu.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu bar that contains the item.
+     * @param {HWND} _hWnd 
+     * @param {HMENU} _hMenu 
      * @param {Integer} uIDHiliteItem Type: <b>UINT</b>
      * 
      * The menu item. This parameter is either the identifier of the menu item or the offset of the menu item in the menu bar, depending on the value of the <i>uHilite</i> parameter.
@@ -15180,11 +14747,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-hilitemenuitem
      * @since windows5.0
      */
-    static HiliteMenuItem(hWnd, hMenu, uIDHiliteItem, uHilite) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static HiliteMenuItem(_hWnd, _hMenu, uIDHiliteItem, uHilite) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\HiliteMenuItem", "ptr", hWnd, "ptr", hMenu, "uint", uIDHiliteItem, "uint", uHilite, "int")
+        result := DllCall("USER32.dll\HiliteMenuItem", "ptr", _hWnd, "ptr", _hMenu, "uint", uIDHiliteItem, "uint", uHilite, "int")
         return result
     }
 
@@ -15197,9 +14764,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
      * The <i>lpString</i> parameter is a <b>TCHAR</b> buffer, and <i>nMaxCount</i> is the length of the menu string in characters. Sizing these parameters incorrectly can cause truncation of the string, leading to possible loss of data.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
@@ -15220,11 +14785,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenustringa
      * @since windows5.0
      */
-    static GetMenuStringA(hMenu, uIDItem, lpString, cchMax, flags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuStringA(_hMenu, uIDItem, lpString, cchMax, flags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetMenuStringA", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
+        result := DllCall("USER32.dll\GetMenuStringA", "ptr", _hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
     }
 
@@ -15237,9 +14802,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
      * The <i>lpString</i> parameter is a <b>TCHAR</b> buffer, and <i>nMaxCount</i> is the length of the menu string in characters. Sizing these parameters incorrectly can cause truncation of the string, leading to possible loss of data.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
@@ -15260,11 +14823,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenustringw
      * @since windows5.0
      */
-    static GetMenuStringW(hMenu, uIDItem, lpString, cchMax, flags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuStringW(_hMenu, uIDItem, lpString, cchMax, flags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetMenuStringW", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
+        result := DllCall("USER32.dll\GetMenuStringW", "ptr", _hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
     }
 
@@ -15297,9 +14860,7 @@ class WindowsAndMessaging {
      * <td><c>! (Flag&amp;HILITE)</c></td>
      * </tr>
      * </table>
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the menu item whose flags are to be retrieved.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uId Type: <b>UINT</b>
      * 
      * The menu item for which the menu flags are to be retrieved, as determined by the <i>uFlags</i> parameter.
@@ -15429,18 +14990,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenustate
      * @since windows5.0
      */
-    static GetMenuState(hMenu, uId, uFlags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuState(_hMenu, uId, uFlags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\GetMenuState", "ptr", hMenu, "uint", uId, "uint", uFlags, "uint")
+        result := DllCall("USER32.dll\GetMenuState", "ptr", _hMenu, "uint", uId, "uint", uFlags, "uint")
         return result
     }
 
     /**
      * Redraws the menu bar of the specified window. If the menu bar changes after the system has created the window, this function must be called to draw the changed menu bar.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose menu bar is to be redrawn.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15449,12 +15008,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawmenubar
      * @since windows5.0
      */
-    static DrawMenuBar(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DrawMenuBar(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DrawMenuBar", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\DrawMenuBar", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15474,9 +15033,7 @@ class WindowsAndMessaging {
      * All predefined window menu items have identifier numbers greater than 0xF000. If an application adds commands to the window menu, it should use identifier numbers less than 0xF000. 
      * 
      * The system automatically grays items on the standard window menu, depending on the situation. The application can perform its own checking or graying by responding to the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenu">WM_INITMENU</a> message that is sent before any menu is displayed.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that will own a copy of the window menu.
+     * @param {HWND} _hWnd 
      * @param {BOOL} bRevert Type: <b>BOOL</b>
      * 
      * The action to be taken. If this parameter is <b>FALSE</b>, <b>GetSystemMenu</b> returns a handle to the copy of the window menu currently in use. The copy is initially identical to the window menu, but it can be modified. If this parameter is <b>TRUE</b>, <b>GetSystemMenu</b> resets the window menu back to the default state. The previous window menu, if any, is destroyed.
@@ -15486,10 +15043,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsystemmenu
      * @since windows5.0
      */
-    static GetSystemMenu(hWnd, bRevert) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetSystemMenu(_hWnd, bRevert) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\GetSystemMenu", "ptr", hWnd, "int", bRevert, "ptr")
+        result := DllCall("USER32.dll\GetSystemMenu", "ptr", _hWnd, "int", bRevert, "ptr")
         resultHandle := HMENU({Value: result}, True)
         return resultHandle
     }
@@ -15550,9 +15107,7 @@ class WindowsAndMessaging {
      * Before closing, an application must use the <b>DestroyMenu</b> function to destroy a menu not assigned to a window. A menu that is assigned to a window is automatically destroyed when the application closes.
      * 
      * <b>DestroyMenu</b> is recursive, that is, it will destroy the menu and all its submenus.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be destroyed.
+     * @param {HMENU} _hMenu 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15561,12 +15116,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroymenu
      * @since windows5.0
      */
-    static DestroyMenu(hMenu) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static DestroyMenu(_hMenu) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DestroyMenu", "ptr", hMenu, "int")
+        result := DllCall("USER32.dll\DestroyMenu", "ptr", _hMenu, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15580,9 +15135,7 @@ class WindowsAndMessaging {
      * An item in a menu bar cannot have a check mark. 
      * 
      * The <i>uIDCheckItem</i> parameter identifies a item that opens a submenu or a command item. For a item that opens a submenu, the <i>uIDCheckItem</i> parameter must specify the position of the item. For a command item, the <i>uIDCheckItem</i> parameter can specify either the item's position or its identifier.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu of interest.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uIDCheckItem Type: <b>UINT</b>
      * 
      * The menu item whose check-mark attribute is to be set, as determined by the <i>uCheck</i> parameter.
@@ -15646,10 +15199,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-checkmenuitem
      * @since windows5.0
      */
-    static CheckMenuItem(hMenu, uIDCheckItem, uCheck) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static CheckMenuItem(_hMenu, uIDCheckItem, uCheck) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\CheckMenuItem", "ptr", hMenu, "uint", uIDCheckItem, "uint", uCheck, "uint")
+        result := DllCall("USER32.dll\CheckMenuItem", "ptr", _hMenu, "uint", uIDCheckItem, "uint", uCheck, "uint")
         return result
     }
 
@@ -15663,9 +15216,7 @@ class WindowsAndMessaging {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenua">InsertMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenuitema">InsertMenuItem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadmenuindirecta">LoadMenuIndirect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-modifymenua">ModifyMenu</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuiteminfoa">SetMenuItemInfo</a> functions can also set the state (enabled, disabled, or grayed) of a menu item.
      * 
      * When you change a window menu, the menu bar is not immediately updated. To force the update, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a>.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uIDEnableItem Type: <b>UINT</b>
      * 
      * The menu item to be enabled, disabled, or grayed, as determined by the <i>uEnable</i> parameter. This parameter specifies an item in a menu bar, menu, or submenu.
@@ -15676,18 +15227,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablemenuitem
      * @since windows5.0
      */
-    static EnableMenuItem(hMenu, uIDEnableItem, uEnable) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static EnableMenuItem(_hMenu, uIDEnableItem, uEnable) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\EnableMenuItem", "ptr", hMenu, "uint", uIDEnableItem, "uint", uEnable, "int")
+        result := DllCall("USER32.dll\EnableMenuItem", "ptr", _hMenu, "uint", uIDEnableItem, "uint", uEnable, "int")
         return result
     }
 
     /**
      * Retrieves a handle to the drop-down menu or submenu activated by the specified menu item.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu.
+     * @param {HMENU} _hMenu 
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.
@@ -15697,19 +15246,17 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsubmenu
      * @since windows5.0
      */
-    static GetSubMenu(hMenu, nPos) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetSubMenu(_hMenu, nPos) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\GetSubMenu", "ptr", hMenu, "int", nPos, "ptr")
+        result := DllCall("USER32.dll\GetSubMenu", "ptr", _hMenu, "int", nPos, "ptr")
         resultHandle := HMENU({Value: result}, True)
         return resultHandle
     }
 
     /**
      * Retrieves the menu item identifier of a menu item located at the specified position in a menu.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the item whose identifier is to be retrieved.
+     * @param {HMENU} _hMenu 
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position of the menu item whose identifier is to be retrieved.
@@ -15719,18 +15266,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuitemid
      * @since windows5.0
      */
-    static GetMenuItemID(hMenu, nPos) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuItemID(_hMenu, nPos) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\GetMenuItemID", "ptr", hMenu, "int", nPos, "uint")
+        result := DllCall("USER32.dll\GetMenuItemID", "ptr", _hMenu, "int", nPos, "uint")
         return result
     }
 
     /**
      * Determines the number of items in the specified menu.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be examined.
+     * @param {HMENU} _hMenu 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of items in the menu.
@@ -15739,12 +15284,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuitemcount
      * @since windows5.0
      */
-    static GetMenuItemCount(hMenu) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuItemCount(_hMenu) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuItemCount", "ptr", hMenu, "int")
+        result := DllCall("USER32.dll\GetMenuItemCount", "ptr", _hMenu, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15772,9 +15317,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines InsertMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item before which the new menu item is to be inserted, as determined by the <i>uFlags</i> parameter.
@@ -15864,13 +15407,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-insertmenua
      * @since windows5.0
      */
-    static InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static InsertMenuA(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InsertMenuA", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
+        result := DllCall("USER32.dll\InsertMenuA", "ptr", _hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15898,9 +15441,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines InsertMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item before which the new menu item is to be inserted, as determined by the <i>uFlags</i> parameter.
@@ -15990,13 +15531,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-insertmenuw
      * @since windows5.0
      */
-    static InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static InsertMenuW(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InsertMenuW", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
+        result := DllCall("USER32.dll\InsertMenuW", "ptr", _hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16019,9 +15560,7 @@ class WindowsAndMessaging {
      * <li><b>MF_DISABLED</b>, <b>MF_ENABLED</b>, and <b>MF_GRAYED</b></li>
      * <li><b>MF_MENUBARBREAK</b> and <b>MF_MENUBREAK</b></li>
      * </ul>
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
@@ -16075,13 +15614,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-appendmenua
      * @since windows5.0
      */
-    static AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static AppendMenuA(_hMenu, uFlags, uIDNewItem, lpNewItem) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AppendMenuA", "ptr", hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
+        result := DllCall("USER32.dll\AppendMenuA", "ptr", _hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16104,9 +15643,7 @@ class WindowsAndMessaging {
      * <li><b>MF_DISABLED</b>, <b>MF_ENABLED</b>, and <b>MF_GRAYED</b></li>
      * <li><b>MF_MENUBARBREAK</b> and <b>MF_MENUBREAK</b></li>
      * </ul>
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
@@ -16160,13 +15697,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-appendmenuw
      * @since windows5.0
      */
-    static AppendMenuW(hMenu, uFlags, uIDNewItem, lpNewItem) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static AppendMenuW(_hMenu, uFlags, uIDNewItem, lpNewItem) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AppendMenuW", "ptr", hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
+        result := DllCall("USER32.dll\AppendMenuW", "ptr", _hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16432,9 +15969,7 @@ class WindowsAndMessaging {
      * Deletes a menu item or detaches a submenu from the specified menu.
      * @remarks
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
@@ -16447,12 +15982,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-removemenu
      * @since windows5.0
      */
-    static RemoveMenu(hMenu, uPosition, uFlags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static RemoveMenu(_hMenu, uPosition, uFlags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemoveMenu", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "int")
+        result := DllCall("USER32.dll\RemoveMenu", "ptr", _hMenu, "uint", uPosition, "uint", uFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16464,9 +15999,7 @@ class WindowsAndMessaging {
      * Deletes an item from the specified menu. If the menu item opens a menu or submenu, this function destroys the handle to the menu or submenu and frees the memory used by the menu or submenu.
      * @remarks
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to be changed.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
@@ -16479,12 +16012,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-deletemenu
      * @since windows5.0
      */
-    static DeleteMenu(hMenu, uPosition, uFlags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static DeleteMenu(_hMenu, uPosition, uFlags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DeleteMenu", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "int")
+        result := DllCall("USER32.dll\DeleteMenu", "ptr", _hMenu, "uint", uPosition, "uint", uFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16503,9 +16036,7 @@ class WindowsAndMessaging {
      * The selected and clear bitmaps should be monochrome. The system uses the Boolean AND operator to combine bitmaps with the menu so that the white part becomes transparent and the black part becomes the menu-item color. If you use color bitmaps, the results may be undesirable.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> function with the <b>SM_CXMENUCHECK</b> and <b>SM_CYMENUCHECK</b> values to retrieve the bitmap dimensions.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu containing the item to receive new check-mark bitmaps.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlags</i> parameter.
@@ -16524,14 +16055,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenuitembitmaps
      * @since windows5.0
      */
-    static SetMenuItemBitmaps(hMenu, uPosition, uFlags, hBitmapUnchecked, hBitmapChecked) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static SetMenuItemBitmaps(_hMenu, uPosition, uFlags, hBitmapUnchecked, hBitmapChecked) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
         hBitmapUnchecked := hBitmapUnchecked is Win32Handle ? NumGet(hBitmapUnchecked, "ptr") : hBitmapUnchecked
         hBitmapChecked := hBitmapChecked is Win32Handle ? NumGet(hBitmapChecked, "ptr") : hBitmapChecked
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenuItemBitmaps", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", hBitmapUnchecked, "ptr", hBitmapChecked, "int")
+        result := DllCall("USER32.dll\SetMenuItemBitmaps", "ptr", _hMenu, "uint", uPosition, "uint", uFlags, "ptr", hBitmapUnchecked, "ptr", hBitmapChecked, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16582,9 +16113,7 @@ class WindowsAndMessaging {
      *    PostMessage(hDlg, WM_NULL, 0, 0);
      *  
      * ```
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the shortcut menu to be displayed. The handle can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> to create a new shortcut menu, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> to retrieve a handle to a submenu associated with an existing menu item.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * Use zero of more of these flags to specify function options. 
@@ -16830,9 +16359,7 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>uFlags</i> parameter, the function does not send messages to the window identified by <i>hWnd</i>. However, you must still pass a window handle in <i>hWnd</i>. It can be any window handle from your application.
+     * @param {HWND} _hWnd 
      * @param {Pointer<RECT>} prcRect Type: <b>const RECT*</b>
      * 
      * Ignored.
@@ -16844,15 +16371,15 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-trackpopupmenu
      * @since windows5.0
      */
-    static TrackPopupMenu(hMenu, uFlags, x, y, hWnd, prcRect) {
+    static TrackPopupMenu(_hMenu, uFlags, x, y, _hWnd, prcRect) {
         static nReserved := 0 ;Reserved parameters must always be NULL
 
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TrackPopupMenu", "ptr", hMenu, "uint", uFlags, "int", x, "int", y, "int", nReserved, "ptr", hWnd, "ptr", prcRect, "int")
+        result := DllCall("USER32.dll\TrackPopupMenu", "ptr", _hMenu, "uint", uFlags, "int", x, "int", y, "int", nReserved, "ptr", _hWnd, "ptr", prcRect, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16866,9 +16393,7 @@ class WindowsAndMessaging {
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> with <b>SM_MENUDROPALIGNMENT</b> to determine the correct horizontal alignment flag (<b>TPM_LEFTALIGN</b> or <b>TPM_RIGHTALIGN</b>) and/or horizontal animation direction flag (<b>TPM_HORPOSANIMATION</b> or <b>TPM_HORNEGANIMATION</b>) to pass to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-trackpopupmenu">TrackPopupMenu</a> or <b>TrackPopupMenuEx</b>. This is essential for creating an optimal user experience, especially when developing Microsoft Tablet PC applications.
      * 
      * To display a context menu for a notification icon, the current window must be the foreground window before the application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-trackpopupmenu">TrackPopupMenu</a> or <b>TrackPopupMenuEx</b>. Otherwise, the menu will not disappear when the user clicks outside of the menu or the window that created the menu (if it is visible). If the current window is a child window, you must set the (top-level) parent window as the foreground window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the shortcut menu to be displayed. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> function to create a new shortcut menu or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function to retrieve a handle to a submenu associated with an existing menu item.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * Specifies function options. 
@@ -17148,9 +16673,7 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>fuFlags</i> parameter, the function does not send messages to the window identified by <i>hwnd</i>. However, you must still pass a window handle in <i>hwnd</i>. It can be any window handle from your application.
+     * @param {HWND} _hwnd 
      * @param {Pointer<TPMPARAMS>} lptpm Type: <b>LPTPMPARAMS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-tpmparams">TPMPARAMS</a> structure that specifies an area of the screen the menu should not overlap. This parameter can be <b>NULL</b>.
@@ -17162,13 +16685,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-trackpopupmenuex
      * @since windows5.0
      */
-    static TrackPopupMenuEx(hMenu, uFlags, x, y, hwnd, lptpm) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static TrackPopupMenuEx(_hMenu, uFlags, x, y, _hwnd, lptpm) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TrackPopupMenuEx", "ptr", hMenu, "uint", uFlags, "int", x, "int", y, "ptr", hwnd, "ptr", lptpm, "int")
+        result := DllCall("USER32.dll\TrackPopupMenuEx", "ptr", _hMenu, "uint", uFlags, "int", x, "int", y, "ptr", _hwnd, "ptr", lptpm, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17473,9 +16996,7 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu in which the new menu item is inserted.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17493,12 +17014,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-insertmenuitema
      * @since windows5.0
      */
-    static InsertMenuItemA(hmenu, item, fByPosition, lpmi) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static InsertMenuItemA(_hmenu, item, fByPosition, lpmi) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InsertMenuItemA", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
+        result := DllCall("USER32.dll\InsertMenuItemA", "ptr", _hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17512,9 +17033,7 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu in which the new menu item is inserted.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17532,12 +17051,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-insertmenuitemw
      * @since windows5.0
      */
-    static InsertMenuItemW(hmenu, item, fByPosition, lpmi) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static InsertMenuItemW(_hmenu, item, fByPosition, lpmi) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InsertMenuItemW", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
+        result := DllCall("USER32.dll\InsertMenuItemW", "ptr", _hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17551,9 +17070,7 @@ class WindowsAndMessaging {
      * To retrieve a menu item of type <b>MFT_STRING</b>, first find the size of the string by setting the <b>dwTypeData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> to <b>NULL</b> and then calling <b>GetMenuItemInfo</b>. The value of <b>cch</b>+1 is the size needed. Then allocate a buffer of this size, place the pointer to the buffer in <b>dwTypeData</b>, increment <b>cch</b> by one, and then call <b>GetMenuItemInfo</b> once again to fill the buffer with the string.
      * 
      * If the retrieved menu item is of some other type, then <b>GetMenuItemInfo</b> sets the <b>dwTypeData</b> member to a value whose type is specified by the <b>fType</b><b>fType</b> member and sets <b>cch</b> to 0.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the menu item.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17571,12 +17088,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuiteminfoa
      * @since windows5.0
      */
-    static GetMenuItemInfoA(hmenu, item, fByPosition, lpmii) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static GetMenuItemInfoA(_hmenu, item, fByPosition, lpmii) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuItemInfoA", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
+        result := DllCall("USER32.dll\GetMenuItemInfoA", "ptr", _hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17590,9 +17107,7 @@ class WindowsAndMessaging {
      * To retrieve a menu item of type <b>MFT_STRING</b>, first find the size of the string by setting the <b>dwTypeData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> to <b>NULL</b> and then calling <b>GetMenuItemInfo</b>. The value of <b>cch</b>+1 is the size needed. Then allocate a buffer of this size, place the pointer to the buffer in <b>dwTypeData</b>, increment <b>cch</b> by one, and then call <b>GetMenuItemInfo</b> once again to fill the buffer with the string.
      * 
      * If the retrieved menu item is of some other type, then <b>GetMenuItemInfo</b> sets the <b>dwTypeData</b> member to a value whose type is specified by the <b>fType</b><b>fType</b> member and sets <b>cch</b> to 0.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the menu item.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17610,12 +17125,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuiteminfow
      * @since windows5.0
      */
-    static GetMenuItemInfoW(hmenu, item, fByPosition, lpmii) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static GetMenuItemInfoW(_hmenu, item, fByPosition, lpmii) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuItemInfoW", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
+        result := DllCall("USER32.dll\GetMenuItemInfoW", "ptr", _hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17629,9 +17144,7 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the menu item.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17647,12 +17160,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenuiteminfoa
      * @since windows5.0
      */
-    static SetMenuItemInfoA(hmenu, item, fByPositon, lpmii) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static SetMenuItemInfoA(_hmenu, item, fByPositon, lpmii) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenuItemInfoA", "ptr", hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
+        result := DllCall("USER32.dll\SetMenuItemInfoA", "ptr", _hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17666,9 +17179,7 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the menu item.
+     * @param {HMENU} _hmenu 
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17684,12 +17195,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenuiteminfow
      * @since windows5.0
      */
-    static SetMenuItemInfoW(hmenu, item, fByPositon, lpmii) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static SetMenuItemInfoW(_hmenu, item, fByPositon, lpmii) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenuItemInfoW", "ptr", hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
+        result := DllCall("USER32.dll\SetMenuItemInfoW", "ptr", _hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17699,9 +17210,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines the default menu item on the specified menu.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu for which to retrieve the default menu item.
+     * @param {HMENU} _hMenu 
      * @param {Integer} fByPos Type: <b>UINT</b>
      * 
      * Indicates whether to retrieve the menu item's identifier or its position. If this parameter is <b>FALSE</b>, the identifier is returned. Otherwise, the position is returned.
@@ -17714,12 +17223,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenudefaultitem
      * @since windows5.0
      */
-    static GetMenuDefaultItem(hMenu, fByPos, gmdiFlags) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuDefaultItem(_hMenu, fByPos, gmdiFlags) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuDefaultItem", "ptr", hMenu, "uint", fByPos, "uint", gmdiFlags, "uint")
+        result := DllCall("USER32.dll\GetMenuDefaultItem", "ptr", _hMenu, "uint", fByPos, "uint", gmdiFlags, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17729,9 +17238,7 @@ class WindowsAndMessaging {
 
     /**
      * Sets the default menu item for the specified menu.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu to set the default item for.
+     * @param {HMENU} _hMenu 
      * @param {Integer} uItem Type: <b>UINT</b>
      * 
      * The identifier or position of the new default menu item or -1 for no default item. The meaning of this parameter depends on the value of 
@@ -17747,12 +17254,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenudefaultitem
      * @since windows5.0
      */
-    static SetMenuDefaultItem(hMenu, uItem, fByPos) {
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static SetMenuDefaultItem(_hMenu, uItem, fByPos) {
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenuDefaultItem", "ptr", hMenu, "uint", uItem, "uint", fByPos, "int")
+        result := DllCall("USER32.dll\SetMenuDefaultItem", "ptr", _hMenu, "uint", uItem, "uint", fByPos, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17766,15 +17273,8 @@ class WindowsAndMessaging {
      * In order for the returned rectangle to be meaningful, the menu must be popped 
      * 		up if a popup menu or attached to a window if a menu bar. Menu item positions are not 
      * 		determined until the menu is displayed.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window containing the menu.
-     * 
-     * If this value is <b>NULL</b> and the <i>hMenu</i> 
-     * 						parameter represents a popup menu, the function will find the menu window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to a menu.
+     * @param {HWND} _hWnd 
+     * @param {HMENU} _hMenu 
      * @param {Integer} uItem Type: <b>UINT</b>
      * 
      * The zero-based position of the menu item.
@@ -17791,13 +17291,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuitemrect
      * @since windows5.0
      */
-    static GetMenuItemRect(hWnd, hMenu, uItem, lprcItem) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static GetMenuItemRect(_hWnd, _hMenu, uItem, lprcItem) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuItemRect", "ptr", hWnd, "ptr", hMenu, "uint", uItem, "ptr", lprcItem, "int")
+        result := DllCall("USER32.dll\GetMenuItemRect", "ptr", _hWnd, "ptr", _hMenu, "uint", uItem, "ptr", lprcItem, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17807,12 +17307,8 @@ class WindowsAndMessaging {
 
     /**
      * Determines which menu item, if any, is at the specified location.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window containing the menu. If this value is <b>NULL</b> and the <i>hMenu</i> parameter represents a popup menu, the function will find the menu window.
-     * @param {HMENU} hMenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu containing the menu items to hit test.
+     * @param {HWND} _hWnd 
+     * @param {HMENU} _hMenu 
      * @param {POINT} ptScreen Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A structure that specifies the location to test. If <i>hMenu</i> specifies a menu bar, this parameter is in window coordinates. Otherwise, it is in client coordinates.
@@ -17822,11 +17318,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-menuitemfrompoint
      * @since windows5.0
      */
-    static MenuItemFromPoint(hWnd, hMenu, ptScreen) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+    static MenuItemFromPoint(_hWnd, _hMenu, ptScreen) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+        _hMenu := _hMenu is Win32Handle ? NumGet(_hMenu, "ptr") : _hMenu
 
-        result := DllCall("USER32.dll\MenuItemFromPoint", "ptr", hWnd, "ptr", hMenu, "ptr", ptScreen, "int")
+        result := DllCall("USER32.dll\MenuItemFromPoint", "ptr", _hWnd, "ptr", _hMenu, "ptr", ptScreen, "int")
         return result
     }
 
@@ -17854,18 +17350,14 @@ class WindowsAndMessaging {
      * <b>DrawIcon</b> places the icon's upper-left corner at the location specified by the <i>X</i> and <i>Y</i> parameters. The location is subject to the current mapping mode of the device context. 
      * 
      * <b>DrawIcon</b> draws the icon or cursor using the width and height specified by the system metric values for icons; for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>.
-     * @param {HDC} hDC Type: <b>HDC</b>
-     * 
-     * A handle to the device context into which the icon or cursor will be drawn.
+     * @param {HDC} _hDC 
      * @param {Integer} X Type: <b>int</b>
      * 
      * The logical x-coordinate of the upper-left corner of the icon.
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * A handle to the icon to be drawn.
+     * @param {HICON} _hIcon 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -17874,13 +17366,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawicon
      * @since windows5.0
      */
-    static DrawIcon(hDC, X, Y, hIcon) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static DrawIcon(_hDC, X, Y, _hIcon) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DrawIcon", "ptr", hDC, "int", X, "int", Y, "ptr", hIcon, "int")
+        result := DllCall("USER32.dll\DrawIcon", "ptr", _hDC, "int", X, "int", Y, "ptr", _hIcon, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17908,9 +17400,7 @@ class WindowsAndMessaging {
      * This function is typically called to maintain window z-ordering. 
      * 
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hwnd 
      * @param {BOOL} fUnknown Type: <b>BOOL</b>
      * 
      * A <b>TRUE</b> for this parameter indicates that the window
@@ -17920,10 +17410,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-switchtothiswindow
      * @since windows5.0
      */
-    static SwitchToThisWindow(hwnd, fUnknown) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SwitchToThisWindow(_hwnd, fUnknown) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        DllCall("USER32.dll\SwitchToThisWindow", "ptr", hwnd, "int", fUnknown)
+        DllCall("USER32.dll\SwitchToThisWindow", "ptr", _hwnd, "int", fUnknown)
     }
 
     /**
@@ -17950,9 +17440,7 @@ class WindowsAndMessaging {
      * A process that can set the foreground window can enable another process to set the foreground window by calling the [**AllowSetForegroundWindow**](nf-winuser-allowsetforegroundwindow.md) function. The process specified by the *dwProcessId* parameter to **AllowSetForegroundWindow** loses the ability to set the foreground window the next time that either the user generates input, unless the input is directed at that process, or the next time a process calls **AllowSetForegroundWindow**, unless the same process is specified as in the previous call to **AllowSetForegroundWindow**.
      * 
      * The foreground process can disable calls to <b>SetForegroundWindow</b> by calling the [**LockSetForegroundWindow**](nf-winuser-locksetforegroundwindow.md) function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that should be activated and brought to the foreground.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was brought to the foreground, the return value is nonzero.
@@ -17961,10 +17449,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setforegroundwindow
      * @since windows5.0
      */
-    static SetForegroundWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetForegroundWindow(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\SetForegroundWindow", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\SetForegroundWindow", "ptr", _hWnd, "int")
         return result
     }
 
@@ -18056,9 +17544,7 @@ class WindowsAndMessaging {
      * 				<i>lpRect</i> is not <b>NULL</b>, the positions of child windows are not changed and invalid areas in the window are not offset. To prevent updating problems when 
      * 				<i>lpRect</i> is not <b>NULL</b>, call 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> to repaint the window before calling <b>ScrollWindow</b>.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to the window where the client area is to be scrolled.
+     * @param {HWND} _hWnd 
      * @param {Integer} XAmount Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. If the window being scrolled has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_OWNDC</a> or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_CLASSDC</a> style, then this parameter uses logical units rather than device units. This parameter must be a negative value to scroll the content of the window to the left.
@@ -18080,12 +17566,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-scrollwindow
      * @since windows6.0.6000
      */
-    static ScrollWindow(hWnd, XAmount, YAmount, lpRect, lpClipRect) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ScrollWindow(_hWnd, XAmount, YAmount, lpRect, lpClipRect) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ScrollWindow", "ptr", hWnd, "int", XAmount, "int", YAmount, "ptr", lpRect, "ptr", lpClipRect, "int")
+        result := DllCall("USER32.dll\ScrollWindow", "ptr", _hWnd, "int", XAmount, "int", YAmount, "ptr", lpRect, "ptr", lpClipRect, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18103,9 +17589,7 @@ class WindowsAndMessaging {
      * 				<i>hrgnUpdate</i> is not <b>NULL</b>, the system proceeds as though it contains a valid handle to the region uncovered by the scrolling process (defined by <b>ScrollDC</b>). 
      * 
      * When you must scroll the entire client area of a window, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-scrollwindowex">ScrollWindowEx</a> function.
-     * @param {HDC} hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
-     * 
-     * Handle to the device context that contains the bits to be scrolled.
+     * @param {HDC} _hDC 
      * @param {Integer} dx Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. This parameter must be a negative value to scroll to the left.
@@ -18136,13 +17620,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-scrolldc
      * @since windows6.0.6000
      */
-    static ScrollDC(hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static ScrollDC(_hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
         hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ScrollDC", "ptr", hDC, "int", dx, "int", dy, "ptr", lprcScroll, "ptr", lprcClip, "ptr", hrgnUpdate, "ptr", lprcUpdate, "int")
+        result := DllCall("USER32.dll\ScrollDC", "ptr", _hDC, "int", dx, "int", dy, "ptr", lprcScroll, "ptr", lprcClip, "ptr", hrgnUpdate, "ptr", lprcUpdate, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18170,9 +17654,7 @@ class WindowsAndMessaging {
      * 				<i>hrgnUpdate</i>) are determined as client coordinates, regardless of whether the window has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_OWNDC</a> or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_CLASSDC</a> class style. Use the 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lptodp">LPtoDP</a> and 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-dptolp">DPtoLP</a> functions to convert to and from logical coordinates, if necessary.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to the window where the client area is to be scrolled.
+     * @param {HWND} _hWnd 
      * @param {Integer} dx Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. This parameter must be a negative value to scroll to the left.
@@ -18201,13 +17683,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-scrollwindowex
      * @since windows6.0.6000
      */
-    static ScrollWindowEx(hWnd, dx, dy, prcScroll, prcClip, hrgnUpdate, prcUpdate, flags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ScrollWindowEx(_hWnd, dx, dy, prcScroll, prcClip, hrgnUpdate, prcUpdate, flags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ScrollWindowEx", "ptr", hWnd, "int", dx, "int", dy, "ptr", prcScroll, "ptr", prcClip, "ptr", hrgnUpdate, "ptr", prcUpdate, "uint", flags, "int")
+        result := DllCall("USER32.dll\ScrollWindowEx", "ptr", _hWnd, "int", dx, "int", dy, "ptr", prcScroll, "ptr", prcClip, "ptr", hrgnUpdate, "ptr", prcUpdate, "uint", flags, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18223,10 +17705,7 @@ class WindowsAndMessaging {
      * To get the 32-bit position of the scroll box (thumb) during a SB_THUMBTRACK request code in a <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a> message, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a> function.
      * 
      * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getpos">SBM_GETPOS</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollPos</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETPOS</b> message, the <b>GetScrollPos</b> function fails.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
-     * 					<i>nBar</i> parameter.
+     * @param {HWND} _hWnd 
      * @param {Integer} nBar Type: <b>int</b>
      * @returns {Integer} Type: <b>int</b>
      * 
@@ -18236,12 +17715,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getscrollpos
      * @since windows6.0.6000
      */
-    static GetScrollPos(hWnd, nBar) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetScrollPos(_hWnd, nBar) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetScrollPos", "ptr", hWnd, "int", nBar, "int")
+        result := DllCall("USER32.dll\GetScrollPos", "ptr", _hWnd, "int", nBar, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18261,10 +17740,7 @@ class WindowsAndMessaging {
      * The messages that indicate scroll bar position, <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a>, are limited to 16 bits of position data. However, because <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollinfo">SetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollpos">SetScrollPos</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollrange">SetScrollRange</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollpos">GetScrollPos</a>, and <b>GetScrollRange</b> support 32-bit scroll bar position data, there is a way to circumvent the 16-bit barrier of the <b>WM_HSCROLL</b> and <b>WM_VSCROLL</b> messages. See the <b>GetScrollInfo</b> function for a description of the technique. 
      * 
      * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getrange">SBM_GETRANGE</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollRange</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETRANGE</b> message, the <b>GetScrollRange</b> function fails.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
-     * 					<i>nBar</i> parameter.
+     * @param {HWND} _hWnd 
      * @param {Integer} nBar Type: <b>int</b>
      * @param {Pointer<Integer>} lpMinPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
@@ -18280,15 +17756,15 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getscrollrange
      * @since windows6.0.6000
      */
-    static GetScrollRange(hWnd, nBar, lpMinPos, lpMaxPos) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetScrollRange(_hWnd, nBar, lpMinPos, lpMaxPos) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpMinPosMarshal := lpMinPos is VarRef ? "int*" : "ptr"
         lpMaxPosMarshal := lpMaxPos is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetScrollRange", "ptr", hWnd, "int", nBar, lpMinPosMarshal, lpMinPos, lpMaxPosMarshal, lpMaxPos, "int")
+        result := DllCall("USER32.dll\GetScrollRange", "ptr", _hWnd, "int", nBar, lpMinPosMarshal, lpMinPos, lpMaxPosMarshal, lpMaxPos, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18302,9 +17778,7 @@ class WindowsAndMessaging {
      * Before a window is destroyed (that is, before it returns from processing the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a> message), an application must remove all entries it has added to the property list. The application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-removepropa">RemoveProp</a> function to remove the entries. 
      * 
      * <b>SetProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 5.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list receives the new entry.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -18319,14 +17793,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setpropa
      * @since windows5.0
      */
-    static SetPropA(hWnd, lpString, hData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetPropA(_hWnd, lpString, hData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetPropA", "ptr", hWnd, "ptr", lpString, "ptr", hData, "int")
+        result := DllCall("USER32.dll\SetPropA", "ptr", _hWnd, "ptr", lpString, "ptr", hData, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18340,9 +17814,7 @@ class WindowsAndMessaging {
      * Before a window is destroyed (that is, before it returns from processing the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a> message), an application must remove all entries it has added to the property list. The application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-removepropa">RemoveProp</a> function to remove the entries. 
      * 
      * <b>SetProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 5.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list receives the new entry.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -18357,14 +17829,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setpropw
      * @since windows5.0
      */
-    static SetPropW(hWnd, lpString, hData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetPropW(_hWnd, lpString, hData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetPropW", "ptr", hWnd, "ptr", lpString, "ptr", hData, "int")
+        result := DllCall("USER32.dll\SetPropW", "ptr", _hWnd, "ptr", lpString, "ptr", hData, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18377,9 +17849,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetProp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be searched.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
@@ -18389,11 +17859,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpropa
      * @since windows5.0
      */
-    static GetPropA(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPropA(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString, "ptr")
+        result := DllCall("USER32.dll\GetPropA", "ptr", _hWnd, "ptr", lpString, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -18403,9 +17873,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetProp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be searched.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
@@ -18415,11 +17883,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpropw
      * @since windows5.0
      */
-    static GetPropW(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPropW(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString, "ptr")
+        result := DllCall("USER32.dll\GetPropW", "ptr", _hWnd, "ptr", lpString, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -18432,9 +17900,7 @@ class WindowsAndMessaging {
      * The <b>RemoveProp</b> function returns the data handle associated with the string so that the application can free the data associated with the handle.
      * 
      * Starting with Windows Vista, <b>RemoveProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>5</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be changed.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -18444,13 +17910,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-removepropa
      * @since windows5.0
      */
-    static RemovePropA(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RemovePropA(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemovePropA", "ptr", hWnd, "ptr", lpString, "ptr")
+        result := DllCall("USER32.dll\RemovePropA", "ptr", _hWnd, "ptr", lpString, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18467,9 +17933,7 @@ class WindowsAndMessaging {
      * The <b>RemoveProp</b> function returns the data handle associated with the string so that the application can free the data associated with the handle.
      * 
      * Starting with Windows Vista, <b>RemoveProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>5</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be changed.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -18479,13 +17943,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-removepropw
      * @since windows5.0
      */
-    static RemovePropW(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RemovePropW(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemovePropW", "ptr", hWnd, "ptr", lpString, "ptr")
+        result := DllCall("USER32.dll\RemovePropW", "ptr", _hWnd, "ptr", lpString, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18498,25 +17962,21 @@ class WindowsAndMessaging {
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE. (ANSI)
      * @remarks
      * An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be enumerated.
+     * @param {HWND} _hWnd 
      * @param {Pointer<PROPENUMPROCEXA>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexa">PropEnumProcEx</a> function.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Application-defined data to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsexa
      * @since windows5.0
      */
-    static EnumPropsExA(hWnd, lpEnumFunc, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EnumPropsExA(_hWnd, lpEnumFunc, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\EnumPropsExA", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumPropsExA", "ptr", _hWnd, "ptr", lpEnumFunc, "ptr", _lParam, "int")
         return result
     }
 
@@ -18524,25 +17984,21 @@ class WindowsAndMessaging {
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE. (Unicode)
      * @remarks
      * An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be enumerated.
+     * @param {HWND} _hWnd 
      * @param {Pointer<PROPENUMPROCEXW>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexw">PropEnumProcEx</a> function.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Application-defined data to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsexw
      * @since windows5.0
      */
-    static EnumPropsExW(hWnd, lpEnumFunc, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EnumPropsExW(_hWnd, lpEnumFunc, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\EnumPropsExW", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumPropsExW", "ptr", _hWnd, "ptr", lpEnumFunc, "ptr", _lParam, "int")
         return result
     }
 
@@ -18557,9 +18013,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumProps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be enumerated.
+     * @param {HWND} _hWnd 
      * @param {Pointer<PROPENUMPROCA>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
@@ -18569,10 +18023,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsa
      * @since windows5.0
      */
-    static EnumPropsA(hWnd, lpEnumFunc) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EnumPropsA(_hWnd, lpEnumFunc) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\EnumPropsA", "ptr", hWnd, "ptr", lpEnumFunc, "int")
+        result := DllCall("USER32.dll\EnumPropsA", "ptr", _hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
@@ -18587,9 +18041,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumProps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose property list is to be enumerated.
+     * @param {HWND} _hWnd 
      * @param {Pointer<PROPENUMPROCW>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
@@ -18599,10 +18051,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsw
      * @since windows5.0
      */
-    static EnumPropsW(hWnd, lpEnumFunc) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EnumPropsW(_hWnd, lpEnumFunc) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\EnumPropsW", "ptr", hWnd, "ptr", lpEnumFunc, "int")
+        result := DllCall("USER32.dll\EnumPropsW", "ptr", _hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
@@ -18614,9 +18066,7 @@ class WindowsAndMessaging {
      * To set the text of a control in another process, send the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settext">WM_SETTEXT</a> message directly instead of calling <b>SetWindowText</b>. 
      * 
      * The <b>SetWindowText</b> function does not expand tab characters (ASCII code 0x09). Tab characters are displayed as vertical bar (|) characters.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control whose text is to be changed.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The new title or control text.
@@ -18628,13 +18078,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowtexta
      * @since windows5.0
      */
-    static SetWindowTextA(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowTextA(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowTextA", "ptr", hWnd, "ptr", lpString, "int")
+        result := DllCall("USER32.dll\SetWindowTextA", "ptr", _hWnd, "ptr", lpString, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18650,9 +18100,7 @@ class WindowsAndMessaging {
      * To set the text of a control in another process, send the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settext">WM_SETTEXT</a> message directly instead of calling <b>SetWindowText</b>. 
      * 
      * The <b>SetWindowText</b> function does not expand tab characters (ASCII code 0x09). Tab characters are displayed as vertical bar (|) characters.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control whose text is to be changed.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpString Type: <b>LPCWSTR</b>
      * 
      * The new title or control text.
@@ -18664,13 +18112,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowtextw
      * @since windows5.0
      */
-    static SetWindowTextW(hWnd, lpString) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowTextW(_hWnd, lpString) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowTextW", "ptr", hWnd, "ptr", lpString, "int")
+        result := DllCall("USER32.dll\SetWindowTextW", "ptr", _hWnd, "ptr", lpString, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18684,9 +18132,7 @@ class WindowsAndMessaging {
      * If the target window is owned by the current process, <b>GetWindowText</b> causes a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message to be sent to the specified window or control. If the target window is owned by another process and has a caption, <b>GetWindowText</b> retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call <b>GetWindowText</b> without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, <b>GetWindowText</b> will cause the calling application to become unresponsive. 
      * 
      * To retrieve the text of a control in another process, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message directly instead of calling <b>GetWindowText</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control containing the text.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
@@ -18701,13 +18147,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtexta
      * @since windows5.0
      */
-    static GetWindowTextA(hWnd, lpString, nMaxCount) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowTextA(_hWnd, lpString, nMaxCount) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextA", "ptr", hWnd, "ptr", lpString, "int", nMaxCount, "int")
+        result := DllCall("USER32.dll\GetWindowTextA", "ptr", _hWnd, "ptr", lpString, "int", nMaxCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18721,9 +18167,7 @@ class WindowsAndMessaging {
      * If the target window is owned by the current process, <b>GetWindowText</b> causes a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message to be sent to the specified window or control. If the target window is owned by another process and has a caption, <b>GetWindowText</b> retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call <b>GetWindowText</b> without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, <b>GetWindowText</b> will cause the calling application to become unresponsive. 
      * 
      * To retrieve the text of a control in another process, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message directly instead of calling <b>GetWindowText</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control containing the text.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
@@ -18738,13 +18182,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtextw
      * @since windows5.0
      */
-    static GetWindowTextW(hWnd, lpString, nMaxCount) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowTextW(_hWnd, lpString, nMaxCount) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextW", "ptr", hWnd, "ptr", lpString, "int", nMaxCount, "int")
+        result := DllCall("USER32.dll\GetWindowTextW", "ptr", _hWnd, "ptr", lpString, "int", nMaxCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18767,9 +18211,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowTextLength as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control.
+     * @param {HWND} _hWnd 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
@@ -18783,12 +18225,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtextlengtha
      * @since windows5.0
      */
-    static GetWindowTextLengthA(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowTextLengthA(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextLengthA", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\GetWindowTextLengthA", "ptr", _hWnd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18811,9 +18253,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowTextLength as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control.
+     * @param {HWND} _hWnd 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
@@ -18827,12 +18267,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtextlengthw
      * @since windows5.0
      */
-    static GetWindowTextLengthW(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowTextLengthW(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextLengthW", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\GetWindowTextLengthW", "ptr", _hWnd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18844,9 +18284,7 @@ class WindowsAndMessaging {
      * Retrieves the coordinates of a window's client area.
      * @remarks
      * In conformance with conventions for the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, the bottom-right coordinates of the returned rectangle are exclusive. In other words, the pixel at (<b>right</b>, <b>bottom</b>) lies immediately outside the rectangle.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose client coordinates are to be retrieved.
+     * @param {HWND} _hWnd 
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the client coordinates. The <b>left</b> and <b>top</b> members are zero. The <b>right</b> and <b>bottom</b> members contain the width and height of the window.
@@ -18858,12 +18296,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclientrect
      * @since windows5.0
      */
-    static GetClientRect(hWnd, lpRect) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClientRect(_hWnd, lpRect) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClientRect", "ptr", hWnd, "ptr", lpRect, "int")
+        result := DllCall("USER32.dll\GetClientRect", "ptr", _hWnd, "ptr", lpRect, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18883,9 +18321,7 @@ class WindowsAndMessaging {
      * Calling GetWindowRect will have different behavior depending on whether the window has ever been shown or not.  If the window has not been shown before, GetWindowRect will not include the area of the drop shadow.
      * 
      * To get the window bounds excluding the drop shadow, use <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute">DwmGetWindowAttribute</a>, specifying <b>DWMWA_EXTENDED_FRAME_BOUNDS</b>.  Note that unlike the Window Rect, the DWM Extended Frame Bounds are not adjusted for DPI.  Getting the extended frame bounds can only be done after the window has been shown at least once.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the screen coordinates of the upper-left and lower-right corners of the window.
@@ -18897,12 +18333,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrect
      * @since windows5.0
      */
-    static GetWindowRect(hWnd, lpRect) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowRect(_hWnd, lpRect) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowRect", "ptr", hWnd, "ptr", lpRect, "int")
+        result := DllCall("USER32.dll\GetWindowRect", "ptr", _hWnd, "ptr", lpRect, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19021,9 +18457,7 @@ class WindowsAndMessaging {
      * When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the <i>lpText</i> and <i>lpCaption</i> parameters should not be taken from a resource file because an attempt to load the resource may fail.
      * 
      * If you create a message box while a dialog box is present, use a handle to the dialog box as the <i>hWnd</i> parameter. The <i>hWnd</i> parameter should not identify a child window, such as a control in a dialog box.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
@@ -19158,14 +18592,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-messageboxa
      * @since windows5.0
      */
-    static MessageBoxA(hWnd, lpText, lpCaption, uType) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static MessageBoxA(_hWnd, lpText, lpCaption, uType) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpText := lpText is String ? StrPtr(lpText) : lpText
         lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBoxA", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
+        result := DllCall("USER32.dll\MessageBoxA", "ptr", _hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19207,9 +18641,7 @@ class WindowsAndMessaging {
      * When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the <i>lpText</i> and <i>lpCaption</i> parameters should not be taken from a resource file because an attempt to load the resource may fail.
      * 
      * If you create a message box while a dialog box is present, use a handle to the dialog box as the <i>hWnd</i> parameter. The <i>hWnd</i> parameter should not identify a child window, such as a control in a dialog box.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
@@ -19344,14 +18776,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-messageboxw
      * @since windows5.0
      */
-    static MessageBoxW(hWnd, lpText, lpCaption, uType) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static MessageBoxW(_hWnd, lpText, lpCaption, uType) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpText := lpText is String ? StrPtr(lpText) : lpText
         lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBoxW", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
+        result := DllCall("USER32.dll\MessageBoxW", "ptr", _hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19372,9 +18804,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines MessageBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
@@ -19515,14 +18945,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-messageboxexa
      * @since windows5.0
      */
-    static MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static MessageBoxExA(_hWnd, lpText, lpCaption, uType, wLanguageId) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpText := lpText is String ? StrPtr(lpText) : lpText
         lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBoxExA", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
+        result := DllCall("USER32.dll\MessageBoxExA", "ptr", _hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19543,9 +18973,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines MessageBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
@@ -19686,14 +19114,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-messageboxexw
      * @since windows5.0
      */
-    static MessageBoxExW(hWnd, lpText, lpCaption, uType, wLanguageId) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static MessageBoxExW(_hWnd, lpText, lpCaption, uType, wLanguageId) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpText := lpText is String ? StrPtr(lpText) : lpText
         lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBoxExW", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
+        result := DllCall("USER32.dll\MessageBoxExW", "ptr", _hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20085,13 +19513,7 @@ class WindowsAndMessaging {
      * If your application must set the cursor while it is in a window, make sure the class cursor for the specified window's class is set to <b>NULL</b>. If the class cursor is not <b>NULL</b>, the system restores the class cursor each time the mouse is moved. 
      * 
      * The cursor is not shown on the screen if the internal cursor display count is less than zero. This occurs if the application uses the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showcursor">ShowCursor</a> function to hide the cursor more times than to show the cursor.
-     * @param {HCURSOR} hCursor Type: <b>HCURSOR</b>
-     * 
-     * A handle to the cursor.
-     * 
-     * The cursor must have been created by either the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createcursor">CreateCursor</a> or the <a href="https://docs.microsoft.com/win32/api/winuser/nf-winuser-createiconindirect">CreateIconIndirect</a> function, or loaded by either the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadcursora">LoadCursor</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> function.
-     * 
-     * If this parameter is <b>NULL</b>, the cursor is removed from the screen.
+     * @param {HCURSOR} _hCursor 
      * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * The return value is the handle to the previous cursor, if there was one. 
@@ -20100,10 +19522,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setcursor
      * @since windows5.0
      */
-    static SetCursor(hCursor) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static SetCursor(_hCursor) {
+        _hCursor := _hCursor is Win32Handle ? NumGet(_hCursor, "ptr") : _hCursor
 
-        result := DllCall("USER32.dll\SetCursor", "ptr", hCursor, "ptr")
+        result := DllCall("USER32.dll\SetCursor", "ptr", _hCursor, "ptr")
         resultHandle := HCURSOR({Value: result}, True)
         return resultHandle
     }
@@ -20216,14 +19638,8 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The width and height parameters are interpreted as logical sizes in terms of the window in question. The calling thread is not taken into consideration.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the caret.
-     * @param {HBITMAP} hBitmap Type: <b>HBITMAP</b>
-     * 
-     * A handle to the bitmap that defines the caret shape. If this parameter is <b>NULL</b>, the caret is solid. If this parameter is <c>(HBITMAP) 1</c>, the caret is gray. If this parameter is a bitmap handle, the caret is the specified bitmap. The bitmap handle must have been created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createbitmap">CreateBitmap</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibitmap">CreateDIBitmap</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadbitmapa">LoadBitmap</a> function.
-     * 
-     * If <i>hBitmap</i> is a bitmap handle, <b>CreateCaret</b> ignores the <i>nWidth</i> and <i>nHeight</i> parameters; the bitmap defines its own width and height.
+     * @param {HWND} _hWnd 
+     * @param {HBITMAP} _hBitmap 
      * @param {Integer} nWidth Type: <b>int</b>
      * 
      * The width of the caret, in logical units. If this parameter is zero, the width is set to the system-defined window border width. If <i>hBitmap</i> is a bitmap handle, <b>CreateCaret</b> ignores this parameter.
@@ -20239,13 +19655,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createcaret
      * @since windows5.0
      */
-    static CreateCaret(hWnd, hBitmap, nWidth, nHeight) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
+    static CreateCaret(_hWnd, _hBitmap, nWidth, nHeight) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateCaret", "ptr", hWnd, "ptr", hBitmap, "int", nWidth, "int", nHeight, "int")
+        result := DllCall("USER32.dll\CreateCaret", "ptr", _hWnd, "ptr", _hBitmap, "int", nWidth, "int", nHeight, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20341,9 +19757,7 @@ class WindowsAndMessaging {
      * Hiding is cumulative. If your application calls <b>HideCaret</b> five times in a row, it must also call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showcaret">ShowCaret</a> five times before the caret is displayed. 
      * 
      * For an example, see <a href="https://docs.microsoft.com/windows/desktop/menurc/using-carets">Hiding a Caret</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>HideCaret</b> searches the current task for the window that owns the caret.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -20352,12 +19766,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-hidecaret
      * @since windows5.0
      */
-    static HideCaret(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static HideCaret(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\HideCaret", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\HideCaret", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20373,9 +19787,7 @@ class WindowsAndMessaging {
      * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
      * 
      * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>ShowCaret</b> searches the current task for the window that owns the caret.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -20384,12 +19796,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcaret
      * @since windows5.0
      */
-    static ShowCaret(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShowCaret(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShowCaret", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\ShowCaret", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20475,9 +19887,7 @@ class WindowsAndMessaging {
      * In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. 
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
+     * @param {HWND} _hWnd 
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.
@@ -20485,10 +19895,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-logicaltophysicalpoint
      * @since windows6.0.6000
      */
-    static LogicalToPhysicalPoint(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static LogicalToPhysicalPoint(_hWnd, lpPoint) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\LogicalToPhysicalPoint", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\LogicalToPhysicalPoint", "ptr", _hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -20506,9 +19916,7 @@ class WindowsAndMessaging {
      * In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. 
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
+     * @param {HWND} _hWnd 
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.
@@ -20516,10 +19924,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-physicaltologicalpoint
      * @since windows6.0.6000
      */
-    static PhysicalToLogicalPoint(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PhysicalToLogicalPoint(_hWnd, lpPoint) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\PhysicalToLogicalPoint", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\PhysicalToLogicalPoint", "ptr", _hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -20527,17 +19935,15 @@ class WindowsAndMessaging {
      * Retrieves a handle to the window that contains the specified point.
      * @remarks
      * The <b>WindowFromPoint</b> function does not retrieve a handle to a hidden or disabled window, even if the point is within the window. An application should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-childwindowfrompoint">ChildWindowFromPoint</a> function for a nonrestrictive search.
-     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
-     * 
-     * The point to be checked.
+     * @param {POINT} _Point 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is <b>NULL</b>. If the point is over a static text control, the return value is a handle to the window under the static text control.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-windowfrompoint
      * @since windows5.0
      */
-    static WindowFromPoint(Point) {
-        result := DllCall("USER32.dll\WindowFromPoint", "ptr", Point, "ptr")
+    static WindowFromPoint(_Point) {
+        result := DllCall("USER32.dll\WindowFromPoint", "ptr", _Point, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -20546,17 +19952,15 @@ class WindowsAndMessaging {
      * Retrieves a handle to the window that contains the specified physical point.
      * @remarks
      * The <b>WindowFromPhysicalPoint</b> function does not retrieve a handle to a hidden or disabled window, even if the point is within the window.
-     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
-     * 
-     * The physical coordinates of the point.
+     * @param {POINT} _Point 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * A handle to the window that contains the given physical point. If no window exists at the point, this value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-windowfromphysicalpoint
      * @since windows6.0.6000
      */
-    static WindowFromPhysicalPoint(Point) {
-        result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", Point, "ptr")
+    static WindowFromPhysicalPoint(_Point) {
+        result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", _Point, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -20580,11 +19984,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
-     * 
-     * A structure that defines the client 
-     * 				coordinates, relative to <i>hWndParent</i>, 
-     * 				of the point to be checked.
+     * @param {POINT} _Point 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the child window that contains the point, 
@@ -20595,10 +19995,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-childwindowfrompoint
      * @since windows5.0
      */
-    static ChildWindowFromPoint(hWndParent, Point) {
+    static ChildWindowFromPoint(hWndParent, _Point) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", Point, "ptr")
+        result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", _Point, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -20640,9 +20040,7 @@ class WindowsAndMessaging {
      * 			contains the specified point, the system returns a handle to the first window 
      * 			in the list that contains the point and meets the criteria specified by 
      * 			<i>uFlags</i>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A structure that defines the 
@@ -20714,10 +20112,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-childwindowfrompointex
      * @since windows5.0
      */
-    static ChildWindowFromPointEx(hwnd, pt, flags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ChildWindowFromPointEx(_hwnd, pt, flags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", hwnd, "ptr", pt, "uint", flags, "ptr")
+        result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", _hwnd, "ptr", pt, "uint", flags, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -20726,31 +20124,31 @@ class WindowsAndMessaging {
      * Retrieves the 16-bit (**DWORD**) value at the specified offset into the extra window memor
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the <b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} hWnd A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex 
      * @returns {Integer} If the function succeeds, the return value is the requested value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowword
      */
-    static GetWindowWord(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowWord(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\GetWindowWord", "ptr", hWnd, "int", nIndex, "ushort")
+        result := DllCall("USER32.dll\GetWindowWord", "ptr", _hWnd, "int", nIndex, "ushort")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex 
      * @param {Integer} wNewWord 
      * @returns {Integer} 
      */
-    static SetWindowWord(hWnd, nIndex, wNewWord) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowWord(_hWnd, nIndex, wNewWord) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\SetWindowWord", "ptr", hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
+        result := DllCall("USER32.dll\SetWindowWord", "ptr", _hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
         return result
     }
 
@@ -20759,9 +20157,7 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the 
      * 				<b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>LONG</b>
      * 
@@ -20773,12 +20169,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowlonga
      * @since windows5.0
      */
-    static GetWindowLongA(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowLongA(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowLongA", "ptr", hWnd, "int", nIndex, "int")
+        result := DllCall("USER32.dll\GetWindowLongA", "ptr", _hWnd, "int", nIndex, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20791,9 +20187,7 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the 
      * 				<b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>LONG</b>
      * 
@@ -20805,12 +20199,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowlongw
      * @since windows5.0
      */
-    static GetWindowLongW(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowLongW(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowLongW", "ptr", hWnd, "int", nIndex, "int")
+        result := DllCall("USER32.dll\GetWindowLongW", "ptr", _hWnd, "int", nIndex, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20837,9 +20231,7 @@ class WindowsAndMessaging {
      * If the window has a class style of <b>CS_CLASSDC</b> or <b>CS_OWNDC</b>, do not set the extended window styles <b>WS_EX_COMPOSITED</b> or <b>WS_EX_LAYERED</b>.
      * 
      * Calling <b>SetWindowLong</b> to set the style on a progressbar will reset its position.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
@@ -20854,12 +20246,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowlonga
      * @since windows5.0
      */
-    static SetWindowLongA(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowLongA(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowLongA", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "int")
+        result := DllCall("USER32.dll\SetWindowLongA", "ptr", _hWnd, "int", nIndex, "int", dwNewLong, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20886,9 +20278,7 @@ class WindowsAndMessaging {
      * If the window has a class style of <b>CS_CLASSDC</b> or <b>CS_OWNDC</b>, do not set the extended window styles <b>WS_EX_COMPOSITED</b> or <b>WS_EX_LAYERED</b>.
      * 
      * Calling <b>SetWindowLong</b> to set the style on a progressbar will reset its position.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
@@ -20903,12 +20293,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowlongw
      * @since windows5.0
      */
-    static SetWindowLongW(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowLongW(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowLongW", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "int")
+        result := DllCall("USER32.dll\SetWindowLongW", "ptr", _hWnd, "int", nIndex, "int", dwNewLong, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20921,9 +20311,7 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra class memory by specifying a nonzero value in the 
      * 				<b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * 
      * The zero-based byte offset of the value to be retrieved. Valid values are in the range zero through the number of bytes of class memory, minus two; for example, if you specified 10 or more bytes of extra class memory, a value of eight would be an index to the fifth 16-bit integer. There is an additional valid value as shown in the following table. 
@@ -20953,12 +20341,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassword
      * @since windows5.0
      */
-    static GetClassWord(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassWord(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassWord", "ptr", hWnd, "int", nIndex, "ushort")
+        result := DllCall("USER32.dll\GetClassWord", "ptr", _hWnd, "int", nIndex, "ushort")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20971,9 +20359,7 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra class memory by specifying a nonzero value in the 
      * 				<b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * 
      * The zero-based byte offset of the value to be replaced. Valid values are in the range zero through the number of bytes of class memory minus two; for example, if you specified 10 or more bytes of extra class memory, a value of 8 would be an index to the fifth 16-bit integer.
@@ -20988,12 +20374,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclassword
      * @since windows5.0
      */
-    static SetClassWord(hWnd, nIndex, wNewWord) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetClassWord(_hWnd, nIndex, wNewWord) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetClassWord", "ptr", hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
+        result := DllCall("USER32.dll\SetClassWord", "ptr", _hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21013,9 +20399,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLong as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
@@ -21025,12 +20409,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclasslonga
      * @since windows5.0
      */
-    static GetClassLongA(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassLongA(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassLongA", "ptr", hWnd, "int", nIndex, "uint")
+        result := DllCall("USER32.dll\GetClassLongA", "ptr", _hWnd, "int", nIndex, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21050,9 +20434,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLong as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
@@ -21062,12 +20444,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclasslongw
      * @since windows5.0
      */
-    static GetClassLongW(hWnd, nIndex) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassLongW(_hWnd, nIndex) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassLongW", "ptr", hWnd, "int", nIndex, "uint")
+        result := DllCall("USER32.dll\GetClassLongW", "ptr", _hWnd, "int", nIndex, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21085,9 +20467,7 @@ class WindowsAndMessaging {
      * Reserve extra class memory by specifying a nonzero value in the <b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
      * Use the <b>SetClassLong</b> function with care. For example, it is possible to change the background color for a class by using <b>SetClassLong</b>, but this change does not immediately repaint all windows belonging to the class.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
@@ -21100,12 +20480,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclasslonga
      * @since windows5.0
      */
-    static SetClassLongA(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetClassLongA(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetClassLongA", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "uint")
+        result := DllCall("USER32.dll\SetClassLongA", "ptr", _hWnd, "int", nIndex, "int", dwNewLong, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21123,9 +20503,7 @@ class WindowsAndMessaging {
      * Reserve extra class memory by specifying a nonzero value in the <b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
      * Use the <b>SetClassLong</b> function with care. For example, it is possible to change the background color for a class by using <b>SetClassLong</b>, but this change does not immediately repaint all windows belonging to the class.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {Integer} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
@@ -21138,12 +20516,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclasslongw
      * @since windows5.0
      */
-    static SetClassLongW(hWnd, nIndex, dwNewLong) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetClassLongW(_hWnd, nIndex, dwNewLong) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetClassLongW", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "uint")
+        result := DllCall("USER32.dll\SetClassLongW", "ptr", _hWnd, "int", nIndex, "int", dwNewLong, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21281,9 +20659,7 @@ class WindowsAndMessaging {
      * Retrieves a handle to the specified window's parent or owner.
      * @remarks
      * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose parent window handle is to be retrieved.
+     * @param {HWND} _hWnd 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
@@ -21300,12 +20676,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getparent
      * @since windows5.0
      */
-    static GetParent(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetParent(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetParent", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetParent", "ptr", _hWnd, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21397,19 +20773,17 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633493(v=vs.85)">EnumChildProc</a>.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is not used.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumchildwindows
      * @since windows5.0
      */
-    static EnumChildWindows(hWndParent, lpEnumFunc, lParam) {
+    static EnumChildWindows(hWndParent, lpEnumFunc, _lParam) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := DllCall("USER32.dll\EnumChildWindows", "ptr", hWndParent, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumChildWindows", "ptr", hWndParent, "ptr", lpEnumFunc, "ptr", _lParam, "int")
         return result
     }
 
@@ -21712,19 +21086,17 @@ class WindowsAndMessaging {
      *  
      * 
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to register for Shell hook messages.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registershellhookwindow
      * @since windows5.0
      */
-    static RegisterShellHookWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RegisterShellHookWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\RegisterShellHookWindow", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\RegisterShellHookWindow", "ptr", _hwnd, "int")
         return result
     }
 
@@ -21732,10 +21104,7 @@ class WindowsAndMessaging {
      * Unregisters a specified Shell window that is registered to receive Shell hook messages.
      * @remarks
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be unregistered. The window was registered with a call to the
-     * 		<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registershellhookwindow">RegisterShellHookWindow</a> function.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the
@@ -21743,10 +21112,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-deregistershellhookwindow
      * @since windows5.0
      */
-    static DeregisterShellHookWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DeregisterShellHookWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\DeregisterShellHookWindow", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\DeregisterShellHookWindow", "ptr", _hwnd, "int")
         return result
     }
 
@@ -21762,9 +21131,7 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a>.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -21775,10 +21142,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumwindows
      * @since windows5.0
      */
-    static EnumWindows(lpEnumFunc, lParam) {
+    static EnumWindows(lpEnumFunc, _lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindows", "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumWindows", "ptr", lpEnumFunc, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21794,17 +21161,15 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpfn Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633496(v=vs.85)">EnumThreadWndProc</a>.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the callback function returns <b>TRUE</b> for all windows in the thread specified by <i>dwThreadId</i>, the return value is <b>TRUE</b>. If the callback function returns <b>FALSE</b> on any enumerated window, or if there are no windows found in the thread specified by <i>dwThreadId</i>, the return value is <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumthreadwindows
      * @since windows5.0
      */
-    static EnumThreadWindows(dwThreadId, lpfn, lParam) {
-        result := DllCall("USER32.dll\EnumThreadWindows", "uint", dwThreadId, "ptr", lpfn, "ptr", lParam, "int")
+    static EnumThreadWindows(dwThreadId, lpfn, _lParam) {
+        result := DllCall("USER32.dll\EnumThreadWindows", "uint", dwThreadId, "ptr", lpfn, "ptr", _lParam, "int")
         return result
     }
 
@@ -21813,9 +21178,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
@@ -21831,13 +21194,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassnamea
      * @since windows5.0
      */
-    static GetClassNameA(hWnd, lpClassName, nMaxCount) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassNameA(_hWnd, lpClassName, nMaxCount) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassNameA", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
+        result := DllCall("USER32.dll\GetClassNameA", "ptr", _hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21850,9 +21213,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
@@ -21868,13 +21229,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassnamew
      * @since windows5.0
      */
-    static GetClassNameW(hWnd, lpClassName, nMaxCount) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetClassNameW(_hWnd, lpClassName, nMaxCount) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassNameW", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
+        result := DllCall("USER32.dll\GetClassNameW", "ptr", _hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21884,21 +21245,19 @@ class WindowsAndMessaging {
 
     /**
      * Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window whose child windows are to be examined. If this parameter is <b>NULL</b>, the function returns a handle to the window at the top of the Z order.
+     * @param {HWND} _hWnd 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is <b>NULL</b>. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettopwindow
      * @since windows5.0
      */
-    static GetTopWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetTopWindow(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetTopWindow", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetTopWindow", "ptr", _hWnd, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21909,9 +21268,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Integer>} lpdwProcessId Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the process identifier. If this parameter is not <b>NULL</b>, <b>GetWindowThreadProcessId</b> copies the identifier of the process to the variable; otherwise, it does not. If the function fails, the value of the variable is unchanged.
@@ -21921,12 +21278,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowthreadprocessid
      * @since windows5.0
      */
-    static GetWindowThreadProcessId(hWnd, lpdwProcessId) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowThreadProcessId(_hWnd, lpdwProcessId) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpdwProcessIdMarshal := lpdwProcessId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\GetWindowThreadProcessId", "ptr", hWnd, lpdwProcessIdMarshal, lpdwProcessId, "uint")
+        result := DllCall("USER32.dll\GetWindowThreadProcessId", "ptr", _hWnd, lpdwProcessIdMarshal, lpdwProcessId, "uint")
         return result
     }
 
@@ -21956,9 +21313,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines which pop-up window owned by the specified window was most recently active.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window.
+     * @param {HWND} _hWnd 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value identifies the most recently active pop-up window. The return value is the same as the <i>hWnd</i> parameter, if any of the following conditions are met: 
@@ -21971,10 +21326,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastactivepopup
      * @since windows5.0
      */
-    static GetLastActivePopup(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetLastActivePopup(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\GetLastActivePopup", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetLastActivePopup", "ptr", _hWnd, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -21983,9 +21338,7 @@ class WindowsAndMessaging {
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumchildwindows">EnumChildWindows</a> function is more reliable than calling <b>GetWindow</b> in a loop. An application that calls <b>GetWindow</b> to perform this task risks being caught in an infinite loop or referencing a handle to a window that has been destroyed.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to a window. The window handle retrieved is relative to this window, based on the value of the <i>uCmd</i> parameter.
+     * @param {HWND} _hWnd 
      * @param {Integer} uCmd Type: <b>UINT</b>
      * @returns {HWND} Type: <b>HWND</b>
      * 
@@ -21993,12 +21346,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindow
      * @since windows5.0
      */
-    static GetWindow(hWnd, uCmd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindow(_hWnd, uCmd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindow", "ptr", hWnd, "uint", uCmd, "ptr")
+        result := DllCall("USER32.dll\GetWindow", "ptr", _hWnd, "uint", uCmd, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -22389,22 +21742,18 @@ class WindowsAndMessaging {
      * @param {Integer} nCode Type: <b>int</b>
      * 
      * The hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * The <i>wParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The <i>lParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callnexthookex
      * @since windows5.0
      */
-    static CallNextHookEx(hhk, nCode, wParam, lParam) {
+    static CallNextHookEx(hhk, nCode, _wParam, _lParam) {
         hhk := hhk is Win32Handle ? NumGet(hhk, "ptr") : hhk
 
-        result := DllCall("USER32.dll\CallNextHookEx", "ptr", hhk, "int", nCode, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\CallNextHookEx", "ptr", hhk, "int", nCode, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -22414,9 +21763,7 @@ class WindowsAndMessaging {
      * The <b>CheckMenuRadioItem</b> function sets the <b>MFT_RADIOCHECK</b> type flag and the <b>MFS_CHECKED</b> state for the item specified by <i>idCheck</i> and, at the same time, clears both flags for all other items in the group. The selected item is displayed using a bullet bitmap instead of a check-mark bitmap.
      * 
      * For more information about menu item type and state flags, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the menu that contains the group of menu items.
+     * @param {HMENU} _hmenu 
      * @param {Integer} first Type: <b>UINT</b>
      * 
      * The identifier or position of the first menu item in the group.
@@ -22437,12 +21784,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-checkmenuradioitem
      * @since windows5.0
      */
-    static CheckMenuRadioItem(hmenu, first, last, check, flags) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static CheckMenuRadioItem(_hmenu, first, last, check, flags) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CheckMenuRadioItem", "ptr", hmenu, "uint", first, "uint", last, "uint", check, "uint", flags, "int")
+        result := DllCall("USER32.dll\CheckMenuRadioItem", "ptr", _hmenu, "uint", first, "uint", last, "uint", check, "uint", flags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -22459,9 +21806,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the cursor to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
@@ -22656,13 +22001,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadcursora
      * @since windows5.0
      */
-    static LoadCursorA(hInstance, lpCursorName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadCursorA(_hInstance, lpCursorName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorA", "ptr", hInstance, "ptr", lpCursorName, "ptr")
+        result := DllCall("USER32.dll\LoadCursorA", "ptr", _hInstance, "ptr", lpCursorName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -22680,9 +22025,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the cursor to be loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
@@ -22877,13 +22220,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadcursorw
      * @since windows5.0
      */
-    static LoadCursorW(hInstance, lpCursorName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadCursorW(_hInstance, lpCursorName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorW", "ptr", hInstance, "ptr", lpCursorName, "ptr")
+        result := DllCall("USER32.dll\LoadCursorW", "ptr", _hInstance, "ptr", lpCursorName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23080,9 +22423,7 @@ class WindowsAndMessaging {
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copyimage">CopyImage</a> (if you use the <b>LR_COPYRETURNORG</b> flag and the <i>hImage</i> parameter is a shared cursor) </li>
      * </ul>
-     * @param {HCURSOR} hCursor Type: <b>HCURSOR</b>
-     * 
-     * A handle to the cursor to be destroyed. The cursor must not be in use.
+     * @param {HCURSOR} _hCursor 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -23091,12 +22432,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroycursor
      * @since windows5.0
      */
-    static DestroyCursor(hCursor) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static DestroyCursor(_hCursor) {
+        _hCursor := _hCursor is Win32Handle ? NumGet(_hCursor, "ptr") : _hCursor
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DestroyCursor", "ptr", hCursor, "int")
+        result := DllCall("USER32.dll\DestroyCursor", "ptr", _hCursor, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23148,9 +22489,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines LoadIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -23162,13 +22501,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadicona
      * @since windows5.0
      */
-    static LoadIconA(hInstance, lpIconName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadIconA(_hInstance, lpIconName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadIconA", "ptr", hInstance, "ptr", lpIconName, "ptr")
+        result := DllCall("USER32.dll\LoadIconA", "ptr", _hInstance, "ptr", lpIconName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23190,9 +22529,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines LoadIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -23204,13 +22541,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadiconw
      * @since windows5.0
      */
-    static LoadIconW(hInstance, lpIconName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadIconW(_hInstance, lpIconName) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadIconW", "ptr", hInstance, "ptr", lpIconName, "ptr")
+        result := DllCall("USER32.dll\LoadIconW", "ptr", _hInstance, "ptr", lpIconName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23413,9 +22750,7 @@ class WindowsAndMessaging {
      * </table>
      * 
      * When you are finished using the icon, destroy it using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the module creating the icon.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} nWidth Type: <b>int</b>
      * 
      * The width, in pixels, of the icon.
@@ -23442,15 +22777,15 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createicon
      * @since windows5.0
      */
-    static CreateIcon(hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static CreateIcon(_hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         lpbANDbitsMarshal := lpbANDbits is VarRef ? "char*" : "ptr"
         lpbXORbitsMarshal := lpbXORbits is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateIcon", "ptr", hInstance, "int", nWidth, "int", nHeight, "char", cPlanes, "char", cBitsPixel, lpbANDbitsMarshal, lpbANDbits, lpbXORbitsMarshal, lpbXORbits, "ptr")
+        result := DllCall("USER32.dll\CreateIcon", "ptr", _hInstance, "int", nWidth, "int", nHeight, "char", cPlanes, "char", cBitsPixel, lpbANDbitsMarshal, lpbANDbits, lpbXORbitsMarshal, lpbXORbits, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23479,9 +22814,7 @@ class WindowsAndMessaging {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createiconfromresourceex">CreateIconFromResourceEx</a> (if you use the <b>LR_SHARED</b> flag)
      * 					</li>
      * </ul>
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * A handle to the icon to be destroyed. The icon must not be in use.
+     * @param {HICON} _hIcon 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -23490,12 +22823,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon
      * @since windows5.0
      */
-    static DestroyIcon(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static DestroyIcon(_hIcon) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DestroyIcon", "ptr", hIcon, "int")
+        result := DllCall("USER32.dll\DestroyIcon", "ptr", _hIcon, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23747,9 +23080,7 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The width, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> or <b>SM_CXCURSOR</b> system metric value to set the width. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
+     * @param {Integer} _cy 
      * @param {Integer} fuLoad Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
@@ -23759,13 +23090,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadimagea
      * @since windows5.0
      */
-    static LoadImageA(hInst, name, type, cx, cy, fuLoad) {
+    static LoadImageA(hInst, name, type, cx, _cy, fuLoad) {
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         name := name is String ? StrPtr(name) : name
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadImageA", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
+        result := DllCall("USER32.dll\LoadImageA", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", _cy, "uint", fuLoad, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23858,9 +23189,7 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The width, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> or <b>SM_CXCURSOR</b> system metric value to set the width. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
+     * @param {Integer} _cy 
      * @param {Integer} fuLoad Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
@@ -23870,13 +23199,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadimagew
      * @since windows5.0
      */
-    static LoadImageW(hInst, name, type, cx, cy, fuLoad) {
+    static LoadImageW(hInst, name, type, cx, _cy, fuLoad) {
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         name := name is String ? StrPtr(name) : name
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadImageW", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
+        result := DllCall("USER32.dll\LoadImageW", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", _cy, "uint", fuLoad, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23924,9 +23253,7 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The desired width, in pixels, of the image. If this is zero, then the returned image will have the same width as the original <i>hImage</i>.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The desired height, in pixels, of the image. If this is zero, then the returned image will have the same height as the original <i>hImage</i>.
+     * @param {Integer} _cy 
      * @param {Integer} flags Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
@@ -23936,12 +23263,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyimage
      * @since windows5.0
      */
-    static CopyImage(h, type, cx, cy, flags) {
+    static CopyImage(h, type, cx, _cy, flags) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CopyImage", "ptr", h, "uint", type, "int", cx, "int", cy, "uint", flags, "ptr")
+        result := DllCall("USER32.dll\CopyImage", "ptr", h, "uint", type, "int", cx, "int", _cy, "uint", flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23966,18 +23293,14 @@ class WindowsAndMessaging {
      * ``` syntax
      * DrawIconEx (hDC, X, Y, hIcon, 0, 0, 0, NULL, DI_NORMAL | DI_COMPAT | DI_DEFAULTSIZE); 
      * ```
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the device context into which the icon or cursor will be drawn.
+     * @param {HDC} _hdc 
      * @param {Integer} xLeft Type: <b>int</b>
      * 
      * The logical x-coordinate of the upper-left corner of the icon or cursor.
      * @param {Integer} yTop Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon or cursor.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * A handle to the icon or cursor to be drawn. This parameter can identify an animated cursor.
+     * @param {HICON} _hIcon 
      * @param {Integer} cxWidth Type: <b>int</b>
      * 
      * The logical width of the icon or cursor. If this parameter is zero and the <i>diFlags</i> parameter is <b>DI_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> system metric value to set the width. If this parameter is zero and <b>DI_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
@@ -23999,14 +23322,14 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawiconex
      * @since windows5.0
      */
-    static DrawIconEx(hdc, xLeft, yTop, hIcon, cxWidth, cyWidth, istepIfAniCur, hbrFlickerFreeDraw, diFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static DrawIconEx(_hdc, xLeft, yTop, _hIcon, cxWidth, cyWidth, istepIfAniCur, hbrFlickerFreeDraw, diFlags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         hbrFlickerFreeDraw := hbrFlickerFreeDraw is Win32Handle ? NumGet(hbrFlickerFreeDraw, "ptr") : hbrFlickerFreeDraw
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DrawIconEx", "ptr", hdc, "int", xLeft, "int", yTop, "ptr", hIcon, "int", cxWidth, "int", cyWidth, "uint", istepIfAniCur, "ptr", hbrFlickerFreeDraw, "uint", diFlags, "int")
+        result := DllCall("USER32.dll\DrawIconEx", "ptr", _hdc, "int", xLeft, "int", yTop, "ptr", _hIcon, "int", cxWidth, "int", cyWidth, "uint", istepIfAniCur, "ptr", hbrFlickerFreeDraw, "uint", diFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24049,9 +23372,7 @@ class WindowsAndMessaging {
      * The <b>CopyIcon</b> function enables an application or DLL to get its own handle to an icon owned by another module. If the other module is freed, the application icon will still be able to use the icon. 
      * 
      * Before closing, an application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function to free any system resources associated with the icon.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * A handle to the icon to be copied.
+     * @param {HICON} _hIcon 
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the duplicate icon.
@@ -24060,12 +23381,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyicon
      * @since windows5.0
      */
-    static CopyIcon(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static CopyIcon(_hIcon) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CopyIcon", "ptr", hIcon, "ptr")
+        result := DllCall("USER32.dll\CopyIcon", "ptr", _hIcon, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24081,7 +23402,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HICON} hIcon Type: <b>HICON</b>
+     * @param {HICON} _hIcon 
      * @param {Pointer<ICONINFO>} piconinfo Type: <b>PICONINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a> structure. The function fills in the structure's members.
@@ -24093,12 +23414,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-geticoninfo
      * @since windows5.0
      */
-    static GetIconInfo(hIcon, piconinfo) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static GetIconInfo(_hIcon, piconinfo) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetIconInfo", "ptr", hIcon, "ptr", piconinfo, "int")
+        result := DllCall("USER32.dll\GetIconInfo", "ptr", _hIcon, "ptr", piconinfo, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24116,7 +23437,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetIconInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HICON} hicon Type: <b>HICON</b>
+     * @param {HICON} _hicon 
      * @param {Pointer<ICONINFOEXA>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
@@ -24126,10 +23447,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-geticoninfoexa
      * @since windows6.0.6000
      */
-    static GetIconInfoExA(hicon, piconinfo) {
-        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+    static GetIconInfoExA(_hicon, piconinfo) {
+        _hicon := _hicon is Win32Handle ? NumGet(_hicon, "ptr") : _hicon
 
-        result := DllCall("USER32.dll\GetIconInfoExA", "ptr", hicon, "ptr", piconinfo, "int")
+        result := DllCall("USER32.dll\GetIconInfoExA", "ptr", _hicon, "ptr", piconinfo, "int")
         return result
     }
 
@@ -24143,7 +23464,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetIconInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HICON} hicon Type: <b>HICON</b>
+     * @param {HICON} _hicon 
      * @param {Pointer<ICONINFOEXW>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
@@ -24153,10 +23474,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-geticoninfoexw
      * @since windows6.0.6000
      */
-    static GetIconInfoExW(hicon, piconinfo) {
-        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+    static GetIconInfoExW(_hicon, piconinfo) {
+        _hicon := _hicon is Win32Handle ? NumGet(_hicon, "ptr") : _hicon
 
-        result := DllCall("USER32.dll\GetIconInfoExW", "ptr", hicon, "ptr", piconinfo, "int")
+        result := DllCall("USER32.dll\GetIconInfoExW", "ptr", _hicon, "ptr", piconinfo, "int")
         return result
     }
 
@@ -24319,10 +23640,7 @@ class WindowsAndMessaging {
      * 
      * 
      * If the <i>fnBar</i> parameter is SB_CTL and the window specified by the <i>hwnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getscrollinfo">SBM_GETSCROLLINFO</a> message to the window to obtain scroll bar information. This allows <b>GetScrollInfo</b> to operate on a custom control that mimics a scroll bar. If the window does not handle the <b>SBM_GETSCROLLINFO</b> message, the <b>GetScrollInfo</b> function fails.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
-     * 					<i>fnBar</i> parameter.
+     * @param {HWND} _hwnd 
      * @param {Integer} nBar Type: <b>int</b>
      * @param {Pointer<SCROLLINFO>} lpsi Type: <b>LPSCROLLINFO</b>
      * 
@@ -24340,12 +23658,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getscrollinfo
      * @since windows6.0.6000
      */
-    static GetScrollInfo(hwnd, nBar, lpsi) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetScrollInfo(_hwnd, nBar, lpsi) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "int")
+        result := DllCall("USER32.dll\GetScrollInfo", "ptr", _hwnd, "int", nBar, "ptr", lpsi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24398,32 +23716,26 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefFrameProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the MDI frame window.
+     * @param {HWND} _hWnd 
      * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defframeproca
      * @since windows5.0
      */
-    static DefFrameProcA(hWnd, hWndMDIClient, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefFrameProcA(_hWnd, hWndMDIClient, uMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hWndMDIClient := hWndMDIClient is Win32Handle ? NumGet(hWndMDIClient, "ptr") : hWndMDIClient
 
-        result := DllCall("USER32.dll\DefFrameProcA", "ptr", hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefFrameProcA", "ptr", _hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -24472,32 +23784,26 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefFrameProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the MDI frame window.
+     * @param {HWND} _hWnd 
      * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defframeprocw
      * @since windows5.0
      */
-    static DefFrameProcW(hWnd, hWndMDIClient, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefFrameProcW(_hWnd, hWndMDIClient, uMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hWndMDIClient := hWndMDIClient is Win32Handle ? NumGet(hWndMDIClient, "ptr") : hWndMDIClient
 
-        result := DllCall("USER32.dll\DefFrameProcW", "ptr", hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefFrameProcW", "ptr", _hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -24566,28 +23872,22 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefMDIChildProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the MDI child window.
+     * @param {HWND} _hWnd 
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defmdichildproca
      * @since windows5.0
      */
-    static DefMDIChildProcA(hWnd, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefMDIChildProcA(_hWnd, uMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\DefMDIChildProcA", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefMDIChildProcA", "ptr", _hWnd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -24656,28 +23956,22 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefMDIChildProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the MDI child window.
+     * @param {HWND} _hWnd 
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defmdichildprocw
      * @since windows5.0
      */
-    static DefMDIChildProcW(hWnd, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefMDIChildProcW(_hWnd, uMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\DefMDIChildProcW", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\DefMDIChildProcW", "ptr", _hWnd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -24710,9 +24004,7 @@ class WindowsAndMessaging {
      * An application that maintains its own minimized child windows can use the <b>ArrangeIconicWindows</b> function to arrange icons in a parent window. This function can also arrange icons on the desktop. To retrieve the window handle to the desktop window, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdesktopwindow">GetDesktopWindow</a> function. 
      * 
      * An application sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-mdiiconarrange">WM_MDIICONARRANGE</a> message to the multiple-document interface (MDI) client window to prompt the client window to arrange its minimized MDI child windows.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hWnd 
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the height of one row of icons. 
@@ -24721,12 +24013,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-arrangeiconicwindows
      * @since windows5.0
      */
-    static ArrangeIconicWindows(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ArrangeIconicWindows(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ArrangeIconicWindows", "ptr", hWnd, "uint")
+        result := DllCall("USER32.dll\ArrangeIconicWindows", "ptr", _hWnd, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24761,12 +24053,8 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application creating the MDI child window.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value.
+     * @param {HINSTANCE} _hInstance 
+     * @param {LPARAM} _lParam 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
@@ -24775,15 +24063,15 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createmdiwindowa
      * @since windows5.0
      */
-    static CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
+    static CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, _hInstance, _lParam) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
         lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", _hInstance, "ptr", _lParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24819,12 +24107,8 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
-     * 
-     * A handle to the instance of the application creating the MDI child window.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value.
+     * @param {HINSTANCE} _hInstance 
+     * @param {LPARAM} _lParam 
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
@@ -24833,15 +24117,15 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createmdiwindoww
      * @since windows5.0
      */
-    static CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
+    static CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, _hInstance, _lParam) {
         lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
         lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", _hInstance, "ptr", _lParam, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -30721,9 +30005,7 @@ class WindowsAndMessaging {
      * Copies the text of the specified window's title bar (if it has one) into a buffer.
      * @remarks
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window or control containing the text.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pString Type: <b>LPWSTR</b>
      * 
      * The buffer that is to receive the text.
@@ -30740,13 +30022,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-internalgetwindowtext
      * @since windows5.0
      */
-    static InternalGetWindowText(hWnd, pString, cchMaxCount) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternalGetWindowText(_hWnd, pString, cchMaxCount) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pString := pString is String ? StrPtr(pString) : pString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InternalGetWindowText", "ptr", hWnd, "ptr", pString, "int", cchMaxCount, "int")
+        result := DllCall("USER32.dll\InternalGetWindowText", "ptr", _hWnd, "ptr", pString, "int", cchMaxCount, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -30870,15 +30152,15 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {HWND} hwndInherit 
      * @returns {BOOL} 
      */
-    static InheritWindowMonitor(hwnd, hwndInherit) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static InheritWindowMonitor(_hwnd, hwndInherit) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hwndInherit := hwndInherit is Win32Handle ? NumGet(hwndInherit, "ptr") : hwndInherit
 
-        result := DllCall("USER32.dll\InheritWindowMonitor", "ptr", hwnd, "ptr", hwndInherit, "int")
+        result := DllCall("USER32.dll\InheritWindowMonitor", "ptr", _hwnd, "ptr", hwndInherit, "int")
         return result
     }
 
@@ -30887,9 +30169,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetWindowModuleFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose module file name is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
@@ -30902,11 +30182,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowmodulefilenamea
      * @since windows5.0
      */
-    static GetWindowModuleFileNameA(hwnd, pszFileName, cchFileNameMax) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowModuleFileNameA(_hwnd, pszFileName, cchFileNameMax) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
+        result := DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", _hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
     }
 
@@ -30915,9 +30195,7 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetWindowModuleFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose module file name is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
@@ -30930,11 +30208,11 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowmodulefilenamew
      * @since windows5.0
      */
-    static GetWindowModuleFileNameW(hwnd, pszFileName, cchFileNameMax) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowModuleFileNameW(_hwnd, pszFileName, cchFileNameMax) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
+        result := DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", _hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
     }
 
@@ -30964,9 +30242,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window. (GetWindowInfo)
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose information is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {Pointer<WINDOWINFO>} pwi Type: <b>PWINDOWINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowinfo">WINDOWINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(WINDOWINFO)</c> before calling this function.
@@ -30980,12 +30256,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowinfo
      * @since windows5.0
      */
-    static GetWindowInfo(hwnd, pwi) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowInfo(_hwnd, pwi) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowInfo", "ptr", hwnd, "ptr", pwi, "int")
+        result := DllCall("USER32.dll\GetWindowInfo", "ptr", _hwnd, "ptr", pwi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -30995,9 +30271,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified title bar.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the title bar whose information is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {Pointer<TITLEBARINFO>} pti Type: <b>PTITLEBARINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-titlebarinfo">TITLEBARINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(TITLEBARINFO)</c> before calling this function.
@@ -31009,12 +30283,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettitlebarinfo
      * @since windows5.0
      */
-    static GetTitleBarInfo(hwnd, pti) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetTitleBarInfo(_hwnd, pti) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetTitleBarInfo", "ptr", hwnd, "ptr", pti, "int")
+        result := DllCall("USER32.dll\GetTitleBarInfo", "ptr", _hwnd, "ptr", pti, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31024,9 +30298,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified menu bar.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window (menu bar) whose information is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b>LONG</b>
      * @param {Integer} idItem Type: <b>LONG</b>
      * 
@@ -31042,12 +30314,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenubarinfo
      * @since windows5.0
      */
-    static GetMenuBarInfo(hwnd, idObject, idItem, pmbi) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetMenuBarInfo(_hwnd, idObject, idItem, pmbi) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuBarInfo", "ptr", hwnd, "int", idObject, "int", idItem, "ptr", pmbi, "int")
+        result := DllCall("USER32.dll\GetMenuBarInfo", "ptr", _hwnd, "int", idObject, "int", idItem, "ptr", pmbi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31059,12 +30331,7 @@ class WindowsAndMessaging {
      * The GetScrollBarInfo function retrieves information about the specified scroll bar.
      * @remarks
      * If <i>idObject</i> is OBJID_CLIENT and the window specified by <i>hwnd</i> is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getscrollbarinfo">SBM_GETSCROLLBARINFO</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollBarInfo</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETSCROLLBARINFO</b> message, the <b>GetScrollBarInfo</b> function fails.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Handle to a window associated with the scroll bar whose information is to be retrieved. If the 
-     * 					<i>idObject</i> parameter is OBJID_CLIENT, 
-     * 					<i>hwnd</i> is a handle to a scroll bar control. Otherwise, 
-     * 					<i>hwnd</i> is a handle to a window created with <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_VSCROLL</a> and/or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_HSCROLL</a> style.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * @param {Pointer<SCROLLBARINFO>} psbi Type: <b>PSCROLLBARINFO</b>
      * 
@@ -31079,12 +30346,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getscrollbarinfo
      * @since windows6.0.6000
      */
-    static GetScrollBarInfo(hwnd, idObject, psbi) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetScrollBarInfo(_hwnd, idObject, psbi) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetScrollBarInfo", "ptr", hwnd, "int", idObject, "ptr", psbi, "int")
+        result := DllCall("USER32.dll\GetScrollBarInfo", "ptr", _hwnd, "int", idObject, "ptr", psbi, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31094,9 +30361,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the handle to the ancestor of the specified window.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose ancestor is to be retrieved. If this parameter is the desktop window, the function returns <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} gaFlags Type: <b>UINT</b>
      * @returns {HWND} Type: <b>HWND</b>
      * 
@@ -31104,10 +30369,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getancestor
      * @since windows5.0
      */
-    static GetAncestor(hwnd, gaFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetAncestor(_hwnd, gaFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\GetAncestor", "ptr", hwnd, "uint", gaFlags, "ptr")
+        result := DllCall("USER32.dll\GetAncestor", "ptr", _hwnd, "uint", gaFlags, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -31138,9 +30403,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a string that specifies the window type. (ANSI)
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose type will be retrieved.
+     * @param {HWND} _hwnd 
      * @param {PSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
@@ -31154,19 +30417,17 @@ class WindowsAndMessaging {
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-realgetwindowclassa
      */
-    static RealGetWindowClassA(hwnd, ptszClassName, cchClassNameMax) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RealGetWindowClassA(_hwnd, ptszClassName, cchClassNameMax) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         ptszClassName := ptszClassName is String ? StrPtr(ptszClassName) : ptszClassName
 
-        result := DllCall("USER32.dll\RealGetWindowClassA", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
+        result := DllCall("USER32.dll\RealGetWindowClassA", "ptr", _hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
         return result
     }
 
     /**
      * Retrieves a string that specifies the window type. (Unicode)
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose type will be retrieved.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
@@ -31181,13 +30442,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-realgetwindowclassw
      * @since windows5.0
      */
-    static RealGetWindowClassW(hwnd, ptszClassName, cchClassNameMax) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RealGetWindowClassW(_hwnd, ptszClassName, cchClassNameMax) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         ptszClassName := ptszClassName is String ? StrPtr(ptszClassName) : ptszClassName
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RealGetWindowClassW", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
+        result := DllCall("USER32.dll\RealGetWindowClassW", "ptr", _hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31206,9 +30467,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetAltTabInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
+     * @param {HWND} _hwnd 
      * @param {Integer} iItem Type: <b>int</b>
      * 
      * The index of the icon in the application-switching window. If the <i>pszItemText</i> parameter is not <b>NULL</b>, the name of the item is copied to the <i>pszItemText</i> string. If this parameter is –1, the name of the item is not copied.
@@ -31229,13 +30488,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getalttabinfoa
      * @since windows5.0
      */
-    static GetAltTabInfoA(hwnd, iItem, pati, pszItemText, cchItemText) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetAltTabInfoA(_hwnd, iItem, pati, pszItemText, cchItemText) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetAltTabInfoA", "ptr", hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
+        result := DllCall("USER32.dll\GetAltTabInfoA", "ptr", _hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31254,9 +30513,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetAltTabInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
+     * @param {HWND} _hwnd 
      * @param {Integer} iItem Type: <b>int</b>
      * 
      * The index of the icon in the application-switching window. If the <i>pszItemText</i> parameter is not <b>NULL</b>, the name of the item is copied to the <i>pszItemText</i> string. If this parameter is –1, the name of the item is not copied.
@@ -31277,13 +30534,13 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getalttabinfow
      * @since windows5.0
      */
-    static GetAltTabInfoW(hwnd, iItem, pati, pszItemText, cchItemText) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetAltTabInfoW(_hwnd, iItem, pati, pszItemText, cchItemText) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetAltTabInfoW", "ptr", hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
+        result := DllCall("USER32.dll\GetAltTabInfoW", "ptr", _hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31349,9 +30606,7 @@ class WindowsAndMessaging {
      * Certain messages whose value is smaller than <b>WM_USER</b> are required to be passed through the filter, 
      * 		regardless of the filter setting. There will be no effect when you attempt to use this function to 
      * 		allow or block such messages.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose UIPI message filter is to be modified.
+     * @param {HWND} _hwnd 
      * @param {Integer} message Type: <b>UINT</b>
      * 
      * The message that the message filter allows through or blocks.
@@ -31365,12 +30620,12 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changewindowmessagefilterex
      * @since windows6.1
      */
-    static ChangeWindowMessageFilterEx(hwnd, message, action, pChangeFilterStruct) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ChangeWindowMessageFilterEx(_hwnd, message, action, pChangeFilterStruct) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ChangeWindowMessageFilterEx", "ptr", hwnd, "uint", message, "uint", action, "ptr", pChangeFilterStruct, "int")
+        result := DllCall("USER32.dll\ChangeWindowMessageFilterEx", "ptr", _hwnd, "uint", message, "uint", action, "ptr", pChangeFilterStruct, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31407,14 +30662,14 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Pointer<WINDOW_ACTION>} pAction 
      * @returns {BOOL} 
      */
-    static ApplyWindowAction(hwnd, pAction) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ApplyWindowAction(_hwnd, pAction) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\ApplyWindowAction", "ptr", hwnd, "ptr", pAction, "int")
+        result := DllCall("USER32.dll\ApplyWindowAction", "ptr", _hwnd, "ptr", pAction, "int")
         return result
     }
 
@@ -31469,19 +30724,17 @@ class WindowsAndMessaging {
      * Tooltip or app windows are expected to call the function to register each time tooltips are shown. Registered windows are automatically unregistered upon posting **WM_TOOLTIPDISMISS**.
      * 
      * The **TDF_UNREGISTER** flag is used to explicitly unregister a window when a tooltip window is dismissed by application or framework prerogative (such as moving the cursor out of the "safe zone"). If an app or framework calls `RegisterForTooltipDismissNotification` with **TDF_UNREGISTER** after the window has been automatically unregistered, the function returns **FALSE**. There is no impact on future registrations.
-     * @param {HWND} hWnd Type: **HWND**
-     * 
-     * The handle of the window to receive the **WM_TOOLTIPDISMISS** message.
+     * @param {HWND} _hWnd 
      * @param {Integer} tdFlags Type: **[TOOLTIP_DISMISS_FLAGS](ne-winuser-tooltip_dismiss_flags.md)**
      * 
      * A value of the enumeration that specifies whether the function registers or unregisters the window. **TDF_REGISTER** to register; **TDF_UNREGISTER** to unregister.
      * @returns {BOOL} **TRUE** if the window was successfully registered or unregistered; otherwise, **FALSE**. (See Remarks.)
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerfortooltipdismissnotification
      */
-    static RegisterForTooltipDismissNotification(hWnd, tdFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegisterForTooltipDismissNotification(_hWnd, tdFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("USER32.dll\RegisterForTooltipDismissNotification", "ptr", hWnd, "int", tdFlags, "int")
+        result := DllCall("USER32.dll\RegisterForTooltipDismissNotification", "ptr", _hWnd, "int", tdFlags, "int")
         return result
     }
 
@@ -31500,18 +30753,16 @@ class WindowsAndMessaging {
      * At this time, this function does not have an associated header file or library file. Your application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (`User32.dll`) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
      * 
      * A snapped window (see [Snap your windows](https://support.microsoft.com/windows/snap-your-windows-885a9b1e-a983-a3b1-16cd-c531795e6241)) is considered to be arranged. You should treat arrange as a window state similar to maximize. Arranged, maximize, and minimize are mutually exclusive states. An arranged window can be restored to its original size and position. Restoring a window from minimize can make a window arranged if the window was arranged before it was minimized. When calling [GetWindowPlacement](/windows/win32/api/winuser/nf-winuser-getwindowplacement), keep in mind that the *showCmd* member on the returned [WINDOWPLACEMENT](/windows/win32/api/winuser/ns-winuser-windowplacement) can have a value of **SW_SHOWNORMAL** even if the window is arranged.
-     * @param {HWND} hwnd Type: **HWND**
-     * 
-     * A handle to the window to be tested.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: **BOOL**
      * 
      * A nonzero value if the window is arranged; otherwise, zero.
      * @see https://learn.microsoft.com/windows/win32/winmsg/winuser/nf-winuser-iswindowarranged
      */
-    static IsWindowArranged(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IsWindowArranged(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\IsWindowArranged", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\IsWindowArranged", "ptr", _hwnd, "int")
         return result
     }
 
@@ -31526,28 +30777,28 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {BOOL} fRegister 
      * @returns {BOOL} 
      */
-    static RegisterCloakedNotification(hwnd, fRegister) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RegisterCloakedNotification(_hwnd, fRegister) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\RegisterCloakedNotification", "ptr", hwnd, "int", fRegister, "int")
+        result := DllCall("USER32.dll\RegisterCloakedNotification", "ptr", _hwnd, "int", fRegister, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {POINT} ptCursor 
      * @param {Integer} moveSizeCode 
      * @returns {BOOL} 
      */
-    static EnterMoveSizeLoop(hwnd, ptCursor, moveSizeCode) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static EnterMoveSizeLoop(_hwnd, ptCursor, moveSizeCode) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("USER32.dll\EnterMoveSizeLoop", "ptr", hwnd, "ptr", ptCursor, "int", moveSizeCode, "int")
+        result := DllCall("USER32.dll\EnterMoveSizeLoop", "ptr", _hwnd, "ptr", ptCursor, "int", moveSizeCode, "int")
         return result
     }
 
@@ -32024,7 +31275,7 @@ class WindowsAndMessaging {
      * View any messages generated by a resource indexer. For more info, and scenario-based walkthroughs of how to use these APIs, see Package resource indexing (PRI) APIs and custom build systems.
      * @remarks
      * Your app doesn't own the memory allocated and returned in *messages*, so don't free it.
-     * @param {MrmResourceIndexerHandle} handle 
+     * @param {MrmResourceIndexerHandle} _handle 
      * @param {Pointer<Pointer<MrmResourceIndexerMessage>>} messages Type: **[**MrmResourceIndexerMessage**](mrmresourceindexermessage.md)\*\***
      * 
      * A pointer to a pointer to an [**MrmResourceIndexerMessage**](mrmresourceindexermessage.md). The function allocates an array of **MrmResourceIndexerMessage** and returns a pointer to that memory in *messages*. Do not free the pointer whose address you pass to *messages*.
@@ -32036,11 +31287,11 @@ class WindowsAndMessaging {
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmpeekresourceindexermessages
      */
-    static MrmPeekResourceIndexerMessages(handle, messages, numMsgs) {
+    static MrmPeekResourceIndexerMessages(_handle, messages, numMsgs) {
         messagesMarshal := messages is VarRef ? "ptr*" : "ptr"
         numMsgsMarshal := numMsgs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, messagesMarshal, messages, numMsgsMarshal, numMsgs, "HRESULT")
+        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", _handle, messagesMarshal, messages, numMsgsMarshal, numMsgs, "HRESULT")
         return result
     }
 
@@ -32086,9 +31337,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} schemaPriFile Type: **PCWSTR**
      * 
      * An optional full file path to a schema file (or to a PRI file representing a schema; see Remarks).
-     * @param {Integer} dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
-     * 
-     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
+     * @param {Integer} _dumpType 
      * @param {PWSTR} outputXmlFile Type: **PCWSTR**
      * 
      * The path of an XML file to create.
@@ -32097,12 +31346,12 @@ class WindowsAndMessaging {
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifile
      */
-    static MrmDumpPriFile(indexFileName, schemaPriFile, dumpType, outputXmlFile) {
+    static MrmDumpPriFile(indexFileName, schemaPriFile, _dumpType, outputXmlFile) {
         indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
         schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
         outputXmlFile := outputXmlFile is String ? StrPtr(outputXmlFile) : outputXmlFile
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlFile, "HRESULT")
+        result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, "int", _dumpType, "ptr", outputXmlFile, "HRESULT")
         return result
     }
 
@@ -32116,9 +31365,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} schemaPriFile Type: **PCWSTR**
      * 
      * An optional full file path to a schema file (or to a PRI file representing a schema; see Remarks).
-     * @param {Integer} dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
-     * 
-     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
+     * @param {Integer} _dumpType 
      * @param {Pointer<Pointer<Integer>>} outputXmlData Type: **BYTE\*\***
      * 
      * The address of a pointer to BYTE. The function allocates memory and returns a pointer to that memory in *outputXmlData*. Call [**MrmFreeMemory**](mrmfreememory.md) with your pointer to BYTE to free that memory.
@@ -32130,14 +31377,14 @@ class WindowsAndMessaging {
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifileinmemory
      */
-    static MrmDumpPriFileInMemory(indexFileName, schemaPriFile, dumpType, outputXmlData, outputXmlSize) {
+    static MrmDumpPriFileInMemory(indexFileName, schemaPriFile, _dumpType, outputXmlData, outputXmlSize) {
         indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
         schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
 
         outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
         outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
+        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
         return result
     }
 
@@ -32157,9 +31404,7 @@ class WindowsAndMessaging {
      * @param {Integer} schemaPriSize Type: **ULONG**
      * 
      * The size of the data pointed to by *schemaPriData*.
-     * @param {Integer} dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
-     * 
-     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
+     * @param {Integer} _dumpType 
      * @param {Pointer<Pointer<Integer>>} outputXmlData Type: **BYTE\*\***
      * 
      * The address of a pointer to BYTE. The function allocates memory and returns a pointer to that memory in *outputXmlData*. Call [**MrmFreeMemory**](mrmfreememory.md) with your pointer to BYTE to free that memory.
@@ -32171,11 +31416,11 @@ class WindowsAndMessaging {
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumppridatainmemory
      */
-    static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, dumpType, outputXmlData, outputXmlSize) {
+    static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, _dumpType, outputXmlData, outputXmlSize) {
         outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
         outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
+        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
         return result
     }
 

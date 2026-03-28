@@ -29,7 +29,7 @@ class IMAPIControl extends IUnknown{
      * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetLastError** method to supply information about a prior method call that failed. MAPI can give users detailed information about the error by displaying the data from the **MAPIERROR** structure in a message or dialog box.
-     * @param {HRESULT} hResult > [in] A handle to the error value generated in the previous method call.
+     * @param {HRESULT} _hResult 
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls the type of the strings returned. The following flag can be set:
      *     
      * MAPI_UNICODE 
@@ -38,8 +38,8 @@ class IMAPIControl extends IUnknown{
      * @returns {Pointer<MAPIERROR>} > [out] A pointer to a pointer to a **MAPIERROR** structure that contains version, component, and context information for the error. The  _lppMAPIError_ parameter can be set to NULL if the provider cannot supply a **MAPIERROR** structure with appropriate information.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-getlasterror
      */
-    GetLastError(hResult, ulFlags) {
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
+    GetLastError(_hResult, ulFlags) {
+        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
         return lppMAPIError
     }
 

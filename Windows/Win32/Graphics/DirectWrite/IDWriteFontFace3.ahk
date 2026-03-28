@@ -48,14 +48,12 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * Gets the PANOSE values from the font, used for font selection and matching.
      * @remarks
      * This method doesn't simulate these values, such as substituting a weight or proportion inferred on other values. If the font doesn't specify them, they are all set to 'any' (0).
-     * @param {Pointer<DWRITE_PANOSE>} panose Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a>*</b>
-     * 
-     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a> structure that receives the PANOSE values from the font.
+     * @param {Pointer<DWRITE_PANOSE>} _panose 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getpanose
      */
-    GetPanose(panose) {
-        ComCall(36, this, "ptr", panose)
+    GetPanose(_panose) {
+        ComCall(36, this, "ptr", _panose)
     }
 
     /**

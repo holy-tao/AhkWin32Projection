@@ -198,14 +198,14 @@ class IDsDisplaySpecifier extends IUnknown{
      * Enumerates the attributes for a given object class.
      * @param {PWSTR} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to enumerate the attributes for. Examples of the object class name are "user" and "container".
      * @param {Pointer<LPDSENUMATTRIBUTES>} pcbEnum Pointer to an application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nc-dsclient-lpdsenumattributes">DSEnumAttributesCallback</a> function that is called once for each enumerated attribute.
-     * @param {LPARAM} lParam Contains an application-defined  parameter passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nc-dsclient-lpdsenumattributes">DSEnumAttributesCallback</a> function.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-enumclassattributes
      */
-    EnumClassAttributes(pszObjectClass, pcbEnum, lParam) {
+    EnumClassAttributes(pszObjectClass, pcbEnum, _lParam) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, "ptr", lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, "ptr", _lParam, "HRESULT")
         return result
     }
 

@@ -24,12 +24,12 @@ class ISpNotifyCallback extends Win32ComInterface{
 
     /**
      * 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    NotifyCallback(wParam, lParam) {
-        result := ComCall(0, this, "ptr", wParam, "ptr", lParam, "HRESULT")
+    NotifyCallback(_wParam, _lParam) {
+        result := ComCall(0, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

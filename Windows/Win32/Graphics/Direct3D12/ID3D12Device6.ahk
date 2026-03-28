@@ -56,9 +56,7 @@ class ID3D12Device6 extends ID3D12Device5{
      * ```
      * 
      * [PIX](https://devblogs.microsoft.com/pix/) automatically uses **SetBackgroundProcessingMode**&mdash;first to prime the system,and then to prevent any further changes from taking place in the middle of its analysis. PIX waits on an event (to make sure all background shader recompiles have finished) before it starts taking measurements.
-     * @param {Integer} Mode Type: **[D3D12_BACKGROUND_PROCESSING_MODE](./ne-d3d12-d3d12_background_processing_mode.md)**
-     * 
-     * The level of dynamic optimization to apply to GPU work that's subsequently submitted.
+     * @param {Integer} _Mode 
      * @param {Integer} MeasurementsAction Type: **[D3D12_MEASUREMENTS_ACTION](./ne-d3d12-d3d12_measurements_action.md)**
      * 
      * The action to take with the results of earlier workload instrumentation.
@@ -70,10 +68,10 @@ class ID3D12Device6 extends ID3D12Device5{
      * An optional pointer to a Boolean value. The function sets the value to `true` to indicate that you should continue profiling, otherwise, `false`.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device6-setbackgroundprocessingmode
      */
-    SetBackgroundProcessingMode(Mode, MeasurementsAction, hEventToSignalUponCompletion) {
+    SetBackgroundProcessingMode(_Mode, MeasurementsAction, hEventToSignalUponCompletion) {
         hEventToSignalUponCompletion := hEventToSignalUponCompletion is Win32Handle ? NumGet(hEventToSignalUponCompletion, "ptr") : hEventToSignalUponCompletion
 
-        result := ComCall(65, this, "int", Mode, "int", MeasurementsAction, "ptr", hEventToSignalUponCompletion, "int*", &pbFurtherMeasurementsDesired := 0, "HRESULT")
+        result := ComCall(65, this, "int", _Mode, "int", MeasurementsAction, "ptr", hEventToSignalUponCompletion, "int*", &pbFurtherMeasurementsDesired := 0, "HRESULT")
         return pbFurtherMeasurementsDesired
     }
 }

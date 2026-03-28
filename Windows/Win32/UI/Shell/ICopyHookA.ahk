@@ -62,7 +62,7 @@ class ICopyHookA extends IUnknown{
      * **HKEY_CLASSES_ROOT/Printers/Shellex/CopyHookHandlers/your_copyhook/{copyhook CLSID value}**
      *                 
      * When this method is called, the Shell initializes the [ICopyHookA](nn-shlobj-icopyhooka.md) interface directly without using an [IShellExtInit](/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellextinit) interface first.
-     * @param {HWND} hwnd A handle to the window that the copy hook handler should use as the parent for any user interface elements the handler may need to display. If **FOF_SILENT** is specified in *wFunc*, the method should ignore this parameter.
+     * @param {HWND} _hwnd 
      * @param {Integer} wFunc The operation to perform. This parameter can be one of the values listed under the **wFunc** member of the [SHFILEOPSTRUCT](/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * @param {Integer} wFlags The flags that control the operation. This parameter can be one or more of the values listed under the *fFlags* member of the [SHFILEOPSTRUCT](/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * @param {PSTR} pszSrcFile A pointer to a string that contains the name of the source folder.
@@ -78,12 +78,12 @@ class ICopyHookA extends IUnknown{
      * | **IDCANCEL**    | Prevents the current operation and cancels any pending operations.           |
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icopyhooka-copycallback
      */
-    CopyCallback(hwnd, wFunc, wFlags, pszSrcFile, dwSrcAttribs, pszDestFile, dwDestAttribs) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CopyCallback(_hwnd, wFunc, wFlags, pszSrcFile, dwSrcAttribs, pszDestFile, dwDestAttribs) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszSrcFile := pszSrcFile is String ? StrPtr(pszSrcFile) : pszSrcFile
         pszDestFile := pszDestFile is String ? StrPtr(pszDestFile) : pszDestFile
 
-        result := ComCall(3, this, "ptr", hwnd, "uint", wFunc, "uint", wFlags, "ptr", pszSrcFile, "uint", dwSrcAttribs, "ptr", pszDestFile, "uint", dwDestAttribs, "uint")
+        result := ComCall(3, this, "ptr", _hwnd, "uint", wFunc, "uint", wFlags, "ptr", pszSrcFile, "uint", dwSrcAttribs, "ptr", pszDestFile, "uint", dwDestAttribs, "uint")
         return result
     }
 }

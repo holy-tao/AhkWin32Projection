@@ -193,13 +193,13 @@ class IImePad extends IUnknown{
      * </table>
      * @param {IImePadApplet} pIImePadApplet The interface pointer of the calling applet.
      * @param {Integer} reqId 
-     * @param {WPARAM} wParam Additional information specific to <i>reqId</i>.
-     * @param {LPARAM} lParam Additional information specific to <i>reqId</i>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepad-request
      */
-    Request(pIImePadApplet, reqId, wParam, lParam) {
-        result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, "ptr", wParam, "ptr", lParam, "HRESULT")
+    Request(pIImePadApplet, reqId, _wParam, _lParam) {
+        result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

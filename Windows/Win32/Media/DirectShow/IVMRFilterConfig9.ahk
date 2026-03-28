@@ -250,7 +250,7 @@ class IVMRFilterConfig9 extends IUnknown{
      * The VMR is in windowed mode (<b>VMR9Mode_Windowed</b>) by default. Use this method to put the VMR into windowless mode (<b>VMR9Mode_Windowless</b>) or renderless mode (<b>VMR9Mode_Renderless</b>).
      * 
      * The mode cannot be changed after any pin has been connected. Also, the mode cannot be changed from windowless or renderless mode back to windowed mode, even before pins are connected. Therefore, specifying <b>VMR9Mode_Windowed</b> for the <i>Mode</i> parameter has no effect under any circumstances.
-     * @param {Integer} Mode Specifies the rendering mode as a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9mode">VMR9Mode</a> value.
+     * @param {Integer} _Mode 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -294,8 +294,8 @@ class IVMRFilterConfig9 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-setrenderingmode
      */
-    SetRenderingMode(Mode) {
-        result := ComCall(8, this, "uint", Mode, "HRESULT")
+    SetRenderingMode(_Mode) {
+        result := ComCall(8, this, "uint", _Mode, "HRESULT")
         return result
     }
 

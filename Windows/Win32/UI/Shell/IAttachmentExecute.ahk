@@ -400,9 +400,7 @@ class IAttachmentExecute extends IUnknown{
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename">IAttachmentExecute::SetFileName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> before calling <b>IAttachmentExecute::Prompt</b>.
      * 
      * <b>IAttachmentExecute::Prompt</b> can be called by the application to force UI presentation before the file has been copied to disk.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {Integer} prompt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_prompt">ATTACHMENT_PROMPT</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_prompt">ATTACHMENT_PROMPT</a> enumeration that indicates what type of prompt UI to display to the user.
@@ -411,10 +409,10 @@ class IAttachmentExecute extends IUnknown{
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_action">ATTACHMENT_ACTION</a> enumeration that indicates the action to be performed upon user confirmation.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt
      */
-    Prompt(hwnd, prompt) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Prompt(_hwnd, prompt) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "int", prompt, "int*", &paction := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "int", prompt, "int*", &paction := 0, "HRESULT")
         return paction
     }
 
@@ -452,9 +450,7 @@ class IAttachmentExecute extends IUnknown{
      * If <i>phProcess</i> is not <b>NULL</b>, <b>IAttachmentExecute::Execute</b> operates as a synchronous process and returns an <b>HPROCESS</b>, if available. If <i>phProcess</i> is <b>NULL</b>, <b>IAttachmentExecute::Execute</b> operates as an asynchronous process. This implies that the calling application has a message pump and a long-lived window.
      * 
      * If the handle pointed to by <i>phProcess</i> is non-<b>NULL</b> when the method returns, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to free the handle when it is no longer needed.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszVerb Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated string that contains a verb specifying the action to be performed on the file. See the <i>lpOperation</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> for valid strings. This value can be <b>NULL</b>.
@@ -463,12 +459,12 @@ class IAttachmentExecute extends IUnknown{
      * A pointer to a handle to the source process, used for synchronous operation. This value can be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute
      */
-    Execute(hwnd, pszVerb) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Execute(_hwnd, pszVerb) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
         phProcess := HANDLE()
-        result := ComCall(12, this, "ptr", hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
+        result := ComCall(12, this, "ptr", _hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
         return phProcess
     }
 
@@ -482,18 +478,16 @@ class IAttachmentExecute extends IUnknown{
      * <b>IAttachmentExecute::SaveWithUI</b> may run virus scanners or other trust services to validate the file before saving it. Note that these services can delete or alter the file.
      * 
      * <b>IAttachmentExecute::SaveWithUI</b> may attach <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy">evidence</a> to the local path in its NTFS alternate data stream (ADS).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-savewithui
      */
-    SaveWithUI(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SaveWithUI(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(13, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(13, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 

@@ -189,16 +189,14 @@ class IRichEditOle extends IUnknown{
      * @param {Integer} iob Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Index of the object whose aspect is to be set. If this parameter is REO_IOB_SELECTION, the aspect of the selected object is to be set.
-     * @param {Integer} dvaspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * 
-     * Aspect to use when drawing. The values are defined by OLE.
+     * @param {Integer} _dvaspect 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-setdvaspect
      */
-    SetDvaspect(iob, dvaspect) {
-        result := ComCall(12, this, "int", iob, "uint", dvaspect, "HRESULT")
+    SetDvaspect(iob, _dvaspect) {
+        result := ComCall(12, this, "int", iob, "uint", _dvaspect, "HRESULT")
         return result
     }
 

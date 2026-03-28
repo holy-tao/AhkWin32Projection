@@ -81,16 +81,14 @@ class IOperationsProgressDialog extends IUnknown{
 
     /**
      * Sets progress dialog operations mode.
-     * @param {Integer} mode Type: <b>PDMODE</b>
-     * 
-     * Specifies the operation mode. The following are valid values.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setmode
      */
-    SetMode(mode) {
-        result := ComCall(6, this, "uint", mode, "HRESULT")
+    SetMode(_mode) {
+        result := ComCall(6, this, "uint", _mode, "HRESULT")
         return result
     }
 

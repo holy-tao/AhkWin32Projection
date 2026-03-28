@@ -61,16 +61,14 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the mode used to calculate the border of the image.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/gaussian-blur">D2D1_BORDER_MODE</a></b>
-     * 
-     * The mode used to calculate the border of the image.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setbordermode
      */
-    SetBorderMode(mode) {
-        result := ComCall(6, this, "int", mode, "HRESULT")
+    SetBorderMode(_mode) {
+        result := ComCall(6, this, "int", _mode, "HRESULT")
         return result
     }
 }

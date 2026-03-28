@@ -173,18 +173,18 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxtotalsize
      */
     get_FileMaxTotalSize() {
-        result := ComCall(36, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(36, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
      * Retrieves or sets the maximum total file size of all files combined that you can collect. (Put)
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_filemaxtotalsize
      */
-    put_FileMaxTotalSize(size) {
-        result := ComCall(37, this, "uint", size, "HRESULT")
+    put_FileMaxTotalSize(_size) {
+        result := ComCall(37, this, "uint", _size, "HRESULT")
         return result
     }
 

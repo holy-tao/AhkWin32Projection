@@ -62,8 +62,8 @@ class Columns extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &Column := 0, "HRESULT")
-        return Column(Column)
+        result := ComCall(7, this, "int", Index, "ptr*", &_Column := 0, "HRESULT")
+        return Column(_Column)
     }
 
     /**

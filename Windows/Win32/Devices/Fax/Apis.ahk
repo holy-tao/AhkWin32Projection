@@ -2062,9 +2062,7 @@ class Fax {
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKA>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function that retrieves user-specific information for each designated recipient of the fax transmission. The <b>FaxSendDocumentForBroadcast</b> function calls the <b>FAX_RECIPIENT_CALLBACK</b> function once for each fax recipient until it returns a value of zero, indicating that all outbound transmissions have been queued.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
-     * 
-     * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxSendDocumentForBroadcast</b> passes this data to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function.
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -2124,16 +2122,16 @@ class Fax {
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumentforbroadcasta
      * @since windows5.0
      */
-    static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+    static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
         FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2184,9 +2182,7 @@ class Fax {
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKW>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function that retrieves user-specific information for each designated recipient of the fax transmission. The <b>FaxSendDocumentForBroadcast</b> function calls the <b>FAX_RECIPIENT_CALLBACK</b> function once for each fax recipient until it returns a value of zero, indicating that all outbound transmissions have been queued.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
-     * 
-     * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxSendDocumentForBroadcast</b> passes this data to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function.
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -2246,16 +2242,16 @@ class Fax {
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumentforbroadcastw
      * @since windows5.0
      */
-    static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+    static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
         FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2771,7 +2767,7 @@ class Fax {
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job associated with the page of data.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @param {Pointer<Integer>} BufferSize Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the size of the buffer, in bytes, pointed to by the <i>Buffer</i> parameter.
@@ -2839,15 +2835,15 @@ class Fax {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nc-winfax-pfaxgetpagedata
      */
-    static FaxGetPageData(FaxHandle, JobId, Buffer_R, BufferSize, ImageWidth, ImageHeight) {
+    static FaxGetPageData(FaxHandle, JobId, _Buffer, BufferSize, ImageWidth, ImageHeight) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
         ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, Buffer_RMarshal, Buffer_R, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, "int")
+        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, "int")
         return result
     }
 
@@ -5432,9 +5428,7 @@ class Fax {
      * @param {Pointer} CompletionKey Type: <b>ULONG_PTR</b>
      * 
      * Specifies a variable that contains a completion key value the fax server includes in each I/O completion packet. This parameter is required for notification using I/O completion packets. This parameter must be <b>NULL</b> if you specify notification messages. For more information, see the following Remarks section.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * Handle to a window of the fax client application to notify when an asynchronous event occurs. This parameter is required for notification messages. This parameter must be <b>NULL</b> if you specify notification using I/O completion packets.
+     * @param {HWND} _hWnd 
      * @param {Integer} MessageStart Type: <b>UINT</b>
      * 
      * Specifies an unsigned integer that identifies the application's base window message. The application can use this number to determine whether to process the message as a fax server event. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_eventa">FAX_EVENT</a> topic. 
@@ -5500,12 +5494,12 @@ class Fax {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nc-winfax-pfaxinitializeeventqueue
      */
-    static FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, hWnd, MessageStart) {
+    static FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, _hWnd, MessageStart) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         CompletionPort := CompletionPort is Win32Handle ? NumGet(CompletionPort, "ptr") : CompletionPort
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("WINFAX.dll\FaxInitializeEventQueue", "ptr", FaxHandle, "ptr", CompletionPort, "ptr", CompletionKey, "ptr", hWnd, "uint", MessageStart, "int")
+        result := DllCall("WINFAX.dll\FaxInitializeEventQueue", "ptr", FaxHandle, "ptr", CompletionPort, "ptr", CompletionKey, "ptr", _hWnd, "uint", MessageStart, "int")
         return result
     }
 
@@ -5513,14 +5507,14 @@ class Fax {
      * The FaxFreeBuffer function releases resources associated with a buffer allocated previously as the result of a function call by a fax client application.
      * @remarks
      * When the resources allocated for a buffer are no longer needed, the calling application must free the resources. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-freeing-fax-resources">Freeing Fax Resources</a>.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nc-winfax-pfaxfreebuffer
      */
-    static FaxFreeBuffer(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static FaxFreeBuffer(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("WINFAX.dll\FaxFreeBuffer", Buffer_RMarshal, Buffer_R)
+        DllCall("WINFAX.dll\FaxFreeBuffer", _BufferMarshal, _Buffer)
     }
 
     /**
@@ -6042,9 +6036,7 @@ class Fax {
      * @param {Pointer<PFAX_ROUTING_INSTALLATION_CALLBACKW>} CallBack Type: <b>PFAX_ROUTING_INSTALLATION_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/nc-winfax-pfax_routing_installation_callbackw">FaxRoutingInstallationCallback</a> function that installs a fax routing method for the specified fax routing extension DLL. The <b>FaxRegisterRoutingExtension</b> function calls the <b>FaxRoutingInstallationCallback</b> function multiple times, until it returns a value of zero, indicating that all routing methods in the fax routing extension DLL have been registered.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
-     * 
-     * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxRegisterRoutingExtension</b> passes this data to the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/nc-winfax-pfax_routing_installation_callbackw">FaxRoutingInstallationCallback</a> function.
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -6082,17 +6074,17 @@ class Fax {
      * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxregisterroutingextensionw
      * @since windows5.0
      */
-    static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, Context) {
+    static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, _Context) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         ExtensionName := ExtensionName is String ? StrPtr(ExtensionName) : ExtensionName
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, _ContextMarshal, _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

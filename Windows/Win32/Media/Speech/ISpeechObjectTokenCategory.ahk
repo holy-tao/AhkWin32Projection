@@ -143,11 +143,11 @@ class ISpeechObjectTokenCategory extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Location 
+     * @param {Integer} _Location 
      * @returns {ISpeechDataKey} 
      */
-    GetDataKey(Location) {
-        result := ComCall(11, this, "int", Location, "ptr*", &DataKey := 0, "HRESULT")
+    GetDataKey(_Location) {
+        result := ComCall(11, this, "int", _Location, "ptr*", &DataKey := 0, "HRESULT")
         return ISpeechDataKey(DataKey)
     }
 

@@ -473,7 +473,7 @@ class DistributedFileSystem {
      *       If this parameter is <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. 
      *       For more information, see the following Remarks section. This parameter is ignored if you specify level 200 or 
      *       level 300.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @param {Pointer<Integer>} EntriesRead Pointer to a value that receives the actual number of entries returned in the response.
      * @param {Pointer<Integer>} ResumeHandle Pointer to a value that contains a handle to be used for continuing an enumeration when more data is available than can be returned in a single call to this function. The handle should be zero on the first call and left unchanged for subsequent calls.  For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
@@ -485,14 +485,14 @@ class DistributedFileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsenum
      * @since windows6.0.6000
      */
-    static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer_R, EntriesRead, ResumeHandle) {
+    static NetDfsEnum(DfsName, Level, PrefMaxLen, _Buffer, EntriesRead, ResumeHandle) {
         DfsName := DfsName is String ? StrPtr(DfsName) : DfsName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
         ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, Buffer_RMarshal, Buffer_R, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, _BufferMarshal, _Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
         return result
     }
 
@@ -546,7 +546,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {PWSTR} ShareName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -554,14 +554,14 @@ class DistributedFileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetinfo
      * @since windows6.0.6000
      */
-    static NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -622,7 +622,7 @@ class DistributedFileSystem {
      *       path relative to the share.  For example, "share1\mydir1\mydir2". This parameter is optional. For more 
      *       information, see the Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -630,14 +630,14 @@ class DistributedFileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetinfo
      * @since windows6.0.6000
      */
-    static NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -674,7 +674,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the name of the DFS root target or link target server. This parameter is optional.
      * @param {PWSTR} ShareName Pointer to a string that specifies the name of the share corresponding to the DFS root target or link target. This parameter is optional.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -682,14 +682,14 @@ class DistributedFileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetclientinfo
      * @since windows6.0.6000
      */
-    static NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -731,7 +731,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the DFS link target server name. This parameter is optional. For more information, see the Remarks section.
      * @param {PWSTR} ShareName Pointer to a string that specifies the DFS link target share name. This parameter is optional. For additional information, see the following Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} _Buffer 
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -739,14 +739,14 @@ class DistributedFileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetclientinfo
      * @since windows6.0.6000
      */
-    static NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, "uint")
         return result
     }
 

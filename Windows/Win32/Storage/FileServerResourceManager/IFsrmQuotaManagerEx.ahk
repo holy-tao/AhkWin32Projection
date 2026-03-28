@@ -33,7 +33,7 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
 
     /**
      * Retrieves a value that determines whether a specified path is subject to a quota.
-     * @param {BSTR} path The local directory path to determine whether a quota applies.
+     * @param {BSTR} _path 
      * @param {Integer} options The options to use when checking for a quota. For possible values, see the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the path referred to by the 
@@ -41,10 +41,10 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
      *      <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
      */
-    IsAffectedByQuota(path, options) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    IsAffectedByQuota(_path, options) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(19, this, "ptr", path, "int", options, "short*", &affected := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _path, "int", options, "short*", &affected := 0, "HRESULT")
         return affected
     }
 }

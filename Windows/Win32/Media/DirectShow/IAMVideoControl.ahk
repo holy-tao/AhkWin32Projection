@@ -50,12 +50,12 @@ class IAMVideoControl extends IUnknown{
      * @remarks
      * Possible modes of operation include one or more of the following: flipping the picture horizontally, flipping the picture vertically, enabling external triggers, and simulating external triggers.
      * @param {IPin} pPin Pointer to the pin to set the video control mode on.
-     * @param {Integer} Mode Value specifying a combination of the flags from the [VideoControlFlags](/windows/desktop/api/strmif/ne-strmif-videocontrolflags) enumeration to set the video control mode.
+     * @param {Integer} _Mode 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-setmode
      */
-    SetMode(pPin, Mode) {
-        result := ComCall(4, this, "ptr", pPin, "int", Mode, "HRESULT")
+    SetMode(pPin, _Mode) {
+        result := ComCall(4, this, "ptr", pPin, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -64,12 +64,12 @@ class IAMVideoControl extends IUnknown{
      * @remarks
      * Possible modes of operation include one or more of the following: flipping the picture horizontally, flipping the picture vertically, enabling external triggers, and simulating external triggers.
      * @param {IPin} pPin Pointer to the pin to retrieve the video control mode from.
-     * @returns {Integer} Pointer to a value representing a combination of the flags from the [VideoControlFlags](/windows/desktop/api/strmif/ne-strmif-videocontrolflags) enumeration, which specify the video control mode.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmode
      */
     GetMode(pPin) {
-        result := ComCall(5, this, "ptr", pPin, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(5, this, "ptr", pPin, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**

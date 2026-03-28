@@ -139,9 +139,7 @@ class IFileSaveDialog extends IFileDialog{
      * @param {IPropertyStore} pStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> that represents the property values to be applied to the file. This can be the property store returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-getproperties">IFileSaveDialog::GetProperties</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the application window.
+     * @param {HWND} _hwnd 
      * @param {IFileOperationProgressSink} pSink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
      * 
      * Pointer to an optional <b>IFileOperationProgressSink</b> that the calling application can use if they want to be notified of the progress of the property stamping. This value may be <b>NULL</b>.
@@ -150,10 +148,10 @@ class IFileSaveDialog extends IFileDialog{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-applyproperties
      */
-    ApplyProperties(psi, pStore, hwnd, pSink) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ApplyProperties(psi, pStore, _hwnd, pSink) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(31, this, "ptr", psi, "ptr", pStore, "ptr", hwnd, "ptr", pSink, "HRESULT")
+        result := ComCall(31, this, "ptr", psi, "ptr", pStore, "ptr", _hwnd, "ptr", pSink, "HRESULT")
         return result
     }
 }

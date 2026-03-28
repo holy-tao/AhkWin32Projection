@@ -36,12 +36,12 @@ class IVPNotify extends IVPBaseNotify{
      * Sets the mode (such as bob or weave).
      * @remarks
      * Include Vptype.h before Vpnotify.h.
-     * @param {Integer} mode Specified mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
      */
-    SetDeinterlaceMode(mode) {
-        result := ComCall(4, this, "int", mode, "HRESULT")
+    SetDeinterlaceMode(_mode) {
+        result := ComCall(4, this, "int", _mode, "HRESULT")
         return result
     }
 

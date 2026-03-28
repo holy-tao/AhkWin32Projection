@@ -7090,34 +7090,34 @@ class Printing {
     /**
      * 
      * @param {HWND} hWndOwner 
-     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<PFNPROPSHEETUI>} _pfnPropSheetUI 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
-    static CommonPropertySheetUIA(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+    static CommonPropertySheetUIA(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
         pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, pResultMarshal, pResult, "int")
+        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", "ptr", hWndOwner, "ptr", _pfnPropSheetUI, "ptr", _lParam, pResultMarshal, pResult, "int")
         return result
     }
 
     /**
      * 
      * @param {HWND} hWndOwner 
-     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<PFNPROPSHEETUI>} _pfnPropSheetUI 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
-    static CommonPropertySheetUIW(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+    static CommonPropertySheetUIW(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
         pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, pResultMarshal, pResult, "int")
+        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", "ptr", hWndOwner, "ptr", _pfnPropSheetUI, "ptr", _lParam, pResultMarshal, pResult, "int")
         return result
     }
 
@@ -9803,18 +9803,18 @@ class Printing {
      * @remarks
      * > [!Note]  
      * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
-     * @param {HWND} hWnd A handle to the parent window of the property sheet.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/printerproperties
      */
-    static PrinterProperties(hWnd, hPrinter) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PrinterProperties(_hWnd, hPrinter) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("winspool.drv\PrinterProperties", "ptr", hWnd, "ptr", hPrinter, "int")
+        result := DllCall("winspool.drv\PrinterProperties", "ptr", _hWnd, "ptr", hPrinter, "int")
         return result
     }
 
@@ -9839,7 +9839,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration property sheet.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9864,12 +9864,12 @@ class Printing {
      * If the function fails, the return value is less than zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
-    static DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DocumentPropertiesA(_hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
+        result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", _hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
     }
 
@@ -9894,7 +9894,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration property sheet.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9919,12 +9919,12 @@ class Printing {
      * If the function fails, the return value is less than zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
-    static DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DocumentPropertiesW(_hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
+        result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", _hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
     }
 
@@ -9939,7 +9939,7 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration dialog box.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
@@ -9947,12 +9947,12 @@ class Printing {
      * @returns {Integer} If the [**DocumentProperties**](documentproperties.md) function with these parameters is successful, the return value of **AdvancedDocumentProperties** is 1. Otherwise, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
-    static AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AdvancedDocumentPropertiesA(_hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
+        result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", _hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
     }
 
@@ -9967,7 +9967,7 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration dialog box.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
@@ -9975,18 +9975,18 @@ class Printing {
      * @returns {Integer} If the [**DocumentProperties**](documentproperties.md) function with these parameters is successful, the return value of **AdvancedDocumentProperties** is 1. Otherwise, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
-    static AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AdvancedDocumentPropertiesW(_hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
+        result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", _hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {HANDLE} hInst 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
      * @param {PSTR} pDeviceName 
@@ -9996,14 +9996,14 @@ class Printing {
      * @param {Integer} fMode 
      * @returns {Integer} 
      */
-    static ExtDeviceMode(hWnd, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ExtDeviceMode(_hWnd, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         pPort := pPort is String ? StrPtr(pPort) : pPort
         pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
 
-        result := DllCall("winspool.drv\ExtDeviceMode", "ptr", hWnd, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
+        result := DllCall("winspool.drv\ExtDeviceMode", "ptr", _hWnd, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
         return result
     }
 
@@ -11405,7 +11405,7 @@ class Printing {
      * 
      * > [!Note]  
      * > In Windows XP with Service Pack 2 (SP2) and later, the Internet Connection Firewall (ICF) blocks printer ports by default, but an exception for File and Print Sharing can be enabled. If a user makes a printer connection to another machine, and the exception is not enabled, then the user will not receive printer change notifications from the server. A machine admin will have to enable exception.
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange A handle to a change notification object associated with a printer or print server. You obtain such a handle by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function. The operating system sets this change notification object to the signaled state when it detects one of the changes specified in the object's change notification filter.
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange 
      * @param {Pointer<Integer>} pdwChange A pointer to a variable whose bits are set to indicate the changes that occurred to cause the most recent notification. The bit flags that might be set correspond to those specified in the *fdwFilter* parameter of the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) call. The system sets one or more of the following bit flags.
      * 
      * 
@@ -11444,14 +11444,14 @@ class Printing {
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/findnextprinterchangenotification
      */
-    static FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static FindNextPrinterChangeNotification(_hChange, pdwChange, pvReserved, ppPrinterNotifyInfo) {
+        _hChange := _hChange is Win32Handle ? NumGet(_hChange, "ptr") : _hChange
 
         pdwChangeMarshal := pdwChange is VarRef ? "uint*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         ppPrinterNotifyInfoMarshal := ppPrinterNotifyInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
+        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", _hChange, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -11480,16 +11480,16 @@ class Printing {
      *  
      * 
      * After calling the **FindClosePrinterChangeNotification** function, you cannot use the *hChange* handle in subsequent calls to either [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) or [**FindNextPrinterChangeNotification**](findnextprinterchangenotification.md).
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange A handle to the change notification object to be closed. This is a handle created by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function.
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/findcloseprinterchangenotification
      */
-    static FindClosePrinterChangeNotification(hChange) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static FindClosePrinterChangeNotification(_hChange) {
+        _hChange := _hChange is Win32Handle ? NumGet(_hChange, "ptr") : _hChange
 
-        result := DllCall("winspool.drv\FindClosePrinterChangeNotification", "ptr", hChange, "int")
+        result := DllCall("winspool.drv\FindClosePrinterChangeNotification", "ptr", _hChange, "int")
         return result
     }
 
@@ -11497,19 +11497,19 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pText 
      * @param {PSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxA(hPrinter, Error, _hWnd, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
@@ -11517,19 +11517,19 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pText 
      * @param {PWSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxW(hPrinter, Error, _hWnd, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
@@ -12103,21 +12103,21 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd A handle to the parent window of the **AddPort** dialog box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/addport
      */
-    static AddPortA(pName, hWnd, pMonitorName) {
+    static AddPortA(pName, _hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPortA", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
+        result := DllCall("winspool.drv\AddPortA", "ptr", pName, "ptr", _hWnd, "ptr", pMonitorName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12139,21 +12139,21 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd A handle to the parent window of the **AddPort** dialog box.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/addport
      */
-    static AddPortW(pName, hWnd, pMonitorName) {
+    static AddPortW(pName, _hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPortW", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
+        result := DllCall("winspool.drv\AddPortW", "ptr", pName, "ptr", _hWnd, "ptr", pMonitorName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12171,19 +12171,19 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd Handle to the parent window of the port-configuration dialog box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
      */
-    static ConfigurePortA(pName, hWnd, pPortName) {
+    static ConfigurePortA(pName, _hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", _hWnd, "ptr", pPortName, "int")
         return result
     }
 
@@ -12197,19 +12197,19 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PWSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd Handle to the parent window of the port-configuration dialog box.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
      */
-    static ConfigurePortW(pName, hWnd, pPortName) {
+    static ConfigurePortW(pName, _hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", _hWnd, "ptr", pPortName, "int")
         return result
     }
 
@@ -12227,21 +12227,21 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} hWnd A handle to the parent window of the port-deletion dialog box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
      */
-    static DeletePortA(pName, hWnd, pPortName) {
+    static DeletePortA(pName, _hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\DeletePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\DeletePortA", "ptr", pName, "ptr", _hWnd, "ptr", pPortName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12263,21 +12263,21 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} hWnd A handle to the parent window of the port-deletion dialog box.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
      */
-    static DeletePortW(pName, hWnd, pPortName) {
+    static DeletePortW(pName, _hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\DeletePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\DeletePortW", "ptr", pName, "ptr", _hWnd, "ptr", pPortName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12591,17 +12591,17 @@ class Printing {
      * The **ConnectToPrinterDlg** function attempts to create a connection to the selected printer. However, if the server on which the printer resides does not have a suitable driver installed, the function offers the user the option of creating a printer locally. A calling application can determine whether the function has created a printer locally by calling [**GetPrinter**](getprinter.md) with a [**PRINTER\_INFO\_2**](printer-info-2.md) structure, then examining that structure's **Attributes** member.
      * 
      * An application should call [**DeletePrinter**](deleteprinter.md) to delete a local printer. An application should call [**DeletePrinterConnection**](deleteprinterconnection.md) to delete a connection to a printer.
-     * @param {HWND} hwnd Specifies the parent window of the dialog box.
+     * @param {HWND} _hwnd 
      * @param {Integer} Flags This parameter is reserved and must be zero.
      * @returns {HANDLE} If the function succeeds and the user selects a printer, the return value is a handle to the selected printer.
      * 
      * If the function fails, or the user cancels the dialog box without selecting a printer, the return value is **NULL**.
      * @see https://learn.microsoft.com/windows/win32/printdocs/connecttoprinterdlg
      */
-    static ConnectToPrinterDlg(hwnd, Flags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ConnectToPrinterDlg(_hwnd, Flags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags, "ptr")
+        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", _hwnd, "uint", Flags, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -12888,19 +12888,19 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pszName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Void>} pConnectionInfo 
      * @returns {BOOL} 
      */
-    static AddPrinterConnection2A(hWnd, pszName, dwLevel, pConnectionInfo) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AddPrinterConnection2A(_hWnd, pszName, dwLevel, pConnectionInfo) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pConnectionInfoMarshal := pConnectionInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
+        result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", _hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
         return result
     }
 
@@ -12921,7 +12921,7 @@ class Printing {
      * A printer connection that is established by calling **AddPrinterConnection2** will be enumerated when [**EnumPrinters**](enumprinters.md) is called with *dwType* set to PRINTER\_ENUM\_CONNECTION.
      * 
      * The ANSI version of this function, **AddPrinterConnection2A**, is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} hWnd A handle to the parent window in which the dialog box will be displayed if the print system must download a printer driver from the print server for this connection.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszName A pointer to a constant null-terminated string specifying the name of the printer to which the current user wishes to connect.
      * @param {Integer} dwLevel The version of the structure pointed to by *pConnectionInfo*. Currently, only level 1 is defined so the value of *dwLevel* must be 1.
      * @param {Pointer<Void>} pConnectionInfo A pointer to a [**PRINTER\_CONNECTION\_INFO\_1**](printer-connection-info-1.md) structure. See the Remarks section for more about this parameter.
@@ -12930,13 +12930,13 @@ class Printing {
      * If the function fails, the return value is zero. For extended error information, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection2
      */
-    static AddPrinterConnection2W(hWnd, pszName, dwLevel, pConnectionInfo) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AddPrinterConnection2W(_hWnd, pszName, dwLevel, pConnectionInfo) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pConnectionInfoMarshal := pConnectionInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
+        result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", _hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
         return result
     }
 
@@ -13035,7 +13035,7 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} hwnd A handle to the copying user interface.
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
@@ -13043,16 +13043,16 @@ class Printing {
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
      */
-    static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
+    static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, _hwnd, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", _hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
         return result
     }
 
@@ -13081,7 +13081,7 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} hwnd A handle to the copying user interface.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
@@ -13089,16 +13089,16 @@ class Printing {
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
      */
-    static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
+    static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, _hwnd, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", _hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "HRESULT")
         return result
     }
 
@@ -13352,7 +13352,7 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
@@ -13361,14 +13361,14 @@ class Printing {
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
      */
-    static GetPrinterDriver2A(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrinterDriver2A(_hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
+        result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", _hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
         return result
     }
 
@@ -13378,7 +13378,7 @@ class Printing {
      * The [**DRIVER\_INFO\_2**](driver-info-2.md), [**DRIVER\_INFO\_3**](driver-info-3.md), [**DRIVER\_INFO\_4**](driver-info-4.md), [**DRIVER\_INFO\_5**](driver-info-5.md), [**DRIVER\_INFO\_6**](driver-info-6.md), and [**DRIVER\_INFO\_8**](driver-info-8.md) structures contain the file name or the full path and file name of the printer driver in the **pDriverPath** member. An application can use the path and file name to load a printer driver by calling the [**LoadLibrary**](/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya) function and supplying the path and file name as the single argument.
      * 
      * The ANSI version of this function, **GetPrinterDriver2A** is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} hWnd A handle of the window that will be used as the parent window of any user interface, such as a dialog box, that the driver displays during installation. If the value of this parameter is **NULL**, the driver's user interface will still be displayed to the user during installation, but it will not have a parent window.
+     * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer for which the driver data should be retrieved. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The printer driver structure returned in the *pDriverInfo* buffer. This parameter can be one of the following values.
@@ -13404,14 +13404,14 @@ class Printing {
      * If the function fails, the return value is zero. To get the return status, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver2
      */
-    static GetPrinterDriver2W(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrinterDriver2W(_hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
+        result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", _hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
         return result
     }
 
@@ -13518,19 +13518,19 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszPrinter 
      * @param {Pointer<HANDLE>} phFile 
      * @param {Pointer<PWSTR>} ppszOutputFile 
      * @returns {HRESULT} 
      */
-    static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrintOutputInfo(_hWnd, pszPrinter, phFile, ppszOutputFile) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
         ppszOutputFileMarshal := ppszOutputFile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "HRESULT")
+        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", _hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "HRESULT")
         return result
     }
 

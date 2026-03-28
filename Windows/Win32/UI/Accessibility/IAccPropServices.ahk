@@ -83,9 +83,7 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object that will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} annoScope Type: <b>AnnoScope</b>
-     * 
-     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
+     * @param {Integer} _annoScope 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -95,10 +93,10 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-setpropserver
      */
-    SetPropServer(pIDString, dwIDStringLen, paProps, cProps, pServer, annoScope) {
+    SetPropServer(pIDString, dwIDStringLen, paProps, cProps, pServer, _annoScope) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "ptr", pServer, "int", annoScope, "HRESULT")
+        result := ComCall(4, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "ptr", pServer, "int", _annoScope, "HRESULT")
         return result
     }
 
@@ -140,9 +138,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a convenient entry point for callers who are annotating HWND-based accessible elements. If the new value is a string, you can use IAccPropServices::SetHwndPropStr instead.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Identifies the accessible element that is to be annotated. This replaces the identity string.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -164,10 +160,10 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethwndprop
      */
-    SetHwndProp(hwnd, idObject, idChild, idProp, var) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetHwndProp(_hwnd, idObject, idChild, idProp, var) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr", idProp, "ptr", var, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "uint", idObject, "uint", idChild, "ptr", idProp, "ptr", var, "HRESULT")
         return result
     }
 
@@ -175,9 +171,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a more convenient entry point for callers who are annotating HWND-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Identifies the accessible element that is to be annotated. This replaces the identity string.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -197,11 +191,11 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethwndpropstr
      */
-    SetHwndPropStr(hwnd, idObject, idChild, idProp, str) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetHwndPropStr(_hwnd, idObject, idChild, idProp, str) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         str := str is String ? StrPtr(str) : str
 
-        result := ComCall(7, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr", idProp, "ptr", str, "HRESULT")
+        result := ComCall(7, this, "ptr", _hwnd, "uint", idObject, "uint", idChild, "ptr", idProp, "ptr", str, "HRESULT")
         return result
     }
 
@@ -209,9 +203,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropServer, providing a convenient entry point for callers who are annotating HWND-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Identifies the accessible element that is to be annotated. This replaces the identity string.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -227,9 +219,7 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object, which will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} annoScope Type: <b>AnnoScope</b>
-     * 
-     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
+     * @param {Integer} _annoScope 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -239,10 +229,10 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethwndpropserver
      */
-    SetHwndPropServer(hwnd, idObject, idChild, paProps, cProps, pServer, annoScope) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetHwndPropServer(_hwnd, idObject, idChild, paProps, cProps, pServer, _annoScope) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(8, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr", paProps, "int", cProps, "ptr", pServer, "int", annoScope, "HRESULT")
+        result := ComCall(8, this, "ptr", _hwnd, "uint", idObject, "uint", idChild, "ptr", paProps, "int", cProps, "ptr", pServer, "int", _annoScope, "HRESULT")
         return result
     }
 
@@ -252,9 +242,7 @@ class IAccPropServices extends IUnknown{
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
      * 
      * Additionally, <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-sethwndpropstr">SetHwndPropStr</a> takes a regular Unicode string as a parameter; the caller does not need to specially allocate a <b>BSTR</b>.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Identifies the accessible element that is to be annotated. This replaces the identity string.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -278,18 +266,16 @@ class IAccPropServices extends IUnknown{
      * For descriptions of return values, see the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-setpropvalue">SetPropValue</a>, <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-setpropserver">SetPropServer</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-clearprops">ClearProps</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearhwndprops
      */
-    ClearHwndProps(hwnd, idObject, idChild, paProps, cProps) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ClearHwndProps(_hwnd, idObject, idChild, paProps, cProps) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr", paProps, "int", cProps, "HRESULT")
+        result := ComCall(9, this, "ptr", _hwnd, "uint", idObject, "uint", idChild, "ptr", paProps, "int", cProps, "HRESULT")
         return result
     }
 
     /**
      * Callers use ComposeHwndIdentityString to retrieve an identity string.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * Specifies the <b>HWND</b> of the accessible element that the caller wants to identify.
+     * @param {HWND} _hwnd 
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the object ID of the accessible element.
@@ -311,13 +297,13 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-composehwndidentitystring
      */
-    ComposeHwndIdentityString(hwnd, idObject, idChild, ppIDString, pdwIDStringLen) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ComposeHwndIdentityString(_hwnd, idObject, idChild, ppIDString, pdwIDStringLen) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwnd, "uint", idObject, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "uint", idObject, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -360,9 +346,7 @@ class IAccPropServices extends IUnknown{
 
     /**
      * This method wraps SetPropValue, providing a convenient entry point for callers who are annotating HMENU-based accessible elements. If the new value is a string, you can use IAccPropServices::SetHmenuPropStr instead.
-     * @param {HMENU} hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
-     * 
-     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
+     * @param {HMENU} _hmenu 
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -379,10 +363,10 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethmenuprop
      */
-    SetHmenuProp(hmenu, idChild, idProp, var) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    SetHmenuProp(_hmenu, idChild, idProp, var) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := ComCall(12, this, "ptr", hmenu, "uint", idChild, "ptr", idProp, "ptr", var, "HRESULT")
+        result := ComCall(12, this, "ptr", _hmenu, "uint", idChild, "ptr", idProp, "ptr", var, "HRESULT")
         return result
     }
 
@@ -390,9 +374,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a more convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HMENU} hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
-     * 
-     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
+     * @param {HMENU} _hmenu 
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -409,11 +391,11 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethmenupropstr
      */
-    SetHmenuPropStr(hmenu, idChild, idProp, str) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    SetHmenuPropStr(_hmenu, idChild, idProp, str) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
         str := str is String ? StrPtr(str) : str
 
-        result := ComCall(13, this, "ptr", hmenu, "uint", idChild, "ptr", idProp, "ptr", str, "HRESULT")
+        result := ComCall(13, this, "ptr", _hmenu, "uint", idChild, "ptr", idProp, "ptr", str, "HRESULT")
         return result
     }
 
@@ -421,9 +403,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropServer, providing a convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i> and <i>idChild</i> parameters directly.
-     * @param {HMENU} hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
-     * 
-     * Identifies the <b>HMENU</b>-accessible element to be annotated.
+     * @param {HMENU} _hmenu 
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -436,9 +416,7 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object, which will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} annoScope Type: <b>AnnoScope</b>
-     * 
-     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
+     * @param {Integer} _annoScope 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -448,10 +426,10 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethmenupropserver
      */
-    SetHmenuPropServer(hmenu, idChild, paProps, cProps, pServer, annoScope) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    SetHmenuPropServer(_hmenu, idChild, paProps, cProps, pServer, _annoScope) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := ComCall(14, this, "ptr", hmenu, "uint", idChild, "ptr", paProps, "int", cProps, "ptr", pServer, "int", annoScope, "HRESULT")
+        result := ComCall(14, this, "ptr", _hmenu, "uint", idChild, "ptr", paProps, "int", cProps, "ptr", pServer, "int", _annoScope, "HRESULT")
         return result
     }
 
@@ -459,9 +437,7 @@ class IAccPropServices extends IUnknown{
      * This method wraps ClearProps, and provides a convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i> and <i>idChild</i> parameters directly.
-     * @param {HMENU} hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
-     * 
-     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
+     * @param {HMENU} _hmenu 
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -482,18 +458,16 @@ class IAccPropServices extends IUnknown{
      * For descriptions of other parameters and return values, see the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-clearprops">ClearProps</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearhmenuprops
      */
-    ClearHmenuProps(hmenu, idChild, paProps, cProps) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    ClearHmenuProps(_hmenu, idChild, paProps, cProps) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := ComCall(15, this, "ptr", hmenu, "uint", idChild, "ptr", paProps, "int", cProps, "HRESULT")
+        result := ComCall(15, this, "ptr", _hmenu, "uint", idChild, "ptr", paProps, "int", cProps, "HRESULT")
         return result
     }
 
     /**
      * Callers use ComposeHmenuIdentityString to retrieve an identity string for an HMENU-based accessible element.
-     * @param {HMENU} hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
-     * 
-     * Identifies the <b>HMENU</b>-based accessible element.
+     * @param {HMENU} _hmenu 
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -512,13 +486,13 @@ class IAccPropServices extends IUnknown{
      * May return other error codes under exceptional error conditions such as low memory.
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-composehmenuidentitystring
      */
-    ComposeHmenuIdentityString(hmenu, idChild, ppIDString, pdwIDStringLen) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    ComposeHmenuIdentityString(_hmenu, idChild, ppIDString, pdwIDStringLen) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
         ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", hmenu, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(16, this, "ptr", _hmenu, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 

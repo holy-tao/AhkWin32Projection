@@ -86,12 +86,12 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * Gets a pointer to the IXpsOMDocument interface that contains the page reference.
-     * @returns {IXpsOMDocument} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface that contains the page reference. If the page reference does not have an owner, a <b>NULL</b> pointer is returned.
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getowner
      */
     GetOwner() {
-        result := ComCall(3, this, "ptr*", &document := 0, "HRESULT")
-        return IXpsOMDocument(document)
+        result := ComCall(3, this, "ptr*", &_document := 0, "HRESULT")
+        return IXpsOMDocument(_document)
     }
 
     /**

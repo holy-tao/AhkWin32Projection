@@ -37,7 +37,7 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      * @remarks
      * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess">MFCreateProtectedEnvironmentAccess</a> for an example of how to create an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfprotectedenvironmentaccess">IMFProtectedEnvironmentAccess</a> object and use the <b>Call</b> method.
      * @param {Integer} inputLength The length in bytes of the input data.
-     * @param {Pointer} input A pointer to the input data.
+     * @param {Pointer} _input 
      * @param {Integer} outputLength The length in bytes of the output data.
      * @param {Pointer} output A pointer to the output data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -61,8 +61,8 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
      */
-    Call(inputLength, input, outputLength, output) {
-        result := ComCall(3, this, "uint", inputLength, "ptr", input, "uint", outputLength, "ptr", output, "HRESULT")
+    Call(inputLength, _input, outputLength, output) {
+        result := ComCall(3, this, "uint", inputLength, "ptr", _input, "uint", outputLength, "ptr", output, "HRESULT")
         return result
     }
 

@@ -36,15 +36,15 @@ class IWMPEffects extends IUnknown{
      * @remarks
      * The device context is normalized by this method.
      * @param {Pointer<TimedLevel>} pLevels Pointer to a <b>TimedLevel</b> structure.
-     * @param {HDC} hdc Specifies a handle to a device context.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Specifies the rectangle the visualization is to be rendered in.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-render
      */
-    Render(pLevels, hdc, prc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Render(pLevels, _hdc, prc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(3, this, "ptr", pLevels, "ptr", hdc, "ptr", prc, "HRESULT")
+        result := ComCall(3, this, "ptr", pLevels, "ptr", _hdc, "ptr", prc, "HRESULT")
         return result
     }
 

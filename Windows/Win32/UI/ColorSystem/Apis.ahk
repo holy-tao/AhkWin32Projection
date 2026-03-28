@@ -440,56 +440,8 @@ class ColorSystem {
      * When a compatible DC is created from a printer's DC (see <b>CreateCompatibleDC</b> ), the default is for color matching to always be performed if it is enabled for the printer's DC. The default color profile for the printer is used when a blit is performed into the printer's DC using <b>SetDIBitsToDevice</b> or <b>StretchDIBits</b>. If this is not what you want, turn WCS off for the printer's DC by calling <b>SetICMMode</b> before calling <b>SetDIBitsToDevice</b> or <b>StretchDIBits</b>.
      * 
      * Also, when printing to a printer's DC with WCS turned on, the <b>SetICMMode</b> function needs to be called after every call to the <b>StartPage</b> function to turn back on WCS. The <b>StartPage</b> function calls the <b>RestoreDC</b> and <b>SaveDC</b> functions, which result in WCS being turned off for the printer's DC.
-     * @param {HDC} hdc Identifies handle to the device context.
-     * @param {Integer} mode Turns on and off image color management. This parameter can take one of the following constant values.<div> </div>
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ICM_ON"></a><a id="icm_on"></a><dl>
-     * <dt><b>ICM_ON</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Turns on color management. Turns off old-style color correction of halftones.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ICM_OFF"></a><a id="icm_off"></a><dl>
-     * <dt><b>ICM_OFF</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Turns off color management. Turns on old-style color correction of halftones.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ICM_QUERY"></a><a id="icm_query"></a><dl>
-     * <dt><b>ICM_QUERY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Queries the current state of color management.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ICM_DONE_OUTSIDEDC"></a><a id="icm_done_outsidedc"></a><dl>
-     * <dt><b>ICM_DONE_OUTSIDEDC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Turns off color management inside DC. Under Windows 2000, also turns off old-style color correction of halftones. Not supported under Windows 95.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {HDC} _hdc 
+     * @param {Integer} _mode 
      * @returns {Integer} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero.
@@ -498,10 +450,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmmode
      * @since windows5.0
      */
-    static SetICMMode(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMMode(_hdc, _mode) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SetICMMode", "ptr", _hdc, "int", _mode, "int")
         return result
     }
 
@@ -512,7 +464,7 @@ class ColorSystem {
      * .
      * 
      * Note that for this function to succeed, WCS must be enabled for the device context handle that is passed in through the <i>hDC</i> parameter. WCS can be enabled for a device context handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> function.
-     * @param {HDC} hdc Handle to the device context whose output gamut to be checked.
+     * @param {HDC} _hdc 
      * @param {Pointer<RGBTRIPLE>} lpRGBTriple Pointer to an array of RGB triples to check.
      * @param {Pointer} dlpBuffer Pointer to the buffer in which the results are to be placed. This buffer must be at least as large as <i>nCount</i> bytes.
      * @param {Integer} nCount The number of elements in the array of triples.
@@ -522,10 +474,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-checkcolorsingamut
      * @since windows5.0
      */
-    static CheckColorsInGamut(hdc, lpRGBTriple, dlpBuffer, nCount) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CheckColorsInGamut(_hdc, lpRGBTriple, dlpBuffer, nCount) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\CheckColorsInGamut", "ptr", hdc, "ptr", lpRGBTriple, "ptr", dlpBuffer, "uint", nCount, "int")
+        result := DllCall("GDI32.dll\CheckColorsInGamut", "ptr", _hdc, "ptr", lpRGBTriple, "ptr", dlpBuffer, "uint", nCount, "int")
         return result
     }
 
@@ -533,17 +485,17 @@ class ColorSystem {
      * The GetColorSpace function retrieves the handle to the input color space from a specified device context.
      * @remarks
      * <b>GetColorSpace</b> obtains the handle to the input color space regardless of whether color management is enabled for the device context.
-     * @param {HDC} hdc Specifies a device context that is to have its input color space handle retrieved.
+     * @param {HDC} _hdc 
      * @returns {HCOLORSPACE} If the function succeeds, the return value is the current input color space handle.
      * 
      * If this function fails, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcolorspace
      * @since windows5.0
      */
-    static GetColorSpace(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetColorSpace(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetColorSpace", "ptr", _hdc, "ptr")
         resultHandle := HCOLORSPACE({Value: result}, True)
         return resultHandle
     }
@@ -559,7 +511,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetLogColorSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} _hColorSpace 
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
@@ -568,10 +520,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlogcolorspacea
      * @since windows5.0
      */
-    static GetLogColorSpaceA(hColorSpace, lpBuffer, nSize) {
-        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+    static GetLogColorSpaceA(_hColorSpace, lpBuffer, nSize) {
+        _hColorSpace := _hColorSpace is Win32Handle ? NumGet(_hColorSpace, "ptr") : _hColorSpace
 
-        result := DllCall("GDI32.dll\GetLogColorSpaceA", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
+        result := DllCall("GDI32.dll\GetLogColorSpaceA", "ptr", _hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
 
@@ -586,7 +538,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetLogColorSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} _hColorSpace 
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
@@ -595,10 +547,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlogcolorspacew
      * @since windows5.0
      */
-    static GetLogColorSpaceW(hColorSpace, lpBuffer, nSize) {
-        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+    static GetLogColorSpaceW(_hColorSpace, lpBuffer, nSize) {
+        _hColorSpace := _hColorSpace is Win32Handle ? NumGet(_hColorSpace, "ptr") : _hColorSpace
 
-        result := DllCall("GDI32.dll\GetLogColorSpaceW", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
+        result := DllCall("GDI32.dll\GetLogColorSpaceW", "ptr", _hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
 
@@ -652,7 +604,7 @@ class ColorSystem {
 
     /**
      * The SetColorSpace function defines the input color space for a given device context.
-     * @param {HDC} hdc Specifies the handle to a device context.
+     * @param {HDC} _hdc 
      * @param {HCOLORSPACE} hcs Identifies handle to the color space to set.
      * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
@@ -660,11 +612,11 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setcolorspace
      * @since windows5.0
      */
-    static SetColorSpace(hdc, hcs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetColorSpace(_hdc, hcs) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
 
-        result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
+        result := DllCall("GDI32.dll\SetColorSpace", "ptr", _hdc, "ptr", hcs, "ptr")
         resultHandle := HCOLORSPACE({Value: result}, True)
         return resultHandle
     }
@@ -704,7 +656,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} _hdc 
      * @param {Pointer<Integer>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
      * @param {PSTR} pszFilename Points to the buffer that receives the path name of the profile.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
@@ -713,13 +665,13 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-geticmprofilea
      * @since windows5.0
      */
-    static GetICMProfileA(hdc, pBufSize, pszFilename) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetICMProfileA(_hdc, pBufSize, pszFilename) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
+        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", _hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -742,7 +694,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} _hdc 
      * @param {Pointer<Integer>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
      * @param {PWSTR} pszFilename Points to the buffer that receives the path name of the profile.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
@@ -751,13 +703,13 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-geticmprofilew
      * @since windows5.0
      */
-    static GetICMProfileW(hdc, pBufSize, pszFilename) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetICMProfileW(_hdc, pBufSize, pszFilename) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
+        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", _hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -778,7 +730,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines SetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {HDC} _hdc 
      * @param {PSTR} lpFileName Specifies the path name of the color profile to be set.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -786,11 +738,11 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmprofilea
      * @since windows5.0
      */
-    static SetICMProfileA(hdc, lpFileName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMProfileA(_hdc, lpFileName) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
+        result := DllCall("GDI32.dll\SetICMProfileA", "ptr", _hdc, "ptr", lpFileName, "int")
         return result
     }
 
@@ -811,7 +763,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines SetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {HDC} _hdc 
      * @param {PWSTR} lpFileName Specifies the path name of the color profile to be set.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -819,11 +771,11 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmprofilew
      * @since windows5.0
      */
-    static SetICMProfileW(hdc, lpFileName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMProfileW(_hdc, lpFileName) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
+        result := DllCall("GDI32.dll\SetICMProfileW", "ptr", _hdc, "ptr", lpFileName, "int")
         return result
     }
 
@@ -831,7 +783,7 @@ class ColorSystem {
      * The GetDeviceGammaRamp function gets the gamma ramp on direct color display boards having drivers that support downloadable gamma ramps in hardware.
      * @remarks
      * Direct color display modes do not use color lookup tables and are usually 16, 24, or 32 bit. Not all direct color video boards support loadable gamma ramps. <b>GetDeviceGammaRamp</b> succeeds only for devices with drivers that support downloadable gamma ramps in hardware.
-     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} _hdc 
      * @param {Pointer<Void>} lpRamp Points to a buffer where the function can place the current gamma ramp of the color display board. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (DAC) values. The sequence of the arrays is red, green, blue.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -839,12 +791,12 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicegammaramp
      * @since windows5.0
      */
-    static GetDeviceGammaRamp(hdc, lpRamp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDeviceGammaRamp(_hdc, lpRamp) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
+        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", _hdc, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -855,7 +807,7 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > This API can take a non-trivial amount of time to execute. It may take as long as 200ms to return on some hardware.
-     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} _hdc 
      * @param {Pointer<Void>} lpRamp Pointer to a buffer containing the gamma ramp to be set. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (<i>DAC</i> ) values. The sequence of the arrays is red, green, blue. The RGB values must be stored in the most significant bits of each WORD to increase DAC independence.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -863,12 +815,12 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdevicegammaramp
      * @since windows5.0
      */
-    static SetDeviceGammaRamp(hdc, lpRamp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDeviceGammaRamp(_hdc, lpRamp) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
+        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", _hdc, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -884,7 +836,7 @@ class ColorSystem {
      * <div class="alert"><b>Note</b>  A memory leak will not occur if an application does not delete a transform using CS_DELETE_TRANSFORM. The transform will be deleted when either the device context (DC) is closed, or when the application color space is deleted. However if the transform is not going to be used again, or if the application will not be performing any more color matching on the DC, it should explicitly delete the transform to free the memory it occupies.</div>
      * <div> </div>
      * The <i>uiAction</i> parameter should only be set to CS_DELETE_TRANSFORM if color management is enabled before the <b>ColorMatchToTarget</b> function is called.
-     * @param {HDC} hdc Specifies the device context for previewing, generally the screen.
+     * @param {HDC} _hdc 
      * @param {HDC} hdcTarget Specifies the target device context, generally a printer.
      * @param {Integer} action 
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
@@ -893,11 +845,11 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-colormatchtotarget
      * @since windows5.0
      */
-    static ColorMatchToTarget(hdc, hdcTarget, action) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ColorMatchToTarget(_hdc, hdcTarget, action) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         hdcTarget := hdcTarget is Win32Handle ? NumGet(hdcTarget, "ptr") : hdcTarget
 
-        result := DllCall("GDI32.dll\ColorMatchToTarget", "ptr", hdc, "ptr", hdcTarget, "uint", action, "int")
+        result := DllCall("GDI32.dll\ColorMatchToTarget", "ptr", _hdc, "ptr", hdcTarget, "uint", action, "int")
         return result
     }
 
@@ -914,17 +866,17 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumICMProfiles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies the device context.
-     * @param {Pointer<ICMENUMPROCA>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
+     * @param {HDC} _hdc 
+     * @param {Pointer<ICMENUMPROCA>} _proc 
      * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesa
      * @since windows5.0
      */
-    static EnumICMProfilesA(hdc, proc, param2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumICMProfilesA(_hdc, _proc, param2) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
+        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", _hdc, "ptr", _proc, "ptr", param2, "int")
         return result
     }
 
@@ -941,17 +893,17 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumICMProfiles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies the device context.
-     * @param {Pointer<ICMENUMPROCW>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
+     * @param {HDC} _hdc 
+     * @param {Pointer<ICMENUMPROCW>} _proc 
      * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesw
      * @since windows5.0
      */
-    static EnumICMProfilesW(hdc, proc, param2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumICMProfilesW(_hdc, _proc, param2) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
+        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", _hdc, "ptr", _proc, "ptr", param2, "int")
         return result
     }
 
@@ -1025,7 +977,7 @@ class ColorSystem {
 
     /**
      * The ColorCorrectPalette function corrects the entries of a palette using the WCS 1.0 parameters in the specified device context.
-     * @param {HDC} hdc Specifies a device context whose WCS parameters to use.
+     * @param {HDC} _hdc 
      * @param {HPALETTE} hPal Specifies the handle to the palette to be color corrected.
      * @param {Integer} deFirst Specifies the first entry in the palette to be color corrected.
      * @param {Integer} num Specifies the number of entries to color correct.
@@ -1035,11 +987,11 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-colorcorrectpalette
      * @since windows5.0
      */
-    static ColorCorrectPalette(hdc, hPal, deFirst, num) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ColorCorrectPalette(_hdc, hPal, deFirst, num) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
 
-        result := DllCall("GDI32.dll\ColorCorrectPalette", "ptr", hdc, "ptr", hPal, "uint", deFirst, "uint", num, "int")
+        result := DllCall("GDI32.dll\ColorCorrectPalette", "ptr", _hdc, "ptr", hPal, "uint", deFirst, "uint", num, "int")
         return result
     }
 
@@ -1825,18 +1777,18 @@ class ColorSystem {
      * @param {Pointer<Void>} pDestBits Pointer to the buffer in which to place the translated bitmap.
      * @param {Integer} bmOutput Specifies the format of the output bitmap. Must be set to one of the values of the [**BMFORMAT**](/windows/win32/api/icm/ne-icm-bmformat) enumerated type.
      * @param {Integer} dwOutputStride Specifies the number of bytes from the beginning of one scan line to the beginning of the next in the output bitmap; if set to zero, the function assumes that scan lines should be padded to be **DWORD**-aligned.
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallBack Pointer to a callback function called periodically by **TranslateBitmapBits** to report progress and allow the calling process to cancel the translation. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback) )
+     * @param {Pointer<LPBMCALLBACKFN>} _pfnCallBack 
      * @param {LPARAM} ulCallbackData Data passed back to the callback function, for example, to identify the translation that is reporting progress.
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-translatebitmapbits
      */
-    static TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, pDestBits, bmOutput, dwOutputStride, pfnCallBack, ulCallbackData) {
+    static TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, pDestBits, bmOutput, dwOutputStride, _pfnCallBack, ulCallbackData) {
         pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
         pDestBitsMarshal := pDestBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, pDestBitsMarshal, pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", pfnCallBack, "ptr", ulCallbackData, "int")
+        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, pDestBitsMarshal, pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", _pfnCallBack, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -1857,18 +1809,18 @@ class ColorSystem {
      * @param {Integer} dwHeight Specifies the number of scan lines of the bitmap.
      * @param {Integer} dwStride Specifies the number of bytes from the beginning one scan line to the beginning of the next one. If set to zero, the bitmap scan lines are assumed to be padded so as to be **DWORD**-aligned.
      * @param {Pointer<Integer>} paResult Pointer to an array of bytes where the test results are to be placed. This results buffer must contain at least as many bytes as there are pixels in the bitmap.
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback Pointer to a callback function called periodically by **CheckBitmapBits** to report progress and allow the calling process to cancel the bitmap test. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback)).
+     * @param {Pointer<LPBMCALLBACKFN>} _pfnCallback 
      * @param {LPARAM} lpCallbackData Data passed back to the callback function, for example, to identify the bitmap test about which progress is being reported.
      * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. For extended error information, call **GetLastError**.
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-checkbitmapbits
      */
-    static CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwStride, paResult, pfnCallback, lpCallbackData) {
+    static CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwStride, paResult, _pfnCallback, lpCallbackData) {
         pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
         paResultMarshal := paResult is VarRef ? "char*" : "ptr"
 
-        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, paResultMarshal, paResult, "ptr", pfnCallback, "ptr", lpCallbackData, "int")
+        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, paResultMarshal, paResult, "ptr", _pfnCallback, "ptr", lpCallbackData, "int")
         return result
     }
 
@@ -2823,16 +2775,16 @@ class ColorSystem {
      * @param {Integer} dwHeight 
      * @param {Integer} dwStride 
      * @param {Pointer<Integer>} lpaResult 
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback 
+     * @param {Pointer<LPBMCALLBACKFN>} _pfnCallback 
      * @param {LPARAM} ulCallbackData 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcheckrgbs
      */
-    static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, pfnCallback, ulCallbackData) {
+    static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, _pfnCallback, ulCallbackData) {
         lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
         lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpaResultMarshal, lpaResult, "ptr", pfnCallback, "ptr", ulCallbackData, "int")
+        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpaResultMarshal, lpaResult, "ptr", _pfnCallback, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -3094,7 +3046,7 @@ class ColorSystem {
      * @remarks
      * Every CMM is required to export this function.
      * @param {Pointer} hcmTransform Specifies the transform to be used.
-     * @param {COLORREF} ColorRef The RGBQuad to translate.
+     * @param {COLORREF} _ColorRef 
      * @param {Pointer<Integer>} lpColorRef Points to a buffer in which to place the translation.
      * @param {Integer} dwFlags Specifies how the transform should be used to make the translation. This parameter can take one of the following meanings.
      * 
@@ -3127,10 +3079,10 @@ class ColorSystem {
      * If this function fails, the return value is **FALSE**. The CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmtranslatergb
      */
-    static CMTranslateRGB(hcmTransform, ColorRef, lpColorRef, dwFlags) {
+    static CMTranslateRGB(hcmTransform, _ColorRef, lpColorRef, dwFlags) {
         lpColorRefMarshal := lpColorRef is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", ColorRef, lpColorRefMarshal, lpColorRef, "uint", dwFlags, "int")
+        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", _ColorRef, lpColorRefMarshal, lpColorRef, "uint", dwFlags, "int")
         return result
     }
 

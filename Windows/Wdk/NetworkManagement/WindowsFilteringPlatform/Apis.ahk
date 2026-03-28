@@ -47,15 +47,15 @@ class WindowsFilteringPlatform {
      * 
      * @param {Pointer<Void>} deviceObject 
      * @param {Pointer<FWPM_SERVICE_STATE_CHANGE_CALLBACK0>} callback 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HANDLE>} changeHandle 
      * @returns {NTSTATUS} 
      */
-    static FwpmBfeStateSubscribeChanges0(deviceObject, callback, context, changeHandle) {
+    static FwpmBfeStateSubscribeChanges0(deviceObject, callback, _context, changeHandle) {
         deviceObjectMarshal := deviceObject is VarRef ? "ptr" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpkclnt.sys\FwpmBfeStateSubscribeChanges0", deviceObjectMarshal, deviceObject, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "int")
+        result := DllCall("fwpkclnt.sys\FwpmBfeStateSubscribeChanges0", deviceObjectMarshal, deviceObject, "ptr", callback, _contextMarshal, _context, "ptr", changeHandle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -499,9 +499,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -548,7 +546,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
      */
-    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -556,7 +554,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -1575,9 +1573,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -1624,7 +1620,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
      */
-    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -1632,7 +1628,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3066,9 +3062,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -3115,7 +3109,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
      */
-    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -3123,7 +3117,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3691,9 +3685,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -3740,7 +3732,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
      */
-    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -3748,7 +3740,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4241,9 +4233,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -4290,7 +4280,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
      */
-    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -4298,7 +4288,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5042,9 +5032,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -5091,7 +5079,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
      */
-    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -5099,7 +5087,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5808,9 +5796,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -5857,7 +5843,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
      */
-    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -5865,7 +5851,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8231,9 +8217,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8280,7 +8264,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
      */
-    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -8288,7 +8272,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8687,9 +8671,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8736,7 +8718,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
      */
-    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -8744,7 +8726,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9651,9 +9633,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -9700,7 +9680,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
      */
-    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -9708,7 +9688,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10376,9 +10356,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10425,7 +10403,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
      */
-    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -10433,7 +10411,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10534,9 +10512,7 @@ class WindowsFilteringPlatform {
      * @param {Integer} id Type: <b>UINT64</b>
      * 
      * The run-time identifier for the connection.
-     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} connection Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
-     * 
-     * The connection information.
+     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10583,12 +10559,12 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
      */
-    static FwpmConnectionGetById0(engineHandle, id, connection) {
+    static FwpmConnectionGetById0(engineHandle, id, _connection) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        connectionMarshal := connection is VarRef ? "ptr*" : "ptr"
+        _connectionMarshal := _connection is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, connectionMarshal, connection, "int")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, _connectionMarshal, _connection, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10832,9 +10808,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10881,7 +10855,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
      */
-    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -10889,7 +10863,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11002,9 +10976,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
-     * 
-     * The returned security descriptor.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -11051,7 +11023,7 @@ class WindowsFilteringPlatform {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
      */
-    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -11059,7 +11031,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", _securityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }

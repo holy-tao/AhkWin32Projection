@@ -393,15 +393,13 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point about which to rotate.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
-     * 
-     * When this method returns, contains the new rotation transformation. You must allocate storage for this parameter.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makerotatematrix
      * @since windows6.1
      */
-    static D2D1MakeRotateMatrix(angle, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
+    static D2D1MakeRotateMatrix(angle, center, _matrix) {
+        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", _matrix)
     }
 
     /**
@@ -415,46 +413,40 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The center point of the skew operation.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
-     * 
-     * When this method returns, contains the rotation transformation. You must allocate storage for this parameter.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makeskewmatrix
      * @since windows6.1
      */
-    static D2D1MakeSkewMatrix(angleX, angleY, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
+    static D2D1MakeSkewMatrix(angleX, angleY, center, _matrix) {
+        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", _matrix)
     }
 
     /**
      * Indicates whether the specified matrix is invertible.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
-     * 
-     * The matrix to test.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1ismatrixinvertible
      * @since windows6.1
      */
-    static D2D1IsMatrixInvertible(matrix) {
-        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", matrix, "int")
+    static D2D1IsMatrixInvertible(_matrix) {
+        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", _matrix, "int")
         return result
     }
 
     /**
      * Tries to invert the specified matrix.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
-     * 
-     * The matrix to invert.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1invertmatrix
      * @since windows6.1
      */
-    static D2D1InvertMatrix(matrix) {
-        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", matrix, "int")
+    static D2D1InvertMatrix(_matrix) {
+        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", _matrix, "int")
         return result
     }
 
@@ -504,16 +496,14 @@ class Direct2D {
      * @param {Integer} destinationColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The destination color space.
-     * @param {Pointer<D2D1_COLOR_F>} color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
-     * 
-     * The source color.
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {D2D1_COLOR_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The converted color.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1convertcolorspace
      */
-    static D2D1ConvertColorSpace(sourceColorSpace, destinationColorSpace, color) {
-        result := DllCall("d2d1.dll\D2D1ConvertColorSpace", "int", sourceColorSpace, "int", destinationColorSpace, "ptr", color, "ptr")
+    static D2D1ConvertColorSpace(sourceColorSpace, destinationColorSpace, _color) {
+        result := DllCall("d2d1.dll\D2D1ConvertColorSpace", "int", sourceColorSpace, "int", destinationColorSpace, "ptr", _color, "ptr")
         return result
     }
 
@@ -583,13 +573,13 @@ class Direct2D {
      * 
      * <div class="alert"><b>Note</b>  Since this describes how M affects vectors (rather than points), the translation components (_31 and _32) of M are ignored.</div>
      * <div> </div>
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix The input transform matrix.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {Float} The scale factor.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
      * @since windows8.1
      */
-    static D2D1ComputeMaximumScaleFactor(matrix) {
-        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix, "float")
+    static D2D1ComputeMaximumScaleFactor(_matrix) {
+        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", _matrix, "float")
         return result
     }
 

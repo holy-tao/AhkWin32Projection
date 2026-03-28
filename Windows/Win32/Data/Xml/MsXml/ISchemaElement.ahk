@@ -207,7 +207,7 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
-        result := ComCall(26, this, "short*", &reference := 0, "HRESULT")
-        return reference
+        result := ComCall(26, this, "short*", &_reference := 0, "HRESULT")
+        return _reference
     }
 }

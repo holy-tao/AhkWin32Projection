@@ -39,22 +39,22 @@ class ScopeNamespace extends IDispatch{
      * Retrieves a handle to the specified window's parent or owner.
      * @remarks
      * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {Node} 
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getparent
      */
-    GetParent(Node) {
-        result := ComCall(7, this, "ptr", Node, "ptr*", &Parent := 0, "HRESULT")
+    GetParent(_Node) {
+        result := ComCall(7, this, "ptr", _Node, "ptr*", &Parent := 0, "HRESULT")
         return Node(Parent)
     }
 
     /**
      * 
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {Node} 
      */
-    GetChild(Node) {
-        result := ComCall(8, this, "ptr", Node, "ptr*", &Child := 0, "HRESULT")
+    GetChild(_Node) {
+        result := ComCall(8, this, "ptr", _Node, "ptr*", &Child := 0, "HRESULT")
         return Node(Child)
     }
 
@@ -68,12 +68,12 @@ class ScopeNamespace extends IDispatch{
      * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
      * 
      * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {Node} 
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
      */
-    GetNext(Node) {
-        result := ComCall(9, this, "ptr", Node, "ptr*", &Next := 0, "HRESULT")
+    GetNext(_Node) {
+        result := ComCall(9, this, "ptr", _Node, "ptr*", &Next := 0, "HRESULT")
         return Node(Next)
     }
 
@@ -88,14 +88,14 @@ class ScopeNamespace extends IDispatch{
 
     /**
      * Hides all descendant nodes, controls, or content of the UI Automation element.
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
      */
-    Expand(Node) {
-        result := ComCall(11, this, "ptr", Node, "HRESULT")
+    Expand(_Node) {
+        result := ComCall(11, this, "ptr", _Node, "HRESULT")
         return result
     }
 }

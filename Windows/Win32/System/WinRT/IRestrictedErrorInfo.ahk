@@ -57,14 +57,12 @@ class IRestrictedErrorInfo extends IUnknown{
 
     /**
      * Returns a reference to restricted error information.
-     * @returns {BSTR} Type: <b>BSTR*</b>
-     * 
-     * A reference to the error information.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
      */
     GetReference() {
-        reference := BSTR()
-        result := ComCall(4, this, "ptr", reference, "HRESULT")
-        return reference
+        _reference := BSTR()
+        result := ComCall(4, this, "ptr", _reference, "HRESULT")
+        return _reference
     }
 }

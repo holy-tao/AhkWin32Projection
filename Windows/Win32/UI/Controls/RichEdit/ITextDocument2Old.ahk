@@ -93,11 +93,11 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @returns {HRESULT} 
      */
-    ReleaseImmContext(Context) {
-        result := ComCall(32, this, "int64", Context, "HRESULT")
+    ReleaseImmContext(_Context) {
+        result := ComCall(32, this, "int64", _Context, "HRESULT")
         return result
     }
 
@@ -132,11 +132,11 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
-    SetNotificationMode(Mode) {
-        result := ComCall(35, this, "int", Mode, "HRESULT")
+    SetNotificationMode(_Mode) {
+        result := ComCall(35, this, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -242,12 +242,12 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * Learn more about: Update constructor
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
-    Update(Mode) {
-        result := ComCall(44, this, "int", Mode, "HRESULT")
+    Update(_Mode) {
+        result := ComCall(44, this, "int", _Mode, "HRESULT")
         return result
     }
 

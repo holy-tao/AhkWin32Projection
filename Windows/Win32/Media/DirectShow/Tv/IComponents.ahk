@@ -106,13 +106,13 @@ class IComponents extends IDispatch{
 
     /**
      * The Add method adds a Component object to the collection.
-     * @param {IComponent} Component Pointer to the <b>Component</b> object to be added.
+     * @param {IComponent} _Component 
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> that will receive the index of the <b>Component</b> object after it has been added.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-add
      */
-    Add(Component) {
+    Add(_Component) {
         NewIndex := VARIANT()
-        result := ComCall(11, this, "ptr", Component, "ptr", NewIndex, "HRESULT")
+        result := ComCall(11, this, "ptr", _Component, "ptr", NewIndex, "HRESULT")
         return NewIndex
     }
 

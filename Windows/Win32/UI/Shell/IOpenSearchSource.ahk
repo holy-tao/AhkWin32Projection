@@ -56,9 +56,7 @@ class IOpenSearchSource extends IUnknown{
      * The index number identifies the first result on a page of results. It is equivalent to the OpenSearch {startIndex} parameter. The count, equivalent to the OpenSearch {count} parameter, identifies the expected or preferred number of items returned per page.
      * 
      * If a web service returns 20 items on the first page of results, the expected page size is 20.  To get the next 20 items, Windows Explorer would call <b>IOpenSearchSource::GetResults</b> with the value 21 for <i>dwStartIndex</i> and with the value of 20 for <i>dwCount</i>. When a page of results returned by the web service has fewer items than the expected page size, Windows Explorer assumes it has received the last page of results and stops making requests.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The window handle of the caller.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
      * The query as entered by the user. This parameter is equivalent to the OpenSearch {searchTerms} parameter and may be empty.
@@ -76,11 +74,11 @@ class IOpenSearchSource extends IUnknown{
      * An interface pointer, of type specified by RIID, to the object containing the results in Atom or RSS format.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
      */
-    GetResults(hwnd, pszQuery, dwStartIndex, dwCount, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetResults(_hwnd, pszQuery, dwStartIndex, dwCount, riid) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 }

@@ -32,16 +32,14 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
 
     /**
      * Sets the depth mode property associated with this visual.
-     * @param {Integer} mode Type: <b>DCOMPOSITION_DEPTH_MODE</b>
-     * 
-     * The new depth mode.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setdepthmode
      */
-    SetDepthMode(mode) {
-        result := ComCall(26, this, "int", mode, "HRESULT")
+    SetDepthMode(_mode) {
+        result := ComCall(26, this, "int", _mode, "HRESULT")
         return result
     }
 
@@ -128,16 +126,14 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
      * 
      * 
      * If the Transform property previously specified a transform object, the newly specified transform matrix replaces the transform object.
-     * @param {Pointer<D2D_MATRIX_4X4_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_matrix_3x2_f">D2D_MATRIX_4X4_F</a></b>
-     * 
-     * The 4-by-4 transform matrix that is used to modify  the coordinate system of this visual.
+     * @param {Pointer<D2D_MATRIX_4X4_F>} _matrix 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-settransform(constd2d_matrix_4x4_f_)
      */
-    SetTransform1(matrix) {
-        result := ComCall(32, this, "ptr", matrix, "HRESULT")
+    SetTransform1(_matrix) {
+        result := ComCall(32, this, "ptr", _matrix, "HRESULT")
         return result
     }
 

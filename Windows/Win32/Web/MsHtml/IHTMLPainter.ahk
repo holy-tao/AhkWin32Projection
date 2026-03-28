@@ -34,29 +34,29 @@ class IHTMLPainter extends IUnknown{
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<Void>} pvDrawObject 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
      */
-    Draw(rcBounds, rcUpdate, lDrawFlags, hdc, pvDrawObject) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Draw(rcBounds, rcUpdate, lDrawFlags, _hdc, pvDrawObject) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", rcBounds, "ptr", rcUpdate, "int", lDrawFlags, "ptr", hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
+        result := ComCall(3, this, "ptr", rcBounds, "ptr", rcUpdate, "int", lDrawFlags, "ptr", _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {SIZE} size 
+     * @param {SIZE} _size 
      * @returns {HRESULT} 
      */
-    OnResize(size) {
-        result := ComCall(4, this, "ptr", size, "HRESULT")
+    OnResize(_size) {
+        result := ComCall(4, this, "ptr", _size, "HRESULT")
         return result
     }
 

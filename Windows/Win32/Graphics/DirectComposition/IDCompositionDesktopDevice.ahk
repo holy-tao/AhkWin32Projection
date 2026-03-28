@@ -50,28 +50,28 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
      * All four layers are clipped to the window’s visible region.
      * 
      * At most, only two composition targets can be created for each window in the system, one topmost and one not topmost. If a composition target is already bound to the specified window at the specified layer, this method fails. When a composition target object is destroyed, the layer it composed is available for use by a new composition target object.
-     * @param {HWND} hwnd The window to which the composition target object should be bound. This parameter must not be NULL.
+     * @param {HWND} _hwnd 
      * @param {BOOL} topmost TRUE if the visual tree should be displayed on top of the children of the window specified by the hwnd parameter; otherwise, the visual tree is displayed behind the children.
      * @returns {IDCompositionTarget} The new composition target object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
      */
-    CreateTargetForHwnd(hwnd, topmost) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateTargetForHwnd(_hwnd, topmost) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(24, this, "ptr", hwnd, "int", topmost, "ptr*", &target := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", _hwnd, "int", topmost, "ptr*", &target := 0, "HRESULT")
         return IDCompositionTarget(target)
     }
 
     /**
      * Creates a new composition surface object that wraps an existing composition surface.
-     * @param {HANDLE} handle The handle of an existing composition surface that was created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle">DCompositionCreateSurfaceHandle</a> function.
+     * @param {HANDLE} _handle 
      * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
      */
-    CreateSurfaceFromHandle(handle) {
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+    CreateSurfaceFromHandle(_handle) {
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
-        result := ComCall(25, this, "ptr", handle, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", _handle, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
     }
 
@@ -87,14 +87,14 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
      * 
      * 
      * If the window is moved off-screen or resized to zero, the system stops composing the content of those visuals. You should use the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a> function with the DWMWA_CLOAK flag to "cloak" the layered child window when you need to hide the original window while allowing the system to continue to compose the content of the visuals.
-     * @param {HWND} hwnd The handle of the layered window for which to create a wrapper. A layered window is created by specifying WS_EX_LAYERED when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting WS_EX_LAYERED via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
+     * @param {HWND} _hwnd 
      * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
      */
-    CreateSurfaceFromHwnd(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateSurfaceFromHwnd(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(26, this, "ptr", hwnd, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", _hwnd, "ptr*", &surface := 0, "HRESULT")
         return IUnknown(surface)
     }
 }

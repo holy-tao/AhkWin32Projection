@@ -85,12 +85,12 @@ class ISettingsResult extends IUnknown{
 
     /**
      * Returns the file or path where the error has occurred.
-     * @returns {BSTR} The file or path where the error has occurred.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
     GetSource() {
-        file := BSTR()
-        result := ComCall(8, this, "ptr", file, "HRESULT")
-        return file
+        _file := BSTR()
+        result := ComCall(8, this, "ptr", _file, "HRESULT")
+        return _file
     }
 }

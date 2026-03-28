@@ -2153,7 +2153,7 @@ class Authorization {
      * @param {Integer} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
      * @param {Integer} BufferSize Size of the buffer passed.
      * @param {Pointer<Integer>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -2161,15 +2161,15 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzgetinformationfromcontext
      * @since windows5.1.2600
      */
-    static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, Buffer_R) {
+    static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, _Buffer) {
         hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
 
         pSizeRequiredMarshal := pSizeRequired is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, pSizeRequiredMarshal, pSizeRequired, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, pSizeRequiredMarshal, pSizeRequired, _BufferMarshal, _Buffer, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2415,7 +2415,7 @@ class Authorization {
     /**
      * Retrieves the registered security event sources that are not installed by default.
      * @param {Integer} dwFlags Reserved for future use; set this parameter to zero.
-     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} Buffer_R 
+     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} _Buffer 
      * @param {Pointer<Integer>} pdwCount A pointer to a  variable that receives the number of event sources found.
      * @param {Pointer<Integer>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2424,13 +2424,13 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzenumeratesecurityeventsources
      * @since windowsserver2003
      */
-    static AuthzEnumerateSecurityEventSources(dwFlags, Buffer_R, pdwCount, pdwLength) {
+    static AuthzEnumerateSecurityEventSources(dwFlags, _Buffer, pdwCount, pdwLength) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer_R, pdwCountMarshal, pdwCount, pdwLengthMarshal, pdwLength, "int")
+        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", _Buffer, pdwCountMarshal, pdwCount, pdwLengthMarshal, pdwLength, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2995,7 +2995,7 @@ class Authorization {
      * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
      * @param {PSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3013,7 +3013,7 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfoa
      * @since windows5.1.2600
      */
-    static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+    static GetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
@@ -3021,7 +3021,7 @@ class Authorization {
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -3053,7 +3053,7 @@ class Authorization {
      * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
      * @param {PWSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3071,7 +3071,7 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfow
      * @since windows5.1.2600
      */
-    static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+    static GetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
@@ -3079,7 +3079,7 @@ class Authorization {
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -3107,8 +3107,8 @@ class Authorization {
      * <li>Directory service objects</li>
      * </ul>
      * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's security descriptor, then this function could fail.
-     * @param {HANDLE} handle A handle to the object from which to retrieve security information.
-     * @param {Integer} ObjectType <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration value that indicates the type of object.
+     * @param {HANDLE} _handle 
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3126,15 +3126,15 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getsecurityinfo
      * @since windows5.1.2600
      */
-    static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+    static GetSecurityInfo(_handle, _ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
         ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
         ppsidGroupMarshal := ppsidGroup is VarRef ? "ptr*" : "ptr"
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", _handle, "int", _ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -3168,7 +3168,7 @@ class Authorization {
      * 
      * For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
@@ -3185,10 +3185,10 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfoa
      * @since windows5.1.2600
      */
-    static SetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+    static SetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
+        result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoA", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
 
@@ -3222,7 +3222,7 @@ class Authorization {
      * 
      * For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
@@ -3239,10 +3239,10 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow
      * @since windows5.1.2600
      */
-    static SetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+    static SetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
+        result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoW", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
 
@@ -3275,9 +3275,8 @@ class Authorization {
      * <div> </div>
      * <div class="alert"><b>Warning</b>  If the supplied <i>handle</i> was opened with an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> value of <b>MAXIMUM_ALLOWED</b>, then the <b>SetSecurityInfo</b> function will not propagate ACEs to children.</div>
      * <div> </div>
-     * @param {HANDLE} handle A handle to the object for which to set security information.
-     * @param {Integer} ObjectType A member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object identified by the <i>handle</i> parameter.
+     * @param {HANDLE} _handle 
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3291,10 +3290,10 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setsecurityinfo
      * @since windows5.1.2600
      */
-    static SetSecurityInfo(handle, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+    static SetSecurityInfo(_handle, _ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
-        result := DllCall("ADVAPI32.dll\SetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
+        result := DllCall("ADVAPI32.dll\SetSecurityInfo", "ptr", _handle, "int", _ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
 
@@ -3313,7 +3312,7 @@ class Authorization {
      * > [!NOTE]
      * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
-     * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
@@ -3328,12 +3327,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcea
      * @since windows5.1.2600
      */
-    static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
+    static GetInheritanceSourceA(pObjectName, _ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         pObjectClassGuidsMarshal := pObjectClassGuids is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -3352,7 +3351,7 @@ class Authorization {
      * > [!NOTE]
      * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
-     * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
@@ -3367,12 +3366,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcew
      * @since windows5.1.2600
      */
-    static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
+    static GetInheritanceSourceW(pObjectName, _ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         pObjectClassGuidsMarshal := pObjectClassGuids is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -3412,7 +3411,7 @@ class Authorization {
      * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3433,12 +3432,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa
      * @since windows5.1.2600
      */
-    static TreeResetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
+    static TreeResetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
         return result
     }
 
@@ -3462,7 +3461,7 @@ class Authorization {
      * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3483,12 +3482,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfow
      * @since windows5.1.2600
      */
-    static TreeResetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
+    static TreeResetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
         return result
     }
 
@@ -3514,7 +3513,7 @@ class Authorization {
      * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3535,12 +3534,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa
      * @since windows6.0.6000
      */
-    static TreeSetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
+    static TreeSetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
         return result
     }
 
@@ -3566,7 +3565,7 @@ class Authorization {
      * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {Integer} _ObjectType 
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3587,12 +3586,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfow
      * @since windows6.0.6000
      */
-    static TreeSetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
+    static TreeSetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, "int", _ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, ArgsMarshal, Args, "uint")
         return result
     }
 
@@ -4195,65 +4194,13 @@ class Authorization {
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {PSID} pSid A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="pMultipleTrustee"></a><a id="pmultipletrustee"></a><a id="PMULTIPLETRUSTEE"></a><dl>
-     * <dt><b><b>pMultipleTrustee</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <b>NULL</b>
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="MultipleTrusteeOperation"></a><a id="multipletrusteeoperation"></a><a id="MULTIPLETRUSTEEOPERATION"></a><dl>
-     * <dt><b><b>MultipleTrusteeOperation</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * NO_MULTIPLE_TRUSTEE
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="TrusteeForm"></a><a id="trusteeform"></a><a id="TRUSTEEFORM"></a><dl>
-     * <dt><b><b>TrusteeForm</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * TRUSTEE_IS_SID
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="TrusteeType"></a><a id="trusteetype"></a><a id="TRUSTEETYPE"></a><dl>
-     * <dt><b><b>TrusteeType</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * TRUSTEE_IS_UNKNOWN
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {PSID} _pSid 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsida
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithSidA(pTrustee, pSid) {
-        DllCall("ADVAPI32.dll\BuildTrusteeWithSidA", "ptr", pTrustee, "ptr", pSid)
+    static BuildTrusteeWithSidA(pTrustee, _pSid) {
+        DllCall("ADVAPI32.dll\BuildTrusteeWithSidA", "ptr", pTrustee, "ptr", _pSid)
     }
 
     /**
@@ -4263,65 +4210,13 @@ class Authorization {
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {PSID} pSid A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="pMultipleTrustee"></a><a id="pmultipletrustee"></a><a id="PMULTIPLETRUSTEE"></a><dl>
-     * <dt><b><b>pMultipleTrustee</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <b>NULL</b>
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="MultipleTrusteeOperation"></a><a id="multipletrusteeoperation"></a><a id="MULTIPLETRUSTEEOPERATION"></a><dl>
-     * <dt><b><b>MultipleTrusteeOperation</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * NO_MULTIPLE_TRUSTEE
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="TrusteeForm"></a><a id="trusteeform"></a><a id="TRUSTEEFORM"></a><dl>
-     * <dt><b><b>TrusteeForm</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * TRUSTEE_IS_SID
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="TrusteeType"></a><a id="trusteetype"></a><a id="TRUSTEETYPE"></a><dl>
-     * <dt><b><b>TrusteeType</b></b></dt>
-     * <dt></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * TRUSTEE_IS_UNKNOWN
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {PSID} _pSid 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsidw
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithSidW(pTrustee, pSid) {
-        DllCall("ADVAPI32.dll\BuildTrusteeWithSidW", "ptr", pTrustee, "ptr", pSid)
+    static BuildTrusteeWithSidW(pTrustee, _pSid) {
+        DllCall("ADVAPI32.dll\BuildTrusteeWithSidW", "ptr", pTrustee, "ptr", _pSid)
     }
 
     /**
@@ -4347,14 +4242,13 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {PSID} pSid A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
+     * @param {PSID} _pSid 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsida
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithObjectsAndSidA(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
-        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidA", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
+    static BuildTrusteeWithObjectsAndSidA(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, _pSid) {
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidA", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", _pSid)
     }
 
     /**
@@ -4380,14 +4274,13 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {PSID} pSid A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
+     * @param {PSID} _pSid 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithObjectsAndSidW(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
-        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidW", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
+    static BuildTrusteeWithObjectsAndSidW(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, _pSid) {
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidW", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", _pSid)
     }
 
     /**
@@ -4409,8 +4302,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_A>} pObjName A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
-     * @param {Integer} ObjectType A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
+     * @param {Integer} _ObjectType 
      * @param {PSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {PSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
@@ -4419,12 +4311,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamea
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithObjectsAndNameA(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
+    static BuildTrusteeWithObjectsAndNameA(pTrustee, pObjName, _ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         InheritedObjectTypeName := InheritedObjectTypeName is String ? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
         Name := Name is String ? StrPtr(Name) : Name
 
-        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", _ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
     /**
@@ -4446,8 +4338,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_W>} pObjName A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
-     * @param {Integer} ObjectType A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
+     * @param {Integer} _ObjectType 
      * @param {PWSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {PWSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
@@ -4456,12 +4347,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamew
      * @since windows5.1.2600
      */
-    static BuildTrusteeWithObjectsAndNameW(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
+    static BuildTrusteeWithObjectsAndNameW(pTrustee, pObjName, _ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         InheritedObjectTypeName := InheritedObjectTypeName is String ? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
         Name := Name is String ? StrPtr(Name) : Name
 
-        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", _ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
     /**
@@ -4630,7 +4521,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSID} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
+     * @param {PSID} _Sid 
      * @param {Pointer<PSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -4680,12 +4571,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsidtostringsida
      * @since windows5.1.2600
      */
-    static ConvertSidToStringSidA(Sid, StringSid) {
+    static ConvertSidToStringSidA(_Sid, StringSid) {
         StringSidMarshal := StringSid is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, StringSidMarshal, StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", _Sid, StringSidMarshal, StringSid, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4705,7 +4596,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSID} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
+     * @param {PSID} _Sid 
      * @param {Pointer<PWSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -4755,12 +4646,12 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsidtostringsidw
      * @since windows5.1.2600
      */
-    static ConvertSidToStringSidW(Sid, StringSid) {
+    static ConvertSidToStringSidW(_Sid, StringSid) {
         StringSidMarshal := StringSid is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, StringSidMarshal, StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", _Sid, StringSidMarshal, StringSid, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4779,8 +4670,7 @@ class Authorization {
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<PSID>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<PSID>} _Sid 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4817,14 +4707,14 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsidtosida
      * @since windows5.1.2600
      */
-    static ConvertStringSidToSidA(StringSid, Sid) {
+    static ConvertStringSidToSidA(StringSid, _Sid) {
         StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
-        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+        _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, SidMarshal, Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, _SidMarshal, _Sid, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4843,8 +4733,7 @@ class Authorization {
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<PSID>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<PSID>} _Sid 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4881,14 +4770,14 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsidtosidw
      * @since windows5.1.2600
      */
-    static ConvertStringSidToSidW(StringSid, Sid) {
+    static ConvertStringSidToSidW(StringSid, _Sid) {
         StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
-        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+        _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, SidMarshal, Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, _SidMarshal, _Sid, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4911,9 +4800,7 @@ class Authorization {
      * @param {PSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4962,14 +4849,14 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora
      * @since windows5.1.2600
      */
-    static ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
+    static ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor, StringSDRevision, _SecurityDescriptor, SecurityDescriptorSize) {
         StringSecurityDescriptor := StringSecurityDescriptor is String ? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
 
         SecurityDescriptorSizeMarshal := SecurityDescriptorSize is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", _SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4992,9 +4879,7 @@ class Authorization {
      * @param {PWSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -5043,14 +4928,14 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
      * @since windows5.1.2600
      */
-    static ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
+    static ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor, StringSDRevision, _SecurityDescriptor, SecurityDescriptorSize) {
         StringSecurityDescriptor := StringSecurityDescriptor is String ? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
 
         SecurityDescriptorSizeMarshal := SecurityDescriptorSize is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", _SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5072,8 +4957,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
      * @param {Integer} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
@@ -5141,15 +5025,15 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptora
      * @since windows5.1.2600
      */
-    static ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ConvertSecurityDescriptorToStringSecurityDescriptorA(_SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         StringSecurityDescriptorMarshal := StringSecurityDescriptor is VarRef ? "ptr*" : "ptr"
         StringSecurityDescriptorLenMarshal := StringSecurityDescriptorLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", _SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5171,8 +5055,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
      * @param {Integer} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
@@ -5240,15 +5123,15 @@ class Authorization {
      * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptorw
      * @since windows5.1.2600
      */
-    static ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ConvertSecurityDescriptorToStringSecurityDescriptorW(_SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         StringSecurityDescriptorMarshal := StringSecurityDescriptor is VarRef ? "ptr*" : "ptr"
         StringSecurityDescriptorLenMarshal := StringSecurityDescriptorLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", _SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

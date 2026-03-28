@@ -167,31 +167,31 @@ class ITargetInfo extends IUnknown{
     /**
      * Gets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Property The name of the property.
+     * @param {PWSTR} _Property 
      * @returns {BSTR} The value of the property.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getproperty
      */
-    GetProperty(Offline, Property) {
-        Property := Property is String ? StrPtr(Property) : Property
+    GetProperty(Offline, _Property) {
+        _Property := _Property is String ? StrPtr(_Property) : _Property
 
         Value := BSTR()
-        result := ComCall(11, this, "int", Offline, "ptr", Property, "ptr", Value, "HRESULT")
+        result := ComCall(11, this, "int", Offline, "ptr", _Property, "ptr", Value, "HRESULT")
         return Value
     }
 
     /**
      * Sets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if installation location is offline.
-     * @param {PWSTR} Property The name of the property.
+     * @param {PWSTR} _Property 
      * @param {PWSTR} Value The value of the property.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setproperty
      */
-    SetProperty(Offline, Property, Value) {
-        Property := Property is String ? StrPtr(Property) : Property
+    SetProperty(Offline, _Property, Value) {
+        _Property := _Property is String ? StrPtr(_Property) : _Property
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(12, this, "int", Offline, "ptr", Property, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, "int", Offline, "ptr", _Property, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -200,56 +200,56 @@ class ITargetInfo extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>   This method is not implemented.</div>
      * <div> </div>
-     * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that provides access to  the collection of offline properties.
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(13, this, "ptr*", &Enumerator := 0, "HRESULT")
-        return IItemEnumerator(Enumerator)
+        result := ComCall(13, this, "ptr*", &_Enumerator := 0, "HRESULT")
+        return IItemEnumerator(_Enumerator)
     }
 
     /**
      * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTarget)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Location The location string.
+     * @param {PWSTR} _Location 
      * @returns {BSTR} The expanded location string.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
      */
-    ExpandTarget(Offline, Location) {
-        Location := Location is String ? StrPtr(Location) : Location
+    ExpandTarget(Offline, _Location) {
+        _Location := _Location is String ? StrPtr(_Location) : _Location
 
         ExpandedLocation := BSTR()
-        result := ComCall(14, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
+        result := ComCall(14, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
 
     /**
      * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTargetPath)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Location The location string.
+     * @param {PWSTR} _Location 
      * @returns {BSTR} The expanded location target path.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
      */
-    ExpandTargetPath(Offline, Location) {
-        Location := Location is String ? StrPtr(Location) : Location
+    ExpandTargetPath(Offline, _Location) {
+        _Location := _Location is String ? StrPtr(_Location) : _Location
 
         ExpandedLocation := BSTR()
-        result := ComCall(15, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
+        result := ComCall(15, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
 
     /**
      * Sets the module path for the offline installation location.
      * @param {PWSTR} Module The name of the module.
-     * @param {PWSTR} Path The module path.
+     * @param {PWSTR} _Path 
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
      */
-    SetModulePath(Module, Path) {
+    SetModulePath(Module, _Path) {
         Module := Module is String ? StrPtr(Module) : Module
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(16, this, "ptr", Module, "ptr", Path, "HRESULT")
+        result := ComCall(16, this, "ptr", Module, "ptr", _Path, "HRESULT")
         return result
     }
 

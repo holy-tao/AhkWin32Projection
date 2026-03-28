@@ -35,8 +35,8 @@ class IAudioProcessingObjectPreferredFormatSupport extends IUnknown{
      * @returns {IAudioMediaType} 
      */
     GetPreferredInputFormat(outputFormat) {
-        result := ComCall(3, this, "ptr", outputFormat, "ptr*", &preferredFormat := 0, "HRESULT")
-        return IAudioMediaType(preferredFormat)
+        result := ComCall(3, this, "ptr", outputFormat, "ptr*", &_preferredFormat := 0, "HRESULT")
+        return IAudioMediaType(_preferredFormat)
     }
 
     /**
@@ -45,7 +45,7 @@ class IAudioProcessingObjectPreferredFormatSupport extends IUnknown{
      * @returns {IAudioMediaType} 
      */
     GetPreferredOutputFormat(inputFormat) {
-        result := ComCall(4, this, "ptr", inputFormat, "ptr*", &preferredFormat := 0, "HRESULT")
-        return IAudioMediaType(preferredFormat)
+        result := ComCall(4, this, "ptr", inputFormat, "ptr*", &_preferredFormat := 0, "HRESULT")
+        return IAudioMediaType(_preferredFormat)
     }
 }

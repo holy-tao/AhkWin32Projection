@@ -43,18 +43,18 @@ class ID2D1RenderTarget extends ID2D1Resource{
 
     /**
      * Creates a Direct2D bitmap.
-     * @param {D2D_SIZE_U} size 
+     * @param {D2D_SIZE_U} _size 
      * @param {Pointer<Void>} srcData 
      * @param {Integer} pitch 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties 
      * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmap
      */
-    CreateBitmap(size, srcData, pitch, bitmapProperties) {
+    CreateBitmap(_size, srcData, pitch, bitmapProperties) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap(bitmap)
+        result := ComCall(4, this, "ptr", _size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(_bitmap)
     }
 
     /**
@@ -67,8 +67,8 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapfromwicbitmap
      */
     CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
-        result := ComCall(5, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap(bitmap)
+        result := ComCall(5, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(_bitmap)
     }
 
     /**
@@ -103,40 +103,38 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_bitmap_properties">D2D1_BITMAP_PROPERTIES</a>*</b>
      * 
      * The pixel format  and DPI of the bitmap to create . The <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> portion of the pixel format  must match the <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> of <i>data</i> or the method will fail, but the alpha modes don't have to match. To prevent a  mismatch, you can pass <b>NULL</b> or the value obtained from the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-pixelformat">D2D1::PixelFormat</a> helper function. The DPI settings do not have to match those of <i>data</i>. If both <i>dpiX</i> and <i>dpiY</i> are  0.0f, the DPI of the render target is used.
-     * @returns {ID2D1Bitmap} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the new bitmap. This parameter is passed uninitialized.
+     * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsharedbitmap
      */
     CreateSharedBitmap(riid, data, bitmapProperties) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap(bitmap)
+        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(_bitmap)
     }
 
     /**
      * Creates an ID2D1BitmapBrush from the specified bitmap.
-     * @param {ID2D1Bitmap} bitmap 
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D1_BITMAP_BRUSH_PROPERTIES>} bitmapBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
      * @returns {ID2D1BitmapBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapbrush
      */
-    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties) {
-        result := ComCall(7, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+    CreateBitmapBrush(_bitmap, bitmapBrushProperties, brushProperties) {
+        result := ComCall(7, this, "ptr", _bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
         return ID2D1BitmapBrush(bitmapBrush)
     }
 
     /**
      * Creates a new ID2D1SolidColorBrush that can be used to paint areas with a solid color.
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
      * @returns {ID2D1SolidColorBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createsolidcolorbrush
      */
-    CreateSolidColorBrush(color, brushProperties) {
-        result := ComCall(8, this, "ptr", color, "ptr", brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
+    CreateSolidColorBrush(_color, brushProperties) {
+        result := ComCall(8, this, "ptr", _color, "ptr", brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
         return ID2D1SolidColorBrush(solidColorBrush)
     }
 
@@ -198,12 +196,12 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * Creates a layer resource that can be used with this render target and its compatible render targets.
      * @remarks
      * The layer automatically resizes itself, as needed.
-     * @param {Pointer<D2D_SIZE_F>} size 
+     * @param {Pointer<D2D_SIZE_F>} _size 
      * @returns {ID2D1Layer} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlayer
      */
-    CreateLayer(size) {
-        result := ComCall(13, this, "ptr", size, "ptr*", &layer := 0, "HRESULT")
+    CreateLayer(_size) {
+        result := ComCall(13, this, "ptr", _size, "ptr*", &layer := 0, "HRESULT")
         return ID2D1Layer(layer)
     }
 
@@ -251,28 +249,28 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * Draws the outline of a rectangle that has the specified dimensions and stroke style.
      * @remarks
      * When this method fails, it does not return an error code. To determine whether a drawing method (such as **DrawRectangle**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) method.
-     * @param {Pointer<D2D_RECT_F>} rect 
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @param {ID2D1Brush} brush 
      * @param {Float} strokeWidth 
      * @param {ID2D1StrokeStyle} strokeStyle 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawrectangle
      */
-    DrawRectangle(rect, brush, strokeWidth, strokeStyle) {
-        ComCall(16, this, "ptr", rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+    DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
+        ComCall(16, this, "ptr", _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
     }
 
     /**
      * Paints the interior of the specified rectangle.
      * @remarks
      * This method doesn't return an error code if it fails. To determine whether a drawing operation (such as **FillRectangle**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) methods.
-     * @param {Pointer<D2D_RECT_F>} rect 
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @param {ID2D1Brush} brush 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillrectangle
      */
-    FillRectangle(rect, brush) {
-        ComCall(17, this, "ptr", rect, "ptr", brush)
+    FillRectangle(_rect, brush) {
+        ComCall(17, this, "ptr", _rect, "ptr", brush)
     }
 
     /**
@@ -422,16 +420,16 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * Draws the specified ID2D1Bitmap.
      * @remarks
      * This method doesn't return an error code if it fails. To determine whether a drawing operation (such as **DrawBitmap**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) methods.
-     * @param {ID2D1Bitmap} bitmap 
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D_RECT_F>} destinationRectangle 
      * @param {Float} opacity 
-     * @param {Integer} interpolationMode 
+     * @param {Integer} _interpolationMode 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawbitmap
      */
-    DrawBitmap(bitmap, destinationRectangle, opacity, interpolationMode, sourceRectangle) {
-        ComCall(26, this, "ptr", bitmap, "ptr", destinationRectangle, "float", opacity, "int", interpolationMode, "ptr", sourceRectangle)
+    DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle) {
+        ComCall(26, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle)
     }
 
     /**
@@ -440,7 +438,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * To draw text with Direct2D, use the [**ID2D1RenderTarget::DrawText**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f__id2d1brush_d2d1_draw_text_options_dwrite_measuring_mode)) method for text that has a single format, or the [**ID2D1RenderTarget::DrawTextLayout**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtextlayout) method when you need multiple formats, advanced OpenType features, or hit testing. These methods use the DirectWrite API to provide high-quality text display.
      * 
      * This method doesn't return an error code if it fails. To determine whether a drawing operation (such as **DrawText**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) methods.
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} _string 
      * @param {Integer} stringLength 
      * @param {IDWriteTextFormat} textFormat 
      * @param {Pointer<D2D_RECT_F>} layoutRect 
@@ -450,10 +448,10 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawtext
      */
-    DrawText(string_R, stringLength, textFormat, layoutRect, defaultFillBrush, options, measuringMode) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, options, measuringMode) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(27, this, "ptr", string_R, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "int", options, "int", measuringMode)
+        ComCall(27, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "int", options, "int", measuringMode)
     }
 
     /**
@@ -488,9 +486,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin, in device-independent pixels, of the glyphs' baseline.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * The glyphs to render.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {ID2D1Brush} foregroundBrush Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to paint the specified glyphs.
@@ -500,8 +496,8 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawglyphrun
      */
-    DrawGlyphRun(baselineOrigin, glyphRun, foregroundBrush, measuringMode) {
-        ComCall(29, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", foregroundBrush, "int", measuringMode)
+    DrawGlyphRun(baselineOrigin, _glyphRun, foregroundBrush, measuringMode) {
+        ComCall(29, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", foregroundBrush, "int", measuringMode)
     }
 
     /**

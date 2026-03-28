@@ -79,14 +79,12 @@ class ID2D1BitmapBrush extends ID2D1Brush{
      * This method sets the interpolation mode for a bitmap, which is an enum value that is specified in the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_bitmap_interpolation_mode">D2D1_BITMAP_INTERPOLATION_MODE</a> enumeration type.   D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR represents nearest neighbor filtering. It looks up the nearest bitmap pixel to the current rendering pixel and chooses its exact color. D2D1_BITMAP_INTERPOLATION_MODE_LINEAR represents linear filtering, and  interpolates a color from the four nearest bitmap pixels.
      * 
      * The interpolation mode of a bitmap also affects subpixel translations. In a subpixel translation, bilinear interpolation positions the bitmap more precisely to the application requests, but blurs the bitmap in the process.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_bitmap_interpolation_mode">D2D1_BITMAP_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode used when the brush bitmap is scaled or rotated.
+     * @param {Integer} _interpolationMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setinterpolationmode
      */
-    SetInterpolationMode(interpolationMode) {
-        ComCall(10, this, "int", interpolationMode)
+    SetInterpolationMode(_interpolationMode) {
+        ComCall(10, this, "int", _interpolationMode)
     }
 
     /**
@@ -95,14 +93,12 @@ class ID2D1BitmapBrush extends ID2D1Brush{
      * This method specifies the bitmap source that this brush uses to paint. The bitmap is not resized or rescaled automatically to fit the geometry that it fills. The bitmap stays at its native size. To resize or translate the bitmap, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-settransform(constd2d1_matrix_3x2_f)">SetTransform</a> method to apply  a transform to the brush. 
      * 
      * The native size of a bitmap is the width and height in bitmap pixels, divided by the bitmap DPI. This native size forms the base tile of the brush. To tile a subregion of the bitmap, you must generate a new bitmap containing this subregion and use <b>SetBitmap</b> to apply it to the brush.
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap source used by the brush.
+     * @param {ID2D1Bitmap} _bitmap 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setbitmap
      */
-    SetBitmap(bitmap) {
-        ComCall(11, this, "ptr", bitmap)
+    SetBitmap(_bitmap) {
+        ComCall(11, this, "ptr", _bitmap)
     }
 
     /**
@@ -153,13 +149,11 @@ class ID2D1BitmapBrush extends ID2D1Brush{
 
     /**
      * Gets the bitmap source that this brush uses to paint.
-     * @param {Pointer<ID2D1Bitmap>} bitmap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>**</b>
-     * 
-     * When this method returns, contains the address to a pointer to the bitmap with which this brush paints.
+     * @param {Pointer<ID2D1Bitmap>} _bitmap 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-getbitmap
      */
-    GetBitmap(bitmap) {
-        ComCall(15, this, "ptr*", bitmap)
+    GetBitmap(_bitmap) {
+        ComCall(15, this, "ptr*", _bitmap)
     }
 }

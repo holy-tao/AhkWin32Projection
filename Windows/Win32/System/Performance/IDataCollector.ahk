@@ -593,9 +593,9 @@ class IDataCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        path := BSTR()
-        result := ComCall(16, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(16, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -606,14 +606,14 @@ class IDataCollector extends IDispatch{
      * You can set this property to empty if the file has been deleted.
      * 
      * For trace data collectors only, you can set this property to the name of the file to use. If it is not set, PLA creates it as it would for any other data collector.
-     * @param {BSTR} path 
+     * @param {BSTR} _path 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_latestoutputlocation
      */
-    put_LatestOutputLocation(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    put_LatestOutputLocation(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, "ptr", path, "HRESULT")
+        result := ComCall(17, this, "ptr", _path, "HRESULT")
         return result
     }
 
@@ -716,9 +716,9 @@ class IDataCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_outputlocation
      */
     get_OutputLocation() {
-        path := BSTR()
-        result := ComCall(26, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(26, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -800,8 +800,8 @@ class IDataCollector extends IDispatch{
      * @returns {BSTR} 
      */
     CreateOutputLocation(Latest) {
-        Location := BSTR()
-        result := ComCall(31, this, "short", Latest, "ptr", Location, "HRESULT")
-        return Location
+        _Location := BSTR()
+        result := ComCall(31, this, "short", Latest, "ptr", _Location, "HRESULT")
+        return _Location
     }
 }

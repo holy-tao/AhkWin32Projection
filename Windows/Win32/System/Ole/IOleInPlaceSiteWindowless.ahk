@@ -269,14 +269,14 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * Releases the device context previously obtained by a call to IOleInPlaceSiteWindowless::GetDC.
      * @remarks
      * An object calls this method to notify its container that the object is done with the device context. If the device context was used for drawing, the container should ensure that all overlapping objects are repainted correctly. If the device context was an offscreen device context, its content should also be copied to the screen in the rectangle originally passed to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleinplacesitewindowless-getdc">IOleInPlaceSiteWindowless::GetDC</a>. See <b>IOleInPlaceSiteWindowless::GetDC</b> for implementation notes relevant to <b>IOleInPlaceSiteWindowless::ReleaseDC</b>.
-     * @param {HDC} hDC The device context to be released.
+     * @param {HDC} _hDC 
      * @returns {HRESULT} This method returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-releasedc
      */
-    ReleaseDC(hDC) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    ReleaseDC(_hDC) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(24, this, "ptr", hDC, "HRESULT")
+        result := ComCall(24, this, "ptr", _hDC, "HRESULT")
         return result
     }
 
@@ -298,15 +298,15 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * Enables an object to invalidate a specified region of its in-place image on the screen.
      * @remarks
      * An object is only allowed to invalidate pixels contained in its own site region. Any attempt to invalidate an area outside of that region should result in a no-op.
-     * @param {HRGN} hRGN The region to invalidate, in client coordinates of the containing window. If this parameter is <b>NULL</b>, the object's full extent is invalidated.
+     * @param {HRGN} _hRGN 
      * @param {BOOL} fErase Specifies whether the background within the update region is to be erased when the region is updated. If this parameter is <b>TRUE</b>, the background is erased. If this parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {HRESULT} This method returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-invalidatergn
      */
-    InvalidateRgn(hRGN, fErase) {
-        hRGN := hRGN is Win32Handle ? NumGet(hRGN, "ptr") : hRGN
+    InvalidateRgn(_hRGN, fErase) {
+        _hRGN := _hRGN is Win32Handle ? NumGet(_hRGN, "ptr") : _hRGN
 
-        result := ComCall(26, this, "ptr", hRGN, "int", fErase, "HRESULT")
+        result := ComCall(26, this, "ptr", _hRGN, "int", fErase, "HRESULT")
         return result
     }
 
@@ -415,14 +415,14 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * <li>WM_SETCURSOR</li>
      * </ul>
      * If the container returns S_FALSE, the object can take action to process the window message on its own.
-     * @param {Integer} msg The identifier for the window message provided to the container by Windows.
-     * @param {WPARAM} wParam A parameter for the window message provided to the container by Windows.
-     * @param {LPARAM} lParam A parameter for the window message provided to the container by Windows.
+     * @param {Integer} _msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} A pointer to result code for the window message.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage
      */
-    OnDefWindowMessage(msg, wParam, lParam) {
-        result := ComCall(29, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+    OnDefWindowMessage(_msg, _wParam, _lParam) {
+        result := ComCall(29, this, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
         return plResult
     }
 }

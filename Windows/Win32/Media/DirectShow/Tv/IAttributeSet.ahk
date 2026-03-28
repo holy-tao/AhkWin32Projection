@@ -34,7 +34,7 @@ class IAttributeSet extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
-     * @param {Guid} guidAttribute <b>GUID</b> that identifies the attribute.
+     * @param {Guid} _guidAttribute 
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that contains the attribute value.
      * @param {Integer} dwAttributeLength Size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -69,10 +69,10 @@ class IAttributeSet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeset-setattrib
      */
-    SetAttrib(guidAttribute, pbAttribute, dwAttributeLength) {
+    SetAttrib(_guidAttribute, pbAttribute, dwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", guidAttribute, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "HRESULT")
+        result := ComCall(3, this, "ptr", _guidAttribute, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "HRESULT")
         return result
     }
 }

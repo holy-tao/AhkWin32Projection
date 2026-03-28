@@ -4175,7 +4175,7 @@ class WNet {
      * <b>WNetConnectionDialog</b> function returns.
      * 
      * If the function attempts to make a connection and the network provider returns the message ERROR_INVALID_PASSWORD, the system prompts the user to enter a password. The system uses the new password in another attempt to make the connection.
-     * @param {HWND} hwnd Handle to the owner window for the dialog box.
+     * @param {HWND} _hwnd 
      * @param {Integer} dwType Resource type to allow connections to. This parameter can be the following value. 
      * 
      * 
@@ -4255,10 +4255,10 @@ class WNet {
      * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog
      * @since windows5.0
      */
-    static WNetConnectionDialog(hwnd, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WNetConnectionDialog(_hwnd, dwType) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("MPR.dll\WNetConnectionDialog", "ptr", hwnd, "uint", dwType, "uint")
+        result := DllCall("MPR.dll\WNetConnectionDialog", "ptr", _hwnd, "uint", dwType, "uint")
         return result
     }
 
@@ -4269,7 +4269,7 @@ class WNet {
      * <b>WNetDisconnectDialog</b> function returns immediately and creates a dialog box for disconnecting networked drives. This dialog box runs asynchronously on a worker thread.
      * 
      * If the worker thread is terminated, the owner window and its associated dialog box are also terminated. If this occurs, the user might not be able to interact with the dialog box, because it will not  appear on the user's screen or will appear briefly.
-     * @param {HWND} hwnd Handle to the owner window for the dialog box.
+     * @param {HWND} _hwnd 
      * @param {Integer} dwType Resource type to disconnect from. This parameter can have the following value. 
      * 
      * 
@@ -4338,10 +4338,10 @@ class WNet {
      * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog
      * @since windows5.0
      */
-    static WNetDisconnectDialog(hwnd, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WNetDisconnectDialog(_hwnd, dwType) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("MPR.dll\WNetDisconnectDialog", "ptr", hwnd, "uint", dwType, "uint")
+        result := DllCall("MPR.dll\WNetDisconnectDialog", "ptr", _hwnd, "uint", dwType, "uint")
         return result
     }
 

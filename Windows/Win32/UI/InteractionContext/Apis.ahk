@@ -127,7 +127,7 @@ class InteractionContext {
     /**
      * Sets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @param {Integer} contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
+     * @param {Integer} _contextProperty 
      * @param {Integer} value The value of the constant identified by <i>contextProperty</i>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
@@ -135,17 +135,17 @@ class InteractionContext {
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      * @since windows8.0
      */
-    static SetPropertyInteractionContext(interactionContext, contextProperty, value) {
+    static SetPropertyInteractionContext(interactionContext, _contextProperty, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\SetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, "uint", value, "HRESULT")
+        result := DllCall("NInput.dll\SetPropertyInteractionContext", "ptr", interactionContext, "int", _contextProperty, "uint", value, "HRESULT")
         return result
     }
 
     /**
      * Gets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @param {Integer} contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
+     * @param {Integer} _contextProperty 
      * @returns {Integer} The value of the property.
      * 
      * Valid values for <i>contextProperty</i> are:
@@ -245,10 +245,10 @@ class InteractionContext {
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getpropertyinteractioncontext
      * @since windows8.0
      */
-    static GetPropertyInteractionContext(interactionContext, contextProperty) {
+    static GetPropertyInteractionContext(interactionContext, _contextProperty) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, "uint*", &value := 0, "HRESULT")
+        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", _contextProperty, "uint*", &value := 0, "HRESULT")
         return value
     }
 

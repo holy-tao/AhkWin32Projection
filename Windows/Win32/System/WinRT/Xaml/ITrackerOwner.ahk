@@ -39,33 +39,33 @@ class ITrackerOwner extends IUnknown{
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} _handle 
      * @returns {HRESULT} 
      */
-    DeleteTrackerHandle(handle) {
-        result := ComCall(4, this, "ptr", handle, "HRESULT")
+    DeleteTrackerHandle(_handle) {
+        result := ComCall(4, this, "ptr", _handle, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} _handle 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
      */
-    SetTrackerValue(handle, value) {
-        result := ComCall(5, this, "ptr", handle, "ptr", value, "HRESULT")
+    SetTrackerValue(_handle, value) {
+        result := ComCall(5, this, "ptr", _handle, "ptr", value, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} _handle 
      * @param {Pointer<IUnknown>} returnValue 
      * @returns {Integer} 
      */
-    TryGetSafeTrackerValue(handle, returnValue) {
-        result := ComCall(6, this, "ptr", handle, "ptr*", returnValue, "char")
+    TryGetSafeTrackerValue(_handle, returnValue) {
+        result := ComCall(6, this, "ptr", _handle, "ptr*", returnValue, "char")
         return result
     }
 }

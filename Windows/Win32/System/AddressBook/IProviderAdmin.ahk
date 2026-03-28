@@ -34,7 +34,7 @@ class IProviderAdmin extends IUnknown{
      * 
      * @remarks
      * The **IProviderAdmin::GetLastError** method supplies information about a prior method call that failed. Callers can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box.
-     * @param {HRESULT} hResult > [in] An HRESULT data type that contains the error value generated in the previous method call.
+     * @param {HRESULT} _hResult 
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls the type of strings returned. The following flag can be set:
      *     
      * MAPI_UNICODE 
@@ -43,8 +43,8 @@ class IProviderAdmin extends IUnknown{
      * @returns {Pointer<MAPIERROR>} > [out] A pointer to a pointer to the returned **MAPIERROR** structure that contains version, component, and context information for the error. The  _lppMAPIError_ parameter can be set to NULL if there is no **MAPIERROR** to return.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-getlasterror
      */
-    GetLastError(hResult, ulFlags) {
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
+    GetLastError(_hResult, ulFlags) {
+        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
         return lppMAPIError
     }
 

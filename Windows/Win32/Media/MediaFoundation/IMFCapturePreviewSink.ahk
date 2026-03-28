@@ -36,14 +36,14 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
      * Specifies a window for preview.
      * @remarks
      * Calling this method overrides any previous call to <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setsamplecallback">IMFCapturePreviewSink::SetSampleCallback</a>.
-     * @param {HANDLE} handle A handle to the window. The preview sink draws the video frames inside this window.
+     * @param {HANDLE} _handle 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setrenderhandle
      */
-    SetRenderHandle(handle) {
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+    SetRenderHandle(_handle) {
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
-        result := ComCall(8, this, "ptr", handle, "HRESULT")
+        result := ComCall(8, this, "ptr", _handle, "HRESULT")
         return result
     }
 
